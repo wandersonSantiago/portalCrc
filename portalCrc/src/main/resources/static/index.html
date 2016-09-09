@@ -29,8 +29,14 @@ Portal Coordenadoria Central
 </head>
 
 
-<body class="hold-transition skin-purple sidebar-mini">
-	<div class="wrapper">
+<div ng-model="logado" ng-init="logado = false"></div>
+
+
+<div ng-if="!logado" ng-include="'views/paginas/portal/principal.html'"></div>
+
+
+<body  class="hold-transition skin-purple sidebar-mini">
+	<div ng-if="logado" class="wrapper">
 
 		<div ng-include="'views/templates/header.html'"></div>
 
