@@ -6,7 +6,7 @@
 <!-- dados do usuario logado -->
 		<div class="user-panel">
 			<div class="pull-left image">
-				<img src="public/template/img/avatar_2x.png" class="img-circle"
+				<img src="public/img/avatar_2x.png" class="img-circle"
 					alt="User Image">
 			</div>
 			<div class="pull-left info">
@@ -37,6 +37,15 @@
 		
 		</div>
 
+<script type="text/javascript">
+		$(document).ready(function() {
+			$('.top').click(function() {
+				$('html,body').animate({
+					scrollTop : 0
+				}, 'slow');
+			});
+		});
+	</script>
 	</section>
 
 
