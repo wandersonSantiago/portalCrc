@@ -18,6 +18,7 @@ public class Setor extends AbstractPersistable<Long> {
 	@Enumerated
 	private TipoSetorEnum tipoSetor;
 
+	
 
 	
 	public String getNome() {

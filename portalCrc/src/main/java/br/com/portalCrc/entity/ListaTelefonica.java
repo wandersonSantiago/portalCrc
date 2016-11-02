@@ -4,6 +4,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.springframework.data.jpa.domain.AbstractPersistable;
@@ -16,6 +17,10 @@ public class ListaTelefonica extends AbstractPersistable<Long>{
 	private String descricao;
 	@Column(name="telefone")
 	private Integer telefone;
+	
+	@OneToOne
+	@JoinColumn(name="id_setor")
+	private Setor setor;
 	
 	/*@ManyToOne
 	@JoinColumn(name="id_unidade")
