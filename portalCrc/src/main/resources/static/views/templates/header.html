@@ -5,7 +5,7 @@
 		<span class="logo-lg"><b>Coordenadoria</b>Central</span>
 	</a>
 
-	<nav class="navbar navbar-static-top" role="navigation">
+	<nav class="navbar navbar-static-top" role="navigation" ng-controller="usuarioController as  userCtrl" ng-init="userCtrl.user()">
 
 		<a href="" class="sidebar-toggle" data-toggle="offcanvas"
 			role="button"> <span class="sr-only">Toggle navigation</span>
@@ -13,11 +13,11 @@
 		
 		
 		<ul class="nav navbar-nav pull-right" >
-				<li><a>Seja Bem-vindo: Administrador
-				</a></li>
+				<li><a>Unidade : {{user.usuario.dadosUnidade.nome}}</a></li>  
+				
 
 				<li>
-					<a href="" > Logout <i class="glyphicon glyphicon-log-out"></i>
+					<a href="" ng-controller="loginController as loginCtrl"  ng-click="loginCtrl.logout()"> Logout <i class="glyphicon glyphicon-log-out"></i>
 					</a>
 				</li>
 

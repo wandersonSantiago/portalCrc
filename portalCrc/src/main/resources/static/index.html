@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html ng-app="CRC">
+<html ng-app="crc">
 <title>
 Portal Coordenadoria Central
 </title>
@@ -31,27 +31,29 @@ Portal Coordenadoria Central
 </head>
 
 
-<body  class="hold-transition skin-purple sidebar-mini">
-	<div  class="wrapper">
+<div ng-if="!logado" ng-include="'views/login.html'"></div>
 
-		<div ng-include="'views/templates/header.html'"></div>
+<body class="hold-transition skin-purple sidebar-mini">
+	<div ng-show="logado" class="wrapper">
 
-		<div ng-include="'views/templates/menu.html'"></div>
+		<div ng-if="logado" ng-include="'views/templates/header.html'"></div>
 
-		<div class="content-wrapper">
+		<div ng-if="logado" ng-include="'views/templates/menu.html'"></div>
+
+		<div ng-if="logado"  class="content-wrapper">
 
 
 			<section class="content">
 
-				<div ng-view></div>
+				<div ng-if="logado" ng-view></div>
 
 			</section>
 		</div>
 
 
-		<div ng-include="'views/templates/footer.html'"></div>
+		<div ng-if="logado" ng-include="'views/templates/footer.html'"></div>
 
-
+		
 	</div>
 
 	<script src="public/template/plugins/jQuery/jQuery-2.1.4.min.js"></script>
@@ -68,7 +70,8 @@ Portal Coordenadoria Central
 	<script src="public/components/angular-route/angular-route.min.js"></script>
 	<script src="public/components/Chart.js/Chart.js"></script>
 	<script src="public/components/angular-chart.js/dist/angular-chart.js"></script>
-	<script src="public/components/ngstorage/ngStorage.min.js"></script>
+	<script src="public/components/ngstorage/ngStorage.min.js"></script>	
+ 	<script src="public/components/sweetalert2/dist/sweetalert2.min.js"></script>
 	<!-- <script src="public/components/angular-input-masks/angular-input-masks.min.js"></script> -->
 
 
@@ -78,9 +81,13 @@ Portal Coordenadoria Central
 
 
 	<script src="public/js/app.js"></script>
-	
-	
 	<script src="public/js/rotas/rotas.js"></script>
+	<script src="public/js/auth/auth.js"></script>
+	<script src="public/js/login.js"></script>
+	
+	<script src="public/js/controller/usuario-controller.js"></script>
+	<script src="public/js/services/usuario-service.js"></script>
+	
 	
 	
 	
