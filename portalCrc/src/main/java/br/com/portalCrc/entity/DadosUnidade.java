@@ -27,8 +27,8 @@ public class DadosUnidade extends AbstractPersistable<Long>{
 	private Endereco endereco;
 	@Column(name="uge")
 	private String uge;
-/*	@OneToMany(mappedBy = "dadosUnidade", cascade = CascadeType.ALL)
-	private Collection<ListaTelefonica> listaTelefones;*/
+	@OneToMany(mappedBy = "dadosUnidade", cascade = CascadeType.ALL)
+	private Collection<ListaTelefonica> listaTelefones;
 	
 	
 	
@@ -56,12 +56,12 @@ public class DadosUnidade extends AbstractPersistable<Long>{
 	public void setUge(String uge) {
 		this.uge = uge;
 	}
-/*	public Collection<ListaTelefonica> getListaTelefones() {
+public Collection<ListaTelefonica> getListaTelefones() {
 		return listaTelefones;
 	}
 	public void setListaTelefones(Collection<ListaTelefonica> listaTelefones) {
 		this.listaTelefones = listaTelefones;
-	} */
+	} 
 	
 	
 	

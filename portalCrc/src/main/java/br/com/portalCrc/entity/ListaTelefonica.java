@@ -22,17 +22,17 @@ public class ListaTelefonica extends AbstractPersistable<Long>{
 	@JoinColumn(name="id_setor")
 	private Setor setor;
 	
-	/*@ManyToOne
+	@ManyToOne
 	@JoinColumn(name="id_unidade")
 	private DadosUnidade dadosUnidade;
-	*/
+	
 
-	/*public DadosUnidade getDadosUnidade() {
+	public DadosUnidade getDadosUnidade() {
 		return dadosUnidade;
 	}
 	public void setDadosUnidade(DadosUnidade dadosUnidade) {
 		this.dadosUnidade = dadosUnidade;
-	}*/
+	}
 	public String getDescricao() {
 		return descricao;
 	}
