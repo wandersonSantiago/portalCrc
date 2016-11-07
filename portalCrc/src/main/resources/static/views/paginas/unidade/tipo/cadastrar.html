@@ -1,0 +1,48 @@
+<meta charset="UTF-8">
+<br>
+<br>
+<div class="generic-container" ng-controller="tipoUnidadeController as tipoUnidadeCtrl" >
+
+	<div class="box box-primary">
+		<!-- Default panel contents -->
+		<div class="box-header">
+			<span class="lead">Cadastrar Setor </span>
+		</div>
+		<div class="panel-body">
+
+			<br>
+			<div class="container col-sm-12 ">
+				<form role="form-vertical" ng-submit="tipoUnidadeCtrl.salva()" >
+					<div class="row">
+						<div class="col-sm-12">
+							<input class="form-control" ng-model="tipoUnidadeCtrl.tipoUnidade.descricao" placeholder="Descrição" id="descricao" type="text" required>
+						</div>
+					</div>
+					<br>
+					<div class="row">					
+						
+					<div  ng-controller="secretariaController as secretariaCtrl">	
+					<div class="col-sm-6"  ng-init="secretariaCtrl.lista()" >
+							<select class="form-control select2" ng-model="tipoUnidadeCtrl.tipoUnidade.secretaria" 
+							ng-options="secretaria.miniNome for secretaria in secretariaCtrl.listaSecretaria" 
+							  style=" width: 100%;" required >
+								<option value="">---Selecione a secretaria---</option>
+							</select>
+						</div>		
+					</div>	
+					</div>	
+					<br>
+							
+					<div class="row ">
+					
+							<input type="submit" id="submit" value="Salvar" ng-disabled="!tipoUnidadeCtrl.tipoUnidade.descricao || !tipoUnidadeCtrl.tipoUnidade.secretaria "
+								class="btn btn-lg btn-primary btn-block btn-signin">
+						
+					</div>
+				</form>
+			</div>
+
+		</div>
+		<div class="tablecontainer"></div>
+	</div>
+</div>

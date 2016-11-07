@@ -1,9 +1,9 @@
-app.factory('unidadeService', function($rootScope, toastr, $http){
+app.factory('tipoUnidadeService', function($rootScope, toastr, $http){
 	
 	
 	return{
-		salva: function(unidade){
-			return $http.post('/rest/unidade/salvar', unidade)
+		salva: function(tipoUnidade){
+			return $http.post('/rest/unidade/tipoUnidade/salvar', tipoUnidade)
 			.then(function(response){
 				sweetAlert({ timer : 3000, text :"Salvo com sucesso", type : "success", width: 300, higth: 100, padding: 20});
 				return response.data;
@@ -13,8 +13,8 @@ app.factory('unidadeService', function($rootScope, toastr, $http){
 			});
 		},
 		
-		altera: function(unidade){
-			return $http.put('/rest/unidade/alterar', unidade)
+		altera: function(tipoUnidade){
+			return $http.put('/rest/unidade/tipoUnidade/alterar', tipoUnidade)
 			.then(function(response){
 				sweetAlert({ timer : 3000, text :"Salvo com sucesso", type : "success", width: 300, higth: 100, padding: 20});
 				return response.data;
@@ -25,8 +25,8 @@ app.factory('unidadeService', function($rootScope, toastr, $http){
 		},
 		
 		
-		buscarPorId: function(unidade){
-			return $http.get('/rest/unidade/buscaPorId/'+unidade)
+		buscarPorId: function(tipoUnidade){
+			return $http.get('/rest/unidade/tipoUnidade/buscaPorId/'+tipoUnidade)
 			.then(function(response){
 				return response.data;
 			},function(errResponse){
@@ -36,7 +36,7 @@ app.factory('unidadeService', function($rootScope, toastr, $http){
 		},		
 		
 		lista: function(){
-			return $http.get('/rest/unidade/lista')
+			return $http.get('/rest/unidade/tipoUnidade/lista')
 			.then(function(response){
 				return response.data;
 			},function(errResponse){
@@ -45,14 +45,7 @@ app.factory('unidadeService', function($rootScope, toastr, $http){
 			});
 		},
 		
-		listaTipoUnidade: function(){
-			return $http.get('rest/unidade/tipoUnidade')
-			.then(function(response){
-				return response.data;
-			},function(errResponse){
-				sweetAlert({ timer : 3000, text :"Salvo com sucesso", type : "error", width: 300, higth: 100, padding: 20});	return $q.reject(errResponse);
-			});
-		},
+		
 		
 		
 	}

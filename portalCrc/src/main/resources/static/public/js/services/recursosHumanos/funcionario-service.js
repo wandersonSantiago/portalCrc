@@ -1,9 +1,9 @@
-app.factory('unidadeService', function($rootScope, toastr, $http){
+app.factory('funcionarioService', function($rootScope, toastr, $http){
 	
 	
 	return{
-		salva: function(unidade){
-			return $http.post('/rest/unidade/salvar', unidade)
+		salva: function(funcionario){
+			return $http.post('/rest/recursosHumanos/funcionario/salvar', funcionario)
 			.then(function(response){
 				sweetAlert({ timer : 3000, text :"Salvo com sucesso", type : "success", width: 300, higth: 100, padding: 20});
 				return response.data;
@@ -13,8 +13,8 @@ app.factory('unidadeService', function($rootScope, toastr, $http){
 			});
 		},
 		
-		altera: function(unidade){
-			return $http.put('/rest/unidade/alterar', unidade)
+		altera: function(funcionario){
+			return $http.put('/rest/recursosHumanos/funcionario/alterar', funcionario)
 			.then(function(response){
 				sweetAlert({ timer : 3000, text :"Salvo com sucesso", type : "success", width: 300, higth: 100, padding: 20});
 				return response.data;
@@ -25,8 +25,8 @@ app.factory('unidadeService', function($rootScope, toastr, $http){
 		},
 		
 		
-		buscarPorId: function(unidade){
-			return $http.get('/rest/unidade/buscaPorId/'+unidade)
+		buscarPorId: function(param){
+			return $http.get('/rest/recursosHumanos/funcionario/buscaPorId/'+param)
 			.then(function(response){
 				return response.data;
 			},function(errResponse){
@@ -36,7 +36,7 @@ app.factory('unidadeService', function($rootScope, toastr, $http){
 		},		
 		
 		lista: function(){
-			return $http.get('/rest/unidade/lista')
+			return $http.get('/rest/recursosHumanos/funcionario/lista')
 			.then(function(response){
 				return response.data;
 			},function(errResponse){
@@ -44,16 +44,15 @@ app.factory('unidadeService', function($rootScope, toastr, $http){
 				return $q.reject(errResponse);
 			});
 		},
-		
-		listaTipoUnidade: function(){
-			return $http.get('rest/unidade/tipoUnidade')
+		estadoCivil: function(){
+			return $http.get('/rest/pessoa/estadoCivil')
 			.then(function(response){
 				return response.data;
 			},function(errResponse){
-				sweetAlert({ timer : 3000, text :"Salvo com sucesso", type : "error", width: 300, higth: 100, padding: 20});	return $q.reject(errResponse);
+				sweetAlert({ timer : 3000,  type : "error", width: 200, higth: 100, padding: 20});
+				return $q.reject(errResponse);
 			});
 		},
-		
 		
 	}
 });

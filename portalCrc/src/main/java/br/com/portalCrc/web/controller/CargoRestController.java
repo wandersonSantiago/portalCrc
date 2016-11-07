@@ -1,7 +1,5 @@
 package br.com.portalCrc.web.controller;
 
-import java.util.Arrays;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -13,42 +11,41 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import br.com.portalCrc.entity.Unidade;
-import br.com.portalCrc.service.UnidadeService;
+import br.com.portalCrc.entity.Cargo;
+import br.com.portalCrc.service.CargoService;
 
 @RestController
-@RequestMapping("/rest/unidade")
-public class UnidadeRestController {
-
+@RequestMapping("/rest/recursosHumanos/cargo")
+public class CargoRestController {
+	
 	@Autowired
-	private UnidadeService unidadeService;
+	private CargoService cargoService;
 	
 	 @RequestMapping(method = RequestMethod.GET, value="/lista")
-	 public ResponseEntity<Iterable<Unidade>> lista() {	  
-	  Iterable<Unidade> unidade = unidadeService.lista();
-	  return new ResponseEntity<Iterable<Unidade>>(unidade, HttpStatus.OK);
+	 public ResponseEntity<Iterable<Cargo>> lista() {	  
+	  Iterable<Cargo> cargo = cargoService.lista();
+	  return new ResponseEntity<Iterable<Cargo>>(cargo, HttpStatus.OK);
 	 }
 	 
 	 
 	 @RequestMapping(method = RequestMethod.POST, value="/salvar")
-	 public ResponseEntity<Unidade> salvar(@RequestBody Unidade unidade,UriComponentsBuilder ucBuilder){
-		 unidadeService.salvarEditar(unidade);
+	 public ResponseEntity<Cargo> salvar(@RequestBody Cargo cargo,UriComponentsBuilder ucBuilder){
+		 cargoService.salvarEditar(cargo);
 		 HttpHeaders headers =new HttpHeaders();
-		 return new ResponseEntity<Unidade>(headers, HttpStatus.CREATED);
+		 return new ResponseEntity<Cargo>(headers, HttpStatus.CREATED);
 	 }
 
 	 @RequestMapping(method = RequestMethod.PUT, value="/alterar")
-	 public ResponseEntity<Unidade> alterar(@RequestBody Unidade unidade,UriComponentsBuilder ucBuilder){
-		 unidadeService.salvarEditar(unidade);
+	 public ResponseEntity<Cargo> alterar(@RequestBody Cargo cargo,UriComponentsBuilder ucBuilder){
+		 cargoService.salvarEditar(cargo);
 		 HttpHeaders headers =new HttpHeaders();
-	 return new ResponseEntity<Unidade>(headers, HttpStatus.CREATED);
+	 return new ResponseEntity<Cargo>(headers, HttpStatus.CREATED);
 	 }
 
 	 
 	 @RequestMapping(value = "/buscaPorId/{id}", method = RequestMethod.GET)
-		public ResponseEntity<Unidade> buscarPorId(@PathVariable Long id) {
-			return new ResponseEntity<Unidade>(unidadeService.buscaPorId(id), HttpStatus.OK);
+		public ResponseEntity<Cargo> buscarPorId(@PathVariable Long id) {
+			return new ResponseEntity<Cargo>(cargoService.buscaPorId(id), HttpStatus.OK);
 		}
-	 
-	
+
 }

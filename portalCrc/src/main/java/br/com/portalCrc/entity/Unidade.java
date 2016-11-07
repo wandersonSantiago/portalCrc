@@ -1,16 +1,14 @@
 package br.com.portalCrc.entity;
 
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
-import br.com.portalCrc.enums.TipoUnidade;
 
 @Entity
 @Table(name="unidade")
@@ -25,7 +23,8 @@ public class Unidade extends AbstractPersistable<Long> {
 	@JoinColumn(name="id_dados_unidade")
 	private DadosUnidade dadosUnidade;
 	
-	@Enumerated(EnumType.STRING)
+	@OneToOne
+	@JoinColumn(name="id_tipoUnidade")
 	private TipoUnidade tipoUnidade;
 
 	public Coordenadoria getCoordenadoria() {

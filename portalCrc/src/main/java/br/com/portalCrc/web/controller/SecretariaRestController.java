@@ -1,9 +1,12 @@
 package br.com.portalCrc.web.controller;
 
+import javax.management.relation.Role;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,6 +25,7 @@ public class SecretariaRestController {
 	@Autowired
 	private SecretariaService secretariaService;
 	
+	
 	 @RequestMapping(method = RequestMethod.GET, value="/lista")
 	 public ResponseEntity<Iterable<Secretaria>> lista() {	  
 	  Iterable<Secretaria> secretaria = secretariaService.lista();
@@ -33,21 +37,19 @@ public class SecretariaRestController {
 	 public ResponseEntity<Secretaria> salvar(@RequestBody Secretaria secretaria,UriComponentsBuilder ucBuilder){
 		 secretariaService.salvarEditar(secretaria);
 		 HttpHeaders headers =new HttpHeaders();
-		 headers.setLocation(ucBuilder.path("/rest/secretaria/salvar/{id}").buildAndExpand(secretaria.getId()).toUri());
 		 return new ResponseEntity<Secretaria>(headers, HttpStatus.CREATED);
 	 }
 
 	 @RequestMapping(method = RequestMethod.PUT, value="/alterar")
-	 public ResponseEntity<Secretaria> alterarUsuario(@RequestBody Secretaria secretaria,UriComponentsBuilder ucBuilder){
+	 public ResponseEntity<Secretaria> alterar(@RequestBody Secretaria secretaria,UriComponentsBuilder ucBuilder){
 		 secretariaService.salvarEditar(secretaria);
 		 HttpHeaders headers =new HttpHeaders();
-		 headers.setLocation(ucBuilder.path("/rest/secretaria/alterar/{id}").buildAndExpand(secretaria.getId()).toUri());
 		 return new ResponseEntity<Secretaria>(headers, HttpStatus.CREATED);
 	 }
 
 	 
 	 @RequestMapping(value = "/buscaPorId/{id}", method = RequestMethod.GET)
-		public ResponseEntity<Secretaria> buscarUsuarioPorId(@PathVariable Long id) {
+		public ResponseEntity<Secretaria> buscarPorId(@PathVariable Long id) {
 			return new ResponseEntity<Secretaria>(secretariaService.buscaPorID(id), HttpStatus.OK);
 		}
 }

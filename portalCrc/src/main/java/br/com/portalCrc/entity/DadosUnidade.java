@@ -22,13 +22,15 @@ public class DadosUnidade extends AbstractPersistable<Long>{
 	private String nome;
 	@Column(name="mini_nome")
 	private String miniNome;
-	@OneToOne
-	@JoinColumn(name="id_endereco")
-	private Endereco endereco;
 	@Column(name="uge")
 	private String uge;
-	@OneToMany(mappedBy = "dadosUnidade", cascade = CascadeType.ALL)
-	private Collection<ListaTelefonica> listaTelefones;
+	@Column(name="cnpj")
+	private Integer cnpj;
+	@OneToOne(cascade = {CascadeType.MERGE ,CascadeType.PERSIST} )
+	@JoinColumn(name="id_endereco",nullable = false)
+	private Endereco endereco;
+	/*@OneToMany(mappedBy = "dadosUnidade", cascade = CascadeType.ALL)
+	private Collection<ListaTelefonica> listaTelefones;*/
 	
 	
 	
@@ -56,11 +58,17 @@ public class DadosUnidade extends AbstractPersistable<Long>{
 	public void setUge(String uge) {
 		this.uge = uge;
 	}
-public Collection<ListaTelefonica> getListaTelefones() {
+/*public Collection<ListaTelefonica> getListaTelefones() {
 		return listaTelefones;
 	}
 	public void setListaTelefones(Collection<ListaTelefonica> listaTelefones) {
 		this.listaTelefones = listaTelefones;
+	}*/
+	public Integer getCnpj() {
+		return cnpj;
+	}
+	public void setCnpj(Integer cnpj) {
+		this.cnpj = cnpj;
 	} 
 	
 	

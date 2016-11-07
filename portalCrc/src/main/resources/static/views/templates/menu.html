@@ -19,13 +19,31 @@
 		<div>
 		<ul class="sidebar-menu">
 			<li class="header">MÓDULOS</li>
-			<li class="treeview"><a href=""><i class=" glyphicon glyphicon-object-align-bottom"></i> <span>Unidade</span>
+			
+			<li class="treeview"><a href=""><i class=" glyphicon glyphicon-object-align-bottom"></i> <span>Secretaria</span>
 					<i class="fa fa-angle-left pull-right"></i></a>
 					<ul class="treeview-menu">
+						<li><a class="top" href="#/secretaria/cadastrar">cadastro</a></li>
+						<li><a class="top" href="#/secretaria/lista">lista</a></li>
+					</ul>
+				</li>		
+				<li class="treeview ">
+              <a href=""><i class=" glyphicon glyphicon-object-align-bottom"> </i><i class="treeview "></i> Unidade<i class="fa fa-angle-left pull-right"></i></a>
+              <ul class="treeview-menu">	
 						<li><a class="top" href="#/unidade/cadastrar">cadastro</a></li>
 						<li><a class="top" href="#/unidade/lista">lista</a></li>
+				
+							
+				<li class="treeview"><a href=""><i class=" glyphicon glyphicon-object-align-bottom"></i> <span>Tipo</span>
+					<i class="fa fa-angle-left pull-right"></i></a>
+					<ul class="treeview-menu">
+						<li><a class="top" href="#/unidade/tipo/cadastrar">cadastro</a></li>
+						<li><a class="top" href="#/unidade/tipo/lista">lista</a></li>
 					</ul>
-				</li>
+				</li>				
+			
+			</ul>
+		</li>
 				
 				<li class="treeview"><a href=""><i class=" glyphicon glyphicon-object-align-bottom"></i> <span>Usuario</span>
 					<i class="fa fa-angle-left pull-right"></i></a>
@@ -34,10 +52,37 @@
 						<li><a class="top" href="#/usuario/lista">lista</a></li>
 					</ul>
 				</li>
-		
+			<li class="treeview ">
+              <a href=""><i class=" glyphicon glyphicon-object-align-bottom"> </i><i class="treeview "></i> Recursos Humanos<i class="fa fa-angle-left pull-right"></i></a>
+              <ul class="treeview-menu">
+				<li class="treeview"><a href=""><i class="glyphicon glyphicon-user"></i> <span>Funcionário</span>
+					<i class="fa fa-angle-left pull-right"></i></a>
+					<ul class="treeview-menu">
+						<li><a class="top" href="#/recursosHumanos/funcionario/cadastrar">cadastrar</a></li>
+						<li><a class="top" href="#/recursosHumanos/funcionario/lista">lista</a></li>
+					</ul>
+				</li>			
+				<li class="treeview"><a href=""><i class=" glyphicon glyphicon-object-align-bottom"></i> <span>Cargo</span>
+					<i class="fa fa-angle-left pull-right"></i></a>
+					<ul class="treeview-menu">
+						<li><a class="top" href="#/recursosHumanos/cargo/cadastrar">cadastro</a></li>
+						<li><a class="top" href="#/recursosHumanos/cargo/lista">lista</a></li>
+					</ul>
+				</li>
+				<li class="treeview"><a href=""><i class=" glyphicon glyphicon-object-align-bottom"></i> <span>Setor</span>
+					<i class="fa fa-angle-left pull-right"></i></a>
+					<ul class="treeview-menu">
+						<li><a class="top" href="#/recursosHumanos/setor/cadastrar">cadastro</a></li>
+						<li><a class="top" href="#/recursosHumanos/setor/lista">lista</a></li>
+					</ul>
+				</li>
+				
+			</ul>
+		</li>
+		</ul>
 		</div>
 
-<script type="text/javascript">
+	<script type="text/javascript">
 		$(document).ready(function() {
 			$('.top').click(function() {
 				$('html,body').animate({

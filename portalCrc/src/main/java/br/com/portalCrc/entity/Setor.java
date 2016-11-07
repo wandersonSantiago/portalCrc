@@ -2,7 +2,11 @@ package br.com.portalCrc.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.springframework.data.jpa.domain.AbstractPersistable;
@@ -15,12 +19,12 @@ public class Setor extends AbstractPersistable<Long> {
 
 	@Column(name="nome", nullable = false)
 	private String nome;
-	@Enumerated
-	private TipoSetorEnum tipoSetor;
+	@Enumerated(EnumType.STRING)
+	private TipoSetorEnum tipoSetor;	
+	@OneToOne
+	@JoinColumn(name="id_tipoUnidade")
+	private TipoUnidade tipoUnidade;
 
-	
-
-	
 	public String getNome() {
 		return nome;
 	}
@@ -36,8 +40,18 @@ public class Setor extends AbstractPersistable<Long> {
 	}
 
 
-	public void setTipoSetor(TipoSetorEnum tipoSetor) {
-		this.tipoSetor = tipoSetor;
+	public void setTipoSetor(TipoSetorEnum tipoSetor) {		
+		this.tipoSetor = tipoSetor ;
+	}
+
+
+	public TipoUnidade getTipoUnidade() {
+		return tipoUnidade;
+	}
+
+
+	public void setTipoUnidade(TipoUnidade tipoUnidade) {
+		this.tipoUnidade = tipoUnidade;
 	}
 	
 	

@@ -32,21 +32,19 @@ public class CoordenadoriaRestController {
 	 public ResponseEntity<Coordenadoria> salvar(@RequestBody Coordenadoria coordenadoria,UriComponentsBuilder ucBuilder){
 		 coordenadoriaService.salvarEditar(coordenadoria);
 		 HttpHeaders headers =new HttpHeaders();
-		 headers.setLocation(ucBuilder.path("/rest/coordenadoria/salvar/{id}").buildAndExpand(coordenadoria.getId()).toUri());
 		 return new ResponseEntity<Coordenadoria>(headers, HttpStatus.CREATED);
 	 }
 
 	 @RequestMapping(method = RequestMethod.PUT, value="/alterar")
-	 public ResponseEntity<Coordenadoria> alterarUsuario(@RequestBody Coordenadoria coordenadoria,UriComponentsBuilder ucBuilder){
+	 public ResponseEntity<Coordenadoria> alterar(@RequestBody Coordenadoria coordenadoria,UriComponentsBuilder ucBuilder){
 		 coordenadoriaService.salvarEditar(coordenadoria);
 		 HttpHeaders headers =new HttpHeaders();
-		 headers.setLocation(ucBuilder.path("/rest/coordenadoria/alterar/{id}").buildAndExpand(coordenadoria.getId()).toUri());
 		 return new ResponseEntity<Coordenadoria>(headers, HttpStatus.CREATED);
 	 }
 
 	 
 	 @RequestMapping(value = "/buscaPorId/{id}", method = RequestMethod.GET)
-		public ResponseEntity<Coordenadoria> buscarUsuarioPorId(@PathVariable Long id) {
+		public ResponseEntity<Coordenadoria> buscarPorId(@PathVariable Long id) {
 			return new ResponseEntity<Coordenadoria>(coordenadoriaService.buscaPorId(id), HttpStatus.OK);
 		}
 }

@@ -1,0 +1,55 @@
+<meta charset="UTF-8">
+<br>
+<br>
+<div class="generic-container" ng-controller="setorController as setorCtr" >
+
+	<div class="box box-primary">
+		<!-- Default panel contents -->
+		<div class="box-header">
+			<span class="lead">Cadastrar Setor </span>
+		</div>
+		<div class="panel-body">
+
+			<br>
+			<div class="container col-sm-12 ">
+				<form role="form-vertical" ng-submit="setorCtr.salva()" >
+					<div class="row">
+						<div class="col-sm-12">
+							<input class="form-control" ng-model="setorCtr.setor.nome" placeholder="Descrição" id="descricao" type="text" required>
+						</div>
+					</div>
+					<br>
+					<div class="row">					
+						<div class="col-sm-6"  ng-init="setorCtr.listaTipoSetor()" >
+							<select class="form-control select2" ng-model="setorCtr.setor.tipoSetor" 
+							ng-options="tipoSetores for tipoSetores in setorCtr.listaTipoSetor" 
+							  style=" width: 100%;" required >
+								<option value="">---Selecione Tipo---</option>
+							</select>
+						</div>				
+							
+					<div  ng-controller="unidadeController as unidadeCtrl">	
+					<div class="col-sm-6"  ng-init="unidadeCtrl.listaTipoUnidade()" >
+							<select class="form-control select2" ng-model="setorCtr.setor.tipoUnidade" 
+							ng-options="tipoUnidades for tipoUnidades in unidadeCtrl.listaTipoUnidade" 
+							  style=" width: 100%;" required >
+								<option value="">---Selecione Tipo da Unidade---</option>
+							</select>
+						</div>		
+					</div>	
+					</div>	
+					<br>
+							
+					<div class="row ">
+					
+							<input type="submit" id="submit" value="Salvar" ng-disabled="!setorCtr.setor.nome || !setorCtr.setor.tipoSetor || ! setorCtr.setor.tipoUnidade"
+								class="btn btn-lg btn-primary btn-block btn-signin">
+						
+					</div>
+				</form>
+			</div>
+
+		</div>
+		<div class="tablecontainer"></div>
+	</div>
+</div>

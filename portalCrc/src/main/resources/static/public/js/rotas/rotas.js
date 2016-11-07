@@ -11,6 +11,16 @@ app.config(['$routeProvider','$httpProvider', function($routeProvider, $httpProv
 		templateUrl : "views/login.html"
 	})
 	
+	//SECRETARIA
+	
+	.when("/secretaria/cadastrar",{
+		templateUrl : "views/paginas/secretaria/cadastrar.html"
+	})
+		
+	.when("/secretaria/lista",{
+		templateUrl : "views/paginas/secretaria/lista.html"
+	})
+	
 	//UNIDADE
 	.when("/unidade/cadastrar",{
 		templateUrl : "views/paginas/unidade/cadastrar.html"
@@ -18,6 +28,14 @@ app.config(['$routeProvider','$httpProvider', function($routeProvider, $httpProv
 		
 	.when("/unidade/lista",{
 		templateUrl : "views/paginas/unidade/lista.html"
+	})
+	//Tipo
+		.when("/unidade/tipo/cadastrar",{
+		templateUrl : "views/paginas/unidade/tipo/cadastrar.html"
+	})
+		
+	.when("/unidade/tipo/lista",{
+		templateUrl : "views/paginas/unidade/tipo/lista.html"
 	})
 	
 	//USUARIO
@@ -29,6 +47,51 @@ app.config(['$routeProvider','$httpProvider', function($routeProvider, $httpProv
 	.when("/usuario/lista",{
 		templateUrl : "views/paginas/usuario/lista.html"
 	})
+	
+	
+	//RECURSOS HUMANOS
+	
+	//Cargo
+	.when("/recursosHumanos/cargo/cadastrar",{
+		templateUrl : "views/paginas/recursosHumanos/cargo/cadastrar.html"
+	})
+		
+	.when("/recursosHumanos/cargo/lista",{
+		templateUrl : "views/paginas/recursosHumanos/cargo/lista.html"
+	})
+	
+	.when("/recursosHumanos/cargo/editar/:idCargo",{
+		templateUrl : "views/paginas/recursosHumanos/cargo/editar.html"
+	})
+	
+	//Setor
+	.when("/recursosHumanos/setor/cadastrar",{
+		templateUrl : "views/paginas/recursosHumanos/setor/cadastrar.html"
+	})
+		
+	.when("/recursosHumanos/setor/lista",{
+		templateUrl : "views/paginas/recursosHumanos/setor/lista.html"
+	})
+	
+	.when("/recursosHumanos/setor/editar/:idSetor",{
+		templateUrl : "views/paginas/recursosHumanos/setor/editar.html"
+	})
+	
+	//Funcionario
+	.when("/recursosHumanos/funcionario/cadastrar",{
+		templateUrl : "views/paginas/recursosHumanos/funcionario/cadastrar.html"
+	})
+		
+	.when("/recursosHumanos/funcionario/lista",{
+		templateUrl : "views/paginas/recursosHumanos/funcionario/lista.html"
+	})
+	
+	
+	
+	
+	
+	
+	
 	.when('/',{
 		redirectTo : "/home"
 	})

@@ -15,7 +15,7 @@ import br.com.portalCrc.entity.Funcionario;
 import br.com.portalCrc.service.FuncionarioService;
 
 @RestController
-@RequestMapping("/rest/funcionario")
+@RequestMapping("/rest/recursosHumanos/funcionario")
 public class FuncionarioRestController {
 
 	@Autowired
@@ -32,21 +32,19 @@ public class FuncionarioRestController {
 	 public ResponseEntity<Funcionario> salvar(@RequestBody Funcionario funcionario,UriComponentsBuilder ucBuilder){
 		 funcionarioService.salvarEditar(funcionario);
 		 HttpHeaders headers =new HttpHeaders();
-		 headers.setLocation(ucBuilder.path("/rest/funcionario/salvar/{id}").buildAndExpand(funcionario.getId()).toUri());
 		 return new ResponseEntity<Funcionario>(headers, HttpStatus.CREATED);
 	 }
 
 	 @RequestMapping(method = RequestMethod.PUT, value="/alterar")
-	 public ResponseEntity<Funcionario> alterarUsuario(@RequestBody Funcionario funcionario,UriComponentsBuilder ucBuilder){
+	 public ResponseEntity<Funcionario> alterar(@RequestBody Funcionario funcionario,UriComponentsBuilder ucBuilder){
 		 funcionarioService.salvarEditar(funcionario);
 		 HttpHeaders headers =new HttpHeaders();
-		 headers.setLocation(ucBuilder.path("/rest/funcionario/alterar/{id}").buildAndExpand(funcionario.getId()).toUri());
 		 return new ResponseEntity<Funcionario>(headers, HttpStatus.CREATED);
 	 }
 
 	 
 	 @RequestMapping(value = "/buscaPorId/{id}", method = RequestMethod.GET)
-		public ResponseEntity<Funcionario> buscarUsuarioPorId(@PathVariable Long id) {
+		public ResponseEntity<Funcionario> buscarPorId(@PathVariable Long id) {
 			return new ResponseEntity<Funcionario>(funcionarioService.buscaPorId(id), HttpStatus.OK);
 		}
 }
