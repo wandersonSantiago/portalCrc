@@ -20,17 +20,16 @@ public class DadosUnidade extends AbstractPersistable<Long>{
 	
 	@Column(name="nome")
 	private String nome;
-	@Column(name="mini_nome")
-	private String miniNome;
+	@Column(name="mnemonico")
+	private String mnemonico;
 	@Column(name="uge")
 	private String uge;
 	@Column(name="cnpj")
-	private Integer cnpj;
+	private String cnpj;
 	@OneToOne(cascade = {CascadeType.MERGE ,CascadeType.PERSIST} )
 	@JoinColumn(name="id_endereco",nullable = false)
 	private Endereco endereco;
-	/*@OneToMany(mappedBy = "dadosUnidade", cascade = CascadeType.ALL)
-	private Collection<ListaTelefonica> listaTelefones;*/
+	
 	
 	
 	
@@ -40,11 +39,12 @@ public class DadosUnidade extends AbstractPersistable<Long>{
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	public String getMiniNome() {
-		return miniNome;
+
+	public String getMnemonico() {
+		return mnemonico;
 	}
-	public void setMiniNome(String miniNome) {
-		this.miniNome = miniNome;
+	public void setMnemonico(String mnemonico) {
+		this.mnemonico = mnemonico;
 	}
 	public Endereco getEndereco() {
 		return endereco;
@@ -53,23 +53,19 @@ public class DadosUnidade extends AbstractPersistable<Long>{
 		this.endereco = endereco;
 	}
 	public String getUge() {
-		return uge;
+		return uge;		
 	}
 	public void setUge(String uge) {
 		this.uge = uge;
 	}
-/*public Collection<ListaTelefonica> getListaTelefones() {
-		return listaTelefones;
-	}
-	public void setListaTelefones(Collection<ListaTelefonica> listaTelefones) {
-		this.listaTelefones = listaTelefones;
-	}*/
-	public Integer getCnpj() {
+	public String getCnpj() {
 		return cnpj;
 	}
-	public void setCnpj(Integer cnpj) {
+	public void setCnpj(String cnpj) {
 		this.cnpj = cnpj;
-	} 
+	}
+
+	
 	
 	
 	

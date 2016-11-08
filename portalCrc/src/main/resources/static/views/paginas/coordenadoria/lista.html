@@ -1,0 +1,37 @@
+<meta charset="UTF-8">
+<br>
+<br>
+<div class="generic-container"
+	ng-controller="coordenadoriaController as coordenadoriaCtr">
+
+	<div class="box box-primary" ng-init="coordenadoriaCtr.lista()">
+	
+		<div class="box-header">
+			<span class="lead">Lista de Coordenadorias</span>
+		</div>
+		<div class="panel-body">
+		<input class="form-control" type="text" ng-model="buscaCoordenadoria" placeholder="Buscar">
+			<table class="table table-hover table-bordered">
+				<thead>
+					<tr>
+						<th>Secretaria</th>
+						<th>Nome</th>						
+						<th>Opções</th>
+					</tr>
+				</thead>
+				<tbody
+					ng-repeat=" coordenadoria in coordenadoriaCtr.listaCoordenadoria | filter : buscaCoordenadoria ">
+					<tr>
+						<td>{{ coordenadoria.mnemonico }}</td>
+						<td>{{ coordenadoria.nome }}</td>						
+						<td><a href="#/coordenadoria/editar/{{coordenadoria.id}}"><i class="glyphicon glyphicon-pencil"></i></a> 
+						
+				</tr>
+				</tbody>
+				<tfoot>
+				</tfoot>
+			</table>
+		</div>
+	</div>
+</div>
+

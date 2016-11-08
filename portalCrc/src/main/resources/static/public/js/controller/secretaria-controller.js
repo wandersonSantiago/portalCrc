@@ -1,8 +1,8 @@
 app.controller('secretariaController', function($scope,  secretariaService,  $routeParams) {
 
 	var self = this;
-	
-	var idFSecretaria = $routeParams.idFSecretaria;
+	self.listaTelefone = [];
+	var idSecretaria = $routeParams.idSecretaria;
 	
 self.salva = function(secretaria) {
 	secretariaService.salva(self.secretaria).
@@ -37,9 +37,40 @@ self.salva = function(secretaria) {
 			});
 		};
 	
-		if(idFSecretaria){
-			self.buscarPorId(idFSecretaria);
+		if(idSecretaria){
+			self.buscarPorId(idSecretaria);
 			
 		}
+		
+		self.adicionarTelefones = function(descricao, telefone, setor){
+			self.listaTelefone.push({
+				descricao :  descricao,
+				telefone : telefone,
+				setor : setor
+			});
+			
+			$scope.visialuzarTable = true;
+			$scopedescricao = null;
+			$scope.telefone = null;
+		}
+			
+	
+		
+		self.ativarExcluirLote = function(listaTelefone){
+			self.listaTelefone.filter(function(telefone){
+			if(telefone.selecionado){
+				$scope.ativadoExcluirLote = true; }
+			});
+		}
+	
+
+	
+		self.apagarTelefone = function(listaTelefone){
+				self.listaTelefone = self.listaTelefone.filter(function(telefone){
+				if(!telefone.selecionado) return telefone;
+				$scope.ativadoExcluirLote = false;
+			});
+		}
+		
 
 });

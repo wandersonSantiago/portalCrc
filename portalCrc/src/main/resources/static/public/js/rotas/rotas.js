@@ -20,6 +20,22 @@ app.config(['$routeProvider','$httpProvider', function($routeProvider, $httpProv
 	.when("/secretaria/lista",{
 		templateUrl : "views/paginas/secretaria/lista.html"
 	})
+	.when("/secretaria/editar/:idSecretaria",{
+		templateUrl : "views/paginas/secretaria/editar.html"
+	})
+	
+	//COORDENADORIA
+	
+	.when("/coordenadoria/cadastrar",{
+		templateUrl : "views/paginas/coordenadoria/cadastrar.html"
+	})
+		
+	.when("/coordenadoria/lista",{
+		templateUrl : "views/paginas/coordenadoria/lista.html"
+	})
+	.when("/coordenadoria/editar/:idCoordenadoria",{
+		templateUrl : "views/paginas/coordenadoria/editar.html"
+	})
 	
 	//UNIDADE
 	.when("/unidade/cadastrar",{
@@ -29,6 +45,10 @@ app.config(['$routeProvider','$httpProvider', function($routeProvider, $httpProv
 	.when("/unidade/lista",{
 		templateUrl : "views/paginas/unidade/lista.html"
 	})
+	.when("/unidade/editar/:idUnidade",{
+		templateUrl : "views/paginas/unidade/editar.html"
+	})
+	
 	//Tipo
 		.when("/unidade/tipo/cadastrar",{
 		templateUrl : "views/paginas/unidade/tipo/cadastrar.html"
@@ -37,6 +57,12 @@ app.config(['$routeProvider','$httpProvider', function($routeProvider, $httpProv
 	.when("/unidade/tipo/lista",{
 		templateUrl : "views/paginas/unidade/tipo/lista.html"
 	})
+	
+	.when("/unidade/tipo/editar/:idTipoUnidade",{
+		templateUrl : "views/paginas/unidade/tipo/editar.html"
+	})
+	
+	
 	
 	//USUARIO
 	
@@ -47,6 +73,8 @@ app.config(['$routeProvider','$httpProvider', function($routeProvider, $httpProv
 	.when("/usuario/lista",{
 		templateUrl : "views/paginas/usuario/lista.html"
 	})
+	
+	
 	
 	
 	//RECURSOS HUMANOS

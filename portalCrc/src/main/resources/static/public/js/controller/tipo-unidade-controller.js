@@ -23,7 +23,7 @@ self.salva = function(tipoUnidade) {
 	 self.lista = function(){
 		 tipoUnidadeService.lista().
 			then(function(f){
-				self.listatipoUnidade = f;			
+				self.listaTipoUnidade = f;			
 				}, function(errResponse){
 			});
 		};

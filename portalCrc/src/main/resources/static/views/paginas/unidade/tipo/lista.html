@@ -2,15 +2,15 @@
 <br>
 <br>
 <div class="generic-container"
-	ng-controller="setorController as setorCtr">
+	ng-controller="tipoUnidadeController as tipoCtr">
 
-	<div class="box box-primary" ng-init="setorCtr.lista()">
+	<div class="box box-primary" ng-init="tipoCtr.lista()">
 	
 		<div class="box-header">
-			<span class="lead">Lista de Setor</span>
+			<span class="lead">Lista tipo unidades</span>
 		</div>
 		<div class="panel-body">
-		<input class="form-control" type="text" ng-model="buscaSetor" placeholder="Buscar">
+		<input class="form-control" type="text" ng-model="buscaTipo" placeholder="Buscar">
 			<table class="table table-hover table-bordered">
 				<thead>
 					<tr>
@@ -21,12 +21,12 @@
 					</tr>
 				</thead>
 				<tbody
-					ng-repeat=" setor in setorCtr.listaSetor | filter : buscaSetor ">
+					ng-repeat=" tipo in tipoCtr.listaTipoUnidade | filter : buscaTipo ">
 					<tr>
-						<td>{{ setor.nome }}</td>
-						<td>{{ setor.tipoSetor }}</td>
-						<td>{{ setor.tipoUnidade }}</td>
-						<td><a href="#/recursosHumanos/setor/editar/{{setor.id}}"><i class="glyphicon glyphicon-pencil"></i></a> 
+						<td>{{ tipo.descricao }}</td>
+						<td>{{ tipo.mnemonico }}</td>
+						<td>{{ tipo.secretaria.mnemonico }}</td>
+						<td><a href="#/unidade/tipo/editar/{{tipo.id}}"><i class="glyphicon glyphicon-pencil"></i></a> 
 						
 				</tr>
 				</tbody>

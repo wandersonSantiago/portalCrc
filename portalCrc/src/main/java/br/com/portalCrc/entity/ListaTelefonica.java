@@ -24,14 +24,21 @@ public class ListaTelefonica extends AbstractPersistable<Long>{
 	
 	@ManyToOne
 	@JoinColumn(name="id_unidade")
-	private DadosUnidade dadosUnidade;
+	private Unidade unidade;
 	
 
-	public DadosUnidade getDadosUnidade() {
-		return dadosUnidade;
+
+	public Setor getSetor() {
+		return setor;
 	}
-	public void setDadosUnidade(DadosUnidade dadosUnidade) {
-		this.dadosUnidade = dadosUnidade;
+	public void setSetor(Setor setor) {
+		this.setor = setor;
+	}
+	public Unidade getUnidade() {
+		return unidade;
+	}
+	public void setUnidade(Unidade unidade) {
+		this.unidade = unidade;
 	}
 	public String getDescricao() {
 		return descricao;

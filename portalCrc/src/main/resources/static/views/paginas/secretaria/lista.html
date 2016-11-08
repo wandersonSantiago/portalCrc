@@ -1,3 +1,37 @@
-<h1>
-listar
-</h1>
+<meta charset="UTF-8">
+<br>
+<br>
+<div class="generic-container"
+	ng-controller="secretariaController as secretariaCtr">
+
+	<div class="box box-primary" ng-init="secretariaCtr.lista()">
+	
+		<div class="box-header">
+			<span class="lead">Lista de Secretaria</span>
+		</div>
+		<div class="panel-body">
+		<input class="form-control" type="text" ng-model="buscaSecretaria" placeholder="Buscar">
+			<table class="table table-hover table-bordered">
+				<thead>
+					<tr>
+						<th>Secretaria</th>
+						<th>Nome</th>						
+						<th>Opções</th>
+					</tr>
+				</thead>
+				<tbody
+					ng-repeat=" secretaria in secretariaCtr.listaSecretaria | filter : buscaSecretaria ">
+					<tr>
+						<td>{{ secretaria.mnemonico }}</td>
+						<td>{{ secretaria.nome }}</td>						
+						<td><a href="#/secretaria/editar/{{secretaria.id}}"><i class="glyphicon glyphicon-pencil"></i></a> 
+						
+				</tr>
+				</tbody>
+				<tfoot>
+				</tfoot>
+			</table>
+		</div>
+	</div>
+</div>
+

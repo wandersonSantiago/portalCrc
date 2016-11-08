@@ -1,10 +1,10 @@
 package br.com.portalCrc.entity;
 
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.springframework.data.jpa.domain.AbstractPersistable;
@@ -13,16 +13,14 @@ import org.springframework.data.jpa.domain.AbstractPersistable;
 @Table(name="coordenadoria")
 public class Coordenadoria extends AbstractPersistable<Long> {
 
-	
+	@Column(name="nome")
+	private String nome;
+	@Column(name="mnemonico")
+	private String mnemonico;
 	@ManyToOne
 	@JoinColumn(name="id_secretaria", nullable = false )
 	private Secretaria secretaria;
-	
-	@OneToOne
-	@JoinColumn(name="id_dados_unidade")
-	private DadosUnidade dadosUnidade;
-
-	
+		
 	
 	public Secretaria getSecretaria() {
 		return secretaria;
@@ -32,13 +30,22 @@ public class Coordenadoria extends AbstractPersistable<Long> {
 		this.secretaria = secretaria;
 	}
 
-	public DadosUnidade getDadosUnidade() {
-		return dadosUnidade;
+	public String getNome() {
+		return nome;
 	}
 
-	public void setDadosUnidade(DadosUnidade dadosUnidade) {
-		this.dadosUnidade = dadosUnidade;
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
+
+	public String getMnemonico() {
+		return mnemonico;
+	}
+
+	public void setMnemonico(String mnemonico) {
+		this.mnemonico = mnemonico;
+	}
+
 	
 	
 	

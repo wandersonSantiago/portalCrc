@@ -16,12 +16,9 @@ public class Usuario extends AbstractPersistable<Long>{
 	@ManyToOne
 	@JoinColumn(name="id_funcionario",nullable = true)
 	private Funcionario funcionario;
-
 	@ManyToOne
-	@JoinColumn(name="id_dadosUnidades",nullable = true)
-	private DadosUnidade dadosUnidade;
-
-
+	@JoinColumn(name="id_unidades",nullable = true)
+	private Unidade unidade;
 	
 	@Column(nullable = false,length = 50)
 	private String nome;
@@ -63,16 +60,13 @@ public class Usuario extends AbstractPersistable<Long>{
 	public void setFuncionario(Funcionario funcionario) {
 		this.funcionario = funcionario;
 	}
-	public DadosUnidade getDadosUnidade() {
-		return dadosUnidade;
+	public Unidade getUnidade() {
+		return unidade;
 	}
-	public void setDadosUnidade(DadosUnidade dadosUnidade) {
-		this.dadosUnidade = dadosUnidade;
+	public void setUnidade(Unidade unidade) {
+		this.unidade = unidade;
 	}
 	public Funcionario getFuncionario() {
 		return funcionario;
-	}
-
-
-	
+	}	
 }

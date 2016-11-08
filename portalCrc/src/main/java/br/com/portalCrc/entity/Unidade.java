@@ -1,5 +1,6 @@
 package br.com.portalCrc.entity;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -19,7 +20,7 @@ public class Unidade extends AbstractPersistable<Long> {
 	@JoinColumn(name="id_coordenadoria")
 	private Coordenadoria coordenadoria;
 	
-	@OneToOne
+	@OneToOne(cascade = {CascadeType.MERGE ,CascadeType.PERSIST} )
 	@JoinColumn(name="id_dados_unidade")
 	private DadosUnidade dadosUnidade;
 	
