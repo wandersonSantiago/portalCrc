@@ -63,6 +63,20 @@ app.config(['$routeProvider','$httpProvider', function($routeProvider, $httpProv
 	})
 	
 	
+		
+	//TELEFONE
+	
+	.when("/unidade/telefone/cadastrar",{
+		templateUrl : "views/paginas/unidade/telefone/cadastrar.html"
+	})
+		
+	.when("/unidade/telefone/lista",{
+		templateUrl : "views/paginas/unidade/telefone/lista.html"
+	})
+	
+	.when("/unidade/telefone/editar/:idTelefone",{
+		templateUrl : "views/paginas/unidade/telefone/editar.html"
+	})
 	
 	//USUARIO
 	
@@ -72,6 +86,9 @@ app.config(['$routeProvider','$httpProvider', function($routeProvider, $httpProv
 		
 	.when("/usuario/lista",{
 		templateUrl : "views/paginas/usuario/lista.html"
+	})
+	.when("/usuario/editar/:idUsuario",{
+		templateUrl : "views/paginas/usuario/editar.html"
 	})
 	
 	
@@ -104,6 +121,19 @@ app.config(['$routeProvider','$httpProvider', function($routeProvider, $httpProv
 	.when("/recursosHumanos/setor/editar/:idSetor",{
 		templateUrl : "views/paginas/recursosHumanos/setor/editar.html"
 	})
+			//ramal
+	.when("/recursosHumanos/setor/ramal/cadastrar",{
+		templateUrl : "views/paginas/recursosHumanos/setor/ramal/cadastrar.html"
+	})
+		
+	.when("/recursosHumanos/setor/ramal/lista",{
+		templateUrl : "views/paginas/recursosHumanos/setor/ramal/lista.html"
+	})
+	
+	.when("/recursosHumanos/setor/ramal/editar/:idSetor",{
+		templateUrl : "views/paginas/recursosHumanos/setor/ramal/editar.html"
+	})
+	
 	
 	//Funcionario
 	.when("/recursosHumanos/funcionario/cadastrar",{
@@ -114,11 +144,10 @@ app.config(['$routeProvider','$httpProvider', function($routeProvider, $httpProv
 		templateUrl : "views/paginas/recursosHumanos/funcionario/lista.html"
 	})
 	
-	
-	
-	
-	
-	
+	.when("/recursosHumanos/funcionario/editar/:idFuncionario",{
+		templateUrl : "views/paginas/recursosHumanos/funcionario/editar.html"
+	})
+		
 	
 	.when('/',{
 		redirectTo : "/home"

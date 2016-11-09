@@ -2,15 +2,15 @@
 <br>
 <br>
 <div class="generic-container"
-	ng-controller="setorController as setorCtr">
+	ng-controller="ramalController as ramalCtr">
 
-	<div class="box box-primary" ng-init="setorCtr.lista()">
+	<div class="box box-primary" ng-init="ramalCtr.lista()">
 	
 		<div class="box-header">
-			<span class="lead">Lista de Setor</span>
+			<span class="lead">Lista de Ramal</span>
 		</div>
 		<div class="panel-body">
-		<input class="form-control" type="text" ng-model="buscaSetor" placeholder="Buscar">
+		<input class="form-control" type="text" ng-model="buscaRamal" placeholder="Buscar">
 			<table class="table table-hover table-bordered">
 				<thead>
 					<tr>
@@ -21,11 +21,11 @@
 					</tr>
 				</thead>
 				<tbody
-					ng-repeat=" setor in setorCtr.listaSetor | filter : buscaSetor ">
+					ng-repeat=" ramal in ramalCtr.listaRamal | filter : buscaRamal ">
 					<tr>
-						<td>{{ setor.nome }}</td>
-						<td>{{ setor.tipoSetor }}</td>
-						<td>{{ setor.tipoUnidade.mnemonico}}</td>
+						<td>{{ ramal.setor.nome }}</td>
+						<td>{{ ramal.numero }}</td>
+						<td>{{ ramal.unidade.dadosUnidade.mnemonico}}</td>
 						<td><a href="#/recursosHumanos/setor/editar/{{setor.id}}"><i class="glyphicon glyphicon-pencil"></i></a> 
 						
 				</tr>

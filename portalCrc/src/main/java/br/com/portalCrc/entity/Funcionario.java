@@ -1,5 +1,7 @@
 package br.com.portalCrc.entity;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -13,14 +15,11 @@ import org.springframework.data.jpa.domain.AbstractPersistable;
 public class Funcionario  extends AbstractPersistable<Long>{
 
 	
-	@OneToOne
+	@OneToOne(cascade = {CascadeType.MERGE ,CascadeType.PERSIST} )
 	@JoinColumn(name="id_pessoa")
 	private Pessoa pessoa;
 	
-	@ManyToOne
-	@JoinColumn(name="id_cargo")
-	private Cargo cargo;
-
+	
 	public Pessoa getPessoa() {
 		return pessoa;
 	}
@@ -29,14 +28,4 @@ public class Funcionario  extends AbstractPersistable<Long>{
 		this.pessoa = pessoa;
 	}
 
-	public Cargo getCargo() {
-		return cargo;
-	}
-
-	public void setCargo(Cargo cargo) {
-		this.cargo = cargo;
-	}
-	
-	
-	
 }

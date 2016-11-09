@@ -1,0 +1,63 @@
+<meta charset="UTF-8">
+<br>
+<br>
+<div class="generic-container"
+	ng-controller="funcionarioController as cadFuncCtrl">
+
+	<div class="box box-primary">
+		<!-- Default panel contents -->
+		<div class="box-header">
+			<span class="lead">Atribuir Unidade </span>
+		</div>
+		<div class="panel-body">
+
+			<br>
+			<div class="container col-sm-12 ">
+				<form role="form-vertical" name="formAtribuirUnidade"
+					ng-submit="cadFuncCtrl.salva()">
+					
+						
+					
+					<br>
+					<div class="row">
+											
+						<div class="col-sm-2">
+							<input class="form-control" placeholder="Data inclusão"
+								ng-model="cadFuncCtrl.funcionario.dataAdmissao"
+								id="dataAdmissao" type="text" ui-date required >
+						</div>
+
+						<div class="col-sm-4" ng-controller="unidadeController as unidadeCtrl" ng-init="unidadeCtrl.lista()">
+							<select class="form-control select2"  ng-model="cadFuncCtrl.funcionario.unidade" ng-options="unidades.dadosUnidade.mnemonico group by unidades.tipoUnidades.mnemonico for unidades in unidadeCtrl.listaUnidades"  style="width: 100%;">
+								<option value="">--Unidade--</option>
+							</select>
+						</div>
+				
+						<div class="col-sm-3" ng-controller="cargoController as cargoCtrl" ng-init="cargoCtrl.lista()">
+							<select class="form-control select2" ng-model="cadFuncCtrl.funcionario.cargo" ng-options="listarCargos.descricao group by listarCargos.shade for listarCargos in cargos"  style="width: 100%;">
+									<option value="">--Cargo--</option>
+							</select>
+						</div>	
+						<div class="col-sm-3" ng-controller="cargoController as cargoCtrl" ng-init="cargoCtrl.lista()">
+							<select class="form-control select2" ng-model="cadFuncCtrl.funcionario.cargo" ng-options="listarCargos.descricao group by listarCargos.shade for listarCargos in cargos"  style="width: 100%;">
+									<option value="">--Função--</option>
+							</select>
+						</div>							
+					</div>
+
+					<hr>
+					
+					
+					<br>
+					<div class="row ">
+							<input type="submit" id="submit" value="Salvar"	class="btn btn-lg btn-primary btn-block btn-signin">
+					</div>
+
+				</form>
+			</div>
+		</div>
+
+	</div>
+	<div class="tablecontainer"></div>
+</div>
+</div>

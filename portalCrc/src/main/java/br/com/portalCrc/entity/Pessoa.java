@@ -1,42 +1,40 @@
 package br.com.portalCrc.entity;
 
-import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-@Entity
-@Inheritance(strategy = InheritanceType.JOINED)
-@Table(name = "pessoa")
-public abstract class Pessoa implements Serializable {
+import org.springframework.data.jpa.domain.AbstractPersistable;
 
-	@Id
-	@Column(unique = true, nullable = false)
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	Long id;
+@Entity
+@Table(name = "pessoa")
+public class Pessoa extends AbstractPersistable<Long> {
+
+
 	@Column(nullable = false, length = 50)
-	protected String nomeCompleto;
+	private String nomeCompleto;
 	@Column(nullable = false)
-	protected Integer idade;
+	private Integer idade;
 	@Column(nullable = false, length = 20)
-	protected String rg;
+	private String rg;
 	@Column(nullable = false, length = 20)
-	protected String cpf;
+	private String cpf;
 	@Column(nullable = false, length = 15)
-	protected String telefoneFixo;
+	private String telefoneFixo;
 	@Column(nullable = false, length = 15)
-	protected String telefoneCelular;
+	private String telefoneCelular;
 	@Column(nullable = false)
-	protected Date dataNascimento;
+	private Date dataNascimento;
 	@Column(nullable = false)
-	protected String sexo;
+	private String sexo;
+	@OneToOne(cascade = {CascadeType.MERGE ,CascadeType.PERSIST} )
+	@JoinColumn(name="id_endereco",nullable = false)
+	private Endereco endereco;
 
 	public String getNomeCompleto() {
 		return nomeCompleto;
@@ -94,14 +92,6 @@ public abstract class Pessoa implements Serializable {
 		this.dataNascimento = dataNascimento;
 	}
 
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
 	public String getSexo() {
 		return sexo;
 	}
@@ -110,29 +100,14 @@ public abstract class Pessoa implements Serializable {
 		this.sexo = sexo;
 	}
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		return result;
+	public Endereco getEndereco() {
+		return endereco;
 	}
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Pessoa other = (Pessoa) obj;
-		if (id == null) {
-			if (other.id != null)
-				return false;
-		} else if (!id.equals(other.id))
-			return false;
-		return true;
+	public void setEndereco(Endereco endereco) {
+		this.endereco = endereco;
 	}
+
+
 
 }

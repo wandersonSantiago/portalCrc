@@ -23,7 +23,7 @@ app.controller('setorController', function($scope, setorService, $routeParams) {
 	 self.lista = function(){
 		 setorService.lista().
 			then(function(f){
-				self.listaSetor = f;				
+				self.listaSetor = f;
 				}, function(errResponse){
 			});
 		};

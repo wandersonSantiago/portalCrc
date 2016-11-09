@@ -23,8 +23,7 @@ self.salva = function(funcionario) {
 	 self.lista = function(){
 		 funcionarioService.lista().
 			then(function(f){
-				self.listaFuncionarios = f;
-				$scope.listaFuncionario = f;				
+				self.listaFuncionarios = f;				
 				}, function(errResponse){
 			});
 		};

@@ -17,7 +17,6 @@
 					<tr>
 						<th>Nome</th>
 						<th>CPF</th>
-						<th>Cargo</th>
 						<th>Telefone</th>
 						<th>Sexo</th>
 						<th>Cidade</th>
@@ -27,12 +26,11 @@
 				<tbody
 					ng-repeat=" funcionario in funCtrl.listaFuncionarios | filter : buscaFuncionario">
 					<tr>
-					<td>{{ funcionario.nomeCompleto }}</td>
-						<td>{{ funcionario.cpf }}</td>
-						<td>{{ funcionario.cargo.descricao }}</td>
-						<td>{{ funcionario.telefoneCelular}}</td>
-						<td>{{ funcionario.sexo }}</td>
-						<td>{{ funcionario.endereco.localidade}}</td>
+					<td>{{ funcionario.pessoa.nomeCompleto }}</td>
+						<td>{{ funcionario.pessoa.cpf }}</td>
+						<td>{{ funcionario.pessoa.telefoneCelular}}</td>
+						<td>{{ funcionario.pessoa.sexo }}</td>
+						<td>{{ funcionario.pessoa.endereco.localidade}}</td>
 						<td><a href="#/recursosHumanos/funcionario/editar/{{funcionario.id}}"><i class="glyphicon glyphicon-pencil"></i></a>
 					</tr>
 

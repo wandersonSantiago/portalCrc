@@ -20,7 +20,23 @@ public class ListaRamal extends AbstractPersistable<Long>{
 	@ManyToOne
 	@JoinColumn(name="id_unidade")
 	private Unidade unidade;
+	@ManyToOne
+	@JoinColumn(name="id_setor")
+	private Setor setor;
 	
+	
+	public Unidade getUnidade() {
+		return unidade;
+	}
+	public void setUnidade(Unidade unidade) {
+		this.unidade = unidade;
+	}
+	public Setor getSetor() {
+		return setor;
+	}
+	public void setSetor(Setor setor) {
+		this.setor = setor;
+	}
 	public String getDescricao() {
 		return descricao;
 	}

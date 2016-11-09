@@ -11,7 +11,7 @@ import org.springframework.data.jpa.domain.AbstractPersistable;
 
 @Entity
 @Table(name="lista_telefonica")
-public class ListaTelefonica extends AbstractPersistable<Long>{
+public class ListaTelefone extends AbstractPersistable<Long>{
 
 	@Column(name="descricao")
 	private String descricao;
@@ -26,8 +26,7 @@ public class ListaTelefonica extends AbstractPersistable<Long>{
 	@JoinColumn(name="id_unidade")
 	private Unidade unidade;
 	
-
-
+	
 	public Setor getSetor() {
 		return setor;
 	}

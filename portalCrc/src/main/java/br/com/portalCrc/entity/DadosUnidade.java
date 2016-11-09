@@ -32,7 +32,6 @@ public class DadosUnidade extends AbstractPersistable<Long>{
 	
 	
 	
-	
 	public String getNome() {
 		return nome;
 	}

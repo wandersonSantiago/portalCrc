@@ -17,9 +17,11 @@ public class Usuario extends AbstractPersistable<Long>{
 	@JoinColumn(name="id_funcionario",nullable = true)
 	private Funcionario funcionario;
 	@ManyToOne
+	@JoinColumn(name="id_setor",nullable = true)
+	private Setor setor;
+	@ManyToOne
 	@JoinColumn(name="id_unidades",nullable = true)
-	private Unidade unidade;
-	
+	private Unidade unidade;	
 	@Column(nullable = false,length = 50)
 	private String nome;
 	@Column(nullable = false,length = 15,unique = false)
@@ -68,5 +70,12 @@ public class Usuario extends AbstractPersistable<Long>{
 	}
 	public Funcionario getFuncionario() {
 		return funcionario;
+	}
+	public Setor getSetor() {
+		return setor;
+	}
+	public void setSetor(Setor setor) {
+		this.setor = setor;
 	}	
+	
 }

@@ -1,6 +1,8 @@
 package br.com.portalCrc.entity;
 
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.springframework.data.jpa.domain.AbstractPersistable;
@@ -9,10 +11,12 @@ import org.springframework.data.jpa.domain.AbstractPersistable;
 @Table(name="funcionario_unidade")
 public class FuncionarioUnidade extends AbstractPersistable<Long>{
 
-	
+	@OneToOne
+	@JoinColumn(name="id_funcionario")
 	private Funcionario funcionario;
-	
-	private DadosUnidade dadosUnidade;
+	@OneToOne
+	@JoinColumn(name="id_unidade")
+	private Unidade unidade;
 
 	public Funcionario getFuncionario() {
 		return funcionario;
@@ -22,14 +26,12 @@ public class FuncionarioUnidade extends AbstractPersistable<Long>{
 		this.funcionario = funcionario;
 	}
 
-	public DadosUnidade getDadosUnidade() {
-		return dadosUnidade;
+	public Unidade getUnidade() {
+		return unidade;
 	}
 
-	public void setDadosUnidade(DadosUnidade dadosUnidade) {
-		this.dadosUnidade = dadosUnidade;
-	}
-	
-	
+	public void setUnidade(Unidade unidade) {
+		this.unidade = unidade;
+	}	
 	
 }
