@@ -1,48 +1,52 @@
 <meta charset="UTF-8">
 <br>
 <br>
-<div class="generic-container" ng-controller="setorController as setorCtr" >
+<div class="generic-container" ng-controller="telefoneController as telefoneCtr" >
 
 	<div class="box box-primary">
 		<!-- Default panel contents -->
 		<div class="box-header">
-			<span class="lead">Cadastrar Setor </span>
+			<span class="lead">Editar Telefone </span>
 		</div>
 		<div class="panel-body">
 
 			<br>
 			<div class="container col-sm-12 ">
-				<form role="form-vertical" ng-submit="setorCtr.altera()" >
+				<form role="form-vertical" ng-submit="telefoneCtr.altera()" >
 					<div class="row">
-						<div class="col-sm-12">
-							<input class="form-control" ng-model="setorCtr.setor.nome" placeholder="Descrição" id="descricao" type="text" required>
+						<div class="col-sm-6">
+							<input class="form-control" ng-model="telefoneCtr.listaTelefone.descricao" placeholder="Descrição" id="descricao" type="text" required>
+						</div>
+						<div class="col-sm-6">
+							<input class="form-control" ng-model="telefoneCtr.listaTelefone.telefone" placeholder="telefone" id="telefone" type="text" required>
 						</div>
 					</div>
 					<br>
-					<div class="row">					
-						<div class="col-sm-6"  ng-init="setorCtr.listaTipoSetor()" >
-							<select class="form-control select2" ng-model="setorCtr.setor.tipoSetor" 
-							ng-options="tipoSetores for tipoSetores in setorCtr.listaTipoSetor" 
+					<div class="row">	
+					<div ng-controller="setorController as setorCtrl">			
+						<div class="col-sm-6"   ng-init="setorCtrl.lista()" >
+							<select class="form-control select2" ng-model="telefoneCtr.listaTelefone.setor" 
+							ng-options="setor.nome for setor in setorCtrl.listaSetor" 
 							  style=" width: 100%;" required >
-								<option ng-value="setorCtr.setor.tipoSetor" value="">{{setorCtr.setor.tipoSetor}}</option>
+								<option ng-value="telefoneCtr.listaTelefone.setor" value="">{{telefoneCtr.listaTelefone.setor.nome}}</option>
 							</select>
 						</div>				
-							
+					</div>		
 					<div  ng-controller="unidadeController as unidadeCtrl">	
-					<div class="col-sm-6"  ng-init="unidadeCtrl.lista()" >
-							<select class="form-control select2" ng-model="setorCtr.setor.tipoUnidade" 
-							ng-options="tipoUnidades for tipoUnidades in unidadeCtrl.listaTipoUnidade" 
-							  style=" width: 100%;" required >
-								<option ng-value="setorCtr.setor.tipoUnidade" value="">{{setorCtr.setor.tipoUnidade.mnemonico}}</option>
-							</select>
-						</div>		
-					</div>	
+						<div class="col-sm-6"  ng-init="unidadeCtrl.lista()" >
+								<select class="form-control select2" ng-model="telefoneCtr.listaTelefone.unidade" 
+								ng-options="unidade.dadosUnidade.nome for unidade in unidadeCtrl.listaUnidades" 
+								  style=" width: 100%;" required >
+									<option ng-value="telefoneCtr.listaTelefone.unidade" value="">{{telefoneCtr.listaTelefone.unidade.dadosUnidade.nome}}</option>
+								</select>
+							</div>		
+						</div>	
 					</div>	
 					<br>
 							
 					<div class="row ">
 					
-							<input type="submit" id="submit" value="Salvar" ng-disabled="!setorCtr.setor.nome || !setorCtr.setor.tipoSetor || ! setorCtr.setor.tipoUnidade"
+							<input type="submit" id="submit" value="Salvar" ng-disabled="!telefoneCtr.listaTelefone.setor || !telefoneCtr.listaTelefone.unidade || !telefoneCtr.listaTelefone.telefone"
 								class="btn btn-lg btn-primary btn-block btn-signin">
 						
 					</div>

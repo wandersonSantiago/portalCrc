@@ -1,9 +1,9 @@
-app.factory('telefoneService', function($rootScope, toastr, $http){
+app.factory('funcionarioUnidadeService', function($rootScope, toastr, $http){
 	
 	
 	return{
-		salva: function(listaTelefone){
-			return $http.post('/rest/telefone/salvar', listaTelefone)
+		salva: function(funcionarioUnidade){
+			return $http.post('/rest/recursosHumanos/funcionarioUnidade/salvar', funcionarioUnidade)
 			.then(function(response){
 				sweetAlert({ timer : 3000, text :"Salvo com sucesso", type : "success", width: 300, higth: 100, padding: 20});
 				return response.data;
@@ -13,8 +13,8 @@ app.factory('telefoneService', function($rootScope, toastr, $http){
 			});
 		},
 		
-		altera: function(telefone){
-			return $http.put('/rest/telefone/alterar', telefone)
+		altera: function(funcionarioUnidade){
+			return $http.put('/rest/recursosHumanos/funcionarioUnidade/alterar', funcionarioUnidade)
 			.then(function(response){
 				sweetAlert({ timer : 3000, text :"Salvo com sucesso", type : "success", width: 300, higth: 100, padding: 20});
 				return response.data;
@@ -25,8 +25,8 @@ app.factory('telefoneService', function($rootScope, toastr, $http){
 		},
 		
 		
-		buscarPorId: function(telefone){
-			return $http.get('/rest/telefone/buscaPorId/'+telefone)
+		buscarPorId: function(param){
+			return $http.get('/rest/recursosHumanos/funcionarioUnidade/buscaPorId/'+param)
 			.then(function(response){
 				return response.data;
 			},function(errResponse){
@@ -36,7 +36,7 @@ app.factory('telefoneService', function($rootScope, toastr, $http){
 		},		
 		
 		lista: function(){
-			return $http.get('/rest/telefone/lista')
+			return $http.get('/rest/recursosHumanos/funcionarioUnidade/lista')
 			.then(function(response){
 				return response.data;
 			},function(errResponse){
@@ -44,7 +44,16 @@ app.factory('telefoneService', function($rootScope, toastr, $http){
 				return $q.reject(errResponse);
 			});
 		},
-		
+
+		listaStatus: function(){
+			return $http.get('/rest/recursosHumanos/funcionarioUnidade/status')
+			.then(function(response){
+				return response.data;
+			},function(errResponse){
+				sweetAlert({ timer : 3000,  type : "error", width: 200, higth: 100, padding: 20});
+				return $q.reject(errResponse);
+			});
+		},
 		
 	}
 });

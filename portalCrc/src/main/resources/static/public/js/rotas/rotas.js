@@ -121,6 +121,22 @@ app.config(['$routeProvider','$httpProvider', function($routeProvider, $httpProv
 	.when("/recursosHumanos/setor/editar/:idSetor",{
 		templateUrl : "views/paginas/recursosHumanos/setor/editar.html"
 	})
+	
+	//Função
+	
+	.when("/recursosHumanos/funcao/cadastrar",{
+		templateUrl : "views/paginas/recursosHumanos/funcao/cadastrar.html"
+	})
+		
+	.when("/recursosHumanos/funcao/lista",{
+		templateUrl : "views/paginas/recursosHumanos/funcao/lista.html"
+	})
+	
+	.when("/recursosHumanos/funcao/editar/:idFuncao",{
+		templateUrl : "views/paginas/recursosHumanos/funcao/editar.html"
+	})
+	
+	
 			//ramal
 	.when("/recursosHumanos/setor/ramal/cadastrar",{
 		templateUrl : "views/paginas/recursosHumanos/setor/ramal/cadastrar.html"
@@ -146,6 +162,9 @@ app.config(['$routeProvider','$httpProvider', function($routeProvider, $httpProv
 	
 	.when("/recursosHumanos/funcionario/editar/:idFuncionario",{
 		templateUrl : "views/paginas/recursosHumanos/funcionario/editar.html"
+	})
+	.when("/recursosHumanos/funcionario/unidade/:idFuncionario",{
+		templateUrl : "views/paginas/recursosHumanos/funcionario/atribuirUnidade.html"
 	})
 		
 	

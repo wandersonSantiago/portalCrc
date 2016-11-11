@@ -1,21 +1,20 @@
 app.controller('telefoneController', function($scope,  telefoneService,  $routeParams) {
 
-	var self = this;
-	self.listaTelefone = [];
+	var self = this;	
 	var idTelefone = $routeParams.idTelefone;
 	
-self.salva = function(telefone) {
-	telefoneService.salva(self.telefone).
+self.salva = function(listaTelefone) {
+	telefoneService.salva(self.listaTelefone).
 		then(function(response){
-			self.secretaria = null;
+			self.listaTelefone = null;
 			}, function(errResponse){
 		});
 	}
 	
-	self.altera = function(telefone) {
-		telefoneService.altera(self.telefone).
+	self.altera = function(listaTelefone) {
+		telefoneService.altera(self.listaTelefone).
 		then(function(response){
-			self.secretaria = null;
+			self.listaTelefone = null;
 			}, function(errResponse){
 		});
 	}
@@ -32,7 +31,7 @@ self.salva = function(telefone) {
 			if(!id)return;
 			telefoneService.buscarPorId(id).
 			then(function(p){
-				self.telefone = p;
+				self.listaTelefone = p;
 		}, function(errResponse){
 			});
 		};
@@ -40,37 +39,7 @@ self.salva = function(telefone) {
 		if(idTelefone){
 			self.buscarPorId(idTelefone);
 			
-		}
-		
-		self.adicionarTelefones = function(descricao, telefone, setor){
-			self.listaTelefone.push({
-				descricao :  descricao,
-				telefone : telefone,
-				setor : setor
-			});
-			
-			$scope.visialuzarTable = true;
-			$scopedescricao = null;
-			$scope.telefone = null;
-		}
-			
-	
-		
-		self.ativarExcluirLote = function(listaTelefone){
-			self.listaTelefone.filter(function(telefone){
-			if(telefone.selecionado){
-				$scope.ativadoExcluirLote = true; }
-			});
-		}
-	
-
-	
-		self.apagarTelefone = function(listaTelefone){
-				self.listaTelefone = self.listaTelefone.filter(function(telefone){
-				if(!telefone.selecionado) return telefone;
-				$scope.ativadoExcluirLote = false;
-			});
-		}
-		
+		}		
+				
 
 });

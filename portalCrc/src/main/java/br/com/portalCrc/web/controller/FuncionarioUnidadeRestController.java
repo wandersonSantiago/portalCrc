@@ -1,5 +1,7 @@
 package br.com.portalCrc.web.controller;
 
+import java.util.Arrays;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import br.com.portalCrc.entity.FuncionarioUnidade;
+import br.com.portalCrc.enums.StatusFuncionario;
 import br.com.portalCrc.service.FuncionarioUnidadeService;
 
 @RestController
@@ -48,4 +51,9 @@ public class FuncionarioUnidadeRestController {
 			return new ResponseEntity<FuncionarioUnidade>(funcionarioUnidadeService.buscaPorId(id), HttpStatus.OK);
 		}
 
+	 @RequestMapping(method = RequestMethod.GET, value = "/status")
+		public ResponseEntity<Iterable<StatusFuncionario>> status() {
+			Iterable<StatusFuncionario> status = Arrays.asList(StatusFuncionario.values());
+			return new ResponseEntity<Iterable<StatusFuncionario>>(status, HttpStatus.OK);
+		}
 }

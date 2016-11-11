@@ -24,7 +24,6 @@ self.salva = function(unidade) {
 		 unidadeService.lista().
 			then(function(f){
 				self.listaUnidades = f;	
-				console.log(self.listaUnidades);
 				}, function(errResponse){
 			});
 		};
