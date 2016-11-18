@@ -166,7 +166,43 @@ app.config(['$routeProvider','$httpProvider', function($routeProvider, $httpProv
 	.when("/recursosHumanos/funcionario/unidade/:idFuncionario",{
 		templateUrl : "views/paginas/recursosHumanos/funcionario/atribuirUnidade.html"
 	})
+	
+	//==================CHAMADO=================================================
+	//ChamadoManutencao
+	
+	.when("/chamado/manutencao/cadastrar",{
+		templateUrl : "views/paginas/chamado/manutencao/cadastrar.html"
+	})
 		
+	.when("/chamado/manutencao/lista",{
+		templateUrl : "views/paginas/chamado/manutencao/lista.html"
+	})
+	
+	.when("/chamado/manutencao/suporte/lista",{
+		templateUrl : "views/paginas/chamado/manutencao/suporte/lista.html"
+	})
+	
+	.when("/chamado/manutencao/editar/:idChamadoManutencao",{
+		templateUrl : "views/paginas/chamado/manutencao/editar.html"
+	})
+	//Chamado Tecnologia da Informação
+	
+	.when("/chamado/informatica/cadastrar",{
+		templateUrl : "views/paginas/chamado/informatica/cadastrar.html"
+	})
+		
+	.when("/chamado/informatica/lista",{
+		templateUrl : "views/paginas/chamado/informatica/lista.html"
+	})
+	
+	.when("/chamado/informatica/suporte/lista",{
+		templateUrl : "views/paginas/chamado/informatica/suporte/lista.html"
+	})
+	
+	.when("/chamado/informatica/atendimento/:idChamadoTi",{
+		templateUrl : "views/paginas/chamado/informatica/atendimento.html"
+	})
+	
 	
 	.when('/',{
 		redirectTo : "/home"

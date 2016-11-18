@@ -11,16 +11,23 @@ import javax.persistence.Table;
 
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
 import br.com.portalCrc.enums.TipoSetorEnum;
+import br.com.portalCrc.findControll.View;
 
 @Entity
 @Table(name="setor")
 public class Setor extends AbstractPersistable<Long> {
-
+	
+	
 	@Column(name="nome", nullable = false)
 	private String nome;
+	
+	
 	@Enumerated(EnumType.STRING)
 	private TipoSetorEnum tipoSetor;	
+	
 	@OneToOne
 	@JoinColumn(name="id_tipoUnidade")
 	private TipoUnidade tipoUnidade;

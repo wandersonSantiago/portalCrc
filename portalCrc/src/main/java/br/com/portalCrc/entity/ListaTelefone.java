@@ -16,7 +16,7 @@ public class ListaTelefone extends AbstractPersistable<Long>{
 	@Column(name="descricao")
 	private String descricao;
 	@Column(name="telefone")
-	private Integer telefone;
+	private String telefone;
 	
 	@OneToOne
 	@JoinColumn(name="id_setor")
@@ -45,10 +45,10 @@ public class ListaTelefone extends AbstractPersistable<Long>{
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}
-	public Integer getTelefone() {
+	public String getTelefone() {
 		return telefone;
 	}
-	public void setTelefone(Integer telefone) {
+	public void setTelefone(String telefone) {
 		this.telefone = telefone;
 	}
 	
