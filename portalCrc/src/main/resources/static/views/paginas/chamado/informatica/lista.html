@@ -7,7 +7,7 @@
 	<div class="box box-primary" ng-init="chamadoCtr.listaUsuario()">
 	
 		<div class="box-header">
-			<span class="lead">Lista de Chamados Técnologia da Informação</span>
+			<span class="lead">Lista de Chamados Tecnologia da Informação</span>
 		</div>
 		<div class="panel-body">
 		<input class="form-control" type="text" ng-model="buscaCoordenadoria" placeholder="Buscar">
@@ -15,9 +15,11 @@
 				<thead>
 					<tr>
 						<th>Titulo</th>
+						<th>Solicitante</th>
 						<th>Setor</th>
-						<th>Data de abertura</th>
-						<th>Horário</th>						
+						<th>status</th>
+						<th>Data de abertura</th>	
+						<th>Horário</th>					
 						<th>Opções</th>
 					</tr>
 				</thead>
@@ -25,8 +27,10 @@
 					ng-repeat=" chamado in chamadoCtr.listaChamadoTiUsuario | filter : buscaCoordenadoria ">
 					<tr>
 						<td>{{ chamado.titulo }}</td>
+						<td>{{ chamado.usuarioSolicitante.nome }}</td>
 						<td>{{ chamado.setor.nome }}</td>	
-						<td>{{ chamado.dataAbertura.dayOfMonth }}/{{ chamado.dataAbertura.monthValue }}/{{ chamado.dataAbertura.year }}</td>					
+						<td>{{ chamado.status }}</td>							
+						<td>{{ chamado.dataAbertura.dayOfMonth }}/{{ chamado.dataAbertura.monthValue }}/{{ chamado.dataAbertura.year }}</td>
 						<td>{{ chamado.dataAbertura.hour }} : {{ chamado.dataAbertura.minute }} : {{ chamado.dataAbertura.second }}</td>										
 						<td><a href="#/chamado/informatica/atendimento/{{chamado.id}}"><i class="glyphicon glyphicon-search"></i></a> 
 						

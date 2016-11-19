@@ -24,14 +24,12 @@ public class Usuario extends AbstractPersistable<Long>{
 	private Unidade unidade;	
 	@Column(nullable = false,length = 50)
 	private String nome;
-	@Column(nullable = false,length = 15,unique = false)
+	@Column(nullable = false,length = 15,unique = true)
 	private String login;
 	@Column(nullable = true,length = 40)
 	private String email;
 	@Column(nullable = false,length = 256)
 	private String senha;
-	@Column(nullable = false)
-	
 	
 	public String getNome() {
 		return nome;

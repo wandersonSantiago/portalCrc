@@ -28,9 +28,33 @@ public class ChamadoManutencaoService {
 		chamadoManutencao.setUnidade(SessionUsuario.getInstance().getUsuario().getUnidade());
 		chamadoManutencao.setUsuarioSolicitante(SessionUsuario.getInstance().getUsuario());
 		chamadoManutencao.setStatus(StatusChamado.Aberto);
+		chamadoManutencao.setLido(false);
 		chamadoManutencao.setDataAbertura(LocalDateTime.now());
 		adicionarChamadoNasMensagens(chamadoManutencao);
 	
+		chamadoManutencaoRepository.save(chamadoManutencao);
+	}
+	
+	@Transactional(readOnly = false)
+	public void mensagens(ChamadoManutencao chamadoManutencao){
+		chamadoManutencao.setDataAbertura(LocalDateTime.now());
+		adicionarChamadoNasMensagens(chamadoManutencao);	
+		chamadoManutencaoRepository.save(chamadoManutencao);
+	}
+	@Transactional(readOnly = false)
+	public void atenderChamado(ChamadoManutencao chamadoManutencao){
+		chamadoManutencao.setDataAbertura(LocalDateTime.now());		
+		chamadoManutencao.setStatus(StatusChamado.Em_Andamento);
+		chamadoManutencao.setLido(true);
+		chamadoManutencao.setUsuarioAtendente(SessionUsuario.getInstance().getUsuario());
+		chamadoManutencaoRepository.save(chamadoManutencao);
+	}
+	
+	@Transactional(readOnly = false)
+	public void fecharChamado(ChamadoManutencao chamadoManutencao){
+		chamadoManutencao.setDataAbertura(LocalDateTime.now());		
+		chamadoManutencao.setStatus(StatusChamado.Fechado);
+		//chamadoManutencao.setDataFechamento(LocalDateTime.now());	
 		chamadoManutencaoRepository.save(chamadoManutencao);
 	}
 	

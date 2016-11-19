@@ -82,5 +82,18 @@ app.controller('usuarioController', function($scope, toastr, $rootScope, usuario
 			self.buscaPorId(idUsuario);
 			
 		}
+		self.existeLogin = function(login){			
+			usuarioService.existeLogin(login).
+			then(function(p){
+				self.existe = p;
+				if(self.existe == true){
+					$scope.userCtrl.usuario.login = null;
+					sweetAlert({ timer : 3000,  text :"Usuario já cadastrado",  type : "info", width: 300, higth: 300, padding: 20});
+					
+				}
+				
+				}, function(errResponse){
+			});
+		};
 	
 });

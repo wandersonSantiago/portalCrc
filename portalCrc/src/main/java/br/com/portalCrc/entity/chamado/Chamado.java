@@ -43,14 +43,16 @@ public abstract class Chamado extends AbstractPersistable<Long>{
 	@Column(name="titulo")
 	protected String titulo;
 	
+	@Column(name="lido")
+	protected Boolean lido;
 
 	@Column(name="data_abertura")
 	protected LocalDateTime dataAbertura;
 	
 	
-	@Temporal(TemporalType.DATE)
+	
 	@Column(name="data_fechamento")
-	protected Date dataFechamento;
+	protected  Date dataFechamento;
 	
 	@ManyToOne
 	@JoinColumn(name="id_unidade")
@@ -150,6 +152,12 @@ public abstract class Chamado extends AbstractPersistable<Long>{
 	}
 	public void setSetor(Setor setor) {
 		this.setor = setor;
+	}
+	public Boolean getLido() {
+		return lido;
+	}
+	public void setLido(Boolean lido) {
+		this.lido = lido;
 	}
 	
 	

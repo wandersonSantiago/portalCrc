@@ -65,11 +65,14 @@
 					<br>
 					<div class="row">
 						<div class="col-sm-3">
-							<input class="form-control" name="cepField"	ng-model="unidadeCtrl.unidade.dadosUnidade.endereco.cep" id="cep" placeholder="CEP" type="text"    ui-br-cep-mask required>
-											
+							<input ng-model="unidadeCtrl.unidade.dadosUnidade.endereco.cep" ng-blur="unidadeCtrl.findCep()"  onkeyup="if(this.value.length > 8) { numeroSecretaria.focus(); }" name="cepField" class="form-control" id="cep" type="search"
+								placeholder="CEP"  ui-br-cep-mask required>
+			
+								<p ng-show="empreendimentoForm.cepField.$error.cep"
+						class="alert alert-warning ">Digite um CEP válido</p>
 						</div>
-					</div>
 						
+					</div>							
 
 					<br>
 

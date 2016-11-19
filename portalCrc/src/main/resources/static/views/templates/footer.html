@@ -1,8 +1,20 @@
 
-<footer class="main-footer">
+<footer class="main-footer" ng-controller="chamadoManutencaoController as ctrl" ng-init="ctrl.verificaMensagemLida()">
 
 	<div class="pull-right hidden-xs">Portal Coordenadoria Central</div>
 
-	<strong>Copyright &copy; 2016 <a href="#">CRC</a>.
+	<strong>Copyright &copy; {{tocaMusica}} 2016 <a href="#">CRC</a>.
 	</strong> Todos direitos reservados.
+    
+
+			<audio  id="myVideo" loop="loop" ng-show="teste" controls="controls" height="5px" width="10px">
+			  <source src="/public/img/som.mp3" type="audio/mpeg" />
+				<embed height="5px" width="10px" src="/public/img/som.mp3" />
+			</audio>
+			<div ng-controller="chamadoTiController as ctrl" ng-init="ctrl.verificaMensagemLida()">
+				<audio id="myVideo" loop="loop" ng-show="teste" controls="controls"	height="5px" width="10px">
+					<source src="/public/img/som.mp3" type="audio/mpeg" />
+					<embed height="5px" width="10px" src="/public/img/som.mp3" />
+				</audio>
+			</div>
 </footer>

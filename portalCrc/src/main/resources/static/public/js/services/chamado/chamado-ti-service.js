@@ -13,13 +13,33 @@ app.factory('chamadoTiService', function($rootScope, toastr, $http){
 			});
 		},
 		
-		salvaMensagem: function(Mensagem){
-			return $http.post('/rest/chamado/mensagem/salvar', Mensagem)
+		salvaMensagem: function(mensagem){
+			return $http.put('/rest/chamado/chamadoTi/mensagem', mensagem)
 			.then(function(response){
-				sweetAlert({ timer : 3000, text :"Salvo com sucesso", type : "success", width: 300, higth: 100, padding: 20});
+				sweetAlert({ timer : 3000, text :"Mensagem Enviada", type : "success", width: 300, higth: 100, padding: 20});
 				return response.data;
 			},function(errResponse){
-				sweetAlert({ timer : 3000,  text :"falha na conexão",  type : "error", width: 300, higth: 300, padding: 20});
+				sweetAlert({ timer : 3000,  text :"Mensagem não Enviada",  type : "error", width: 300, higth: 300, padding: 20});
+				return $q.reject(errResponse);
+			});
+		},
+		atenderChamado: function(chamado){
+			return $http.put('/rest/chamado/chamadoTi/atender', chamado)
+			.then(function(response){
+				sweetAlert({ timer : 3000, text :"Chamado Aberto", type : "success", width: 300, higth: 100, padding: 20});
+				return response.data;
+			},function(errResponse){
+				sweetAlert({ timer : 3000,  text :"Erro",  type : "error", width: 300, higth: 300, padding: 20});
+				return $q.reject(errResponse);
+			});
+		},
+		fecharChamado: function(chamado){
+			return $http.put('/rest/chamado/chamadoTi/fechar', chamado)
+			.then(function(response){
+				sweetAlert({ timer : 3000, text :"Encerrado", type : "success", width: 300, higth: 100, padding: 20});
+				return response.data;
+			},function(errResponse){
+				sweetAlert({ timer : 3000,  text :"não encerrado",  type : "error", width: 300, higth: 300, padding: 20});
 				return $q.reject(errResponse);
 			});
 		},

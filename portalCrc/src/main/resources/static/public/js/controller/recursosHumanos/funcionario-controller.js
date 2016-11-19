@@ -1,9 +1,19 @@
-app.controller('funcionarioController', function($scope,  funcionarioService,  $routeParams) {
+app.controller('funcionarioController', function($scope, buscaCepService, funcionarioService,  $routeParams) {
 
 	var self = this;
 	
 	var idFuncionario = $routeParams.idFuncionario;
 	
+self.findCep = function () {
+		
+		self.cep = $scope.cadFuncCtrl.funcionario.pessoa.endereco.cep;
+		buscaCepService.get({'cep': self.cep}).$promise
+		.then(function success(result){
+			$scope.cadFuncCtrl.funcionario.pessoa.endereco = result;
+		}).catch(function error(msg) {
+		});
+		
+    }
 self.salva = function(funcionario) {
 		funcionarioService.salva(self.funcionario).
 		then(function(response){

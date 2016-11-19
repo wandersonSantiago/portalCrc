@@ -1,9 +1,20 @@
-app.controller('unidadeController', function($scope,  unidadeService,  $routeParams) {
+app.controller('unidadeController', function($scope, buscaCepService,  unidadeService,  $routeParams) {
 
 	var self = this;
 	
 	var idUnidade = $routeParams.idUnidade;
 	
+self.findCep = function () {
+		
+		self.cep = $scope.unidadeCtrl.unidade.dadosUnidade.endereco.cep;
+		buscaCepService.get({'cep': self.cep}).$promise
+		.then(function success(result){
+			$scope.unidadeCtrl.unidade.dadosUnidade.endereco = result;
+		}).catch(function error(msg) {
+		});
+		
+    }
+
 self.salva = function(unidade) {
 	unidadeService.salva(self.unidade).
 		then(function(response){

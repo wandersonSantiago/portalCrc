@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import br.com.portalCrc.entity.Usuario;
+import br.com.portalCrc.entity.chamado.ChamadoManutencao;
 import br.com.portalCrc.entity.chamado.ChamadoTi;
 import br.com.portalCrc.enums.chamado.StatusChamado;
 import br.com.portalCrc.pojo.SessionUsuario;
@@ -28,9 +29,33 @@ public class ChamadoTiService {
 		chamadoTi.setUnidade(SessionUsuario.getInstance().getUsuario().getUnidade());
 		chamadoTi.setUsuarioSolicitante(SessionUsuario.getInstance().getUsuario());
 		chamadoTi.setStatus(StatusChamado.Aberto);
+		chamadoTi.setLido(false);
 		chamadoTi.setDataAbertura(LocalDateTime.now());
 		adicionarChamadoNasMensagens(chamadoTi);
 		
+		chamadoTiRepository.save(chamadoTi);
+	}
+	
+	@Transactional(readOnly = false)
+	public void mensagens(ChamadoTi chamadoTi){
+		chamadoTi.setDataAbertura(LocalDateTime.now());
+		adicionarChamadoNasMensagens(chamadoTi);	
+		chamadoTiRepository.save(chamadoTi);
+	}
+	@Transactional(readOnly = false)
+	public void atenderChamado(ChamadoTi chamadoTi){
+		chamadoTi.setDataAbertura(LocalDateTime.now());		
+		chamadoTi.setStatus(StatusChamado.Em_Andamento);
+		chamadoTi.setLido(true);
+		chamadoTi.setUsuarioAtendente(SessionUsuario.getInstance().getUsuario());
+		chamadoTiRepository.save(chamadoTi);
+	}
+	
+	@Transactional(readOnly = false)
+	public void fecharChamado(ChamadoTi chamadoTi){
+		chamadoTi.setDataAbertura(LocalDateTime.now());		
+		chamadoTi.setStatus(StatusChamado.Fechado);
+		//chamadoTi.setDataFechamento(LocalDateTime.now());	
 		chamadoTiRepository.save(chamadoTi);
 	}
 	

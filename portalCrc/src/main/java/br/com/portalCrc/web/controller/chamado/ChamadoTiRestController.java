@@ -64,4 +64,26 @@ public class ChamadoTiRestController {
 			Iterable<PrioridadeChamado> prioridadeChamado = Arrays.asList(PrioridadeChamado.values());
 			return new ResponseEntity<Iterable<PrioridadeChamado>>(prioridadeChamado, HttpStatus.OK);
 		}
+	 
+	 @RequestMapping(method = RequestMethod.PUT, value="/mensagem")
+	 public ResponseEntity<ChamadoTi> mensagem(@RequestBody ChamadoTi chamadoTi,UriComponentsBuilder ucBuilder){
+		 chamadoTiService.mensagens(chamadoTi);
+		 HttpHeaders headers =new HttpHeaders();
+	 return new ResponseEntity<ChamadoTi>(headers, HttpStatus.CREATED);
+	 }
+	 
+	 @RequestMapping(method = RequestMethod.PUT, value="/atender")
+	 public ResponseEntity<ChamadoTi> atender(@RequestBody ChamadoTi chamadoTi,UriComponentsBuilder ucBuilder){
+		 chamadoTiService.atenderChamado(chamadoTi);
+		 HttpHeaders headers =new HttpHeaders();
+	 return new ResponseEntity<ChamadoTi>(headers, HttpStatus.CREATED);
+	 }
+	 
+	 @RequestMapping(method = RequestMethod.PUT, value="/fechar")
+	 public ResponseEntity<ChamadoTi> fechar(@RequestBody ChamadoTi chamadoTi,UriComponentsBuilder ucBuilder){
+		 chamadoTiService.fecharChamado(chamadoTi);
+		 HttpHeaders headers =new HttpHeaders();
+	 return new ResponseEntity<ChamadoTi>(headers, HttpStatus.CREATED);
+	 }
+	
 }

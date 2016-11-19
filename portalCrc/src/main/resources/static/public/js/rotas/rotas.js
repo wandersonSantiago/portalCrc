@@ -178,6 +178,14 @@ app.config(['$routeProvider','$httpProvider', function($routeProvider, $httpProv
 		templateUrl : "views/paginas/chamado/manutencao/lista.html"
 	})
 	
+	.when("/chamado/manutencao/atendimento/:idChamadoManutencao",{
+		templateUrl : "views/paginas/chamado/manutencao/atendimento.html"
+	})
+	
+	.when("/chamado/manutencao/suporte/atendimento/:idChamadoManutencao",{
+		templateUrl : "views/paginas/chamado/manutencao/suporte/atendimento.html"
+	})
+	
 	.when("/chamado/manutencao/suporte/lista",{
 		templateUrl : "views/paginas/chamado/manutencao/suporte/lista.html"
 	})
@@ -199,10 +207,14 @@ app.config(['$routeProvider','$httpProvider', function($routeProvider, $httpProv
 		templateUrl : "views/paginas/chamado/informatica/suporte/lista.html"
 	})
 	
+
 	.when("/chamado/informatica/atendimento/:idChamadoTi",{
 		templateUrl : "views/paginas/chamado/informatica/atendimento.html"
 	})
 	
+	.when("/chamado/informatica/suporte/atendimento/:idChamadoTi",{
+		templateUrl : "views/paginas/chamado/informatica/suporte/atendimento.html"
+	})
 	
 	.when('/',{
 		redirectTo : "/home"

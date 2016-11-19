@@ -15,7 +15,9 @@
 				<thead>
 					<tr>
 						<th>Titulo</th>
+						<th>Solicitante</th>
 						<th>Setor</th>
+						<th>Status</th>
 						<th>Data de abertura</th>	
 						<th>Horário</th>					
 						<th>Opções</th>
@@ -25,10 +27,12 @@
 					ng-repeat=" chamado in chamadoCtr.listaChamadoManutencaoSuporte | filter : buscaCoordenadoria ">
 					<tr>
 						<td>{{ chamado.titulo }}</td>
+						<td>{{ chamado.usuarioSolicitante.nome }}</td>
 						<td>{{ chamado.setor.nome }}</td>	
+						<td>{{ chamado.status }}</td>	
 						<td>{{ chamado.dataAbertura.dayOfMonth }}/{{ chamado.dataAbertura.monthValue }}/{{ chamado.dataAbertura.year }}</td>
 						<td>{{ chamado.dataAbertura.hour }} : {{ chamado.dataAbertura.minute }} : {{ chamado.dataAbertura.second }}</td>										
-						<td><a href="#/chamado/manutencao/editar/{{chamado.id}}"><i class="glyphicon glyphicon-pencil"></i></a> 
+						<td><a href="#/chamado/manutencao/suporte/atendimento/{{chamado.id}}"><i class="glyphicon glyphicon-pencil"></i></a> 
 						
 				</tr>
 				</tbody>

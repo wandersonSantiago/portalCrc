@@ -46,13 +46,26 @@ public class ChamadoManutencaoRestController {
 		 return new ResponseEntity<ChamadoManutencao>(headers, HttpStatus.CREATED);
 	 }
 
-	 @RequestMapping(method = RequestMethod.PUT, value="/alterar")
+	 @RequestMapping(method = RequestMethod.PUT, value="/mensagem")
 	 public ResponseEntity<ChamadoManutencao> alterar(@RequestBody ChamadoManutencao chamadoManutencao,UriComponentsBuilder ucBuilder){
-		 chamadoManutencaoService.salvarEditar(chamadoManutencao);
+		 chamadoManutencaoService.mensagens(chamadoManutencao);
 		 HttpHeaders headers =new HttpHeaders();
 	 return new ResponseEntity<ChamadoManutencao>(headers, HttpStatus.CREATED);
 	 }
-
+	 
+	 @RequestMapping(method = RequestMethod.PUT, value="/atender")
+	 public ResponseEntity<ChamadoManutencao> atender(@RequestBody ChamadoManutencao chamadoManutencao,UriComponentsBuilder ucBuilder){
+		 chamadoManutencaoService.atenderChamado(chamadoManutencao);
+		 HttpHeaders headers =new HttpHeaders();
+	 return new ResponseEntity<ChamadoManutencao>(headers, HttpStatus.CREATED);
+	 }
+	 
+	 @RequestMapping(method = RequestMethod.PUT, value="/fechar")
+	 public ResponseEntity<ChamadoManutencao> fechar(@RequestBody ChamadoManutencao chamadoManutencao,UriComponentsBuilder ucBuilder){
+		 chamadoManutencaoService.fecharChamado(chamadoManutencao);
+		 HttpHeaders headers =new HttpHeaders();
+	 return new ResponseEntity<ChamadoManutencao>(headers, HttpStatus.CREATED);
+	 }
 	
 	 @RequestMapping(value = "/buscaPorId/{id}", method = RequestMethod.GET)
 		public ResponseEntity<ChamadoManutencao> buscarPorId(@PathVariable Long id) {
