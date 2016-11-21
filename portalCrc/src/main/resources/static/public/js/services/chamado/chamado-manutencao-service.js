@@ -12,10 +12,21 @@ app.factory('chamadoManutencaoService', function($rootScope, toastr, $http){
 				return $q.reject(errResponse);
 			});
 		},
+		salvaServicos: function(chamado){
+			return $http.put('/rest/chamado/chamadoManutencao/servicos', chamado)
+			.then(function(response){
+				toastr.info("Serviços Salvo");
+				return response.data;
+			},function(errResponse){
+				sweetAlert({ timer : 3000,  text :"Erro",  type : "error", width: 300, higth: 300, padding: 20});
+				return $q.reject(errResponse);
+			});
+		},
 		salvaMensagem: function(mensagem){
 			return $http.put('/rest/chamado/chamadoManutencao/mensagem', mensagem)
 			.then(function(response){
-				sweetAlert({ timer : 3000, text :"Mensagem Enviada", type : "success", width: 300, higth: 100, padding: 20});
+				toastr.info("Mensagem Enviada");
+				//	sweetAlert({ timer : 3000, text :"Mensagem Enviada", type : "success", width: 300, higth: 100, padding: 20});
 				return response.data;
 			},function(errResponse){
 				sweetAlert({ timer : 3000,  text :"Mensagem não Enviada",  type : "error", width: 300, higth: 300, padding: 20});
@@ -25,7 +36,7 @@ app.factory('chamadoManutencaoService', function($rootScope, toastr, $http){
 		atenderChamado: function(chamado){
 			return $http.put('/rest/chamado/chamadoManutencao/atender', chamado)
 			.then(function(response){
-				sweetAlert({ timer : 3000, text :"Chamado Aberto", type : "success", width: 300, higth: 100, padding: 20});
+				sweetAlert({ timer : 3000, text :"Chamado Atendido", type : "success", width: 300, higth: 100, padding: 20});
 				return response.data;
 			},function(errResponse){
 				sweetAlert({ timer : 3000,  text :"Erro",  type : "error", width: 300, higth: 300, padding: 20});
@@ -84,6 +95,15 @@ app.factory('chamadoManutencaoService', function($rootScope, toastr, $http){
 		},
 		prioridade: function(){
 			return $http.get('/rest/chamado/chamadoManutencao/prioridade')
+			.then(function(response){
+				return response.data;
+			},function(errResponse){
+				sweetAlert({ timer : 3000,  type : "error", width: 200, higth: 100, padding: 20});
+				return $q.reject(errResponse);
+			});
+		},
+		status : function(){
+			return $http.get('/rest/chamado/chamadoTi/status')
 			.then(function(response){
 				return response.data;
 			},function(errResponse){

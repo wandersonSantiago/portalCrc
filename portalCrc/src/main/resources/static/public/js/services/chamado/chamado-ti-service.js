@@ -84,7 +84,16 @@ app.factory('chamadoTiService', function($rootScope, toastr, $http){
 			});
 		},
 		prioridade: function(){
-			return $http.get('/rest/chamado/chamadoManutencao/prioridade')
+			return $http.get('/rest/chamado/chamadoTi/prioridade')
+			.then(function(response){
+				return response.data;
+			},function(errResponse){
+				sweetAlert({ timer : 3000,  type : "error", width: 200, higth: 100, padding: 20});
+				return $q.reject(errResponse);
+			});
+		},
+		status : function(){
+			return $http.get('/rest/chamado/chamadoTi/status')
 			.then(function(response){
 				return response.data;
 			},function(errResponse){

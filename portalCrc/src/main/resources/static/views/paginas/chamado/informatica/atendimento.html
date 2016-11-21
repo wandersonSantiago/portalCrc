@@ -31,7 +31,13 @@
 						<div class="col-sm-6" >
 						Solicitante
 							<input class="form-control"  ng-model="chamadoCtrl.chamadoTi.usuarioSolicitante.nome"  type="text"  disabled required>						
-						</div>										
+						</div>
+						<div class="col-sm-6" ng-if="chamadoCtrl.chamadoTi.usuarioAtendente" >
+						Técnico
+							<input class="form-control"  ng-model="chamadoCtrl.chamadoTi.usuarioAtendente.nome"  type="text"  disabled required>						
+						</div>
+					</div>		
+					<div class="row">										
 						<div class="col-sm-6" >
 						Titulo
 							<input class="form-control" placeholder="Titulo" ng-model="chamadoCtrl.chamadoTi.titulo" id="titulo" name="titulo" type="text"  disabled required>						
@@ -56,7 +62,7 @@
 					<div class="row ">
 						<div class="col-sm-4"></div>
 						<div class="col-sm-4">
-							<input type="submit" id="submit" value="Enviar"	class="btn btn-lg btn-primary btn-block btn-signin">
+							<input type="submit" id="submit" value="Enviar" ng-disabled="!texto"	class="btn btn-lg btn-primary btn-block btn-signin">
 						</div>
 					</div>
 					</div>
@@ -75,7 +81,7 @@
 								<br>
 								<div class="box-body">
 									
-										<div ng-repeat=" mensagem in chamadoCtrl.chamadoTi.mensagens | filter : buscaCoordenadoria ">
+										<div ng-repeat=" mensagem in chamadoCtrl.chamadoTi.mensagens | orderBy:'-id' ">
 											<div class="direct-chat-msg" ng-if="!mensagem.usuario.id">
 												<div class="direct-chat-info clearfix">
 													<span class="direct-chat-name pull-left">{{mensagem.usuario.nome}}</span>
@@ -101,6 +107,7 @@
 													alt="message user image">
 												<div class="direct-chat-text">{{ mensagem.texto }}</div>
 											</div>
+											<br>
 										</div>
 									
 								</div>

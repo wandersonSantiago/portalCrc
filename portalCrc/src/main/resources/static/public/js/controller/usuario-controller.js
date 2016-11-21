@@ -64,7 +64,6 @@ app.controller('usuarioController', function($scope, toastr, $rootScope, usuario
 					u.ativo = "inativo";
 					self.usuarios = u;
 				}
-				console.log(self.usuarios.ativo);
 				}, function(errResponse){
 			});
 		};

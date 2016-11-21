@@ -15,6 +15,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import br.com.portalCrc.entity.chamado.ChamadoTi;
 import br.com.portalCrc.enums.chamado.PrioridadeChamado;
+import br.com.portalCrc.enums.chamado.StatusChamado;
 import br.com.portalCrc.service.chamado.ChamadoTiService;
 
 @RestController
@@ -85,5 +86,9 @@ public class ChamadoTiRestController {
 		 HttpHeaders headers =new HttpHeaders();
 	 return new ResponseEntity<ChamadoTi>(headers, HttpStatus.CREATED);
 	 }
-	
+	 @RequestMapping(method = RequestMethod.GET, value = "/status")
+		public ResponseEntity<Iterable<StatusChamado>> status() {
+			Iterable<StatusChamado> statusChamado = Arrays.asList(StatusChamado.values());
+			return new ResponseEntity<Iterable<StatusChamado>>(statusChamado, HttpStatus.OK);
+		}
 }

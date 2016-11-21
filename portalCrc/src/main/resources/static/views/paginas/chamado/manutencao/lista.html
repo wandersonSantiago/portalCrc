@@ -9,22 +9,46 @@
 		<div class="box-header">
 			<span class="lead">Lista de Chamados Manutenção</span>
 		</div>
-		<div class="panel-body">
-		<input class="form-control" type="text" ng-model="buscaCoordenadoria" placeholder="Buscar">
+		<div class="panel-body">		
 			<table class="table table-hover table-bordered">
 				<thead>
 					<tr>
-						<th>Titulo</th>
-						<th>Solicitante</th>
-						<th>Setor</th>
-						<th>status</th>
-						<th>Data de abertura</th>	
+						<th>
+							<input class="form-control" type="text" ng-model="buscaCoordenadoria" placeholder="Titulo">
+				  		</th>
+				  		
+						<th>
+							<input class="form-control" type="text" ng-model="buscaCoordenadoria" placeholder="Solicitante">
+						</th>
+						
+						<th>						
+						<div ng-controller="setorController as setorCtrl" ng-init="setorCtrl.lista()" >
+								<select class="form-control" ng-model="buscaCoordenadoria" 
+								ng-options="setores.nome group by setores.tipoSetor.mnemonico for setores in setorCtrl.listaSetor" 
+								  style=" width: 100%;" required >
+									<option value="">Setor</option>
+								</select>
+							</div>								
+						</th>
+						
+						<th>
+							<div  ng-init="chamadoCtr.status()" >
+								<select class="form-control" ng-model="buscaCoordenadoria" 
+								ng-options="status for status in chamadoCtr.listaStatus" 
+								  style=" width: 100%;" required >
+									<option value="">Status</option>
+								</select>
+							</div>	
+						</th>
+						
+						<th>Data de abertura</th>
+							
 						<th>Horário</th>					
 						<th>Opções</th>
 					</tr>
 				</thead>
 				<tbody
-					ng-repeat=" chamado in chamadoCtr.listaChamadoManutencaoUsuario | filter : buscaCoordenadoria ">
+					ng-repeat=" chamado in chamadoCtr.listaChamadoManutencaoUsuario | filter : buscaCoordenadoria | orderBy : '-id' ">
 					<tr>
 						<td>{{ chamado.titulo }}</td>
 						<td>{{ chamado.usuarioSolicitante.nome }}</td>

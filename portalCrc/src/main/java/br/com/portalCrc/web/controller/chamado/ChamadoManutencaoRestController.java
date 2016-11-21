@@ -15,6 +15,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import br.com.portalCrc.entity.chamado.ChamadoManutencao;
 import br.com.portalCrc.enums.chamado.PrioridadeChamado;
+import br.com.portalCrc.enums.chamado.StatusChamado;
 import br.com.portalCrc.service.chamado.ChamadoManutencaoService;
 
 @RestController
@@ -42,6 +43,12 @@ public class ChamadoManutencaoRestController {
 	 @RequestMapping(method = RequestMethod.POST, value="/salvar")
 	 public ResponseEntity<ChamadoManutencao> salvar(@RequestBody ChamadoManutencao chamadoManutencao,UriComponentsBuilder ucBuilder){
 		 chamadoManutencaoService.salvarEditar(chamadoManutencao);
+		 HttpHeaders headers =new HttpHeaders();
+		 return new ResponseEntity<ChamadoManutencao>(headers, HttpStatus.CREATED);
+	 }
+	 @RequestMapping(method = RequestMethod.PUT, value="/servicos")
+	 public ResponseEntity<ChamadoManutencao> servicos(@RequestBody ChamadoManutencao chamadoManutencao,UriComponentsBuilder ucBuilder){
+		 chamadoManutencaoService.servicos(chamadoManutencao);
 		 HttpHeaders headers =new HttpHeaders();
 		 return new ResponseEntity<ChamadoManutencao>(headers, HttpStatus.CREATED);
 	 }
@@ -76,6 +83,11 @@ public class ChamadoManutencaoRestController {
 		public ResponseEntity<Iterable<PrioridadeChamado>> prioridade() {
 			Iterable<PrioridadeChamado> prioridadeChamado = Arrays.asList(PrioridadeChamado.values());
 			return new ResponseEntity<Iterable<PrioridadeChamado>>(prioridadeChamado, HttpStatus.OK);
+		}
+	 @RequestMapping(method = RequestMethod.GET, value = "/status")
+		public ResponseEntity<Iterable<StatusChamado>> status() {
+			Iterable<StatusChamado> statusChamado = Arrays.asList(StatusChamado.values());
+			return new ResponseEntity<Iterable<StatusChamado>>(statusChamado, HttpStatus.OK);
 		}
 
 }

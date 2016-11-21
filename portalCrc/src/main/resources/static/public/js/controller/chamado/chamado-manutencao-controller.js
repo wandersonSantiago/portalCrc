@@ -7,6 +7,9 @@ app.controller('chamadoManutencaoController', function($scope, $rootScope, chama
 	
 	var idChamadoManutencao = $routeParams.idChamadoManutencao;
 	
+	
+	
+	
 self.salva = function(chamadoManutencao) {
 	self.chamadoManutencao.mensagens = [{texto : $scope.texto}];
 	chamadoManutencaoService.salva(self.chamadoManutencao).
@@ -23,6 +26,16 @@ self.salva = function(chamadoManutencao) {
 		then(function(response){
 			$scope.texto = null;
 			self.buscarPorId(idChamadoManutencao);
+			}, function(errResponse){
+		});
+	}
+	self.salvaServicos = function(descricao) {			
+		self.chamadoManutencao.descricaoServico = descricao;
+		self.chamadoManutencao.mensagens = null;
+		self.chamadoManutencao.dataAbertura = null;	
+		console.log(self.chamadoManutencao);
+		chamadoManutencaoService.salvaServicos(self.chamadoManutencao).
+		then(function(response){		
 			}, function(errResponse){
 		});
 	}
@@ -86,15 +99,14 @@ self.salva = function(chamadoManutencao) {
 		 chamadoManutencaoService.listaSuporte().
 			then(function(f){
 				self.listaChamadoManutencaoSuporte = f;	
+				self.tocaMusica = 0;
 				for(i = 0 ; i < self.listaChamadoManutencaoSuporte.length ; i++){
 					if(self.listaChamadoManutencaoSuporte[i].lido == false){
 						
-						$scope.tocaMusica = i;
-						console.log($scope.tocaMusica);
+						self.tocaMusica = i;
 					}
-					if($scope.tocaMusica > 0 ){
-						console.log("tetetet");
-						self.enableAutoplay(); 
+					if(self.tocaMusica > 0 ){
+						self.enableAutoplay(); 						
 					}else{
 						self.disableAutoplay();
 					}
@@ -124,9 +136,11 @@ self.salva = function(chamadoManutencao) {
 				});
 			};
 			
+			
 			self.verificaMensagemLida = function(){
 				self.listaSuporte();
-				self.listaUsuario();				
+				self.listaUsuario();		
+				setTimeout(self.verificaMensagemLida, 20000);
 			}
 			
 		 self.prioridade = function(){
@@ -137,7 +151,13 @@ self.salva = function(chamadoManutencao) {
 				});
 			};
 		
-		
+			self.status = function(){
+				chamadoManutencaoService.status().
+					then(function(f){
+						self.listaStatus = f;			
+						}, function(errResponse){
+					});
+				};
 	self.buscarPorId = function(id){
 			if(!id)return;
 			chamadoManutencaoService.buscarPorId(id).

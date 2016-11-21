@@ -36,6 +36,12 @@ public class ChamadoManutencaoService {
 	}
 	
 	@Transactional(readOnly = false)
+	public void servicos(ChamadoManutencao chamadoManutencao){
+		chamadoManutencao.setDataAbertura(LocalDateTime.now());	
+		chamadoManutencaoRepository.save(chamadoManutencao);
+	}
+	
+	@Transactional(readOnly = false)
 	public void mensagens(ChamadoManutencao chamadoManutencao){
 		chamadoManutencao.setDataAbertura(LocalDateTime.now());
 		adicionarChamadoNasMensagens(chamadoManutencao);	

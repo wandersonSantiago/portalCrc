@@ -69,7 +69,7 @@ self.salva = function(chamadoTi) {
 	})
 }
 	
-	var vid = document.getElementById("myVideo");
+	var vid = document.getElementById("myAudio");
 	
 	self.enableAutoplay = function() { 
 	    vid.autoplay = true;
@@ -86,13 +86,13 @@ self.salva = function(chamadoTi) {
 		 chamadoTiService.listaSuporte().
 			then(function(f){
 				self.listaChamadoTiSuporte = f;	
+				self.tocaMusica = 0;
 				for(i = 0 ; i < self.listaChamadoTiSuporte.length ; i++){
 					if(self.listaChamadoTiSuporte[i].lido == false){
 						
-						$scope.tocaMusica = i;
-						console.log($scope.tocaMusica);
+						self.tocaMusica = i;
 					}
-					if($scope.tocaMusica > 0 ){
+					if(self.tocaMusica > 0 ){
 						self.enableAutoplay(); 
 					}else{
 						self.disableAutoplay();
@@ -125,7 +125,8 @@ self.salva = function(chamadoTi) {
 			
 			self.verificaMensagemLida = function(){
 				self.listaSuporte();
-				self.listaUsuario();				
+				self.listaUsuario();
+				setTimeout(self.verificaMensagemLida, 20000);
 			}
 			
 		 self.prioridade = function(){
@@ -135,7 +136,13 @@ self.salva = function(chamadoTi) {
 					}, function(errResponse){
 				});
 			};
-		
+			self.status = function(){
+				 chamadoTiService.status().
+					then(function(f){
+						self.listaStatus = f;			
+						}, function(errResponse){
+					});
+				};
 		
 	self.buscarPorId = function(id){
 			if(!id)return;
