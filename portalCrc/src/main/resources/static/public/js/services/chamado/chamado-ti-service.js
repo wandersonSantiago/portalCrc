@@ -33,6 +33,26 @@ app.factory('chamadoTiService', function($rootScope, toastr, $http){
 				return $q.reject(errResponse);
 			});
 		},
+		silenciarChamadoFalse: function(chamado){
+			return $http.put('/rest/chamado/chamadoTi/silenciar/false', chamado)
+			.then(function(response){
+				toastr.info("Alerta Ativado");
+				return response.data;
+			},function(errResponse){
+				sweetAlert({ timer : 3000,  text :"não silenciado",  type : "error", width: 300, higth: 300, padding: 20});
+				return $q.reject(errResponse);
+			});
+		},
+		silenciarChamadoTrue: function(chamado){
+			return $http.put('/rest/chamado/chamadoTi/silenciar/true', chamado)
+			.then(function(response){
+				toastr.info("Alerta desativado");
+				return response.data;
+			},function(errResponse){
+				sweetAlert({ timer : 3000,  text :"não silenciado",  type : "error", width: 300, higth: 300, padding: 20});
+				return $q.reject(errResponse);
+			});
+		},
 		fecharChamado: function(chamado){
 			return $http.put('/rest/chamado/chamadoTi/fechar', chamado)
 			.then(function(response){

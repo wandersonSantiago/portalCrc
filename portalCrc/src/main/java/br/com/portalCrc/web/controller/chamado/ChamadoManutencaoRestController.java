@@ -73,6 +73,19 @@ public class ChamadoManutencaoRestController {
 		 HttpHeaders headers =new HttpHeaders();
 	 return new ResponseEntity<ChamadoManutencao>(headers, HttpStatus.CREATED);
 	 }
+	 
+	 @RequestMapping(method = RequestMethod.PUT, value="/silenciar/false")
+	 public ResponseEntity<ChamadoManutencao> silenciarFalse(@RequestBody ChamadoManutencao chamadoManutencao,UriComponentsBuilder ucBuilder){
+		 chamadoManutencaoService.silenciarChamadoFalse(chamadoManutencao);
+		 HttpHeaders headers =new HttpHeaders();
+	 return new ResponseEntity<ChamadoManutencao>(headers, HttpStatus.CREATED);
+	 }
+	 @RequestMapping(method = RequestMethod.PUT, value="/silenciar/true")
+	 public ResponseEntity<ChamadoManutencao> silenciarTrue(@RequestBody ChamadoManutencao chamadoManutencao,UriComponentsBuilder ucBuilder){
+		 chamadoManutencaoService.silenciarChamadoTrue(chamadoManutencao);
+		 HttpHeaders headers =new HttpHeaders();
+	 return new ResponseEntity<ChamadoManutencao>(headers, HttpStatus.CREATED);
+	 }
 	
 	 @RequestMapping(value = "/buscaPorId/{id}", method = RequestMethod.GET)
 		public ResponseEntity<ChamadoManutencao> buscarPorId(@PathVariable Long id) {

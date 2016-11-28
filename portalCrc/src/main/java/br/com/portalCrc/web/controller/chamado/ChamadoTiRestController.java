@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import br.com.portalCrc.entity.chamado.ChamadoManutencao;
 import br.com.portalCrc.entity.chamado.ChamadoTi;
 import br.com.portalCrc.enums.chamado.PrioridadeChamado;
 import br.com.portalCrc.enums.chamado.StatusChamado;
@@ -83,6 +84,20 @@ public class ChamadoTiRestController {
 	 @RequestMapping(method = RequestMethod.PUT, value="/fechar")
 	 public ResponseEntity<ChamadoTi> fechar(@RequestBody ChamadoTi chamadoTi,UriComponentsBuilder ucBuilder){
 		 chamadoTiService.fecharChamado(chamadoTi);
+		 HttpHeaders headers =new HttpHeaders();
+	 return new ResponseEntity<ChamadoTi>(headers, HttpStatus.CREATED);
+	 }
+	 
+	 @RequestMapping(method = RequestMethod.PUT, value="/silenciar/false")
+	 public ResponseEntity<ChamadoTi> silenciarFalse(@RequestBody ChamadoTi chamadoTi,UriComponentsBuilder ucBuilder){
+		 chamadoTiService.silenciarChamadoFalse(chamadoTi);
+		 HttpHeaders headers =new HttpHeaders();
+	 return new ResponseEntity<ChamadoTi>(headers, HttpStatus.CREATED);
+	 }
+	 
+	 @RequestMapping(method = RequestMethod.PUT, value="/silenciar/true")
+	 public ResponseEntity<ChamadoTi> silenciarTrue(@RequestBody ChamadoTi chamadoTi,UriComponentsBuilder ucBuilder){
+		 chamadoTiService.silenciarChamadoTrue(chamadoTi);
 		 HttpHeaders headers =new HttpHeaders();
 	 return new ResponseEntity<ChamadoTi>(headers, HttpStatus.CREATED);
 	 }

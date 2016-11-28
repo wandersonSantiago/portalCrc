@@ -18,7 +18,6 @@ self.salva = function(chamadoTi) {
 	
 	self.salvaMensagem = function(chamadoTi) {
 		self.chamadoTi.mensagens = [{texto : $scope.texto}];
-		self.chamadoTi.dataAbertura = null;
 		chamadoTiService.salvaMensagem(self.chamadoTi).
 		then(function(response){
 			$scope.texto = null;
@@ -26,9 +25,26 @@ self.salva = function(chamadoTi) {
 			}, function(errResponse){
 		});
 	}
+	self.silenciarChamadoFalse = function(chamadoTi) {
+		chamadoTi.mensagens = null;
+		chamadoTiService.silenciarChamadoFalse(chamadoTi).
+			then(function(response){				
+				self.listaSuporte();
+				}, function(errResponse){					
+			});
+		};
+		
+		self.silenciarChamadoTrue = function(chamadoTi) {
+			chamadoTi.mensagens = null;
+			chamadoTiService.silenciarChamadoTrue(chamadoTi).
+				then(function(response){
+					self.listaSuporte();
+					}, function(errResponse){						
+				});
+			};
+	
 	self.atenderChamado = function(chamadoTi) {
 		self.chamadoTi.mensagens = null;
-		self.chamadoTi.dataAbertura = null;	
 		swal({
 			  title: 'Atender Chamado!!!',
 			  text: "Tem que certeza que deseja atender este chamado?",
@@ -50,7 +66,6 @@ self.salva = function(chamadoTi) {
 	
 	self.fecharChamado = function(chamadoTi) {
 		self.chamadoTi.mensagens = null;
-		self.chamadoTi.dataAbertura = null;	
 		swal({
 			  title: 'Encerrar Chamado!!!',
 			  text: "Tem que certeza que deseja encerrar este chamado?",
@@ -74,6 +89,7 @@ self.salva = function(chamadoTi) {
 	self.enableAutoplay = function() { 
 	    vid.autoplay = true;
 	    vid.load();
+	    
 	}
 	self.disableAutoplay = function() { 
 	    vid.autoplay = false;
@@ -88,7 +104,7 @@ self.salva = function(chamadoTi) {
 				self.listaChamadoTiSuporte = f;	
 				self.tocaMusica = 0;
 				for(i = 0 ; i < self.listaChamadoTiSuporte.length ; i++){
-					if(self.listaChamadoTiSuporte[i].lido === false){
+					if(self.listaChamadoTiSuporte[i].lido === false && self.listaChamadoTiSuporte[i].silenciar === false){
 						
 						self.tocaMusica = i;
 					}
@@ -96,8 +112,7 @@ self.salva = function(chamadoTi) {
 						self.enableAutoplay(); 
 					}else{
 						self.disableAutoplay();
-					}
-					
+					}					
 				}
 				}, function(errResponse){
 			});
@@ -105,27 +120,13 @@ self.salva = function(chamadoTi) {
 		self.listaUsuario = function(){
 			 chamadoTiService.listaUsuario().
 				then(function(f){
-					self.listaChamadoTiUsuario = f;	
-					/*for(i = 0 ; i < self.listaChamadoTiUsuario.length ; i++){
-						if(self.listaChamadoTiUsuario[i].lido == false){
-							
-							$scope.tocaMusica 	 = i;
-						}
-						if($scope.tocaMusica > 0 ){
-							console.log("tetetet");
-							self.enableAutoplay(); 
-						}else{
-							self.disableAutoplay();
-						}
-						
-					}*/
+					self.listaChamadoTiUsuario = f;						
 					}, function(errResponse){
 				});
 			};
 			
 			self.verificaMensagemLida = function(){
-				self.listaSuporte();
-				self.listaUsuario();
+				self.listaSuporte();				
 				setTimeout(self.verificaMensagemLida, 40000);
 			}
 			

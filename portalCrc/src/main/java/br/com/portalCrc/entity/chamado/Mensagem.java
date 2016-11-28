@@ -1,6 +1,6 @@
 package br.com.portalCrc.entity.chamado;
 
-import java.time.LocalDateTime;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -29,7 +29,7 @@ public class Mensagem extends AbstractPersistable<Long>{
 	
 	
 	@Column(name="data")
-	private LocalDateTime data;
+	private Date data;
 	
 	@ManyToOne
 	@JoinColumn(name="id_usuario")
@@ -45,10 +45,10 @@ public class Mensagem extends AbstractPersistable<Long>{
 	public void setTexto(String texto) {
 		this.texto = texto;
 	}
-	public LocalDateTime getData() {
+	public Date getData() {
 		return data;
 	}
-	public void setData(LocalDateTime localDate) {
+	public void setData(Date localDate) {
 		this.data = localDate;
 	}
 	public Byte getArquivo() {

@@ -2,6 +2,7 @@ package br.com.portalCrc.service.chamado;
 
 import java.time.LocalDateTime;
 import java.util.Collection;
+import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,14 +24,17 @@ public class ChamadoTiService {
 	@Autowired
 	private ChamadoTiRepository chamadoTiRepository;
 	
+	private Date dataAtual;
 	@Transactional(readOnly = false)
 	public void salvarEditar(ChamadoTi chamadoTi){
+		dataAtual = new Date();
 		chamadoTi.setSetor(SessionUsuario.getInstance().getUsuario().getSetor());
 		chamadoTi.setUnidade(SessionUsuario.getInstance().getUsuario().getUnidade());
 		chamadoTi.setUsuarioSolicitante(SessionUsuario.getInstance().getUsuario());
 		chamadoTi.setStatus(StatusChamado.Aberto);
 		chamadoTi.setLido(false);
-		chamadoTi.setDataAbertura(LocalDateTime.now());
+		chamadoTi.setSilenciar(false);
+		chamadoTi.setDataAbertura(dataAtual);
 		adicionarChamadoNasMensagens(chamadoTi);
 		
 		chamadoTiRepository.save(chamadoTi);
@@ -38,13 +42,11 @@ public class ChamadoTiService {
 	
 	@Transactional(readOnly = false)
 	public void mensagens(ChamadoTi chamadoTi){
-		chamadoTi.setDataAbertura(LocalDateTime.now());
 		adicionarChamadoNasMensagens(chamadoTi);	
 		chamadoTiRepository.save(chamadoTi);
 	}
 	@Transactional(readOnly = false)
-	public void atenderChamado(ChamadoTi chamadoTi){
-		chamadoTi.setDataAbertura(LocalDateTime.now());		
+	public void atenderChamado(ChamadoTi chamadoTi){	
 		chamadoTi.setStatus(StatusChamado.Em_Andamento);
 		chamadoTi.setLido(true);
 		chamadoTi.setUsuarioAtendente(SessionUsuario.getInstance().getUsuario());
@@ -53,11 +55,24 @@ public class ChamadoTiService {
 	
 	@Transactional(readOnly = false)
 	public void fecharChamado(ChamadoTi chamadoTi){
-		chamadoTi.setDataAbertura(LocalDateTime.now());		
+		dataAtual = new Date();	
 		chamadoTi.setStatus(StatusChamado.Fechado);
-		//chamadoTi.setDataFechamento(LocalDateTime.now());	
+		chamadoTi.setDataFechamento(dataAtual);	
 		chamadoTiRepository.save(chamadoTi);
 	}
+	
+	@Transactional(readOnly = false)
+	public void silenciarChamadoTrue(ChamadoTi chamado){
+		chamado.setSilenciar(true);
+		chamadoTiRepository.save(chamado);
+	}
+	
+	@Transactional(readOnly = false)
+	public void silenciarChamadoFalse(ChamadoTi chamado){
+		chamado.setSilenciar(false);
+		chamadoTiRepository.save(chamado);
+	}
+	
 	
 	public Collection<ChamadoTi> listaChamadoTiUsuario(){
 		Usuario usuario = new Usuario();
@@ -74,11 +89,12 @@ public class ChamadoTiService {
 	}
 	
 	public void adicionarChamadoNasMensagens(ChamadoTi chamadoTi){
+		dataAtual = new Date();
 		Usuario usuario = new Usuario();
 		usuario = SessionUsuario.getInstance().getUsuario();
 		for(int i = 0; i < chamadoTi.getMensagens().size() ; i ++){
 			chamadoTi.getMensagens().get(i).setChamado(chamadoTi);
-			chamadoTi.getMensagens().get(i).setData(LocalDateTime.now());;
+			chamadoTi.getMensagens().get(i).setData(dataAtual);
 			chamadoTi.getMensagens().get(i).setUsuario(usuario);
 		}
 	}

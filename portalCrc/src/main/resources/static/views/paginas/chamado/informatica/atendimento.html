@@ -86,8 +86,8 @@
 												<div class="direct-chat-info clearfix">
 													<span class="direct-chat-name pull-left">{{mensagem.usuario.nome}}</span>
 													<span class="direct-chat-timestamp pull-right">
-														Data : {{ mensagem.data.dayOfMonth }}/{{mensagem.data.monthValue }}/{{ mensagem.data.year }} 
-														Horas : {{ mensagem.data.hour }} : {{ mensagem.data.minute }} : {{ mensagem.data.second }} 
+														Data : {{ mensagem.data | date : 'dd/MM/yyyy'}} 
+														Horas : {{ mensagem.data | date : 'HH:mm:ss'}} 
 													</span>
 													</div>
 												<img class="direct-chat-img" src="public/img/avatar_2x.png"
@@ -99,8 +99,8 @@
 												<div class="direct-chat-info clearfix">
 													<span class="direct-chat-name pull-right">{{mensagem.usuario.nome}}</span>
 													<span class="direct-chat-timestamp pull-left">
-														Data : {{ mensagem.data.dayOfMonth }}/{{mensagem.data.monthValue }}/{{ mensagem.data.year }} 
-														Horas : {{ mensagem.data.hour }} : {{ mensagem.data.minute }} : {{ mensagem.data.second }} 
+														Data : {{ mensagem.data | date : 'dd/MM/yyyy'}} 
+														Horas : {{ mensagem.data | date : 'HH:mm:ss'}} 
 													</span>													
 												</div>
 												<img class="direct-chat-img" src="public/img/avatar_2x.png"

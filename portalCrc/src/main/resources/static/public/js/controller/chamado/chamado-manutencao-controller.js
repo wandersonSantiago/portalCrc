@@ -1,4 +1,4 @@
-app.controller('chamadoManutencaoController', function($scope, $rootScope, chamadoManutencaoService,  $routeParams) {
+app.controller('chamadoManutencaoController', function($scope, $rootScope, chamadoManutencaoService, $location,  $routeParams) {
 
 	var self = this;
 	$scope.habilitaTexto = true;
@@ -8,7 +8,9 @@ app.controller('chamadoManutencaoController', function($scope, $rootScope, chama
 	var idChamadoManutencao = $routeParams.idChamadoManutencao;
 	
 	
-	
+	self.atualizaListaChamadoSuporte = function(){
+		$location.path('/chamado/manutencao/suporte/lista');
+	};
 	
 self.salva = function(chamadoManutencao) {
 	self.chamadoManutencao.mensagens = [{texto : $scope.texto}];
@@ -19,9 +21,26 @@ self.salva = function(chamadoManutencao) {
 		});
 	};
 	
+	self.silenciarChamadoFalse = function(chamadoManutencao) {
+		chamadoManutencao.mensagens = null;
+		chamadoManutencaoService.silenciarChamadoFalse(chamadoManutencao).
+			then(function(response){				
+				self.listaSuporte();
+				}, function(errResponse){					
+			});
+		};
+		
+		self.silenciarChamadoTrue = function(chamadoManutencao) {
+			chamadoManutencao.mensagens = null;
+			chamadoManutencaoService.silenciarChamadoTrue(chamadoManutencao).
+				then(function(response){
+					self.listaSuporte();
+					}, function(errResponse){						
+				});
+			};
+	
 	self.salvaMensagem = function(chamadoManutencao) {
 		self.chamadoManutencao.mensagens = [{texto : $scope.texto}];
-		self.chamadoManutencao.dataAbertura = null;
 		chamadoManutencaoService.salvaMensagem(self.chamadoManutencao).
 		then(function(response){
 			$scope.texto = null;
@@ -31,8 +50,6 @@ self.salva = function(chamadoManutencao) {
 	};
 	self.salvaServicos = function(descricao) {			
 		self.chamadoManutencao.descricaoServico = descricao;
-		self.chamadoManutencao.mensagens = null;
-		self.chamadoManutencao.dataAbertura = null;	
 		console.log(self.chamadoManutencao);
 		chamadoManutencaoService.salvaServicos(self.chamadoManutencao).
 		then(function(response){		
@@ -41,7 +58,6 @@ self.salva = function(chamadoManutencao) {
 	};
 	self.atenderChamado = function(chamadoManutencao) {
 		self.chamadoManutencao.mensagens = null;
-		self.chamadoManutencao.dataAbertura = null;	
 		swal({
 			  title: 'Atender Chamado!!!',
 			  text: "Tem que certeza que deseja atender este chamado?",
@@ -63,7 +79,6 @@ self.salva = function(chamadoManutencao) {
 	
 	self.fecharChamado = function(chamadoManutencao) {
 		self.chamadoManutencao.mensagens = null;
-		self.chamadoManutencao.dataAbertura = null;	
 		swal({
 			  title: 'Encerrar Chamado!!!',
 			  text: "Tem que certeza que deseja encerrar este chamado?",
@@ -101,7 +116,7 @@ self.salva = function(chamadoManutencao) {
 				self.listaChamadoManutencaoSuporte = f;	
 				self.tocaMusica = 0;
 				for(i = 0 ; i < self.listaChamadoManutencaoSuporte.length ; i++){
-					if(self.listaChamadoManutencaoSuporte[i].lido === false){
+					if(self.listaChamadoManutencaoSuporte[i].lido === false && self.listaChamadoManutencaoSuporte[i].silenciar === false){
 						
 						self.tocaMusica = i;
 					}
@@ -118,28 +133,14 @@ self.salva = function(chamadoManutencao) {
 		self.listaUsuario = function(){
 			 chamadoManutencaoService.listaUsuario().
 				then(function(f){
-					self.listaChamadoManutencaoUsuario = f;	
-					/*for(i = 0 ; i < self.listaChamadoManutencaoUsuario.length ; i++){
-						if(self.listaChamadoManutencaoUsuario[i].lido == false){
-							
-							$scope.tocaMusica 	 = i;
-						}
-						if($scope.tocaMusica > 0 ){
-							console.log("tetetet");
-							self.enableAutoplay(); 
-						}else{
-							self.disableAutoplay();
-						}
-						
-					}*/
+					self.listaChamadoManutencaoUsuario = f;					
 					}, function(errResponse){
 				});
 			};
 			
 			
 			self.verificaMensagemLida = function(){
-				self.listaSuporte();
-				self.listaUsuario();		
+				self.listaSuporte();		
 				setTimeout(self.verificaMensagemLida, 40000);
 			};
 			

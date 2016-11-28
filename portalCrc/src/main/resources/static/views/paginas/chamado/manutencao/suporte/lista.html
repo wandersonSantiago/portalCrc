@@ -1,9 +1,10 @@
 <meta charset="UTF-8">
 <br>
 <br>
+
 <div class="generic-container"
 	ng-controller="chamadoManutencaoController as chamadoCtr">
-
+	
 	<div class="box box-primary" ng-init="chamadoCtr.listaSuporte()">
 	
 		<div class="box-header">
@@ -45,25 +46,23 @@
 									<option value="">Status</option>
 								</select>
 							</div>	
-						</th>
-						
-						<th>Data de abertura</th>
-							
+						</th>						
+						<th>Data de abertura</th>							
 						<th>Horário</th>					
 						<th>Opções</th>
 					</tr>
 				</thead>
-				<tbody
-					ng-repeat=" chamado in chamadoCtr.listaChamadoManutencaoSuporte | filter : buscaCoordenadoria | orderBy : '-id'  ">
+				<tbody	ng-repeat=" chamado in chamadoCtr.listaChamadoManutencaoSuporte | filter : buscaCoordenadoria | orderBy : '-id'  ">
 					<tr>
 						<td>{{ chamado.titulo }}</td>
 						<td>{{ chamado.usuarioSolicitante.nome }}</td>
 						<td>{{ chamado.setor.nome }}</td>	
 						<td>{{ chamado.status }}</td>	
-						<td>{{ chamado.dataAbertura.dayOfMonth }}/{{ chamado.dataAbertura.monthValue }}/{{ chamado.dataAbertura.year }}</td>
-						<td>{{ chamado.dataAbertura.hour }} : {{ chamado.dataAbertura.minute }} : {{ chamado.dataAbertura.second }}</td>										
-						<td><a href="#/chamado/manutencao/suporte/atendimento/{{chamado.id}}"><i class="glyphicon glyphicon-pencil"></i></a> 
-						
+						<td>{{ chamado.dataAbertura | date : 'dd/MM/yyyy'}}</td>
+						<td>{{ chamado.dataAbertura | date : 'HH:mm:ss' }}</td>										
+						<td><a href="#/chamado/manutencao/suporte/atendimento/{{chamado.id}}"><i class="glyphicon glyphicon-search"></i></a></td> 
+						<td ng-if="!chamado.silenciar"><a href="" ng-click="chamadoCtr.silenciarChamadoTrue(chamado)"><i class="glyphicon glyphicon-volume-up"></i></a></td>
+						<td ng-if="chamado.silenciar"><a href="" ng-click="chamadoCtr.silenciarChamadoFalse(chamado)"><i class="glyphicon glyphicon-volume-off"></i></a></td>					
 				</tr>
 				</tbody>
 				<tfoot>

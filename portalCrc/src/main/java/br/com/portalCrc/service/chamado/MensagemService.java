@@ -23,7 +23,7 @@ public class MensagemService {
 	public void salvarEditar(Mensagem mensagem){
 		Usuario usuario = new Usuario();
 		usuario = SessionUsuario.getInstance().getUsuario();
-		mensagem.setData(LocalDateTime.now());
+		//mensagem.setData(LocalDateTime.now());
 		mensagem.setUsuario(usuario);
 		mensagemRepository.save(mensagem);
 	}

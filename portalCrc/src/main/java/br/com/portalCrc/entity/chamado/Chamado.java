@@ -1,7 +1,5 @@
 package br.com.portalCrc.entity.chamado;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -16,19 +14,14 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 import org.springframework.data.jpa.domain.AbstractPersistable;
-
-import com.fasterxml.jackson.annotation.JsonView;
 
 import br.com.portalCrc.entity.Setor;
 import br.com.portalCrc.entity.Unidade;
 import br.com.portalCrc.entity.Usuario;
 import br.com.portalCrc.enums.chamado.PrioridadeChamado;
 import br.com.portalCrc.enums.chamado.StatusChamado;
-import br.com.portalCrc.findControll.View;
 
 @Entity
 @Table(name="chamado")
@@ -46,11 +39,14 @@ public abstract class Chamado extends AbstractPersistable<Long>{
 	@Column(name="lido")
 	protected Boolean lido;
 
+	@Column(name="silenciar")
+	protected Boolean silenciar;
+	
+	
 	@Column(name="data_abertura")
-	protected LocalDateTime dataAbertura;
+	protected Date dataAbertura;
 	
-	
-	
+
 	@Column(name="data_fechamento")
 	protected  Date dataFechamento;
 	
@@ -105,10 +101,10 @@ public abstract class Chamado extends AbstractPersistable<Long>{
 	public void setTitulo(String titulo) {
 		this.titulo = titulo;
 	}
-	public LocalDateTime getDataAbertura() {
+	public Date getDataAbertura() {
 		return dataAbertura;
 	}
-	public void setDataAbertura(LocalDateTime localDate) {
+	public void setDataAbertura(Date localDate) {
 		this.dataAbertura = localDate;
 	}
 	public Date getDataFechamento() {
@@ -159,7 +155,12 @@ public abstract class Chamado extends AbstractPersistable<Long>{
 	public void setLido(Boolean lido) {
 		this.lido = lido;
 	}
-	
+	public Boolean getSilenciar() {
+		return silenciar;
+	}
+	public void setSilenciar(Boolean silenciar) {
+		this.silenciar = silenciar;
+	}	
 	
 
 }

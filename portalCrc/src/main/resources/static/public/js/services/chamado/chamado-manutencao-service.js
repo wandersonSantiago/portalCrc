@@ -53,6 +53,26 @@ app.factory('chamadoManutencaoService', function($rootScope, toastr, $http){
 				return $q.reject(errResponse);
 			});
 		},
+		silenciarChamadoFalse: function(chamado){
+			return $http.put('/rest/chamado/chamadoManutencao/silenciar/false', chamado)
+			.then(function(response){
+				toastr.info("Alerta Ativado");
+				return response.data;
+			},function(errResponse){
+				sweetAlert({ timer : 3000,  text :"não silenciado",  type : "error", width: 300, higth: 300, padding: 20});
+				return $q.reject(errResponse);
+			});
+		},
+		silenciarChamadoTrue: function(chamado){
+			return $http.put('/rest/chamado/chamadoManutencao/silenciar/true', chamado)
+			.then(function(response){
+				toastr.info("Alterta desativado");
+				return response.data;
+			},function(errResponse){
+				sweetAlert({ timer : 3000,  text :"não silenciado",  type : "error", width: 300, higth: 300, padding: 20});
+				return $q.reject(errResponse);
+			});
+		},
 		altera: function(chamado){
 			return $http.put('/rest/chamado/chamadoManutencao/alterar', chamado)
 			.then(function(response){

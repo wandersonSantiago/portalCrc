@@ -60,10 +60,12 @@
 						<td>{{ chamado.usuarioSolicitante.nome }}</td>
 						<td>{{ chamado.setor.nome }}</td>	
 						<td>{{ chamado.status }}</td>	
-						<td>{{ chamado.dataAbertura.dayOfMonth }}/{{ chamado.dataAbertura.monthValue }}/{{ chamado.dataAbertura.year }}</td>
-						<td>{{ chamado.dataAbertura.hour }} : {{ chamado.dataAbertura.minute }} : {{ chamado.dataAbertura.second }}</td>										
-						<td><a href="#/chamado/informatica/suporte/atendimento/{{chamado.id}}"><i class="glyphicon glyphicon-pencil"></i></a> 
-						
+						<td>{{ chamado.dataAbertura | date : 'dd/MM/yyyy'}}</td>
+						<td>{{ chamado.dataAbertura | date : 'HH:mm:ss' }}</td>									
+						<td><a href="#/chamado/informatica/suporte/atendimento/{{chamado.id}}"><i class="glyphicon glyphicon-search"></i></a> 
+						<td ng-if="!chamado.silenciar"><a href="" ng-click="chamadoCtr.silenciarChamadoTrue(chamado)"><i class="glyphicon glyphicon-volume-up"></i></a></td>
+						<td ng-if="chamado.silenciar"><a href="" ng-click="chamadoCtr.silenciarChamadoFalse(chamado)"><i class="glyphicon glyphicon-volume-off"></i></a></td>					
+				
 				</tr>
 				</tbody>
 				<tfoot>
