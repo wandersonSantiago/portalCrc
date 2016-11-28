@@ -40,6 +40,7 @@ self.salva = function(chamadoManutencao) {
 			};
 	
 	self.salvaMensagem = function(chamadoManutencao) {
+		self.chamadoManutencao.mensagens = null;
 		self.chamadoManutencao.mensagens = [{texto : $scope.texto}];
 		chamadoManutencaoService.salvaMensagem(self.chamadoManutencao).
 		then(function(response){
