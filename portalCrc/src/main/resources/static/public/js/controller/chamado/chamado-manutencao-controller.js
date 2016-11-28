@@ -17,7 +17,7 @@ self.salva = function(chamadoManutencao) {
 			self.chamadoManutencao = null;
 			}, function(errResponse){
 		});
-	}
+	};
 	
 	self.salvaMensagem = function(chamadoManutencao) {
 		self.chamadoManutencao.mensagens = [{texto : $scope.texto}];
@@ -28,7 +28,7 @@ self.salva = function(chamadoManutencao) {
 			self.buscarPorId(idChamadoManutencao);
 			}, function(errResponse){
 		});
-	}
+	};
 	self.salvaServicos = function(descricao) {			
 		self.chamadoManutencao.descricaoServico = descricao;
 		self.chamadoManutencao.mensagens = null;
@@ -38,7 +38,7 @@ self.salva = function(chamadoManutencao) {
 		then(function(response){		
 			}, function(errResponse){
 		});
-	}
+	};
 	self.atenderChamado = function(chamadoManutencao) {
 		self.chamadoManutencao.mensagens = null;
 		self.chamadoManutencao.dataAbertura = null;	
@@ -59,7 +59,7 @@ self.salva = function(chamadoManutencao) {
 					}, function(errResponse){
 				});			  
 			})		
-	}
+	};
 	
 	self.fecharChamado = function(chamadoManutencao) {
 		self.chamadoManutencao.mensagens = null;
@@ -80,18 +80,18 @@ self.salva = function(chamadoManutencao) {
 			}, function(errResponse){
 		});
 	})
-}
+};
 	
 	var vid = document.getElementById("myVideo");
 	
 	self.enableAutoplay = function() { 
 	    vid.autoplay = true;
 	    vid.load();
-	}
+	};
 	self.disableAutoplay = function() { 
 	    vid.autoplay = false;
 	    vid.load();
-	} 
+	};
 
 
 	
@@ -101,7 +101,7 @@ self.salva = function(chamadoManutencao) {
 				self.listaChamadoManutencaoSuporte = f;	
 				self.tocaMusica = 0;
 				for(i = 0 ; i < self.listaChamadoManutencaoSuporte.length ; i++){
-					if(self.listaChamadoManutencaoSuporte[i].lido == false){
+					if(self.listaChamadoManutencaoSuporte[i].lido === false){
 						
 						self.tocaMusica = i;
 					}
@@ -140,8 +140,8 @@ self.salva = function(chamadoManutencao) {
 			self.verificaMensagemLida = function(){
 				self.listaSuporte();
 				self.listaUsuario();		
-				setTimeout(self.verificaMensagemLida, 20000);
-			}
+				setTimeout(self.verificaMensagemLida, 40000);
+			};
 			
 		 self.prioridade = function(){
 			 chamadoManutencaoService.prioridade().
@@ -167,13 +167,16 @@ self.salva = function(chamadoManutencao) {
 					$scope.habilitaTexto = true;
 					$scope.habilitaBotaoFecharChamado = true;
 					$scope.habilitaBotaoAtenderChamado = false;
+					$scope.habilitaBotaoServicoChamado = true;
 				}else if(self.chamadoManutencao.status == "Aberto"){
 					$scope.habilitaBotaoAtenderChamado = true;
 					$scope.habilitaBotaoFecharChamado = false;
 					$scope.habilitaTexto = false;
+					$scope.habilitaBotaoServicoChamado = false;
 				}else if(self.chamadoManutencao.status == "Fechado"){
 					$scope.habilitaTexto = false;
 					$scope.habilitaBotaoFecharChamado = false;
+					$scope.habilitaBotaoServicoChamado = true;
 				}
 				for(i = 0 ; i < self.chamadoManutencao.mensagens.length ; i++){			
 				

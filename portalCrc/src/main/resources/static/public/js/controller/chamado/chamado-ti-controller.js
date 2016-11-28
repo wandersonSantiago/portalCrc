@@ -88,7 +88,7 @@ self.salva = function(chamadoTi) {
 				self.listaChamadoTiSuporte = f;	
 				self.tocaMusica = 0;
 				for(i = 0 ; i < self.listaChamadoTiSuporte.length ; i++){
-					if(self.listaChamadoTiSuporte[i].lido == false){
+					if(self.listaChamadoTiSuporte[i].lido === false){
 						
 						self.tocaMusica = i;
 					}
@@ -126,7 +126,7 @@ self.salva = function(chamadoTi) {
 			self.verificaMensagemLida = function(){
 				self.listaSuporte();
 				self.listaUsuario();
-				setTimeout(self.verificaMensagemLida, 20000);
+				setTimeout(self.verificaMensagemLida, 40000);
 			}
 			
 		 self.prioridade = function(){
@@ -153,13 +153,16 @@ self.salva = function(chamadoTi) {
 					$scope.habilitaTexto = true;
 					$scope.habilitaBotaoFecharChamado = true;
 					$scope.habilitaBotaoAtenderChamado = false;
+					$scope.habilitaBotaoServicoChamado = true;
 				}else if(self.chamadoTi.status == "Aberto"){
 					$scope.habilitaBotaoAtenderChamado = true;
 					$scope.habilitaBotaoFecharChamado = false;
 					$scope.habilitaTexto = false;
+					$scope.habilitaBotaoServicoChamado = false;
 				}else if(self.chamadoTi.status == "Fechado"){
 					$scope.habilitaTexto = false;
 					$scope.habilitaBotaoFecharChamado = false;
+					$scope.habilitaBotaoServicoChamado = true;
 				}
 				for(i = 0 ; i < self.chamadoTi.mensagens.length ; i++){			
 				
