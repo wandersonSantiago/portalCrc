@@ -20,15 +20,19 @@
 							<select class="form-control select2" ng-model="chamadoCtrl.chamadoManutencao.prioridade" id="prioridadeId"
 							ng-options="prioridade for prioridade in chamadoCtrl.prioridades"
 							  style=" width: 100%;" >
-								<option value="">---Prioridade---</option>
+								<option value="">Prioridade</option>
 							</select>
 						</div>
 					</div>
 					<br>
 					<br>
-					<div class="row">												
-						<div class="col-sm-6" >
-							<input class="form-control" placeholder="Titulo" ng-model="chamadoCtrl.chamadoManutencao.titulo" id="titulo" name="titulo" type="text" required>						
+					<div class="row">							
+						<div class="col-sm-4"  ng-init="chamadoCtrl.titulo()" >
+							<select class="form-control select2" ng-model="chamadoCtrl.chamadoManutencao.titulo" id="titulo"
+							ng-options="titulo for titulo in chamadoCtrl.titulos"
+							  style=" width: 100%;" >
+								<option value="">Titulo</option>
+							</select>
 						</div>								
 					</div>					
 					<br>
@@ -48,7 +52,7 @@
 					<br>
 			<div class="row ">
 					
-							<input type="submit" id="submit" value="Enviar"	class="btn btn-lg btn-primary btn-block btn-signin">
+							<input type="submit" id="submit" ng-disabled="!texto || !chamadoCtrl.chamadoManutencao.titulo || !chamadoCtrl.chamadoManutencao.prioridade"  value="Enviar"	class="btn btn-lg btn-primary btn-block btn-signin">
 						
 					</div>
 					

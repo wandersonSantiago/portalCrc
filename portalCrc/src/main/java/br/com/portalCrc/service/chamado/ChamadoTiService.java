@@ -41,6 +41,11 @@ public class ChamadoTiService {
 	}
 	
 	@Transactional(readOnly = false)
+	public void servicos(ChamadoTi chamadoTi){
+		chamadoTiRepository.save( chamadoTi);
+	}
+	
+	@Transactional(readOnly = false)
 	public void mensagens(ChamadoTi chamadoTi){
 		adicionarChamadoNasMensagens(chamadoTi);	
 		chamadoTiRepository.save(chamadoTi);

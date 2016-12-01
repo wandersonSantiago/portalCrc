@@ -17,19 +17,33 @@
 									
 					<div class="row">
 					<div class="col-sm-4"  ng-init="chamadoCtrl.prioridade()" >
-							<select class="form-control select2" ng-model="chamadoCtrl.chamadoTi.prioridade" id="prioridadeId"
-							ng-options="prioridade for prioridade in chamadoCtrl.prioridades"
-							  style=" width: 100%;" >
-								<option value="">---Prioridade---</option>
+							<select class="form-control " ng-model="chamadoCtrl.chamadoTi.prioridade" id="prioridadeId"
+							ng-options="prioridade for prioridade in chamadoCtrl.prioridades" >
+								<option value="">Prioridade</option>
 							</select>
-						</div>
+					</div>
+					<div class="col-sm-4"  ng-init="chamadoCtrl.tipoEquipamento()" >
+							<select class="form-control " ng-model="equipamento" id="tipo" ng-click="chamadoCtrl.verificaEquipamento(equipamento)"
+							ng-options="tipoEquipamento for tipoEquipamento in chamadoCtrl.tipoEquipamentos" >
+								<option  value="">Tipo Equipamento</option>
+					</select>
+					</div>
 					</div>
 					<br>
 					<br>
-					<div class="row">												
-						<div class="col-sm-6" >
-							<input class="form-control" placeholder="Titulo" ng-model="chamadoCtrl.chamadoTi.titulo" id="titulo" name="titulo" type="text" required>						
-						</div>								
+					<div class="row">	
+						<div ng-if="computador" class="col-sm-4"  ng-init="chamadoCtrl.titulo()" >
+							<select class="form-control select2" ng-model="chamadoCtrl.chamadoTi.titulo" id="titulo"
+							ng-options="titulo for titulo in chamadoCtrl.titulos" >
+								<option value="">Titulo</option>
+							</select>
+						</div>						
+						<div ng-if="impressora" class="col-sm-4"  ng-init="chamadoCtrl.tituloImpressora()" >
+							<select class="form-control " ng-model="chamadoCtrl.chamadoTi.titulo" id="tituloImpressora"
+							ng-options="tituloImpressora for tituloImpressora in chamadoCtrl.tituloImpressoras" >
+								<option value="">Titulo</option>
+							</select>
+						</div>							
 					</div>					
 					<br>
 					<div class="box">
@@ -48,7 +62,7 @@
 					<br>
 			<div class="row ">
 					
-							<input type="submit" id="submit" value="Enviar"	class="btn btn-lg btn-primary btn-block btn-signin">
+							<input type="submit" id="submit" ng-disabled="!texto || !chamadoCtrl.chamadoTi.titulo ||  !chamadoCtrl.chamadoTi.prioridade" value="Enviar"	class="btn btn-lg btn-primary btn-block btn-signin">
 						
 					</div>
 					

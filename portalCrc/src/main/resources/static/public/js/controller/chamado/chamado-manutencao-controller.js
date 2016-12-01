@@ -1,15 +1,34 @@
-app.controller('chamadoManutencaoController', function($scope, $rootScope, chamadoManutencaoService, $location,  $routeParams) {
+app.controller('chamadoManutencaoController', function($scope, $rootScope, chamadoManutencaoService, $location, setorService, usuarioService,  $routeParams) {
 
 	var self = this;
 	$scope.habilitaTexto = true;
 	$scope.habilitaBotaoAtenderChamado = false;
 	$scope.habilitaBotaoFecharChamado = false;
-	
+	$rootScope.atualizarListaChamado = false;
+	self.contagemSuporte = [];
 	var idChamadoManutencao = $routeParams.idChamadoManutencao;
 	
 	
 	self.atualizaListaChamadoSuporte = function(){
-		$location.path('/chamado/manutencao/suporte/lista');
+		$rootScope.atualizarListaChamado = true;
+		if($rootScope.atualizarListaChamado === true ){
+				self.verificaMensagemLidaAtualizada();
+			}
+	};
+	self.buscaCoordenadoria = $scope.buscaCoordenadoria;
+	
+	self.verificaMensagemLida = function(){
+		self.listaSuporte();	
+		if($rootScope.atualizarListaChamado === false){
+			setTimeout(self.verificaMensagemLida, 60000);					
+		}
+	};
+	
+	self.verificaMensagemLidaAtualizada = function(){
+		self.listaSuporte();	
+		$rootScope.atualizarListaChamado = false;
+		setTimeout(self.verificaMensagemLida, 60000);		
+		
 	};
 	
 self.salva = function(chamadoManutencao) {
@@ -17,6 +36,7 @@ self.salva = function(chamadoManutencao) {
 	chamadoManutencaoService.salva(self.chamadoManutencao).
 		then(function(response){
 			self.chamadoManutencao = null;
+			$scope.texto = null;
 			}, function(errResponse){
 		});
 	};
@@ -49,11 +69,12 @@ self.salva = function(chamadoManutencao) {
 			}, function(errResponse){
 		});
 	};
-	self.salvaServicos = function(descricao) {			
+	self.salvaServicos = function(descricao) {	
+		self.chamadoManutencao.mensagens = null;
 		self.chamadoManutencao.descricaoServico = descricao;
-		console.log(self.chamadoManutencao);
 		chamadoManutencaoService.salvaServicos(self.chamadoManutencao).
-		then(function(response){		
+		then(function(response){	
+			self.buscarPorId(self.chamadoManutencao.id);
 			}, function(errResponse){
 		});
 	};
@@ -116,7 +137,14 @@ self.salva = function(chamadoManutencao) {
 			then(function(f){
 				self.listaChamadoManutencaoSuporte = f;	
 				self.tocaMusica = 0;
-				for(i = 0 ; i < self.listaChamadoManutencaoSuporte.length ; i++){
+				self.contagemSuporte = [];
+				for(i = 0 ; i < self.listaChamadoManutencaoSuporte.length ; i++){						
+							if(self.listaChamadoManutencaoSuporte[i].lido === false){
+								self.contagemSuporte.push({
+									cout : self.listaChamadoManutencaoSuporte[i]
+								});							
+								$rootScope.quantidadeChamadoAberto = self.contagemSuporte.length; 								
+					}
 					if(self.listaChamadoManutencaoSuporte[i].lido === false && self.listaChamadoManutencaoSuporte[i].silenciar === false){
 						
 						self.tocaMusica = i;
@@ -131,6 +159,8 @@ self.salva = function(chamadoManutencao) {
 				}, function(errResponse){
 			});
 		};
+		
+		
 		self.listaUsuario = function(){
 			 chamadoManutencaoService.listaUsuario().
 				then(function(f){
@@ -138,13 +168,21 @@ self.salva = function(chamadoManutencao) {
 					}, function(errResponse){
 				});
 			};
-			
-			
-			self.verificaMensagemLida = function(){
-				self.listaSuporte();		
-				setTimeout(self.verificaMensagemLida, 40000);
-			};
-			
+				
+			 self.listaSetor = function(){
+				 setorService.lista().
+					then(function(f){
+						self.listaSetores = f;
+						}, function(errResponse){
+					});
+				};
+			self.usuarioLista = function(){
+				 usuarioService.lista().
+					then(function(f){
+						self.usuarios = f;				
+						}, function(errResponse){
+					});
+				};
 		 self.prioridade = function(){
 			 chamadoManutencaoService.prioridade().
 				then(function(f){
@@ -157,6 +195,13 @@ self.salva = function(chamadoManutencao) {
 				chamadoManutencaoService.status().
 					then(function(f){
 						self.listaStatus = f;			
+						}, function(errResponse){
+					});
+				};
+			self.titulo = function(){
+				chamadoManutencaoService.titulo().
+					then(function(f){
+						self.titulos = f;			
 						}, function(errResponse){
 					});
 				};
@@ -197,5 +242,26 @@ self.salva = function(chamadoManutencao) {
 			self.buscarPorId(idChamadoManutencao);
 			
 		}
-
+				
+		self.buscaDinamicaUsuario = function(usuario){
+			$scope.buscaChamado = null;
+			$scope.buscaChamado = usuario.nome;
+		}
+		self.buscaDinamicaSetor = function(setor){
+			$scope.buscaChamado = null;
+			$scope.buscaChamado = setor.nome;
+		}
+		self.buscaDinamicaStatus = function(status){
+			$scope.buscaChamado = null;
+			$scope.buscaChamado = status;
+		}
+		self.buscaDinamicaTitulo = function(titulo){
+			$scope.buscaChamado = null;
+			$scope.buscaChamado = titulo;
+		}
+		self.buscaDinamicaData = function(data){
+			$scope.buscaChamado = null;
+			$scope.buscaChamado = data;
+		}
+		
 });

@@ -16,6 +16,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import br.com.portalCrc.entity.chamado.ChamadoManutencao;
 import br.com.portalCrc.enums.chamado.PrioridadeChamado;
 import br.com.portalCrc.enums.chamado.StatusChamado;
+import br.com.portalCrc.enums.chamado.TituloChamadoManutencaoEnum;
 import br.com.portalCrc.service.chamado.ChamadoManutencaoService;
 
 @RestController
@@ -101,6 +102,11 @@ public class ChamadoManutencaoRestController {
 		public ResponseEntity<Iterable<StatusChamado>> status() {
 			Iterable<StatusChamado> statusChamado = Arrays.asList(StatusChamado.values());
 			return new ResponseEntity<Iterable<StatusChamado>>(statusChamado, HttpStatus.OK);
+		}
+	 @RequestMapping(method = RequestMethod.GET, value = "/titulo")
+		public ResponseEntity<Iterable<TituloChamadoManutencaoEnum>> titulo() {
+			Iterable<TituloChamadoManutencaoEnum> tituloChamadoManutencaoEnum = Arrays.asList(TituloChamadoManutencaoEnum.values());
+			return new ResponseEntity<Iterable<TituloChamadoManutencaoEnum>>(tituloChamadoManutencaoEnum, HttpStatus.OK);
 		}
 
 }

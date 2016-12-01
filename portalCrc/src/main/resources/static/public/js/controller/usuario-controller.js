@@ -4,6 +4,7 @@ app.controller('usuarioController', function($scope, toastr, $rootScope, usuario
 		
 	var idUsuario = $routeParams.idUsuario;
 	$scope.listaUsuario = [];
+	self.usuario = [];
 	
 	$scope.perfil = function(){
 			usuarioService.perfil().
@@ -25,9 +26,11 @@ app.controller('usuarioController', function($scope, toastr, $rootScope, usuario
 	
 	
 	self.altera = function(usuario){
+		
 		if(self.senha == self.senhaRepitida){
-			self.usuario.senha = self.senha;
-			usuarioService.altera(self.usuario).
+			usuario.senha = self.senha;
+			console.log(usuario);
+			usuarioService.altera(usuario).
 			then(function(response){
 				self.usuario = null;
 				}, function(errResponse){
@@ -36,6 +39,15 @@ app.controller('usuarioController', function($scope, toastr, $rootScope, usuario
 			sweetAlert({ timer : 3000, text: "senha não coencidem, digite novamente" , type : "error", width: 300, higth: 100, padding: 20});
 		
 		}
+	}
+	self.alteraEmpreendimento = function(usuario){
+			console.log(usuario);
+			usuarioService.altera(usuario).
+			then(function(response){
+				self.usuario = null;
+				}, function(errResponse){
+			});
+		
 	}
 	
 	 self.salva = function(usuario){

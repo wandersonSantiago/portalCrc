@@ -68,8 +68,6 @@ public abstract class Chamado extends AbstractPersistable<Long>{
 	@JoinColumn(name="id_usuarioAtendente") 
 	protected Usuario usuarioAtendente;
 	
-	@Column(name="descricao_servico")
-	protected String descricaoServico;
 	
 	
 	@ManyToOne
@@ -136,13 +134,7 @@ public abstract class Chamado extends AbstractPersistable<Long>{
 	}
 	public void setUsuarioAtendente(Usuario usuarioAtendente) {
 		this.usuarioAtendente = usuarioAtendente;
-	}
-	public String getDescricaoServico() {
-		return descricaoServico;
-	}
-	public void setDescricaoServico(String descricaoServico) {
-		this.descricaoServico = descricaoServico;
-	}
+	}	
 	public Setor getSetor() {
 		return setor;
 	}

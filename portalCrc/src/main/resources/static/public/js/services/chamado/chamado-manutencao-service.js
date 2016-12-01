@@ -36,7 +36,8 @@ app.factory('chamadoManutencaoService', function($rootScope, toastr, $http){
 		atenderChamado: function(chamado){
 			return $http.put('/rest/chamado/chamadoManutencao/atender', chamado)
 			.then(function(response){
-				sweetAlert({ timer : 3000, text :"Chamado Atendido", type : "success", width: 300, higth: 100, padding: 20});
+				toastr.info("Chamado Em andamento");
+				//sweetAlert({ timer : 3000, text :"Chamado Atendido", type : "success", width: 300, higth: 100, padding: 20});
 				return response.data;
 			},function(errResponse){
 				sweetAlert({ timer : 3000,  text :"Erro",  type : "error", width: 300, higth: 300, padding: 20});
@@ -46,7 +47,8 @@ app.factory('chamadoManutencaoService', function($rootScope, toastr, $http){
 		fecharChamado: function(chamado){
 			return $http.put('/rest/chamado/chamadoManutencao/fechar', chamado)
 			.then(function(response){
-				sweetAlert({ timer : 3000, text :"Encerrado", type : "success", width: 300, higth: 100, padding: 20});
+				toastr.info("Chamado Fechado");
+				//sweetAlert({ timer : 3000, text :"Encerrado", type : "success", width: 300, higth: 100, padding: 20});
 				return response.data;
 			},function(errResponse){
 				sweetAlert({ timer : 3000,  text :"não encerrado",  type : "error", width: 300, higth: 300, padding: 20});
@@ -124,6 +126,15 @@ app.factory('chamadoManutencaoService', function($rootScope, toastr, $http){
 		},
 		status : function(){
 			return $http.get('/rest/chamado/chamadoTi/status')
+			.then(function(response){
+				return response.data;
+			},function(errResponse){
+				sweetAlert({ timer : 3000,  type : "error", width: 200, higth: 100, padding: 20});
+				return $q.reject(errResponse);
+			});
+		},
+		titulo : function(){
+			return $http.get('/rest/chamado/chamadoManutencao/titulo')
 			.then(function(response){
 				return response.data;
 			},function(errResponse){

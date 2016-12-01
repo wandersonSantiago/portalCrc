@@ -1,4 +1,4 @@
-app.controller('chamadoTiController', function($scope, $rootScope, chamadoTiService,  $routeParams) {
+app.controller('chamadoTiController', function($scope, $rootScope, chamadoTiService, setorService, usuarioService,  $routeParams) {
 
 	var self = this;
 	$scope.habilitaTexto = true;
@@ -7,16 +7,52 @@ app.controller('chamadoTiController', function($scope, $rootScope, chamadoTiServ
 	
 	var idChamadoTi = $routeParams.idChamadoTi;
 	
-self.salva = function(chamadoTi) {
-	self.chamadoTi.mensagens = [{texto : $scope.texto}];
-	chamadoTiService.salva(self.chamadoTi).
-		then(function(response){
-			self.chamadoTi = null;
-			}, function(errResponse){
-		});
-	}
+	self.verificaEquipamento = function(equipamento){
+		if(equipamento == "Computador"){
+			$scope.computador = true;
+			$scope.impressora = false;
+		}else if(equipamento == "Impressora"){
+			$scope.computador = false;
+			$scope.impressora = true;
+		}else if(equipamento == null){
+			$scope.computador = false;
+			$scope.impressora = false;
+		}
+	};
+	self.atualizaListaChamadoSuporte = function(){
+		$rootScope.atualizarListaChamado = true;
+		if($rootScope.atualizarListaChamado === true ){
+				self.verificaMensagemLidaAtualizada();
+			}
+	};
+	
+	self.verificaMensagemLida = function(){			
+		if($rootScope.atualizarListaChamado === false){
+			self.listaSuporte();
+			setTimeout(self.verificaMensagemLida, 60000);				
+		}
+	};
+	
+	self.verificaMensagemLidaAtualizada = function(){
+		self.listaSuporte();	
+		$rootScope.atualizarListaChamado = false;
+		setTimeout(self.verificaMensagemLida, 60000);		
+		
+	};
+	
+	self.salva = function(chamadoTi) {
+		self.chamadoTi.mensagens = [{texto : $scope.texto}];
+		chamadoTiService.salva(self.chamadoTi).
+			then(function(response){
+				self.chamadoTi = null;
+				$scope.texto = null;
+				$scope.equipamento = null;
+				}, function(errResponse){
+			});
+		}
 	
 	self.salvaMensagem = function(chamadoTi) {
+		self.chamadoTi.mensagens = null;
 		self.chamadoTi.mensagens = [{texto : $scope.texto}];
 		chamadoTiService.salvaMensagem(self.chamadoTi).
 		then(function(response){
@@ -25,6 +61,17 @@ self.salva = function(chamadoTi) {
 			}, function(errResponse){
 		});
 	}
+	
+	self.salvaServicos = function(descricao ) {		
+		self.chamadoTi.mensagens = null;
+		self.chamadoTi.descricaoServico = descricao;
+		chamadoTiService.salvaServicos(self.chamadoTi).
+		then(function(response){	
+			self.buscarPorId(self.chamadoTi.id);
+			}, function(errResponse){				
+		});
+	};
+	
 	self.silenciarChamadoFalse = function(chamadoTi) {
 		chamadoTi.mensagens = null;
 		chamadoTiService.silenciarChamadoFalse(chamadoTi).
@@ -98,25 +145,34 @@ self.salva = function(chamadoTi) {
 
 
 	
-	 self.listaSuporte = function(){
-		 chamadoTiService.listaSuporte().
+	self.listaSuporte = function(){
+		chamadoTiService.listaSuporte().
 			then(function(f){
 				self.listaChamadoTiSuporte = f;	
 				self.tocaMusica = 0;
-				for(i = 0 ; i < self.listaChamadoTiSuporte.length ; i++){
+				self.contagemSuporte = [];
+				for(i = 0 ; i < self.listaChamadoTiSuporte.length ; i++){						
+							if(self.listaChamadoTiSuporte[i].lido === false){
+								self.contagemSuporte.push({
+									cout : self.listaChamadoTiSuporte[i]
+								});							
+								$rootScope.quantidadeChamadoAbertoTi = self.contagemSuporte.length; 								
+					}
 					if(self.listaChamadoTiSuporte[i].lido === false && self.listaChamadoTiSuporte[i].silenciar === false){
 						
 						self.tocaMusica = i;
 					}
 					if(self.tocaMusica > 0 ){
-						self.enableAutoplay(); 
+						self.enableAutoplay(); 						
 					}else{
 						self.disableAutoplay();
-					}					
+					}
+					
 				}
 				}, function(errResponse){
 			});
 		};
+		
 		self.listaUsuario = function(){
 			 chamadoTiService.listaUsuario().
 				then(function(f){
@@ -124,11 +180,21 @@ self.salva = function(chamadoTi) {
 					}, function(errResponse){
 				});
 			};
+			self.listaSetor = function(){
+				 setorService.lista().
+					then(function(f){
+						self.listaSetores = f;
+						}, function(errResponse){
+					});
+				};
+			self.usuarioLista = function(){
+				 usuarioService.lista().
+					then(function(f){
+						self.usuarios = f;				
+						}, function(errResponse){
+					});
+				};
 			
-			self.verificaMensagemLida = function(){
-				self.listaSuporte();				
-				setTimeout(self.verificaMensagemLida, 40000);
-			}
 			
 		 self.prioridade = function(){
 			 chamadoTiService.prioridade().
@@ -144,6 +210,28 @@ self.salva = function(chamadoTi) {
 						}, function(errResponse){
 					});
 				};
+				
+			self.tipoEquipamento = function(){
+				 chamadoTiService.tipoEquipamento().
+					then(function(f){
+						self.tipoEquipamentos = f;			
+						}, function(errResponse){
+					});
+				};
+			self.titulo = function(){
+				 chamadoTiService.titulo().
+					then(function(f){
+						self.titulos = f;			
+						}, function(errResponse){
+					});
+				};
+			self.tituloImpressora = function(){
+				 chamadoTiService.tituloImpressora().
+					then(function(f){
+						self.tituloImpressoras = f;			
+						}, function(errResponse){
+					});
+				};	
 		
 	self.buscarPorId = function(id){
 			if(!id)return;
@@ -181,6 +269,27 @@ self.salva = function(chamadoTi) {
 		if(idChamadoTi){
 			self.buscarPorId(idChamadoTi);
 			
+		}
+		
+		self.buscaDinamicaUsuario = function(usuario){
+			$scope.buscaChamado = null;
+			$scope.buscaChamado = usuario.nome;
+		}
+		self.buscaDinamicaSetor = function(setor){
+			$scope.buscaChamado = null;
+			$scope.buscaChamado = setor.nome;
+		}
+		self.buscaDinamicaStatus = function(status){
+			$scope.buscaChamado = null;
+			$scope.buscaChamado = status;
+		}
+		self.buscaDinamicaTitulo = function(titulo){
+			$scope.buscaChamado = null;
+			$scope.buscaChamado = titulo;
+		}
+		self.buscaDinamicaData = function(data){
+			$scope.buscaChamado = null;
+			$scope.buscaChamado = data;
 		}
 
 });

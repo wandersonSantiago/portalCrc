@@ -17,6 +17,9 @@ import br.com.portalCrc.entity.chamado.ChamadoManutencao;
 import br.com.portalCrc.entity.chamado.ChamadoTi;
 import br.com.portalCrc.enums.chamado.PrioridadeChamado;
 import br.com.portalCrc.enums.chamado.StatusChamado;
+import br.com.portalCrc.enums.chamado.TipoEquipamentoChamadoTi;
+import br.com.portalCrc.enums.chamado.TituloChamadoImpressoraEnum;
+import br.com.portalCrc.enums.chamado.TituloChamadoTiEnum;
 import br.com.portalCrc.service.chamado.ChamadoTiService;
 
 @RestController
@@ -47,7 +50,13 @@ public class ChamadoTiRestController {
 		 HttpHeaders headers =new HttpHeaders();
 		 return new ResponseEntity<ChamadoTi>(headers, HttpStatus.CREATED);
 	 }
-
+	 @RequestMapping(method = RequestMethod.PUT, value="/servicos")
+	 public ResponseEntity<ChamadoTi> servicos(@RequestBody ChamadoTi chamadoTi,UriComponentsBuilder ucBuilder){
+		 chamadoTiService.servicos(chamadoTi);
+		 HttpHeaders headers =new HttpHeaders();
+		 return new ResponseEntity<ChamadoTi>(headers, HttpStatus.CREATED);
+	 }
+	 
 	 @RequestMapping(method = RequestMethod.PUT, value="/alterar")
 	 public ResponseEntity<ChamadoTi> alterar(@RequestBody ChamadoTi chamadoTi,UriComponentsBuilder ucBuilder){
 		 chamadoTiService.salvarEditar(chamadoTi);
@@ -105,5 +114,20 @@ public class ChamadoTiRestController {
 		public ResponseEntity<Iterable<StatusChamado>> status() {
 			Iterable<StatusChamado> statusChamado = Arrays.asList(StatusChamado.values());
 			return new ResponseEntity<Iterable<StatusChamado>>(statusChamado, HttpStatus.OK);
+		}
+	 @RequestMapping(method = RequestMethod.GET, value = "/equipamento/tipo")
+		public ResponseEntity<Iterable<TipoEquipamentoChamadoTi>> tipoEquipamentoChamado() {
+			Iterable<TipoEquipamentoChamadoTi> tipoEquipamentoChamadoTi = Arrays.asList(TipoEquipamentoChamadoTi.values());
+			return new ResponseEntity<Iterable<TipoEquipamentoChamadoTi>>(tipoEquipamentoChamadoTi, HttpStatus.OK);
+		}
+	 @RequestMapping(method = RequestMethod.GET, value = "/titulo/tI")
+		public ResponseEntity<Iterable<TituloChamadoTiEnum>> tituloChamadoInformatica() {
+			Iterable<TituloChamadoTiEnum> tituloChamadoTiEnum = Arrays.asList(TituloChamadoTiEnum.values());
+			return new ResponseEntity<Iterable<TituloChamadoTiEnum>>(tituloChamadoTiEnum, HttpStatus.OK);
+		}
+	 @RequestMapping(method = RequestMethod.GET, value = "/titulo/impressora")
+		public ResponseEntity<Iterable<TituloChamadoImpressoraEnum>> tituloChamadoImpressora() {
+			Iterable<TituloChamadoImpressoraEnum> tituloChamadoImpressoraEnum = Arrays.asList(TituloChamadoImpressoraEnum.values());
+			return new ResponseEntity<Iterable<TituloChamadoImpressoraEnum>>(tituloChamadoImpressoraEnum, HttpStatus.OK);
 		}
 }

@@ -55,6 +55,7 @@ app.factory(
 						$rootScope.logado = false;
 					}, function() {
 						console.log("Logout failed");
+						$location.path('/logout');
 						$rootScope.logado = false;
 					});
 				},
