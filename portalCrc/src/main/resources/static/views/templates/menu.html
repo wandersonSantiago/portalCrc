@@ -149,21 +149,21 @@
 		});
 	</script>
 	</section>
-	'	<div ng-if="role_coordenadoria">
+	'	<div ng-if="role_chamadoSuporteManutencao">
 			<div  ng-controller="chamadoManutencaoController as manuctrl" ng-init="manuctrl.verificaMensagemLida()">
 				<audio  id="myVideo" ng-show="teste" controls="controls" height="5px" width="10px">
 				  <source src="/public/img/som.mp3" type="audio/mpeg" />
 					<embed height="5px" width="10px" src="/public/img/som.mp3" />
 				</audio>
 			</div>	
-			</div>
-			<div ng-if="role_chamadoSuporteTi">
+		</div>
+		<div ng-if="role_chamadoSuporteTi">
 			<div  ng-controller="chamadoTiController as ctrl" ng-init="ctrl.verificaMensagemLida()">
 				<audio id="myAudio"  ng-show="teste" controls="controls"	height="5px" width="10px">
 					<source src="/public/img/som.mp3" type="audio/mpeg" />
 					<embed height="5px" width="10px" src="/public/img/som.mp3" />
 				</audio>
 			</div>
-			</div>
+		</div>
 
 </aside>
