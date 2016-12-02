@@ -2,7 +2,7 @@
 <header class="main-header">
 
 	<a href="#/" class="logo navbar-fixed-top"> <span class="logo-mini">CRC</span>
-		<span class="logo-lg"><b>Coordenadoria</b>Central</span>
+		<span class="logo-lg"><b>Portal</b>CRC</span>
 	</a>
 
 	<nav class="navbar navbar-static-top navbar-fixed-top" role="navigation" ng-controller="usuarioController as  userCtrl" ng-init="userCtrl.user()">
@@ -32,15 +32,14 @@
 				<ul class="nav navbar-nav pull-right" >
 						<li class="dropdown user user-menu">
 		                <a href="" class="dropdown-toggle" data-toggle="dropdown">
-		                  <img src="public/img/avatar_2x.png" class="user-image" alt="User Image">
-		                  <span class="hidden-xs">{{user.usuario.nome}}</span>
+		                  <i class="glyphicon glyphicon-user"></i>
 		                </a>
 		                <ul class="dropdown-menu">
 		                  <!-- User image -->
 		                  <li class="user-header">
 		                    <img src="public/img/avatar_2x.png" class="img-circle" alt="User Image">
 		                    <p>
-		                     		{{userCtrl.usuario.nome}}
+		                     		{{user.usuario.nome}}
 		                      <small>{{user.usuario.setor.nome}}</small>
 		                    </p>
 		                  </li>                 
@@ -114,7 +113,7 @@
 					      <div class="row">
 					      	<div  class="col-sm-12" ng-controller="unidadeController as unidadeCtr" ng-init="unidadeCtr.lista()">
 							<select class="form-control " ng-model="userCtrl.usuario.empreendimento" 
-								ng-options="unidades.descricao group by unidades.tipoUnidade for unidades in unidadeCtr.listaUnidades"
+								ng-options="unidades.dadosUnidade.nome group by unidades.tipoUnidade.descricao for unidades in unidadeCtr.listaUnidades"
 								style="width: 100%;" required>
 								<option  value="">--selecione o Unidade--</option>
 							</select>

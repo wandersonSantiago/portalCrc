@@ -1,5 +1,5 @@
 <meta charset="UTF-8">
-<aside class="main-sidebar">
+<aside class="main-sidebar" ng-controller="permissao as p" ng-init="p.role()">
 
 	<section class="sidebar">
 
@@ -14,77 +14,76 @@
 				<a href="#"><i class="glyphicon glyphicon-star-empty"></i> Online</a>
 			</div>
 		</div>
-			
-
 		<div>
 		<ul class="sidebar-menu">
 			<li class="header">MÓDULOS</li>
 		<li class="treeview ">
-              <a href=""><i class=" glyphicon glyphicon-object-align-bottom"> </i><i class="treeview "></i> Comunicação<i class="fa fa-angle-left pull-right"></i></a>
+              <a href=""><i class="glyphicon glyphicon-phone-alt"> </i><i class="treeview "></i> Comunicação<i class="fa fa-angle-left pull-right"></i></a>
               <ul class="treeview-menu">
-				<li class="treeview"><a href=""><i class="glyphicon glyphicon-user"></i> <span>Telefones</span>
+				<li class="treeview"><a href=""><i class=""></i> <span>Telefones</span>
 					<i class="fa fa-angle-left pull-right"></i></a>
 					<ul class="treeview-menu">
 						<li><a class="top" href="#/unidade/telefone/cadastrar">cadastrar</a></li>
 						<li><a class="top" href="#/unidade/telefone/lista">lista</a></li>
 					</ul>
-				</li>			
-				
-				<li class="treeview"><a href=""><i class=" glyphicon glyphicon-object-align-bottom"></i> <span>Ramal</span>
+				</li>					
+				<li class="treeview"><a href=""><i class=""></i> <span>Ramal</span>
 					<i class="fa fa-angle-left pull-right"></i></a>
 					<ul class="treeview-menu">
 						<li><a class="top" href="#/recursosHumanos/setor/ramal/cadastrar">cadastro</a></li>
 						<li><a class="top" href="#/recursosHumanos/setor/ramal/lista">lista</a></li>
 					</ul>
-				</li>				
-				
+				</li>					
 			</ul>
 		</li>
-		<li class="treeview ">
-              <a href=""><i class=" glyphicon glyphicon-object-align-bottom"> </i><i class="treeview "></i> Chamado<i class="fa fa-angle-left pull-right"></i></a>
+		<li class="treeview " ng-if="role_UsuarioChamado || role_chamadoSuporteTi">
+              <a href=""><i class="glyphicon glyphicon-envelope"> </i><i class="treeview "></i> Chamado<i class="fa fa-angle-left pull-right"></i></a>
               <ul class="treeview-menu">
-				<li class="treeview"><a href=""><i class="glyphicon glyphicon-user"></i> <span>Informática</span>
+				<li class="treeview"><a href=""><i class="glyphicon glyphicon-globe"></i> <span>Informática</span>
 					<i class="fa fa-angle-left pull-right"></i></a>
 					<ul class="treeview-menu">
 						<li><a class="top" href="#/chamado/informatica/cadastrar">cadastrar</a></li>
 						<li><a class="top" href="#/chamado/informatica/lista">Meus Chamados</a></li>
-						<li><a class="top" href="#/chamado/informatica/suporte/lista">Suporte Chamado</a></li>
+						<li ng-if="role_chamadoSuporteTi"><a class="top" href="#/chamado/informatica/suporte/lista">Suporte Chamado</a></li>
 					</ul>
 				</li>			
 				
-				<li class="treeview"><a href=""><i class=" glyphicon glyphicon-object-align-bottom"></i> <span>Manutenção</span>
+				<li class="treeview"><a href=""><i class="glyphicon glyphicon-wrench"></i> <span>Manutenção</span>
 					<i class="fa fa-angle-left pull-right"></i></a>
 					<ul class="treeview-menu">
 						<li><a class="top" href="#/chamado/manutencao/cadastrar">cadastro</a></li>
 						<li><a class="top" href="#/chamado/manutencao/lista">Meus Chamados</a></li>
-						<li><a class="top" href="#/chamado/manutencao/suporte/lista">Suporte Chamado</a></li>
+						<li ng-if="role_chamadoSuporteManutencao"><a class="top" href="#/chamado/manutencao/suporte/lista">Suporte Chamado</a></li>
 					</ul>
 				</li>				
 				
 			</ul>
-		</li>
-			<li class="treeview"><a href=""><i class=" glyphicon glyphicon-object-align-bottom"></i> <span>Secretaria</span>
+		</li>		
+		<li class="treeview " ng-if="role_coordenadoria">
+              <a href=""><i class="glyphicon glyphicon-floppy-save"> </i><i class="treeview "></i>Cadastros<i class="fa fa-angle-left pull-right"></i></a>
+              <ul class="treeview-menu">
+				<li class="treeview"><a href=""><i class="glyphicon glyphicon-hand-right"></i> <span>Secretaria</span>
 					<i class="fa fa-angle-left pull-right"></i></a>
 					<ul class="treeview-menu">
 						<li><a class="top" href="#/secretaria/cadastrar">cadastro</a></li>
 						<li><a class="top" href="#/secretaria/lista">lista</a></li>
 					</ul>
-				</li>		
-				<li class="treeview"><a href=""><i class=" glyphicon glyphicon-object-align-bottom"></i> <span>Coordenadoria</span>
+				</li>			
+				<li class="treeview"><a href=""><i class="glyphicon glyphicon-hand-right"></i> <span>Coordenadoria</span>
 					<i class="fa fa-angle-left pull-right"></i></a>
 					<ul class="treeview-menu">
 						<li><a class="top" href="#/coordenadoria/cadastrar">cadastro</a></li>
 						<li><a class="top" href="#/coordenadoria/lista">lista</a></li>
 					</ul>
-				</li>		
+				</li>
 				<li class="treeview ">
-              <a href=""><i class=" glyphicon glyphicon-object-align-bottom"> </i><i class="treeview "></i> Unidade<i class="fa fa-angle-left pull-right"></i></a>
+              <a href=""><i class="glyphicon glyphicon-hand-right"> </i><i class="treeview "></i> Unidade<i class="fa fa-angle-left pull-right"></i></a>
               <ul class="treeview-menu">	
 						<li><a class="top" href="#/unidade/cadastrar">cadastro</a></li>
 						<li><a class="top" href="#/unidade/lista">lista</a></li>
 				
 							
-				<li class="treeview"><a href=""><i class=" glyphicon glyphicon-object-align-bottom"></i> <span>Tipo</span>
+				<li class="treeview"><a href=""><i class="glyphicon glyphicon-hand-right"></i> <span>Tipo</span>
 					<i class="fa fa-angle-left pull-right"></i></a>
 					<ul class="treeview-menu">
 						<li><a class="top" href="#/unidade/tipo/cadastrar">cadastro</a></li>
@@ -94,45 +93,46 @@
 			
 			</ul>
 		</li>
-				
-				<li class="treeview"><a href=""><i class=" glyphicon glyphicon-object-align-bottom"></i> <span>Usuario</span>
+				<li class="treeview"><a href=""><i class="glyphicon glyphicon-user"></i> <span>Usuario</span>
 					<i class="fa fa-angle-left pull-right"></i></a>
 					<ul class="treeview-menu">
 						<li><a class="top" href="#/usuario/cadastrar">cadastro</a></li>
 						<li><a class="top" href="#/usuario/lista">lista</a></li>
 					</ul>
-				</li>
+				</li>				
+			</ul>
+		</li>		
 			<li class="treeview ">
-              <a href=""><i class=" glyphicon glyphicon-object-align-bottom"> </i><i class="treeview "></i> Recursos Humanos<i class="fa fa-angle-left pull-right"></i></a>
+              <a href=""><i class="glyphicon glyphicon-user"> </i><i class="treeview "></i> Recursos Humanos<i class="fa fa-angle-left pull-right"></i></a>
               <ul class="treeview-menu">
-				<li class="treeview"><a href=""><i class="glyphicon glyphicon-user"></i> <span>Funcionário</span>
+				<li class="treeview"><a href=""><i class="glyphicon glyphicon-hand-right"></i> <span>Funcionário</span>
 					<i class="fa fa-angle-left pull-right"></i></a>
 					<ul class="treeview-menu">
 						<li><a class="top" href="#/recursosHumanos/funcionario/cadastrar">cadastrar</a></li>
 						<li><a class="top" href="#/recursosHumanos/funcionario/lista">lista</a></li>
 					</ul>
 				</li>			
-				<li class="treeview"><a href=""><i class=" glyphicon glyphicon-object-align-bottom"></i> <span>Cargo</span>
+				<li class="treeview"><a href=""><i class="glyphicon glyphicon-hand-right"></i> <span>Cargo</span>
 					<i class="fa fa-angle-left pull-right"></i></a>
 					<ul class="treeview-menu">
 						<li><a class="top" href="#/recursosHumanos/cargo/cadastrar">cadastro</a></li>
 						<li><a class="top" href="#/recursosHumanos/cargo/lista">lista</a></li>
 					</ul>
 				</li>
-				<li class="treeview"><a href=""><i class=" glyphicon glyphicon-object-align-bottom"></i> <span>Setor</span>
+				<li class="treeview"><a href=""><i class="glyphicon glyphicon-hand-right"></i> <span>Setor</span>
 					<i class="fa fa-angle-left pull-right"></i></a>
 					<ul class="treeview-menu">
 						<li><a class="top" href="#/recursosHumanos/setor/cadastrar">cadastro</a></li>
 						<li><a class="top" href="#/recursosHumanos/setor/lista">lista</a></li>
 					</ul>
 				</li>
-				<li class="treeview"><a href=""><i class=" glyphicon glyphicon-object-align-bottom"></i> <span>Ramal</span>
+				<!-- <li class="treeview"><a href=""><i class=" glyphicon glyphicon-object-align-bottom"></i> <span>Ramal</span>
 					<i class="fa fa-angle-left pull-right"></i></a>
 					<ul class="treeview-menu">
 						<li><a class="top" href="#/recursosHumanos/setor/ramal/cadastrar">cadastro</a></li>
 						<li><a class="top" href="#/recursosHumanos/setor/ramal/lista">lista</a></li>
 					</ul>
-				</li>
+				</li> -->
 				<li class="treeview"><a href=""><i class=" glyphicon glyphicon-object-align-bottom"></i> <span>Função</span>
 					<i class="fa fa-angle-left pull-right"></i></a>
 					<ul class="treeview-menu">

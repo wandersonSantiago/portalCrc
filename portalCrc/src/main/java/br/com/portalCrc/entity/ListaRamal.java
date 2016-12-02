@@ -9,7 +9,7 @@ import javax.persistence.Table;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
 @Entity
-@Table(name="lista_ramal")
+@Table(name="lista_ramal", schema="principal")
 public class ListaRamal extends AbstractPersistable<Long>{
 
 	

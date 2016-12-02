@@ -12,7 +12,7 @@ import org.springframework.data.jpa.domain.AbstractPersistable;
 
 
 @Entity
-@Table(name="unidade")
+@Table(name="unidade", schema="principal")
 public class Unidade extends AbstractPersistable<Long> {
 
 		

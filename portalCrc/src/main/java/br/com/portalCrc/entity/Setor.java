@@ -17,7 +17,7 @@ import br.com.portalCrc.enums.TipoSetorEnum;
 import br.com.portalCrc.findControll.View;
 
 @Entity
-@Table(name="setor")
+@Table(name="setor", schema="principal")
 public class Setor extends AbstractPersistable<Long> {
 	
 	

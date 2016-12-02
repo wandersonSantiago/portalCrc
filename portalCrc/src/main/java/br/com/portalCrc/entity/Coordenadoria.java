@@ -10,7 +10,7 @@ import javax.persistence.Table;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
 @Entity
-@Table(name="coordenadoria")
+@Table(name="coordenadoria", schema="principal")
 public class Coordenadoria extends AbstractPersistable<Long> {
 
 	@Column(name="nome")

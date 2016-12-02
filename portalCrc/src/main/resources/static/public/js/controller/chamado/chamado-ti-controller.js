@@ -8,10 +8,10 @@ app.controller('chamadoTiController', function($scope, $rootScope, chamadoTiServ
 	var idChamadoTi = $routeParams.idChamadoTi;
 	
 	self.verificaEquipamento = function(equipamento){
-		if(equipamento == "Computador"){
+		if(equipamento == "COMPUTADOR"){
 			$scope.computador = true;
 			$scope.impressora = false;
-		}else if(equipamento == "Impressora"){
+		}else if(equipamento == "IMPRESSORA"){
 			$scope.computador = false;
 			$scope.impressora = true;
 		}else if(equipamento == null){
@@ -28,16 +28,16 @@ app.controller('chamadoTiController', function($scope, $rootScope, chamadoTiServ
 	
 	self.verificaMensagemLida = function(){			
 		if($rootScope.atualizarListaChamado === false){
-			self.listaSuporte();
-			setTimeout(self.verificaMensagemLida, 60000);				
+			self.listaSuporte();			
+			timeoutLida = setTimeout(self.verificaMensagemLida, 40000);			
 		}
 	};
 	
 	self.verificaMensagemLidaAtualizada = function(){
 		self.listaSuporte();	
 		$rootScope.atualizarListaChamado = false;
-		setTimeout(self.verificaMensagemLida, 60000);		
-		
+		clearTimeout(timeoutLida);
+		self.verificaMensagemLida();			
 	};
 	
 	self.salva = function(chamadoTi) {
@@ -47,6 +47,7 @@ app.controller('chamadoTiController', function($scope, $rootScope, chamadoTiServ
 				self.chamadoTi = null;
 				$scope.texto = null;
 				$scope.equipamento = null;
+				self.verificaEquipamento($scope.equipamento);
 				}, function(errResponse){
 			});
 		}
@@ -160,7 +161,7 @@ app.controller('chamadoTiController', function($scope, $rootScope, chamadoTiServ
 					}
 					if(self.listaChamadoTiSuporte[i].lido === false && self.listaChamadoTiSuporte[i].silenciar === false){
 						
-						self.tocaMusica = i;
+						self.tocaMusica = 1;
 					}
 					if(self.tocaMusica > 0 ){
 						self.enableAutoplay(); 						
@@ -238,17 +239,17 @@ app.controller('chamadoTiController', function($scope, $rootScope, chamadoTiServ
 			chamadoTiService.buscarPorId(id).
 			then(function(p){
 				self.chamadoTi = p;
-				if(self.chamadoTi.status == "Em_Andamento"){	
+				if(self.chamadoTi.status == "EM_ANDAMENTO"){	
 					$scope.habilitaTexto = true;
 					$scope.habilitaBotaoFecharChamado = true;
 					$scope.habilitaBotaoAtenderChamado = false;
 					$scope.habilitaBotaoServicoChamado = true;
-				}else if(self.chamadoTi.status == "Aberto"){
+				}else if(self.chamadoTi.status == "ABERTO"){
 					$scope.habilitaBotaoAtenderChamado = true;
 					$scope.habilitaBotaoFecharChamado = false;
 					$scope.habilitaTexto = false;
 					$scope.habilitaBotaoServicoChamado = false;
-				}else if(self.chamadoTi.status == "Fechado"){
+				}else if(self.chamadoTi.status == "FECHADO"){
 					$scope.habilitaTexto = false;
 					$scope.habilitaBotaoFecharChamado = false;
 					$scope.habilitaBotaoServicoChamado = true;

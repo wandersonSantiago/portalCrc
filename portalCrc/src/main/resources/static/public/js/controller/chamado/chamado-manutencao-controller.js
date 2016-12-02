@@ -15,31 +15,31 @@ app.controller('chamadoManutencaoController', function($scope, $rootScope, chama
 				self.verificaMensagemLidaAtualizada();
 			}
 	};
-	self.buscaCoordenadoria = $scope.buscaCoordenadoria;
 	
-	self.verificaMensagemLida = function(){
-		self.listaSuporte();	
+	
+	self.verificaMensagemLida = function(){			
 		if($rootScope.atualizarListaChamado === false){
-			setTimeout(self.verificaMensagemLida, 60000);					
+			self.listaSuporte();			
+			timeoutLida = setTimeout(self.verificaMensagemLida, 40000);			
 		}
 	};
 	
 	self.verificaMensagemLidaAtualizada = function(){
 		self.listaSuporte();	
 		$rootScope.atualizarListaChamado = false;
-		setTimeout(self.verificaMensagemLida, 60000);		
-		
+		clearTimeout(timeoutLida);
+		self.verificaMensagemLida();			
 	};
 	
-self.salva = function(chamadoManutencao) {
-	self.chamadoManutencao.mensagens = [{texto : $scope.texto}];
-	chamadoManutencaoService.salva(self.chamadoManutencao).
-		then(function(response){
-			self.chamadoManutencao = null;
-			$scope.texto = null;
-			}, function(errResponse){
-		});
-	};
+	self.salva = function(chamadoManutencao) {
+		self.chamadoManutencao.mensagens = [{texto : $scope.texto}];
+		chamadoManutencaoService.salva(self.chamadoManutencao).
+			then(function(response){
+				self.chamadoManutencao = null;
+				$scope.texto = null;
+				}, function(errResponse){
+			});
+		};
 	
 	self.silenciarChamadoFalse = function(chamadoManutencao) {
 		chamadoManutencao.mensagens = null;
@@ -147,7 +147,7 @@ self.salva = function(chamadoManutencao) {
 					}
 					if(self.listaChamadoManutencaoSuporte[i].lido === false && self.listaChamadoManutencaoSuporte[i].silenciar === false){
 						
-						self.tocaMusica = i;
+						self.tocaMusica = 1;
 					}
 					if(self.tocaMusica > 0 ){
 						self.enableAutoplay(); 						
@@ -158,6 +158,7 @@ self.salva = function(chamadoManutencao) {
 				}
 				}, function(errResponse){
 			});
+		 
 		};
 		
 		
@@ -210,17 +211,17 @@ self.salva = function(chamadoManutencao) {
 			chamadoManutencaoService.buscarPorId(id).
 			then(function(p){
 				self.chamadoManutencao = p;
-				if(self.chamadoManutencao.status == "Em_Andamento"){	
+				if(self.chamadoManutencao.status == "EM_ANDAMENTO"){	
 					$scope.habilitaTexto = true;
 					$scope.habilitaBotaoFecharChamado = true;
 					$scope.habilitaBotaoAtenderChamado = false;
 					$scope.habilitaBotaoServicoChamado = true;
-				}else if(self.chamadoManutencao.status == "Aberto"){
+				}else if(self.chamadoManutencao.status == "ABERTO"){
 					$scope.habilitaBotaoAtenderChamado = true;
 					$scope.habilitaBotaoFecharChamado = false;
 					$scope.habilitaTexto = false;
 					$scope.habilitaBotaoServicoChamado = false;
-				}else if(self.chamadoManutencao.status == "Fechado"){
+				}else if(self.chamadoManutencao.status == "FECHADO"){
 					$scope.habilitaTexto = false;
 					$scope.habilitaBotaoFecharChamado = false;
 					$scope.habilitaBotaoServicoChamado = true;

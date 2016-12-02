@@ -14,7 +14,7 @@ import org.springframework.data.jpa.domain.AbstractPersistable;
 
 
 @Entity
-@Table(name="dadosUnidades")
+@Table(name="dadosUnidades", schema="principal")
 public class DadosUnidade extends AbstractPersistable<Long>{
 
 	

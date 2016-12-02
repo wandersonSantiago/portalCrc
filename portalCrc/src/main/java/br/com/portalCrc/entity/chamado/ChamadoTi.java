@@ -5,7 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="chamado_ti")
+@Table(name="chamado_ti", schema="chamado")
 public class ChamadoTi extends Chamado {
 
 	

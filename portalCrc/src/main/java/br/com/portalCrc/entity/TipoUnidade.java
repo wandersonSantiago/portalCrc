@@ -9,7 +9,7 @@ import javax.persistence.Table;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
 @Entity
-@Table(name="tipoUnidade")
+@Table(name="tipoUnidade", schema="principal")
 public class TipoUnidade extends AbstractPersistable<Long>{
 
 	@Column(name="descricao" , nullable = false)

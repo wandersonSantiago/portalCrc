@@ -15,7 +15,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import br.com.portalCrc.entity.Usuario;
 
 @Entity
-@Table(name="mensagem")
+@Table(name="mensagem", schema="chamado")
 public class Mensagem extends AbstractPersistable<Long>{
 
 	@JsonIgnore

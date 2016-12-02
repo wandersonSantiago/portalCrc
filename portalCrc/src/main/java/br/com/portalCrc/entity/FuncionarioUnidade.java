@@ -14,7 +14,7 @@ import org.springframework.data.jpa.domain.AbstractPersistable;
 import br.com.portalCrc.enums.StatusFuncionario;
 
 @Entity
-@Table(name="funcionario_unidade")
+@Table(name="funcionario_unidade", schema="principal")
 public class FuncionarioUnidade extends AbstractPersistable<Long>{
 
 	@Column(name="ativo")

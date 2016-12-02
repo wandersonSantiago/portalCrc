@@ -1,16 +1,25 @@
  package br.com.portalCrc.entity;
 
+import java.util.List;
+
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
+import br.com.portalCrc.enums.PerfilUsuario;
+
 
 @Entity
-@Table(name = "usuario")
+@Table(name = "usuario", schema="principal")
 public class Usuario extends AbstractPersistable<Long>{
 
 	@ManyToOne
@@ -21,7 +30,12 @@ public class Usuario extends AbstractPersistable<Long>{
 	private Setor setor;
 	@ManyToOne
 	@JoinColumn(name="id_unidades",nullable = true)
-	private Unidade unidade;	
+	private Unidade unidade;
+	@ElementCollection(targetClass=PerfilUsuario.class,fetch = FetchType.EAGER)
+    @Enumerated(EnumType.STRING)
+    @CollectionTable(name="perfil")
+    @Column(name="perfil_usuario")
+    List<PerfilUsuario> perfilsUsuario;
 	@Column(nullable = false,length = 50)
 	private String nome;
 	@Column(nullable = false,length = 15,unique = true)
@@ -74,6 +88,14 @@ public class Usuario extends AbstractPersistable<Long>{
 	}
 	public void setSetor(Setor setor) {
 		this.setor = setor;
-	}	
+	}
+	public List<PerfilUsuario> getPerfilsUsuario() {
+		return perfilsUsuario;
+	}
+	public void setPerfilsUsuario(List<PerfilUsuario> perfilsUsuario) {
+		this.perfilsUsuario = perfilsUsuario;
+	}
+
+	
 	
 }

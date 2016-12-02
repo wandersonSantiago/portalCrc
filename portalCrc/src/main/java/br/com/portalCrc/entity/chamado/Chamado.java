@@ -24,7 +24,7 @@ import br.com.portalCrc.enums.chamado.PrioridadeChamado;
 import br.com.portalCrc.enums.chamado.StatusChamado;
 
 @Entity
-@Table(name="chamado")
+@Table(name="chamado", schema = "chamado")
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public abstract class Chamado extends AbstractPersistable<Long>{
 	

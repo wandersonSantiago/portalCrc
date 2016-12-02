@@ -10,7 +10,7 @@ import javax.persistence.Table;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
 @Entity
-@Table(name="secretaria")
+@Table(name="secretaria", schema="principal")
 public class Secretaria extends AbstractPersistable<Long>{
 
 	@Column(name="nome")

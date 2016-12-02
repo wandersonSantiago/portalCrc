@@ -1,7 +1,6 @@
 package br.com.portalCrc.service.chamado;
 
 
-import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.Date;
 
@@ -10,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import br.com.portalCrc.entity.Unidade;
 import br.com.portalCrc.entity.Usuario;
 import br.com.portalCrc.entity.chamado.ChamadoManutencao;
 import br.com.portalCrc.enums.chamado.StatusChamado;
@@ -31,7 +31,7 @@ public class ChamadoManutencaoService {
 		chamadoManutencao.setSetor(SessionUsuario.getInstance().getUsuario().getSetor());
 		chamadoManutencao.setUnidade(SessionUsuario.getInstance().getUsuario().getUnidade());
 		chamadoManutencao.setUsuarioSolicitante(SessionUsuario.getInstance().getUsuario());
-		chamadoManutencao.setStatus(StatusChamado.Aberto);
+		chamadoManutencao.setStatus(StatusChamado.ABERTO);
 		chamadoManutencao.setLido(false);
 		chamadoManutencao.setSilenciar(false);
 		chamadoManutencao.setDataAbertura(dataAtual);
@@ -52,7 +52,7 @@ public class ChamadoManutencaoService {
 	}
 	@Transactional(readOnly = false)
 	public void atenderChamado(ChamadoManutencao chamadoManutencao){
-		chamadoManutencao.setStatus(StatusChamado.Em_Andamento);
+		chamadoManutencao.setStatus(StatusChamado.EM_ANDAMENTO);
 		chamadoManutencao.setLido(true);
 		chamadoManutencao.setUsuarioAtendente(SessionUsuario.getInstance().getUsuario());
 		chamadoManutencaoRepository.save(chamadoManutencao);
@@ -61,18 +61,22 @@ public class ChamadoManutencaoService {
 	@Transactional(readOnly = false)
 	public void fecharChamado(ChamadoManutencao chamadoManutencao){
 		Date dataAtual = new Date();
-		chamadoManutencao.setStatus(StatusChamado.Fechado);
+		chamadoManutencao.setStatus(StatusChamado.FECHADO);
 		chamadoManutencao.setDataFechamento(dataAtual);	
 		chamadoManutencaoRepository.save(chamadoManutencao);
 	}
 	
 	public Collection<ChamadoManutencao> listaChamadoManutencaoUsuario(){
 		Usuario usuario = new Usuario();
+		Unidade unidade =  new Unidade();
 		usuario = SessionUsuario.getInstance().getUsuario();
-		return chamadoManutencaoRepository.listaChamadoUsuario(usuario);
+		unidade = SessionUsuario.getInstance().getUsuario().getUnidade();
+		return chamadoManutencaoRepository.listaChamadoUsuario(usuario, unidade);
 	}
 	public Collection<ChamadoManutencao> listaSuporte(){
-		return chamadoManutencaoRepository.findAll();
+		Unidade unidade =  new Unidade();
+		unidade = SessionUsuario.getInstance().getUsuario().getUnidade();
+		return chamadoManutencaoRepository.listaSuporte(unidade);
 	}
 	
 	public ChamadoManutencao buscaPorId(Long id){

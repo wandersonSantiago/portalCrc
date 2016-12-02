@@ -8,7 +8,7 @@ import javax.persistence.Table;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
 @Entity
-@Table(name="funcionario_unidade_setor")
+@Table(name="funcionario_unidade_setor", schema="principal")
 public class FuncionarioUnidadeSetor extends AbstractPersistable<Long>{
 
 	@OneToOne

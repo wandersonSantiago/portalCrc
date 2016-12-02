@@ -12,7 +12,7 @@ import javax.persistence.Table;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
 @Entity
-@Table(name = "pessoa")
+@Table(name = "pessoa", schema="principal")
 public class Pessoa extends AbstractPersistable<Long> {
 
 

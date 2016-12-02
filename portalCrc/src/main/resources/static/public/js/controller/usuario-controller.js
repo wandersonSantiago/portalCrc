@@ -3,8 +3,7 @@ app.controller('usuarioController', function($scope, toastr, $rootScope, usuario
 	var self = this;
 		
 	var idUsuario = $routeParams.idUsuario;
-	$scope.listaUsuario = [];
-	self.usuario = [];
+	$scope.listaUsuario = [];	
 	
 	$scope.perfil = function(){
 			usuarioService.perfil().
@@ -41,6 +40,7 @@ app.controller('usuarioController', function($scope, toastr, $rootScope, usuario
 		}
 	}
 	self.alteraEmpreendimento = function(usuario){
+			usuario.senha = null;
 			console.log(usuario);
 			usuarioService.altera(usuario).
 			then(function(response){
@@ -49,10 +49,11 @@ app.controller('usuarioController', function($scope, toastr, $rootScope, usuario
 			});
 		
 	}
-	
+	self.perfil = ['COORDENADORIA']; 
 	 self.salva = function(usuario){
 		if(self.senha == self.senhaRepitida){
 			self.usuario.senha = self.senha;
+			self.usuario.perfilUsuario = self.perfil;
 			usuarioService.salva(self.usuario).
 			then(function(response){
 				self.usuario = null;
@@ -79,7 +80,7 @@ app.controller('usuarioController', function($scope, toastr, $rootScope, usuario
 				}, function(errResponse){
 			});
 		};
-		//busca a usuario atraves do id
+	
 		self.buscaPorId = function(id){
 			if(!id)return;
 			usuarioService.buscaPorId(id).
@@ -88,7 +89,7 @@ app.controller('usuarioController', function($scope, toastr, $rootScope, usuario
 				}, function(errResponse){
 			});
 		};
-	//verifica se o params esta com o ide executa o metodo de busca 	
+
 		if(idUsuario){
 			self.buscaPorId(idUsuario);
 			

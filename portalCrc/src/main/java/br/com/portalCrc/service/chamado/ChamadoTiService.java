@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import br.com.portalCrc.entity.Unidade;
 import br.com.portalCrc.entity.Usuario;
 import br.com.portalCrc.entity.chamado.ChamadoManutencao;
 import br.com.portalCrc.entity.chamado.ChamadoTi;
@@ -31,7 +32,7 @@ public class ChamadoTiService {
 		chamadoTi.setSetor(SessionUsuario.getInstance().getUsuario().getSetor());
 		chamadoTi.setUnidade(SessionUsuario.getInstance().getUsuario().getUnidade());
 		chamadoTi.setUsuarioSolicitante(SessionUsuario.getInstance().getUsuario());
-		chamadoTi.setStatus(StatusChamado.Aberto);
+		chamadoTi.setStatus(StatusChamado.ABERTO);
 		chamadoTi.setLido(false);
 		chamadoTi.setSilenciar(false);
 		chamadoTi.setDataAbertura(dataAtual);
@@ -52,7 +53,7 @@ public class ChamadoTiService {
 	}
 	@Transactional(readOnly = false)
 	public void atenderChamado(ChamadoTi chamadoTi){	
-		chamadoTi.setStatus(StatusChamado.Em_Andamento);
+		chamadoTi.setStatus(StatusChamado.EM_ANDAMENTO);
 		chamadoTi.setLido(true);
 		chamadoTi.setUsuarioAtendente(SessionUsuario.getInstance().getUsuario());
 		chamadoTiRepository.save(chamadoTi);
@@ -61,7 +62,7 @@ public class ChamadoTiService {
 	@Transactional(readOnly = false)
 	public void fecharChamado(ChamadoTi chamadoTi){
 		dataAtual = new Date();	
-		chamadoTi.setStatus(StatusChamado.Fechado);
+		chamadoTi.setStatus(StatusChamado.FECHADO);
 		chamadoTi.setDataFechamento(dataAtual);	
 		chamadoTiRepository.save(chamadoTi);
 	}
@@ -81,12 +82,16 @@ public class ChamadoTiService {
 	
 	public Collection<ChamadoTi> listaChamadoTiUsuario(){
 		Usuario usuario = new Usuario();
+		Unidade unidade =  new Unidade();
 		usuario = SessionUsuario.getInstance().getUsuario();
-		return chamadoTiRepository.listaChamadoUsuario(usuario);
+		unidade = SessionUsuario.getInstance().getUsuario().getUnidade();
+		return chamadoTiRepository.listaChamadoUsuario(usuario, unidade);
 	}
 	
 	public Collection<ChamadoTi> listaSuporte(){
-		return chamadoTiRepository.findAll();
+		Unidade unidade =  new Unidade();
+		unidade = SessionUsuario.getInstance().getUsuario().getUnidade();
+		return chamadoTiRepository.listaSuporte(unidade);
 	}
 	
 	public ChamadoTi buscaPorId(Long id){

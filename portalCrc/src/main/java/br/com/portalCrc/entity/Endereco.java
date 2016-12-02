@@ -7,7 +7,7 @@ import javax.persistence.Table;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
 @Entity
-@Table(name="endereco")
+@Table(name="endereco", schema="principal")
 public class Endereco extends AbstractPersistable<Long> {
 
 	@Column(nullable = false,length = 50)
