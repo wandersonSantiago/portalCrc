@@ -59,7 +59,7 @@
 						<th>Opções</th>
 					</tr>
 				</thead>
-				<tbody	ng-repeat=" chamado in chamadoCtr.listaChamadoTiSuporte | filter : buscaChamado | orderBy : '-id'  ">
+				<tbody	ng-repeat=" chamado in chamadoCtr.listaChamadoTiUsuario | filter : buscaChamado | orderBy : '-id'  ">
 					<tr>
 						<td>{{ chamado.titulo }}</td>
 						<td>{{ chamado.usuarioSolicitante.nome }}</td>

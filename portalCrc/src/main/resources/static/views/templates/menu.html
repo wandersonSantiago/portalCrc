@@ -3,7 +3,7 @@
 
 	<section class="sidebar">
 
-<!-- dados do usuario logado -->
+
 		<div class="user-panel">
 			<div class="pull-left image">
 				<img src="public/img/avatar_2x.png" class="img-circle"
@@ -125,14 +125,7 @@
 						<li><a class="top" href="#/recursosHumanos/setor/cadastrar">cadastro</a></li>
 						<li><a class="top" href="#/recursosHumanos/setor/lista">lista</a></li>
 					</ul>
-				</li>
-				<!-- <li class="treeview"><a href=""><i class=" glyphicon glyphicon-object-align-bottom"></i> <span>Ramal</span>
-					<i class="fa fa-angle-left pull-right"></i></a>
-					<ul class="treeview-menu">
-						<li><a class="top" href="#/recursosHumanos/setor/ramal/cadastrar">cadastro</a></li>
-						<li><a class="top" href="#/recursosHumanos/setor/ramal/lista">lista</a></li>
-					</ul>
-				</li> -->
+				</li>			
 				<li class="treeview"><a href=""><i class=" glyphicon glyphicon-object-align-bottom"></i> <span>Função</span>
 					<i class="fa fa-angle-left pull-right"></i></a>
 					<ul class="treeview-menu">
@@ -156,6 +149,21 @@
 		});
 	</script>
 	</section>
-
+	'	<div ng-if="role_coordenadoria">
+			<div  ng-controller="chamadoManutencaoController as manuctrl" ng-init="manuctrl.verificaMensagemLida()">
+				<audio  id="myVideo" ng-show="teste" controls="controls" height="5px" width="10px">
+				  <source src="/public/img/som.mp3" type="audio/mpeg" />
+					<embed height="5px" width="10px" src="/public/img/som.mp3" />
+				</audio>
+			</div>	
+			</div>
+			<div ng-if="role_chamadoSuporteTi">
+			<div  ng-controller="chamadoTiController as ctrl" ng-init="ctrl.verificaMensagemLida()">
+				<audio id="myAudio"  ng-show="teste" controls="controls"	height="5px" width="10px">
+					<source src="/public/img/som.mp3" type="audio/mpeg" />
+					<embed height="5px" width="10px" src="/public/img/som.mp3" />
+				</audio>
+			</div>
+			</div>
 
 </aside>
