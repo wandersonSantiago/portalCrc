@@ -1,3 +1,4 @@
+<div ng-controller="permissao as per" ng-init="per.role()"></div>
 <meta charset="UTF-8">
 <br>
 <br>
@@ -31,16 +32,7 @@
 								<option value="">---Selecione Setor---</option>
 							</select>
 						</div>				
-					</div>		
-					<div  ng-controller="unidadeController as unidadeCtrl">	
-						<div class="col-sm-6"  ng-init="unidadeCtrl.lista()" >
-								<select class="form-control select2" ng-model="telefoneCtr.listaTelefone.unidade" 
-								ng-options="unidade.dadosUnidade.nome for unidade in unidadeCtrl.listaUnidades" 
-								  style=" width: 100%;" required >
-									<option value="">---Selecione a Unidade---</option>
-								</select>
-							</div>		
-						</div>	
+					</div>							
 					</div>	
 					<br>
 							

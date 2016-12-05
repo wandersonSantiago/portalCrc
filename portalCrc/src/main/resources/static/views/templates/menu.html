@@ -23,14 +23,14 @@
 				<li class="treeview"><a href=""><i class=""></i> <span>Telefones</span>
 					<i class="fa fa-angle-left pull-right"></i></a>
 					<ul class="treeview-menu">
-						<li><a class="top" href="#/unidade/telefone/cadastrar">cadastrar</a></li>
+						<li ng-if="role_cadastrar_telefone"><a class="top" href="#/unidade/telefone/cadastrar">cadastrar</a></li>
 						<li><a class="top" href="#/unidade/telefone/lista">lista</a></li>
 					</ul>
 				</li>					
 				<li class="treeview"><a href=""><i class=""></i> <span>Ramal</span>
 					<i class="fa fa-angle-left pull-right"></i></a>
 					<ul class="treeview-menu">
-						<li><a class="top" href="#/recursosHumanos/setor/ramal/cadastrar">cadastro</a></li>
+						<li ng-if="role_cadastrar_ramal"><a class="top" href="#/recursosHumanos/setor/ramal/cadastrar">cadastro</a></li>
 						<li><a class="top" href="#/recursosHumanos/setor/ramal/lista">lista</a></li>
 					</ul>
 				</li>					
@@ -59,17 +59,17 @@
 				
 			</ul>
 		</li>		
-		<li class="treeview " ng-if="role_coordenadoria">
+		<li class="treeview " >
               <a href=""><i class="glyphicon glyphicon-floppy-save"> </i><i class="treeview "></i>Cadastros<i class="fa fa-angle-left pull-right"></i></a>
               <ul class="treeview-menu">
-				<li class="treeview"><a href=""><i class="glyphicon glyphicon-hand-right"></i> <span>Secretaria</span>
+				<li ng-if="role_coordenadoria" class="treeview"><a href=""><i class="glyphicon glyphicon-hand-right"></i> <span>Secretaria</span>
 					<i class="fa fa-angle-left pull-right"></i></a>
 					<ul class="treeview-menu">
 						<li><a class="top" href="#/secretaria/cadastrar">cadastro</a></li>
 						<li><a class="top" href="#/secretaria/lista">lista</a></li>
 					</ul>
 				</li>			
-				<li class="treeview"><a href=""><i class="glyphicon glyphicon-hand-right"></i> <span>Coordenadoria</span>
+				<li ng-if="role_coordenadoria" class="treeview"><a href=""><i class="glyphicon glyphicon-hand-right"></i> <span>Coordenadoria</span>
 					<i class="fa fa-angle-left pull-right"></i></a>
 					<ul class="treeview-menu">
 						<li><a class="top" href="#/coordenadoria/cadastrar">cadastro</a></li>
@@ -79,11 +79,11 @@
 				<li class="treeview ">
               <a href=""><i class="glyphicon glyphicon-hand-right"> </i><i class="treeview "></i> Unidade<i class="fa fa-angle-left pull-right"></i></a>
               <ul class="treeview-menu">	
-						<li><a class="top" href="#/unidade/cadastrar">cadastro</a></li>
+						<li ng-if="role_coordenadoria"><a class="top" href="#/unidade/cadastrar">cadastro</a></li>
 						<li><a class="top" href="#/unidade/lista">lista</a></li>
 				
 							
-				<li class="treeview"><a href=""><i class="glyphicon glyphicon-hand-right"></i> <span>Tipo</span>
+				<li ng-if="role_coordenadoria" class="treeview"><a href=""><i class="glyphicon glyphicon-hand-right"></i> <span>Tipo</span>
 					<i class="fa fa-angle-left pull-right"></i></a>
 					<ul class="treeview-menu">
 						<li><a class="top" href="#/unidade/tipo/cadastrar">cadastro</a></li>
@@ -93,7 +93,7 @@
 			
 			</ul>
 		</li>
-				<li class="treeview"><a href=""><i class="glyphicon glyphicon-user"></i> <span>Usuario</span>
+				<li ng-if="role_cadastrar_usuario" class="treeview"><a href=""><i class="glyphicon glyphicon-user"></i> <span>Usuario</span>
 					<i class="fa fa-angle-left pull-right"></i></a>
 					<ul class="treeview-menu">
 						<li><a class="top" href="#/usuario/cadastrar">cadastro</a></li>

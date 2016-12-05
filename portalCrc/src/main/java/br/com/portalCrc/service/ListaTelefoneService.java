@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import br.com.portalCrc.entity.ListaTelefone;
+import br.com.portalCrc.pojo.SessionUsuario;
 import br.com.portalCrc.repository.ListaTelefoneRepository;
 
 @Service
@@ -20,6 +21,7 @@ public class ListaTelefoneService {
 	
 	@Transactional(readOnly = false)
 	public void salvarEditar(ListaTelefone listaTelefone){
+		listaTelefone.setUnidade(SessionUsuario.getInstance().getUsuario().getUnidade());
 		listaTelefoneRepository.save(listaTelefone);
 	}
 	

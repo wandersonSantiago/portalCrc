@@ -1,15 +1,7 @@
+<div ng-controller="permissao as per" ng-init="per.role()"></div>
 <meta charset="UTF-8">
 <br>
 <br>
-<div ng-if="!role_chamadoSuporteManutencao">
-	<div class="jumbotron">
-		<h1>Você não tem permissão para acessar esta pagina!!!</h1>
-		<p>...</p>
-		<p>
-			<a class="btn btn-primary btn-lg" href="#/" role="button">Home</a>
-		</p>
-	</div>
-</div>
 <div  ng-if="role_chamadoSuporteManutencao"	ng-controller="chamadoManutencaoController as chamadoCtrl">
 
 	<div class="box box-primary">

@@ -8,6 +8,8 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import br.com.portalCrc.entity.ListaRamal;
+import br.com.portalCrc.entity.Usuario;
+import br.com.portalCrc.pojo.SessionUsuario;
 import br.com.portalCrc.repository.ListaRamalRepository;
 
 @Service
@@ -19,6 +21,7 @@ public class ListaRamalService {
 	
 	@Transactional(readOnly = false)
 	public void salvarEditar(ListaRamal listaRamal){
+		listaRamal.setUnidade(SessionUsuario.getInstance().getUsuario().getUnidade());
 		ListaRamalRepository.save(listaRamal);
 	}
 	

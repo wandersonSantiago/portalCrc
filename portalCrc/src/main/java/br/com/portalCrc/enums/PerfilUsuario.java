@@ -19,6 +19,8 @@ public enum PerfilUsuario {
 	CADASTRAR_USUARIO,
 	
 	CADASTRAR_TELEFONE,
-	CADASTRAR_RAMA;
+	CADASTRAR_RAMAL;
+	
+	
 	
 }

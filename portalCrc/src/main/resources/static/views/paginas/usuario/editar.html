@@ -1,3 +1,4 @@
+<div ng-controller="permissao as per" ng-init="per.role()"></div>
 <meta charset="UTF-8">
 <br>
 <br>
@@ -22,7 +23,7 @@
 							</select>
 						</div>				
 							
-					<div  ng-controller="unidadeController as unidadeCtrl">	
+					<div ng-if="role_coordenadoria" ng-controller="unidadeController as unidadeCtrl">	
 						<div class="col-sm-3"  ng-init="unidadeCtrl.lista()" >
 								<select class="form-control select2" ng-model="userCtrl.usuario.unidade" 
 								ng-options="unidades.dadosUnidade.mnemonico group by unidades.tipoUnidade.mnemonico for unidades in unidadeCtrl.listaUnidades" 

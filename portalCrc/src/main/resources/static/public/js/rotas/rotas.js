@@ -11,6 +11,10 @@ app.config(['$routeProvider','$httpProvider', function($routeProvider, $httpProv
 		templateUrl : "views/login.html"
 	})
 	
+	.when('/semAcesso', {
+		templateUrl : "views/erros/permissao.html"
+	})
+	
 	//SECRETARIA
 	
 	.when("/secretaria/cadastrar",{
