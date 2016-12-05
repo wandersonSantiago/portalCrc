@@ -10,15 +10,14 @@
 		</p>
 	</div>
 </div>
-<div class="generic-container" ng-if="role_chamadoSuporteManutencao"
-	ng-controller="chamadoManutencaoController as chamadoCtr">
+<div ng-if="role_chamadoSuporteManutencao"	ng-controller="chamadoManutencaoController as chamadoCtr">
 	
 	<div class="box box-primary" >
 	
 		<div class="box-header">
 			<span class="lead">Lista de Chamados Manutenção</span>
 		</div>
-		<div class="panel-body" >		
+		<div class="panel-body table-responsive" >		
 			<table class="table table-hover table-bordered" ng-init="chamadoCtr.atualizaListaChamadoSuporte()">
 				<thead>
 					<tr>

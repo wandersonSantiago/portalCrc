@@ -1,15 +1,14 @@
 <meta charset="UTF-8">
 <br>
 <br>
-<div class="generic-container"
-	ng-controller="ramalController as ramalCtr">
+<div	ng-controller="ramalController as ramalCtr">
 
 	<div class="box box-primary" ng-init="ramalCtr.lista()">
 	
 		<div class="box-header">
 			<span class="lead">Lista de Ramal</span>
 		</div>
-		<div class="panel-body">
+		<div class="panel-body table-responsive">
 		<input class="form-control" type="text" ng-model="buscaRamal" placeholder="Buscar">
 			<table class="table table-hover table-bordered">
 				<thead>

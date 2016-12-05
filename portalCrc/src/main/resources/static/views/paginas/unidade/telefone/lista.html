@@ -1,15 +1,14 @@
 <meta charset="UTF-8">
 <br>
 <br>
-<div class="generic-container"
-	ng-controller="telefoneController as telefoneCtr">
+<div 	ng-controller="telefoneController as telefoneCtr">
 
 	<div class="box box-primary" ng-init="telefoneCtr.lista()">
 	
 		<div class="box-header">
 			<span class="lead">Lista de Telefones</span>
 		</div>
-		<div class="panel-body">
+		<div class="panel-body table-responsive">
 		<input class="form-control" type="text" ng-model="buscaSetor" placeholder="Buscar">
 			<table class="table table-hover table-bordered">
 				<thead>

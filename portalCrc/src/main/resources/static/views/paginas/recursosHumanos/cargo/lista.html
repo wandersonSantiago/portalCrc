@@ -1,15 +1,14 @@
 <meta charset="UTF-8">
 <br>
 <br>
-<div class="generic-container"
-	ng-controller="cargoController as cargoCtr">
+<div 	ng-controller="cargoController as cargoCtr">
 
 	<div class="box box-primary" ng-init="cargoCtr.lista()">
 	
 		<div class="box-header">
 			<span class="lead">Lista de Cargo</span>
 		</div>
-		<div class="panel-body">
+		<div class="panel-body table-responsive">
 		<input class="form-control" type="text" ng-model="buscaCargo" placeholder="Buscar">
 			<table class="table table-hover table-bordered">
 				<thead>

@@ -1,15 +1,14 @@
 <meta charset="UTF-8">
 <br>
 <br>
-<div class="generic-container"
-	ng-controller="unidadeController as unidadeCtr">
+<div 	ng-controller="unidadeController as unidadeCtr">
 
 	<div class="box box-primary" ng-init="unidadeCtr.lista()">
 	
 		<div class="box-header">
 			<span class="lead">Lista unidades</span>
 		</div>
-		<div class="panel-body">
+		<div class="panel-body table-responsive">
 		<input class="form-control" type="text" ng-model="buscaUnidade" placeholder="Buscar">
 			<table class="table table-hover table-bordered">
 				<thead>
