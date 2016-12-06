@@ -1,8 +1,10 @@
-<div ng-controller="permissao as per" ng-init="per.role()"></div>
+
 <meta charset="UTF-8">
 <br>
 <br>
-<div 	ng-controller="chamadoManutencaoController as chamadoCtr">
+
+<div ng-if="!role_UsuarioChamado" ng-include="'views/erros/permissao.html'"></div>
+<div ng-if="role_UsuarioChamado "	ng-controller="chamadoManutencaoController as chamadoCtr">
 
 	<div class="box box-primary" ng-init="chamadoCtr.listaUsuario()">
 	

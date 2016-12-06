@@ -92,7 +92,6 @@ app.factory('chamadoManutencaoService', function($rootScope, toastr, $http){
 			.then(function(response){
 				return response.data;
 			},function(errResponse){
-				sweetAlert({ timer : 3000,  type : "não fopi possivel concluir", width: 200, higth: 100, padding: 20});
 				return $q.reject(errResponse);
 			});
 		},		
@@ -102,8 +101,7 @@ app.factory('chamadoManutencaoService', function($rootScope, toastr, $http){
 			.then(function(response){
 				return response.data;
 			},function(errResponse){
-				sweetAlert({ timer : 3000,  type : "não existe chamados salvo", width: 200, higth: 100, padding: 20});
-				return $q.reject(errResponse);
+			return $q.reject(errResponse);
 			});
 		},
 		listaUsuario: function(){
@@ -111,7 +109,6 @@ app.factory('chamadoManutencaoService', function($rootScope, toastr, $http){
 			.then(function(response){
 				return response.data;
 			},function(errResponse){
-				sweetAlert({ timer : 3000,  type : "error", width: 200, higth: 100, padding: 20});
 				return $q.reject(errResponse);
 			});
 		},
@@ -120,7 +117,6 @@ app.factory('chamadoManutencaoService', function($rootScope, toastr, $http){
 			.then(function(response){
 				return response.data;
 			},function(errResponse){
-				sweetAlert({ timer : 3000,  type : "error", width: 200, higth: 100, padding: 20});
 				return $q.reject(errResponse);
 			});
 		},
@@ -129,7 +125,6 @@ app.factory('chamadoManutencaoService', function($rootScope, toastr, $http){
 			.then(function(response){
 				return response.data;
 			},function(errResponse){
-				sweetAlert({ timer : 3000,  type : "error", width: 200, higth: 100, padding: 20});
 				return $q.reject(errResponse);
 			});
 		},
@@ -138,7 +133,6 @@ app.factory('chamadoManutencaoService', function($rootScope, toastr, $http){
 			.then(function(response){
 				return response.data;
 			},function(errResponse){
-				sweetAlert({ timer : 3000,  type : "error", width: 200, higth: 100, padding: 20});
 				return $q.reject(errResponse);
 			});
 		},

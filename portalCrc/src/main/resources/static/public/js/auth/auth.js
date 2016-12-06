@@ -1,7 +1,7 @@
 app.factory(
 		'auth',
 
-		function($rootScope, $http, $location) {
+		function($rootScope, $http,  $location) {
 
 			enter = function() {
 				if ($location.path() != auth.loginPath) {

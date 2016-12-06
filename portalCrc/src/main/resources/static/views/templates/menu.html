@@ -102,34 +102,34 @@
 				</li>				
 			</ul>
 		</li>		
-			<li class="treeview ">
+			<li ng-if="role_recursos_humanos" class="treeview ">
               <a href=""><i class="glyphicon glyphicon-user"> </i><i class="treeview "></i> Recursos Humanos<i class="fa fa-angle-left pull-right"></i></a>
               <ul class="treeview-menu">
-				<li class="treeview"><a href=""><i class="glyphicon glyphicon-hand-right"></i> <span>Funcionário</span>
+				<li  class="treeview"><a href=""><i class="glyphicon glyphicon-hand-right"></i> <span>Funcionário</span>
 					<i class="fa fa-angle-left pull-right"></i></a>
 					<ul class="treeview-menu">
-						<li><a class="top" href="#/recursosHumanos/funcionario/cadastrar">cadastrar</a></li>
+						<li ng-if="role_cadastrar_funcionario"><a class="top" href="#/recursosHumanos/funcionario/cadastrar">cadastrar</a></li>
 						<li><a class="top" href="#/recursosHumanos/funcionario/lista">lista</a></li>
 					</ul>
 				</li>			
 				<li class="treeview"><a href=""><i class="glyphicon glyphicon-hand-right"></i> <span>Cargo</span>
 					<i class="fa fa-angle-left pull-right"></i></a>
 					<ul class="treeview-menu">
-						<li><a class="top" href="#/recursosHumanos/cargo/cadastrar">cadastro</a></li>
+						<li ng-if="role_cadastrar_cargo"><a class="top" href="#/recursosHumanos/cargo/cadastrar">cadastro</a></li>
 						<li><a class="top" href="#/recursosHumanos/cargo/lista">lista</a></li>
 					</ul>
 				</li>
 				<li class="treeview"><a href=""><i class="glyphicon glyphicon-hand-right"></i> <span>Setor</span>
 					<i class="fa fa-angle-left pull-right"></i></a>
 					<ul class="treeview-menu">
-						<li><a class="top" href="#/recursosHumanos/setor/cadastrar">cadastro</a></li>
+						<li ng-if="role_cadastrar_setor"><a class="top" href="#/recursosHumanos/setor/cadastrar">cadastro</a></li>
 						<li><a class="top" href="#/recursosHumanos/setor/lista">lista</a></li>
 					</ul>
 				</li>			
 				<li class="treeview"><a href=""><i class=" glyphicon glyphicon-object-align-bottom"></i> <span>Função</span>
 					<i class="fa fa-angle-left pull-right"></i></a>
 					<ul class="treeview-menu">
-						<li><a class="top" href="#/recursosHumanos/funcao/cadastrar">cadastro</a></li>
+						<li ng-if="role_cadastrar_funcao"><a class="top" href="#/recursosHumanos/funcao/cadastrar">cadastro</a></li>
 						<li><a class="top" href="#/recursosHumanos/funcao/lista">lista</a></li>
 					</ul>
 				</li>

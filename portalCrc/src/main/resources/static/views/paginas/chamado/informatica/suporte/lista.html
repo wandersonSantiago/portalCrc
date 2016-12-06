@@ -1,19 +1,10 @@
-<div ng-controller="permissao as per" ng-init="per.role()"></div>
+
 <meta charset="UTF-8">
 <br>
 <br>
-<div ng-if="!role_chamadoSuporteTi">
-	<div class="jumbotron">
-		<div class="container">
-			<h3>Você não tem permissão para acessar esta pagina!!!</h3>
-		</div>
-	</div>
-</div>
-<div ng-if="role_chamadoSuporteTi"
-	ng-controller="chamadoTiController as chamadoCtr">
-
-	<div class="box box-primary" >
-	
+<div ng-if="!role_chamadoSuporteTi" ng-include="'views/erros/permissao.html'"></div>
+<div ng-if="role_chamadoSuporteTi" ng-controller="chamadoTiController as chamadoCtr">
+	<div class="box box-primary" >	
 		<div class="box-header">
 			<span class="lead">Lista de Chamados Tecnologia da Informação</span>
 		</div>

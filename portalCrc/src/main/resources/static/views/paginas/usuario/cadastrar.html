@@ -1,8 +1,8 @@
-<div ng-controller="permissao as per" ng-init="per.role()"></div>
 <meta charset="UTF-8">
 <br>
 <br>
-<div 	ng-controller="usuarioController as userCtrl" >
+<div ng-if="!role_cadastrar_usuario" ng-include="'views/erros/permissao.html'"></div>
+<div 	ng-if="role_cadastrar_usuario " ng-controller="usuarioController as userCtrl" >
 				
 	<div class="box box-primary">
 		<!-- Default panel contents -->

@@ -2,6 +2,10 @@ package br.com.portalCrc.enums;
 
 public enum PerfilUsuario {
 
+	
+	ADMIN,
+	
+	
 	CHAMADO_SUPORTE_TI,
 	CHAMADO_SUPORTE_MANUTENCAO,
 	USUARIO_CHAMADO,

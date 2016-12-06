@@ -77,7 +77,7 @@ Portal Coordenadoria Central
 		                    <div class="pull-left">
 		                      <a href="" ng-click="userCtrl.buscaPorId(user.usuario.id)" data-toggle="modal" data-target="#alteraSenha" class="btn btn-default btn-flat">Alterar senha</a>
 		                    </div>
-		                    <div class="pull-right">
+		                    <div ng-if="role_coordenadoria" class="pull-right">
 		                      <a href=""  ng-click="userCtrl.buscaPorId(user.usuario.id)" data-toggle="modal" data-target="#alteraEmpreendimento"  class="btn btn-default btn-flat">Alterar Unidade.</a>
 		                    </div>
 		                  </li>
@@ -115,7 +115,6 @@ Portal Coordenadoria Central
 
 		
 	</div>
-
 	<script src="public/template/plugins/jQuery/jQuery-2.1.4.min.js"></script>
 	<script src="public/template/dist/js/appTeste.js"></script>
 	<script src="public/components/angular/angular.js"></script>
@@ -227,7 +226,7 @@ Portal Coordenadoria Central
 	</div>
 				
 				
-				<div ng-if="logado" class="modal fade" id="alteraEmpreendimento" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" ng-controller="usuarioController as userCtrl">
+				<div ng-if="role_coordenadoria" class="modal fade" id="alteraEmpreendimento" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" ng-controller="usuarioController as userCtrl">
 				  <div class="modal-dialog" role="document" >
 				    <div class="modal-content">
 				      <div class="modal-header">

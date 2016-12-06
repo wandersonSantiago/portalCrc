@@ -1,8 +1,10 @@
-<div ng-controller="permissao as per" ng-init="per.role()"></div>
+
 <meta charset="UTF-8">
 <br>
 <br>
-<div	ng-controller="chamadoTiController as chamadoCtrl">
+
+<div ng-if="!role_UsuarioChamado" ng-include="'views/erros/permissao.html'"></div>
+<div ng-if="role_UsuarioChamado "	ng-controller="chamadoTiController as chamadoCtrl">
 
 	<div class="box box-primary">
 

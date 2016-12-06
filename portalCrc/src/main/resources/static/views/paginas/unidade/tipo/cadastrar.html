@@ -1,8 +1,8 @@
-<div ng-controller="permissao as per" ng-init="per.role()"></div>
 <meta charset="UTF-8">
 <br>
 <br>
-<div ng-controller="tipoUnidadeController as tipoUnidadeCtrl" >
+<div ng-if="!role_coordenadoria" ng-include="'views/erros/permissao.html'"></div>
+<div ng-if="role_coordenadoria " ng-controller="tipoUnidadeController as tipoUnidadeCtrl" >
 
 	<div class="box box-primary">
 		<!-- Default panel contents -->

@@ -1,8 +1,9 @@
-<div ng-controller="permissao as per" ng-init="per.role()"></div>
 <meta charset="UTF-8">
 <br>
 <br>
-<div 	ng-controller="funcionarioController as cadFuncCtrl">
+
+<div ng-if="!role_cadastrar_funcionario" ng-include="'views/erros/permissao.html'"></div>
+<div  ng-if="role_cadastrar_funcionario "	ng-controller="funcionarioController as cadFuncCtrl">
 
 	<div class="box box-primary">
 		<div class="box-header">

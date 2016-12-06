@@ -1,8 +1,9 @@
+
 <meta charset="UTF-8">
 <br>
 <br>
-<div ng-controller="permissao as per" ng-init="per.role()"></div>
-<div 	ng-controller="coordenadoriaController as coordenadoriaCtrl">
+<div ng-if="!role_coordenadoria" ng-include="'views/erros/permissao.html'"></div>
+<div ng-if="role_coordenadoria "	ng-controller="coordenadoriaController as coordenadoriaCtrl">
 
 	<div class="box box-primary">
 
