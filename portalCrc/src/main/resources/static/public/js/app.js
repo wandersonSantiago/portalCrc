@@ -1,4 +1,4 @@
-var app = angular.module('crc',['ngAnimate', 'ngCookies','ngRoute','toastr','ui.bootstrap','blockUI', 'ngResource', 'ngStorage','ui.utils.masks', 'ui.mask'])
+var app = angular.module('crc',['ngAnimate', 'ngCookies','ngRoute', 'toastr','ui.bootstrap','blockUI', 'ngResource', 'ngStorage','ui.utils.masks', 'ui.mask'])
 
 .run(function ($rootScope, $location, usuarioService) {
 	 

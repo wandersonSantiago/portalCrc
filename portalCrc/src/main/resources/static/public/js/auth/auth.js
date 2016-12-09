@@ -34,7 +34,7 @@ app.factory(
 					}).then(function(response) {
 						if (response.data.name) {
 							auth.authenticated = true;
-							
+							$rootScope.logado = true;
 						} else {
 							auth.authenticated = false;
 						}
@@ -69,6 +69,7 @@ app.factory(
 					auth.authenticate({}, function(authenticated) {
 						if (authenticated) {
 							$location.path(auth.path);
+							$rootScope.logado = true;
 						}
 					})
 
