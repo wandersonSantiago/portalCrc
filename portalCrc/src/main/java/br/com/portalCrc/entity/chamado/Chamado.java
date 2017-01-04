@@ -8,14 +8,16 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-
-import org.springframework.data.jpa.domain.AbstractPersistable;
 
 import br.com.portalCrc.entity.Setor;
 import br.com.portalCrc.entity.Unidade;
@@ -24,10 +26,14 @@ import br.com.portalCrc.enums.chamado.PrioridadeChamado;
 import br.com.portalCrc.enums.chamado.StatusChamado;
 
 @Entity
+@SequenceGenerator(name = "chamado_id_seq", sequenceName = "chamado_id_seq", schema="chamado", initialValue = 1, allocationSize = 1)
 @Table(name="chamado", schema = "chamado")
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-public abstract class Chamado extends AbstractPersistable<Long>{
+public abstract class Chamado {
 	
+	@Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "chamado_id_seq")
+	private Long id;
 	
 	@Enumerated(EnumType.STRING)
 	protected StatusChamado status;
@@ -152,6 +158,12 @@ public abstract class Chamado extends AbstractPersistable<Long>{
 	}
 	public void setSilenciar(Boolean silenciar) {
 		this.silenciar = silenciar;
+	}
+	public Long getId() {
+		return id;
+	}
+	public void setId(Long id) {
+		this.id = id;
 	}	
 	
 

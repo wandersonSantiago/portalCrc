@@ -5,16 +5,23 @@ import java.util.Date;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
-import org.springframework.data.jpa.domain.AbstractPersistable;
 
 @Entity
+@SequenceGenerator(name = "pessoa_id_seq", sequenceName = "pessoa_id_seq", schema="principal", initialValue = 1, allocationSize = 1)
 @Table(name = "pessoa", schema="principal")
-public class Pessoa extends AbstractPersistable<Long> {
+public class Pessoa  {
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pessoa_id_seq")
+	private Long id;
 
 	@Column(nullable = false, length = 50)
 	private String nomeCompleto;
@@ -107,6 +114,15 @@ public class Pessoa extends AbstractPersistable<Long> {
 	public void setEndereco(Endereco endereco) {
 		this.endereco = endereco;
 	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+	
 
 
 

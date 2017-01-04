@@ -2,20 +2,25 @@ package br.com.portalCrc.entity;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-
-import org.springframework.data.jpa.domain.AbstractPersistable;
 
 
 @Entity
+@SequenceGenerator(name = "unidade_id_seq", sequenceName = "unidade_id_seq", schema="principal", initialValue = 1, allocationSize = 1)
 @Table(name="unidade", schema="principal")
-public class Unidade extends AbstractPersistable<Long> {
+public class Unidade  {
 
-		
+	@Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "unidade_id_seq")
+	private Long id;
+	
 	@ManyToOne
 	@JoinColumn(name="id_coordenadoria")
 	private Coordenadoria coordenadoria;
@@ -50,6 +55,14 @@ public class Unidade extends AbstractPersistable<Long> {
 
 	public void setTipoUnidade(TipoUnidade tipoUnidade) {
 		this.tipoUnidade = tipoUnidade;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 	
 	

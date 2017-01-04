@@ -1,18 +1,24 @@
 package br.com.portalCrc.entity;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
-import org.springframework.data.jpa.domain.AbstractPersistable;
-
 @Entity
+@SequenceGenerator(name = "secretaria_id_seq", sequenceName = "secretaria_id_seq", schema="principal", initialValue = 1, allocationSize = 1)
 @Table(name="secretaria", schema="principal")
-public class Secretaria extends AbstractPersistable<Long>{
+public class Secretaria {
 
+	
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "secretaria_id_seq")
+	private Long id;
+	
 	@Column(name="nome")
 	private String nome;
 	@Column(name="mnemonico")
@@ -31,8 +37,13 @@ public class Secretaria extends AbstractPersistable<Long>{
 	public void setMnemonico(String mnemonico) {
 		this.mnemonico = mnemonico;
 	}
-		
-		
+	public Long getId() {
+		return id;
+	}
+	public void setId(Long id) {
+		this.id = id;
+	}
+				
 	
 	
 }

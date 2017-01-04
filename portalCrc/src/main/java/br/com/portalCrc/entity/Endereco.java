@@ -2,14 +2,21 @@ package br.com.portalCrc.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
-import org.springframework.data.jpa.domain.AbstractPersistable;
-
 @Entity
+@SequenceGenerator(name = "endereco_id_seq", sequenceName = "endereco_id_seq", schema="principal", initialValue = 1, allocationSize = 1)
 @Table(name="endereco", schema="principal")
-public class Endereco extends AbstractPersistable<Long> {
+public class Endereco  {
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "endereco_id_seq")
+	private Long id;
+	
 	@Column(nullable = false,length = 50)
 	private String logradouro;
 	@Column(nullable = false,length = 50)
@@ -65,6 +72,12 @@ public class Endereco extends AbstractPersistable<Long> {
 	}
 	public void setComplemento(String complemento) {
 		this.complemento = complemento;
+	}
+	public Long getId() {
+		return id;
+	}
+	public void setId(Long id) {
+		this.id = id;
 	}
 	
 	

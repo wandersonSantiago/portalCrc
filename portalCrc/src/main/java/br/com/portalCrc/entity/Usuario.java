@@ -9,19 +9,26 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-
-import org.springframework.data.jpa.domain.AbstractPersistable;
 
 import br.com.portalCrc.enums.PerfilUsuario;
 
 
 @Entity
+@SequenceGenerator(name = "usuario_id_seq", sequenceName = "usuario_id_seq", schema="principal", initialValue = 1, allocationSize = 1)
 @Table(name = "usuario", schema="principal")
-public class Usuario extends AbstractPersistable<Long>{
+public class Usuario {
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "usuario_id_seq")
+	private Long id;
+	
 	@ManyToOne
 	@JoinColumn(name="id_funcionario",nullable = true)
 	private Funcionario funcionario;
@@ -94,6 +101,12 @@ public class Usuario extends AbstractPersistable<Long>{
 	}
 	public void setPerfilsUsuario(List<PerfilUsuario> perfilsUsuario) {
 		this.perfilsUsuario = perfilsUsuario;
+	}
+	public Long getId() {
+		return id;
+	}
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	

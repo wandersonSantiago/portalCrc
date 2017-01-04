@@ -2,14 +2,21 @@ package br.com.portalCrc.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
-import org.springframework.data.jpa.domain.AbstractPersistable;
-
 @Entity
+@SequenceGenerator(name = "cargo_id_seq", sequenceName = "cargo_id_seq", schema="principal", initialValue = 1, allocationSize = 1)
 @Table(name="cargo", schema="principal")
-public class Cargo extends AbstractPersistable<Long> {
-
+public class Cargo  {
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "cargo_id_seq")
+	private Long id;
+	
 	@Column(name="descricao")
 	private String descricao;
 
@@ -21,6 +28,16 @@ public class Cargo extends AbstractPersistable<Long> {
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+	
+	
 	
 	
 	
