@@ -4,6 +4,7 @@ app.controller('chamadoTiController', function($scope, $rootScope, chamadoTiServ
 	$scope.habilitaTexto = true;
 	$scope.habilitaBotaoAtenderChamado = false;
 	$scope.habilitaBotaoFecharChamado = false;
+	$rootScope.atualizarListaChamado = false;
 	
 	var idChamadoTi = $routeParams.idChamadoTi;
 	
@@ -28,8 +29,8 @@ app.controller('chamadoTiController', function($scope, $rootScope, chamadoTiServ
 	
 	self.verificaMensagemLida = function(){			
 		if($rootScope.atualizarListaChamado === false){
-			self.listaSuporte();			
-			console.log("teste");
+			self.listaSuporte();	
+			console.log("chamou");
 			timeoutLida = setTimeout(self.verificaMensagemLida, 40000);			
 		}
 	};
