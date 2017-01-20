@@ -15,14 +15,12 @@
 
 			<br>
 			<div class="container col-sm-12 ">
-			<form role="form-vertical"	ng-submit="equipamentoCtrl.salva()">
-				<!--<form role="form-vertical" name="formEquipamento" ng-submit="equipamentoCtrl.salva()" >-->
-					
+			<form role="form-vertical" name="formEquipamento" ng-submit="equipamentoCtrl.salva()" >
+												
 				<br>		
-						
 						<div class="col-sm-6" ng-controller="ipController as ipCtrl" ng-init="ipCtrl.lista()" >
 						<select class="form-control select2" ng-model="ipCtrl.numero.ip" 
-							ng-options="ip.ip.numero for ip in ipCtrl.listaIp" 
+							ng-options="ip.numero for ip in ipCtrl.listaIp" 
 							
 							  style=" width: 100%;" required >
 								<option value="">---Selecione Numero Ip---</option>
@@ -69,8 +67,7 @@
 							<input type="submit" id="submit" value="Salvar"	class="btn btn-lg btn-primary btn-block btn-signin">
 					</div>
 						</div>
-						
-				
+									
 				</form>
 			</div>
 	</div>
