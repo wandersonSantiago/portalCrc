@@ -1,6 +1,9 @@
-package org.springframework.http;
+package br.com.portalCrc.web.controller.controleIp;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,6 +27,6 @@ public class PontoRestController {
 		pontoSevice.salvaOuAltera(ponto);
 		HttpHeaders http = new HttpHeaders();
 		return new ResponseEntity<>(http, HttpStatus.CREATED);
-		
+	
 	}
 }

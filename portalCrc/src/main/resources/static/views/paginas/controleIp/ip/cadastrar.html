@@ -1,0 +1,52 @@
+<meta charset="UTF-8">
+<br>
+<br>
+
+<!-- <div ng-if="!role_cadastrar_ip" ng-include="'views/erros/permissao.html'"></div> -->
+<div ng-controller="ipController as ipCtrl">
+
+
+	<div class="box box-primary">
+		<!-- Default panel contents -->
+		<div class="box-header">
+			<span class="lead">Cadastro de Ip </span>
+		</div>
+		<div class="panel-body">
+
+			<br>
+			<div class="container col-sm-12 ">
+			
+			
+						
+				<form role="form-vertical" name="formIp" ng-submit="ipCtrl.salva()" >
+					<div class="row">
+						<div class="col-sm-6">
+							<input class="form-control" placeholder="Numero"  ng-model="ipCtrl.ip.numero" id="numero" name="numero" type="text" required>
+							
+						</div>
+					</div>
+					<br>
+					
+					<div class="row">
+						<div class="col-sm-6">
+							<input class="form-control" placeholder="Tipo"  ng-model="tipoCtrl.ip.tipo" id="tipo" name="tipo" type="text" required>
+							
+						</div>
+					</div>
+					
+					<br>
+															
+													
+					<br>
+					<div class="row ">
+							<input type="submit" id="submit" value="Salvar"	class="btn btn-lg btn-primary btn-block btn-signin">
+					</div>
+
+				</form>
+			</div>
+		</div>
+</form>
+	</div>
+	<div class="tablecontainer"></div>
+</div>
+</div>

@@ -220,6 +220,45 @@ app.config(['$routeProvider','$httpProvider', function($routeProvider, $httpProv
 		templateUrl : "views/paginas/chamado/informatica/suporte/atendimento.html"
 	})
 	
+	//Modulo Controle De IP ///////////////////////////////////////////////////////
+	 //Sub-modulo equipamento
+	
+	.when("/controleIp/equipamento/cadastrar",{
+		templateUrl : "views/paginas/controleIp/equipamento/cadastrar.html"
+	})
+	
+	.when("/controleIp/equipamento/lista",{
+		templateUrl : "views/paginas/controleIp/equipamento/lista.html"
+	})
+	
+	 //Sub-modulo ip
+	.when("/controleIp/ip/cadastrar",{
+		templateUrl : "views/paginas/controleIp/ip/cadastrar.html"
+	})
+	
+	.when("/controleIp/ip/lista",{
+		templateUrl : "views/paginas/controleIp/ip/lista.html"
+	})
+	
+	.when("/controleIp/ip/editar/:idIp",{
+		templateUrl : "views/paginas/controleIp/ip/editar.html"
+	})
+	
+	
+	//Sub-modulo Tipo Ip
+	.when("/controleIp/tipoip/cadastrar",{
+		templateUrl : "views/paginas/controleIp/tipoip/cadastrar.html"
+	})
+	
+	.when("/controleIp/tipoip/lista",{
+		templateUrl : "views/paginas/controleIp/tipoip/lista.html"
+	})
+	
+	.when("/controleIp/tipoip/editar/:idTipoIp",{
+		templateUrl : "views/paginas/controleIp/tipoip/editar.html"
+	})
+	
+	
 	.when('/',{
 		redirectTo : "/home"
 	})

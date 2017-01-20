@@ -26,6 +26,9 @@ var app = angular.module('crc',['ngAnimate', 'ngCookies','ngRoute', 'toastr','ui
 							self.role_cadastrar_cargo(perfil);
 							self.role_cadastrar_setor(perfil);
 							self.role_cadastrar_funcao(perfil);
+							self.role_cadastrar_equipamento(perfil);
+							self.role_cadastrar_ip(perfil);
+							self.role_cadastrar_tipoip(perfil);
 						}
 						}, function(errResponse){
 					});
@@ -107,6 +110,24 @@ var app = angular.module('crc',['ngAnimate', 'ngCookies','ngRoute', 'toastr','ui
 				self.role_cadastrar_funcao = function(perfil){
 					if(perfil == "CADASTRAR_FUNCAO"){
 						$rootScope.role_cadastrar_funcao = true;
+					}
+				}
+				
+				self.role_cadastrar_equipamento = function(perfil){
+					if(perfil == "CADASTRAR_EQUIPAMENTO"){
+						$rootScope.role_cadastrar_equipamento = true;
+					}
+				}
+				
+				self.role_cadastrar_ip = function(perfil){
+					if(perfil == "CADASTRAR_IP"){
+						$rootScope.role_cadastrar_ip = true;
+					}
+				}
+				
+				self.role_cadastrar_ip = function(perfil){
+					if(perfil == "CADASTRAR_TIPO_IP"){
+						$rootScope.role_cadastrar_tipoip = true;
 					}
 				}
 				

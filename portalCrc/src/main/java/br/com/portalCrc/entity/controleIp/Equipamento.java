@@ -47,6 +47,8 @@ public class Equipamento {
 	private Date datacadastro;
 	@Enumerated(EnumType.STRING)
 	private TipoEquipamentoEnum TipoEquipamento;
+	
+	
 	public Long getId() {
 		return id;
 		
