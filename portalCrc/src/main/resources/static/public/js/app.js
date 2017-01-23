@@ -26,9 +26,9 @@ var app = angular.module('crc',['ngAnimate', 'ngCookies','ngRoute', 'toastr','ui
 							self.role_cadastrar_cargo(perfil);
 							self.role_cadastrar_setor(perfil);
 							self.role_cadastrar_funcao(perfil);
-							self.role_cadastrar_equipamento(perfil);
+							/*self.role_cadastrar_equipamento(perfil);
 							self.role_cadastrar_ip(perfil);
-							self.role_cadastrar_tipoip(perfil);
+							self.role_cadastrar_tipoip(perfil);*/
 						}
 						}, function(errResponse){
 					});
