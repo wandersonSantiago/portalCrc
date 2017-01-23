@@ -28,10 +28,15 @@
 					<br>
 					
 					<div class="row">
-						<div class="col-sm-6">
-							<input class="form-control" placeholder="Tipo"  ng-model="tipoCtrl.ip.tipo" id="tipo" name="tipo" type="text" required>
+					<div class="col-sm-6" ng-controller="tipoIpController as tipoIpCtrl" ng-init="tipoIpCtrl.lista()" >
+						<select class="form-control select2" ng-model="ipCtrl.ip.tipo" 
+							ng-options="tipoIp.descricao for tipoIp in tipoIpCtrl.listaTipoIp" 
 							
-						</div>
+							  style=" width: 100%;" required >
+								<option value="">---Selecione o Tipo---</option>
+							</select>
+						</div>				
+						
 					</div>
 					
 					<br>

@@ -9,12 +9,15 @@
 	<div class="box box-primary">
 		<!-- Default panel contents -->
 		<div class="box-header">
-			<span class="lead">Cadastro de Ip </span>
+			<span class="lead">Editar Ip </span>
 		</div>
 		<div class="panel-body">
 
 			<br>
 			<div class="container col-sm-12 ">
+			
+			
+						
 				<form role="form-vertical" name="formIp" ng-submit="ipCtrl.altera()" >
 					<div class="row">
 						<div class="col-sm-6">
@@ -25,10 +28,15 @@
 					<br>
 					
 					<div class="row">
-						<div class="col-sm-6">
-							<input class="form-control" placeholder="Tipo"  ng-model="tipoCtrl.ip.tipo" id="tipo" name="tipo" type="text" required>
+					<div class="col-sm-6" ng-controller="tipoIpController as tipoIpCtrl" ng-init="tipoIpCtrl.lista()" >
+						<select class="form-control select2" ng-model="ipCtrl.ip.tipo" 
+							ng-options="tipoIp.descricao for tipoIp in tipoIpCtrl.listaTipoIp" 
 							
-						</div>
+							  style=" width: 100%;" required >
+								<option ng-value="ipCtrl.ip.tipo" value="">{{ipCtrl.ip.tipo.descricao}}</option>
+							</select>
+						</div>				
+						
 					</div>
 					
 					<br>
