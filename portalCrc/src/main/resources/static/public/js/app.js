@@ -1,4 +1,4 @@
-var app = angular.module('crc',['ngAnimate', 'ngCookies','ngRoute', 'toastr','ui.bootstrap','blockUI', 'ngResource', 'ngStorage','ui.utils.masks', 'ui.mask'])
+var app = angular.module('crc',['ngAnimate', 'ngCookies','ngRoute', 'toastr','ui.bootstrap','blockUI', 'ngResource', 'ngMaterial', 'ngStorage','ui.utils.masks', 'ui.mask'])
 
 .run(function ($rootScope, $location, usuarioService) {
 	 
@@ -113,7 +113,7 @@ var app = angular.module('crc',['ngAnimate', 'ngCookies','ngRoute', 'toastr','ui
 					}
 				}
 				
-				self.role_cadastrar_equipamento = function(perfil){
+				/*self.role_cadastrar_equipamento = function(perfil){
 					if(perfil == "CADASTRAR_EQUIPAMENTO"){
 						$rootScope.role_cadastrar_equipamento = true;
 					}
@@ -129,7 +129,9 @@ var app = angular.module('crc',['ngAnimate', 'ngCookies','ngRoute', 'toastr','ui
 					if(perfil == "CADASTRAR_TIPO_IP"){
 						$rootScope.role_cadastrar_tipoip = true;
 					}
-				}
+				}*/
+				
+				
 				
 				
 				 self.role();

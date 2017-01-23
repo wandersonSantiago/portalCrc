@@ -258,7 +258,13 @@ app.config(['$routeProvider','$httpProvider', function($routeProvider, $httpProv
 		templateUrl : "views/paginas/controleIp/tipoip/editar.html"
 	})
 	
-	
+	//PUBLICO
+	.when("/publico/telefones", {
+		templateUrl : "views/paginas/publico/telefones.html"
+	})
+	.when("/publico/ramal", {
+		templateUrl : "views/paginas/publico/ramal.html"
+	})
 	.when('/',{
 		redirectTo : "/home"
 	})

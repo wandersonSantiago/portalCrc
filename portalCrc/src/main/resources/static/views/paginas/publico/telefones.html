@@ -1,0 +1,26 @@
+<meta charset="UTF-8">
+<br>
+<br>
+<div	ng-controller="ramalController as ramalCtr">
+
+	<div class="box box-primary" ng-init="ramalCtr.lista()">
+	
+		<div class="box-header">
+			<span class="lead">Informações</span>
+		</div>
+		
+		<uib-accordion  close-others="true" ng-repeat="ramal in ramalCtr.listaRamal | filter : buscaRamal ">
+				 <div uib-accordion-group class="panel-info" heading="Endereço" is-open="status.isendereco" is-disabled="status.endenreco">
+     
+				     	  <label>Rua:</label> &nbsp;		{{membro.endereco.logradouro}}<br>
+				     	  <label>Número:</label>&nbsp;		{{membro.endereco.numero}}<br>
+				     	  <label>Bairro:</label>&nbsp;		{{membro.endereco.bairro}}<br>
+				     	  <label>Cidade:</label>&nbsp;		{{membro.endereco.localidade}}<br>
+				     	  <label> CEP:</label>&nbsp;		{{membro.endereco.cep}}<br>
+				     	  <label> Complemento:</label>&nbsp;{{membro.endereco.complemento}}<br>
+				    </div>		 
+				  </uib-accordion>
+		
+	</div>
+</div>
+

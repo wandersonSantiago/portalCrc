@@ -1,0 +1,33 @@
+<meta charset="UTF-8">
+<br>
+<br>
+<div	ng-controller="ramalController as ramalCtr">
+
+	<div class="box box-primary" ng-init="ramalCtr.lista()">
+	
+		<div class="box-header">
+			<span class="lead">Ramal</span>
+		</div>
+		
+		<uib-accordion  close-others="true" ng-repeat="ramal in ramalCtr.listaRamal | filter : buscaRamal ">
+				 <div uib-accordion-group class="panel-info" heading="{{ramal.unidade.dadosUnidade.nome}}" is-open="status.isendereco" is-disabled="status.endenreco">
+     				<input class="form-control">
+     
+     						<div  class="row">
+							    <div class="col-sm-2">
+							      <md-card>
+							        <img ng-src="public/img/icones/ramal.gif" class="md-card-image" alt="Washed Out">
+							     	  <center>
+							            <span class="md-headline"><h3>{{ramal.setor.nome}}</h3></span>
+							          </center>							        			    
+							        <md-card-actions layout="row" layout-align="center">							         
+							     	  <label><h2>{{ramal.numero}}</h2></label>							     	 
+							        </md-card-actions>
+							      </md-card>
+							      </div>
+							      </div>			     	  
+				    </div>		 
+		</uib-accordion>
+		
+	</div>
+</div>
