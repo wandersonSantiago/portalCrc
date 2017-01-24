@@ -1,31 +1,31 @@
 <meta charset="UTF-8">
-
+<div ng-controller="unidadeController">
     <br>
 	    <section layout="row" layout-align="right center">
 		  <md-button href="#/" class="groupX left">Menu</md-button>
-		  <md-button href="#/publico/coordenadoria" class="groupX middle">Coordenadoria</md-button>
 		</section>
-   	<div class="box box-primary" ng-controller="ramalController as ramalCtrl" >
+   	<div class="box box-primary" ng-controller="coordenadoriaController as coordenadoriaCtrl" ng-init="coordenadoriaCtrl.lista()">
 		<div class="box-header">
-			<span class="lead">Setores</span>
+			<span class="lead">Coordenadorias</span>
 					<div class="col-sm-12">
 						<input  class="form-control" placeholder="Busca..." ng-model="busca"> 
 					</div>
 					<br>
-					<div ng-repeat="ramal in ramalCtrl.listaRamalPorUnidade | filter : busca ">
+					<div ng-repeat="coordenadoria in coordenadoriaCtrl.listaCoordenadoria | filter : busca ">
 							    	         						
 						    <div class="col-sm-3">
 						      <md-card>
 						        <md-card-title>
 						          <md-card-title-text>
-						          <center><label><h4>{{ramal.setor.nome}}</h4></label></center>
+						          <md-button href="#/publico/unidade/{{coordenadoria.id}}">{{coordenadoria.mnemonico}}</md-button>
 						          </md-card-title-text>
-						        </md-card-title>	
-						        <center><label><h4>{{ramal.numero}}</h4></label></center>					        
+						        </md-card-title>						        
 						      </md-card>
 						      </div>
 												     	  
 					</div>	
 				</div>	 
 		</div>
-	
+		</div>
+	</div>
+</div>

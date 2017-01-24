@@ -26,8 +26,13 @@ public class ListaTelefoneRestController {
 	 public ResponseEntity<Iterable<ListaTelefone>> lista() {	  
 	  Iterable<ListaTelefone> listaTelefone = listaTelefoneService.lista();
 	  return new ResponseEntity<Iterable<ListaTelefone>>(listaTelefone, HttpStatus.OK);
-	 }
+	 } 
 	 
+	 @RequestMapping(method = RequestMethod.GET, value="/buscarTelefonePorUnidade/{id}")
+	 public ResponseEntity<Iterable<ListaTelefone>> buscarTelefonePorUnidade(@PathVariable Long id) {	  
+	  Iterable<ListaTelefone> listaTelefone = listaTelefoneService.buscarTelefonePorUnidade(id);
+	  return new ResponseEntity<Iterable<ListaTelefone>>(listaTelefone, HttpStatus.OK);
+	 } 
 	 
 	 @RequestMapping(method = RequestMethod.POST, value="/salvar")
 	 public ResponseEntity<ListaTelefone> salvar(@RequestBody ListaTelefone listaTelefone,UriComponentsBuilder ucBuilder){
@@ -48,6 +53,8 @@ public class ListaTelefoneRestController {
 		public ResponseEntity<ListaTelefone> buscarPorId(@PathVariable Long id) {
 			return new ResponseEntity<ListaTelefone>(listaTelefoneService.buscaPorId(id), HttpStatus.OK);
 		}
+	 
+	
 
 
 }

@@ -3,6 +3,8 @@ app.controller('ramalController', function($scope,  ramalService,  $routeParams)
 	var self = this;
 	self.listaTelefone = [];
 	var idRamal = $routeParams.idRamal;
+	var idRamalPorUnidade = $routeParams.idRamalPorUnidade;
+	
 	
 self.salva = function(listaRamal) {
 	ramalService.salva(self.listaRamal).
@@ -39,6 +41,20 @@ self.salva = function(listaRamal) {
 	
 		if(idRamal){
 			self.buscarPorId(idRamal);
+			
+		}
+		
+		self.buscarRamalPorUnidade = function(id){
+			if(!id)return;
+			ramalService.buscarRamalPorUnidade(id).
+			then(function(p){
+				self.listaRamalPorUnidade = p;
+		}, function(errResponse){
+			});
+		};
+	
+		if(idRamalPorUnidade){
+			self.buscarRamalPorUnidade(idRamalPorUnidade);
 			
 		}
 		

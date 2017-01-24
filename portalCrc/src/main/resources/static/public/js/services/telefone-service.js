@@ -35,6 +35,16 @@ app.factory('telefoneService', function($rootScope, toastr, $http){
 			});
 		},		
 		
+		buscarTelefonePorUnidade: function(telefone){
+			return $http.get('/rest/telefone/buscarTelefonePorUnidade/'+telefone)
+			.then(function(response){
+				return response.data;
+			},function(errResponse){
+				sweetAlert({ timer : 3000,  type : "error", width: 200, higth: 100, padding: 20});
+				return $q.reject(errResponse);
+			});
+		},		
+		
 		lista: function(){
 			return $http.get('/rest/telefone/lista')
 			.then(function(response){

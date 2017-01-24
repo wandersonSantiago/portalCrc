@@ -3,6 +3,7 @@ app.controller('unidadeController', function($scope, buscaCepService,  unidadeSe
 	var self = this;
 	
 	var idUnidade = $routeParams.idUnidade;
+	var idUnidadePorCoordenadoria = $routeParams.idUnidadePorCoordenadoria;
 	
 self.findCep = function () {
 		
@@ -60,5 +61,20 @@ self.salva = function(unidade) {
 			self.buscarPorId(idUnidade);
 			
 		}
-
+		
+		self.buscarUnidadePorCoordenadoria = function(id){
+			if(!id)return;
+			unidadeService.buscarUnidadePorCoordenadoria(id).
+			then(function(p){
+				self.listaUnidade = p;
+				console.log(p);
+		}, function(errResponse){
+			});
+		};
+	
+		if(idUnidadePorCoordenadoria){
+			console.log("teste");
+			self.buscarUnidadePorCoordenadoria(idUnidadePorCoordenadoria);
+			
+		}
 });

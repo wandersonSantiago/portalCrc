@@ -33,4 +33,9 @@ public class ListaRamalService {
 		return ListaRamalRepository.findOne(id);
 	}
 
+	public Iterable<ListaRamal> buscarRamalPorUnidade(Long id) {
+		
+		return ListaRamalRepository.buscarRamalPorUnidade(id);
+	}
+
 }

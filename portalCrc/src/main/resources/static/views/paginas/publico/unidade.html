@@ -1,31 +1,37 @@
 <meta charset="UTF-8">
-
+<div ng-controller="telefoneController">
     <br>
 	    <section layout="row" layout-align="right center">
 		  <md-button href="#/" class="groupX left">Menu</md-button>
 		  <md-button href="#/publico/coordenadoria" class="groupX middle">Coordenadoria</md-button>
 		</section>
-   	<div class="box box-primary" ng-controller="ramalController as ramalCtrl" >
+   	<div class="box box-primary" ng-controller="unidadeController as unidadeCtrl">
 		<div class="box-header">
-			<span class="lead">Setores</span>
+			<span class="lead">Unidades</span>
 					<div class="col-sm-12">
 						<input  class="form-control" placeholder="Busca..." ng-model="busca"> 
 					</div>
 					<br>
-					<div ng-repeat="ramal in ramalCtrl.listaRamalPorUnidade | filter : busca ">
+					<div ng-repeat="unidade in unidadeCtrl.listaUnidade | filter : busca ">
 							    	         						
 						    <div class="col-sm-3">
 						      <md-card>
 						        <md-card-title>
 						          <md-card-title-text>
-						          <center><label><h4>{{ramal.setor.nome}}</h4></label></center>
+						          <center><label><h3>{{unidade.dadosUnidade.mnemonico}}</h3></label></center>
 						          </md-card-title-text>
-						        </md-card-title>	
-						        <center><label><h4>{{ramal.numero}}</h4></label></center>					        
+						        </md-card-title>
+						         <md-card-actions layout="row" layout-align="center center">
+						          <md-button href="#/publico/telefone/{{unidade.id}}">Fone</md-button>
+						          <md-button href="#/publico/ramal/{{unidade.id}}">Ramal</md-button>	
+						        </md-card-actions>	        
+						        				        
 						      </md-card>
 						      </div>
 												     	  
 					</div>	
 				</div>	 
 		</div>
-	
+		</div>
+	</div>
+</div>

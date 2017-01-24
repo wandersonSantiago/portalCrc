@@ -275,9 +275,22 @@ app.config(['$routeProvider','$httpProvider', function($routeProvider, $httpProv
 	.when("/publico/telefones", {
 		templateUrl : "views/paginas/publico/telefones.html"
 	})
-	.when("/publico/ramal", {
+	.when("/publico/coordenadoria", {
+		templateUrl : "views/paginas/publico/coordenadoria.html"
+	})
+	.when("/publico/unidade", {
+		templateUrl : "views/paginas/publico/unidade.html"
+	})
+	.when("/publico/unidade/:idUnidadePorCoordenadoria",{
+		templateUrl : "views/paginas/publico/unidade.html"
+	})
+	.when("/publico/ramal/:idRamalPorUnidade",{
 		templateUrl : "views/paginas/publico/ramal.html"
 	})
+	.when("/publico/telefone/:idTelefonePorUnidade",{
+		templateUrl : "views/paginas/publico/telefone.html"
+	})
+	
 	.when('/',{
 		redirectTo : "/home"
 	})

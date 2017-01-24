@@ -35,6 +35,16 @@ app.factory('ramalService', function($rootScope, toastr, $http){
 			});
 		},		
 		
+		buscarRamalPorUnidade: function(ramal){
+			return $http.get('/rest/ramal/buscarRamalPorUnidade/'+ramal)
+			.then(function(response){
+				return response.data;
+			},function(errResponse){
+				sweetAlert({ timer : 3000,  type : "error", width: 200, higth: 100, padding: 20});
+				return $q.reject(errResponse);
+			});
+		},		
+		
 		lista: function(){
 			return $http.get('/rest/ramal/lista')
 			.then(function(response){

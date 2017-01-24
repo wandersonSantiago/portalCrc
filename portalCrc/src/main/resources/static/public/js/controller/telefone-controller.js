@@ -2,6 +2,8 @@ app.controller('telefoneController', function($scope,  telefoneService,  $routeP
 
 	var self = this;	
 	var idTelefone = $routeParams.idTelefone;
+	var idTelefonePorUnidade = $routeParams.idTelefonePorUnidade;
+	
 	
 self.salva = function(listaTelefone) {
 	telefoneService.salva(self.listaTelefone).
@@ -40,6 +42,20 @@ self.salva = function(listaTelefone) {
 			self.buscarPorId(idTelefone);
 			
 		}		
+		
+		self.buscarTelefonePorUnidade = function(id){
+			if(!id)return;
+			telefoneService.buscarTelefonePorUnidade(id).
+			then(function(p){
+				self.listaTelefonePorUnidade = p;
+		}, function(errResponse){
+			});
+		};
+	
+		if(idTelefonePorUnidade){
+			self.buscarTelefonePorUnidade(idTelefonePorUnidade);
+			
+		}
 				
 
 });

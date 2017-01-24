@@ -28,6 +28,11 @@ public class ListaRamalRestController {
 	  return new ResponseEntity<Iterable<ListaRamal>>(listaRamal, HttpStatus.OK);
 	 }
 	 
+	 @RequestMapping(method = RequestMethod.GET, value="/buscarRamalPorUnidade/{id}")
+	 public ResponseEntity<Iterable<ListaRamal>> buscarRamalPorUnidade(@PathVariable Long id) {	  
+	  Iterable<ListaRamal> listaRamal = listaRamalService.buscarRamalPorUnidade(id);
+	  return new ResponseEntity<Iterable<ListaRamal>>(listaRamal, HttpStatus.OK);
+	 }
 	 
 	 @RequestMapping(method = RequestMethod.POST, value="/salvar")
 	 public ResponseEntity<ListaRamal> salvar(@RequestBody ListaRamal listaRamal,UriComponentsBuilder ucBuilder){

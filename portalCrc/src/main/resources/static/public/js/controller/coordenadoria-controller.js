@@ -1,8 +1,9 @@
-app.controller('coordenadoriaController', function($scope,  coordenadoriaService,  $routeParams) {
+app.controller('coordenadoriaController', function($scope,  coordenadoriaService, unidadeService,  $routeParams) {
 
 	var self = this;
 	
 	var idCoordenadoria = $routeParams.idCoordenadoria;
+	
 	
 self.salva = function(coordenadoria) {
 	coordenadoriaService.salva(self.coordenadoria).
@@ -41,6 +42,7 @@ self.salva = function(coordenadoria) {
 		if(idCoordenadoria){
 			self.buscarPorId(idCoordenadoria);
 			
-		}
+		}		
+
 
 });

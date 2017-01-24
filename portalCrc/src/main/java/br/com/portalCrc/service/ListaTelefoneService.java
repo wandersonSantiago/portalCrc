@@ -1,6 +1,7 @@
 package br.com.portalCrc.service;
 
 import java.util.Collection;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,5 +32,10 @@ public class ListaTelefoneService {
 	
 	public ListaTelefone buscaPorId(Long id){
 		return listaTelefoneRepository.findOne(id);
+	}
+
+	public List<ListaTelefone> buscarTelefonePorUnidade(Long id) {
+		
+		return listaTelefoneRepository.listaTelefoneRepository(id);
 	}
 }

@@ -30,4 +30,9 @@ public class UnidadeService {
 	public Unidade buscaPorId(Long id){
 		return unidadeRepository.findOne(id);
 	}
+
+	public Iterable<Unidade> buscaUnidadePorId(Long id) {
+		
+		return unidadeRepository.buscaUnidadePorId(id);
+	}
 }
