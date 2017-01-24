@@ -1,25 +1,13 @@
 <meta charset="UTF-8">
 <div ng-if="!role_UsuarioChamado" ng-include="'views/erros/permissao.html'"></div>
 <div ng-if="role_UsuarioChamado "  ng-controller="chamadoManutencaoController as chamadoCtrl">
-	<div class="lock-size" layout="row" layout-align="right center">
-	      <md-fab-speed-dial md-open="true" md-direction="right"
-	                         ng-class="md-fling">
-	        <md-fab-trigger>
-	          <md-button aria-label="menu" href="#/" class="md-fab md-primary">
-	            <md-label >Menu</md-label>
-	          </md-button>
-	        </md-fab-trigger>
 	
-	        <md-fab-actions>
-	          <md-button aria-label="lista" href="#/chamado/manutencao/lista" class="md-fab md-info md-mini">
-	            <md-label >Lista</md-label>
-	          </md-button>
-	          <md-button aria-label="suporte" href="#/chamado/manutencao/suporte/lista" class="md-fab md-success md-mini">
-	           	<md-label >suporte</md-label>
-	          </md-button>          
-	        </md-fab-actions>
-	      </md-fab-speed-dial>
-	    </div>
+	     <br>
+	    <section layout="row" layout-align="right center">
+		  <md-button href="#/" class="groupX left">Menu</md-button>
+		  <md-button href="#/chamado/manutencao/lista" class="groupX middle">Lista</md-button>	  
+		  <md-button href="#/chamado/manutencao/suporte/lista" class="groupX middle">Suporte</md-button>
+		</section>
 	<div class="box box-primary">
 
 		<div class="box-header">
