@@ -2,12 +2,14 @@
 <div ng-controller="telefoneController">
     <br>
 	    <section layout="row" layout-align="right center">
+	     <a href="javascript:window.history.go(-1)"">Voltar</a>
 		  <md-button href="#/" class="groupX left">Menu</md-button>
 		  <md-button href="#/publico/coordenadoria" class="groupX middle">Coordenadoria</md-button>
 		</section>
    	<div class="box box-primary" ng-controller="unidadeController as unidadeCtrl">
 		<div class="box-header">
-			<span class="lead">Unidades</span>
+			<span class="lead">Unidades</span><br>
+			<br>
 					<div class="col-sm-12">
 						<input  class="form-control" placeholder="Busca..." ng-model="busca"> 
 					</div>

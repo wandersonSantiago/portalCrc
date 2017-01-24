@@ -1,12 +1,15 @@
 <meta charset="UTF-8">
 <div ng-controller="unidadeController">
-    <br>
+    <br>		
 	    <section layout="row" layout-align="right center">
-		  <md-button href="#/" class="groupX left">Menu</md-button>
+	    <a href="javascript:window.history.go(-1)"">Voltar</a>
+		  <md-button href="#/" class="groupX left">Menu</md-button>		  
 		</section>
    	<div class="box box-primary" ng-controller="coordenadoriaController as coordenadoriaCtrl" ng-init="coordenadoriaCtrl.lista()">
 		<div class="box-header">
 			<span class="lead">Coordenadorias</span>
+			<br>
+			<br>
 					<div class="col-sm-12">
 						<input  class="form-control" placeholder="Busca..." ng-model="busca"> 
 					</div>
