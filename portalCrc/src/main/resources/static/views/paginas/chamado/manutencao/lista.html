@@ -1,13 +1,28 @@
-
 <meta charset="UTF-8">
-<br>
-<br>
-
 <div ng-if="!role_UsuarioChamado" ng-include="'views/erros/permissao.html'"></div>
 <div ng-if="role_UsuarioChamado "	ng-controller="chamadoManutencaoController as chamadoCtr">
 
-	<div class="box box-primary" ng-init="chamadoCtr.listaUsuario()">
 	
+		<div class="lock-size" layout="row" layout-align="right center">
+	      <md-fab-speed-dial md-open="true" md-direction="right"
+	                         ng-class="md-fling">
+	        <md-fab-trigger>
+	          <md-button aria-label="menu" href="#/" class="md-fab md-primary">
+	            <md-label >Menu</md-label>
+	          </md-button>
+	        </md-fab-trigger>
+	
+	        <md-fab-actions>
+	          <md-button aria-label="abrir" href="#/chamado/manutencao/cadastrar" class="md-fab md-info md-mini">
+	            <md-label >Abrir</md-label>
+	          </md-button>
+	          <md-button aria-label="suporte" href="#/chamado/manutencao/suporte/lista" class="md-fab md-success md-mini">
+	           	<md-label >suporte</md-label>
+	          </md-button>          
+	        </md-fab-actions>
+	      </md-fab-speed-dial>
+	    </div>
+	    <div class="box box-primary" ng-init="chamadoCtr.listaUsuario()">
 		<div class="box-header">
 			<span class="lead">Lista de Chamados Manutenção</span>
 		</div>
