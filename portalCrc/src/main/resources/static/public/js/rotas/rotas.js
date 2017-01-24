@@ -258,6 +258,19 @@ app.config(['$routeProvider','$httpProvider', function($routeProvider, $httpProv
 		templateUrl : "views/paginas/controleIp/tipoip/editar.html"
 	})
 	
+	//Sub-modulo Tipo Ponto
+	.when("/controleIp/ponto/cadastrar",{
+		templateUrl : "views/paginas/controleIp/ponto/cadastrar.html"
+	})
+	
+	.when("/controleIp/ponto/lista",{
+		templateUrl : "views/paginas/controleIp/ponto/lista.html"
+	})
+	
+	.when("/controleIp/ponto/editar/:idponto",{
+		templateUrl : "views/paginas/controleIp/ponto/editar.html"
+	})
+	
 	//PUBLICO
 	.when("/publico/telefones", {
 		templateUrl : "views/paginas/publico/telefones.html"
