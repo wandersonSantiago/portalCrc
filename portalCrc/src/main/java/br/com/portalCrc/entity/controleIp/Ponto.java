@@ -11,6 +11,8 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import br.com.portalCrc.entity.Setor;
+import br.com.portalCrc.entity.Unidade;
+import br.com.portalCrc.entity.Usuario;
 
 @Entity
 @SequenceGenerator(name = "ponto_id_seq", sequenceName = "ponto_id_seq", schema="controle_ip", initialValue = 1, allocationSize = 1) 
@@ -23,12 +25,21 @@ public class Ponto {
 	
 	@Column(name="descricao", nullable=false)
 	private String descricao;
+	
 	@Column(name="numero", nullable=false)
 	private String numero;
+	
 	@ManyToOne
 	@JoinColumn(name="setor", nullable=false)
 	private Setor setor;
 	
+	@ManyToOne
+	@JoinColumn(name="id_Unidade" )
+	private Unidade unidade;
+	
+	@ManyToOne 
+	@JoinColumn(name="id_usuario_cadastro")
+	private Usuario usuarioCadastro;
 	
 	
 	public Long getId() {
@@ -55,8 +66,18 @@ public class Ponto {
 	public void setSetor(Setor setor) {
 		this.setor = setor;
 	}
-	
-	
+	public Unidade getUnidade() {
+		return unidade;
+	}
+	public void setUnidade(Unidade unidade) {
+		this.unidade = unidade;
+	}
+	public Usuario getUsuarioCadastro() {
+		return usuarioCadastro;
+	}
+	public void setUsuarioCadastro(Usuario usuarioCadastro) {
+		this.usuarioCadastro = usuarioCadastro;
+	}
 	
 	
 

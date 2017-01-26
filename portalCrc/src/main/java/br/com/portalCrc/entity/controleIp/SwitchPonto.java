@@ -8,9 +8,17 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import br.com.portalCrc.entity.Unidade;
+import br.com.portalCrc.entity.Usuario;
 
 
 @Entity
@@ -24,11 +32,23 @@ public class SwitchPonto {
 	
 	@Column(name="ponto", nullable=false)
 	private int ponto;
-	private Date datacadastro;
+	
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name="data_cadastro")
+	private Date dataCadastro;
+	
+	@JsonIgnore
 	@OneToOne
 	@JoinColumn(name="porta_switch", nullable=false)	
 	private PortaSwitch portaSwitch;
 	
+	@ManyToOne
+	@JoinColumn(name="id_unidade")
+	private Unidade unidade;
+		
+	@ManyToOne
+	@JoinColumn(name="id_usuario_cadastro")
+	private Usuario usuarioCadastro;
 	
 	
 	public Long getId() {
@@ -43,12 +63,31 @@ public class SwitchPonto {
 	public void setPonto(int ponto) {
 		this.ponto = ponto;
 	}
-	public Date getDatacadastro() {
-		return datacadastro;
+	public Date getDataCadastro() {
+		return dataCadastro;
 	}
-	public void setDatacadastro(Date datacadastro) {
-		this.datacadastro = datacadastro;
+	public void setDataCadastro(Date dataCadastro) {
+		this.dataCadastro = dataCadastro;
 	}
+	public PortaSwitch getPortaSwitch() {
+		return portaSwitch;
+	}
+	public void setPortaSwitch(PortaSwitch portaSwitch) {
+		this.portaSwitch = portaSwitch;
+	}
+	public Unidade getUnidade() {
+		return unidade;
+	}
+	public void setUnidade(Unidade unidade) {
+		this.unidade = unidade;
+	}
+	public Usuario getUsuarioCadastro() {
+		return usuarioCadastro;
+	}
+	public void setUsuarioCadastro(Usuario usuarioCadastro) {
+		this.usuarioCadastro = usuarioCadastro;
+	}
+	
 	
 
 }

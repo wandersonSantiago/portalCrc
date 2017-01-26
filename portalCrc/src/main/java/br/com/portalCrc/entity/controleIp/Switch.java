@@ -13,6 +13,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 
 
@@ -29,12 +31,17 @@ public class Switch {
 	
 	@Column(name = "nome", nullable=false)
 	private String nome;
+	
 	@Column(name = "status", nullable=false)
 	private Boolean status;
-	private Date datacadastro;
+	
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name="data_cadastro", nullable=false)
+	private Date dataCadastro;
+	
 	@OneToMany(cascade = CascadeType.ALL , fetch = FetchType.EAGER) // verificar
-	@Column(nullable=false)
-	private Collection<PortaSwitch> portaswitch; 
+	@Column(name="porta_switch", nullable=false)
+	private Collection<PortaSwitch> portaSwitch; 
 	
 	
 	
@@ -56,21 +63,18 @@ public class Switch {
 	public void setStatus(Boolean status) {
 		this.status = status;
 	}
-	public Collection<PortaSwitch> getPortaswitch() {
-		return portaswitch;
+	public Date getDataCadastro() {
+		return dataCadastro;
 	}
-	public void setPortaswitch(Collection<PortaSwitch> portaswitch) {
-		this.portaswitch = portaswitch;
+	public void setDataCadastro(Date dataCadastro) {
+		this.dataCadastro = dataCadastro;
 	}
-	public Date getDatacadastro() {
-		return datacadastro;
+	public Collection<PortaSwitch> getPortaSwitch() {
+		return portaSwitch;
 	}
-	public void setDatacadastro(Date datacadastro) {
-		this.datacadastro = datacadastro;
+	public void setPortaSwitch(Collection<PortaSwitch> portaSwitch) {
+		this.portaSwitch = portaSwitch;
 	}
-	
-	
-	
 	
 	
 

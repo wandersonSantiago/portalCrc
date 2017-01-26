@@ -1,5 +1,7 @@
 package br.com.portalCrc.entity.controleIp;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,6 +11,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import br.com.portalCrc.entity.Unidade;
+import br.com.portalCrc.entity.Usuario;
 
 @Entity
 
@@ -20,12 +27,25 @@ public class Ip {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ip_id_seq") // indica quem vai gerenciar a sequencia do id
 	private Long id;
+	
 	@Column(name="numero", nullable=false) 
 	private String numero;
 	
 	@ManyToOne //varios ip recebe um unico tipo
 	@JoinColumn(name="tipo_ip_id")
 	private TipoIp tipo;
+	
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name="data_cadastro")
+	private Date dataCadastro;
+	
+	@ManyToOne
+	@JoinColumn(name="id_unidade")
+	private Unidade unidade;
+	
+	@ManyToOne
+	@JoinColumn(name="id_usuario_cadastro")
+	private Usuario usuarioCadastro;
 	
 	public Long getId() {
 		return id;
@@ -44,6 +64,24 @@ public class Ip {
 	}
 	public void setTipo(TipoIp tipo) {
 		this.tipo = tipo;
+	}
+	public Date getDataCadastro() {
+		return dataCadastro;
+	}
+	public void setDataCadastro(Date dataCadastro) {
+		this.dataCadastro = dataCadastro;
+	}
+	public Unidade getUnidade() {
+		return unidade;
+	}
+	public void setUnidade(Unidade unidade) {
+		this.unidade = unidade;
+	}
+	public Usuario getUsuarioCadastro() {
+		return usuarioCadastro;
+	}
+	public void setUsuarioCadastro(Usuario usuarioCadastro) {
+		this.usuarioCadastro = usuarioCadastro;
 	}
 	
 	

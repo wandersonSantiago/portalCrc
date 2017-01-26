@@ -14,8 +14,11 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import br.com.portalCrc.entity.Unidade;
+import br.com.portalCrc.entity.Usuario;
 import br.com.portalCrc.enums.controleIp.TipoEquipamentoEnum;
 
 
@@ -32,19 +35,31 @@ public class Equipamento {
 	
 	
 	@OneToOne
-	@JoinColumn(name="ip", nullable=false)
+	@JoinColumn(name="ip", nullable=false, unique = true)
 	private Ip ip;
+	
 	@Column(name="nome", nullable=false)
 	private String nome;
+	
 	@Column(name="patrimonio", nullable=false)
 	private String patrimonio;
+	
 	@OneToOne
 	@JoinColumn(name="ponto", nullable=false)
 	private Ponto ponto;
+	
 	@ManyToOne
 	@JoinColumn(name="unidade", nullable=false)
 	private Unidade unidade;
-	private Date datacadastro;
+	
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name="data_cadastro", nullable=false)
+	private Date dataCadastro;
+	
+	@ManyToOne
+	@JoinColumn(name="id_usuario_cadastro", nullable=false)
+	private Usuario usuarioCadastro;
+	
 	@Enumerated(EnumType.STRING)
 	private TipoEquipamentoEnum TipoEquipamento;
 	
@@ -93,11 +108,17 @@ public class Equipamento {
 	public void setTipoEquipamento(TipoEquipamentoEnum tipoEquipamento) {
 		TipoEquipamento = tipoEquipamento;
 	}
-	public Date getDatacadastro() {
-		return datacadastro;
+	public Date getDataCadastro() {
+		return dataCadastro;
 	}
-	public void setDatacadastro(Date datacadastro) {
-		this.datacadastro = datacadastro;
+	public void setDataCadastro(Date dataCadastro) {
+		this.dataCadastro = dataCadastro;
+	}
+	public Usuario getUsuarioCadastro() {
+		return usuarioCadastro;
+	}
+	public void setUsuarioCadastro(Usuario usuarioCadastro) {
+		this.usuarioCadastro = usuarioCadastro;
 	}
 	
 	

@@ -11,6 +11,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import br.com.portalCrc.entity.Usuario;
 
 @Entity
 @SequenceGenerator(name = "porta_id_seq", sequenceName = "porta_id_seq", schema="controle_ip", initialValue = 1, allocationSize = 1) 
@@ -24,11 +28,21 @@ public class PortaSwitch {
 	
 	@Column(name="numero", nullable=false)
 	private int numero;
+	
 	@Column(name="status", nullable=false)
 	private String status;
+	
 	@Column(name="descricao", nullable=false)
 	private String descricao;
-	private Date datacadastro;
+	
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name="data_cadastro" ,  nullable=false)
+	private Date dataCadastro;
+	
+	@ManyToOne
+	@JoinColumn(name="id_usuario_cadastro")
+	private Usuario usuarioCadastro;
+	
 	@ManyToOne 
 	@JoinColumn(name="id_switch" , nullable=false)
 	private Switch switchs;
@@ -57,11 +71,23 @@ public class PortaSwitch {
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}
-	public Date getDatacadastro() {
-		return datacadastro;
+	public Date getDataCadastro() {
+		return dataCadastro;
 	}
-	public void setDatacadastro(Date datacadastro) {
-		this.datacadastro = datacadastro;
+	public void setDataCadastro(Date dataCadastro) {
+		this.dataCadastro = dataCadastro;
+	}
+	public Usuario getUsuarioCadastro() {
+		return usuarioCadastro;
+	}
+	public void setUsuarioCadastro(Usuario usuarioCadastro) {
+		this.usuarioCadastro = usuarioCadastro;
+	}
+	public Switch getSwitchs() {
+		return switchs;
+	}
+	public void setSwitchs(Switch switchs) {
+		this.switchs = switchs;
 	}
 	
 	
