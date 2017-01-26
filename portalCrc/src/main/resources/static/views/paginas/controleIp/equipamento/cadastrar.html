@@ -4,33 +4,31 @@
 
 <!-- <div ng-if="!role_cadastrar_equipamento" ng-include="'views/erros/permissao.html'"></div> -->
 <div ng-controller="equipamentoController as equipamentoCtrl">
-
-
-	<div class="box box-primary">
-		<!-- Default panel contents -->
-		<div class="box-header">
+	
+ <div class="box-header">
 			<span class="lead">Cadastro de Equipamento </span>
 		</div>
+	
+	<div class="box box-primary">
+				
 		<div class="panel-body">
 
 			<br>
+			
 			<div class="container col-sm-12 ">
 			<form role="form-vertical" name="formEquipamento" ng-submit="equipamentoCtrl.salva()" >
-												
+				<div class="row">								
 				<br>		
 						<div class="col-sm-6" ng-controller="ipController as ipCtrl" ng-init="ipCtrl.lista()" >
 						<select class="form-control select2" ng-model="ipCtrl.numero.ip" 
 							ng-options="ip.numero for ip in ipCtrl.listaIp" 
 							
 							  style=" width: 100%;" required >
-								<option value="">---Selecione Numero Ip---</option>
+								<option value="">Selecione Numero IP do Equipamento</option>
 							</select>
 						</div>		
-				
-								
-						
+																		
 					</div>
-						<br>
 						<br>
 					<br>
 						
@@ -49,15 +47,31 @@
 							
 						</div>
 					</div>
-					
+					<br>
+					<div class="row">
+					<div class="col-sm-6" ng-controller="pontoController as pontoCtrl" ng-init="pontoCtrl.lista()" >
+						<select class="form-control select2" ng-model="pontoCtrl.numero.ponto" 
+							ng-options="ponto.numero for ponto in pontoCtrl.listaPonto" 
+							
+							  style=" width: 100%;" required >
+								<option value="">Selecione Numero Ponto/Espelho</option>
+							</select>
+						</div>		
+																
+					</div>
 					<br>	
 					
 					<div class="row">
-						<div class="col-sm-6">
-							 <input class="form-control" placeholder="Unidade"  ng-model="equipamentoCtrl.equipamento.unidade" id="unidade" name="unidade" type="text" required>
-							
+						<div  ng-controller="coordenadoriaController as coordenadoriaCtrl">	
+						<div class="col-sm-3"  ng-init="coordenadoriaCtrl.lista()" >
+								<select class="form-control select2" ng-model="equipamentoCtrl.unidade.equipamento" 
+								ng-options="coordenadoria.mnemonico for coordenadoria in coordenadoriaCtrl.listaCoordenadoria" 
+								  style=" width: 100%;" required >
+									<option value="">Selecione a Unidade</option>
+								</select>
+							</div>		
 						</div>
-					</div>
+				
 					
 					<br>																			
 					

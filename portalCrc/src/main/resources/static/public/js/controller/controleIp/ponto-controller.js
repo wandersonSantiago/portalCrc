@@ -30,6 +30,7 @@ self.salva = function(ponto) {
 		
 		
 	self.buscarPorId = function(id){
+		
 			if(!id)return;
 			pontoService.buscarPorId(id).
 			then(function(p){

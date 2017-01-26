@@ -41,19 +41,12 @@
 					</div>
 					
 					<br>	
-					
-					<div class="row">
-						<div class="col-sm-6">
-							 <input class="form-control" placeholder="Setor"  ng-model="pontoCtrl.ponto.setor" id="setor" name="setor" type="text" required>
-							
-						</div>
-					</div>
-					
+															
 					<br>	
 					
 					<div class="row">	
 						<div class="col-sm-6" ng-controller="setorController as setorCtrl" ng-init="setorCtrl.lista()" >
-						<select class="form-control select2" ng-model="pontoCtr.ponto.setor" 
+						<select class="form-control select2" ng-model="pontoCtrl.ponto.setor" 
 							ng-options="setor.nome for  setor in setorCtrl.listaSetor" 
 							
 							  style=" width: 100%;" required >

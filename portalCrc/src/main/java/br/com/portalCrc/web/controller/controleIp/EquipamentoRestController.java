@@ -5,10 +5,11 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -22,14 +23,7 @@ public class EquipamentoRestController {
 	
 	@Autowired
 	private EquipamentoService equipamentoService;
-	
-	@GetMapping
-	public ResponseEntity<Iterable<Equipamento>> lista(){
-	Iterable<Equipamento> controleIpequipamento	= equipamentoService.lista();
-	return new ResponseEntity<Iterable<Equipamento>>(controleIpequipamento, HttpStatus.OK);
-		
-		}
-	
+			
 	@PostMapping
 	 public ResponseEntity<Equipamento> salvar(@RequestBody Equipamento equipamento,UriComponentsBuilder ucBuilder){
 		equipamentoService.salvaOuAltera(equipamento);
@@ -37,7 +31,23 @@ public class EquipamentoRestController {
 		 return new ResponseEntity<Equipamento>(headers, HttpStatus.CREATED);
 	 }
 		
+	@PutMapping
+	public ResponseEntity<Equipamento> alterar(@RequestBody Equipamento equipamento){
+		equipamentoService.salvaOuAltera(equipamento);
+		HttpHeaders http =  new HttpHeaders();
+		return new ResponseEntity<>(http , HttpStatus.CREATED);		
+	}
 	
+	@GetMapping
+	public ResponseEntity<Iterable<Equipamento>> lista(){
+		Iterable<Equipamento> equipamento	= equipamentoService.lista();
+		return new ResponseEntity<Iterable<Equipamento>>(equipamento, HttpStatus.OK);
+	}
+	
+	 @GetMapping(value = "/buscaPorId/{id}")
+		public ResponseEntity<Equipamento> buscarPorId(@PathVariable Long id) {
+			return new ResponseEntity<Equipamento>(equipamentoService.buscaPorId(id), HttpStatus.OK);
+	 }
 	
 
 }

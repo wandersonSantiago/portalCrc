@@ -267,7 +267,7 @@ app.config(['$routeProvider','$httpProvider', function($routeProvider, $httpProv
 		templateUrl : "views/paginas/controleIp/ponto/lista.html"
 	})
 	
-	.when("/controleIp/ponto/editar/:idponto",{
+	.when("/controleIp/ponto/editar/:idPonto",{
 		templateUrl : "views/paginas/controleIp/ponto/editar.html"
 	})
 	

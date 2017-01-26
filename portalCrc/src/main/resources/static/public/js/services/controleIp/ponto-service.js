@@ -2,8 +2,8 @@ app.factory('pontoService', function($rootScope, toastr, $http){
 	
 	
 	return{
-		salva: function(ponto){
-			return $http.post('/rest/controleIp/ponto/', ponto)
+		salva: function(Ponto){
+			return $http.post('/rest/controleIp/ponto', Ponto)
 			.then(function(response){
 				sweetAlert({ timer : 3000, text :"Salvo com sucesso", type : "success", width: 300, higth: 100, padding: 20});
 				return response.data;
@@ -13,8 +13,8 @@ app.factory('pontoService', function($rootScope, toastr, $http){
 			});
 		},
 		
-		altera: function(ponto){
-			return $http.put('/rest/controleIp/ponto/alterar', ponto)
+		altera: function(Ponto){
+			return $http.put('/rest/controleIp/ponto', Ponto)
 			.then(function(response){
 				sweetAlert({ timer : 3000, text :"Alterado com sucesso", type : "success", width: 300, higth: 100, padding: 20});
 				return response.data;

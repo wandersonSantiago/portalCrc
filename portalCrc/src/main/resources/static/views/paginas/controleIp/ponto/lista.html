@@ -1,36 +1,34 @@
  <meta charset="UTF-8">
 <br>
 <br>
-<div 	ng-controller="equipamentoController as equipamentoCtr">
+<div 	ng-controller="pontoController as pontoCtr">
 
-	<div class="box box-primary" ng-init="equipamentoCtr.lista()">
+	<div class="box box-primary" ng-init="pontoCtr.lista()">
 	
 		<div class="box-header">
-			<span class="lead">Lista de Equipamentos</span>
+			<span class="lead">Lista Ponto Espelho</span>
 		</div>
 		<div class="panel-body table-responsive">
 		<input class="form-control" type="text" ng-model="buscaSetor" placeholder="Buscar">
 			<table class="table table-hover table-bordered">
 				<thead>
 					<tr>
-						<th>ip</th>
-						<th>nome</th>
-						<th>patrimonio</th>
-						<th>ponto</th>
-						<th>unidade</th>
+						<th>descricao</th>
+						<th>numero</th>
+						<th>setor</th>
 						
-						<th ng-if="role_cadastrar_equipamento">Opções</th>
+						
+						<th ng-if="role_cadastrar_ponto">Opções</th>
 					</tr>
 				</thead>
 				<tbody
-					ng-repeat=" equipamento in telefoneCtr.listaEquipamento | filter : buscaSetor ">
+					ng-repeat=" ponto in pontoCtr.listaPonto | filter : buscaSetor ">
 					<tr>
-						<td>{{ equipamento.ip }}</td>
-						<td>{{ equipamento.nome }}</td>
-						<td>{{ equipamento.patrimonio}}</td>
-						<td>{{ equipamento.ponto}}</td>
-						<td>{{ equipamento.unidade}}</td>
-						<td ><a href="#/controleIp/equipamento/editar/{{equipamento.id}}"><i class="glyphicon glyphicon-pencil"></i></a> 
+						<td>{{ ponto.descricao }}</td>
+						<td>{{ ponto.numero }}</td>
+						<td>{{ ponto.setor.nome}}</td>
+						<!-- <td><a href="#/recursosHumanos/setor/editar/{{setor.id}}"><i class="glyphicon glyphicon-pencil"></i></a>-->
+						<td ><a href="#/controleIp/ponto/editar/{{ponto.id}}"><i class="glyphicon glyphicon-pencil"></i></a> 
 				</tr>
 				</tbody>
 				<tfoot>
