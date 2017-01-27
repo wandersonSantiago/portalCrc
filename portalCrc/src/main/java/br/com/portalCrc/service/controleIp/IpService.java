@@ -26,7 +26,7 @@ public class IpService {
 		String range = ip.getNumero();
 		TipoIp tipo = ip.getTipo();
 		
-		for(int i = 1; i <= 2 ; i++ ){
+		for(int i = 1; i <= 255 ; i++ ){
 			
 			String numero = NumberFormat.getInstance().format(i);			
 			ip.setNumero(range + numero);
