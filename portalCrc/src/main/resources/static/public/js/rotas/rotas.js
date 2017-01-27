@@ -231,6 +231,9 @@ app.config(['$routeProvider','$httpProvider', function($routeProvider, $httpProv
 		templateUrl : "views/paginas/controleIp/equipamento/lista.html"
 	})
 	
+	.when("/controleIp/equipamento/editar/:idEquipamento",{
+		templateUrl : "views/paginas/controleIp/equipamento/editar.html"
+	})
 	 //Sub-modulo ip
 	.when("/controleIp/ip/cadastrar",{
 		templateUrl : "views/paginas/controleIp/ip/cadastrar.html"
@@ -240,23 +243,19 @@ app.config(['$routeProvider','$httpProvider', function($routeProvider, $httpProv
 		templateUrl : "views/paginas/controleIp/ip/lista.html"
 	})
 	
-	.when("/controleIp/ip/editar/:idIp",{
-		templateUrl : "views/paginas/controleIp/ip/editar.html"
-	})
-	
-	
 	//Sub-modulo Tipo Ip
-	.when("/controleIp/tipoip/cadastrar",{
-		templateUrl : "views/paginas/controleIp/tipoip/cadastrar.html"
+	.when("/controleIp/ip/tipo/cadastrar",{
+		templateUrl : "views/paginas/controleIp/ip/tipo/cadastrar.html"
 	})
 	
-	.when("/controleIp/tipoip/lista",{
-		templateUrl : "views/paginas/controleIp/tipoip/lista.html"
+	.when("/controleIp/ip/tipo/lista",{
+		templateUrl : "views/paginas/controleIp/ip/tipo/lista.html"
 	})
 	
-	.when("/controleIp/tipoip/editar/:idTipoIp",{
-		templateUrl : "views/paginas/controleIp/tipoip/editar.html"
+		.when("/controleIp/ip/tipo/editar/:idTipoIp",{
+		templateUrl : "views/paginas/controleIp/ip/tipo/editar.html"
 	})
+	
 	
 	//Sub-modulo Tipo Ponto
 	.when("/controleIp/ponto/cadastrar",{

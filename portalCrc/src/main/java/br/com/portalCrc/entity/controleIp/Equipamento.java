@@ -38,8 +38,8 @@ public class Equipamento {
 	@JoinColumn(name="ip", nullable=false, unique = true)
 	private Ip ip;
 	
-	@Column(name="nome", nullable=false)
-	private String nome;
+	@Column(name="descricao", nullable=false)
+	private String descricao;
 	
 	@Column(name="patrimonio", nullable=false)
 	private String patrimonio;
@@ -78,11 +78,11 @@ public class Equipamento {
 	public void setIp(Ip ip) {
 		this.ip = ip;
 	}
-	public String getNome() {
-		return nome;
+	public String getDescricao() {
+		return descricao;
 	}
-	public void setNome(String nome) {
-		this.nome = nome;
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
 	}
 	public String getPatrimonio() {
 		return patrimonio;

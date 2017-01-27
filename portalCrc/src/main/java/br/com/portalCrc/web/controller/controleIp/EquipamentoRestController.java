@@ -1,5 +1,7 @@
 package br.com.portalCrc.web.controller.controleIp;
 
+import java.util.Arrays;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -14,10 +16,11 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import br.com.portalCrc.entity.controleIp.Equipamento;
+import br.com.portalCrc.enums.controleIp.TipoEquipamentoEnum;
 import br.com.portalCrc.service.controleIp.EquipamentoService;
 
 @RestController
-@RequestMapping("/rest/controleIp/equipamento/")
+@RequestMapping("/rest/controleIp/equipamento")
 public class EquipamentoRestController {
 	
 	
@@ -48,6 +51,12 @@ public class EquipamentoRestController {
 		public ResponseEntity<Equipamento> buscarPorId(@PathVariable Long id) {
 			return new ResponseEntity<Equipamento>(equipamentoService.buscaPorId(id), HttpStatus.OK);
 	 }
+	 
+	 @GetMapping(value = "/tipoEquipamento")
+		public ResponseEntity<Iterable<TipoEquipamentoEnum>> tipoEquipamento() {
+			Iterable<TipoEquipamentoEnum> tipoEquipamentoEnum = Arrays.asList(TipoEquipamentoEnum.values());
+			return new ResponseEntity<Iterable<TipoEquipamentoEnum>>(tipoEquipamentoEnum, HttpStatus.OK);
+		}
 	
 
 }

@@ -28,6 +28,13 @@ self.salva = function(equipamento) {
 			});
 		};
 		
+	self.listaTipoEquipamentoEnum= function(){
+		 equipamentoService.listaTipoEquipamento().
+			then(function(f){
+				self.tipoEquipamentoEnum = f;			
+				}, function(errResponse){
+			});
+		};
 		
 	self.buscarPorId = function(id){
 			if(!id)return;

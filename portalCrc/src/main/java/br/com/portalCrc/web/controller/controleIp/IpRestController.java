@@ -10,10 +10,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.portalCrc.entity.chamado.ChamadoTi;
 import br.com.portalCrc.entity.controleIp.Ip;
 import br.com.portalCrc.service.controleIp.IpService;
 
@@ -25,9 +23,9 @@ public class IpRestController {
 	private IpService ipService;
 	
 	@PostMapping
-	public ResponseEntity<Ip> salvarOuAlterar(@RequestBody Ip ip)
+	public ResponseEntity<Ip> salvar(@RequestBody Ip ip)
 	{
-		ipService.salvaOuAltera(ip);
+		ipService.salvar(ip);
 		HttpHeaders http =  new HttpHeaders();
 		return new ResponseEntity<>(http , HttpStatus.CREATED);
 		
@@ -35,7 +33,7 @@ public class IpRestController {
 	
 	@PutMapping
 	public ResponseEntity<Ip> Alterar(@RequestBody Ip ip){
-		ipService.salvaOuAltera(ip);
+		ipService.altera(ip);
 		HttpHeaders http =  new HttpHeaders();
 		return new ResponseEntity<>(http , HttpStatus.CREATED);		
 	}

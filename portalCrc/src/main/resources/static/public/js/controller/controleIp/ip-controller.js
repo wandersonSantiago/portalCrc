@@ -1,4 +1,4 @@
-app.controller('ipController', function($scope,  ipService,  $routeParams) {
+app.controller('ipController', function($scope,  ipService,  $routeParams, $location) {
 
 	var self = this;
 	
@@ -13,9 +13,10 @@ self.salva = function(ip) {
 	}
 	
 	self.altera = function(ip) {
-		ipService.altera(self.ip).
+		ipService.altera(ip).
 		then(function(response){
-			self.ip = null;
+			self.listaIp = null;			
+			self.lista();
 			}, function(errResponse){
 		});
 	}

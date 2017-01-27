@@ -1,5 +1,6 @@
 package br.com.portalCrc.service.controleIp;
 
+import java.text.NumberFormat;
 import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,8 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import br.com.portalCrc.entity.controleIp.Ip;
+import br.com.portalCrc.entity.controleIp.TipoIp;
+import br.com.portalCrc.pojo.SessionUsuario;
 import br.com.portalCrc.repository.ControleIp.IpRepositorio;
 
 @Service
@@ -15,12 +18,32 @@ import br.com.portalCrc.repository.ControleIp.IpRepositorio;
 public class IpService {
 
 	@Autowired
-	private IpRepositorio ipRepositorio;
+	private IpRepositorio ipRepositorio;	
 	
 	@Transactional(readOnly = false)
-	public void salvaOuAltera(Ip ip){
-		ipRepositorio.save(ip);
+	public void salvar(Ip ip){
+		
+		String range = ip.getNumero();
+		TipoIp tipo = ip.getTipo();
+		
+		for(int i = 1; i <= 2 ; i++ ){
+			
+			String numero = NumberFormat.getInstance().format(i);			
+			ip.setNumero(range + numero);
+			ip.setTipo(tipo);
+			ip.setUnidade(SessionUsuario.getInstance().getUsuario().getUnidade());
+			ip.setUsuarioCadastro(SessionUsuario.getInstance().getUsuario());
+			
+			ipRepositorio.save(ip);
+			
+			ip = new Ip();
+		}
 				
+	}
+	
+	@Transactional(readOnly = false)
+	public void altera(Ip ip){
+		ipRepositorio.save(ip);
 	}
 	
 	public Collection<Ip> lista(){
@@ -30,4 +53,5 @@ public class IpService {
 	public Ip buscaPorId(Long id){
 		return ipRepositorio.findOne(id);
 	}
+
 }

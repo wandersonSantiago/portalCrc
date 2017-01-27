@@ -1,35 +1,38 @@
  <meta charset="UTF-8">
 <br>
 <br>
-<div 	ng-controller="equipamentoController as equipamentoCtr">
+<div 	ng-controller="equipamentoController as equipamentoCtrl">
 
-	<div class="box box-primary" ng-init="equipamentoCtr.lista()">
+	<div class="box box-primary" ng-init="equipamentoCtrl.lista()">
 	
 		<div class="box-header">
 			<span class="lead">Lista de Equipamentos</span>
 		</div>
 		<div class="panel-body table-responsive">
-		<input class="form-control" type="text" ng-model="buscaSetor" placeholder="Buscar">
+		<input class="form-control" type="text" ng-model="buscaEquipamento" placeholder="Buscar">
 			<table class="table table-hover table-bordered">
 				<thead>
 					<tr>
-						<th>ip</th>
-						<th>nome</th>
-						<th>patrimonio</th>
-						<th>ponto</th>
-						<th>unidade</th>
+						<th>Descricao</th>
+						<th>Patrimonio</th>
+						<th>Ip</th>
+						<th>TipoEquipamento</th>
+						<th>numero</th>
 						
 						<th ng-if="role_cadastrar_equipamento">Opções</th>
 					</tr>
 				</thead>
 				<tbody
-					ng-repeat=" equipamento in telefoneCtr.listaEquipamento | filter : buscaSetor ">
+					ng-repeat=" equipamento in equipamentoCtrl.listaEquipamento | filter : buscaEquipamento ">
 					<tr>
-						<td>{{ equipamento.ip }}</td>
-						<td>{{ equipamento.nome }}</td>
-						<td>{{ equipamento.patrimonio}}</td>
-						<td>{{ equipamento.ponto}}</td>
-						<td>{{ equipamento.unidade}}</td>
+						<td>{{ equipamento.descricao }}</td>
+						<td>{{ equipamento.patrimonio }}</td>
+						<td>{{ equipamento.ip.numero}}</td>
+						<td>{{ equipamento.tipoEquipamento}}</td>
+						<td>{{ equipamento.ponto.numero}}</td>
+						
+																	
+						
 						<td ><a href="#/controleIp/equipamento/editar/{{equipamento.id}}"><i class="glyphicon glyphicon-pencil"></i></a> 
 				</tr>
 				</tbody>

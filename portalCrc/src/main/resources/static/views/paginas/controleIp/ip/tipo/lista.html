@@ -6,24 +6,23 @@
 	<div class="box box-primary" ng-init="tipoIpCtr.lista()">
 	
 		<div class="box-header">
-			<span class="lead">Listar tipo de Ip</span>
+			<span class="lead">Lista de Ip</span>
 		</div>
 		<div class="panel-body table-responsive">
-		<input class="form-control" type="text" ng-model="buscaTipoIp" placeholder="Buscar">
+		<input class="form-control" type="text" ng-model="busca" placeholder="Buscar">
 			<table class="table table-hover table-bordered">
 				<thead>
 					<tr>
-						<th>descricao</th>
+						<th>Decrição</th>
 						<th>editar</th>
 						
-						<!-- <th ng-if="role_cadastrar_equipamento">Opções</th>-->
 					</tr>
 				</thead>
 				<tbody
-					 ng-repeat=" tipoip in tipoIpCtr.listaTipoIp | filter : buscaTipoip "> 
+					 ng-repeat=" tipoIp in tipoIpCtr.listaTipoIp | filter : busca "> 
 					<tr>
-						<td>{{ tipoip.descricao }}</td>
-						<td ><a href="#/controleIp/tipoip/editar/{{tipoip.id}}"><i class="glyphicon glyphicon-pencil" ></i></a> 
+						<td>{{ tipoIp.descricao }}</td>
+						<td ><a href="#/controleIp/ip/tipo/editar/{{tipoIp.id}}"><i class="glyphicon glyphicon-pencil" ></i></a> 
 				</tr>
 				</tbody>
 				<tfoot>
