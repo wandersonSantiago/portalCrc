@@ -1,0 +1,39 @@
+<meta charset="UTF-8">
+<br>
+<br>
+<div 	ng-controller="diariaController as diariaCtrl" >
+
+	<div class="box box-primary" ng-init="diariaCtrl.lista()">
+		<div class="box-header">
+			<span class="lead">Lista de Diarias </span>
+		</div>
+		<div class="panel-body table-responsive"  >
+		
+		<input class="form-control" type="text" placeholder="Buscar" ng-model="busca" >
+			<table class="table table-hover table-bordered">
+				<thead>
+					<tr>
+						<th>Nome</th>
+					
+					</tr>
+				</thead>
+				<tbody
+					ng-repeat=" diaria in diariaCtrl.listaDiaria | filter : busca">
+					<tr>
+					<td>{{ diaria.funcionario.pessoa.nomeCompleto }}</td>
+					
+					</tr>
+							
+				</tbody>
+				<tfoot>
+					<tr>
+					
+
+					</tr>
+				</tfoot>
+			</table>
+		</div>
+		
+	</div>
+
+</div>
