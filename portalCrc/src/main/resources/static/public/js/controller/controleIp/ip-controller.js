@@ -5,6 +5,8 @@ app.controller('ipController', function($scope,  ipService,  $routeParams, $loca
 	var idIp = $routeParams.idIp;
 	
 self.salva = function(ip) {
+	concatenaIp();
+	self.ip.numero = $scope.numero;				
 	ipService.salva(self.ip).
 		then(function(response){
 			self.ip = null;
@@ -12,7 +14,11 @@ self.salva = function(ip) {
 		});
 	}
 	
-	self.altera = function(ip) {
+	concatenaIp = function() {
+		$scope.numero = $scope.classeIp + "." + $scope.redeIp + "." + $scope.rangeIp + ".";
+		
+	}
+	self.altera = function(ip) {		
 		ipService.altera(ip).
 		then(function(response){
 			self.listaIp = null;			

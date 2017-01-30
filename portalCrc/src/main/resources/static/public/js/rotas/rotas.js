@@ -270,6 +270,20 @@ app.config(['$routeProvider','$httpProvider', function($routeProvider, $httpProv
 		templateUrl : "views/paginas/controleIp/ponto/editar.html"
 	})
 	
+	//Sub-modulo Switch
+	.when("/controleIp/switch/cadastrar",{
+		templateUrl : "views/paginas/controleIp/switch/cadastrar.html"
+	})
+	
+	.when("/controleIp/switch/lista",{
+		templateUrl : "views/paginas/controleIp/switch/lista.html"
+	})
+	
+		.when("/controleIp/switch/editar/:idSwitch",{
+		templateUrl : "views/paginas/controleIp/switch/editar.html"
+	})
+	
+	
 	//PUBLICO
 	.when("/publico/telefones", {
 		templateUrl : "views/paginas/publico/telefones.html"

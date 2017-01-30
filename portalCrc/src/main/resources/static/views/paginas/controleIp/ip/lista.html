@@ -9,7 +9,7 @@
 			<span class="lead">Lista de Ip</span>
 		</div>
 		<div class="panel-body table-responsive" ng-controller="tipoIpController as tipoIpCtrl" ng-init="tipoIpCtrl.lista()">
-		<input class="form-control" type="text" ng-model="buscaIp" placeholder="Buscar">
+		<input class="form-control" type="text" ng-model="buscaIp" placeholder="Buscar...">
 			<table class="table table-hover table-bordered">
 				<thead>
 					<tr>
@@ -17,16 +17,15 @@
 						<th>tipo</th>
 						<th>editar</th>
 						
-						<!-- <th ng-if="role_cadastrar_equipamento">Opções</th>-->
 					</tr>
 				</thead>
 				<tbody
-					 ng-repeat=" ip in ipCtr.listaIp | filter : buscaip "> 
+					 ng-repeat=" ip in ipCtr.listaIp | filter : buscaIp "> 
 					<tr>
 						<td>{{ ip.numero }}</td>
 						<td><div class="row">
 							<div class="col-sm-6"  >
-								<select class="form-control select2" ng-model="ipCtrl.ip.tipo" 
+								<select class="form-control select2" ng-model="ip.tipo" 
 									ng-options="tipoIp.descricao for tipoIp in tipoIpCtrl.listaTipoIp" 
 									
 									  style=" width: 100%;" required >
@@ -35,7 +34,8 @@
 								</div>			
 						
 					</div></td>
-						<td ><a class="btn btn-primary" ng-click="ipCtr.altera(ip)">Alterar</a> 
+						<td ><a class="btn btn-success" ng-click="ipCtr.altera(ip)">Alterar</a> 
+						
 					
 				</tr>
 				</tbody>

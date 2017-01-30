@@ -22,7 +22,9 @@
 					 ng-repeat=" tipoIp in tipoIpCtr.listaTipoIp | filter : busca "> 
 					<tr>
 						<td>{{ tipoIp.descricao }}</td>
-						<td ><a href="#/controleIp/ip/tipo/editar/{{tipoIp.id}}"><i class="glyphicon glyphicon-pencil" ></i></a> 
+						<td ><a href="#/controleIp/ip/tipo/editar/{{tipoIp.id}}"><button type="button" class="btn btn-success center-block">
+						
+						Alterar</button></a> 
 				</tr>
 				</tbody>
 				<tfoot>

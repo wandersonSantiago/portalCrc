@@ -1,0 +1,39 @@
+ <meta charset="UTF-8">
+<br>
+<br>
+<div 	ng-controller="switchController as switchCtr">
+
+	<div class="box box-primary" ng-init="switchCtr.lista()">
+	
+		<div class="box-header">
+			<span class="lead">Lista de Switch</span>
+		</div>
+		<div class="panel-body table-responsive" ng-controller="switchController as switchCtrl" ng-init="switchCtrl.lista()">
+		<input class="form-control" type="text" ng-model="buscaSwitch" placeholder="Buscar...">
+			<table class="table table-hover table-bordered">
+				<thead>
+					<tr>
+						<th>nome</th>
+						<th>quantidade</th>
+						<th>editar</th>
+						
+					</tr>
+				</thead>
+				<tbody
+					 ng-repeat=" switch in switchCtr.listaSwitch | filter : buscaSwitch "> 
+					<tr>
+						<td>{{ switch.nome }}</td>
+						<td>{{ switch.qtde }}</td>
+						
+					</div></td>
+						<td ><a class="btn btn-success" ng-click="switchCtr.altera(switch)">Alterar</a> 
+						
+					
+				</tr>
+				</tbody>
+				<tfoot>
+				</tfoot>
+			</table>
+		</div>
+	</div>
+</div>
