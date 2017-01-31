@@ -16,6 +16,8 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import br.com.portalCrc.entity.Funcionario;
+import br.com.portalCrc.entity.Unidade;
+import br.com.portalCrc.entity.Usuario;
 
 @Entity
 @SequenceGenerator(name = "cargo_id_seq", sequenceName = "cargo_id_seq", schema="principal", initialValue = 1, allocationSize = 1)
@@ -47,6 +49,14 @@ public class Diaria {
 	
 	@Column(name="valor_passagem")
 	private BigDecimal valorPassagem;
+	
+	@ManyToOne
+	@JoinColumn(name="id_unidade")
+	private Unidade unidade;
+	
+	@ManyToOne
+	@JoinColumn(name="id_usuario_cadastro")
+	private Usuario usuarioCadastro;
 
 	public Long getId() {
 		return id;
@@ -110,6 +120,22 @@ public class Diaria {
 
 	public void setValorPassagem(BigDecimal valorPassagem) {
 		this.valorPassagem = valorPassagem;
+	}
+
+	public Unidade getUnidade() {
+		return unidade;
+	}
+
+	public void setUnidade(Unidade unidade) {
+		this.unidade = unidade;
+	}
+
+	public Usuario getUsuarioCadastro() {
+		return usuarioCadastro;
+	}
+
+	public void setUsuarioCadastro(Usuario usuarioCadastro) {
+		this.usuarioCadastro = usuarioCadastro;
 	}
 	
 	

@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import com.couchbase.client.deps.io.netty.handler.codec.http.multipart.HttpPostStandardRequestDecoder;
+
 import br.com.portalCrc.entity.diaria.Diaria;
 import br.com.portalCrc.service.diaria.DiariaService;
 
@@ -43,7 +45,19 @@ public class DiariaRestController {
 		return new ResponseEntity<Iterable<Diaria>>(diaria, HttpStatus.OK);
 	}
 	
-	 @GetMapping(value = "/buscaPorId/{id}")
+	@GetMapping(value="/listaCoordenadoria")
+	public ResponseEntity<Iterable<Diaria>> listaCoordenadoria(){
+		Iterable<Diaria> diaria = diariaService.listaCoordenadoria();
+		return new ResponseEntity<Iterable<Diaria>>(diaria, HttpStatus.OK);
+	}
+	
+	@GetMapping(value="/listaUnidade")
+	public ResponseEntity<Iterable<Diaria>> listaUnidade(){
+		Iterable<Diaria> diaria = diariaService.listaUnidade();
+		return new ResponseEntity<Iterable<Diaria>>(diaria, HttpStatus.OK);
+	}
+	
+	 @GetMapping(value = "/{id}")
 		public ResponseEntity<Diaria> buscarPorId(@PathVariable Long id) {
 			return new ResponseEntity<Diaria>(diariaService.buscaPorId(id), HttpStatus.OK);
 	 }

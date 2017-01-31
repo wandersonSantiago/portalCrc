@@ -44,6 +44,24 @@ app.factory('diariaService', function($rootScope, toastr, $http){
 				return $q.reject(errResponse);
 			});
 		},
+		listaUnidade: function(){
+			return $http.get('/rest/diaria/listaUnidade')
+			.then(function(response){
+				return response.data;
+			},function(errResponse){
+				sweetAlert({ timer : 3000,  type : "error", width: 200, higth: 100, padding: 20});
+				return $q.reject(errResponse);
+			});
+		},
+		listaCoordenadoria: function(){
+			return $http.get('/rest/diaria/listaCoordenadoria')
+			.then(function(response){
+				return response.data;
+			},function(errResponse){
+				sweetAlert({ timer : 3000,  type : "error", width: 200, higth: 100, padding: 20});
+				return $q.reject(errResponse);
+			});
+		},
 		
 		
 	}

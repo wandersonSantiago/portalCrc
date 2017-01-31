@@ -30,7 +30,11 @@ public class FuncionarioRestController {
 	  return new ResponseEntity<Iterable<Funcionario>>(funcionario, HttpStatus.OK);
 	 }
 	 
-	 
+	 @RequestMapping(method = RequestMethod.GET, value="/lista/porUnidade")
+	 public ResponseEntity<Iterable<Funcionario>> listaPorUnidade() {	  
+	  Iterable<Funcionario> funcionario = funcionarioService.listaPorUnidade();
+	  return new ResponseEntity<Iterable<Funcionario>>(funcionario, HttpStatus.OK);
+	 }
 	 @RequestMapping(method = RequestMethod.POST, value="/salvar")
 	 public ResponseEntity<Funcionario> salvar(@RequestBody Funcionario funcionario,UriComponentsBuilder ucBuilder){
 		 funcionarioService.salvarEditar(funcionario);

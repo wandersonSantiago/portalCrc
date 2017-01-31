@@ -35,7 +35,7 @@ public class FuncionarioUnidade {
 	@OneToOne
 	@JoinColumn(name="id_unidade")
 	private Unidade unidade;
-
+	
 	public Funcionario getFuncionario() {
 		return funcionario;
 	}

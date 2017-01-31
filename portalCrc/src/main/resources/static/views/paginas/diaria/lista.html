@@ -5,23 +5,40 @@
 
 	<div class="box box-primary" ng-init="diariaCtrl.lista()">
 		<div class="box-header">
-			<span class="lead">Lista de Diarias </span>
+			<span class="lead">Lista de Diarias Geral</span>
 		</div>
 		<div class="panel-body table-responsive"  >
 		
+		<button ng-json-export-excel data="listaDiariaExcel" report-fields="{nome: 'Favorecido', cargo:'Cargo' , unidadeLotado:'Unidade Lotado', dataDiaria: 'Data  Diária', destino: 'Destino', motivo: 'Motivo', valorDiaria: 'Valor Diária', valorPassagem: 'Valor Passagem' }" 
+		filename="'lista diaria'" class="btn-sm btn-primary">Exportar Excel</button>
+		
+	
+    <hr>    
 		<input class="form-control" type="text" placeholder="Buscar" ng-model="busca" >
 			<table class="table table-hover table-bordered">
 				<thead>
 					<tr>
-						<th>Nome</th>
-					
+						<th>Favorecido</th>
+						<th>Cargo</th>
+						<th>Unidade Lotado</th>
+						<th>Data Diária</th>
+						<th>Destino</th>
+						<th>Motivo</th>
+						<th>Valor da Diária</th>
+						<th>Valor da Passagem</th>					
 					</tr>
 				</thead>
 				<tbody
-					ng-repeat=" diaria in diariaCtrl.listaDiaria | filter : busca">
+					ng-repeat=" diaria in diariaCtrl.listaDiaria | filter : busca | orderBy : 'diaria.funcionario.unidadeAtual'">
 					<tr>
 					<td>{{ diaria.funcionario.pessoa.nomeCompleto }}</td>
-					
+					<td>{{ diaria.funcionario.cargoAtual.descricao }}</td>
+					<td>{{ diaria.unidade.dadosUnidade.mnemonico}}</td>
+					<td>{{ diaria.dataDiaria |date : 'dd/MM/yyyy' }}</td>					
+					<td>{{ diaria.destino }}</td>
+					<td>{{ diaria.motivo }}</td>
+					<td>{{ diaria.valorDiaria | currency}}</td>
+					<td>{{ diaria.valorPassagem | currency}}</td>
 					</tr>
 							
 				</tbody>

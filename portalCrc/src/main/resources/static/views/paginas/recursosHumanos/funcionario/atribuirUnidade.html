@@ -52,8 +52,7 @@
 					
 					<br>
 					
-					<div class="row">	
-					
+					<div class="row">						
 						<div class="col-sm-4" ng-controller="unidadeController as unidadeCtrl" ng-init="unidadeCtrl.lista()">
 							<select class="form-control select2"  ng-model="funcionarioUnidadeCtrl.funcionarioUnidade.unidade" ng-options="unidades.dadosUnidade.nome group by unidades.tipoUnidades.mnemonico for unidades in unidadeCtrl.listaUnidades"  style="width: 100%;">
 								<option value="">--Unidade--</option>

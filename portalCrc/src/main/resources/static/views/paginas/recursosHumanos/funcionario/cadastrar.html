@@ -81,8 +81,15 @@
 					
 					<br>
 					
-						<hr>						
-					
+						<hr>
+						<div class="row">
+							<div class="col-sm-3" ng-controller="cargoController as cargoCtrl" ng-init="cargoCtrl.lista()">
+								<select class="form-control select2" ng-model="cadFuncCtrl.funcionario.cargoAtual" ng-options="listarCargos.descricao group by listarCargos.shade for listarCargos in cargoCtrl.listaCargo"  style="width: 100%;">
+										<option value="">--Cargo--</option>
+								</select>
+							</div>
+						</div>							
+						<hr>
 					<h4>Endereço</h4>
 
 					<br>

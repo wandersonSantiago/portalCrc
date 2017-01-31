@@ -7,4 +7,7 @@ import br.com.portalCrc.entity.Funcionario;
 public interface FuncionarioRepository extends JpaRepository<Funcionario, Long>{
 
 	
+	Iterable<Funcionario> findByUnidadeAtual_id(Long id);
+
+	
 }

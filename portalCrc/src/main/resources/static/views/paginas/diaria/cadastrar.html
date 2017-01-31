@@ -17,14 +17,25 @@
 						
 					
 					
-						<br>
+					<br>
 					<div class="row">	
-							<div class="col-sm-6" ng-controller="funcionarioController as funcionarioCtrl" ng-init="funcionarioCtrl.lista()">
-								<select class="form-control select2"  ng-model="diariaCtrl.diaria.funcionario" ng-options="funcionario.pessoa.nomeCompleto  for funcionario in funcionarioCtrl.listaFuncionarios" >
-									<option value="">--Favorecido--</option>
-								</select>
-							</div>
-							<div class="col-sm-6">
+						<div class="col-sm-6"  ng-controller="funcionarioController as funcionarioCtrl" ng-init="funcionarioCtrl.listaPorUnidade()">
+							<md-autocomplete 
+								  md-no-cache="funCtrl.noCache"
+								 	md-selected-item="diariaCtrl.diaria.funcionario" 
+								 	md-search-text="busca" 
+								 	md-selected-item-change="funCtrl.selectedItemChange(funcionario)" 
+								 	md-items=" funcionario in funcionarioCtrl.listaFuncionarios | filter : busca" 
+								 	md-item-text="funcionario.pessoa.nomeCompleto" 
+								 	md-min-length="0" placeholder="busca Funcionário">
+	       							 <md-item-template>
+	          							<span md-highlight-text="busca" md-highlight-flags="^i">{{funcionario.pessoa.nomeCompleto}}</span>
+	       							 </md-item-template>        								
+	     						 </md-autocomplete>
+									
+						</div>
+							
+						<div class="col-sm-6">
 							<input class="form-control" placeholder="Destino" ng-model="diariaCtrl.diaria.destino" id="destino" type="text"  required >
 						</div>
 										
@@ -48,7 +59,8 @@
 					<br>
 					<div class="row">
 						<div class="col-sm-12">
-							<input class="form-control" placeholder="Motivo" ng-model="diariaCtrl.diaria.motivo" id="motivo" type="text"  required >
+						<textarea class="textarea form-control" placeholder="Texto" ng-model="diariaCtrl.diaria.motivo" id="motivo" placeholder="Motivo"
+									style="width: 100%; height: 100px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
 						</div>			
 									
 					</div>

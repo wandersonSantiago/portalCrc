@@ -6,6 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -23,7 +24,35 @@ public class Funcionario  {
 	@JoinColumn(name="id_pessoa")
 	private Pessoa pessoa;
 	
+	@ManyToOne
+	@JoinColumn(name="cargo_atual")
+	private Cargo cargoAtual;
 	
+	@ManyToOne 
+	@JoinColumn(name="id_unidade_atual")
+	private Unidade unidadeAtual;
+	
+	
+	
+	
+
+
+	public Unidade getUnidadeAtual() {
+		return unidadeAtual;
+	}
+
+	public void setUnidadeAtual(Unidade unidadeAtual) {
+		this.unidadeAtual = unidadeAtual;
+	}
+
+	public Cargo getCargoAtual() {
+		return cargoAtual;
+	}
+
+	public void setCargoAtual(Cargo cargoAtual) {
+		this.cargoAtual = cargoAtual;
+	}
+
 	public Pessoa getPessoa() {
 		return pessoa;
 	}
@@ -39,6 +68,10 @@ public class Funcionario  {
 	public void setId(Long id) {
 		this.id = id;
 	}
+
+	
+	
+	
 	
 	
 

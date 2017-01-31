@@ -44,6 +44,15 @@ app.factory('funcionarioService', function($rootScope, toastr, $http){
 				return $q.reject(errResponse);
 			});
 		},
+		listaPorUnidade: function(){
+			return $http.get('/rest/recursosHumanos/funcionario/lista/porUnidade')
+			.then(function(response){
+				return response.data;
+			},function(errResponse){
+				sweetAlert({ timer : 3000,  type : "error", width: 200, higth: 100, padding: 20});
+				return $q.reject(errResponse);
+			});
+		},
 		estadoCivil: function(){
 			return $http.get('/rest/pessoa/estadoCivil')
 			.then(function(response){

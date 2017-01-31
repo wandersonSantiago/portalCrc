@@ -37,6 +37,14 @@ self.salva = function(funcionario) {
 				}, function(errResponse){
 			});
 		};
+	self.listaPorUnidade = function(){
+		 funcionarioService.listaPorUnidade().
+			then(function(f){
+				self.listaFuncionarios = f;	
+				console.log(f);
+				}, function(errResponse){
+			});
+		};
 		 self.estadoCivil = function(){
 			 funcionarioService.estadoCivil().
 				then(function(f){
