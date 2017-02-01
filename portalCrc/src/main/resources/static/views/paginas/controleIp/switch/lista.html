@@ -1,9 +1,9 @@
  <meta charset="UTF-8">
 <br>
 <br>
-<div 	ng-controller="switchController as switchCtr">
+<div 	ng-controller="switchController as switchCtrl">
 
-	<div class="box box-primary" ng-init="switchCtr.lista()">
+	<div class="box box-primary" ng-init="switchCtrl.lista()">
 	
 		<div class="box-header">
 			<span class="lead">Lista de Switch</span>
@@ -20,13 +20,13 @@
 					</tr>
 				</thead>
 				<tbody
-					 ng-repeat=" switch in switchCtr.listaSwitch | filter : buscaSwitch "> 
+					 ng-repeat=" switch in switchCtrl.listaSwitch | filter : buscaSwitch "> 
 					<tr>
 						<td>{{ switch.nome }}</td>
-						<td>{{ switch.qtde }}</td>
+						<td>{{ switch.qtdPortas }}</td>
 						
 					</div></td>
-						<td ><a class="btn btn-success" ng-click="switchCtr.altera(switch)">Alterar</a> 
+						<td ><a class="btn btn-success" ng-click="switchCtrl.altera(switch)">Alterar</a> 
 						
 					
 				</tr>

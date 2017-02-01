@@ -4,6 +4,8 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -14,7 +16,10 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import br.com.portalCrc.entity.Usuario;
+import br.com.portalCrc.enums.controleIp.StatusSwitch;
 
 @Entity
 @SequenceGenerator(name = "porta_id_seq", sequenceName = "porta_id_seq", schema="controle_ip", initialValue = 1, allocationSize = 1) 
@@ -29,10 +34,10 @@ public class PortaSwitch {
 	@Column(name="numero", nullable=false)
 	private int numero;
 	
-	@Column(name="status", nullable=false)
-	private String status;
+	@Enumerated(EnumType.STRING)
+	private StatusSwitch status;
 	
-	@Column(name="descricao", nullable=false)
+	@Column(name="descricao")
 	private String descricao;
 	
 	@Temporal(TemporalType.TIMESTAMP)
@@ -43,8 +48,9 @@ public class PortaSwitch {
 	@JoinColumn(name="id_usuario_cadastro")
 	private Usuario usuarioCadastro;
 	
+	@JsonIgnore
 	@ManyToOne 
-	@JoinColumn(name="id_switch" , nullable=false)
+	@JoinColumn(name="id_switch")
 	private Switch switchs;
 	
 	public Long getId() {
@@ -59,10 +65,11 @@ public class PortaSwitch {
 	public void setNumero(int numero) {
 		this.numero = numero;
 	}
-	public String getStatus() {
+	
+	public StatusSwitch getStatus() {
 		return status;
 	}
-	public void setStatus(String status) {
+	public void setStatus(StatusSwitch status) {
 		this.status = status;
 	}
 	public String getDescricao() {

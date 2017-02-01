@@ -6,6 +6,8 @@ import java.util.Date;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -15,6 +17,8 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
+import br.com.portalCrc.enums.controleIp.StatusSwitch;
 
 
 
@@ -32,8 +36,11 @@ public class Switch {
 	@Column(name = "nome", nullable=false)
 	private String nome;
 	
-	@Column(name = "status", nullable=false)
-	private Boolean status;
+	@Enumerated(EnumType.STRING)
+	private StatusSwitch status;
+	
+	@Column(name = "qtd_portas", nullable=false)
+	private int qtdPortas;
 	
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="data_cadastro", nullable=false)
@@ -57,10 +64,11 @@ public class Switch {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	public Boolean getStatus() {
+	
+	public StatusSwitch getStatus() {
 		return status;
 	}
-	public void setStatus(Boolean status) {
+	public void setStatus(StatusSwitch status) {
 		this.status = status;
 	}
 	public Date getDataCadastro() {
@@ -75,6 +83,14 @@ public class Switch {
 	public void setPortaSwitch(Collection<PortaSwitch> portaSwitch) {
 		this.portaSwitch = portaSwitch;
 	}
+	public int getQtdPortas() {
+		return qtdPortas;
+	}
+	public void setQtdPortas(int qtdPortas) {
+		this.qtdPortas = qtdPortas;
+	}
+	
+	
 	
 	
 
