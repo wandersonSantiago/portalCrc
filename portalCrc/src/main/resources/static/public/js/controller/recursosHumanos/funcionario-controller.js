@@ -41,7 +41,6 @@ self.salva = function(funcionario) {
 		 funcionarioService.listaPorUnidade().
 			then(function(f){
 				self.listaFuncionarios = f;	
-				console.log(f);
 				}, function(errResponse){
 			});
 		};

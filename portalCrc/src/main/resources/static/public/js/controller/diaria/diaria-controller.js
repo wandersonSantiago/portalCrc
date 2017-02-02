@@ -9,7 +9,7 @@ app.controller('diariaController', function($scope,  diariaService, $location,  
 self.salva = function(diaria) {
 	diariaService.salva(self.diaria).
 		then(function(response){
-			self.diaria = null;
+			$location.path("/diaria/em-aberto");
 			}, function(errResponse){
 		});
 	}
@@ -27,55 +27,52 @@ self.salva = function(diaria) {
 	 self.lista = function(){
 		 diariaService.lista().
 			then(function(f){
-				self.listaDiaria = f;	
-				forLista(f);
+				self.listaDiaria = f;					
 				}, function(errResponse){
 			});
 		};
 		
-	 self.listaCoordenadoria = function(){
-		 diariaService.listaCoordenadoria().
+		 self.listaMes = function(){
+			 diariaService.listaMes().
+				then(function(f){
+					$scope.listaMes = f;					
+					}, function(errResponse){
+				});
+			};
+			
+	self.diariasEmAberto = function(){
+		 diariaService.diariasEmAberto().
 			then(function(f){
-				self.listaDiaria = f;	
-				forLista(f);
+				self.listaDiaria = f;					
 				}, function(errResponse){
 			});
 		};
+	
 		
-	 self.listaUnidade = function(){
-		 diariaService.listaUnidade().
-			then(function(f){
-				self.listaDiaria = f;	
-				forLista(f);
-				}, function(errResponse){
-			});
-		};
-		
-		forLista = function(f){
-			for(i = 0 ; i < f.length ; i++){
-				listaExcel(f[i]);
-			}
-		}
-		
-		listaExcel = function(lista){
-			$scope.listaDiariaExcel.push({
-				nome : lista.funcionario.pessoa.nomeCompleto,
-				cargo : lista.funcionario.cargoAtual.descricao,
-				unidadeLotado :		lista.unidade.dadosUnidade.mnemonico,
-				dataDiaria: lista.dataDiaria,
-				destino: lista.destino,
-				motivo: lista.motivo,
-				valorDiaria: lista.valorDiaria,
-				valorPassagem: lista.valorPassagem
-			});
-		};
+	self.encerrar = function(objeto) {
+		swal({
+			  title: 'Encerrar Lançamentos!!!',
+			  text: "Após esta ação as Unidades não conseguiram realizar mais lançamentos no Mês selecionado ",
+			  type: 'warning',
+			  showCancelButton: true,
+			  confirmButtonColor: '#3085d6',
+			  cancelButtonColor: '#d33',
+			  confirmButtonText: 'Encerrar'
+			}).then(function () {
+				 diariaService.encerrar(objeto).
+				then(function(response){					
+					self.diariasEmAberto();
+					}, function(errResponse){
+				});	
+				 
+			})		
+	};	
 		
 	self.buscarPorId = function(id){
 			if(!id)return;
 			diariaService.buscarPorId(id).
 			then(function(p){
-				self.diaria = p;
-				self.diaria.dataDiaria = new Date(p.dataDiaria);
+				$scope.diaria = p;
 		}, function(errResponse){
 			});
 		};

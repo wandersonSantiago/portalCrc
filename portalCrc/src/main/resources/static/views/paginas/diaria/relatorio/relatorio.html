@@ -1,0 +1,51 @@
+<meta charset="UTF-8">
+<div 	ng-controller="diariaController as diariaCtrl" >
+
+		
+		<section layout="row" layout-align="right center">
+		  <md-button href="#/" class="groupX left">Menu</md-button>
+		  <md-button href="#/diaria/cadastrar" class="groupX middle">Cadastrar novo Mês</md-button>		
+		  <md-button href="#/diaria/em-aberto" class="groupX middle">Em aberto</md-button>  
+		</section>
+				
+	<div class="box box-primary" ng-init="diariaCtrl.lista()">
+		<div class="box-header">
+			<span class="lead">Relatório</span>
+		</div>
+		<div class="panel-body table-responsive"  >
+			
+    <hr>    
+		<input class="form-control" type="text" placeholder="Buscar" ng-model="busca" >
+			<table class="table table-hover table-bordered">
+				<thead>
+					<tr>		
+					<th>Ano Referencia</th>
+					<th>Mês Referencia</th>	
+					<th>Status</th>	
+					<th>Relatorio</th>											
+					</tr>
+				</thead>
+				<tbody
+					ng-repeat=" diaria in diariaCtrl.listaDiaria | filter : busca | orderBy : '-id' ">
+					<tr>
+					<td><h4>{{ diaria.dataAbertura | date : 'yyyy'}}</h4></td>
+					<td><h4>{{diaria.mes}}</h4></td>
+					<td><h4>{{diaria.status}}</h4></td>
+					<td><div ng-controller="itemDiariaController as itemDiariaCtrl">						
+						<a type="button" href="#/diaria/item/lista/unidade/{{diaria.id}}"  class="btn btn-info">lista Unidade</a>
+						<a type="button" href="#/diaria/item/lista/coordenadoria/{{diaria.id}}"  class="btn btn-info">lista Coordenadoria</a>
+						<a type="button" href="#/diaria/item/lista/geral/{{diaria.id}}"  class="btn btn-info">lista SAP</a>
+					</div>
+					</td>										
+					</tr>							
+				</tbody>
+				<tfoot>
+					<tr>
+					</tr>
+				</tfoot>
+			</table>
+		</div>
+		
+	</div>
+
+</div>

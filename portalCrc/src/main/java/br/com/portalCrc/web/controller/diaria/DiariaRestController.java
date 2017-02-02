@@ -1,5 +1,7 @@
 package br.com.portalCrc.web.controller.diaria;
 
+import java.util.Arrays;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -13,9 +15,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import com.couchbase.client.deps.io.netty.handler.codec.http.multipart.HttpPostStandardRequestDecoder;
-
 import br.com.portalCrc.entity.diaria.Diaria;
+import br.com.portalCrc.enums.controleIp.TipoEquipamentoEnum;
+import br.com.portalCrc.enums.diaria.MesDiariaEnum;
 import br.com.portalCrc.service.diaria.DiariaService;
 
 @RestController
@@ -39,27 +41,45 @@ public class DiariaRestController {
 		return new ResponseEntity<>(http , HttpStatus.CREATED);		
 	}
 	
+	@PutMapping(value="/encerrar")
+	public ResponseEntity<Diaria> encerrar(@RequestBody Diaria diaria){
+		diariaService.encerrar(diaria);
+		HttpHeaders http =  new HttpHeaders();
+		return new ResponseEntity<>(http , HttpStatus.CREATED);		
+	}
+	
 	@GetMapping
 	public ResponseEntity<Iterable<Diaria>> lista(){
 		Iterable<Diaria> diaria	= diariaService.lista();
 		return new ResponseEntity<Iterable<Diaria>>(diaria, HttpStatus.OK);
 	}
 	
-	@GetMapping(value="/listaCoordenadoria")
-	public ResponseEntity<Iterable<Diaria>> listaCoordenadoria(){
-		Iterable<Diaria> diaria = diariaService.listaCoordenadoria();
+	@GetMapping(value="/diariasEmAberto")
+	public ResponseEntity<Iterable<Diaria>> diariasEmAberto(){
+		Iterable<Diaria> diaria	= diariaService.diariasEmAberto();
 		return new ResponseEntity<Iterable<Diaria>>(diaria, HttpStatus.OK);
 	}
 	
-	@GetMapping(value="/listaUnidade")
-	public ResponseEntity<Iterable<Diaria>> listaUnidade(){
-		Iterable<Diaria> diaria = diariaService.listaUnidade();
-		return new ResponseEntity<Iterable<Diaria>>(diaria, HttpStatus.OK);
+	/*@GetMapping(value="/listaCoordenadoria")
+	public ResponseEntity<Iterable<ItemDiaria>> listaCoordenadoria(){
+		Iterable<ItemDiaria> diaria = diariaService.listaCoordenadoria();
+		return new ResponseEntity<Iterable<ItemDiaria>>(diaria, HttpStatus.OK);
 	}
+	
+	@GetMapping(value="/listaUnidade")
+	public ResponseEntity<Iterable<ItemDiaria>> listaUnidade(){
+		Iterable<ItemDiaria> diaria = diariaService.listaUnidade();
+		return new ResponseEntity<Iterable<ItemDiaria>>(diaria, HttpStatus.OK);
+	}*/
 	
 	 @GetMapping(value = "/{id}")
 		public ResponseEntity<Diaria> buscarPorId(@PathVariable Long id) {
 			return new ResponseEntity<Diaria>(diariaService.buscaPorId(id), HttpStatus.OK);
 	 }
+	 @GetMapping(value = "/mes")
+		public ResponseEntity<Iterable<MesDiariaEnum>> mesDiariaEnum() {
+			Iterable<MesDiariaEnum> mesDiariaEnum = Arrays.asList(MesDiariaEnum.values());
+			return new ResponseEntity<Iterable<MesDiariaEnum>>(mesDiariaEnum, HttpStatus.OK);
+		}
 	 
 }

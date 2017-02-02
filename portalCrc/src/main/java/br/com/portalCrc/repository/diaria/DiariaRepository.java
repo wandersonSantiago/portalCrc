@@ -9,11 +9,9 @@ import br.com.portalCrc.entity.diaria.Diaria;
 
 public interface DiariaRepository extends JpaRepository<Diaria, Long>{
 
+	@Query("From Diaria d where d.status = 'ABERTO'")
+	List<Diaria> diariasEmAberto();
+
 	
-	@Query("From Diaria d where d.unidade.id = ?1")
-	List<Diaria> listaUnidade(Long id);
-	
-	@Query("From Diaria d where d.unidade.coordenadoria.id = ?1")
-	List<Diaria> listaCoordenadoria(Long id);
-	
+
 }

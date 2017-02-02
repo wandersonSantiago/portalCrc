@@ -1,133 +1,83 @@
 package br.com.portalCrc.entity.diaria;
 
-import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import br.com.portalCrc.entity.Funcionario;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import br.com.portalCrc.entity.Unidade;
 import br.com.portalCrc.entity.Usuario;
+import br.com.portalCrc.enums.diaria.MesDiariaEnum;
+import br.com.portalCrc.enums.diaria.StatusDiariaEnum;
 
 @Entity
-@SequenceGenerator(name = "cargo_id_seq", sequenceName = "cargo_id_seq", schema="principal", initialValue = 1, allocationSize = 1)
+@SequenceGenerator(name = "diaria_id_seq", sequenceName = "diaria_id_seq", initialValue = 1, allocationSize = 1)
 @Table(name="diaria", schema="diaria")
 public class Diaria {
-
+	
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "cargo_id_seq")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "diaria_id_seq")
 	private Long id;
 	
-	@Column(name="motivo")
-	private String motivo;
-	
-	@Column(name="destino")
-	private String destino;
-	
-	@ManyToOne
-	@JoinColumn(name="id_funcionario")
-	private Funcionario funcionario;
+	@Temporal(TemporalType.DATE)
+	private Date dataAbertura;
 	
 	@Temporal(TemporalType.DATE)
-	private Date dataCadastro;
+	private Date dataFechamento;
 	
-	@Temporal(TemporalType.DATE)
-	private Date dataDiaria;
+	@JsonIgnore
+	@OneToMany(mappedBy="diaria")
+	private List<ItemDiaria> itens;
 	
-	@Column(name="valor_diaria")
-	private BigDecimal valorDiaria;
-	
-	@Column(name="valor_passagem")
-	private BigDecimal valorPassagem;
-	
-	@ManyToOne
-	@JoinColumn(name="id_unidade")
-	private Unidade unidade;
+	@Enumerated(EnumType.STRING)
+	private MesDiariaEnum mes;
+
+	@Enumerated(EnumType.STRING)
+	private StatusDiariaEnum status;
 	
 	@ManyToOne
 	@JoinColumn(name="id_usuario_cadastro")
 	private Usuario usuarioCadastro;
-
-	public Long getId() {
-		return id;
+	
+	@ManyToOne
+	@JoinColumn(name="id_unidade_cadastro")
+	private Unidade unidadeCadastro;
+	
+	@Column(name="observacao")
+	private String observacao;
+	
+	
+	
+	
+	public MesDiariaEnum getMes() {
+		return mes;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	public void setMes(MesDiariaEnum mes) {
+		this.mes = mes;
 	}
 
-	public String getMotivo() {
-		return motivo;
+	public String getObservacao() {
+		return observacao;
 	}
 
-	public void setMotivo(String motivo) {
-		this.motivo = motivo;
-	}
-
-	public String getDestino() {
-		return destino;
-	}
-
-	public void setDestino(String destino) {
-		this.destino = destino;
-	}
-
-	public Funcionario getFuncionario() {
-		return funcionario;
-	}
-
-	public void setFuncionario(Funcionario funcionario) {
-		this.funcionario = funcionario;
-	}
-
-	public Date getDataCadastro() {
-		return dataCadastro;
-	}
-
-	public void setDataCadastro(Date dataCadastro) {
-		this.dataCadastro = dataCadastro;
-	}
-
-	public Date getDataDiaria() {
-		return dataDiaria;
-	}
-
-	public void setDataDiaria(Date dataDiaria) {
-		this.dataDiaria = dataDiaria;
-	}
-
-	public BigDecimal getValorDiaria() {
-		return valorDiaria;
-	}
-
-	public void setValorDiaria(BigDecimal valorDiaria) {
-		this.valorDiaria = valorDiaria;
-	}
-
-	public BigDecimal getValorPassagem() {
-		return valorPassagem;
-	}
-
-	public void setValorPassagem(BigDecimal valorPassagem) {
-		this.valorPassagem = valorPassagem;
-	}
-
-	public Unidade getUnidade() {
-		return unidade;
-	}
-
-	public void setUnidade(Unidade unidade) {
-		this.unidade = unidade;
+	public void setObservacao(String observacao) {
+		this.observacao = observacao;
 	}
 
 	public Usuario getUsuarioCadastro() {
@@ -137,7 +87,55 @@ public class Diaria {
 	public void setUsuarioCadastro(Usuario usuarioCadastro) {
 		this.usuarioCadastro = usuarioCadastro;
 	}
+
+	public Unidade getUnidadeCadastro() {
+		return unidadeCadastro;
+	}
+
+	public void setUnidadeCadastro(Unidade unidadeCadastro) {
+		this.unidadeCadastro = unidadeCadastro;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public Date getDataAbertura() {
+		return dataAbertura;
+	}
+
+	public void setDataAbertura(Date dataAbertura) {
+		this.dataAbertura = dataAbertura;
+	}
+
+	public Date getDataFechamento() {
+		return dataFechamento;
+	}
+
+	public void setDataFechamento(Date dataFechamento) {
+		this.dataFechamento = dataFechamento;
+	}
+
+	public List<ItemDiaria> getItens() {
+		return itens;
+	}
+
+	public void setItens(List<ItemDiaria> itens) {
+		this.itens = itens;
+	}
+
+	public StatusDiariaEnum getStatus() {
+		return status;
+	}
+
+	public void setStatus(StatusDiariaEnum status) {
+		this.status = status;
+	}
 	
 	
-	
+
 }

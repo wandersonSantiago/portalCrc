@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import br.com.portalCrc.entity.diaria.Diaria;
+import br.com.portalCrc.enums.diaria.StatusDiariaEnum;
 import br.com.portalCrc.pojo.SessionUsuario;
 import br.com.portalCrc.repository.diaria.DiariaRepository;
 
@@ -21,8 +22,9 @@ public class DiariaService {
 	
 	@Transactional(readOnly = false)
 	public void salvaOuAltera(Diaria diaria){
-		diaria.setDataCadastro(new Date());
-		diaria.setUnidade(SessionUsuario.getInstance().getUsuario().getUnidade());
+		diaria.setDataAbertura(new Date());
+		diaria.setStatus(StatusDiariaEnum.ABERTO);
+		diaria.setUnidadeCadastro(SessionUsuario.getInstance().getUsuario().getUnidade());
 		diaria.setUsuarioCadastro(SessionUsuario.getInstance().getUsuario());
 		diariaRepository.save(diaria);
 	}
@@ -31,14 +33,19 @@ public class DiariaService {
 		return diariaRepository.findOne(id);
 	}
 	
-	public List<Diaria> listaUnidade(){
-		return diariaRepository.listaUnidade(SessionUsuario.getInstance().getUsuario().getUnidade().getId());
-	}
 	
-	public List<Diaria> listaCoordenadoria(){
-		return diariaRepository.listaCoordenadoria(SessionUsuario.getInstance().getUsuario().getUnidade().getCoordenadoria().getId());
+	public List<Diaria> diariasEmAberto(){
+		return diariaRepository.diariasEmAberto();
 	}
 	public List<Diaria> lista(){
 		return diariaRepository.findAll();
+	}
+	
+	@Transactional(readOnly = false)
+	public void encerrar(Diaria diaria) {
+		
+		diaria.setDataFechamento(new Date());
+		diaria.setStatus(StatusDiariaEnum.FECHADO);
+		diariaRepository.save(diaria);
 	}
 }

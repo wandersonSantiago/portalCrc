@@ -1,76 +1,42 @@
 <meta charset="UTF-8">
-<br>
-<br>
 <div 	ng-controller="diariaController as diariaCtrl">
 
+		<section layout="row" layout-align="right center">
+		  <md-button href="#/" class="groupX left">Menu</md-button>
+		  <md-button href="#/diaria/em-aberto" class="groupX middle">Em aberto</md-button>
+		  <md-button href="#/diaria/relatorio" class="groupX middle">Relátorios</md-button>		  
+		</section>
 	<div class="box box-primary">
-		<!-- Default panel contents -->
 		<div class="box-header">
-			<span class="lead">Cadastrar Diaria</span>
+			<span class="lead">Gerar Diaria </span>
 		</div>
 		<div class="panel-body">
 
 			<br>
 			<div class="container col-sm-12 ">
-				<form role="form-vertical" name="formDiaria"
-					ng-submit="diariaCtrl.salva()">			
-						
-					
-					
-					<br>
-					<div class="row">	
-						<div class="col-sm-6"  ng-controller="funcionarioController as funcionarioCtrl" ng-init="funcionarioCtrl.listaPorUnidade()">
-							<md-autocomplete 
-								  md-no-cache="funCtrl.noCache"
-								 	md-selected-item="diariaCtrl.diaria.funcionario" 
-								 	md-search-text="busca" 
-								 	md-selected-item-change="funCtrl.selectedItemChange(funcionario)" 
-								 	md-items=" funcionario in funcionarioCtrl.listaFuncionarios | filter : busca" 
-								 	md-item-text="funcionario.pessoa.nomeCompleto" 
-								 	md-min-length="0" placeholder="busca Funcionário">
-	       							 <md-item-template>
-	          							<span md-highlight-text="busca" md-highlight-flags="^i">{{funcionario.pessoa.nomeCompleto}}</span>
-	       							 </md-item-template>        								
-	     						 </md-autocomplete>
-									
-						</div>
-							
-						<div class="col-sm-6">
-							<input class="form-control" placeholder="Destino" ng-model="diariaCtrl.diaria.destino" id="destino" type="text"  required >
-						</div>
+				<form role="form-vertical" name="formDiaria"  ng-submit="diariaCtrl.salva()">				
 										
-						
-					</div>
-					
-					<br>
-					
 					<div class="row">
-						<div class="col-sm-2">
-							<input class="form-control" placeholder="Data diaria" ng-model="diariaCtrl.diaria.dataDiaria" id="dataDiaria" type="date"  required >
-						</div>
-							
-						<div class="col-sm-2">
-							<input class="form-control" placeholder="Valor Diaria" ng-model="diariaCtrl.diaria.valorDiaria" id="valorDiaria" type="text" ui-money-mask required >
-						</div>
-						<div class="col-sm-2">
-							<input class="form-control" placeholder="Valor Passagem" ng-model="diariaCtrl.diaria.valorPassagem" id="valorPassagem" type="text" ui-money-mask required >
-						</div>						
-					</div>
-					<br>
+					<div class="col-sm-3" ng-init="diariaCtrl.listaMes()">
+								<select class="form-control select2"  ng-model="diariaCtrl.diaria.mes" ng-options="mes for mes in listaMes" >
+									<option value="">--Mês--</option>
+								</select>
+							</div>
+					</div>		
 					<div class="row">
-						<div class="col-sm-12">
-						<textarea class="textarea form-control" placeholder="Texto" ng-model="diariaCtrl.diaria.motivo" id="motivo" placeholder="Motivo"
+						<div class="col-sm-4">
+						Menssagem para as Unidades
+						<textarea class="textarea form-control"  placeholder="Ex: Preencher até 5° dia util"  ng-model="diariaCtrl.diaria.observacao" id="motivo" placeholder="Motivo"
 									style="width: 100%; height: 100px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
-						</div>			
-									
-					</div>
-				
-
-					<hr>					
-					
+						</div>	
+					</div>					
+						
 					<br>
 					<div class="row ">
+					<div class="col-sm-4"></div>
+						<div class="col-sm-4">		
 							<input type="submit" id="submit" value="Salvar"	class="btn btn-lg btn-primary btn-block btn-signin">
+						</div>
 					</div>
 
 				</form>
@@ -80,4 +46,4 @@
 	</div>
 	<div class="tablecontainer"></div>
 </div>
-</div>
+

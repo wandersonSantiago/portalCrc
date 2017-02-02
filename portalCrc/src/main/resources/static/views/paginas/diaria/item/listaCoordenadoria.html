@@ -1,9 +1,14 @@
 <meta charset="UTF-8">
-<br>
-<br>
-<div 	ng-controller="diariaController as diariaCtrl" >
-
-	<div class="box box-primary" ng-init="diariaCtrl.listaCoordenadoria()">
+<div 	ng-controller="itemDiariaController as diariaCtrl" >
+	
+		<section layout="row" layout-align="right center">
+		  <md-button href="#/" class="groupX left">Menu</md-button>
+		  <md-button href="#/diaria/cadastrar" class="groupX middle">Cadastrar novo Mês</md-button>
+		  <md-button href="#/diaria/em-aberto" class="groupX middle">Em aberto</md-button>
+		  <md-button href="#/diaria/relatorio" class="groupX middle">Relátorios</md-button>		  
+		</section>
+		
+	<div class="box box-primary" >
 		<div class="box-header">
 			<span class="lead">Lista de Diarias Coordenadoria</span>
 		</div>
@@ -29,7 +34,7 @@
 					</tr>
 				</thead>
 				<tbody
-					ng-repeat=" diaria in diariaCtrl.listaDiaria | filter : busca">
+					ng-repeat=" diaria in listaDiaria | filter : busca">
 					<tr>
 					<td>{{ diaria.funcionario.pessoa.nomeCompleto }}</td>
 					<td>{{ diaria.funcionario.cargoAtual.descricao }}</td>
