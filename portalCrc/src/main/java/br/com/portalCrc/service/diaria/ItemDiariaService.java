@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import br.com.portalCrc.entity.diaria.ItemDiaria;
+import br.com.portalCrc.enums.diaria.StatusDiariaEnum;
 import br.com.portalCrc.pojo.SessionUsuario;
 import br.com.portalCrc.repository.diaria.ItemDiariaRepository;
 
@@ -18,29 +19,32 @@ public class ItemDiariaService {
 	
 
 	@Autowired
-	private ItemDiariaRepository itemdiariaRepository;
+	private ItemDiariaRepository itemDiariaRepository;
 	
 	@Transactional(readOnly = false)
-	public void salvaOuAltera(ItemDiaria itemdiaria){
-		itemdiaria.setDataCadastro(new Date());
-		itemdiaria.setUnidade(SessionUsuario.getInstance().getUsuario().getUnidade());
-		itemdiaria.setUsuarioCadastro(SessionUsuario.getInstance().getUsuario());
-		itemdiariaRepository.save(itemdiaria);
+	public void salvaOuAltera(ItemDiaria itemDiaria){
+		itemDiaria.setDataCadastro(new Date());
+		itemDiaria.setUnidade(SessionUsuario.getInstance().getUsuario().getUnidade());
+		itemDiaria.setUsuarioCadastro(SessionUsuario.getInstance().getUsuario());
+		if(itemDiaria.getDiaria().getStatus() == StatusDiariaEnum.ABERTO){
+			itemDiariaRepository.save(itemDiaria);
+		}
+		
 	}
 	
 	public ItemDiaria buscaPorId(Long id){
-		return itemdiariaRepository.findOne(id);
+		return itemDiariaRepository.findOne(id);
 	}
 	
 	public List<ItemDiaria> listaUnidade(Long id){
-		return itemdiariaRepository.listaUnidade(SessionUsuario.getInstance().getUsuario().getUnidade().getId(), id);
+		return itemDiariaRepository.listaUnidade(SessionUsuario.getInstance().getUsuario().getUnidade().getId(), id);
 	}
 	
 	public List<ItemDiaria> listaCoordenadoria(Long id){
-		return itemdiariaRepository.findByUnidadeCoordenadoria_idAndDiaria_id(SessionUsuario.getInstance().getUsuario().getUnidade().getCoordenadoria().getId(), id);
+		return itemDiariaRepository.findByUnidadeCoordenadoria_idAndDiaria_id(SessionUsuario.getInstance().getUsuario().getUnidade().getCoordenadoria().getId(), id);
 	}
 	public List<ItemDiaria> lista(){
-		return itemdiariaRepository.findAll();
+		return itemDiariaRepository.findAll();
 	}
 
 }

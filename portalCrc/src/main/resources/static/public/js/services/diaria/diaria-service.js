@@ -54,8 +54,9 @@ app.factory('diariaService', function($rootScope, toastr, $http){
 			});
 		},
 		
-		lista: function(){
-			return $http.get('/rest/diaria')
+		lista: function(page , maxResults){
+			var config = {params: {page: page , maxResults : maxResults}};
+			return $http.get('/rest/diaria/', config)
 			.then(function(response){
 				return response.data;
 			},function(errResponse){

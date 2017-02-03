@@ -8,14 +8,21 @@ app.controller('itemDiariaController', function($scope,  $rootScope, itemDiariaS
 	var idDiariaGeral = $routeParams.idDiariaGeral;
 	$scope.listaDiariaExcel = [];
 	
-self.salva = function() {
-	itemDiariaService.salva(self.itemDiaria).
-		then(function(response){
-			self.itemDiaria = null;
-			}, function(errResponse){
-		});
+	self.salva = function() {
+		itemDiariaService.salva(self.itemDiaria).
+			then(function(response){
+				limpaCampos();
+				}, function(errResponse){
+			});
 	}
 	
+	limpaCampos = function(){
+		self.itemDiaria.destino = null;
+		self.itemDiaria.dataDiaria = null;
+		self.itemDiaria.valorDiaria = null;
+		self.itemDiaria.valorPassagem = null;
+		self.itemDiaria.motivo = null;
+	}
 	self.altera = function(diaria) {
 		itemDiariaService.altera(self.diaria).
 		then(function(response){

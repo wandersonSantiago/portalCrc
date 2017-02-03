@@ -3,6 +3,8 @@ package br.com.portalCrc.web.controller.diaria;
 import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,11 +14,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import br.com.portalCrc.entity.diaria.Diaria;
-import br.com.portalCrc.enums.controleIp.TipoEquipamentoEnum;
 import br.com.portalCrc.enums.diaria.MesDiariaEnum;
 import br.com.portalCrc.service.diaria.DiariaService;
 
@@ -48,11 +50,19 @@ public class DiariaRestController {
 		return new ResponseEntity<>(http , HttpStatus.CREATED);		
 	}
 	
-	@GetMapping
+/*	@GetMapping
 	public ResponseEntity<Iterable<Diaria>> lista(){
 		Iterable<Diaria> diaria	= diariaService.lista();
 		return new ResponseEntity<Iterable<Diaria>>(diaria, HttpStatus.OK);
+	}*/
+	
+	@GetMapping
+	public ResponseEntity<Page<Diaria>> lista(@RequestParam(defaultValue="0", required=false) int page
+			,@RequestParam(defaultValue="0", required=false) int maxResults) {
+		Page<Diaria> diaria = diariaService.lista(new PageRequest(page, maxResults));
+		return new ResponseEntity<Page<Diaria>>(diaria, HttpStatus.OK);
 	}
+
 	
 	@GetMapping(value="/diariasEmAberto")
 	public ResponseEntity<Iterable<Diaria>> diariasEmAberto(){

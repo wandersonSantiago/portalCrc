@@ -18,6 +18,7 @@
 										
 					<div class="row">
 					<div class="col-sm-3" ng-init="diariaCtrl.listaMes()">
+					Mês referente as Diárias
 								<select class="form-control select2"  ng-model="diariaCtrl.diaria.mes" ng-options="mes for mes in listaMes" >
 									<option value="">--Mês--</option>
 								</select>
@@ -26,7 +27,7 @@
 					<div class="row">
 						<div class="col-sm-4">
 						Menssagem para as Unidades
-						<textarea class="textarea form-control"  placeholder="Ex: Preencher até 5° dia util"  ng-model="diariaCtrl.diaria.observacao" id="motivo" placeholder="Motivo"
+						<textarea class="textarea text-uppercase form-control"  placeholder="Ex: Preencher até 5° dia util"  ng-model="diariaCtrl.diaria.observacao" id="motivo" placeholder="Motivo"
 									style="width: 100%; height: 100px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
 						</div>	
 					</div>					

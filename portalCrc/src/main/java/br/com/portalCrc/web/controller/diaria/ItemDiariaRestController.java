@@ -22,43 +22,43 @@ import br.com.portalCrc.service.diaria.ItemDiariaService;
 public class ItemDiariaRestController {
 
 	@Autowired
-	private ItemDiariaService itemdiariaService;
+	private ItemDiariaService itemDiariaRepository;
 	
 	@PostMapping
-	 public ResponseEntity<ItemDiaria> salvar(@RequestBody ItemDiaria itemdiaria,UriComponentsBuilder ucBuilder){
-		itemdiariaService.salvaOuAltera(itemdiaria);
+	 public ResponseEntity<ItemDiaria> salvar(@RequestBody ItemDiaria itemDiaria,UriComponentsBuilder ucBuilder){
+		itemDiariaRepository.salvaOuAltera(itemDiaria);
 		 HttpHeaders headers =new HttpHeaders();
 		 return new ResponseEntity<ItemDiaria>(headers, HttpStatus.CREATED);
 	 }
 		
 	@PutMapping
-	public ResponseEntity<ItemDiaria> alterar(@RequestBody ItemDiaria itemdiaria){
-		itemdiariaService.salvaOuAltera(itemdiaria);
+	public ResponseEntity<ItemDiaria> alterar(@RequestBody ItemDiaria itemDiaria){
+		itemDiariaRepository.salvaOuAltera(itemDiaria);
 		HttpHeaders http =  new HttpHeaders();
 		return new ResponseEntity<>(http , HttpStatus.CREATED);		
 	}
 	
 	@GetMapping
 	public ResponseEntity<Iterable<ItemDiaria>> lista(){
-		Iterable<ItemDiaria> diaria	= itemdiariaService.lista();
-		return new ResponseEntity<Iterable<ItemDiaria>>(diaria, HttpStatus.OK);
+		Iterable<ItemDiaria> itemDiaria	= itemDiariaRepository.lista();
+		return new ResponseEntity<Iterable<ItemDiaria>>(itemDiaria, HttpStatus.OK);
 	}
 	
 	@GetMapping(value="/listaCoordenadoria/{id}")
 	public ResponseEntity<Iterable<ItemDiaria>> listaCoordenadoria(@PathVariable Long id){
-		Iterable<ItemDiaria> itemdiaria = itemdiariaService.listaCoordenadoria(id);
-		return new ResponseEntity<Iterable<ItemDiaria>>(itemdiaria, HttpStatus.OK);
+		Iterable<ItemDiaria> itemDiaria = itemDiariaRepository.listaCoordenadoria(id);
+		return new ResponseEntity<Iterable<ItemDiaria>>(itemDiaria, HttpStatus.OK);
 	}
 	
 	@GetMapping(value="/listaUnidade/{id}")
 	public ResponseEntity<Iterable<ItemDiaria>> listaUnidade(@PathVariable Long id){
-		Iterable<ItemDiaria> itemdiaria = itemdiariaService.listaUnidade(id);
-		return new ResponseEntity<Iterable<ItemDiaria>>(itemdiaria, HttpStatus.OK);
+		Iterable<ItemDiaria> itemDiaria = itemDiariaRepository.listaUnidade(id);
+		return new ResponseEntity<Iterable<ItemDiaria>>(itemDiaria, HttpStatus.OK);
 	}
 	
 	 @GetMapping(value = "/{id}")
 		public ResponseEntity<ItemDiaria> buscarPorId(@PathVariable Long id) {
-			return new ResponseEntity<ItemDiaria>(itemdiariaService.buscaPorId(id), HttpStatus.OK);
+			return new ResponseEntity<ItemDiaria>(itemDiariaRepository.buscaPorId(id), HttpStatus.OK);
 	 }
 	 
 

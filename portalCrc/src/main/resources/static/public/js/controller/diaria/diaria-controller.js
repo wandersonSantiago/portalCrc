@@ -1,7 +1,10 @@
 app.controller('diariaController', function($scope,  diariaService, $location,  $routeParams) {
 
 	var self = this;
-	
+	self.getPage=0;
+	self.totalPages = 0;
+	self.totalElements = 0;
+	$scope.maxResults = 15;
 	var idDiaria = $routeParams.idDiaria;
 
 	$scope.listaDiariaExcel = [];
@@ -24,10 +27,17 @@ self.salva = function(diaria) {
 		});
 	}
 
-	 self.lista = function(){
-		 diariaService.lista().
-			then(function(f){
-				self.listaDiaria = f;					
+	 self.lista = function(pages, maxResults){
+		 self.totalPages = [];
+			self.getPage=pages;
+		 diariaService.lista(pages, maxResults).
+			then(function(e){	
+				self.listaDiaria = e.content;
+				$scope.totalPages = e.totalPages;
+				self.totalElements = e.totalElements;
+				for(i = 0; i < $scope.totalPages ; i++){
+					self.totalPages.push(i);
+				}
 				}, function(errResponse){
 			});
 		};

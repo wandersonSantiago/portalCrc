@@ -8,7 +8,7 @@
 		  <md-button href="#/diaria/em-aberto" class="groupX middle">Em aberto</md-button>  
 		</section>
 				
-	<div class="box box-primary" ng-init="diariaCtrl.lista()">
+	<div class="box box-primary" ng-init="diariaCtrl.lista(0,12)">
 		<div class="box-header">
 			<span class="lead">Relatório</span>
 		</div>
@@ -44,6 +44,32 @@
 					</tr>
 				</tfoot>
 			</table>
+			<div class="row">
+				<div class="col-sm-5"></div>				
+				<div class="2">				
+					<nav>
+						<ul class="pagination">
+						
+							<li class="{{0==diariaCtrl.getPage ?'disabled':''}}"><a
+								ng-if="0!=diariaCtrl.getPage" ng-click="diariaCtrl.lista(diariaCtrl.getPage -1, maxResults)"
+								aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
+							</a> <a ng-if="0==diariaCtrl.getPage" aria-label="Previous"> <span
+									aria-hidden="true">&laquo;</span></a></li>
+							<li ng-repeat="page in diariaCtrl.totalPages"
+								class="{{page==diariaCtrl.getPage ?'active':''}}"><a
+								ng-click="diariaCtrl.lista(page , maxResults)">{{page + 1}}</a></li>
+							<li class="{{diariaCtrl.getPage+1 == totalPages ?'disabled':''}}"><a
+								ng-if="diariaCtrl.getPage+1 != totalPages"
+								ng-click="diariaCtrl.lista(diariaCtrl.getPage+1, maxResults)" aria-label="Next"> <span
+									aria-hidden="true">&raquo;</span>
+							</a> <a ng-if="diariaCtrl.getPage+1==totalPages" aria-label="Next"> <span
+									aria-hidden="true">&raquo;</span>
+							</a></li>
+							
+						</ul>
+					</nav>
+				</div>
+			</div>
 		</div>
 		
 	</div>

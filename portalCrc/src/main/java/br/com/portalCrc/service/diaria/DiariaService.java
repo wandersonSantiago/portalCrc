@@ -4,6 +4,8 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -37,8 +39,8 @@ public class DiariaService {
 	public List<Diaria> diariasEmAberto(){
 		return diariaRepository.diariasEmAberto();
 	}
-	public List<Diaria> lista(){
-		return diariaRepository.findAll();
+	public Page<Diaria> lista(PageRequest pageRequest){
+		return diariaRepository.findAll(pageRequest);
 	}
 	
 	@Transactional(readOnly = false)
