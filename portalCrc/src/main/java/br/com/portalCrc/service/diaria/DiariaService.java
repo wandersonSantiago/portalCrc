@@ -1,5 +1,7 @@
 package br.com.portalCrc.service.diaria;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -24,11 +26,16 @@ public class DiariaService {
 	
 	@Transactional(readOnly = false)
 	public void salvaOuAltera(Diaria diaria){
-		diaria.setDataAbertura(new Date());
-		diaria.setStatus(StatusDiariaEnum.ABERTO);
-		diaria.setUnidadeCadastro(SessionUsuario.getInstance().getUsuario().getUnidade());
-		diaria.setUsuarioCadastro(SessionUsuario.getInstance().getUsuario());
-		diariaRepository.save(diaria);
+				
+		if(verificaSeExisteMesDeDiariaNoAno(diaria) == false){
+			diaria.setDataAbertura(new Date());
+			diaria.setStatus(StatusDiariaEnum.ABERTO);
+			diaria.setUnidadeCadastro(SessionUsuario.getInstance().getUsuario().getUnidade());
+			diaria.setUsuarioCadastro(SessionUsuario.getInstance().getUsuario());
+			diariaRepository.save(diaria);
+		}else{
+			System.out.println("o mês" + diaria.getMes() + "ja consta cadastrada no ano");
+		}
 	}
 	
 	public Diaria buscaPorId(Long id){
@@ -49,5 +56,22 @@ public class DiariaService {
 		diaria.setDataFechamento(new Date());
 		diaria.setStatus(StatusDiariaEnum.FECHADO);
 		diariaRepository.save(diaria);
+	}
+	
+	public boolean verificaSeExisteMesDeDiariaNoAno(Diaria diaria){
+		
+		boolean isIgual = false;	
+		
+		/*Date teste1 = new Date();
+		SimpleDateFormat ano = new SimpleDateFormat("yyyy");*/
+		List<Diaria> lista = diariaRepository.findByDataAbertura(Calendar.getInstance().YEAR);
+		
+		for(int i = 0; i < lista.size() ; i++){	
+			
+				if(lista.get(i).getMes() == diaria.getMes()){
+					isIgual =  true;
+			}	
+		}		
+		return isIgual;
 	}
 }

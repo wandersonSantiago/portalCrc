@@ -14,7 +14,7 @@ app.controller('itemDiariaController', function($scope,  $rootScope, itemDiariaS
 				limpaCampos();
 				}, function(errResponse){
 			});
-	}
+	};
 	
 	limpaCampos = function(){
 		self.itemDiaria.destino = null;
@@ -22,7 +22,7 @@ app.controller('itemDiariaController', function($scope,  $rootScope, itemDiariaS
 		self.itemDiaria.valorDiaria = null;
 		self.itemDiaria.valorPassagem = null;
 		self.itemDiaria.motivo = null;
-	}
+	};
 	self.altera = function(diaria) {
 		itemDiariaService.altera(self.diaria).
 		then(function(response){
@@ -31,10 +31,10 @@ app.controller('itemDiariaController', function($scope,  $rootScope, itemDiariaS
 			}, function(errResponse){
 				
 		});
-	}
+	};
 
-	 self.listaGeral = function(){
-		 itemDiariaService.lista().
+	 self.listaSecretaria = function(id){
+		 itemDiariaService.listaSecretaria(id).
 			then(function(f){
 				$scope.listaDiaria = f;	
 				forLista(f);
@@ -42,7 +42,7 @@ app.controller('itemDiariaController', function($scope,  $rootScope, itemDiariaS
 			});
 		};
 		if(idDiariaGeral){
-			self.listaGeral(idDiariaGeral);
+			self.listaSecretaria(idDiariaGeral);
 		}
 		
 	 self.listaCoordenadoria = function(id){
@@ -105,6 +105,5 @@ app.controller('itemDiariaController', function($scope,  $rootScope, itemDiariaS
 			self.buscarPorId(idDiaria);
 			
 		}		
-
-
+		
 });

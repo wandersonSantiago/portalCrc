@@ -19,7 +19,7 @@
 	
     <hr>    
 		<input class="form-control" type="text" placeholder="Buscar" ng-model="busca" >
-			<table class="table table-hover table-bordered" ng-repeat=" diaria in listaDiaria | filter : busca">
+			<table class="table table-hover table-bordered" >
 				<thead>
 					<tr>
 						<th>Favorecido</th>
@@ -33,7 +33,7 @@
 						<th ng-if="diaria.diaria.status == 'ABERTO'">Editar</th>				
 					</tr>
 				</thead>
-				<tbody
+				<tbody ng-repeat=" diaria in listaDiaria | filter : busca"
 					>
 					<tr>					
 					<td>{{ diaria.funcionario.pessoa.nomeCompleto }}</td>

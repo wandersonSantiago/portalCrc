@@ -35,8 +35,8 @@ app.factory('itemDiariaService', function($rootScope, toastr, $http){
 			});
 		},		
 		
-		lista: function(){
-			return $http.get('/rest/diaria/item')
+		listaSecretaria: function(objeto){
+			return $http.get('/rest/diaria/item/listaSecretaria/' +objeto)
 			.then(function(response){
 				return response.data;
 			},function(errResponse){

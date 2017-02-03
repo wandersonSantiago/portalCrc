@@ -12,6 +12,6 @@ public interface DiariaRepository extends JpaRepository<Diaria, Long>{
 	@Query("From Diaria d where d.status = 'ABERTO'")
 	List<Diaria> diariasEmAberto();
 
-	
-
+	@Query("From Diaria d where year(d.dataAbertura) = ?1 ")
+	List<Diaria> findByDataAbertura(int teste1);
 }

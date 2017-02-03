@@ -47,4 +47,9 @@ public class ItemDiariaService {
 		return itemDiariaRepository.findAll();
 	}
 
+	public Iterable<ItemDiaria> listaSecretaria(Long id) {
+		
+		return itemDiariaRepository.listaSecretaria(id);
+	}
+
 }

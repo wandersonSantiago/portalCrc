@@ -35,7 +35,8 @@
     "angular-block-ui": "^0.2.2",
     "ngstorage": "^0.3.10",
     "angular-input-masks": "^2.4.0",
-    "json-export-excel": "ng-json-export-excel#^1.0.2"
+    "json-export-excel": "ng-json-export-excel#^1.0.2",
+    "angular-export-table": "*"
   },
   "resolutions": {
     "angular": "~1.5.6"

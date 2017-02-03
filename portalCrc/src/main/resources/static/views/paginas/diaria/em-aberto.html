@@ -24,8 +24,12 @@
 				<tbody
 					ng-repeat=" diaria in diariaCtrl.listaDiaria | filter : busca ">
 					<tr>
-					<td>{{diaria.mes}}</td>
-					<td>{{ diaria.dataAbertura}}</td>
+					<td>
+						<h4><span>{{diaria.mes}}</span></h4>
+					</td>
+					<td> 
+						<h4><span>{{diaria.dataAbertura | date : 'yyyy'}}</span></h4>
+					</td>
 					<td><div ng-controller="itemDiariaController as itemDiariaCtrl">					
 						<a type="button" href="#/diaria/item/cadastrar/{{diaria.id}}"  class="btn btn-success">lançar diarias</a>
 						<input ng-if="diaria.status == 'ABERTO'" type="button" ng-click="diariaCtrl.encerrar(diaria)" value="Encerrar" class="btn btn-warning">
