@@ -22,19 +22,20 @@ import br.com.portalCrc.repository.diaria.DiariaRepository;
 public class DiariaService {
 
 	@Autowired
-	private DiariaRepository diariaRepository;
+	private DiariaRepository diariaRepository;	
 	
 	@Transactional(readOnly = false)
-	public void salvaOuAltera(Diaria diaria){
+	public void salvaOuAltera(Diaria diaria) {
 				
 		if(verificaSeExisteMesDeDiariaNoAno(diaria) == false){
+			System.out.println(diaria.getMes());
 			diaria.setDataAbertura(new Date());
 			diaria.setStatus(StatusDiariaEnum.ABERTO);
-			diaria.setUnidadeCadastro(SessionUsuario.getInstance().getUsuario().getUnidade());
-			diaria.setUsuarioCadastro(SessionUsuario.getInstance().getUsuario());
+			//diaria.setUnidadeCadastro(SessionUsuario.getInstance().getUsuario().getUnidade());
+			//diaria.setUsuarioCadastro(SessionUsuario.getInstance().getUsuario());
 			diariaRepository.save(diaria);
-		}else{
-			System.out.println("o mês" + diaria.getMes() + "ja consta cadastrada no ano");
+		}else{			
+			throw new DiariaException("o mês de " + diaria.getMes() + " consta aberto no ano " + anoAtual());
 		}
 	}
 	
@@ -60,18 +61,27 @@ public class DiariaService {
 	
 	public boolean verificaSeExisteMesDeDiariaNoAno(Diaria diaria){
 		
-		boolean isIgual = false;	
+		boolean isIgual = false;		
 		
-		/*Date teste1 = new Date();
-		SimpleDateFormat ano = new SimpleDateFormat("yyyy");*/
-		List<Diaria> lista = diariaRepository.findByDataAbertura(Calendar.getInstance().YEAR);
+		int anoAtual = Integer.parseInt(anoAtual());
+	
+		List<Diaria> lista = diariaRepository.findByDataAbertura(anoAtual);
 		
-		for(int i = 0; i < lista.size() ; i++){	
-			
+			for(int i = 0; i < lista.size() ; i++){					
 				if(lista.get(i).getMes() == diaria.getMes()){
 					isIgual =  true;
-			}	
-		}		
+					i = lista.size() + 1;
+				}					
+			}		
 		return isIgual;
+	}
+	
+	public String anoAtual(){
+		
+		 Date dataAtual = new Date();
+		 SimpleDateFormat formataAno = new SimpleDateFormat("yyyy");		
+		 String ano = formataAno.format(dataAtual);
+		 
+		 return ano;
 	}
 }

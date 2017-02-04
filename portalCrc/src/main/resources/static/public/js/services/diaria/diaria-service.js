@@ -8,7 +8,7 @@ app.factory('diariaService', function($rootScope, toastr, $http){
 				sweetAlert({ timer : 3000, text :"Salvo com sucesso", type : "success", width: 300, higth: 100, padding: 20});
 				return response.data;
 			},function(errResponse){
-				sweetAlert({ timer : 3000,  text :"falha na conexão",  type : "error", width: 300, higth: 300, padding: 20});
+				sweetAlert({ timer : 1000000,  text : errResponse.data.message ,  type : "error", width: 300, higth: 300, padding: 20});
 				return $q.reject(errResponse);
 			});
 		},
@@ -18,7 +18,7 @@ app.factory('diariaService', function($rootScope, toastr, $http){
 				sweetAlert({ timer : 3000, text :"Mês de lançamento encerrado", type : "success", width: 300, higth: 100, padding: 20});
 				return response.data;
 			},function(errResponse){
-				sweetAlert({ timer : 3000,  text :"falha na conexão",  type : "error", width: 300, higth: 300, padding: 20});
+				sweetAlert({ timer : 100000,  text :"falha na conexão",  type : "error", width: 300, higth: 300, padding: 20});
 				return $q.reject(errResponse);
 			});
 		},
