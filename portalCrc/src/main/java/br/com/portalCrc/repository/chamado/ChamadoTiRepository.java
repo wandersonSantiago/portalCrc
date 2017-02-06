@@ -16,6 +16,6 @@ public interface ChamadoTiRepository extends JpaRepository<ChamadoTi, Long>{
 	@Query("FROM ChamadoTi chamado WHERE chamado.usuarioSolicitante = :usuario AND chamado.unidade = :unidade")
 	Collection<ChamadoTi> listaChamadoUsuario(@Param(value = "usuario") Usuario usuario, @Param(value = "unidade") Unidade unidade);
 	
-	@Query("FROM ChamadoTi chamado WHERE chamado.unidade = :unidade")
+	@Query("FROM ChamadoTi chamado WHERE chamado.unidade = :unidade AND chamado.status = 'EM_ANDAMENTO' OR chamado.status = 'ABERTO'")
 	Collection<ChamadoTi> listaSuporte(@Param(value="unidade") Unidade unidade);
 }

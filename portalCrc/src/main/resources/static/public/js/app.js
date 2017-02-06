@@ -11,21 +11,21 @@ var app = angular.module('crc',['ngAnimate', 'ngCookies','ngRoute', 'toastr','ui
 						$rootScope.user = u;
 						for(i = 0 ; i < $rootScope.user.usuario.perfilsUsuario.length ; i++ ){	
 							
-						var	perfil = $rootScope.user.usuario.perfilsUsuario[i];
+							$rootScope.perfil = $rootScope.user.usuario.perfilsUsuario[i];
 						
-							self.ADMIN(perfil);
-							self.role_coordenadoria(perfil);
-							self.role_chamadoSuporteTi(perfil);
-							self.role_UsuarioChamado(perfil);
-							self.role_chamadoSuporteManutencao(perfil);
-							self.role_cadastrar_usuario(perfil);
-							self.role_cadastrar_telefone(perfil);
-							self.role_cadastrar_ramal(perfil);
-							self.role_recursos_humanos(perfil);
-							self.role_cadastrar_funcionario(perfil);
-							self.role_cadastrar_cargo(perfil);
-							self.role_cadastrar_setor(perfil);
-							self.role_cadastrar_funcao(perfil);
+							self.ADMIN($rootScope.perfil);
+							self.role_coordenadoria($rootScope.perfil);
+							self.role_chamadoSuporteTi($rootScope.perfil);
+							self.role_UsuarioChamado($rootScope.perfil);
+							self.role_chamadoSuporteManutencao($rootScope.perfil);
+							self.role_cadastrar_usuario($rootScope.perfil);
+							self.role_cadastrar_telefone($rootScope.perfil);
+							self.role_cadastrar_ramal($rootScope.perfil);
+							self.role_recursos_humanos($rootScope.perfil);
+							self.role_cadastrar_funcionario($rootScope.perfil);
+							self.role_cadastrar_cargo($rootScope.perfil);
+							self.role_cadastrar_setor($rootScope.perfil);
+							self.role_cadastrar_funcao($rootScope.perfil);
 							/*self.role_cadastrar_equipamento(perfil);
 							self.role_cadastrar_ip(perfil);
 							self.role_cadastrar_tipoip(perfil);*/

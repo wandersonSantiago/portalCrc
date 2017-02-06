@@ -15,7 +15,7 @@ public interface ChamadoManutencaoRepository extends JpaRepository<ChamadoManute
 	@Query("FROM ChamadoManutencao chamado WHERE chamado.usuarioSolicitante = :usuario AND chamado.unidade = :unidade")
 	Collection<ChamadoManutencao> listaChamadoUsuario(@Param(value = "usuario") Usuario usuario, @Param(value = "unidade") Unidade unidade);
 
-	@Query("FROM ChamadoManutencao chamado WHERE chamado.unidade = :unidade")
+	@Query("FROM ChamadoManutencao chamado WHERE chamado.unidade = :unidade AND chamado.status = 'EM_ANDAMENTO' OR chamado.status = 'ABERTO'")
 	Collection<ChamadoManutencao> listaSuporte(@Param(value="unidade") Unidade unidade);
 
 }
