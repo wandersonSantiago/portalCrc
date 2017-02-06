@@ -31,12 +31,17 @@ public class DiariaService {
 			System.out.println(diaria.getMes());
 			diaria.setDataAbertura(new Date());
 			diaria.setStatus(StatusDiariaEnum.ABERTO);
-			//diaria.setUnidadeCadastro(SessionUsuario.getInstance().getUsuario().getUnidade());
-			//diaria.setUsuarioCadastro(SessionUsuario.getInstance().getUsuario());
+			diaria.setUnidadeCadastro(SessionUsuario.getInstance().getUsuario().getUnidade());
+			diaria.setUsuarioCadastro(SessionUsuario.getInstance().getUsuario());
 			diariaRepository.save(diaria);
 		}else{			
-			throw new DiariaException("o mês de " + diaria.getMes() + " consta aberto no ano " + anoAtual());
+			throw new DiariaException("o mês de " + diaria.getMes() + " consta cadastrado no ano " + anoAtual());
 		}
+	}
+	
+	@Transactional(readOnly = false)
+	public void alterar(Diaria diaria){
+		diariaRepository.save(diaria);
 	}
 	
 	public Diaria buscaPorId(Long id){

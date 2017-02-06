@@ -38,7 +38,7 @@ app.config(['$routeProvider','$httpProvider', function($routeProvider, $httpProv
 	.when("/diaria/item/lista/unidade/:idDiariaUnidade",{
 		templateUrl : "views/paginas/diaria/item/listaUnidade.html"
 	})
-	.when("/diaria/item/editar/:idDiaria",{
+	.when("/diaria/item/editar/:idItemDiaria",{
 		templateUrl : "views/paginas/diaria/item/editar.html"
 	})
 

@@ -32,6 +32,14 @@ public class ItemDiariaService {
 		
 	}
 	
+	@Transactional(readOnly = false)
+	public void altera(ItemDiaria itemDiaria){
+		if(itemDiaria.getDiaria().getStatus() == StatusDiariaEnum.ABERTO){
+			itemDiariaRepository.save(itemDiaria);
+		}
+		
+	}
+	
 	public ItemDiaria buscaPorId(Long id){
 		return itemDiariaRepository.findOne(id);
 	}
@@ -47,9 +55,16 @@ public class ItemDiariaService {
 		return itemDiariaRepository.findAll();
 	}
 
-	public Iterable<ItemDiaria> listaSecretaria(Long id) {
-		
+	public Iterable<ItemDiaria> listaSecretaria(Long id) {		
 		return itemDiariaRepository.listaSecretaria(id);
 	}
+
+	@Transactional(readOnly = false)
+	public void excluir(Long id) {
+		itemDiariaRepository.delete(id);
+		
+	}
+
+	
 
 }

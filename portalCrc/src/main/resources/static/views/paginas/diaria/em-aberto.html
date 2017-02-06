@@ -22,7 +22,7 @@
 					</tr>
 				</thead>
 				<tbody
-					ng-repeat=" diaria in diariaCtrl.listaDiaria | filter : busca ">
+					ng-repeat=" diaria in diariaCtrl.listaDiaria | filter : busca | orderBy : 'id'">
 					<tr>
 					<td>
 						<h4><span>{{diaria.mes}}</span></h4>
@@ -37,7 +37,10 @@
 						<a type="button" href="#/diaria/item/lista/coordenadoria/{{diaria.id}}"  class="btn btn-info">lista Coordenadoria</a>
 						<a type="button" href="#/diaria/item/lista/geral/{{diaria.id}}"  class="btn btn-info">lista SAP</a>
 					</div>
-					</td>										
+					</td>	
+					<td>
+						<a type="button" href="#/diaria/editar/{{diaria.id}}"  class="btn btn-info">Editar</a>
+					</td>									
 					</tr>							
 				</tbody>
 				<tfoot>

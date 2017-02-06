@@ -3,6 +3,7 @@ app.controller('itemDiariaController', function($scope,  $rootScope, itemDiariaS
 	var self = this;
 	
 	var idDiaria = $routeParams.idDiaria;
+	var idItemDiaria = $routeParams.idItemDiaria;
 	var idDiariaCoordenadoria = $routeParams.idDiariaCoordenadoria;
 	var idDiariaUnidade = $routeParams.idDiariaUnidade;
 	var idDiariaGeral = $routeParams.idDiariaGeral;
@@ -23,16 +24,36 @@ app.controller('itemDiariaController', function($scope,  $rootScope, itemDiariaS
 		self.itemDiaria.valorPassagem = null;
 		self.itemDiaria.motivo = null;
 	};
-	self.altera = function(diaria) {
-		itemDiariaService.altera(self.diaria).
+	
+	self.altera = function() {
+		itemDiariaService.altera(self.itemDiaria).
 		then(function(response){
-			self.diaria = null;
-			$location.path("/diaria/lista/unidade");
+			$location.path("/diaria/item/lista/unidade/" + self.itemDiaria.diaria.id);
 			}, function(errResponse){
 				
 		});
 	};
 
+	
+	self.excluir = function(objeto) {
+		swal({
+			  title: 'Excluir diária!!!',
+			  text: 'Tem certeza que deseja excluir esta diária',
+			  type: 'warning',
+			  showCancelButton: true,
+			  confirmButtonColor: '#3085d6',
+			  cancelButtonColor: '#d33',
+			  confirmButtonText: 'Excluir'
+			}).then(function () {
+				itemDiariaService.excluir(objeto.id).
+				then(function(response){	
+					self.listaUnidade(objeto.diaria.id);					
+					}, function(errResponse){
+				});	
+				 
+			})		
+	};	
+	
 	 self.listaSecretaria = function(id){
 		 itemDiariaService.listaSecretaria(id).
 			then(function(f){
@@ -93,17 +114,31 @@ app.controller('itemDiariaController', function($scope,  $rootScope, itemDiariaS
 			if(!id)return;
 			itemDiariaService.buscarPorId(id).
 			then(function(p){
+				self.itemDiaria = p;
+				self.itemDiaria.dataDiaria = new Date(p.dataDiaria);
+		}, function(errResponse){
+			});
+		};
+	
+		if(idItemDiaria){
+			self.buscarPorId(idItemDiaria);
+			
+		}	
+		
+		self.buscarDiariaPorId = function(id){
+			if(!id)return;
+			itemDiariaService.buscarDiariaPorId(id).
+			then(function(p){
 				self.diaria = p;
 				self.diaria.dataDiaria = new Date(p.dataDiaria);
-				$scope.itemCtrl.itemDiaria = { diaria : self.diaria};
-				console.log($scope.itemCtrl.itemDiaria);
+				$scope.itemCtrl.itemDiaria = {diaria : self.diaria};
 		}, function(errResponse){
 			});
 		};
 	
 		if(idDiaria){
-			self.buscarPorId(idDiaria);
+			self.buscarDiariaPorId(idDiaria);
 			
-		}		
+		}
 		
 });

@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,15 +26,22 @@ public class ItemDiariaRestController {
 	private ItemDiariaService itemDiariaRepository;
 	
 	@PostMapping
-	 public ResponseEntity<ItemDiaria> salvar(@RequestBody ItemDiaria itemDiaria,UriComponentsBuilder ucBuilder){
+	 public ResponseEntity<ItemDiaria> salvar(@RequestBody ItemDiaria itemDiaria, UriComponentsBuilder ucBuilder){
 		itemDiariaRepository.salvaOuAltera(itemDiaria);
 		 HttpHeaders headers =new HttpHeaders();
 		 return new ResponseEntity<ItemDiaria>(headers, HttpStatus.CREATED);
 	 }
 		
 	@PutMapping
-	public ResponseEntity<ItemDiaria> alterar(@RequestBody ItemDiaria itemDiaria){
+	public ResponseEntity<ItemDiaria> alterar(@RequestBody ItemDiaria itemDiaria, UriComponentsBuilder ucBuilder){
 		itemDiariaRepository.salvaOuAltera(itemDiaria);
+		HttpHeaders http =  new HttpHeaders();
+		return new ResponseEntity<>(http , HttpStatus.CREATED);		
+	}
+	
+	@DeleteMapping(value="/excluir/{id}")
+	public ResponseEntity<ItemDiaria> excluir(@PathVariable Long id){
+		itemDiariaRepository.excluir(id);
 		HttpHeaders http =  new HttpHeaders();
 		return new ResponseEntity<>(http , HttpStatus.CREATED);		
 	}

@@ -1,7 +1,4 @@
-app.factory(
-		'auth',
-
-		function($rootScope, $http,  $location) {
+app.factory('auth',	function($rootScope, $http,  $location) {
 
 			enter = function() {
 				if ($location.path() != auth.loginPath) {
@@ -32,11 +29,14 @@ app.factory(
 					$http.get('/rest/usuario/usuario', {
 						headers : headers
 					}).then(function(response) {
+						$rootScope.authorities = response.data.authorities;				
+						
 						if (response.data.name) {
 							auth.authenticated = true;
 							$rootScope.logado = true;
 						} else {
 							auth.authenticated = false;
+							$rootScope.logado = false;
 						}
 						callback && callback(auth.authenticated);
 						$location.path(auth.path==auth.loginPath ? auth.homePath : auth.path);
@@ -47,18 +47,18 @@ app.factory(
 
 				},
 
-				clear : function() {
-					$location.path(auth.loginPath);
+				clear : function() {					
 					auth.authenticated = false;
-					$http.post(auth.logoutPath, {}).then(function() {
-						console.log("Logout succeeded");
+					$rootScope.logado = false;
+					$location.path(auth.loginPath);
+					$http.post(auth.logoutPath, {}).then(function(response) {
+						console.log("Logout successo");
 						$rootScope.logado = false;
-					}, function() {
-						console.log("Logout failed");
-						$location.path('/logout');
-						$rootScope.logado = false;
+					}, function(errResponse) {
+						console.log("Logout falhou");
 					});
 				},
+
 
 				init : function(homePath, loginPath, logoutPath) {
 

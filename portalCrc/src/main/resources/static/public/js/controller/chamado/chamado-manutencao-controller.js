@@ -18,7 +18,7 @@ app.controller('chamadoManutencaoController', function($scope, $rootScope, chama
 	
 	
 	self.verificaMensagemLida = function(){			
-		if($rootScope.atualizarListaChamado === false){
+		if($rootScope.atualizarListaChamado === false && $rootScope.logado){
 			self.listaSuporte();			
 			timeoutLida = setTimeout(self.verificaMensagemLida, 40000);			
 		}

@@ -30,11 +30,13 @@
 						<th>Motivo</th>
 						<th>Valor da Diária</th>
 						<th>Valor da Passagem</th>	
-						<th ng-if="diaria.diaria.status == 'ABERTO'">Editar</th>				
+						<th ng-if="diaria.diaria.status == 'ABERTO'">Editar</th>
+						<th>Editar</th>
+						<th>excluir</th>
+										
 					</tr>
 				</thead>
-				<tbody ng-repeat=" diaria in listaDiaria | filter : busca"
-					>
+				<tbody ng-repeat=" diaria in listaDiaria | filter : busca |  orderBy : '-id'">
 					<tr>					
 					<td>{{ diaria.funcionario.pessoa.nomeCompleto }}</td>
 					<td>{{ diaria.funcionario.cargoAtual.descricao }}</td>
@@ -44,7 +46,8 @@
 					<td>{{ diaria.motivo }}</td>
 					<td>{{ diaria.valorDiaria | currency}}</td>
 					<td>{{ diaria.valorPassagem | currency}}</td>
-					<td ng-if="diaria.diaria.status == 'ABERTO'"><a href="#/diaria/editar/{{diaria.id}}"><i class="glyphicon glyphicon-pencil"></i></a>
+					<td ng-if="diaria.diaria.status == 'ABERTO'"><a title="teste" href="#/diaria/item/editar/{{diaria.id}}"><i class="glyphicon glyphicon-pencil"></i></a></td>
+					<td ng-if="diaria.diaria.status == 'ABERTO'"><a href="" ng-click="diariaCtrl.excluir(diaria)"><i class="glyphicon glyphicon-remove"></i></a></td>
 					
 					</tr>
 							

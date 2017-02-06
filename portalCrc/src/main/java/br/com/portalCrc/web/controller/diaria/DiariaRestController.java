@@ -38,7 +38,7 @@ public class DiariaRestController {
 		
 	@PutMapping
 	public ResponseEntity<Diaria> alterar(@RequestBody Diaria diaria){
-		diariaService.salvaOuAltera(diaria);
+		diariaService.alterar(diaria);
 		HttpHeaders http =  new HttpHeaders();
 		return new ResponseEntity<>(http , HttpStatus.CREATED);		
 	}

@@ -20,8 +20,7 @@ self.salva = function(diaria) {
 	self.altera = function(diaria) {
 		diariaService.altera(self.diaria).
 		then(function(response){
-			self.diaria = null;
-			$location.path("/diaria/lista/unidade");
+			$location.path("/diaria/em-aberto");
 			}, function(errResponse){
 				
 		});
@@ -82,7 +81,7 @@ self.salva = function(diaria) {
 			if(!id)return;
 			diariaService.buscarPorId(id).
 			then(function(p){
-				$scope.diaria = p;
+				self.diaria = p;
 		}, function(errResponse){
 			});
 		};

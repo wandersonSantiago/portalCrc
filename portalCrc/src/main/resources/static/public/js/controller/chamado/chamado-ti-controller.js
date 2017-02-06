@@ -28,9 +28,8 @@ app.controller('chamadoTiController', function($scope, $rootScope, chamadoTiServ
 	};
 	
 	self.verificaMensagemLida = function(){			
-		if($rootScope.atualizarListaChamado === false){
-			self.listaSuporte();	
-			console.log("chamou");
+		if($rootScope.atualizarListaChamado === false && $rootScope.logado){
+			self.listaSuporte();
 			timeoutLida = setTimeout(self.verificaMensagemLida, 40000);			
 		}
 	};

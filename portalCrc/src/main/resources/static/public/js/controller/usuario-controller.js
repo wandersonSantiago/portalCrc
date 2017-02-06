@@ -17,7 +17,6 @@ app.controller('usuarioController', function($scope, toastr, $rootScope, usuario
 		usuarioService.user().
 			then(function(u){
 				$rootScope.user = u;
-			console.log($rootScope.user);
 				}, function(errResponse){
 			});
 		};
@@ -28,7 +27,6 @@ app.controller('usuarioController', function($scope, toastr, $rootScope, usuario
 		
 		if(self.senha == self.senhaRepitida){
 			usuario.senha = self.senha;
-			console.log(usuario);
 			usuarioService.altera(usuario).
 			then(function(response){
 				self.usuario = null;
@@ -41,7 +39,6 @@ app.controller('usuarioController', function($scope, toastr, $rootScope, usuario
 	}
 	self.alteraEmpreendimento = function(usuario){
 			usuario.senha = null;
-			console.log(usuario);
 			usuarioService.altera(usuario).
 			then(function(response){
 				self.usuario = null;
@@ -49,7 +46,7 @@ app.controller('usuarioController', function($scope, toastr, $rootScope, usuario
 			});
 		
 	}
-	self.perfil = ['COORDENADORIA']; 
+	//self.perfil = ['COORDENADORIA']; 
 	 self.salva = function(usuario){
 		if(self.senha == self.senhaRepitida){
 			self.usuario.senha = self.senha;
