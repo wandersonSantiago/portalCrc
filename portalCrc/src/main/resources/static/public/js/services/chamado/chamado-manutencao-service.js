@@ -86,6 +86,15 @@ app.factory('chamadoManutencaoService', function($rootScope, toastr, $http){
 			});
 		},
 		
+		relatorioChamadoSuporte: function(pages, maxResults){
+			var config = {params: {page: pages , maxResults : maxResults}};
+			return $http.get('/rest/chamado/chamadoTi/suporte/relatorio/', config)
+			.then(function(response){
+				return response.data;
+			},function(errResponse){
+				return $q.reject(errResponse);
+			});
+		},
 		
 		buscarPorId: function(chamado){
 			return $http.get('/rest/chamado/chamadoManutencao/buscaPorId/'+chamado)

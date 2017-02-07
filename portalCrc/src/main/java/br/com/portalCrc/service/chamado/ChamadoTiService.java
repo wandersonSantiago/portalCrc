@@ -1,17 +1,17 @@
 package br.com.portalCrc.service.chamado;
 
-import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import br.com.portalCrc.entity.Unidade;
 import br.com.portalCrc.entity.Usuario;
-import br.com.portalCrc.entity.chamado.ChamadoManutencao;
 import br.com.portalCrc.entity.chamado.ChamadoTi;
 import br.com.portalCrc.enums.chamado.StatusChamado;
 import br.com.portalCrc.pojo.SessionUsuario;
@@ -107,5 +107,9 @@ public class ChamadoTiService {
 			chamadoTi.getMensagens().get(i).setData(dataAtual);
 			chamadoTi.getMensagens().get(i).setUsuario(usuario);
 		}
+	}
+
+	public Page<ChamadoTi> relatorio(PageRequest page) {
+		return chamadoTiRepository.findAll(page);
 	}
 }

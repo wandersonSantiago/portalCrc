@@ -194,6 +194,10 @@ app.config(['$routeProvider','$httpProvider', function($routeProvider, $httpProv
 		templateUrl : "views/paginas/chamado/manutencao/suporte/lista.html"
 	})
 	
+	.when("/chamado/manutencao/suporte/relatorio",{
+		templateUrl : "views/paginas/chamado/manutencao/suporte/relatorio.html"
+	})
+	
 	.when("/chamado/manutencao/editar/:idChamadoManutencao",{
 		templateUrl : "views/paginas/chamado/manutencao/editar.html"
 	})
@@ -211,6 +215,9 @@ app.config(['$routeProvider','$httpProvider', function($routeProvider, $httpProv
 		templateUrl : "views/paginas/chamado/informatica/suporte/lista.html"
 	})
 	
+	.when("/chamado/informatica/suporte/relatorio",{
+		templateUrl : "views/paginas/chamado/informatica/suporte/relatorio.html"
+	})	
 
 	.when("/chamado/informatica/atendimento/:idChamadoTi",{
 		templateUrl : "views/paginas/chamado/informatica/atendimento.html"

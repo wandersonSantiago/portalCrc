@@ -36,8 +36,7 @@ public abstract class Chamado {
 	private Long id;
 	
 	@Enumerated(EnumType.STRING)
-	protected StatusChamado status;
-	
+	protected StatusChamado status;	
 
 	@Column(name="titulo")
 	protected String titulo;
@@ -46,43 +45,35 @@ public abstract class Chamado {
 	protected Boolean lido;
 
 	@Column(name="silenciar")
-	protected Boolean silenciar;
-	
+	protected Boolean silenciar;	
 	
 	@Column(name="data_abertura")
-	protected Date dataAbertura;
-	
+	protected Date dataAbertura;	
 
 	@Column(name="data_fechamento")
 	protected  Date dataFechamento;
 	
 	@ManyToOne
 	@JoinColumn(name="id_unidade")
-	protected Unidade unidade;
-	
+	protected Unidade unidade;	
 	
 	@Enumerated(EnumType.STRING)
-	protected PrioridadeChamado prioridade;
-	
+	protected PrioridadeChamado prioridade;	
 	
 	@ManyToOne
 	@JoinColumn(name="id_usuarioSolicitante")
-	protected Usuario usuarioSolicitante;
-	
+	protected Usuario usuarioSolicitante;	
 	
 	@ManyToOne
 	@JoinColumn(name="id_usuarioAtendente") 
 	protected Usuario usuarioAtendente;
 	
-	
-	
 	@ManyToOne
 	@JoinColumn(name="id_setor")
-	protected Setor setor;	
-	
+	protected Setor setor;		
 	
 	@OneToMany(mappedBy = "chamado", cascade = CascadeType.ALL)
-	protected List<Mensagem> mensagens;
+	protected List<Mensagem> mensagens;	
 	
 	
 	

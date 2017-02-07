@@ -3,17 +3,22 @@ package br.com.portalCrc.web.controller.chamado;
 import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import br.com.portalCrc.entity.chamado.ChamadoManutencao;
+import br.com.portalCrc.entity.chamado.ChamadoTi;
 import br.com.portalCrc.enums.chamado.PrioridadeChamado;
 import br.com.portalCrc.enums.chamado.StatusChamado;
 import br.com.portalCrc.enums.chamado.TituloChamadoManutencaoEnum;
@@ -33,6 +38,13 @@ public class ChamadoManutencaoRestController {
 	  Iterable<ChamadoManutencao> chamadoManutencao = chamadoManutencaoService.listaSuporte();
 	  return new ResponseEntity<Iterable<ChamadoManutencao>>(chamadoManutencao, HttpStatus.OK);
 	 }
+	 
+	 @GetMapping(value="/suporte/relatorio")
+		public ResponseEntity<Page<ChamadoManutencao>> relatorio(@RequestParam(defaultValue="0", required=false) int page
+				,@RequestParam(defaultValue="0", required=false) int maxResults) {
+			Page<ChamadoManutencao> chamadoManutencao = chamadoManutencaoService.relatorio(new PageRequest(page, maxResults));
+			return new ResponseEntity<Page<ChamadoManutencao>>(chamadoManutencao, HttpStatus.OK);
+		}
 	 
 	 @RequestMapping(method = RequestMethod.GET, value="/usuario/lista")
 	 public ResponseEntity<Iterable<ChamadoManutencao>> listaUsuario() {	  

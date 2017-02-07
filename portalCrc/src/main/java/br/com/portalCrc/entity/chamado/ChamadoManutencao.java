@@ -11,7 +11,7 @@ public class ChamadoManutencao extends Chamado {
 	
 	
 	@Column(name="descricao_servico")
-	protected String descricaoServico;
+	private String descricaoServico;
 
 	public String getDescricaoServico() {
 		return descricaoServico;

@@ -5,6 +5,8 @@ import java.util.Collection;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import br.com.portalCrc.entity.Unidade;
 import br.com.portalCrc.entity.Usuario;
 import br.com.portalCrc.entity.chamado.ChamadoManutencao;
+import br.com.portalCrc.entity.chamado.ChamadoTi;
 import br.com.portalCrc.enums.chamado.StatusChamado;
 import br.com.portalCrc.pojo.SessionUsuario;
 import br.com.portalCrc.repository.chamado.ChamadoManutencaoRepository;
@@ -105,6 +108,10 @@ public class ChamadoManutencaoService {
 			chamadoManutencao.getMensagens().get(i).setUsuario(usuario);
 		}
 		return chamadoManutencao;
+	}
+	
+	public Page<ChamadoManutencao> relatorio(PageRequest page) {
+		return chamadoManutencaoRepository.findAll(page);
 	}
 
 }

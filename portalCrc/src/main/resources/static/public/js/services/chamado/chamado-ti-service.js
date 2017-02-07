@@ -102,6 +102,16 @@ app.factory('chamadoTiService', function($rootScope, toastr, $http){
 				return $q.reject(errResponse);
 			});
 		},
+		
+		relatorioChamadoSuporte: function(pages, maxResults){
+			var config = {params: {page: pages , maxResults : maxResults}};
+			return $http.get('/rest/chamado/chamadoTi/suporte/relatorio/', config)
+			.then(function(response){
+				return response.data;
+			},function(errResponse){
+				return $q.reject(errResponse);
+			});
+		},
 		listaUsuario: function(){
 			return $http.get('/rest/chamado/chamadoTi/usuario/lista')
 			.then(function(response){

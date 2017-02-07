@@ -5,6 +5,10 @@ app.controller('chamadoManutencaoController', function($scope, $rootScope, chama
 	$scope.habilitaBotaoAtenderChamado = false;
 	$scope.habilitaBotaoFecharChamado = false;
 	$rootScope.atualizarListaChamado = false;
+	self.getPage=0;
+	self.totalPages = 0;
+	self.totalElements = 0;
+	$scope.maxResults = 15;
 	self.contagemSuporte = [];
 	var idChamadoManutencao = $routeParams.idChamadoManutencao;
 	
@@ -264,5 +268,56 @@ app.controller('chamadoManutencaoController', function($scope, $rootScope, chama
 			$scope.buscaChamado = null;
 			$scope.buscaChamado = data;
 		}
+		
+		//===========================RELATORIO==============================================
+		
+		 $scope.ativaTabela = false;
+	     $scope.ativaGrafico = false;
+	     
+	     self.ativaBotaoTabelaGrafico =  function(botao){
+	    	 if(botao === false){
+	    		 $scope.ativaTabela = true;
+	    		 $scope.ativaGrafico = false;
+	    	 }else if(botao === true){
+	    		 $scope.ativaGrafico = true;
+	    		 $scope.ativaTabela = false;
+	    	 }
+	     };
+	     
+	     self.relatorioChamadoSuporte = function(pages, maxResults){
+	    	 
+	    	 	self.totalPages = [];
+				self.getPage=pages;
+	    	 chamadoTiService.relatorioChamadoSuporte(pages, maxResults).
+				then(function(f){
+					$scope.ativaTabela = true;
+					$scope.relatorioChamadoSuporte = f.content;
+					$scope.totalPages = f.totalPages;
+					self.totalElements = f.totalElements;
+					for(i = 0; i < $scope.totalPages ; i++){
+						self.totalPages.push(i);
+					}
+					}, function(errResponse){
+				});
+	     };
+	     
+	     $scope.labels = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho"];
+	     $scope.series = ['Series A', 'Series B'];
+	     $scope.data = [
+	       [65, 59, 80, 81, 56, 55, 40],
+	       [28, 48, 40, 19, 86, 27, 90]
+	     ];
+	     $scope.onClick = function (points, evt) {
+	       console.log(points, evt);
+	     };
+	     
+	     // Simulate async data update 
+	     $timeout(function () {
+	       $scope.data = [
+	         [28, 48, 40, 19, 86, 27, 90],
+	         [65, 59, 80, 81, 56, 55, 40]
+	       ];
+	     }, 3000);
+
 		
 });
