@@ -26,6 +26,14 @@
 								</select>
 							</div>	
 				  		</th>
+				  		<th>
+				  			<div  ng-init="chamadoCtr.tipoEquipamento()" >
+								<select class="form-control " ng-model="equipamento" id="tipo" ng-click="chamadoCtr.buscaDinamicaEquipamento(equipamento)"
+								ng-options="tipoEquipamento for tipoEquipamento in chamadoCtr.tipoEquipamentos" >
+									<option  value="">Tipo Equipamento</option>
+								</select>
+							</div>
+				  		</th>
 				  		
 						<th>
 							<div  ng-init="chamadoCtr.usuarioLista()" >
@@ -66,6 +74,7 @@
 				<tbody	ng-repeat=" chamado in chamadoCtr.listaChamadoTiSuporte | filter : buscaChamado | orderBy : '-id'  ">
 					<tr>
 						<td>{{ chamado.titulo }}</td>
+						<td>{{ chamado.tipoEquipamento }}</td>
 						<td>{{ chamado.usuarioSolicitante.nome }}</td>
 						<td>{{ chamado.setor.nome }}</td>	
 						<td>{{ chamado.status }}</td>	

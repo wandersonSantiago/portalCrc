@@ -46,7 +46,9 @@ app.controller('chamadoTiController', function($scope, $timeout, $rootScope, cha
 	};
 	
 	self.salva = function(chamadoTi) {
+		self.chamadoTi.tipoEquipamento = $scope.equipamento;
 		self.chamadoTi.mensagens = [{texto : $scope.texto}];
+		console.log(self.chamadoTi);
 		chamadoTiService.salva(self.chamadoTi).
 			then(function(response){
 				self.chamadoTi = null;
@@ -68,8 +70,9 @@ app.controller('chamadoTiController', function($scope, $timeout, $rootScope, cha
 		});
 	}
 	
-	self.salvaServicos = function(descricao ) {		
+	self.salvaServicos = function(descricao , equipamento) {		
 		self.chamadoTi.mensagens = null;
+		self.chamadoTi.equipamento = equipamento;
 		self.chamadoTi.descricaoServico = descricao;
 		chamadoTiService.salvaServicos(self.chamadoTi).
 		then(function(response){	
@@ -296,6 +299,11 @@ app.controller('chamadoTiController', function($scope, $timeout, $rootScope, cha
 		self.buscaDinamicaData = function(data){
 			$scope.buscaChamado = null;
 			$scope.buscaChamado = data;
+		}		
+		self.buscaDinamicaEquipamento = function(tipoEquipamento){			
+			$scope.buscaChamado = null;
+			$scope.buscaChamado = tipoEquipamento;
+			console.log($scope.buscaChamado);
 		}
 		
 		//===========================RELATORIO==============================================

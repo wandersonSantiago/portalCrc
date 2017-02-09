@@ -140,14 +140,49 @@
 								<div class="box">
 									<div class="box-header">
 										<h3 class="box-title">Descreva os serviços executados</h3>
-									</div>
+									</div>													
+									<br>								
 									<div class="box-body pad">
+										<div  ng-controller="equipamentoController as equipamentoCtrl" ng-init="equipamentoCtrl.lista()">
+											<div class="row">
+												<div class="col-sm-6" >
+													<select class="form-control " ng-model="equipamento" id="tipo" ng-options="equipamento.descricao for equipamento in equipamentoCtrl.listaEquipamento" >
+																<option  value="">Equipamento</option>
+													</select>															
+												</div>
+											</div>
+											<div ng-show="equipamento" class="row">
+												<div class="col-sm-3">
+													Descrição
+													<h4><span class="label label-info">{{equipamento.descricao}}</span></h4>
+												</div>
+												<div class="col-sm-3">
+													Patrimonio
+													<h4><span class="label label-info">{{equipamento.patrimonio}}</span></h4>
+												</div>
+											</div>
+											
+											<div ng-show="equipamento" class="row">
+												<div class="col-sm-3" >
+													Ip
+													<h4><span class="label label-info">{{equipamento.ip.numero}}</span></h4>
+												</div>
+												<div class="col-sm-3">
+													Tipo
+													<h4><span class="label label-info">{{equipamento.tipoEquipamento}}</span></h4>
+												</div>
+												<div class="col-sm-3">
+													Ponto
+													<h4><span class="label label-info">{{equipamento.ponto.numero}}</span></h4>
+												</div>
+											</div>
+										</div>
 										<textarea class="textarea" placeholder="Texto" ng-disabled="!habilitaBotaoFecharChamado" ng-model="chamadoCtrl.chamadoTi.descricaoServico"
 											id="texto"
 											style="width: 100%; height: 100px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
 									</div>
 							<div class="modal-footer">
-								<button type="button" ng-if="habilitaBotaoFecharChamado" class="btn btn-primary" ng-click="chamadoCtrl.salvaServicos(chamadoCtrl.chamadoTi.descricaoServico )" data-dismiss="modal">Salvar</button>
+								<button type="button" ng-if="habilitaBotaoFecharChamado" class="btn btn-primary" ng-click="chamadoCtrl.salvaServicos(chamadoCtrl.chamadoTi.descricaoServico , equipamento )" data-dismiss="modal">Salvar</button>
 								<button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
 						</div>
 							</div>
