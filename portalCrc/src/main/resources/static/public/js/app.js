@@ -42,73 +42,73 @@ var app = angular.module('crc',['ngAnimate','chart.js', 'ngCookies','ngRoute', '
 				}
 				
 				self.role_coordenadoria = function(perfil){
-					if(perfil == "COORDENADORIA" ){
+					if(perfil == "COORDENADORIA" || perfil == "ADMIN" ){
 						$rootScope.role_coordenadoria = true;						
 					}
 				}
 				
-				self.role_chamadoSuporteTi = function(perfil){					
-					if(perfil == "CHAMADO_SUPORTE_TI" ){
+				self.role_chamadoSuporteTi = function (perfil){					
+					if(perfil == "CHAMADO_SUPORTE_TI" || perfil == "ADMIN" ){
 						$rootScope.role_chamadoSuporteTi = true;
 					}
 				}
 				
 				self.role_chamadoSuporteManutencao = function(perfil){
-					if(perfil == "CHAMADO_SUPORTE_MANUTENCAO"){
+					if(perfil == "CHAMADO_SUPORTE_MANUTENCAO" || perfil == "ADMIN" ){
 						$rootScope.role_chamadoSuporteManutencao = true;
 					}
 				}	
 				
 				self.role_UsuarioChamado = function(perfil){
-					if(perfil == "USUARIO_CHAMADO"){
+					if(perfil == "USUARIO_CHAMADO" || perfil == "ADMIN" ){
 						$rootScope.role_UsuarioChamado = true;
 					}					
 				}
 				
 				self.role_cadastrar_usuario = function(perfil){
-					if(perfil == "CADASTRAR_USUARIO"){
+					if(perfil == "CADASTRAR_USUARIO" || perfil == "ADMIN" ){
 						$rootScope.role_cadastrar_usuario = true;
 					}
 				}
 				
 				self.role_cadastrar_telefone = function(perfil){
-					if(perfil == "CADASTRAR_TELEFONE"){
+					if(perfil == "CADASTRAR_TELEFONE" || perfil == "ADMIN" ){
 						$rootScope.role_cadastrar_telefone = true;
 					}
 				}
 				
 				self.role_cadastrar_ramal = function(perfil){
-					if(perfil == "CADASTRAR_RAMAL"){
+					if(perfil == "CADASTRAR_RAMAL" || perfil == "ADMIN" ){
 						$rootScope.role_cadastrar_ramal = true;
 					}
 				}
 				
 				self.role_recursos_humanos = function(perfil){
-					if(perfil == "RECURSOS_HUMANOS"){
+					if(perfil == "RECURSOS_HUMANOS" || perfil == "ADMIN" ){
 						$rootScope.role_recursos_humanos = true;
 					}
 				}
 				
 				self.role_cadastrar_funcionario = function(perfil){
-					if(perfil == "CADASTRAR_FUNCIONARIO"){
+					if(perfil == "CADASTRAR_FUNCIONARIO" || perfil == "ADMIN" ){
 						$rootScope.role_cadastrar_funcionario = true;
 					}
 				}
 				
 				self.role_cadastrar_cargo = function(perfil){
-					if(perfil == "CADASTRAR_CARGO"){
+					if(perfil == "CADASTRAR_CARGO" || perfil == "ADMIN" ){
 						$rootScope.role_cadastrar_cargo = true;
 					}
 				}
 				
 				self.role_cadastrar_setor = function(perfil){
-					if(perfil == "CADASTRAR_SETOR"){
+					if(perfil == "CADASTRAR_SETOR" || perfil == "ADMIN" ){
 						$rootScope.role_cadastrar_setor = true;
 					}
 				}
 				
 				self.role_cadastrar_funcao = function(perfil){
-					if(perfil == "CADASTRAR_FUNCAO"){
+					if(perfil == "CADASTRAR_FUNCAO" || perfil == "ADMIN" ){
 						$rootScope.role_cadastrar_funcao = true;
 					}
 				}
