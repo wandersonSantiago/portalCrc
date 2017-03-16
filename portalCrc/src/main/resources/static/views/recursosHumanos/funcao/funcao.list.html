@@ -1,0 +1,26 @@
+<meta charset="UTF-8">
+		<div class="panel-body table-responsive">
+		<input class="form-control" type="text" ng-model="buscaCargo" placeholder="Buscar">
+			<table class="table table-hover table-bordered">
+				<thead>
+					<tr>
+						<th>Descrição</th>
+						<th>Opções</th>
+					</tr>
+				</thead>
+				<tbody
+					ng-repeat=" funcao in funcaoCtrl.funcoes | filter : buscaCargo ">
+					<tr>
+						<td>{{ funcao.descricao }}</td>
+						<td><a ui-sref="funcao.editar({ idFuncao : funcao.id})"><i class="glyphicon glyphicon-edit"></i></a> 						
+				</tr>
+				</tbody>
+				<tfoot>
+				
+					<tr>
+					
+						</tr>
+				</tfoot>
+			</table>
+		</div>
+		

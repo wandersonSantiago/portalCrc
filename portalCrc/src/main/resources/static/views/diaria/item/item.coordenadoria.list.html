@@ -1,0 +1,46 @@
+<meta charset="UTF-8">
+		<div class=" table-responsive"  >
+		
+		<button ng-json-export-excel data="listaDiariaExcel" report-fields="{nome: 'Favorecido', cargo:'Cargo', unidadeLotado:'Unidade Lotado', dataDiaria: 'Data  Diária', destino: 'Destino', motivo: 'Motivo', valorDiaria: 'Valor Diária', valorPassagem: 'Valor Passagem' }" 
+		filename="'lista diaria'" class="btn-sm btn-primary">Exportar Excel</button>
+		
+	
+    <hr>    
+		<input class="form-control" type="text" placeholder="Pesquisar..." ng-model="buscar" >
+			<table class="table table-hover table-bordered">
+				<thead>
+					<tr>
+						<th>Favorecido</th>
+						<th>Cargo</th>
+						<th>Unidade Lotado</th>
+						<th>Data Diária</th>
+						<th>Destino</th>
+						<th>Motivo</th>
+						<th>Valor da Diária</th>
+						<th>Valor da Passagem</th>					
+					</tr>
+				</thead>
+				<tbody
+					ng-repeat=" diaria in itemCtrl.diarias | filter : buscar ">
+					<tr>
+					<td>{{ diaria.funcionario.pessoa.nomeCompleto }}</td>
+					<td>{{ diaria.funcionario.cargoAtual.descricao }}</td>
+					<td>{{ diaria.unidade.dadosUnidade.mnemonico}}</td>
+					<td>{{ diaria.dataDiaria | date : 'dd/MM/yyyy'}}</td>					
+					<td>{{ diaria.destino }}</td>
+					<td>{{ diaria.motivo }}</td>
+					<td>{{ diaria.valorDiaria | currency}}</td>
+					<td>{{ diaria.valorPassagem | currency}}</td>
+					
+					</tr>
+							
+				</tbody>
+				<tfoot>
+					<tr>
+					
+
+					</tr>
+				</tfoot>
+			</table>
+		</div>
+			

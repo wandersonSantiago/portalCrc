@@ -1,0 +1,21 @@
+<meta charset="UTF-8">
+		<div class="panel-body table-responsive">
+		<input class="form-control" type="text" ng-model="buscaCargo" placeholder="Buscar">
+			<table class="table table-hover table-bordered">
+				<thead>
+					<tr>
+						<th>Descrição</th>
+						<th>Opções</th>
+					</tr>
+				</thead>
+				<tbody
+					ng-repeat=" cargo in cargoCtrl.cargos | filter : buscaCargo ">
+					<tr>
+						<td>{{ cargo.descricao }}</td>
+						<td><a ui-sref="cargo.editar({idCargo : cargo.id})"><i class="glyphicon glyphicon-edit"></i></a> 
+						
+				</tr>
+				</tbody>				
+			</table>
+		</div>
+	

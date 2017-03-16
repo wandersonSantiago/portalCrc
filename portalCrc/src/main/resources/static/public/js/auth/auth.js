@@ -32,6 +32,7 @@ app.factory('auth',	function($rootScope, $http,  $location) {
 						$rootScope.authorities = response.data.authorities;				
 						
 						if (response.data.name) {
+							$rootScope.user = response.data;
 							auth.authenticated = true;
 							$rootScope.logado = true;
 						} else {

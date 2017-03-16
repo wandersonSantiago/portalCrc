@@ -1,0 +1,29 @@
+<meta charset="UTF-8">
+
+		<div class="panel-body table-responsive">
+		<input class="form-control" type="text" ng-model="buscaSetor" placeholder="Buscar">
+			<table class="table table-hover table-bordered">
+				<thead>
+					<tr>
+						<th>descricao</th>
+						<th>telefone</th>
+						<th>Setor</th>
+						<th>Unidade</th>
+						<th>Opções</th>
+					</tr>
+				</thead>
+				<tbody
+					ng-repeat=" telefone in foneCtrl.telefones | filter : buscaSetor ">
+					<tr>
+						<td>{{ telefone.descricao }}</td>
+						<td>{{ telefone.telefone }}</td>
+						<td>{{ telefone.setor.nome}}</td>
+						<td>{{ telefone.unidade.dadosUnidade.mnemonico}}</td>
+						<td><a ui-sref="telefone.editar({idTelefone : telefone.id})"><i class="glyphicon glyphicon-edit"></i></a> 
+				</tr>
+				</tbody>
+				<tfoot>
+				</tfoot>
+			</table>
+		</div>
+	

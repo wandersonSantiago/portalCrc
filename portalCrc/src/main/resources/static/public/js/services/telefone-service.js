@@ -1,4 +1,4 @@
-app.factory('telefoneService', function($rootScope, toastr, $http){
+app.factory('TelefoneService', function($rootScope, toastr, $http){
 	
 	
 	return{

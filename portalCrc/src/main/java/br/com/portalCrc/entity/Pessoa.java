@@ -5,6 +5,8 @@ import java.util.Date;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -12,6 +14,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+
+import br.com.portalCrc.enums.EstadoCivilEnum;
 
 
 @Entity
@@ -39,6 +43,8 @@ public class Pessoa  {
 	private Date dataNascimento;
 	@Column(nullable = false)
 	private String sexo;
+	@Enumerated(EnumType.STRING)
+	private EstadoCivilEnum estadaCivil;	
 	@OneToOne(cascade = {CascadeType.MERGE ,CascadeType.PERSIST} )
 	@JoinColumn(name="id_endereco",nullable = false)
 	private Endereco endereco;
@@ -121,6 +127,14 @@ public class Pessoa  {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public EstadoCivilEnum getEstadaCivil() {
+		return estadaCivil;
+	}
+
+	public void setEstadaCivil(EstadoCivilEnum estadaCivil) {
+		this.estadaCivil = estadaCivil;
 	}
 	
 

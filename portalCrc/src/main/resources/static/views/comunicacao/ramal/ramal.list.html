@@ -1,0 +1,27 @@
+<meta charset="UTF-8">
+
+		<div class="panel-body table-responsive">
+		<input class="form-control" type="text" ng-model="buscaRamal" placeholder="Buscar">
+			<table class="table table-hover table-bordered">
+				<thead>
+					<tr>
+						<th>Setor</th>
+						<th>Ramal</th>
+						<th>Unidade</th>
+						<th>Opções</th>
+					</tr>
+				</thead>
+				<tbody
+					ng-repeat=" ramal in ramalCtrl.listarRamal | filter : buscaRamal ">
+					<tr>
+						<td>{{ ramal.setor.nome }}</td>
+						<td>{{ ramal.numero }}</td>
+						<td>{{ ramal.unidade.dadosUnidade.mnemonico}}</td>
+						<td><a ui-sref="ramal.editar({idRamal: ramal.id})"><i class="glyphicon glyphicon-edit"></i></a> 
+						
+				</tr>
+				</tbody>
+				<tfoot>
+				</tfoot>
+			</table>
+		</div>

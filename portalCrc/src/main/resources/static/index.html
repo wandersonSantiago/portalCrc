@@ -11,6 +11,9 @@ Portal Coordenadoria Central
 <meta name="description" content="">
 <meta name="author" content="">
 
+<link rel="stylesheet" href="public/components/AdminLTE/dist/css/AdminLTE.min.css">
+<link rel="stylesheet" href="public/components/AdminLTE/dist/css/skins/skin-purple.css">
+
 
 <link href="public/components/angular-chart.js/dist/angular-chart.css" rel="stylesheet" />
 <link href="public/components/angular-block-ui/dist/angular-block-ui.min.css" rel="stylesheet" />
@@ -20,8 +23,6 @@ Portal Coordenadoria Central
 <link href="public/template/css/simple-sidebar.css" rel="stylesheet">
 <link rel="stylesheet"	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 <link rel="stylesheet"	href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-<link rel="stylesheet" href="public/template/dist/css/AdminLTE.min.css">
-<link rel="stylesheet" href="public/template/dist/css/skins/skin-purple.css">
 <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
 <script	src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
 <link rel="stylesheet" href="public/components/sweetalert2/dist/sweetalert2.min.css">
@@ -29,7 +30,7 @@ Portal Coordenadoria Central
 <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.css">
 
 	<script src="public/template/plugins/jQuery/jQuery-2.1.4.min.js"></script>
-	<script src="public/template/dist/js/appTeste.js"></script>
+	<script src="public/components/AdminLTE/dist/js/app.min.js" type="text/javascript"></script>
 	<script src="public/components/angular/angular.js"></script>
 	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-animate.min.js"></script>
 	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-aria.min.js"></script>
@@ -44,7 +45,7 @@ Portal Coordenadoria Central
 	<script src="public/components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
 	<script src="public/components/bootstrap/dist/js/bootstrap.min.js"></script>
 	<script	src="public/components/angular-block-ui/dist/angular-block-ui.min.js"></script>
-	<script src="public/components/angular-route/angular-route.min.js"></script>
+	<script src="public/components/angular-ui-router/release/angular-ui-router.min.js"></script>
 	<script src="public/components/Chart.js/Chart.js"></script>
 	<script src="public/components/angular-chart.js/dist/angular-chart.js"></script>
 	<script src="public/components/ngstorage/ngStorage.min.js"></script>	
@@ -54,6 +55,7 @@ Portal Coordenadoria Central
 	<script src="public/components/angular-resource/angular-resource.min.js"></script>
 	<script src="public/components/file-saver/FileSaver.min.js"></script>
     <script src="public/components/json-export-excel/dest/json-export-excel.min.js"></script> 
+    <script src="public/components/angular-breadcrumb/dist/angular-breadcrumb.min.js"></script>
 
 
 </head>
@@ -61,78 +63,21 @@ Portal Coordenadoria Central
 
 <div ng-if="!logado" ng-include="'views/login.html'"></div>
 
-<body class="hold-transition skin-purple sidebar-mini">
-	<div ng-show="logado" class="wrapper">
+<body   class="hold-transition skin-purple sidebar-mini">
+	<div ng-if="logado" class="wrapper">
 
-		<header class="main-header">		  
-		    <a href="#/" class="logo">    
-		      <span class="logo-mini"><b>C</b>RC</span>      
-		      <span class="logo-lg"><b>Portal</b>CRC</span>
-		    </a>		    
-		    <nav class="navbar navbar-static-top" role="navigation">      
-		      <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
-		        <span class="sr-only">Toggle navigation</span>
-		      </a>
-		       <div class="navbar-custom-menu">
-		        <ul class="nav navbar-nav">		          
-				 <li ng-if="role_chamadoSuporteManutencao" class="dropdown messages-menu">
-		                <a href="#/chamado/manutencao/suporte/lista" title="Quantidade de Chamados Abertos para Manutenção" class="dropdown-toggle" data-toggle="dropdown">
-		                  <i class="fa fa-envelope-o"></i>
-		                  <span class="label label-success">{{quantidadeChamadoAberto}}</span>
-		                </a>					 		 
-		          </li>
-		          <li ng-if="role_chamadoSuporteTi" class="dropdown messages-menu">
-		                <a href="#/chamado/informatica/suporte/lista" title="Quantidade de Chamados Abertos para Informática" class="dropdown-toggle" data-toggle="dropdown">
-		                  <i class="fa fa-envelope-o"></i>
-		                  <span class="label label-success">{{quantidadeChamadoAbertoTi}}</span>
-		                </a>					 		 
-		          </li>
-		       <li class="dropdown user user-menu">
-		                <a href="" class="dropdown-toggle" data-toggle="dropdown">
-		                  <i class="glyphicon glyphicon-user"></i>
-		                </a>
-		                <ul class="dropdown-menu">
-		                  <!-- User image -->
-		                  <li class="user-header">
-		                    <img src="public/img/avatar_2x.png" class="img-circle" alt="User Image">
-		                    <p>
-		                     		{{user.usuario.nome}}
-		                      <small>{{user.usuario.setor.nome}}</small>
-		                    </p>
-		                  </li>                 
-		                  <li class="user-footer">
-		                    <div class="pull-left">
-		                      <a href="" ng-click="userCtrl.buscaPorId(user.usuario.id)" data-toggle="modal" data-target="#alteraSenha" class="btn btn-default btn-flat">Alterar senha</a>
-		                    </div>
-		                    <div ng-if="role_coordenadoria" class="pull-right">
-		                      <a href=""  ng-click="userCtrl.buscaPorId(user.usuario.id)" data-toggle="modal" data-target="#alteraEmpreendimento"  class="btn btn-default btn-flat">Alterar Unidade.</a>
-		                    </div>
-		                  </li>
-		                </ul>
-		              </li>
-		              <li><a>Unidade : {{user.usuario.unidade.dadosUnidade.mnemonico}}</a></li>          
-         			<li>
-						<a href="" ng-controller="loginController as loginCtrl"  ng-click="loginCtrl.logout()"> Logout <i class="glyphicon glyphicon-log-out"></i>
-						</a>
-					</li>
-		        </ul>
-		      </div>
-		    </nav>
-		  </header>
-
+		<div ng-if="logado" ng-include="'views/templates/header.html'"></div>
 
 		<div ng-if="logado" ng-include="'views/templates/menu.html'"></div>
 
-		<div ng-if="logado"  class="content-wrapper">
-			<!-- <section class="content-header">
-				<div ng-if="logado" ng-include="'views/paginas/chamado/informatica/menu.html'"></div>
+		<div   class="content-wrapper">
+
+
+			<section  class="content">
+
+				<div ncy-breadcrumb></div>
 				
-			</section>
- -->
-
-			<section class="content">
-
-				<div ng-if="logado" ng-view></div>
+				<div ui-view ></div>
 
 			</section>
 		</div>
@@ -142,142 +87,104 @@ Portal Coordenadoria Central
 
 		
 	</div>
-	
 
 
 
 
 
 
-	<script src="public/js/app.js"></script>
-	<script src="public/js/rotas/rotas.js"></script>
+	<script src="public/js/app.js"></script>	
 	<script src="public/js/auth/auth.js"></script>
 	<script src="public/js/login.js"></script>
-	<script src="public/js/auth/permissao.js"></script>
 	<script src="public/js/services/busca-cep-service.js"></script>
+	<script type="text/javascript" src="views/home.js"></script>
 	
-	<script src="public/js/controller/usuario-controller.js"></script>
-	<script src="public/js/services/usuario-service.js"></script>
+	<script type="text/javascript" src="views/usuario/js/usuario.js"></script>
+	<script type="text/javascript" src="views/usuario/js/usuario-controller.js"></script>
+	<script type="text/javascript" src="views/usuario/js/usuario-service.js"></script>
 	
-	<script src="public/js/controller/coordenadoria-controller.js"></script>
-	<script src="public/js/services/coordenadoria-service.js"></script>
+	<script type="text/javascript" src="views/comunicacao/telefone/js/telefone.js"></script>
+	<script type="text/javascript" src="views/comunicacao/telefone/js/telefone-controller.js"></script>
+	<script type="text/javascript" src="views/comunicacao/telefone/js/telefone-service.js"></script>
 	
-	<script src="public/js/controller/secretaria-controller.js"></script>
-	<script src="public/js/services/secretaria-service.js"></script>
+	<script type="text/javascript" src="views/comunicacao/ramal/js/ramal.js"></script>
+	<script type="text/javascript" src="views/comunicacao/ramal/js/ramal-controller.js"></script>
+	<script type="text/javascript" src="views/comunicacao/ramal/js/ramal-service.js"></script>
 	
-	<script src="public/js/controller/unidade-controller.js"></script>
-	<script src="public/js/services/unidade-service.js"></script>
+	<script type="text/javascript" src="views/unidade/tipo/js/tipo.js"></script>
+	<script type="text/javascript" src="views/unidade/tipo/js/tipo-controller.js"></script>
+	<script type="text/javascript" src="views/unidade/tipo/js/tipo-service.js"></script>
 	
-	<script src="public/js/controller/recursosHumanos/cargo-controller.js"></script>
-	<script src="public/js/services/recursosHumanos/cargo-service.js"></script>
+	<script type="text/javascript" src="views/unidade/js/unidade.js"></script>
+	<script type="text/javascript" src="views/unidade/js/unidade-controller.js"></script>
+	<script type="text/javascript" src="views/unidade/js/unidade-service.js"></script>
 	
-	<script src="public/js/controller/recursosHumanos/funcionario-controller.js"></script>
-	<script src="public/js/services/recursosHumanos/funcionario-service.js"></script>
+	<script type="text/javascript" src="views/coordenadoria/js/coordenadoria.js"></script>
+	<script type="text/javascript" src="views/coordenadoria/js/coordenadoria-controller.js"></script>
+	<script type="text/javascript" src="views/coordenadoria/js/coordenadoria-service.js"></script>
 	
-	<script src="public/js/controller/recursosHumanos/setor-controller.js"></script>
-	<script src="public/js/services/recursosHumanos/setor-service.js"></script>
+	<script type="text/javascript" src="views/secretaria/js/secretaria.js"></script>
+	<script type="text/javascript" src="views/secretaria/js/secretaria-controller.js"></script>
+	<script type="text/javascript" src="views/secretaria/js/secretaria-service.js"></script>
 	
-	<script src="public/js/controller/tipo-unidade-controller.js"></script>
-	<script src="public/js/services/tipo-unidade-service.js"></script>
+	<script type="text/javascript" src="views/recursosHumanos/cargo/js/cargo.js"></script>
+	<script type="text/javascript" src="views/recursosHumanos/cargo/js/cargo-controller.js"></script>
+	<script type="text/javascript" src="views/recursosHumanos/cargo/js/cargo-service.js"></script>
 	
-	<script src="public/js/controller/ramal-controller.js"></script>
-	<script src="public/js/services/ramal-service.js"></script>
+	<script type="text/javascript" src="views/recursosHumanos/funcao/js/funcao.js"></script>
+	<script type="text/javascript" src="views/recursosHumanos/funcao/js/funcao-controller.js"></script>
+	<script type="text/javascript" src="views/recursosHumanos/funcao/js/funcao-service.js"></script>
 	
-	<script src="public/js/controller/telefone-controller.js"></script>
-	<script src="public/js/services/telefone-service.js"></script>
+	<script type="text/javascript" src="views/recursosHumanos/setor/js/setor.js"></script>
+	<script type="text/javascript" src="views/recursosHumanos/setor/js/setor-controller.js"></script>
+	<script type="text/javascript" src="views/recursosHumanos/setor/js/setor-service.js"></script>
 	
-	<script src="public/js/controller/recursosHumanos/funcionario-unidade-controller.js"></script>
-	<script src="public/js/services/recursosHumanos/funcionario-unidade-service.js"></script>
+	<script type="text/javascript" src="views/recursosHumanos/funcionario/js/funcionario.js"></script>
+	<script type="text/javascript" src="views/recursosHumanos/funcionario/js/funcionario-controller.js"></script>
+	<script type="text/javascript" src="views/recursosHumanos/funcionario/js/funcionario-service.js"></script>
 	
-	<script src="public/js/controller/recursosHumanos/funcao-controller.js"></script>
-	<script src="public/js/services/recursosHumanos/funcao-service.js"></script>
+	<script type="text/javascript" src="views/recursosHumanos/funcionario/unidade/js/funcionario-unidade.js"></script>
+	<script type="text/javascript" src="views/recursosHumanos/funcionario/unidade/js/funcionario-unidade-controller.js"></script>
+	<script type="text/javascript" src="views/recursosHumanos/funcionario/unidade/js/funcionario-unidade-service.js"></script>
 	
-	<script src="public/js/controller/chamado/chamado-manutencao-controller.js"></script>
-	<script src="public/js/services/chamado/chamado-manutencao-service.js"></script>
+	<script type="text/javascript" src="views/chamado/informatica/js/chamado-ti.js"></script>
+	<script type="text/javascript" src="views/chamado/informatica/js/chamado-ti-controller.js"></script>
+	<script type="text/javascript" src="views/chamado/informatica/js/chamado-ti-service.js"></script>
 	
-	<script src="public/js/controller/chamado/chamado-ti-controller.js"></script>
-	<script src="public/js/services/chamado/chamado-ti-service.js"></script>
+	<script type="text/javascript" src="views/chamado/manutencao/js/chamado-manutencao.js"></script>
+	<script type="text/javascript" src="views/chamado/manutencao/js/chamado-manutencao-controller.js"></script>
+	<script type="text/javascript" src="views/chamado/manutencao/js/chamado-manutencao-service.js"></script>
 	
-	<script src="public/js/controller/controleIp/equipamento-controller.js"></script>
-	<script src="public/js/services/controleIp/equipamento-service.js"></script>
+	<script type="text/javascript" src="views/diaria/js/diaria.js"></script>
+	<script type="text/javascript" src="views/diaria/js/diaria-controller.js"></script>
+	<script type="text/javascript" src="views/diaria/js/diaria-service.js"></script>
 	
-	<script src="public/js/controller/controleIp/ip-controller.js"></script>
-	<script src="public/js/services/controleIp/ip-service.js"></script>
+	<script type="text/javascript" src="views/diaria/item/js/item.js"></script>
+	<script type="text/javascript" src="views/diaria/item/js/item-controller.js"></script>
+	<script type="text/javascript" src="views/diaria/item/js/item-service.js"></script>
 	
-	<script src="public/js/controller/controleIp/tipo-ip-controller.js"></script>
-	<script src="public/js/services/controleIp/tipo-ip-service.js"></script>
+	<script type="text/javascript" src="views/controleIp/ip/tipo/js/tipo-ip.js"></script>
+	<script type="text/javascript" src="views/controleIp/ip/tipo/js/tipo-ip-controller.js"></script>
+	<script type="text/javascript" src="views/controleIp/ip/tipo/js/tipo-ip-service.js"></script>
 	
-	<script src="public/js/controller/controleIp/ponto-controller.js"></script>
-	<script src="public/js/services/controleIp/ponto-service.js"></script>
+	<script type="text/javascript" src="views/controleIp/ip/js/ip.js"></script>
+	<script type="text/javascript" src="views/controleIp/ip/js/ip-controller.js"></script>
+	<script type="text/javascript" src="views/controleIp/ip/js/ip-service.js"></script>
 	
-	<script src="public/js/controller/controleIp/switch-controller.js"></script>
-	<script src="public/js/services/controleIp/switch-service.js"></script>
+	<script type="text/javascript" src="views/controleIp/ponto/js/ponto.js"></script>
+	<script type="text/javascript" src="views/controleIp/ponto/js/ponto-controller.js"></script>
+	<script type="text/javascript" src="views/controleIp/ponto/js/ponto-service.js"></script>
 	
-	<script src="public/js/controller/diaria/diaria-controller.js"></script>
-	<script src="public/js/services/diaria/diaria-service.js"></script>
-	<script src="public/js/rotas/diaria/rotas-diaria.js"></script>
+	<script type="text/javascript" src="views/controleIp/switch/js/switch.js"></script>
+	<script type="text/javascript" src="views/controleIp/switch/js/switch-controller.js"></script>
+	<script type="text/javascript" src="views/controleIp/switch/js/switch-service.js"></script>
 	
-	<script src="public/js/controller/diaria/item-diaria-controller.js"></script>
-	<script src="public/js/services/diaria/item-diaria-service.js"></script>
+	<script type="text/javascript" src="views/controleIp/switch/portas/js/porta-switch.js"></script>
+	<script type="text/javascript" src="views/controleIp/switch/portas/js/porta-switch-controller.js"></script>
+	<script type="text/javascript" src="views/controleIp/switch/portas/js/porta-switch-service.js"></script>
 	</body>
 	
-	<!-- MODAL -->
 	
-	<div ng-if="logado" class="modal fade" id="alteraSenha" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" ng-controller="usuarioController as userCtrl">
-				  <div class="modal-dialog" role="document" >
-				    <div class="modal-content">
-				      <div class="modal-header">
-				        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-				        <h4 class="modal-title" id="myModalLabel">Dados Usúario</h4>
-				      </div>
-				      <div class="modal-body">				      	
-				     		{{user.usuario.nome}}
-				      		<br>
-						      <div class="row">
-						      	<div class="col-sm-4">
-									<input type="password" class="form-control" id="senha" ng-model="userCtrl.senha" placeholder="Senha"
-										title="Digite uma senha" maxlength="12" required>
-								</div>
-								<div class="col-sm-4">
-									<input type="password" class="form-control" id="repitaSenha" ng-model="userCtrl.senhaRepitida" placeholder="Repita a Senha"
-										title="repita a senha" required>
-								</div>
-						      </div>					       
-				      </div>
-				      <div class="modal-footer">
-				        <button type="button" ng-click="userCtrl.altera(user.usuario)" class="btn btn-primary">Alterar</button>
-				        <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>				        
-				      </div>
-				    </div>
-				  </div>
-	</div>
-				
-				
-				<div ng-if="role_coordenadoria" class="modal fade" id="alteraEmpreendimento" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" ng-controller="usuarioController as userCtrl">
-				  <div class="modal-dialog" role="document" >
-				    <div class="modal-content">
-				      <div class="modal-header">
-				        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-				        <h4 class="modal-title" id="myModalLabel">Alterar Unidade</h4>
-				      </div>
-				      <div class="modal-body">				     		
-					      <div class="row">
-						      	<div  class="col-sm-12" ng-controller="unidadeController as unidadeCtr" ng-init="unidadeCtr.lista()">
-									<select class="form-control " ng-model="userCtrl.usuario.empreendimento" 
-										ng-options="unidades.dadosUnidade.nome group by unidades.tipoUnidade.descricao for unidades in unidadeCtr.listaUnidades"
-										style="width: 100%;" required>
-										<option  value="">--selecione o Unidade--</option>
-									</select>
-								</div>		
-					      </div>					       
-				      </div>
-				      <div class="modal-footer">
-				        <button type="button" ng-click="userCtrl.alteraEmpreendimento(user.usuario)" class="btn btn-primary">Alterar</button>
-				        <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>				        
-				      </div>
-				    </div>
-				  </div>
-				</div>
 
 </html>
 

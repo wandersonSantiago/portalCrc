@@ -1,12 +1,12 @@
-app.controller( 'loginController', function($route, $location, $rootScope, auth) {
+app.controller( 'loginController', function($state, $location, $rootScope, auth) {
 			
 			var self = this;
 			self.falhaLogin = true;
 			self.credentials = {};
 			
-			self.tab = function(route) {
+			self.tab = function(state) {
 				
-				return $route.current && route === $route.current.controller;
+				return $state.current && state === $state.current.controller;
 			};
 
 			self.authenticated = function() {

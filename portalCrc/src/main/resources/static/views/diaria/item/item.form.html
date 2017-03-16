@@ -1,0 +1,92 @@
+<meta charset="UTF-8">
+			<div class="col-sm-12 ">
+				<form role="form-vertical" name="formDiaria"
+					ng-submit="itemCtrl.submit()">			
+						
+						<div class="row">
+							<div class="col-sm-1">
+							Mês:
+								<h1><span class="label label-info">{{itemCtrl.itemDiaria.diaria.mes}}</span></h1>
+							</div>
+							<div class="col-sm-1">
+							<br>
+								<h1><span class="label label-info">{{itemCtrl.itemDiaria.diaria.dataAbertura | date : 'yyyy'}}</span></h1>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-sm-1">
+							Observação:
+								<h3><span class="label label-warning">{{itemCtrl.itemDiaria.diaria.observacao}}</span></h3>
+							</div>							
+						</div>
+					
+					
+					
+					<br>
+					<div class="row">	
+						<div class="col-sm-6">
+						Funcionário:
+							<md-autocomplete 
+								  md-no-cache="funCtrl.noCache"
+								 	md-selected-item="itemCtrl.itemDiaria.funcionario" 
+								 	md-search-text="busca" 
+								 	md-selected-item-change="funCtrl.selectedItemChange(funcionario)" 
+								 	md-items=" funcionario in itemCtrl.funcionarios | filter : busca" 
+								 	md-item-text="funcionario.pessoa.nomeCompleto" 
+								 	md-min-length="0" placeholder="busca Funcionário">
+	       							 <md-item-template>
+	          							<span md-highlight-text="busca" md-highlight-flags="^i">{{funcionario.pessoa.nomeCompleto}}</span>
+	       							 </md-item-template>        								
+	     						 </md-autocomplete>
+									
+						</div>
+							
+						<div class="col-sm-6">
+						Destino:
+							<input class="form-control text-uppercase" placeholder="Destino" ng-model="itemCtrl.itemDiaria.destino" id="destino" type="text"  required >
+						</div>
+										
+						
+					</div>
+					
+					<br>
+					
+					<div class="row">
+						<div class="col-sm-2">
+						Data da diária:
+							<input class="form-control" placeholder="Data diaria" ng-model="itemCtrl.itemDiaria.dataDiaria" id="dataDiaria" type="date"  required >
+						</div>
+							
+						<div class="col-sm-2">
+						Valor da Diária
+							<input class="form-control" placeholder="R$" ng-model="itemCtrl.itemDiaria.valorDiaria" id="valorDiaria" type="text" ui-money-mask required >
+						</div>
+						<div class="col-sm-2">
+						Valor da Passagem:
+							<input class="form-control" placeholder="R$" ng-model="itemCtrl.itemDiaria.valorPassagem" id="valorPassagem" type="text" ui-money-mask required >
+						</div>						
+					</div>
+					<br>
+					<div class="row">
+						<div class="col-sm-12">
+						Motivo:
+						<textarea class="textarea text-uppercase form-control" ng-model="itemCtrl.itemDiaria.motivo" id="motivo" placeholder="Motivo"
+									style="width: 100%; height: 100px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;" required></textarea>
+						</div>			
+									
+					</div>
+				
+
+					<hr>					
+					
+					<br>
+					<div class="row ">
+						<div class="col-sm-4"></div>
+							<div class="col-sm-4" >
+								<input type="submit" id="submit" value="Salvar" class="btn btn-lg btn-primary btn-block btn-signin">
+							</div>						
+					</div>
+
+				</form>
+			</div>
+		

@@ -1,0 +1,41 @@
+<meta charset="UTF-8">
+<br>
+<br>
+<div ng-if="!role_cadastrar_usuario" ng-include="'views/erros/permissao.html'"></div>
+<div ng-if="role_cadastrar_usuario"	ng-controller="usuarioController as userCtr">
+
+	<div class="box box-primary" ng-init="userCtr.lista()">
+	
+		<div class="box-header">
+			<span class="lead">Lista de Usuarios</span>
+		</div>
+		<div class="panel-body table-responsive">
+		<input class="form-control" type="text" ng-model="buscaUsuario" placeholder="Buscar">
+			<table class="table table-hover table-bordered">
+				<thead>
+					<tr>
+						<th>Nome</th>
+						<th>Login</th>
+						<th>Funcionario</th>
+						<th>Unidade</th>
+						<th>Opções</th>
+					</tr>
+				</thead>
+				<tbody
+					ng-repeat=" user in userCtr.usuarios | filter : buscaUsuario ">
+					<tr>
+						<td>{{ user.nome }}</td>
+						<td>{{ user.login }}</td>
+						<td>{{ user.funcionario.pessoa.nomeCompleto}}</td>
+						<td>{{ user.unidade.dadosUnidade.mnemonico}}</td>
+						<td><a href="#/usuario/editar/{{user.id}}"><i class="glyphicon glyphicon-pencil"></i></a> 
+						
+				</tr>
+				</tbody>
+				<tfoot>
+				</tfoot>
+			</table>
+		</div>
+	</div>
+</div>
+

@@ -1,0 +1,69 @@
+<meta charset="UTF-8">
+
+			<div class=" col-sm-12 ">
+				<form role="form-vertical" name="formAtribuirUnidade"
+					ng-submit="funcionarioUnidadeCtrl.submit()">					
+						
+					
+					<br>
+					<div class="row">
+						
+						<div class="col-sm-3">
+						Nome
+						<br>
+								{{funcionarioUnidadeCtrl.funcionario.pessoa.nomeCompleto}}
+						</div>
+						<div class="col-sm-2">
+						CPF
+						<br>
+								{{funcionarioUnidadeCtrl.funcionario.pessoa.cpf}}
+						</div>
+					</div>
+					
+						<br>
+					<div class="row">
+						
+						<div class="col-sm-4" >
+						Status:
+							<select class="form-control select2"  ng-model="funcionarioUnidadeCtrl.funcionarioUnidade.status" ng-options="status for status in funcionarioUnidadeCtrl.status" style="width: 100%;">
+								<option value="">{{funcionarioUnidadeCtrl.funcionarioUnidade.status}}</option>
+							</select>
+						</div> 
+						
+						<div class="col-sm-2">
+						Data Inclusão:
+							<input class="form-control" placeholder="Data inclusão" ng-model="funcionarioUnidadeCtrl.funcionarioUnidade.dataAdmissao" id="dataAdmissao" type="date"  required >
+						</div>
+						
+					</div>
+					
+					<br>
+					
+					<div class="row">			
+						<div class="col-sm-3">
+						Cargo:
+							<select class="form-control select2" ng-model="funcionarioUnidadeCtrl.funcionarioUnidade.cargo" ng-options="listarCargos.descricao group by listarCargos.shade for listarCargos in funcionarioUnidadeCtrl.cargos"  style="width: 100%;">
+									<option value="">{{funcionarioUnidadeCtrl.funcionarioUnidade.cargo.descricao}}</option>
+							</select>
+						</div>	
+						<div class="col-sm-3" >
+						Função:
+							<select class="form-control select2" ng-model="funcionarioUnidadeCtrl.funcionarioUnidade.funcao" ng-options="funcoes.descricao for funcoes in funcionarioUnidadeCtrl.funcao"  style="width: 100%;">
+									<option value="">{{funcionarioUnidadeCtrl.funcionarioUnidade.funcao.descricao}}</option>
+							</select>
+						</div>							
+					</div>
+
+					<hr>					
+					
+					<br>
+					<div class="row ">
+						<div class="col-sm-4"></div>
+						<div class="col-sm-4">
+							<input type="submit" id="submit" value="Salvar"	class="btn btn-lg btn-primary btn-block btn-signin">
+							</div>
+					</div>
+
+				</form>
+			</div>
+		

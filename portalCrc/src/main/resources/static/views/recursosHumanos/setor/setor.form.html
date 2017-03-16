@@ -1,0 +1,46 @@
+<meta charset="UTF-8">
+
+			<div class="col-sm-12 ">
+				<form role="form-vertical" ng-submit="setorCtrl.submit()" >
+					<div class="row">
+						<div class="col-sm-12">
+						Nome setor:
+							<input class="form-control" ng-model="setorCtrl.setor.nome" placeholder="Descrição" id="descricao" type="text" required>
+						</div>
+					</div>
+					<br>
+					<div class="row">					
+						<div class="col-sm-6">
+						Tipo de Setor:
+							<select class="form-control select2" ng-model="setorCtrl.setor.tipoSetor" 
+							ng-options="tipoSetores for tipoSetores in setorCtrl.setores"  >
+								<option value="">{{setorCtr.setor.tipoSetor}}</option>
+							</select>
+						</div>				
+							
+					<div>	
+						<div class="col-sm-3">
+						Tipo de Unidade:
+								<select class="form-control select2" ng-model="setorCtrl.setor.tipoUnidade" 
+								ng-options="tipo.mnemonico for tipo in setorCtrl.unidades"  >
+									<option value="">{{setorCtrl.setor.tipoUnidade.mnemonico}}</option>
+								</select>
+							</div>		
+						</div>	
+					</div>	
+					<br>
+							
+					<div class="row ">
+						<div class="col-sm-4"></div>
+						<div class="col-sm-4">
+							<input type="submit" id="submit" value="Salvar" ng-disabled="!setorCtrl.setor.nome || !setorCtrl.setor.tipoSetor || ! setorCtrl.setor.tipoUnidade"
+								class="btn btn-lg btn-primary btn-block btn-signin">
+						</div>
+					</div>
+				</form>
+			</div>
+
+		</div>
+		<div class="tablecontainer"></div>
+	</div>
+</div>

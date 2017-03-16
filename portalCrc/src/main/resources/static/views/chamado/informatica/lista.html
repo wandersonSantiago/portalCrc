@@ -1,0 +1,34 @@
+<meta charset="UTF-8">
+
+		<div class="panel-body table-responsive">
+		<input type="text" ng-model="buscarChamado" placeholder="Pesquisar..." class="form-control">
+		 <table class="table table-hover table-bordered">
+				<thead>
+					<tr>
+						<th>Titulo</th>				  		
+						<th>Solicitante</th>						
+						<th>Setor</th>						
+						<th>Status</th>						
+						<th>Data de abertura</th>							
+						<th>Horário</th>					
+						<th>Opções</th>
+					</tr>
+				</thead>
+				<tbody	ng-repeat=" chamado in chamadoCtrl.chamados| filter : buscarChamado | orderBy : '-id'  ">
+					<tr>
+						<td>{{ chamado.titulo }}</td>
+						<td>{{ chamado.usuarioSolicitante.nome | limitTo:20}}</td>
+						<td>{{ chamado.setor.nome }}</td>	
+						<td>{{ chamado.status }}</td>							
+						<td>{{ chamado.dataAbertura | date : 'dd/MM/yyyy'}}</td>
+						<td>{{ chamado.dataAbertura | date : 'HH:mm:ss' }}</td>										
+						<td><a ui-sref="chamadoTi.atendimento({idChamadoTi : chamado.id})"><i class="glyphicon glyphicon-search"></i></a> 
+						
+				</tr>
+				</tbody>
+				<tfoot>
+				</tfoot>
+			</table>
+		</div>
+	
+

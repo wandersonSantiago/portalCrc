@@ -1,0 +1,26 @@
+ <meta charset="UTF-8">
+		<div class="table-responsive">
+		<input class="form-control" type="text" ng-model="buscarSetor" placeholder="Pesquisar...">
+			<table class="table table-hover table-bordered">
+				<thead>
+					<tr>
+						<th>descricao</th>
+						<th>numero</th>
+						<th>setor</th>						
+						<th>Opções</th>
+					</tr>
+				</thead>
+				<tbody
+					ng-repeat=" ponto in pontoCtrl.pontos | filter : buscarSetor ">
+					<tr>
+						<td>{{ ponto.descricao }}</td>
+						<td>{{ ponto.numero }}</td>
+						<td>{{ ponto.setor.nome}}</td>
+						<td><a ui-sref="ponto.editar({idPonto : ponto.id})"><i class="glyphicon glyphicon-edit"></i></a> 										 
+				</tr>
+				</tbody>
+				<tfoot>
+				</tfoot>
+			</table>
+		</div>
+	

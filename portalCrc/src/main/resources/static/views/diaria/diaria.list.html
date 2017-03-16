@@ -1,0 +1,43 @@
+<meta charset="UTF-8">
+		<div class="table-responsive"  >
+	
+		<input class="form-control" type="text" placeholder="Pesquisar..." ng-model="buscar" >
+			<table class="table table-hover table-bordered">
+				<thead>
+					<tr>														
+					</tr>
+				</thead>
+				<tbody
+					ng-repeat=" diaria in diariaCtrl.diarias | filter : buscar | orderBy : 'id'">
+					<tr>
+					<td>
+						<span>{{diaria.mes}}</span>
+					</td>
+					<td>
+						<span>{{diaria.observacao}}</span>
+					</td>
+					<td> 
+						<span>{{diaria.dataAbertura | date : 'yyyy'}}</span>
+					</td>
+										
+					<td title="Cadastrar Diarias"><a ui-sref="item.cadastrar({idDiaria : diaria.id})"><i class="fa fa-share-square-o"></i></a> 		
+					<td ng-if="diaria.status == 'ABERTO'"  title="Relatório da Unidade"><a ng-click="diariaCtrl.encerrar(diaria)" ><i class="fa  fa-remove"></i></a> 		
+					<td title="Relatório da Unidade"><a ui-sref="item.unidade({idDiariaUnidade : diaria.id})"><i class="fa fa-bar-chart"></i></a> 		
+					<td title="Relatório da Coordenadoria"><a ui-sref="item.coordenadoria({idDiariaCoordenadoria : diaria.id})"><i class="fa fa-bar-chart"></i></a> 		
+					<td title="Relatório da Secretaria"><a ui-sref="item.secretaria({idDiariaSecretaria : diaria.id})"><i class="fa fa-bar-chart"></i></a> 		
+					
+				
+					<td><a ui-sref="diaria.editar({idDiaria : diaria.id})"><i class="glyphicon glyphicon-edit"></i></a> 
+														
+					</tr>							
+				</tbody>
+				<tfoot>
+					<tr>
+					</tr>
+				</tfoot>
+			</table>
+		</div>
+		
+	</div>
+
+</div>
