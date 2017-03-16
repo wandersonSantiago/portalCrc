@@ -1,0 +1,61 @@
+<meta charset="UTF-8">
+			<div class="col-sm-12 ">
+			<form role="form-vertical" name="formEquipamento" ng-submit="equipamentoCtrl.submit()" >
+			
+				<div class="row">
+						<div class="col-sm-6">
+						Descrição:
+							<input class="form-control" placeholder="Descricao"  ng-model="equipamentoCtrl.equipamento.descricao" id="descricao" name="descricao" type="text" required>
+							
+						</div>
+						<div class="col-sm-6">
+						Patrimonio:
+							<input class="form-control" placeholder="Patrimonio"  ng-model="equipamentoCtrl.equipamento.patrimonio" id="nome" name="patrimonio" type="text" required>
+							
+						</div>
+				</div>
+					<br>
+				<div class="row">						
+						<div class="col-sm-6">
+						Ip:
+						<select class="form-control " ng-model="equipamentoCtrl.equipamento.ip" 
+							ng-options="ip.numero for ip in equipamentoCtrl.ips"  >
+								<option value="">{{equipamentoCtrl.equipamento.ip.numero}}</option>
+							</select>
+						</div>	
+						
+						<div class="col-sm-6">
+						Tipo de Equipamento:
+						<select class="form-control " ng-model="equipamentoCtrl.equipamento.tipoEquipamento" 
+							ng-options="tipoEquipamentoEnum for tipoEquipamentoEnum in equipamentoCtrl.tipoEquipamentoEnum" >
+								<option value="">{{equipamentoCtrl.equipamento.tipoEquipamento}}</option>
+							</select>
+						</div>																		
+				</div>
+						<br>
+					
+					<div class="row">
+					<div class="col-sm-6">
+					Número Ponto:
+						<select class="form-control select2" ng-model="equipamentoCtrl.equipamento.ponto" 
+							ng-options="ponto.numero for ponto in equipamentoCtrl.pontos"  >
+								<option value="">S{{equipamentoCtrl.equipamento.ponto.numero}}</option>
+							</select>
+						</div>		
+																
+					</div>
+					<br>	
+																
+					
+					<div class="row ">
+					<div class="col-sm-4"></div>
+						<div class="col-sm-4">
+							<input type="submit" id="submit" value="Salvar"	class="btn btn-lg btn-primary btn-block btn-signin">
+						</div>
+							
+					</div>
+						
+									
+				</form>
+			</div>
+	

@@ -3,14 +3,15 @@ app.controller("PontoEditarController", PontoEditarController);
 app.controller("PontoListarController", PontoListarController);
 app.controller("PontoShowController", PontoShowController);
 
-PontoCadastarController.$inject = ['SetorService', 'PontoService',  'toastr', '$rootScope', '$scope'];
-PontoEditarController.$inject = ['$stateParams', '$state', 'PontoService','SetorService', 'toastr', '$rootScope', '$scope'];
-PontoListarController.$inject = ['$stateParams', '$state', 'PontoService', 'toastr', '$rootScope', '$scope'];
+PontoCadastarController.$inject = [		'SwitchService','SetorService', 'PontoService',  'toastr', '$rootScope', '$scope'];
+PontoEditarController.$inject = ['SwitchService','$stateParams', '$state', 'PontoService','SetorService', 'toastr', '$rootScope', '$scope'];
+PontoListarController.$inject = ['PortaSwitchService','$stateParams', '$state', 'PontoService', 'toastr', '$rootScope', '$scope'];
 PontoShowController.$inject = ['$stateParams', '$state', 'PontoService', 'toastr', '$rootScope', '$scope'];
 
-function PontoCadastarController(SetorService, PontoService, toastr, $rootScope, $scope){
+function PontoCadastarController(SwitchService, SetorService, PontoService, toastr, $rootScope, $scope){
 	var self = this;
 	listarSetores();
+	listarSwitch();
 	self.submit = submit;
 	
 	function submit(ponto) {
@@ -23,23 +24,33 @@ function PontoCadastarController(SetorService, PontoService, toastr, $rootScope,
 			});
 		};		
 		
-		
-		 function listarSetores(){
-			 SetorService.listar().
-				then(function(f){
-					self.setores = f;
-					}, function(errResponse){
-						sweetAlert({ timer : 3000,  text : errResponse.data.message,  type : "error", width: 300, higth: 300, padding: 20});
-				});
-			};
+	
+	 function listarSetores(){
+		 SetorService.listar().
+			then(function(f){
+				self.setores = f;
+				}, function(errResponse){
+					sweetAlert({ timer : 3000,  text : errResponse.data.message,  type : "error", width: 300, higth: 300, padding: 20});
+			});
+		};
+	
+	function listarSwitch(){
+		 SwitchService.listar().
+			then(function(f){
+				self.switchs = f;				
+				}, function(errResponse){
+					sweetAlert({ timer : 3000,  text : errResponse.data.message,  type : "info", width: 300, higth: 300, padding: 20});
+			});
+		};		
 	
 }
-function PontoEditarController($stateParams, $state, PontoService, SetorService, toastr, $rootScope, $scope){
+function PontoEditarController(SwitchService, $stateParams, $state, PontoService, SetorService, toastr, $rootScope, $scope){
 	
 	var self = this;
+	var idPonto = $stateParams.idPonto;
 	self.submit = submit;
 	listarSetores();
-	var idPonto = $stateParams.idPonto;
+	listarSwitch();
 	
 	function submit(ponto) {
 		PontoService.alterar(self.ponto).
@@ -75,17 +86,34 @@ function PontoEditarController($stateParams, $state, PontoService, SetorService,
 					sweetAlert({ timer : 3000,  text : errResponse.data.message,  type : "error", width: 300, higth: 300, padding: 20});
 			});
 		};
-	
+	function listarSwitch(){
+		 SwitchService.listar().
+			then(function(f){
+				self.switchs = f;				
+				}, function(errResponse){
+					sweetAlert({ timer : 3000,  text : errResponse.data.message,  type : "info", width: 300, higth: 300, padding: 20});
+			});
+		};		
 	
 }
-function PontoListarController($stateParams, $state, PontoService, toastr, $rootScope, $scope){
+function PontoListarController(PortaSwitchService, $stateParams, $state, PontoService, toastr, $rootScope, $scope){
 	var self = this;
 	listar();
+	listarPortas();
+	
 	
 	 function listar(){
 		 PontoService.listar().
 			then(function(f){
 				self.pontos = f;				
+				}, function(errResponse){
+					sweetAlert({ timer : 3000,  text : errResponse.data.message,  type : "info", width: 300, higth: 300, padding: 20});
+			});
+		};
+	 function listarPortas(){
+		 PortaSwitchService.listar().
+			then(function(f){
+				self.portaSwitchs = f;				
 				}, function(errResponse){
 					sweetAlert({ timer : 3000,  text : errResponse.data.message,  type : "info", width: 300, higth: 300, padding: 20});
 			});

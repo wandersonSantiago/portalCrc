@@ -7,6 +7,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -32,6 +33,14 @@ public class Ponto {
 	@ManyToOne
 	@JoinColumn(name="setor", nullable=false)
 	private Setor setor;
+	
+	@OneToOne
+	@JoinColumn(name="porta_switch")
+	private PortaSwitch portaSwitch;
+	
+	@OneToOne
+	@JoinColumn(name="switch")
+	private Switch switchs;
 	
 	@ManyToOne
 	@JoinColumn(name="id_Unidade" )
@@ -77,6 +86,18 @@ public class Ponto {
 	}
 	public void setUsuarioCadastro(Usuario usuarioCadastro) {
 		this.usuarioCadastro = usuarioCadastro;
+	}
+	public PortaSwitch getPortaSwitch() {
+		return portaSwitch;
+	}
+	public void setPortaSwitch(PortaSwitch portaSwitch) {
+		this.portaSwitch = portaSwitch;
+	}
+	public Switch getSwitchs() {
+		return switchs;
+	}
+	public void setSwitchs(Switch switchs) {
+		this.switchs = switchs;
 	}
 	
 	

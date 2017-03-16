@@ -1,0 +1,35 @@
+ <meta charset="UTF-8">
+		<div class="panel-body table-responsive">
+		<input class="form-control" type="text" ng-model="buscaEquipamento" placeholder="Pesquisar...">
+			<table class="table table-hover table-bordered">
+				<thead>
+					<tr>
+						<th>TipoEquipamento</th>
+						<th>Descricao</th>
+						<th>Patrimonio</th>
+						<th>Ip</th>
+						<th>Ponto</th>	
+						<th>Switch</th>
+						<th>Porta</th>					
+						<th>Setor</th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody	ng-repeat=" equipamento in equipamentoCtrl.equipamentos | filter : buscaEquipamento | orderBy : 'ponto.setor.nome'">
+					<tr>
+						<td>{{ equipamento.tipoEquipamento}}</td>
+						<td>{{ equipamento.descricao }}</td>
+						<td>{{ equipamento.patrimonio }}</td>
+						<td>{{ equipamento.ip.numero}}</td>						
+						<td>{{ equipamento.ponto.numero}}</td>
+						<td>{{ equipamento.ponto.switchs.nome}}</td>
+						<td>{{ equipamento.ponto.portaSwitch.numero}}</td>
+						<td>{{ equipamento.ponto.setor.nome}}</td>
+						<td><a ui-sref="equipamento.editar({idEquipamento : equipamento.id})"><i class="glyphicon glyphicon-edit"></i></a> 										 
+				</tr>
+				</tbody>
+				<tfoot>
+				</tfoot>
+			</table>
+		</div>
+	

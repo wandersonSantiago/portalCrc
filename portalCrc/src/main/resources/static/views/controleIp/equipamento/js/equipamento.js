@@ -2,49 +2,49 @@ app.config(function($stateProvider, $urlRouterProvider) {
 
 	$stateProvider
 		
-	.state('secretaria', {
+	.state('equipamento', {
 		abstract : true,
-		url : '/secretaria',
-		templateUrl : 'views/secretaria/secretaria.index.html',
-		redirectTo : 'secretaria.listar',
+		url : '/equipamento',
+		templateUrl : 'views/controleIp/equipamento/equipamento.index.html',
+		redirectTo : 'equipamento.listar',
 		ncyBreadcrumb: {
-			    label: 'secretaria'
+			    label: 'equipamento'
 			  }
 	})
 	
-		.state('secretaria.listar', {
+		.state('equipamento.listar', {
 			url : "/listar",
-			templateUrl : "views/secretaria/secretaria.list.html",
-			controller : "SecretariaListarController as secretariaCtrl",
+			templateUrl : "views/controleIp/equipamento/equipamento.list.html",
+			controller : "EquipamentoListarController as equipamentoCtrl",
 			ncyBreadcrumb: {
-				 	parent: 'secretaria.cadastrar',
-				    label: 'lista secretaria'
+				 	parent: 'equipamento.cadastrar',
+				    label: 'lista equipamento'
 				  }
 		})
-		.state('secretaria.cadastrar', {
+		.state('equipamento.cadastrar', {
 			url : "/cadastrar",
-			templateUrl : "views/secretaria/secretaria.form.html",
-			controller : "SecretariaCadastarController as secretariaCtrl",
+			templateUrl : "views/controleIp/equipamento/equipamento.form.html",
+			controller : "EquipamentoCadastarController as equipamentoCtrl",
 			ncyBreadcrumb: {
-			 	parent: 'secretaria',
-			    label: 'Cadastrar secretaria'
+			 	parent: 'equipamento',
+			    label: 'Cadastrar equipamento'
 			  }
 		})
-		.state('secretaria.editar', {
-			url : "/:idSecretaria/editar",
-			templateUrl : "views/secretaria/secretaria.form.html",
-			controller : "SecretariaEditarController as secretariaCtrl",
+		.state('equipamento.editar', {
+			url : "/:idEquipamento/editar",
+			templateUrl : "views/controleIp/equipamento/equipamento.form.html",
+			controller : "EquipamentoEditarController as equipamentoCtrl",
 			ncyBreadcrumb: {
-				 	parent: 'secretaria.listar',
+				 	parent: 'equipamento.listar',
 				    label: 'Editar'
 				  }
 		})
-		.state('secretaria.visualizar', {
-			url : "/:idSecretaria",
-			templateUrl : "views/secretaria/secretaria.show.html",
-			controller : "SecretariaVisualizarController as secretariaCtrl",
+		.state('equipamento.visualizar', {
+			url : "/:idEquipamento",
+			templateUrl : "views/controleIp/equipamento/equipamento.show.html",
+			controller : "EquipamentoVisualizarController as equipamentoCtrl",
 			ncyBreadcrumb: {
-				 	parent: 'secretaria.listar',
+				 	parent: 'equipamento.listar',
 				    label: 'Visualizar'
 				  }
 		})

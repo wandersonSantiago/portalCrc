@@ -1,41 +1,69 @@
-app.controller("SecretariaCadastarController", SecretariaCadastarController);
-app.controller("SecretariaEditarController", SecretariaEditarController);
-app.controller("SecretariaListarController", SecretariaListarController);
-app.controller("SecretariaShowController", SecretariaShowController);
+app.controller("EquipamentoCadastarController", EquipamentoCadastarController);
+app.controller("EquipamentoEditarController", EquipamentoEditarController);
+app.controller("EquipamentoListarController", EquipamentoListarController);
+app.controller("EquipamentoShowController", EquipamentoShowController);
 
-SecretariaCadastarController.$inject = ['SecretariaService',  'toastr', '$rootScope', '$scope'];
-SecretariaEditarController.$inject = ['$stateParams', '$state', 'SecretariaService', 'toastr', '$rootScope', '$scope'];
-SecretariaListarController.$inject = ['$stateParams', '$state', 'SecretariaService', 'toastr', '$rootScope', '$scope'];
-SecretariaShowController.$inject = ['$stateParams', '$state', 'SecretariaService', 'toastr', '$rootScope', '$scope'];
+EquipamentoCadastarController.$inject = ['IpService','PontoService','EquipamentoService',  'toastr', '$rootScope', '$scope'];
+EquipamentoEditarController.$inject = ['$stateParams', '$state', 'EquipamentoService', 'toastr', '$rootScope', '$scope'];
+EquipamentoListarController.$inject = ['$stateParams', '$state', 'EquipamentoService', 'toastr', '$rootScope', '$scope'];
+EquipamentoShowController.$inject = ['$stateParams', '$state', 'EquipamentoService', 'toastr', '$rootScope', '$scope'];
 
-function SecretariaCadastarController( SecretariaService, toastr, $rootScope, $scope){
+function EquipamentoCadastarController(IpService, PontoService, EquipamentoService, toastr, $rootScope, $scope){
 	var self = this;
 	
 	self.submit = submit;
+	listaTipoEquipamentoEnum();
+	listarIp();
+	listarPonto();
 	
-	function submit(secretaria) {
-		SecretariaService.salvar(self.secretaria).
+	function submit(equipamento) {
+		EquipamentoService.salvar(self.equipamento).
 			then(function(response){
 				toastr.info("Salvo com Sucesso!!!");
-				self.secretaria = null;
+				self.equipamento = null;
 				}, function(errResponse){
 					sweetAlert({ timer : 3000,  text : errResponse.data.message,  type : "info", width: 300, higth: 300, padding: 20});
 			});
 		};
 	
+	function listaTipoEquipamentoEnum(){
+			 EquipamentoService.listarTipoEquipamento().
+				then(function(f){
+					self.tipoEquipamentoEnum = f;			
+					}, function(errResponse){
+				});
+			};
+			
+	 function listarIp(){
+		 IpService.listar().
+			then(function(f){
+				self.ips = f;				
+				}, function(errResponse){
+					sweetAlert({ timer : 3000,  text : errResponse.data.message,  type : "info", width: 300, higth: 300, padding: 20});
+			});
+		};
+		
+	 function listarPonto(){
+		 PontoService.listar().
+			then(function(f){
+				self.pontos = f;				
+				}, function(errResponse){
+					sweetAlert({ timer : 3000,  text : errResponse.data.message,  type : "info", width: 300, higth: 300, padding: 20});
+			});
+		};
 }
-function SecretariaEditarController($stateParams, $state, SecretariaService, toastr, $rootScope, $scope){
+function EquipamentoEditarController($stateParams, $state, EquipamentoService, toastr, $rootScope, $scope){
 	
 	var self = this;
 	self.submit = submit;
-	var idSecretaria = $stateParams.idSecretaria;
+	var idEquipamento = $stateParams.idEquipamento;
 	
-	function submit(secretaria) {
-		SecretariaService.alterar(self.secretaria).
+	function submit(equipamento) {
+		EquipamentoService.alterar(self.equipamento).
 		then(function(response){
 			toastr.info("Alterado com Sucesso!!!");
-			self.secretaria = null;
-			$state.go('secretaria.listar');
+			self.equipamento = null;
+			$state.go('equipamento.listar');
 			}, function(errResponse){
 				sweetAlert({ timer : 3000,  text : errResponse.data.message,  type : "info", width: 300, higth: 300, padding: 20});
 			});
@@ -43,33 +71,33 @@ function SecretariaEditarController($stateParams, $state, SecretariaService, toa
 	
 	function buscarPorId(id){
 		if(!id)return;
-		SecretariaService.buscarPorId(id).
+		EquipamentoService.buscarPorId(id).
 		then(function(p){
-			self.secretaria = p;
+			self.equipamento = p;
 	}, function(errResponse){
 		sweetAlert({ timer : 3000,  text : errResponse.data.message,  type : "info", width: 300, higth: 300, padding: 20});
 			});
 	};
 
-	if(idSecretaria){
-		buscarPorId(idSecretaria);		
+	if(idEquipamento){
+		buscarPorId(idEquipamento);		
 	};
 	
 	
 }
-function SecretariaListarController($stateParams, $state, SecretariaService, toastr, $rootScope, $scope){
+function EquipamentoListarController($stateParams, $state, EquipamentoService, toastr, $rootScope, $scope){
 	var self = this;
 	listar();
 	
 	 function listar(){
-		 SecretariaService.listar().
+		 EquipamentoService.listar().
 			then(function(f){
-				self.secretarias = f;				
+				self.equipamentos = f;				
 				}, function(errResponse){
 					sweetAlert({ timer : 3000,  text : errResponse.data.message,  type : "info", width: 300, higth: 300, padding: 20});
 			});
 		};
 }
-function SecretariaShowController( $stateParams, $state, SecretariaService, toastr, $rootScope, $scope){
+function EquipamentoShowController( $stateParams, $state, EquipamentoService, toastr, $rootScope, $scope){
 	
 }
