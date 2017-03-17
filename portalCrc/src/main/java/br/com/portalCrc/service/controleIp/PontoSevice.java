@@ -20,8 +20,10 @@ public class PontoSevice {
 	
 	@Transactional(readOnly = false)
 	public void salvaOuAltera(Ponto ponto){
+		
 		ponto.setUsuarioCadastro(SessionUsuario.getInstance().getUsuario());
 		ponto.setUnidade(SessionUsuario.getInstance().getUsuario().getUnidade());
+		ponto.getPortaSwitch().setEmUso(true);
 		pontoRepositorio.save(ponto);
 		
 	}

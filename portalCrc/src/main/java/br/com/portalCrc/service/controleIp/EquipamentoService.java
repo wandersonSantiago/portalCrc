@@ -26,6 +26,7 @@ public class EquipamentoService {
 		equipamento.setDataCadastro(new Date());
 		equipamento.setUsuarioCadastro(SessionUsuario.getInstance().getUsuario());
 		equipamento.setAtivo(true);
+		equipamento.getIp().setEmUso(true);
 		equipamentoRepositorio.save(equipamento);
 	}
 	
