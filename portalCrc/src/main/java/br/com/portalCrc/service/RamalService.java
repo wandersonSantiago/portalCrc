@@ -1,6 +1,7 @@
 package br.com.portalCrc.service;
 
 import java.util.Collection;
+import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,19 +22,20 @@ public class RamalService {
 	@Transactional(readOnly = false)
 	public void salvarEditar(Ramal ramal){
 		ramal.setUnidade(SessionUsuario.getInstance().getUsuario().getUnidade());
+		ramal.setUsuarioCadastro(SessionUsuario.getInstance().getUsuario());
+		ramal.setDataCadastro(new Date());
 		ramalRepository.save(ramal);
 	}
 	
 	public Collection<Ramal> lista(){
-		return ramalRepository.findAll();
+		return ramalRepository.findByUnidade_id(SessionUsuario.getInstance().getUsuario().getUnidade().getId());
 	}
 	
 	public Ramal buscaPorId(Long id){
 		return ramalRepository.findOne(id);
 	}
 
-	public Iterable<Ramal> buscarRamalPorUnidade(Long id) {
-		
+	public Iterable<Ramal> buscarRamalPorUnidade(Long id) {		
 		return ramalRepository.buscarRamalPorUnidade(id);
 	}
 

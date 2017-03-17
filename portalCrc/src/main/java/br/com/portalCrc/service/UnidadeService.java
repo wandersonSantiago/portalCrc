@@ -1,6 +1,7 @@
 package br.com.portalCrc.service;
 
 import java.util.Collection;
+import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -8,6 +9,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import br.com.portalCrc.entity.Unidade;
+import br.com.portalCrc.pojo.SessionUsuario;
 import br.com.portalCrc.repository.UnidadeRepository;
 
 @Service
@@ -20,6 +22,8 @@ public class UnidadeService {
 	
 	@Transactional(readOnly = false)
 	public void salvarEditar(Unidade unidade){
+		unidade.setDataCadastro(new Date());
+		unidade.setUsuarioCadastro(SessionUsuario.getInstance().getUsuario());
 		unidadeRepository.save(unidade);
 	}
 	
@@ -31,8 +35,11 @@ public class UnidadeService {
 		return unidadeRepository.findOne(id);
 	}
 
-	public Iterable<Unidade> buscaUnidadePorId(Long id) {
-		
-		return unidadeRepository.buscaUnidadePorId(id);
+	public Iterable<Unidade> buscaUnidadePorId(Long id) {		
+		return unidadeRepository.buscaUnidadePorCoordenadoria(id);
+	}
+
+	public Iterable<Unidade> buscaUnidadePorCoordenadoria(Long id) {
+		return unidadeRepository.findByCoordenadoria_id(SessionUsuario.getInstance().getUsuario().getUnidade().getCoordenadoria().getId());
 	}
 }

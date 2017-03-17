@@ -34,6 +34,9 @@ public class Ponto {
 	@JoinColumn(name="setor", nullable=false)
 	private Setor setor;
 	
+	@Column(name="em_uso")
+	private Boolean emUso;
+	
 	@OneToOne
 	@JoinColumn(name="porta_switch")
 	private PortaSwitch portaSwitch;
@@ -98,6 +101,12 @@ public class Ponto {
 	}
 	public void setSwitchs(Switch switchs) {
 		this.switchs = switchs;
+	}
+	public Boolean getEmUso() {
+		return emUso;
+	}
+	public void setEmUso(Boolean emUso) {
+		this.emUso = emUso;
 	}
 	
 	

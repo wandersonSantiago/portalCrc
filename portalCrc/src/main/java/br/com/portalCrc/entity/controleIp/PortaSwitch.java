@@ -18,6 +18,7 @@ import javax.persistence.TemporalType;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import br.com.portalCrc.entity.Unidade;
 import br.com.portalCrc.entity.Usuario;
 import br.com.portalCrc.enums.controleIp.StatusSwitch;
 
@@ -37,6 +38,9 @@ public class PortaSwitch {
 	@Enumerated(EnumType.STRING)
 	private StatusSwitch status;
 	
+	@Column(name="em_uso")
+	private Boolean emUso;
+	
 	@Column(name="descricao")
 	private String descricao;
 	
@@ -47,6 +51,10 @@ public class PortaSwitch {
 	@ManyToOne
 	@JoinColumn(name="id_usuario_cadastro")
 	private Usuario usuarioCadastro;
+	
+	@ManyToOne
+	@JoinColumn(name="id_unidade")
+	private Unidade unidade;
 	
 	@JsonIgnore
 	@ManyToOne 
@@ -95,6 +103,18 @@ public class PortaSwitch {
 	}
 	public void setSwitchs(Switch switchs) {
 		this.switchs = switchs;
+	}
+	public Boolean getEmUso() {
+		return emUso;
+	}
+	public void setEmUso(Boolean emUso) {
+		this.emUso = emUso;
+	}
+	public Unidade getUnidade() {
+		return unidade;
+	}
+	public void setUnidade(Unidade unidade) {
+		this.unidade = unidade;
 	}
 	
 	

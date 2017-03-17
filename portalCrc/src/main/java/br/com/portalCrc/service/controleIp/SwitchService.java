@@ -28,6 +28,7 @@ public class SwitchService {
 		
 		switchs.setDataCadastro(new Date());
 		switchs.setStatus(StatusSwitch.ATIVO);
+		switchs.setUnidade(SessionUsuario.getInstance().getUsuario().getUnidade());
 		switchs.setPortaSwitch(listaPortas(switchs));
 		
 		switchRepositorio.save(switchs);
@@ -36,7 +37,7 @@ public class SwitchService {
 	
 	
 	public Collection<Switch> lista(){
-		return switchRepositorio.findAll();
+		return switchRepositorio.findByUnidade_id(SessionUsuario.getInstance().getUsuario().getUnidade().getId());
 	}
 	
 	
@@ -54,7 +55,8 @@ public class SwitchService {
 			lista2.setDataCadastro(new Date());
 			lista2.setNumero(i);
 			lista2.setStatus(StatusSwitch.INATIVO);
-			lista2.setDescricao("OK");
+			lista2.setDescricao("Porta Comum");
+			lista2.setUnidade(SessionUsuario.getInstance().getUsuario().getUnidade());
 			lista2.setUsuarioCadastro(SessionUsuario.getInstance().getUsuario());
 			lista2.setSwitchs(switchs);
 			lista.add(lista2);

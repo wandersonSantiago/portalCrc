@@ -25,12 +25,13 @@ public class EquipamentoService {
 		equipamento.setUnidade(SessionUsuario.getInstance().getUsuario().getUnidade());
 		equipamento.setDataCadastro(new Date());
 		equipamento.setUsuarioCadastro(SessionUsuario.getInstance().getUsuario());
+		equipamento.setAtivo(true);
 		equipamentoRepositorio.save(equipamento);
 	}
 	
 	
 	public Collection<Equipamento> lista(){		
-		return equipamentoRepositorio.findAll();
+		return equipamentoRepositorio.findByUnidade_id(SessionUsuario.getInstance().getUsuario().getUnidade().getId());
 	}
 	
 	

@@ -35,6 +35,11 @@ public class FuncionarioCargo {
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="data_cadastro")
 	private Date dataCadastro;
+	
+	@ManyToOne
+	@JoinColumn(name="usuario_cadastro")
+	private Usuario usuarioCadastro;
+	
 
 	public Long getId() {
 		return id;
@@ -67,6 +72,15 @@ public class FuncionarioCargo {
 	public void setDataCadastro(Date dataCadastro) {
 		this.dataCadastro = dataCadastro;
 	}
+
+	public Usuario getUsuarioCadastro() {
+		return usuarioCadastro;
+	}
+
+	public void setUsuarioCadastro(Usuario usuarioCadastro) {
+		this.usuarioCadastro = usuarioCadastro;
+	}
+	
 	
 	
 	

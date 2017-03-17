@@ -1,23 +1,4 @@
 <meta charset="UTF-8">
-<div ng-if="!role_chamadoSuporteManutencao" ng-include="'views/erros/permissao.html'"></div>
-<div ng-if="role_chamadoSuporteManutencao" ng-controller="chamadoManutencaoController as chamadoCtr">
-	
-	    <br>
-	    
-	    <section layout="row" layout-align="right center">
-		  <a  href="javascript:window.history.go(-1)">Voltar</a>
-		  <md-button href="#/" class="groupX left">Menu</md-button>
-		  <md-button href="#/chamado/manutencao/cadastrar" class="groupX middle">Abrir</md-button>
-		  <md-button href="#/chamado/manutencao/lista" class="groupX middle">Lista</md-button>
-		  <md-button href="#/chamado/manutencao/suporte/relatorio" class="groupX right">relatório</md-button>	  
-		</section>
-	<div class="panel panel-default"></div>
-	<div class="panel panel-default" ng-init="chamadoCtr.relatorioChamadoSuporte(0 , 10)">
-		<div class="panel-heading">
-			<span class="lead">Relátorio Chamado Manutenção </span>
-		</div>
-			<div>			
-				<br>
 				<div class="row">
 				<div class="col-sm-1"></div>	
 				<div class="col-sm-2">
@@ -29,7 +10,7 @@
 						title="Data pesquisa final">
 					</div>											
 					<div class="col-sm-2">
-						<input type="button" id="buscar" value="Buscar" ng-click="chamadoCtr.relatorioPorData(dataInicial, dataFinal)"	class="btn btn-lg btn-primary btn-block btn-signin">
+						<input type="button" id="buscar" value="Buscar" ng-click="chamadoCtrl.relatorioPorData(dataInicial, dataFinal)"	class="btn btn-lg btn-primary btn-block btn-signin">
 					</div>				
 				</div>
 				<br>
@@ -38,10 +19,10 @@
 	</div>						
 			<div class="row">
 				<div  ng-if="ativaTabela" class="col-sm-2">
-					<input type="button" id="buscar" value="Gráfico" ng-click="chamadoCtr.ativaBotaoTabelaGrafico(ativaTabela)"	class="btn btn-lg btn-success btn-block btn-signin">
+					<input type="button" id="buscar" value="Gráfico" ng-click="chamadoCtrl.ativaBotaoTabelaGrafico(ativaTabela)"	class="btn btn-lg btn-success btn-block btn-signin">
 				</div>
 				<div  ng-if="ativaGrafico" class="col-sm-2">
-					<input type="button" id="buscar" value="Lista" ng-click="chamadoCtr.ativaBotaoTabelaGrafico(ativaTabela)"	class="btn btn-lg btn-success btn-block btn-signin">
+					<input type="button" id="buscar" value="Lista" ng-click="chamadoCtrl.ativaBotaoTabelaGrafico(ativaTabela)"	class="btn btn-lg btn-success btn-block btn-signin">
 				</div>
 			</div>	
 				<br>
@@ -53,51 +34,14 @@
 				</div>															
 					<input class="form-control" autofocus="autofocus" name="criterioBusca" type="text" ng-model="criterioDeBusca"	placeholder="Busca..." />
 					<div class="panel-body table-responsive" >		
-			<table class="table table-hover table-bordered" ng-init="chamadoCtr.atualizaListaChamadoSuporte()">
+			<table class="table table-hover table-bordered">
 				<thead>
 					<tr>
-						<th>
-							<div  ng-init="chamadoCtr.titulo()" >
-								<select class="form-control" ng-model="titulo"  ng-click="chamadoCtr.buscaDinamicaTitulo(titulo)"
-								ng-options="titulo for titulo in chamadoCtr.titulos" 
-								  style=" width: 100%;" required >
-									<option value="">Titulo</option>
-								</select>
-							</div>	
-				  		</th>
-				  		
-						<th>
-							<div  ng-init="chamadoCtr.usuarioLista()" >
-								<select class="form-control" ng-model="usuario"  ng-click="chamadoCtr.buscaDinamicaUsuario(usuario)"
-								ng-options="usuario.nome for usuario in chamadoCtr.usuarios" 
-								  style=" width: 100%;" required >
-									<option value="">Solicitante</option>
-								</select>
-							</div>	
-						</th>
-						
-						<th>						
-						<div  ng-init="chamadoCtr.listaSetor()" >
-								<select class="form-control" ng-model="setor"  ng-click="chamadoCtr.buscaDinamicaSetor(setor)"
-								ng-options="setores.nome  for setores in chamadoCtr.listaSetores" 
-								  style=" width: 100%;" required >
-									<option value="">Setor</option>
-								</select>
-							</div>								
-						</th>
-						
-						<th>
-							<div  ng-init="chamadoCtr.status()" >
-								<select class="form-control" ng-model="status"  ng-click="chamadoCtr.buscaDinamicaStatus(status)"
-								ng-options="status for status in chamadoCtr.listaStatus" 
-								  style=" width: 100%;" required >
-									<option value="">Status</option>
-								</select>
-							</div>	
-						</th>						
-						<th>Data de abertura
-							<input class="form-control" type="date"  ng-model="data" ng-blur="chamadoCtr.buscaDinamicaData(data)" placeholder="Data">
-						</th>							
+						<th>itulo</th>				  		
+						<th>Solicitante</th>						
+						<th>Setor</th>						
+						<th>Status</th>						
+						<th>Data de abertura</th>							
 						<th>Horário</th>					
 						<th>Opções</th>
 					</tr>
@@ -110,10 +54,7 @@
 						<td>{{ chamado.status }}</td>	
 						<td>{{ chamado.dataAbertura | date : 'dd/MM/yyyy'}}</td>
 						<td>{{ chamado.dataAbertura | date : 'HH:mm:ss' }}</td>										
-						<td><a href="#/chamado/manutencao/suporte/atendimento/{{chamado.id}}"><i class="glyphicon glyphicon-search"></i></a></td> 
-						<td ng-if="!chamado.silenciar"><a href="" ng-click="chamadoCtr.silenciarChamadoTrue(chamado)"><i class="glyphicon glyphicon-volume-up"></i></a></td>
-						<td ng-if="chamado.silenciar"><a href="" ng-click="chamadoCtr.silenciarChamadoFalse(chamado)"><i class="glyphicon glyphicon-volume-off"></i></a></td>					
-					</tr>
+						<td><a href="#/chamado/manutencao/suporte/atendimento/{{chamado.id}}"><i class="glyphicon glyphicon-search"></i></a></td> </tr>
 				</tbody>
 				<tfoot>
 				</tfoot>
@@ -162,5 +103,3 @@
 			</div>
 
 			
-</div>
-					

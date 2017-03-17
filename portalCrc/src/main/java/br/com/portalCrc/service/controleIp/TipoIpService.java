@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.portalCrc.entity.controleIp.TipoIp;
+import br.com.portalCrc.pojo.SessionUsuario;
 import br.com.portalCrc.repository.ControleIp.TipoIpRepositorio;
 
 @Service
@@ -18,14 +19,16 @@ public class TipoIpService {
 	private TipoIpRepositorio tipoIpRepositorio;
 	
 	@Transactional
-	public void salvaOuAltera(TipoIp tipoip){
-		tipoIpRepositorio.save(tipoip);
+	public void salvaOuAltera(TipoIp tipo){
+		tipo.setUnidade(SessionUsuario.getInstance().getUsuario().getUnidade());
+		tipo.setUsuarioCadastro(SessionUsuario.getInstance().getUsuario());
+		tipoIpRepositorio.save(tipo);
 				
 	}
 	
 	
 	public Collection<TipoIp> lista(){
-		return tipoIpRepositorio.findAll();
+		return tipoIpRepositorio.findByUnidade_id(SessionUsuario.getInstance().getUsuario().getUnidade().getId());
 	}
 	
 	

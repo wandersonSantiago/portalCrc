@@ -8,6 +8,8 @@ import br.com.portalCrc.entity.Unidade;
 public interface UnidadeRepository extends JpaRepository<Unidade, Long>{
 
 	@Query("From Unidade u where u.coordenadoria.id = ?1")
-	Iterable<Unidade> buscaUnidadePorId(Long id);
+	Iterable<Unidade> buscaUnidadePorCoordenadoria(Long id);
+
+	Iterable<Unidade> findByCoordenadoria_id(Long id);
 
 }

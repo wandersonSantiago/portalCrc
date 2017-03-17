@@ -12,18 +12,20 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import br.com.portalCrc.entity.Unidade;
 import br.com.portalCrc.enums.controleIp.StatusSwitch;
 
 
 
 @Entity
-
 @SequenceGenerator(name = "switch_id_seq", sequenceName = "switch_id_seq", schema="controle_ip", initialValue = 1, allocationSize = 1) 
 @Table(name="switch", schema="controle_ip") 
 
@@ -46,10 +48,13 @@ public class Switch {
 	@Column(name="data_cadastro", nullable=false)
 	private Date dataCadastro;
 	
-	@OneToMany(cascade = CascadeType.ALL , fetch = FetchType.EAGER) // verificar
+	@OneToMany(cascade = CascadeType.ALL , fetch = FetchType.EAGER)
 	@Column(name="porta_switch", nullable=false)
 	private Collection<PortaSwitch> portaSwitch; 
 	
+	@ManyToOne
+	@JoinColumn(name="id_unidade")
+	private Unidade unidade;
 	
 	
 	public Long getId() {
@@ -89,9 +94,11 @@ public class Switch {
 	public void setQtdPortas(int qtdPortas) {
 		this.qtdPortas = qtdPortas;
 	}
+	public Unidade getUnidade() {
+		return unidade;
+	}
+	public void setUnidade(Unidade unidade) {
+		this.unidade = unidade;
+	}	
 	
-	
-	
-	
-
 }

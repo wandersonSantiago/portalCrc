@@ -29,7 +29,7 @@ public class UnidadeRestController {
 	 }
 	 
 	 @GetMapping(value="/buscarUnidadePorCoordenadoria/{id}")
-	 public ResponseEntity<Iterable<Unidade>> buscaUnidadePorId(@PathVariable Long id) {	  
+	 public ResponseEntity<Iterable<Unidade>> buscaUnidadePorCoordenadoria(@PathVariable Long id) {	  
 	  Iterable<Unidade> unidade = unidadeService.buscaUnidadePorId(id);
 	  return new ResponseEntity<Iterable<Unidade>>(unidade, HttpStatus.OK);
 	 }

@@ -63,6 +63,8 @@ public class Equipamento {
 	@Enumerated(EnumType.STRING)
 	private TipoEquipamentoEnum TipoEquipamento;
 	
+	@Column(name="ativo")
+	private Boolean ativo;
 	
 	public Long getId() {
 		return id;
@@ -120,8 +122,12 @@ public class Equipamento {
 	public void setUsuarioCadastro(Usuario usuarioCadastro) {
 		this.usuarioCadastro = usuarioCadastro;
 	}
-	
-	
+	public Boolean getAtivo() {
+		return ativo;
+	}
+	public void setAtivo(Boolean ativo) {
+		this.ativo = ativo;
+	}
 	
 	
 	

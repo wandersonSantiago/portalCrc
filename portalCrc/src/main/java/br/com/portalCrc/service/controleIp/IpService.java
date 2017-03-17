@@ -47,7 +47,7 @@ public class IpService {
 	}
 	
 	public Collection<Ip> lista(){
-		return ipRepositorio.findAll();
+		return ipRepositorio.findByUnidade_id(SessionUsuario.getInstance().getUsuario().getUnidade().getId());
 	}
 	
 	public Ip buscaPorId(Long id){

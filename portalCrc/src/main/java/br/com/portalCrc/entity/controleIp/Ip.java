@@ -19,21 +19,24 @@ import br.com.portalCrc.entity.Usuario;
 
 @Entity
 
-@SequenceGenerator(name = "ip_id_seq", sequenceName = "ip_id_seq", schema="controle_ip", initialValue = 1, allocationSize = 1) //cria uma sequencia do id automaticamente
-@Table(name="ip", schema="controle_ip") // nome da tabela
+@SequenceGenerator(name = "ip_id_seq", sequenceName = "ip_id_seq", schema="controle_ip", initialValue = 1, allocationSize = 1) 
+@Table(name="ip", schema="controle_ip")
 
 public class Ip {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ip_id_seq") // indica quem vai gerenciar a sequencia do id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ip_id_seq") 
 	private Long id;
 	
 	@Column(name="numero", nullable=false) 
 	private String numero;
 	
-	@ManyToOne //varios ip recebe um unico tipo
+	@ManyToOne
 	@JoinColumn(name="tipo_ip_id")
 	private TipoIp tipo;
+	
+	@Column(name="em_uso")
+	private Boolean emUso;
 	
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="data_cadastro")
@@ -82,6 +85,12 @@ public class Ip {
 	}
 	public void setUsuarioCadastro(Usuario usuarioCadastro) {
 		this.usuarioCadastro = usuarioCadastro;
+	}
+	public Boolean getEmUso() {
+		return emUso;
+	}
+	public void setEmUso(Boolean emUso) {
+		this.emUso = emUso;
 	}
 	
 	

@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import br.com.portalCrc.entity.controleIp.Ponto;
+import br.com.portalCrc.pojo.SessionUsuario;
 import br.com.portalCrc.repository.ControleIp.PontoRepositorio;
 
 @Service
@@ -19,13 +20,15 @@ public class PontoSevice {
 	
 	@Transactional(readOnly = false)
 	public void salvaOuAltera(Ponto ponto){
+		ponto.setUsuarioCadastro(SessionUsuario.getInstance().getUsuario());
+		ponto.setUnidade(SessionUsuario.getInstance().getUsuario().getUnidade());
 		pontoRepositorio.save(ponto);
 		
 	}
 	
 	
 	public Collection<Ponto> lista(){
-		return pontoRepositorio.findAll();
+		return pontoRepositorio.findByUnidade_id(SessionUsuario.getInstance().getUsuario().getUnidade().getId());
 	}
 	
 	
