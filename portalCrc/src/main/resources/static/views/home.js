@@ -6,7 +6,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
 			url : '/',
 			templateUrl : 'views/home.index.html',
 			ncyBreadcrumb: {
-				    label: 'Home'
+				    label: 'home'
 				  }
 		})
 		.state('home.menu', {
@@ -14,8 +14,9 @@ app.config(function($stateProvider, $urlRouterProvider) {
 			templateUrl : "views/home.html",
 			ncyBreadcrumb: {
 				 	parent: 'home',
-				    label: 'Menu'
+				    label: 'Home'
 				  }
 		})
 	
+		
 });

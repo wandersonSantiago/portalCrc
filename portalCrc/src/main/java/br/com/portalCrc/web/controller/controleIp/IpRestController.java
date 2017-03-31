@@ -44,6 +44,12 @@ public class IpRestController {
 		return new ResponseEntity<Iterable<Ip>>(ip, HttpStatus.OK);
 	}
 	
+	@GetMapping(value ="/semUso")
+	public ResponseEntity<Iterable<Ip>> listaIpSemUso(){
+		Iterable<Ip> ip	= ipService.listaIpSemUso();
+		return new ResponseEntity<Iterable<Ip>>(ip, HttpStatus.OK);
+	}
+	
 	 @GetMapping(value = "/buscaPorId/{id}")
 		public ResponseEntity<Ip> buscarPorId(@PathVariable Long id) {
 			return new ResponseEntity<Ip>(ipService.buscaPorId(id), HttpStatus.OK);

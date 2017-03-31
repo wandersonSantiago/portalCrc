@@ -1,1 +1,1 @@
-var app = angular.module('crc',['ui.router','ngAnimate','chart.js', 'ngCookies', 'toastr','ui.bootstrap','blockUI', 'ngResource', 'ngMaterial', 'ngStorage','ui.utils.masks', 'ngJsonExportExcel', 'ncy-angular-breadcrumb']);
+var app = angular.module('crc',['ui.router','ngAnimate','chart.js', 'ngCookies', 'toastr','ui.bootstrap','blockUI', 'ngResource', 'ngMaterial', 'ngStorage','ui.utils.masks', 'ngJsonExportExcel', 'ncy-angular-breadcrumb','mwl.calendar', 'ui.bootstrap']);

@@ -1,6 +1,6 @@
 <meta charset="UTF-8">
 <header class="main-header">		  
-		    <a href="#/" class="logo">    
+		    <a ui-sref="home.menu" class="logo">    
 		      <span class="logo-mini"><b>C</b>RC</span>      
 		      <span class="logo-lg"><b>Portal</b>CRC</span>
 		    </a>		    
@@ -13,13 +13,13 @@
 				 <li ng-if="role_chamadoSuporteManutencao" class="dropdown messages-menu">
 		                <a href="#/chamado/manutencao/suporte/lista" title="Quantidade de Chamados Abertos para Manutenção" class="dropdown-toggle" data-toggle="dropdown">
 		                  <i class="fa fa-envelope-o"></i>
-		                  <span class="label label-success">{{quantidadeChamadoAberto}}</span>
+		                  <span class="label label-success">{{qtdChamadoAberto}}</span>
 		                </a>					 		 
 		          </li>
-		          <li ng-if="role_chamadoSuporteTi" class="dropdown messages-menu">
-		                <a href="#/chamado/informatica/suporte/lista" title="Quantidade de Chamados Abertos para Informática" class="dropdown-toggle" data-toggle="dropdown">
+		          <li  class="dropdown messages-menu">
+		                <a ui-sref="chamadoTi.suporteListar" title="Quantidade de Chamados Abertos para Informática" class="dropdown-toggle" data-toggle="dropdown">
 		                  <i class="fa fa-envelope-o"></i>
-		                  <span class="label label-success">{{quantidadeChamadoAbertoTi}}</span>
+		                  <span class="label label-success">{{qtdChamadosSuporteTi}}</span>
 		                </a>					 		 
 		          </li>
 		       <li class="dropdown user user-menu">

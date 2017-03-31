@@ -54,4 +54,8 @@ public class IpService {
 		return ipRepositorio.findOne(id);
 	}
 
+	public Iterable<Ip> listaIpSemUso() {
+		return ipRepositorio.findByEmUso(false);
+	}
+
 }

@@ -36,7 +36,9 @@
     "ngstorage": "^0.3.10",
     "angular-input-masks": "^2.4.0",
     "json-export-excel": "ng-json-export-excel#^1.0.2",
-    "angular-export-table": "*"
+    "angular-export-table": "*",
+    "angular-ui-calendar": "^1.0.2",
+    "angular-bootstrap-calendar": "^0.28.3"
   },
   "resolutions": {
     "angular": "~1.5.6"

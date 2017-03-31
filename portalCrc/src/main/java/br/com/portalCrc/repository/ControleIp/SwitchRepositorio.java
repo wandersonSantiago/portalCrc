@@ -1,6 +1,8 @@
 package br.com.portalCrc.repository.ControleIp;
 
 
+
+
 import java.util.Collection;
 
 import org.springframework.data.jpa.repository.JpaRepository;
