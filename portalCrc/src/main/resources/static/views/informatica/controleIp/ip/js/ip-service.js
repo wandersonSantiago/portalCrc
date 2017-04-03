@@ -1,4 +1,4 @@
-app.factory('IpService', function($rootScope, toastr, $http){
+app.factory('IpService', function($q, $http){
 	
 	
 	return{

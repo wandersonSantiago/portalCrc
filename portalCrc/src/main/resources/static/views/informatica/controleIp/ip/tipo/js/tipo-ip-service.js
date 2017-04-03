@@ -1,4 +1,4 @@
-app.factory('TipoIpService', function($rootScope, toastr, $http){
+app.factory('TipoIpService', function($q, $http){
 	
 	
 	return{

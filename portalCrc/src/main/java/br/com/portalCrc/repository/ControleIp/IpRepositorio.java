@@ -10,6 +10,8 @@ public interface IpRepositorio extends JpaRepository<Ip, Long>{
 
 	Collection<Ip> findByUnidade_id(Long id);
 
-	Iterable<Ip> findByEmUso(Boolean t);
+	
+
+	Iterable<Ip> findByEmUsoAndUnidade_id(boolean b, Long id);
 
 }

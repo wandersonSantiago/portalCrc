@@ -64,7 +64,8 @@ function SwitchListarController($stateParams, $state, SwitchService, toastr, $ro
 	 function listar(){
 		 SwitchService.listar().
 			then(function(f){
-				self.switchs = f;				
+				self.switchs = f;		
+				$rootScope.qtdSwitch = f.length;
 				}, function(errResponse){
 					sweetAlert({ timer : 3000,  text : errResponse.data.message,  type : "info", width: 300, higth: 300, padding: 20});
 			});

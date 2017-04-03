@@ -98,7 +98,8 @@ function IpListarController(TipoIpService, $stateParams, $state, IpService, toas
 		 function listarTipo(){
 			 TipoIpService.listar().
 				then(function(f){
-					self.tipoIps = f;				
+					self.tipoIps = f;	
+					$rootScope.qtdTipoIps = f.length;
 					}, function(errResponse){
 						sweetAlert({ timer : 3000,  text : errResponse.data.message,  type : "info", width: 300, higth: 300, padding: 20});
 				});

@@ -105,7 +105,8 @@ function PontoListarController(PortaSwitchService, $stateParams, $state, PontoSe
 	 function listar(){
 		 PontoService.listar().
 			then(function(f){
-				self.pontos = f;				
+				self.pontos = f;	
+				$rootScope.qtdPonto = f.length;
 				}, function(errResponse){
 					sweetAlert({ timer : 3000,  text : errResponse.data.message,  type : "info", width: 300, higth: 300, padding: 20});
 			});

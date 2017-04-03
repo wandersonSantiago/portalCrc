@@ -33,7 +33,7 @@ public class IpService {
 			ip.setTipo(tipo);
 			ip.setUnidade(SessionUsuario.getInstance().getUsuario().getUnidade());
 			ip.setUsuarioCadastro(SessionUsuario.getInstance().getUsuario());
-			
+			ip.setEmUso(false);
 			ipRepositorio.save(ip);
 			
 			ip = new Ip();
@@ -55,7 +55,7 @@ public class IpService {
 	}
 
 	public Iterable<Ip> listaIpSemUso() {
-		return ipRepositorio.findByEmUso(false);
+		return ipRepositorio.findByEmUsoAndUnidade_id(false, SessionUsuario.getInstance().getUsuario().getUnidade().getId());
 	}
 
 }

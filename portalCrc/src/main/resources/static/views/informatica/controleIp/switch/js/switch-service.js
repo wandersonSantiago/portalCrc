@@ -1,4 +1,4 @@
-app.factory('SwitchService', function($rootScope, toastr, $http){
+app.factory('SwitchService', function($q, $http){
 	
 	
 	return{

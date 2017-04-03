@@ -1,4 +1,4 @@
-app.factory('PontoService', function($rootScope, toastr, $http){
+app.factory('PontoService', function($q, $http){
 	
 	
 	return{
