@@ -42,7 +42,14 @@ public class EquipamentoService {
 			verificaIp(equipamento);
 			verificaPonto(equipamento);
 		}
-		
+		if(equipamento.getPonto() != null){
+			equipamento.getPonto().setEmUso(true);
+			pontoService.altera(equipamento.getPonto());
+		}
+		if(equipamento.getIp() != null){
+			equipamento.getIp().setEmUso(true);
+			ipService.altera(equipamento.getIp());
+		}
 		equipamento.setUnidade(SessionUsuario.getInstance().getUsuario().getUnidade());
 		equipamento.setDataCadastro(new Date());
 		equipamento.setUsuarioCadastro(SessionUsuario.getInstance().getUsuario());

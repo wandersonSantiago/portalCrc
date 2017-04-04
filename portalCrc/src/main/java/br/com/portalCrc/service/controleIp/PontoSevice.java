@@ -36,6 +36,8 @@ public class PontoSevice {
 	public void salvaOuAltera(Ponto ponto){
 	if(ponto.getId() != null){
 		verificaPortaSwicth(ponto);
+	}else{
+		ponto.setEmUso(false);
 	}
 		ponto.setUsuarioCadastro(SessionUsuario.getInstance().getUsuario());
 		ponto.setUnidade(SessionUsuario.getInstance().getUsuario().getUnidade());
