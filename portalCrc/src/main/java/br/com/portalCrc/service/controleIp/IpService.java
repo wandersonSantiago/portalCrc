@@ -55,7 +55,7 @@ public class IpService {
 	}
 
 	public Iterable<Ip> listaIpSemUso() {
-		return ipRepositorio.findByEmUsoAndUnidade_id(false, SessionUsuario.getInstance().getUsuario().getUnidade().getId());
+		return ipRepositorio.findByEmUsoAndUnidade_idOrderByIdAsc(false, SessionUsuario.getInstance().getUsuario().getUnidade().getId());
 	}
 
 }

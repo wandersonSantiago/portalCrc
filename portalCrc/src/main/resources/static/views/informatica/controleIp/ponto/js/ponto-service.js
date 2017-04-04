@@ -29,6 +29,14 @@ app.factory('PontoService', function($q, $http){
 				return $q.reject(errResponse);
 			});
 		},		
+		listarEmUso: function(status){
+			return $http.get('/rest/controleIp/ponto/emUso/'+status)
+			.then(function(response){
+				return response.data;
+			},function(errResponse){
+				return $q.reject(errResponse);
+			});
+		},
 		
 		listar: function(){
 			return $http.get('/rest/controleIp/ponto')

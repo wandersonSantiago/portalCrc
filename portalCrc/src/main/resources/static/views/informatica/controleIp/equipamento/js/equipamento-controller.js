@@ -4,7 +4,7 @@ app.controller("EquipamentoListarController", EquipamentoListarController);
 app.controller("EquipamentoShowController", EquipamentoShowController);
 
 EquipamentoCadastarController.$inject = ['IpService','PontoService','EquipamentoService',  'toastr', '$rootScope', '$scope'];
-EquipamentoEditarController.$inject = ['$stateParams', '$state', 'EquipamentoService', 'toastr', '$rootScope', '$scope'];
+EquipamentoEditarController.$inject = ['IpService','PontoService','$stateParams', '$state', 'EquipamentoService', 'toastr', '$rootScope', '$scope'];
 EquipamentoListarController.$inject = ['$stateParams', '$state', 'EquipamentoService', 'toastr', '$rootScope', '$scope'];
 EquipamentoShowController.$inject = ['$stateParams', '$state', 'EquipamentoService', 'toastr', '$rootScope', '$scope'];
 
@@ -14,7 +14,7 @@ function EquipamentoCadastarController(IpService, PontoService, EquipamentoServi
 	self.submit = submit;
 	listaTipoEquipamentoEnum();
 	listarIp();
-	listarPonto();
+	listarPonto(false);
 	
 	function submit(equipamento) {
 		EquipamentoService.salvar(self.equipamento).
@@ -43,8 +43,8 @@ function EquipamentoCadastarController(IpService, PontoService, EquipamentoServi
 			});
 		};
 		
-	 function listarPonto(){
-		 PontoService.listar().
+	 function listarPonto(status){
+		 PontoService.listarEmUso(status).
 			then(function(f){
 				self.pontos = f;				
 				}, function(errResponse){
@@ -52,11 +52,15 @@ function EquipamentoCadastarController(IpService, PontoService, EquipamentoServi
 			});
 		};
 }
-function EquipamentoEditarController($stateParams, $state, EquipamentoService, toastr, $rootScope, $scope){
+function EquipamentoEditarController(IpService, PontoService, $stateParams, $state, EquipamentoService, toastr, $rootScope, $scope){
 	
 	var self = this;
 	self.submit = submit;
 	var idEquipamento = $stateParams.idEquipamento;
+	listaTipoEquipamentoEnum();
+	listarIp();
+	listarPonto(false);
+	
 	
 	function submit(equipamento) {
 		EquipamentoService.alterar(self.equipamento).
@@ -69,15 +73,41 @@ function EquipamentoEditarController($stateParams, $state, EquipamentoService, t
 			});
 	};
 	
-	function buscarPorId(id){
-		if(!id)return;
-		EquipamentoService.buscarPorId(id).
-		then(function(p){
-			self.equipamento = p;
-	}, function(errResponse){
-		sweetAlert({ timer : 3000,  text : errResponse.data.message,  type : "info", width: 300, higth: 300, padding: 20});
+	function listaTipoEquipamentoEnum(){
+		 EquipamentoService.listarTipoEquipamento().
+			then(function(f){
+				self.tipoEquipamentoEnum = f;			
+				}, function(errResponse){
 			});
-	};
+		};
+		
+	function listarIp(){
+		 IpService.listarIpSemUso().
+			then(function(f){
+				self.ips = f;				
+				}, function(errResponse){
+					sweetAlert({ timer : 3000,  text : errResponse.data.message,  type : "info", width: 300, higth: 300, padding: 20});
+			});
+		};
+		
+		 function listarPonto(status){
+			 PontoService.listarEmUso(status).
+				then(function(f){
+					self.pontos = f;				
+					}, function(errResponse){
+						sweetAlert({ timer : 3000,  text : errResponse.data.message,  type : "info", width: 300, higth: 300, padding: 20});
+				});
+			};
+		
+	function buscarPorId(id){
+			if(!id)return;
+			EquipamentoService.buscarPorId(id).
+			then(function(p){
+				self.equipamento = p;
+		}, function(errResponse){
+			sweetAlert({ timer : 3000,  text : errResponse.data.message,  type : "info", width: 300, higth: 300, padding: 20});
+				});
+		};
 
 	if(idEquipamento){
 		buscarPorId(idEquipamento);		

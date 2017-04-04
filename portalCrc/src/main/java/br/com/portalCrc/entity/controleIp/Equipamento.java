@@ -35,17 +35,17 @@ public class Equipamento {
 	
 	
 	@OneToOne
-	@JoinColumn(name="ip", nullable=false, unique = true)
+	@JoinColumn(name="ip", unique = true)
 	private Ip ip;
 	
 	@Column(name="descricao", nullable=false)
 	private String descricao;
 	
-	@Column(name="patrimonio", nullable=false)
+	@Column(name="patrimonio", unique = true)
 	private String patrimonio;
 	
 	@OneToOne
-	@JoinColumn(name="ponto", nullable=false)
+	@JoinColumn(name="ponto")
 	private Ponto ponto;
 	
 	@ManyToOne
