@@ -3,16 +3,17 @@ app.controller("PontoEditarController", PontoEditarController);
 app.controller("PontoListarController", PontoListarController);
 app.controller("PontoShowController", PontoShowController);
 
-PontoCadastarController.$inject = [		'SwitchService','SetorService', 'PontoService',  'toastr', '$rootScope', '$scope'];
-PontoEditarController.$inject = ['SwitchService','$stateParams', '$state', 'PontoService','SetorService', 'toastr', '$rootScope', '$scope'];
+PontoCadastarController.$inject = [	'PortaSwitchService','SwitchService','SetorService', 'PontoService',  'toastr', '$rootScope', '$scope'];
+PontoEditarController.$inject = ['PortaSwitchService','SwitchService','$stateParams', '$state', 'PontoService','SetorService', 'toastr', '$rootScope', '$scope'];
 PontoListarController.$inject = ['PortaSwitchService','$stateParams', '$state', 'PontoService', 'toastr', '$rootScope', '$scope'];
 PontoShowController.$inject = ['$stateParams', '$state', 'PontoService', 'toastr', '$rootScope', '$scope'];
 
-function PontoCadastarController(SwitchService, SetorService, PontoService, toastr, $rootScope, $scope){
+function PontoCadastarController(PortaSwitchService, SwitchService, SetorService, PontoService, toastr, $rootScope, $scope){
 	var self = this;
 	listarSetores();
 	listarSwitch();
 	self.submit = submit;
+	self.listarPortasSwitch = listarPortasSwitch;
 	
 	function submit(ponto) {
 		PontoService.salvar(self.ponto).
@@ -42,15 +43,30 @@ function PontoCadastarController(SwitchService, SetorService, PontoService, toas
 					sweetAlert({ timer : 3000,  text : errResponse.data.message,  type : "info", width: 300, higth: 300, padding: 20});
 			});
 		};		
-	
+		
+	function listarPortasSwitch(idSwitch){
+		if(idSwitch){
+			PortaSwitchService.listarPortasLivres(idSwitch).
+			then(function(f){
+				$scope.portasLivres = f;				
+				}, function(errResponse){
+					sweetAlert({ timer : 3000,  text : errResponse.data.message,  type : "info", width: 300, higth: 300, padding: 20});
+			});
+		}		
+		else {
+			console.log("teste");
+			self.ponto.portaSwitch = null;
+		}		
+	};
 }
-function PontoEditarController(SwitchService, $stateParams, $state, PontoService, SetorService, toastr, $rootScope, $scope){
+function PontoEditarController(PortaSwitchService, SwitchService, $stateParams, $state, PontoService, SetorService, toastr, $rootScope, $scope){
 	
 	var self = this;
 	var idPonto = $stateParams.idPonto;
 	self.submit = submit;
 	listarSetores();
 	listarSwitch();
+	self.listarPortasSwitch = listarPortasSwitch;
 	
 	function submit(ponto) {
 		PontoService.alterar(self.ponto).
@@ -86,6 +102,14 @@ function PontoEditarController(SwitchService, $stateParams, $state, PontoService
 					sweetAlert({ timer : 3000,  text : errResponse.data.message,  type : "error", width: 300, higth: 300, padding: 20});
 			});
 		};
+	function listarPortasSwitch(idSwitch){
+		PortaSwitchService.listarPortasLivres(idSwitch).
+			then(function(f){
+				$scope.portasLivres  = f;				
+				}, function(errResponse){
+					sweetAlert({ timer : 3000,  text : errResponse.data.message,  type : "info", width: 300, higth: 300, padding: 20});
+			});
+		};	
 	function listarSwitch(){
 		 SwitchService.listar().
 			then(function(f){
@@ -100,7 +124,7 @@ function PontoListarController(PortaSwitchService, $stateParams, $state, PontoSe
 	var self = this;
 	listar();
 	listarPortas();
-	
+	self.limparPortas = limparPortas;
 	
 	 function listar(){
 		 PontoService.listar().
@@ -118,6 +142,27 @@ function PontoListarController(PortaSwitchService, $stateParams, $state, PontoSe
 				}, function(errResponse){
 					sweetAlert({ timer : 3000,  text : errResponse.data.message,  type : "info", width: 300, higth: 300, padding: 20});
 			});
+		};
+		
+		
+			
+		function limparPortas(ponto) {			
+			swal({
+				  title: 'Desvincular ponto do switch!!!',
+				  type: 'info',
+				  showCancelButton: true,
+				  confirmButtonColor: '#3085d6',
+				  cancelButtonColor: '#d33',
+				  confirmButtonText: 'Sim!'
+				}).then(function () {
+					ponto.portaSwitch =null;
+					ponto.switchs =null;
+					PontoService.salvar(ponto).
+					then(function(response){
+						self.ponto = null;
+						}, function(errResponse){
+					});			  
+				})		
 		};
 }
 function PontoShowController( $stateParams, $state, PontoService, toastr, $rootScope, $scope){

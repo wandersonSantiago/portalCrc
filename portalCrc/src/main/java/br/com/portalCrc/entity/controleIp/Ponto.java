@@ -24,7 +24,7 @@ public class Ponto {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ponto_id_seq")
 	private Long id;
 	
-	@Column(name="descricao", nullable=false)
+	@Column(name="descricao")
 	private String descricao;
 	
 	@Column(name="numero", nullable=false)

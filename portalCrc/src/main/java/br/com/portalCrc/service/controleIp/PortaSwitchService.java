@@ -34,4 +34,9 @@ public class PortaSwitchService {
 		return portaSwitchRepositorio.findOne(id);
 		
 	}
+
+
+	public Iterable<PortaSwitch> listaPortaLivre(Long id) {
+		return portaSwitchRepositorio.listaPortaLivre(id);
+	}
 }

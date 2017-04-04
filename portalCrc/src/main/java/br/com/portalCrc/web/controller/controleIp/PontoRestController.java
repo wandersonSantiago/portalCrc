@@ -46,6 +46,13 @@ public class PontoRestController {
 		return new ResponseEntity<Iterable<Ponto>>(ponto, HttpStatus.OK);
 	}
 	
+	@GetMapping(value = "/emUso/{status}")
+	public ResponseEntity<Iterable<Ponto>> listaEmUso(@PathVariable boolean status){
+		Iterable<Ponto> ponto	= pontoSevice.listaEmUso(status);
+		return new ResponseEntity<Iterable<Ponto>>(ponto, HttpStatus.OK);
+	}
+	
+	
 	 @GetMapping(value = "/buscaPorId/{id}")
 		public ResponseEntity<Ponto> buscarPorId(@PathVariable Long id) {
 			return new ResponseEntity<Ponto>(pontoSevice.buscaPorId(id), HttpStatus.OK);

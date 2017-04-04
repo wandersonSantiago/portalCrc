@@ -44,6 +44,11 @@ public class PortaSwitchController {
 		return new ResponseEntity<Iterable<PortaSwitch>>(porta, HttpStatus.OK);
 	}
 	
+	@GetMapping(value = "/livres/switch/{id}")
+	public ResponseEntity<Iterable<PortaSwitch>> listaPortaLivre(@PathVariable Long id){
+		Iterable<PortaSwitch> porta	= switchPortaService.listaPortaLivre(id);
+		return new ResponseEntity<Iterable<PortaSwitch>>(porta, HttpStatus.OK);
+	}
 	 @GetMapping(value = "/buscaPorId/{id}")
 		public ResponseEntity<PortaSwitch> buscarPorId(@PathVariable Long id) {
 			return new ResponseEntity<PortaSwitch>(switchPortaService.buscaPorId(id), HttpStatus.OK);

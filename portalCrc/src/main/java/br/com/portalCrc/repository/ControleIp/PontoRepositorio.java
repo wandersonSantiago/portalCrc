@@ -10,4 +10,6 @@ public interface PontoRepositorio extends JpaRepository<Ponto , Long> {
 
 	Collection<Ponto> findByUnidade_id(Long id);
 
+	Iterable<Ponto> findAllByEmUso(boolean b);
+
 }

@@ -38,6 +38,14 @@ app.factory('PortaSwitchService', function($q, $http){
 				return $q.reject(errResponse);
 			});
 		},
+		listarPortasLivres : function(idSwitch){
+			return $http.get('/rest/controleIp/switch/porta/livres/switch/' +idSwitch)
+			.then(function(response){
+				return response.data;
+			},function(errResponse){
+				return $q.reject(errResponse);
+			});
+		},
 				
 	}
 });

@@ -14,9 +14,9 @@
 					
 						<div class="col-sm-5">
 						Setor:
-						<select class="form-control " ng-model="pontoCtrl.ponto.setor" 
+						<select class="form-control " ng-model="pontoCtrl.ponto.setor"  
 							ng-options="setor.nome for  setor in pontoCtrl.setores" >
-								<option value="">{{pontoCtrl.ponto.setor.nome}}</option>
+								<option value="">{{pontoCtrl.ponto.setor.nome}}</option>								
 							</select>
 						</div>	
 					</div>
@@ -24,7 +24,7 @@
 					<div class="row">
 						<div class="col-sm-4">
 						Switch:
-						<select class="form-control " ng-model="pontoCtrl.ponto.switchs" 
+						<select class="form-control " ng-model="pontoCtrl.ponto.switchs" ng-blur="pontoCtrl.listarPortasSwitch(pontoCtrl.ponto.switchs.id)"
 							ng-options="switchs.nome for  switchs in pontoCtrl.switchs" >
 								<option value="">{{pontoCtrl.ponto.switchs.nome}}</option>
 							</select>
@@ -32,7 +32,7 @@
 						<div class="col-sm-3">
 						Porta:
 						<select class="form-control " ng-model="pontoCtrl.ponto.portaSwitch" 
-							ng-options="porta.numero for  porta in pontoCtrl.ponto.switchs.portaSwitch" >
+							ng-options="porta.numero for  porta in portasLivres" >
 								<option value="">{{pontoCtrl.ponto.portaSwitch.numero}}</option>
 							</select>
 						</div>	
