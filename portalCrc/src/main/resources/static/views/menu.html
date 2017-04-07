@@ -8,7 +8,7 @@
 					alt="User Image">
 			</div>
 			<div class="pull-left info" >
-				<p>{{user.name | limitTo:10}}</p>
+				<p>{{usuario.funcionario.pessoa.nomeCompleto | limitTo:10}}</p>
 				<a href="#"><i class="glyphicon glyphicon-star-empty"></i> Online</a>
 			</div>
 		</div>
@@ -117,8 +117,8 @@
 					<li class="treeview"><a href=""><i class="glyphicon glyphicon-user "></i> <span>Usuario</span>
 						<i class="fa fa-angle-left pull-right"></i></a>
 						<ul class="treeview-menu">
-					       <li><a class="top" ui-sref="#/usuario/cadastrar">cadastro</a></li>
-						   <li><a class="top" ui-sref="#/usuario/lista">lista</a></li>
+					       <li><a class="top" ui-sref="usuario.cadastrar">cadastrar</a></li>
+						   <li><a class="top" ui-sref="usuario.listar">lista</a></li>
 						</ul>
 					</li> 
 					

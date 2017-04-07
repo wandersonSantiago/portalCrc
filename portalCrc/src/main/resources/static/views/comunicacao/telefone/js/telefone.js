@@ -7,6 +7,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
 			templateUrl : 'views/comunicacao/telefone/telefone.index.html',
 			redirectTo : 'telefone.listar',
 			ncyBreadcrumb: {
+					parent: 'comunicacao.menu',
 				    label: 'Telefone'
 				  }
 		})
@@ -16,7 +17,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
 			controller : "TelefoneListarController as foneCtrl",
 			ncyBreadcrumb: {
 				 	parent: 'telefone.cadastrar',
-				    label: 'Telefones'
+				    label: 'Lista'
 				  }
 		})
 		.state('telefone.cadastrar', {
@@ -25,7 +26,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
 			controller : "TelefoneCadastarController as foneCtrl",
 			ncyBreadcrumb: {
 			 	parent: 'telefone',
-			    label: 'Cadastrar Telefone'
+			    label: 'Cadastrar'
 			  }
 		})
 		.state('telefone.editar', {
@@ -37,10 +38,29 @@ app.config(function($stateProvider, $urlRouterProvider) {
 				    label: 'Editar'
 				  }
 		})
-		.state('telefone.visualizar', {
-			url : "/:idTelefone",
+		.state('telefone.coordenadoria', {
+			url : "/coordenadoria",
+			templateUrl : "views/comunicacao/telefone/telefone.coordenadoria.html",
+			controller : "TelefoneCoordenadoriaController as foneCtrl",
+			ncyBreadcrumb: {
+				 	parent: 'telefone.listar',
+				    label: 'Visualizar'
+				  }
+		})		
+		.state('telefone.unidades', {
+			url : "/:idUnidade/unidades",
 			templateUrl : "views/comunicacao/telefone/telefone.show.html",
-			controller : "TelefoneVisualizarController as foneCtrl",
+			controller : "TelefoneUnidadesController as foneCtrl",
+			ncyBreadcrumb: {
+				 	parent: 'telefone.listar',
+				    label: 'Visualizar'
+				  }
+		})
+		
+		.state('telefone.unidadesCoordenadoria', {
+			url : "/:idCoordenadoria/coordenadoria/unidades",
+			templateUrl : "views/comunicacao/telefone/unidades.html",
+			controller : "TelefoneUnidadesController as foneCtrl",
 			ncyBreadcrumb: {
 				 	parent: 'telefone.listar',
 				    label: 'Visualizar'

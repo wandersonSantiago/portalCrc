@@ -1,77 +1,48 @@
 <meta charset="UTF-8">
-<br>
-<br>
-<div ng-if="!role_cadastrar_usuario" ng-include="'views/erros/permissao.html'"></div>
-<div 	ng-if="role_cadastrar_usuario " ng-controller="usuarioController as userCtrl" >
-				
-	<div class="box box-primary">
-		<!-- Default panel contents -->
-		<div class="box-header">
-			<span class="lead"> Cadastro Usuario </span>
-		</div>
-		<div class="panel-body">
 
-			<br>
 			<div class="container col-sm-12 ">
-				<form role="form-vertical"	ng-submit="userCtrl.salva()">
+				<form role="form-vertical"	ng-submit="usuarioCtrl.submit()">
 				<br>
 				<div class="row">					
-						<div class="col-sm-6" ng-controller="funcionarioController as funcCtrl" ng-init="funcCtrl.lista()" >
-							<select class="form-control select2" ng-model="userCtrl.usuario.funcionario" 
-							ng-options="funcionario.pessoa.nomeCompleto for funcionario in funcCtrl.listaFuncionarios" 
-							  style=" width: 100%;" required >
-								<option value="">---Selecione Funcionário---</option>
+						<div class="col-sm-6">
+							<select class="form-control select2" ng-model="usuarioCtrl.usuario.funcionario" 
+							ng-options="funcionario.pessoa.nomeCompleto for funcionario in usuarioCtrl.funcionarios" required >
+								<option value="">{{usuarioCtrl.usuario.funcionario.pessoa.nomeCompleto}}</option>
 							</select>
 						</div>				
 							
-					<div ng-if="role_coordenadoria" ng-controller="unidadeController as unidadeCtrl">	
-						<div class="col-sm-3"  ng-init="unidadeCtrl.lista()" >
-								<select class="form-control select2" ng-model="userCtrl.usuario.unidade" 
-								ng-options="unidades.dadosUnidade.mnemonico group by unidades.tipoUnidade.mnemonico for unidades in unidadeCtrl.listaUnidades" 
-								  style=" width: 100%;" required >
-									<option value="">---Selecione a Unidade---</option>
+					<div>	
+						<div class="col-sm-3" >
+								<select class="form-control select2" ng-model="usuarioCtrl.usuario.unidade" 
+								ng-options="unidades.dadosUnidade.mnemonico group by unidades.tipoUnidade.mnemonico for unidades in usuarioCtrl.unidades"  required >
+									<option value="">{{usuarioCtrl.usuario.unidade.dadosUnidade.mnemonico}}</option>
 								</select>
 							</div>		
 						</div>	
-						<div  ng-controller="setorController as setorCtrl">	
-						<div class="col-sm-3"  ng-init="setorCtrl.lista()" >
-								<select class="form-control select2" ng-model="userCtrl.usuario.setor" 
-								ng-options="setores.nome group by setores.tipoSetor.mnemonico for setores in setorCtrl.listaSetor" 
-								  style=" width: 100%;" required >
-									<option value="">---Selecione a Setor---</option>
+						<div>	
+						<div class="col-sm-3">
+								<select class="form-control select2" ng-model="usuarioCtrl.usuario.setor" 
+								ng-options="setores.nome group by setores.tipoSetor.mnemonico for setores in usuarioCtrl.setores" required >
+									<option value="">{{usuarioCtrl.usuario.setor.nome}}</option>
 								</select>
 							</div>		
 						</div>	
 					</div>							
-				
-					<br>
-					<div class="row" >
-						<div class="col-sm-6">
-							<input type="text" class="form-control" id="nome" ng-model="userCtrl.usuario.nome" placeholder="Nome"
-								title="Nome de usuario" maxlength="20"	required>
-						</div>						
-					
-						<div class="col-sm-6">
-							<input type="email" class="form-control" id="email" ng-model="userCtrl.usuario.email" placeholder="Email"
-								title="Email de usuario, para acesso ao sistema"  maxlength="50"	>
-						</div>
-					</div>
-					
-					
+								
 					<br>
 					<div class="row" >
 						<div class="col-sm-2">
-							<input type="text" class="form-control" id="nome" ng-model="userCtrl.usuario.login" ng-blur="userCtrl.existeLogin(userCtrl.usuario.login)" placeholder="Usuário"
+							<input type="text" class="form-control" id="nome" ng-model="usuarioCtrl.usuario.login" ng-blur="usuarioCtrl.existeLogin(userCtrl.usuario.login)" placeholder="Usuário"
 								title="Nome de usuario" maxlength="15"	required>
 						</div>						
 					
 	
 						<div class="col-sm-2">
-							<input type="password" class="form-control" id="senha" ng-model="userCtrl.senha" placeholder="Senha"
+							<input type="password" class="form-control" id="senha" ng-model="usuarioCtrl.senha" placeholder="Senha"
 								title="Digite uma senha"maxlength="12" required>
 						</div>
 						<div class="col-sm-2">
-							<input type="password" class="form-control" id="repitaSenha" ng-model="userCtrl.senhaRepitida" placeholder="Repita a Senha"
+							<input type="password" class="form-control" id="repitaSenha" ng-model="usuarioCtrl.senhaRepitida" placeholder="Repita a Senha"
 								title="repita a senha" required>
 						</div>
 						
@@ -90,7 +61,4 @@
 				</form>
 				
 			</div>
-			</div>
-			<div class="tablecontainer"></div>
-		</div>
-	</div>
+		

@@ -1,10 +1,15 @@
 app.controller("TelefoneCadastarController", TelefoneCadastarController);
 app.controller("TelefoneEditarController", TelefoneEditarController);
 app.controller("TelefoneListarController", TelefoneListarController);
+app.controller("TelefoneCoordenadoriaController", TelefoneCoordenadoriaController);
+app.controller("TelefoneUnidadesController", TelefoneUnidadesController);
+
 
 TelefoneCadastarController.$inject = ['TelefoneService', 'SetorService', 'toastr' ];
 TelefoneEditarController.$inject = ['TelefoneService', 'SetorService', 'toastr', '$state', '$stateParams'];
 TelefoneListarController.$inject = ['TelefoneService', 'toastr'];
+TelefoneCoordenadoriaController.$inject = ['UnidadeService', 'toastr'];
+TelefoneUnidadesController.$inject = ['TelefoneService', 'toastr', '$stateParams', 'UnidadeService'];
 
 
 function TelefoneCadastarController( TelefoneService, SetorService , toastr ){ 
@@ -94,4 +99,71 @@ function TelefoneListarController( TelefoneService, toastr){
 			});
 		};
 	
+}
+
+function TelefoneCoordenadoriaController( UnidadeService, toastr){ 
+	
+	var self = this;	
+	
+	listar();	
+
+	 function listar(){
+		 UnidadeService.listarUnidadeCoordenadoria().
+			then(function(f){
+				self.unidades = f;
+				}, function(errResponse){
+					sweetAlert({ timer : 3000,  text : errResponse.data.message,  type : "info", width: 300, higth: 300, padding: 20});
+			});
+		};
+	
+}
+
+function TelefoneUnidadesController( TelefoneService, toastr, $stateParams, UnidadeService){ 
+	
+	var self = this;	
+	var idUnidade = $stateParams.idUnidade;
+	var idCoordenadoria = $stateParams.idCoordenadoria;
+	self.buscarUnidades = buscarUnidades;
+	self.buscarTodasUnidades = buscarTodasUnidades; 
+	
+	function buscarTodasUnidades(){
+		buscarUnidadesPorCoordenadorias(idCoordenadoria);
+	}
+	
+	function buscarUnidades(tipo){
+		 UnidadeService.buscarUnidadesPorTipo(idCoordenadoria, tipo).
+			then(function(f){
+				self.unidades = f;
+				}, function(errResponse){
+					sweetAlert({ timer : 3000,  text : errResponse.data.message,  type : "info", width: 300, higth: 300, padding: 20});
+			});
+	};
+	
+	 function buscarTelefonePorUnidade(id){
+		 TelefoneService.buscarTelefonePorUnidade(id).
+			then(function(f){
+				self.telefones = f;
+				}, function(errResponse){
+					sweetAlert({ timer : 3000,  text : errResponse.data.message,  type : "info", width: 300, higth: 300, padding: 20});
+			});
+		};
+	
+		if(idUnidade){
+			buscarTelefonePorUnidade(idUnidade);		
+		}
+		
+		function buscarUnidadesPorCoordenadorias(id){
+			console.log(id);
+			 UnidadeService.buscarUnidadePorCoordenadoria(id).
+				then(function(f){
+					self.unidades = f;
+					}, function(errResponse){
+						sweetAlert({ timer : 3000,  text : errResponse.data.message,  type : "info", width: 300, higth: 300, padding: 20});
+				});
+			};
+		
+			if(idCoordenadoria){
+				buscarUnidadesPorCoordenadorias(idCoordenadoria);		
+			}
+		
 }

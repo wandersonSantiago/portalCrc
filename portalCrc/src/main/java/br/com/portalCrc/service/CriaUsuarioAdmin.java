@@ -34,9 +34,7 @@ public class CriaUsuarioAdmin implements ApplicationListener<ContextRefreshedEve
     	Usuario usuario = new Usuario();
 		
 		usuario.setLogin("root");
-		usuario.setEmail("root@suporte.com.br");
 	    usuario.setSenha("root");
-	    usuario.setNome("Usuario root");
 	    return usuario;
     }
 	@Override

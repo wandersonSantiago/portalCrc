@@ -7,6 +7,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
 			templateUrl : 'views/comunicacao/ramal/ramal.index.html',
 			redirectTo : 'ramal.listar',
 			ncyBreadcrumb: {
+					parent: 'comunicacao.menu',
 				    label: 'Ramal'
 				  }
 		})
@@ -37,7 +38,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
 				    label: 'Editar'
 				  }
 		})
-		.state('ramal.visualizar', {
+		/*.state('ramal.visualizar', {
 			url : "/:idRamal",
 			templateUrl : "views/comunicacao/ramal/ramal.show.html",
 			controller : "RamalVisualizarController as ramalCtrl",
@@ -45,6 +46,34 @@ app.config(function($stateProvider, $urlRouterProvider) {
 				 	parent: 'ramal.listar',
 				    label: 'Visualizar'
 				  }
-		})
+		})*/
 
+		.state('ramal.coordenadoria', {
+			url : "/coordenadoria",
+			templateUrl : "views/comunicacao/ramal/ramal.coordenadoria.html",
+			controller : "RamalCoordenadoriaController as ramalCtrl",
+			ncyBreadcrumb: {
+				 	parent: 'ramal.listar',
+				    label: 'Visualizar'
+				  }
+		})		
+		.state('ramal.unidades', {
+			url : "/:idUnidade/unidades",
+			templateUrl : "views/comunicacao/ramal/ramal.show.html",
+			controller : "RamalUnidadesController as ramalCtrl",
+			ncyBreadcrumb: {
+				 	parent: 'ramal.listar',
+				    label: 'Visualizar'
+				  }
+		})
+		
+		.state('ramal.unidadesCoordenadoria', {
+			url : "/:idCoordenadoria/ramal/unidades",
+			templateUrl : "views/comunicacao/ramal/unidades.html",
+			controller : "RamalUnidadesController as ramalCtrl",
+			ncyBreadcrumb: {
+				 	parent: 'ramal.listar',
+				    label: 'Visualizar'
+				  }
+		})
 });

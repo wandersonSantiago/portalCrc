@@ -1,6 +1,5 @@
 package br.com.portalCrc.service;
 
-import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +25,7 @@ public class UsuarioService {
 	
 	public Usuario buscarUsuarioPorNome(String nomeUsuario)
 	{
-		 return usuarioRepository.findByNome(nomeUsuario);
+		 return null;
 	}
 	
 	@Transactional(readOnly = false)

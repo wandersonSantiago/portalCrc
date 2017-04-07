@@ -51,7 +51,7 @@ app.factory('UsuarioService', function($rootScope, toastr, $http,$q){
 				return $q.reject(errResponse);
 			});
 		},
-		user: function(){
+		listarUsuarioLogado: function(){
 			return $http.get('/rest/usuario/usuarios')
 			.then(function(response){
 				return response.data;

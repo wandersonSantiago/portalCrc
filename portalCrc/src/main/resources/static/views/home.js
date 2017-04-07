@@ -12,6 +12,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
 		.state('home.menu', {
 			url : "",
 			templateUrl : "views/home.html",
+			controller : "HomeListarController as homeCtrl",
 			ncyBreadcrumb: {
 				 	parent: 'home',
 				    label: 'Home'

@@ -42,4 +42,14 @@ public class UnidadeService {
 	public Iterable<Unidade> buscaUnidadePorCoordenadoria(Long id) {
 		return unidadeRepository.findByCoordenadoria_id(SessionUsuario.getInstance().getUsuario().getUnidade().getCoordenadoria().getId());
 	}
+
+	public Iterable<Unidade> listaUnidadeCoordenadoria() {
+		return unidadeRepository.findByTipoUnidadeMnemonico("COORDENADORIA");
+	}
+
+	
+
+	public Iterable<Unidade> buscarUnidadePorCoordenadoriaPorTipo(Long id, String tipo) {
+		return unidadeRepository.findByCoordenadoria_IdByTipoUnidadeMnemonico(id, tipo);
+	}
 }

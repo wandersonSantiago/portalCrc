@@ -28,13 +28,23 @@ public class UnidadeRestController {
 	  return new ResponseEntity<Iterable<Unidade>>(unidade, HttpStatus.OK);
 	 }
 	 
+	 @GetMapping(value="/coordenadoria/lista")
+	 public ResponseEntity<Iterable<Unidade>> listaUnidadeCoordenadoria() {	  
+	  Iterable<Unidade> unidade = unidadeService.listaUnidadeCoordenadoria();
+	  return new ResponseEntity<Iterable<Unidade>>(unidade, HttpStatus.OK);
+	 }
+	 
 	 @GetMapping(value="/buscarUnidadePorCoordenadoria/{id}")
 	 public ResponseEntity<Iterable<Unidade>> buscaUnidadePorCoordenadoria(@PathVariable Long id) {	  
 	  Iterable<Unidade> unidade = unidadeService.buscaUnidadePorId(id);
 	  return new ResponseEntity<Iterable<Unidade>>(unidade, HttpStatus.OK);
 	 }
 	 
-	 
+	 @GetMapping(value="/{id}/tipo/{tipo}")
+	 public ResponseEntity<Iterable<Unidade>> buscarUnidadePorCoordenadoriaPorTipo(@PathVariable Long id , @PathVariable String tipo) {	  
+	  Iterable<Unidade> unidade = unidadeService.buscarUnidadePorCoordenadoriaPorTipo(id, tipo);
+	  return new ResponseEntity<Iterable<Unidade>>(unidade, HttpStatus.OK);
+	 }
 	 
 	 @RequestMapping(method = RequestMethod.POST, value="/salvar")
 	 public ResponseEntity<Unidade> salvar(@RequestBody Unidade unidade,UriComponentsBuilder ucBuilder){

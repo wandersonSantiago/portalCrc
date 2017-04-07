@@ -3,18 +3,20 @@ app.controller("UsuarioEditarController", UsuarioEditarController);
 app.controller("UsuarioListarController", UsuarioListarController);
 
 
-UsuarioCadastarController.$inject = ['UsuarioService', 'toastr', '$rootScope', '$scope'];
-UsuarioEditarController.$inject = ['$stateParams', '$state', 'UsuarioService', 'toastr', '$rootScope', '$scope'];
-UsuarioListarController.$inject = ['$stateParams', '$state', 'UsuarioService', 'toastr', '$rootScope', '$scope'];
+UsuarioCadastarController.$inject = ['UsuarioService', 'FuncionarioService','UnidadeService','SetorService','toastr', '$rootScope', '$scope'];
+UsuarioEditarController.$inject = ['$stateParams', '$state', 'UsuarioService','FuncionarioService','SetorService','UnidadeService', 'toastr', '$rootScope', '$scope'];
+UsuarioListarController.$inject = ['$stateParams', '$state', 'UsuarioService',  'toastr', '$rootScope', '$scope'];
 
 
-function UsuarioCadastarController( UsuarioService, toastr, $rootScope, $scope){
+function UsuarioCadastarController( UsuarioService, FuncionarioService, UnidadeService, SetorService, toastr, $rootScope, $scope){
 	
 	var self = this;
 	
 	self.submit = submit;
 	self.existeLogin = existeLogin;
-	
+	listarFuncionarios();
+	listarUnidades();
+	listarSetores();
 	
 	 function submit(usuario){
 			if(self.senha == self.senhaRepitida){
@@ -44,14 +46,43 @@ function UsuarioCadastarController( UsuarioService, toastr, $rootScope, $scope){
 			});
 		};
 		
+	function listarFuncionarios(){
+		 FuncionarioService.listar().
+			then(function(f){
+				self.funcionarios = f;				
+				}, function(errResponse){
+					sweetAlert({ timer : 3000,  text : errResponse.data.message,  type : "error", width: 300, higth: 300, padding: 20});
+				});
+		};
+		
+	 function listarUnidades(){
+		 UnidadeService.listar().
+			then(function(f){
+				self.unidades = f;	
+				}, function(errResponse){
+					sweetAlert({ timer : 3000,  text : errResponse.data.message,  type : "error", width: 300, higth: 300, padding: 20});
+			});
+		};	
+		
+	 function listarSetores(){
+		 SetorService.listar().
+			then(function(f){
+				self.setores = f;
+				}, function(errResponse){
+					sweetAlert({ timer : 3000,  text : errResponse.data.message,  type : "error", width: 300, higth: 300, padding: 20});
+			});
+		};	
+		
 }		
 
-function UsuarioEditarController($stateParams, $state , UsuarioService, toastr, $rootScope, $scope){
+function UsuarioEditarController($stateParams, $state , UsuarioService, FuncionarioService, SetorService, UnidadeService, toastr, $rootScope, $scope){
 	
 	var self = this;
 	
 	var idUsuario = $stateParams.idUsuario;
-	
+	listarFuncionarios();
+	listarUnidades();
+	listarSetores();
 	self.submit = submit;
 	self.buscarPorId = buscarPorId;
 	
@@ -69,9 +100,33 @@ function UsuarioEditarController($stateParams, $state , UsuarioService, toastr, 
 		}else{			
 			sweetAlert({ timer : 3000, text: "senha não coencidem, digite novamente" , type : "error", width: 300, higth: 100, padding: 20});
 		}
-	}	
+	};	
 	
-	
+	function listarFuncionarios(){
+		 FuncionarioService.listar().
+			then(function(f){
+				self.funcionarios = f;				
+				}, function(errResponse){
+					sweetAlert({ timer : 3000,  text : errResponse.data.message,  type : "error", width: 300, higth: 300, padding: 20});
+				});
+		};
+		
+	function listarUnidades(){
+		 UnidadeService.listar().
+			then(function(f){
+				self.unidades = f;	
+				}, function(errResponse){
+					sweetAlert({ timer : 3000,  text : errResponse.data.message,  type : "error", width: 300, higth: 300, padding: 20});
+			});
+		};	
+	 function listarSetores(){
+		 SetorService.listar().
+			then(function(f){
+				self.setores = f;
+				}, function(errResponse){
+					sweetAlert({ timer : 3000,  text : errResponse.data.message,  type : "error", width: 300, higth: 300, padding: 20});
+			});
+		};	
 	function buscarPorId(id){
 		if(!id)return;
 		UsuarioService.buscarPorId(id).
@@ -94,15 +149,13 @@ function UsuarioListarController($stateParams, $state , UsuarioService, toastr, 
 		
 	listar();
 	
+	
 	 function listar(){
 		 UsuarioService.listar().
 			then(function(u){				
 					self.usuarios = u;			
 				}, function(errResponse){
 			});
-		};
-	
-		
-		
+		};		
 	
 }

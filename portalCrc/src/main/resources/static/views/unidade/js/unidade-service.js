@@ -49,6 +49,15 @@ app.factory('UnidadeService', function($q, $http){
 			});
 		},
 		
+		listarUnidadeCoordenadoria: function(){
+			return $http.get('/rest/unidade/coordenadoria/lista')
+			.then(function(response){
+				return response.data;
+			},function(errResponse){
+				return $q.reject(errResponse);
+			});
+		},
+		
 		listarTipoUnidade: function(){
 			return $http.get('/rest/unidade/tipoUnidade/lista')
 			.then(function(response){
@@ -57,7 +66,14 @@ app.factory('UnidadeService', function($q, $http){
 				return $q.reject(errResponse);
 			});
 		},
-		
+		buscarUnidadesPorTipo: function(id , tipo){
+			return $http.get('/rest/unidade/'+ id +'/tipo/' +tipo)
+			.then(function(response){
+				return response.data;
+			},function(errResponse){
+				return $q.reject(errResponse);
+			});
+		},
 		
 	}
 });
