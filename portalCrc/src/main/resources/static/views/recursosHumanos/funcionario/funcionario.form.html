@@ -66,7 +66,7 @@
 							</select>
 						</div>						
 							<div class="col-sm-3">
-							Estado Civil
+							Estado Civil:
 							<select class="form-control select2"  ng-model="cadFuncCtrl.funcionario.pessoa.estadoCivil" ng-options="estadoCivil for estadoCivil in cadFuncCtrl.listaEstadoCivil"  style="width: 100%;">
 								<option value="">{{cadFuncCtrl.funcionario.pessoa.estadoCivil}}</option>
 							</select>
@@ -84,8 +84,30 @@
 										<option value="">{{cadFuncCtrl.funcionario.cargoAtual.descricao}}</option>
 								</select>
 							</div>
-						</div>							
-						<hr>
+							<div class="col-sm-3">
+							Salario atual:
+								<input type="text" class="form-control" ng-model="cadFuncCtrl.funcionario.salarioAtual" ui-money-mask>
+							</div>
+						</div>		
+						
+					<hr>
+					<h4>Dados Bancários</h4>
+					<br>
+					<div class="row">
+						<div class="col-sm-3">
+						Banco:
+							<input type="text" class="form-control" ng-model="cadFuncCtrl.funcionario.banco" placeholder="Banco">
+						</div>
+						<div class="col-sm-3">
+						Agência:
+							<input type="text" class="form-control" ng-model="cadFuncCtrl.funcionario.agencia" placeholder="Agência">
+						</div>
+						<div class="col-sm-3">
+						Conta:
+							<input type="text" class="form-control" ng-model="cadFuncCtrl.funcionario.conta" placeholder="Conta">
+						</div>
+					</div>							
+					<hr>
 					<h4>Endereço</h4>
 
 					<br>

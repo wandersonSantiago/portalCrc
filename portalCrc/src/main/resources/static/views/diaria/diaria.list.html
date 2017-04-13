@@ -19,8 +19,8 @@
 					<td> 
 						<span>{{diaria.dataAbertura | date : 'yyyy'}}</span>
 					</td>
-										
-					<td title="Cadastrar Diarias"><a ui-sref="item.cadastrar({idDiaria : diaria.id})"><i class="fa fa-share-square-o"></i></a> 		
+					<td title="Cadastrar Diarias"><a ui-sref="funcionarioDiaria.usuario({idDiaria : diaria.id})"><i class="fa fa-share-square-o"></i></a> 					
+					<td title="Cadastrar Diarias"><a ui-sref="funcionarioDiaria.cadastrar({idDiaria : diaria.id})"><i class="fa fa-share-square-o"></i></a> 		
 					<td ng-if="diaria.status == 'ABERTO'"  title="Relatório da Unidade"><a ng-click="diariaCtrl.encerrar(diaria)" ><i class="fa  fa-remove"></i></a> 		
 					<td title="Relatório da Unidade"><a ui-sref="item.unidade({idDiariaUnidade : diaria.id})"><i class="fa fa-bar-chart"></i></a> 		
 					<td title="Relatório da Coordenadoria"><a ui-sref="item.coordenadoria({idDiariaCoordenadoria : diaria.id})"><i class="fa fa-bar-chart"></i></a> 		

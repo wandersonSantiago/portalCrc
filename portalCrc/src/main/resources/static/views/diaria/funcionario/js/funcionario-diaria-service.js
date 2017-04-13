@@ -1,9 +1,9 @@
-app.factory('ItemDiariaService', function($q, $http){
+app.factory('FuncionarioDiariaService', function($q, $http){
 	
 	
 	return{
 		salvar: function(objeto){
-			return $http.post('/rest/diaria/item', objeto)
+			return $http.post('/rest/diaria/funcionario', objeto)
 			.then(function(response){
 				return response.data;
 			},function(errResponse){
@@ -12,7 +12,7 @@ app.factory('ItemDiariaService', function($q, $http){
 		},
 		
 		alterar: function(objeto){
-			return $http.put('/rest/diaria/item', objeto)
+			return $http.put('/rest/diaria/funcionario', objeto)
 			.then(function(response){
 				return response.data;
 			},function(errResponse){
@@ -21,7 +21,7 @@ app.factory('ItemDiariaService', function($q, $http){
 		},
 		
 		excluir: function(objeto){
-			return $http.delete('/rest/diaria/item/excluir/'+objeto)
+			return $http.delete('/rest/diaria/funcionario/excluir/'+objeto)
 			.then(function(response){
 				return response.data;
 			},function(errResponse){
@@ -31,7 +31,7 @@ app.factory('ItemDiariaService', function($q, $http){
 		
 		
 		buscarPorId: function(objeto){
-			return $http.get('/rest/diaria/item/' +objeto)
+			return $http.get('/rest/diaria/funcionario/' +objeto)
 			.then(function(response){
 				return response.data;
 			},function(errResponse){
@@ -49,7 +49,7 @@ app.factory('ItemDiariaService', function($q, $http){
 		},	
 		
 		listarSecretaria: function(objeto){
-			return $http.get('/rest/diaria/item/listaSecretaria/' +objeto)
+			return $http.get('/rest/diaria/funcionario/listaSecretaria/' +objeto)
 			.then(function(response){
 				return response.data;
 			},function(errResponse){
@@ -57,7 +57,7 @@ app.factory('ItemDiariaService', function($q, $http){
 			});
 		},
 		listarUnidade: function(objeto){
-			return $http.get('/rest/diaria/item/listaUnidade/' +objeto)
+			return $http.get('/rest/diaria/funcionario/listaUnidade/' +objeto)
 			.then(function(response){
 				return response.data;
 			},function(errResponse){
@@ -65,7 +65,7 @@ app.factory('ItemDiariaService', function($q, $http){
 			});
 		},
 		listarCoordenadoria: function(objeto){
-			return $http.get('/rest/diaria/item/listaCoordenadoria/' +objeto)
+			return $http.get('/rest/diaria/funcionario/listaCoordenadoria/' +objeto)
 			.then(function(response){
 				return response.data;
 			},function(errResponse){
@@ -73,7 +73,7 @@ app.factory('ItemDiariaService', function($q, $http){
 			});
 		},
 		buscarValoresDiaria : function(objeto){
-			return $http.get('/rest/diaria/funcionario/valores' +objeto)
+			return $http.get('/rest/diaria/funcionario/valores/' +objeto)
 			.then(function(response){
 				return response.data;
 			},function(errResponse){

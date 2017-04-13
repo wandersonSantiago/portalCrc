@@ -1,5 +1,6 @@
 package br.com.portalCrc.entity.diaria;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
@@ -18,8 +19,6 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import br.com.portalCrc.entity.Unidade;
 import br.com.portalCrc.entity.Usuario;
 import br.com.portalCrc.enums.diaria.MesDiariaEnum;
@@ -34,21 +33,24 @@ public class Diaria {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "diaria_id_seq")
 	private Long id;
 	
+	
+	@Column(name="valorUfesp")
+	private BigDecimal valorUfesp;
+	
 	@Temporal(TemporalType.DATE)
 	private Date dataAbertura;
 	
 	@Temporal(TemporalType.DATE)
-	private Date dataFechamento;
-	
-	@JsonIgnore
-	@OneToMany(mappedBy="diaria")
-	private List<ItemDiaria> itens;
+	private Date dataFechamento;		
 	
 	@Enumerated(EnumType.STRING)
 	private MesDiariaEnum mes;
 
 	@Enumerated(EnumType.STRING)
 	private StatusDiariaEnum status;
+	
+	@OneToMany(mappedBy="diaria")
+	private List<FuncionarioDiaria> funcionarios;	
 	
 	@ManyToOne
 	@JoinColumn(name="id_usuario_cadastro")
@@ -118,15 +120,7 @@ public class Diaria {
 
 	public void setDataFechamento(Date dataFechamento) {
 		this.dataFechamento = dataFechamento;
-	}
-
-	public List<ItemDiaria> getItens() {
-		return itens;
-	}
-
-	public void setItens(List<ItemDiaria> itens) {
-		this.itens = itens;
-	}
+	}	
 
 	public StatusDiariaEnum getStatus() {
 		return status;
@@ -135,7 +129,24 @@ public class Diaria {
 	public void setStatus(StatusDiariaEnum status) {
 		this.status = status;
 	}
+
+	public List<FuncionarioDiaria> getFuncionarios() {
+		return funcionarios;
+	}
+
+	public void setFuncionarios(List<FuncionarioDiaria> funcionarios) {
+		this.funcionarios = funcionarios;
+	}
+
+	public BigDecimal getValorUfesp() {
+		return valorUfesp;
+	}
+
+	public void setValorUfesp(BigDecimal valorUfesp) {
+		this.valorUfesp = valorUfesp;
+	}
 	
+
 	
 
 }

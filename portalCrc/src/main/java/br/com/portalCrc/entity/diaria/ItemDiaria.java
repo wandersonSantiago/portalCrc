@@ -17,7 +17,6 @@ import javax.persistence.TemporalType;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import br.com.portalCrc.entity.Funcionario;
 import br.com.portalCrc.entity.Unidade;
 import br.com.portalCrc.entity.Usuario;
 
@@ -30,16 +29,25 @@ public class ItemDiaria {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "item_diaria_id_seq")
 	private Long id;
 	
-	@Column(name="motivo")
-	private String motivo;
+	
+	@Column(name="localDeslocamento")
+	private String localDeslocamento;
+	
+	@Column(name="codigoLocalDeslocamento")
+	private Integer codigoLocalDeslocamento;
+	
+	@Column(name="meioTransporte")
+	private String meioTransporte;
+	
+	@Column(name="dataHoraSaida")
+	private Date dataHoraSaida;
+	
+	@Column(name="dataHoraChegada")
+	private Date dataHoraChegada;		
 	
 	@Column(name="destino")
 	private String destino;
-	
-	@ManyToOne
-	@JoinColumn(name="id_funcionario")
-	private Funcionario funcionario;
-	
+		
 	@Temporal(TemporalType.DATE)
 	private Date dataCadastro;
 	
@@ -52,6 +60,16 @@ public class ItemDiaria {
 	@Column(name="valor_passagem")
 	private BigDecimal valorPassagem;
 	
+	@Column(name="motivo")
+	private String motivo;
+	
+	@JsonIgnore
+	@ManyToOne
+	@JoinColumn(name="id_funcionario")
+	private FuncionarioDiaria funcionario;
+	
+	
+	
 	@ManyToOne
 	@JoinColumn(name="id_unidade")
 	private Unidade unidade;
@@ -60,20 +78,7 @@ public class ItemDiaria {
 	@JoinColumn(name="id_usuario_cadastro")
 	private Usuario usuarioCadastro;
 	
-	
-	@ManyToOne
-	@JoinColumn(name="id_diaria")
-	private Diaria diaria;
-	
-	
-	
-	public Diaria getDiaria() {
-		return diaria;
-	}
 
-	public void setDiaria(Diaria diaria) {
-		this.diaria = diaria;
-	}
 
 	public Long getId() {
 		return id;
@@ -98,15 +103,6 @@ public class ItemDiaria {
 	public void setDestino(String destino) {
 		this.destino = destino;
 	}
-
-	public Funcionario getFuncionario() {
-		return funcionario;
-	}
-
-	public void setFuncionario(Funcionario funcionario) {
-		this.funcionario = funcionario;
-	}
-
 	public Date getDataCadastro() {
 		return dataCadastro;
 	}
@@ -154,6 +150,55 @@ public class ItemDiaria {
 	public void setUsuarioCadastro(Usuario usuarioCadastro) {
 		this.usuarioCadastro = usuarioCadastro;
 	}
+
+	public FuncionarioDiaria getFuncionario() {
+		return funcionario;
+	}
+
+	public void setFuncionario(FuncionarioDiaria funcionario) {
+		this.funcionario = funcionario;
+	}
+
+	public String getLocalDeslocamento() {
+		return localDeslocamento;
+	}
+
+	public void setLocalDeslocamento(String localDeslocamento) {
+		this.localDeslocamento = localDeslocamento;
+	}
+
+	public String getMeioTransporte() {
+		return meioTransporte;
+	}
+
+	public void setMeioTransporte(String meioTransporte) {
+		this.meioTransporte = meioTransporte;
+	}
+
+	public Date getDataHoraSaida() {
+		return dataHoraSaida;
+	}
+
+	public void setDataHoraSaida(Date dataHoraSaida) {
+		this.dataHoraSaida = dataHoraSaida;
+	}
+
+	public Date getDataHoraChegada() {
+		return dataHoraChegada;
+	}
+
+	public void setDataHoraChegada(Date dataHoraChegada) {
+		this.dataHoraChegada = dataHoraChegada;
+	}
+
+	public Integer getCodigoLocalDeslocamento() {
+		return codigoLocalDeslocamento;
+	}
+
+	public void setCodigoLocalDeslocamento(Integer codigoLocalDeslocamento) {
+		this.codigoLocalDeslocamento = codigoLocalDeslocamento;
+	}
+
 	
 	
 	

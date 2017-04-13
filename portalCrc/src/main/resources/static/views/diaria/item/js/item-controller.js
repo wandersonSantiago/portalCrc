@@ -11,12 +11,16 @@ ItemDiariaShowController.$inject = ['$stateParams', '$state', 'ItemDiariaService
 function ItemDiariaCadastrarController($stateParams, ItemDiariaService, FuncionarioService, toastr, $rootScope, $scope){
 	var self = this;
 	var idDiaria = $stateParams.idDiaria;
-	var idDiariaCoordenadoria = $stateParams.idDiariaCoordenadoria;
+	/*var idDiariaCoordenadoria = $stateParams.idDiariaCoordenadoria;
 	var idDiariaUnidade = $stateParams.idDiariaUnidade;
-	var idDiariaSecretaria = $stateParams.idDiariaSecretaria;
+	var idDiariaSecretaria = $stateParams.idDiariaSecretaria;*/
+	self.buscarValoresDiaria = buscarValoresDiaria;
 	listarFuncionarios();
+	self.adicionaListaDiaria = adicionaListaDiaria;
 	self.submit = submit;
 	$scope.listaDiariaExcel = [];
+	$scope.listaDiariaItens = [];
+	
 	
 	function submit(itemDiaria) {
 		ItemDiariaService.salvar(self.itemDiaria).
@@ -31,7 +35,8 @@ function ItemDiariaCadastrarController($stateParams, ItemDiariaService, Funciona
 		function listarFuncionarios(){
 			 FuncionarioService.listar().
 				then(function(f){
-					self.funcionarios = f;				
+					self.funcionarios = f;		
+					console.log(f);
 					}, function(errResponse){
 						sweetAlert({ timer : 3000,  text : errResponse.data.message,  type : "error", width: 300, higth: 300, padding: 20});
 					});
@@ -43,6 +48,19 @@ function ItemDiariaCadastrarController($stateParams, ItemDiariaService, Funciona
 				self.itemDiaria.valorPassagem = null;
 				self.itemDiaria.motivo = null;
 			};
+			
+			
+			function adicionaListaDiaria(itens){
+				$scope.listaDiariaItens.push({
+					localDeslocamento : itens.destino,
+					codigoLocalDeslocamento : itens.codigoLocalDeslocamento,
+					meioTrasnporte : itens.meioTrasnporte,
+					dataHoraSaida : itens.dataHoraSaida,
+					dataHoraChegada : itens.dataHoraChegada,
+					valorPassagem : itens.valorPassagem,
+					motivo : itens.motivo
+				})
+			}
 			
 		function buscarDiariaPorId(id){
 				if(!id)return;
@@ -59,7 +77,16 @@ function ItemDiariaCadastrarController($stateParams, ItemDiariaService, Funciona
 				buscarDiariaPorId(idDiaria);				
 			}
 			
-			function listarSecretaria(id){
+		function buscarValoresDiaria(indice){
+			ItemDiariaService.buscarValoresDiaria(indice).
+			then(function(p){
+				self.valoresDiaria = p;
+		}, function(errResponse){
+			});
+		};
+			
+			
+			/*function listarSecretaria(id){
 				 ItemDiariaService.listarSecretaria(id).
 					then(function(f){
 						self.diarias = f;	
@@ -115,7 +142,7 @@ function ItemDiariaCadastrarController($stateParams, ItemDiariaService, Funciona
 						valorPassagem: lista.valorPassagem
 					});
 				};
-}
+*/}
 
 function ItemDiariaEditarController($location, $stateParams, $state, ItemDiariaService, toastr, $rootScope, $scope){
 	
