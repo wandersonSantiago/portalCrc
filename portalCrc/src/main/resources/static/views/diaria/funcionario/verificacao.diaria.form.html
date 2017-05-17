@@ -1,0 +1,40 @@
+<meta charset="UTF-8">
+
+<div class="row">
+  <div class="col-lg-6">
+    <div class="input-group">
+      <input type="text" class="form-control" placeholder="Digite o nome ou qualquer número de documento" ng-model="texto" autofocus
+      	 ng-keyup="$event.keyCode == 13 && funcionarioCtrl.buscarPorTexto(texto)">
+      <span class="input-group-btn">
+        <button class="btn btn-default" type="button" ng-click="funcionarioCtrl.buscarPorTexto(texto)">buscar!</button>
+      </span>
+    </div><!-- /input-group -->
+  </div><!-- /.col-lg-6 -->
+  </div>
+  <br>
+<div class="table-responsive" ng-show="funcionarioCtrl.contaFuncionarioDiaria.length">
+<table class="table table-hover">
+	<tr>
+		
+		<th>Nome</th>			
+		<th>CPF</th>	
+		<th>Cargo</th>	
+		<th>Banco</th>	
+		<th>Agencia</th>
+		<th>Conta</th>
+	</tr>
+	<tr 
+		ng-repeat="conta in funcionarioCtrl.contaFuncionarioDiaria | filter: criterioDeBusca | orderBy: 'nome' ">
+		<td><a href=""  ng-click="funcionarioCtrl.cadastrarDiariaFuncionario(conta.funcionario , funcionarioCtrl.diaria)">{{conta.funcionario.pessoa.nomeCompleto}}</a></td>
+		<td>{{conta.funcionario.pessoa.cpf}}</td>		
+		<td>{{conta.funcionario.cargoAtual.descricao}}</td> 
+		<td>{{conta.banco}}</td>		
+		<td>{{conta.agencia}}</td>
+		<td>{{conta.conta}}</td>					
+		</tr>
+	</table>
+</div>	
+
+
+
+

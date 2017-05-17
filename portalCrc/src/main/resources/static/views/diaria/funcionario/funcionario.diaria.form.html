@@ -18,17 +18,11 @@
 							</div>
 							<div class="col-sm-2">
 								Indice UFESP:
-								<h3>
-								<select class="form-control select2" ng-model="funcionarioCtrl.funcionarioDiaria.indiceUfesp" ng-change="funcionarioCtrl.buscarValoresDiaria(funcionarioCtrl.funcionarioDiaria.indiceUfesp)" required>
-									<option value="">--Indice--</option>
-									<option value="7">7</option>
-									<option value="9">9</option>
-								</select>
-								</h3>
+								<h3>{{funcionarioCtrl.contaFuncionarioDiaria.indiceUfesp}}</h3>								
 							</div>
 							<div class="col-sm-2">
 								Valor diária:
-								<h3>{{funcionarioCtrl.funcionarioDiaria.indiceUfesp * funcionarioCtrl.funcionarioDiaria.diaria.valorUfesp | currency}}</h3>
+								<h3>{{funcionarioCtrl.contaFuncionarioDiaria.indiceUfesp * funcionarioCtrl.funcionarioDiaria.diaria.valorUfesp | currency}}</h3>
 							</div>
 						</div>		
 											
@@ -40,10 +34,10 @@
 						<div class="col-sm-3">
 						Funcionário:
 							<md-autocomplete 
-								  md-no-cache="funCtrl.noCache"
+								  md-no-cache="funcionarioCtrl.noCache"
 								 	md-selected-item="funcionarioCtrl.funcionarioDiaria.funcionario" 
 								 	md-search-text="busca" 
-								 	md-selected-item-change="funCtrl.selectedItemChange(funcionario)" 
+								 	md-selected-item-change="funcionarioCtrl.selectedItemChange(funcionario)" 
 								 	md-items=" funcionario in funcionarioCtrl.funcionarios | filter : busca" 
 								 	md-item-text="funcionario.pessoa.nomeCompleto" 
 								 	md-min-length="0" placeholder="busca Funcionário">
@@ -225,12 +219,12 @@
 							<td><input type="checkbox"   ng-model="item.selecionado" ng-click="funcionarioCtrl.ativarExcluirLote(listaDiariaItens)" ></td>	
 								<td>{{item.localDeslocamento}}</td>		
 								<td>{{item.codigoLocalDeslocamento}}</td>	
-								<td>{{item.meioTrasnporte}}</td>	
+								<td>{{item.meioTransporte}}</td>	
 								<td>{{item.dataHoraSaida | date : 'dd/MM/yyyy - HH:mm'}}</td>	
 								<td>{{item.dataHoraChegada | date : 'dd/MM/yyyy - HH:mm'}}</td>	
 								<td>{{item.motivo}}</td>		
 								<td>{{item.valorPassagem | currency}}</td>						
-								<td>{{item.totalItem | currency}}</td>	
+								<td>{{item.valorDiaria | currency}}</td>	
 							</tr>
 						</tbody>
 						<tfoot>

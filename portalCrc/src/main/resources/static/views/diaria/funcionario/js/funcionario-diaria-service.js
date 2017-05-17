@@ -80,6 +80,13 @@ app.factory('FuncionarioDiariaService', function($q, $http){
 				return $q.reject(errResponse);
 			});
 		},
-		
+		buscarFuncionarioPorDiariaPorId: function(objeto){
+			return $http.get('/rest/diaria/funcionario/'+objeto+'/funcionarios/')
+			.then(function(response){
+				return response.data;
+			},function(errResponse){
+				return $q.reject(errResponse);
+			});
+		},
 	}
 });

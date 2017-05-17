@@ -24,17 +24,7 @@ public class Funcionario  {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "funcionario_id_seq")
 	private Long id;
 	
-	@Column(name="banco")
-	private String banco;
 	
-	@Column(name="agencia")
-	private String agencia;
-	
-	@Column(name="conta")
-	private String conta;
-	
-	@Column(name="salario_atual")
-	private BigDecimal salarioAtual;
 	
 	@OneToOne(cascade = {CascadeType.MERGE ,CascadeType.PERSIST} )
 	@JoinColumn(name="id_pessoa")
@@ -106,42 +96,6 @@ public class Funcionario  {
 		this.dataCadastro = dataCadastro;
 	}
 
-	public String getAgencia() {
-		return agencia;
-	}
-
-	public void setAgencia(String agencia) {
-		this.agencia = agencia;
-	}
-
-	public String getBanco() {
-		return banco;
-	}
-
-	public void setBanco(String banco) {
-		this.banco = banco;
-	}
-
-	public String getConta() {
-		return conta;
-	}
-
-	public void setConta(String conta) {
-		this.conta = conta;
-	}
-
-	public BigDecimal getSalarioAtual() {
-		return salarioAtual;
-	}
-
-	public void setSalarioAtual(BigDecimal salarioAtual) {
-		this.salarioAtual = salarioAtual;
-	}
-	
-	
-	
-	
-	
 	
 	
 	

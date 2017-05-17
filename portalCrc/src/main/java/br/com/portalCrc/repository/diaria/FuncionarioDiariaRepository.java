@@ -14,4 +14,6 @@ public interface FuncionarioDiariaRepository extends JpaRepository<FuncionarioDi
 
 	Iterable<FuncionarioDiaria> findByUnidadeCoordenadoriaSecretaria_id(Long id);
 
+	Iterable<FuncionarioDiaria> findByUnidade_idAndDiaria_id(Long id, Long id2);
+
 }

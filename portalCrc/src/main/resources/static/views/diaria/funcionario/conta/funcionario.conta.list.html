@@ -1,0 +1,38 @@
+<meta charset="UTF-8">
+
+		<div class=" table-responsive"  >
+		
+		<input class="form-control" type="text" placeholder="Buscar" ng-model="buscaFuncionario" >
+			<table class="table table-hover table-bordered">
+				<thead>
+					<tr>
+						<th>Nome</th>
+						<th>Banco</th>
+						<th>Agencia</th>
+						<th>Conta</th>
+						<th>Ufesp</th>
+						<th>Limite</th>
+						<th>Editar</th>
+					</tr>
+				</thead>
+				<tbody
+					ng-repeat=" conta in contaCtrl.contas | filter : buscaFuncionario">
+					<tr>
+						<td>{{ conta.funcionario.pessoa.nomeCompleto }}</td>
+						<td>{{ conta.banco }}</td>
+						<td>{{ conta.agencia}}</td>
+						<td>{{ conta.conta }}</td>
+						<td>{{ conta.indiceUfesp}}</td>
+						<td>{{ conta.limiteCemPorCento}}</td>
+						<td><a ui-sref="funcionarioContaDiaria.editar({idConta : conta.id})"><i class="glyphicon glyphicon-edit"></i></a>
+					</tr>							
+				</tbody>
+				<tfoot>
+					<tr>
+					
+
+					</tr>
+				</tfoot>
+			</table>
+		</div>
+	

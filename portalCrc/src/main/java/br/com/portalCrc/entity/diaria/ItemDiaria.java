@@ -44,15 +44,9 @@ public class ItemDiaria {
 	
 	@Column(name="dataHoraChegada")
 	private Date dataHoraChegada;		
-	
-	@Column(name="destino")
-	private String destino;
-		
+			
 	@Temporal(TemporalType.DATE)
 	private Date dataCadastro;
-	
-	@Temporal(TemporalType.DATE)
-	private Date dataDiaria;
 	
 	@Column(name="valor_diaria")
 	private BigDecimal valorDiaria;
@@ -65,18 +59,10 @@ public class ItemDiaria {
 	
 	@JsonIgnore
 	@ManyToOne
-	@JoinColumn(name="id_funcionario")
-	private FuncionarioDiaria funcionario;
+	@JoinColumn(name="id_funcionario_diaria")
+	private FuncionarioDiaria funcionarioDiaria;
 	
 	
-	
-	@ManyToOne
-	@JoinColumn(name="id_unidade")
-	private Unidade unidade;
-	
-	@ManyToOne
-	@JoinColumn(name="id_usuario_cadastro")
-	private Usuario usuarioCadastro;
 	
 
 
@@ -96,27 +82,13 @@ public class ItemDiaria {
 		this.motivo = motivo;
 	}
 
-	public String getDestino() {
-		return destino;
-	}
 
-	public void setDestino(String destino) {
-		this.destino = destino;
-	}
 	public Date getDataCadastro() {
 		return dataCadastro;
 	}
 
 	public void setDataCadastro(Date dataCadastro) {
 		this.dataCadastro = dataCadastro;
-	}
-
-	public Date getDataDiaria() {
-		return dataDiaria;
-	}
-
-	public void setDataDiaria(Date dataDiaria) {
-		this.dataDiaria = dataDiaria;
 	}
 
 	public BigDecimal getValorDiaria() {
@@ -135,28 +107,12 @@ public class ItemDiaria {
 		this.valorPassagem = valorPassagem;
 	}
 
-	public Unidade getUnidade() {
-		return unidade;
+	public FuncionarioDiaria getFuncionarioDiaria() {
+		return funcionarioDiaria;
 	}
 
-	public void setUnidade(Unidade unidade) {
-		this.unidade = unidade;
-	}
-
-	public Usuario getUsuarioCadastro() {
-		return usuarioCadastro;
-	}
-
-	public void setUsuarioCadastro(Usuario usuarioCadastro) {
-		this.usuarioCadastro = usuarioCadastro;
-	}
-
-	public FuncionarioDiaria getFuncionario() {
-		return funcionario;
-	}
-
-	public void setFuncionario(FuncionarioDiaria funcionario) {
-		this.funcionario = funcionario;
+	public void setFuncionarioDiaria(FuncionarioDiaria funcionarioDiaria) {
+		this.funcionarioDiaria = funcionarioDiaria;
 	}
 
 	public String getLocalDeslocamento() {

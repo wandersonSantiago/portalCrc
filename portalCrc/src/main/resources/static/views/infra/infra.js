@@ -1,4 +1,4 @@
-pp.config(function($stateProvider, $urlRouterProvider) {
+app.config(function($stateProvider, $urlRouterProvider) {
 
 	$stateProvider
 		.state('infraestrutura', {
@@ -6,6 +6,7 @@ pp.config(function($stateProvider, $urlRouterProvider) {
 			url : '/infraestrutura',
 			templateUrl : 'views/infra/infra.index.html',
 			ncyBreadcrumb: {
+				parent: 'home.menu',
 				    label: 'Infraestrutura'
 				  }
 		})

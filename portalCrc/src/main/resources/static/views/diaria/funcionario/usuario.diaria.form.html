@@ -1,88 +1,12 @@
 <meta charset="UTF-8">
 			<div class="col-sm-12 ">
 				<form role="form-vertical" name="formDiaria"
-					ng-submit="funcionarioCtrl.submit()">			
+					ng-submit="funcionarioCtrl.submit()">						
 						
-						<div class="row">
-							<div class="col-sm-2">
-							Mês:
-								<h3>{{funcionarioCtrl.funcionarioDiaria.diaria.mes}}</h3>
-							</div>
-							<div class="col-sm-2">
-							Ano:
-								<h3>{{funcionarioCtrl.funcionarioDiaria.diaria.dataAbertura | date : 'yyyy'}}</h3>
-							</div>
-							<div class="col-sm-2">
-							Valor UFESP:
-								<h3>{{funcionarioCtrl.funcionarioDiaria.diaria.valorUfesp | currency}}</h3>
-							</div>
-							<div class="col-sm-2">
-								Indice UFESP:
-								<h3>
-								<select class="form-control select2" ng-model="funcionarioCtrl.funcionarioDiaria.indiceUfesp" ng-change="funcionarioCtrl.buscarValoresDiaria(funcionarioCtrl.funcionarioDiaria.indiceUfesp)" required>
-									<option value="">--Indice--</option>
-									<option value="7">7</option>
-									<option value="9">9</option>
-								</select>
-								</h3>
-							</div>
-							<div class="col-sm-2">
-								Valor diária:
-								<h3>{{funcionarioCtrl.funcionarioDiaria.indiceUfesp * funcionarioCtrl.funcionarioDiaria.diaria.valorUfesp | currency}}</h3>
-							</div>
-						</div>		
-					<br>					
 					<div class="row">
-						<div class="col-sm-1">
-						RG:
-						<h4>{{usuario.funcionario.pessoa.rg}}</h4>
-						</div>
-						<div class="col-sm-3">
-						Unidade exercicio:
-						<h4>{{usuario.funcionario.unidadeAtual.dadosUnidade.mnemonico}}</h4>
-						</div>	
-						<div class="col-sm-3">
-						Cargo:
-						<h4>{{usuario.funcionario.cargoAtual.descricao}}</h4>
-						</div>
-						<div class="col-sm-2">
-						salário:
-						<h4>{{usuario.funcionario.salarioAtual | currency}}</h4>
-						</div>
-						<div class="col-sm-1">
-								Ultrapassa 50%:								
-								<select class="form-control select2" ng-model="limite" required>
-									<option value="2">NÃO</option>
-									<option value="1">SIM</option>									
-								</select>								
-							</div>	
-						<div class="col-sm-1">
-						Limite:
-						<h4>{{limiteDiaria = usuario.funcionario.salarioAtual / limite | currency}}</h4>
-						</div>						
-					</div>
-					<br>
-					<div class="row">
-						<div class="col-sm-2">
-						Banco:
-						<h4>{{usuario.funcionario.banco}}</h4>
-						</div>
-						<div class="col-sm-3">
-						Agencia:
-						<h4>{{usuario.funcionario.agencia}}</h4>
-						</div>	
-						<div class="col-sm-3">
-						Conta:
-						<h4>{{usuario.funcionario.conta}}</h4>
-						</div>	
-																	
-					</div>
-					<hr>
-					<br>
-					<div ng-show="limite" class="row">
 					<div class="col-sm-2">
 						Deslocamento:
-							<input class="form-control text-uppercase" placeholder="Destino" ng-model="funcionarioCtrl.itemDiaria.destino" id="destino" type="text"  required >
+							<input class="form-control text-uppercase" placeholder="Destino" ng-model="funcionarioCtrl.itemDiaria.destino"  ng-blur="funcionarioCtrl.buscarValoresDiaria(funcionarioCtrl.contaFuncionarioDiaria.indiceUfesp)" id="destino" type="text"  required >
 						</div>
 					
 					<div class="col-sm-3">
@@ -94,7 +18,7 @@
 							</div>
 							<div class="col-sm-2">
 						Transporte:
-							<input class="form-control text-uppercase"  ng-model="funcionarioCtrl.itemDiaria.meioTrasnporte" id="destino" type="text"  required >
+							<input class="form-control text-uppercase"  ng-model="funcionarioCtrl.itemDiaria.meioTransporte" id="destino" type="text"  required >
 						</div>	
 						<div class="col-sm-2">
 						Data Saida:
@@ -108,7 +32,7 @@
 											
 					</div>
 					<br>
-					<div ng-show="limite" class="row">
+					<div  class="row">
 						<div class="col-sm-2">
 						qtd pernoite:
 							<div class="row">
@@ -169,7 +93,7 @@
 					<div ng-show="funcionarioCtrl.itemDiaria.dataHoraChegada" class="row">
 						<div class="col-sm-2">
 						Valor da Passagem:
-							<input class="form-control" placeholder="R$" ng-model="funcionarioCtrl.itemDiaria.valorPassagem" id="valorPassagem" type="text" ui-money-mask required >
+							<input class="form-control" placeholder="R$" ng-model="funcionarioCtrl.itemDiaria.valorPassagem" id="valorPassagem" type="text" ui-money-mask  >
 						</div>	
 						<div class="col-sm-6">
 						Motivo:
@@ -183,7 +107,7 @@
 					</div>
 				
 <br>
-					<table ng-show="listaDiariaItens.length > 0" class="table table-hover table-bordered">
+					<table ng-show="funcionarioCtrl.listaDiariaItens.length > 0" class="table table-hover table-bordered">
 						<thead>
 							<tr>
 								<th>Selecionar</th>
@@ -197,22 +121,22 @@
 								<th>A Receber</th>
 							</tr>
 						</thead>
-						<tbody ng-repeat="item in listaDiariaItens" ng-model="selecionado">
+						<tbody ng-repeat="item in funcionarioCtrl.listaDiariaItens" ng-model="selecionado">
 							<tr>
-							<td><input type="checkbox"   ng-model="item.selecionado" ng-click="funcionarioCtrl.ativarExcluirLote(listaDiariaItens)" ></td>	
+							<td><input type="checkbox"   ng-model="item.selecionado" ng-click="funcionarioCtrl.ativarExcluirLote(funcionarioCtrl.listaDiariaItens)" ></td>	
 								<td>{{item.localDeslocamento}}</td>		
 								<td>{{item.codigoLocalDeslocamento}}</td>	
-								<td>{{item.meioTrasnporte}}</td>	
+								<td>{{item.meioTransporte}}</td>	
 								<td>{{item.dataHoraSaida | date : 'dd/MM/yyyy - HH:mm'}}</td>	
 								<td>{{item.dataHoraChegada | date : 'dd/MM/yyyy - HH:mm'}}</td>	
 								<td>{{item.motivo}}</td>		
 								<td>{{item.valorPassagem | currency}}</td>						
-								<td>{{item.totalItem | currency}}</td>	
+								<td>{{item.valorDiaria | currency}}</td>	
 							</tr>
 						</tbody>
 						<tfoot>
 							<tr>
-								<th><input type="button" class="btn-danger" ng-if="ativadoExcluirLote"  value="excluir" name="apagar" ng-click="funcionarioCtrl.apagarItens(listaDiariaItens)"></th>
+								<th><input type="button" class="btn-danger" ng-if="ativadoExcluirLote"  value="excluir" name="apagar" ng-click="funcionarioCtrl.apagarItens(funcionarioCtrl.listaDiariaItens)"></th>
 								<th></th>
 								<th></th>
 								<th></th>
@@ -228,7 +152,7 @@
 					<div class="row ">
 					<div class="col-sm-4"></div>
 						<div class="col-sm-4">		
-							<input type="submit" id="submit" value="Salvar" ng-disabled="listaDiariaItens.length < 1"	class="btn btn-lg btn-primary btn-block btn-signin">
+							<input type="submit" id="submit" ng-disabled="funcionarioCtrl.listaDiariaItens < 1" value="salvar" class="btn btn-lg btn-primary btn-block btn-signin">
 						</div>
 					</div>
 

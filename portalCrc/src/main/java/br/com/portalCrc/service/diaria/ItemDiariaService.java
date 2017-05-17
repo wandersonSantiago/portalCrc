@@ -24,9 +24,7 @@ public class ItemDiariaService {
 	@Transactional(readOnly = false)
 	public void salvaOuAltera(ItemDiaria itemDiaria){
 		itemDiaria.setDataCadastro(new Date());
-		itemDiaria.setUnidade(SessionUsuario.getInstance().getUsuario().getUnidade());
-		itemDiaria.setUsuarioCadastro(SessionUsuario.getInstance().getUsuario());
-		if(itemDiaria.getFuncionario().getDiaria().getStatus()  == StatusDiariaEnum.ABERTO){
+		if(itemDiaria.getFuncionarioDiaria().getDiaria().getStatus()  == StatusDiariaEnum.ABERTO){
 			itemDiariaRepository.save(itemDiaria);
 		}
 		
@@ -34,7 +32,7 @@ public class ItemDiariaService {
 	
 	@Transactional(readOnly = false)
 	public void altera(ItemDiaria itemDiaria){
-		if(itemDiaria.getFuncionario().getDiaria().getStatus()  == StatusDiariaEnum.ABERTO){
+		if(itemDiaria.getFuncionarioDiaria().getDiaria().getStatus()  == StatusDiariaEnum.ABERTO){
 			itemDiariaRepository.save(itemDiaria);
 		}
 		

@@ -25,12 +25,19 @@ public class FuncionarioDiariaService {
 	
 	@Autowired
 	private ValoresDiariaLocalidadeRepository valoresDiaraRepository;
+
+	
 	
 	@Transactional(readOnly = false)
 	public void salvaOuAltera(FuncionarioDiaria funcionarioDiaria){
 		funcionarioDiaria.setDataCadastro(new Date());
 		funcionarioDiaria.setUnidade(SessionUsuario.getInstance().getUsuario().getUnidade());
 		funcionarioDiaria.setUsuarioCadastro(SessionUsuario.getInstance().getUsuario());
+		for(int  i=0; i <funcionarioDiaria.getItens().size(); i++){
+			funcionarioDiaria.getItens().get(i).setFuncionarioDiaria(funcionarioDiaria);
+			funcionarioDiaria.getItens().get(i).setDataCadastro(new Date());
+			
+		}
 		if(funcionarioDiaria.getDiaria().getStatus()  == StatusDiariaEnum.ABERTO){
 			funcionarioDiariaRepository.save(funcionarioDiaria);
 		}
@@ -72,6 +79,11 @@ public class FuncionarioDiariaService {
 
 	public Iterable<ValoresDiariaLocalidade> valoresDiaria(Integer id) {
 		return valoresDiaraRepository.findByIndiceUfesp(id);
+	}
+
+	public Iterable<FuncionarioDiaria> findByUnidade_idAndDiaria_id(Long id) {
+		// TODO Auto-generated method stub
+		return funcionarioDiariaRepository.findByUnidade_idAndDiaria_id(SessionUsuario.getInstance().getUsuario().getUnidade().getId(), id);
 	}
 
 	

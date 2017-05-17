@@ -8,6 +8,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
 		templateUrl : 'views/infra/chamado/manutencao/chamado.manutencao.index.html',
 		redirectTo : 'chamadoManutencao.listar',
 		ncyBreadcrumb: {
+				parent: 'infraestrutura.menu',
 			    label: 'chamado Manutencao'
 			  }
 	})

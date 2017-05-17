@@ -19,6 +19,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import br.com.portalCrc.entity.Unidade;
 import br.com.portalCrc.entity.Usuario;
 import br.com.portalCrc.enums.diaria.MesDiariaEnum;
@@ -49,6 +51,7 @@ public class Diaria {
 	@Enumerated(EnumType.STRING)
 	private StatusDiariaEnum status;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy="diaria")
 	private List<FuncionarioDiaria> funcionarios;	
 	

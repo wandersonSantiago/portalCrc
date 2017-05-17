@@ -1,21 +1,46 @@
+app.controller("ListarFuncionarioDiariaController", ListarFuncionarioDiariaController);
 app.controller("FuncionarioDiariaCadastrarController", FuncionarioDiariaCadastrarController);
 app.controller("FuncionarioDiariaEditarController", FuncionarioDiariaEditarController);
 app.controller("FuncionarioDiariaListarController", FuncionarioDiariaListarController);
 app.controller("FuncionarioDiariaShowController", FuncionarioDiariaShowController);
 
-FuncionarioDiariaCadastrarController.$inject = ['ItemDiariaService','$stateParams','FuncionarioDiariaService', 'FuncionarioService', 'toastr', '$rootScope', '$scope'];
+ListarFuncionarioDiariaController.$inject = ['$stateParams', 'FuncionarioDiariaService', 'toastr', '$rootScope', '$scope'];
+FuncionarioDiariaCadastrarController.$inject = ['$state','ItemDiariaService','$stateParams','FuncionarioDiariaService', 'FuncionarioContaDiariaService', 'toastr', '$rootScope', '$scope'];
 FuncionarioDiariaEditarController.$inject = ['$location','$stateParams', '$state', 'FuncionarioDiariaService', 'toastr', '$rootScope', '$scope'];
 FuncionarioDiariaListarController.$inject = ['$stateParams', '$state', 'FuncionarioDiariaService', 'toastr', '$rootScope', '$scope'];
 FuncionarioDiariaShowController.$inject = ['$stateParams', '$state', 'FuncionarioDiariaService', 'toastr', '$rootScope', '$scope'];
 
-function FuncionarioDiariaCadastrarController(ItemDiariaService, $stateParams, FuncionarioDiariaService, FuncionarioService, toastr, $rootScope, $scope){
+function ListarFuncionarioDiariaController($stateParams, FuncionarioDiariaService, toastr, $rootScope, $scope){
 	var self = this;
 	var idDiaria = $stateParams.idDiaria;
-	self.buscarValoresDiaria = buscarValoresDiaria;
-	listarFuncionarios();
+	
+	buscarFuncionarioPorDiariaPorId(idDiaria);
+		
+		
+		function buscarFuncionarioPorDiariaPorId(id){
+				if(!id)return;
+				FuncionarioDiariaService.buscarFuncionarioPorDiariaPorId(id).
+				then(function(p){
+					self.listaDiaria = p;
+			}, function(errResponse){
+			//	sweetAlert({ timer : 3000,  text : errResponse.data.message,  type : "error", width: 300, higth: 300, padding: 20});
+				});
+			};		
+		
+}
+function FuncionarioDiariaCadastrarController($state, ItemDiariaService, $stateParams, FuncionarioDiariaService, FuncionarioContaDiariaService, toastr, $rootScope, $scope){
+	var self = this;
+	var idDiaria = $stateParams.idDiaria;
+	self.buscarPorTexto = buscarPorTexto;
+	self.cadastrarDiariaFuncionario = cadastrarDiariaFuncionario;
 	self.adicionaListaDiaria = adicionaListaDiaria;
 	self.submit = submit;
-	$scope.listaDiariaItens = [];
+	
+	self.listaDiariaItens = [];
+	
+	self.buscarValoresDiaria = buscarValoresDiaria;
+	buscarFuncionario($rootScope.usuario.funcionario.id);
+	
 	
 	$scope.quantidadePernoite = 0;
 	$scope.quantidadeRetornoTrezeAsDezenove = 0;
@@ -24,44 +49,62 @@ function FuncionarioDiariaCadastrarController(ItemDiariaService, $stateParams, F
 	$scope.quantidadeDeslocamentoMaisDeDoze = 0;
 	$scope.somaTotal = 0;
 	$scope.somaParcial = 0;
+	$scope.somaItem = [];
 	
 	function submit(funcionarioDiaria) {
+		if($rootScope.funcionarioDiaria.funcionario == null){
+			self.funcionarioDiaria ={funcionario : $rootScope.usuario.funcionario , diaria : self.diaria , itens : self.listaDiariaItens};
+		}else{
+			self.funcionarioDiaria ={funcionario : $rootScope.funcionarioDiaria.funcionario , diaria : $rootScope.funcionarioDiaria.diaria , itens : self.listaDiariaItens};
+		}
 		FuncionarioDiariaService.salvar(self.funcionarioDiaria).
 			then(function(response){
 				toastr.info("Salvo com Sucesso!!!");
 				limpaCampos();
+				if($rootScope.funcionarioDiaria.funcionario == null){
+					$state.go('funcionarioDiaria.listar');
+				}else{
+					$state.go('funcionarioDiaria.verificar', {idDiaria : $rootScope.funcionarioDiaria.diaria.id});
+				}				
 				}, function(errResponse){
 					sweetAlert({ timer : 3000,  text : errResponse.data.message,  type : "info", width: 300, higth: 300, padding: 20});
 			});
 		};
 		
-		function listarFuncionarios(){
-			 FuncionarioService.listar().
+		function buscarFuncionario(id){
+			FuncionarioContaDiariaService.buscarPorIdFuncionario(id).
 				then(function(f){
-					self.funcionarios = f;		
-					console.log(f);
+					self.contaFuncionarioDiaria = f;
+					self.funcionario = f.funcionario;	
 					}, function(errResponse){
 						sweetAlert({ timer : 3000,  text : errResponse.data.message,  type : "error", width: 300, higth: 300, padding: 20});
 					});
 			};
-			limpaCampos = function(){
-				self.funcionarioDiaria.destino = null;
-				self.funcionarioDiaria.dataDiaria = null;
-				self.funcionarioDiaria.valorDiaria = null;
-				self.funcionarioDiaria.valorPassagem = null;
-				self.funcionarioDiaria.motivo = null;
+	
+		function buscarPorTexto(texto){
+			FuncionarioContaDiariaService.buscarPorTexto(texto).
+				then(function(f){
+					self.contaFuncionarioDiaria = f;
+					self.funcionarioDiaria.funcionario = f.funcionario;	
+					}, function(errResponse){
+						sweetAlert({ timer : 3000,  text : errResponse.data.message,  type : "error", width: 300, higth: 300, padding: 20});
+					});
 			};
-			$scope.somaItem = [];
+			
+			function cadastrarDiariaFuncionario(funcionario , diaria){				
+				$state.go('funcionarioDiaria.cadastrar');
+				$rootScope.funcionarioDiaria = {funcionario : funcionario, diaria : diaria}
+			}
 			
 			function adicionaListaDiaria(itens){
 				soma();
 				 if($scope.somaParcial > $scope.limiteDiaria){				
 						sweetAlert({ timer : 10000,  text : 'O valor total esta acima do limite!!!',  type : "info", width: 300, higth: 300, padding: 20});
 				     }else{
-				$scope.listaDiariaItens.push({
+				self.listaDiariaItens.push({
 					localDeslocamento : itens.destino,
 					codigoLocalDeslocamento : itens.codigoLocalDeslocamento.codigo,
-					meioTrasnporte : itens.meioTrasnporte,
+					meioTransporte : itens.meioTransporte,
 					dataHoraSaida : itens.dataHoraSaida,
 					dataHoraChegada : itens.dataHoraChegada,
 					valorPassagem : itens.valorPassagem,
@@ -71,7 +114,7 @@ function FuncionarioDiariaCadastrarController(ItemDiariaService, $stateParams, F
 					retornoAposDezenove : self.retornoAposDezenove,
 					deslocamentoSeisAsDoze : self.deslocamentoSeisAsDoze,
 					deslocamentoMaisDeDoze : self.deslocamentoMaisDeDoze,
-					totalItem : $scope.somaItem
+					valorDiaria : $scope.valorDiaria
 					
 					})
 					$scope.somaTotal =  $scope.somaParcial;
@@ -79,11 +122,11 @@ function FuncionarioDiariaCadastrarController(ItemDiariaService, $stateParams, F
 			}
 			
 			function soma(){				
-					$scope.somaItem = self.pernoite + self.retornoTrezeAsDezenove +
+					$scope.valorDiaria = self.pernoite + self.retornoTrezeAsDezenove +
 					self.retornoAposDezenove + self.deslocamentoSeisAsDoze + 
 					self.deslocamentoMaisDeDoze;
 					
-				$scope.somaParcial = $scope.somaParcial + $scope.somaItem;
+				$scope.somaParcial = $scope.somaParcial + $scope.valorDiaria;
 			}
 		function buscarDiariaPorId(id){
 				if(!id)return;
@@ -99,6 +142,7 @@ function FuncionarioDiariaCadastrarController(ItemDiariaService, $stateParams, F
 			if(idDiaria){
 				buscarDiariaPorId(idDiaria);				
 			}
+		
 			
 		function buscarValoresDiaria(indice){
 			FuncionarioDiariaService.buscarValoresDiaria(indice).
@@ -108,20 +152,27 @@ function FuncionarioDiariaCadastrarController(ItemDiariaService, $stateParams, F
 			});
 		};
 			
+				
 		self.ativarExcluirLote = function(listaDiariaItens){
-			$scope.listaDiariaItens.filter(function(item){
+			self.listaDiariaItens.filter(function(item){
 			if(item.selecionado){
 				$scope.ativadoExcluirLote = true;
 			}
 			});
 		}
 		self.apagarItens = function(listaDiariaItens){
-				$scope.listaDiariaItens = listaDiariaItens.filter(function(item){
+				self.listaDiariaItens = listaDiariaItens.filter(function(item){
 				if(!item.selecionado) return item;
 				$scope.ativadoExcluirLote = null;
 			});
 		}	
-	
+		limpaCampos = function(){
+			self.funcionarioDiaria.destino = null;
+			self.funcionarioDiaria.dataDiaria = null;
+			self.funcionarioDiaria.valorDiaria = null;
+			self.funcionarioDiaria.valorPassagem = null;
+			self.funcionarioDiaria.motivo = null;
+		};
 		
 }
 
