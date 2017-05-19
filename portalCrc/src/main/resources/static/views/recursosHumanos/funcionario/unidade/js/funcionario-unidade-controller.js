@@ -3,18 +3,19 @@ app.controller("FuncionarioUnidadeEditarController", FuncionarioUnidadeEditarCon
 app.controller("FuncionarioUnidadeListarController", FuncionarioUnidadeListarController);
 app.controller("FuncionarioUnidadeShowController", FuncionarioUnidadeShowController);
 
-FuncionarioUnidadeCadastarController.$inject = ['$stateParams', '$state','FuncionarioUnidadeService', 'FuncionarioService', 'CargoService','FuncaoService', 'toastr', '$rootScope', '$scope'];
+FuncionarioUnidadeCadastarController.$inject = ['$stateParams', '$state','FuncionarioUnidadeService', 'FuncionarioService', 'CargoService','FuncaoService', 'SetorService','toastr', '$rootScope', '$scope'];
 FuncionarioUnidadeEditarController.$inject = ['$stateParams', '$state', 'FuncionarioUnidadeService', 'CoordenadoriaService', 'buscaCepService', 'toastr', '$rootScope', '$scope'];
 FuncionarioUnidadeListarController.$inject = ['$stateParams', '$state', 'FuncionarioUnidadeService', 'toastr', '$rootScope', '$scope'];
 FuncionarioUnidadeShowController.$inject = ['$stateParams', '$state', 'FuncionarioUnidadeService', 'toastr', '$rootScope', '$scope'];
 
-function FuncionarioUnidadeCadastarController( $stateParams, $state, FuncionarioUnidadeService, FuncionarioService, CargoService, FuncaoService, toastr, $rootScope, $scope){
+function FuncionarioUnidadeCadastarController( $stateParams, $state, FuncionarioUnidadeService, FuncionarioService, CargoService, FuncaoService, SetorService, toastr, $rootScope, $scope){
 	var self = this;
 	var idFuncionario = $stateParams.idFuncionario;
 	self.submit = submit;
 	status();
 	cargos();
 	funcao();
+	setores();
 	
 	function submit(funcionarioUnidade) {
 		self.funcionarioUnidade.funcionario = self.funcionario;
@@ -54,7 +55,15 @@ function FuncionarioUnidadeCadastarController( $stateParams, $state, Funcionario
 					sweetAlert({ timer : 3000,  text : errResponse.data.message,  type : "error", width: 300, higth: 300, padding: 20});
 			});
 		};	
-		
+	
+	function setores(){
+		SetorService.listar().
+			then(function(f){
+				self.setores = f;
+				}, function(errResponse){
+					sweetAlert({ timer : 3000,  text : errResponse.data.message,  type : "error", width: 300, higth: 300, padding: 20});
+			});
+		};		
 	function buscarFuncionarioPorId(id){
 		if(!id)return;
 		FuncionarioService.buscarPorId(id).
@@ -64,9 +73,18 @@ function FuncionarioUnidadeCadastarController( $stateParams, $state, Funcionario
 		sweetAlert({ timer : 3000,  text : errResponse.data.message,  type : "error", width: 300, higth: 300, padding: 20});
 		});
 	};
-
+	function buscarPorId(id){
+		if(!id)return;
+		FuncionarioUnidadeService.buscarPorIdFuncionario(id).
+		then(function(p){
+			self.funcionarioUnidade = p;
+	}, function(errResponse){
+		sweetAlert({ timer : 3000,  text : errResponse.data.message,  type : "error", width: 300, higth: 300, padding: 20});
+		});
+	};
 	if(idFuncionario){
-		buscarFuncionarioPorId(idFuncionario);			
+		buscarFuncionarioPorId(idFuncionario);
+		buscarPorId(idFuncionario);
 	}
 	
 }

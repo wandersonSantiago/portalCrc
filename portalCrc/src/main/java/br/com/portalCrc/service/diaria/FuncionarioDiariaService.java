@@ -31,7 +31,7 @@ public class FuncionarioDiariaService {
 	@Transactional(readOnly = false)
 	public void salvaOuAltera(FuncionarioDiaria funcionarioDiaria){
 		funcionarioDiaria.setDataCadastro(new Date());
-		funcionarioDiaria.setUnidade(SessionUsuario.getInstance().getUsuario().getUnidade());
+		funcionarioDiaria.setUnidade(SessionUsuario.getInstance().getUsuario().getFuncionario().getUnidadeAtual());
 		funcionarioDiaria.setUsuarioCadastro(SessionUsuario.getInstance().getUsuario());
 		for(int  i=0; i <funcionarioDiaria.getItens().size(); i++){
 			funcionarioDiaria.getItens().get(i).setFuncionarioDiaria(funcionarioDiaria);
@@ -57,11 +57,11 @@ public class FuncionarioDiariaService {
 	}
 	
 	public List<FuncionarioDiaria> listaUnidade(Long id){
-		return funcionarioDiariaRepository.findByUnidade_id(SessionUsuario.getInstance().getUsuario().getUnidade().getId(), id);
+		return funcionarioDiariaRepository.findByUnidade_id(SessionUsuario.getInstance().getUsuario().getFuncionario().getUnidadeAtual().getId(), id);
 	}
 	
 	public List<FuncionarioDiaria> listaCoordenadoria(Long id){
-		return funcionarioDiariaRepository.findByUnidadeCoordenadoria_idAndDiaria_id(SessionUsuario.getInstance().getUsuario().getUnidade().getCoordenadoria().getId(), id);
+		return funcionarioDiariaRepository.findByUnidadeCoordenadoria_idAndDiaria_id(SessionUsuario.getInstance().getUsuario().getFuncionario().getUnidadeAtual().getCoordenadoria().getId(), id);
 	}
 	public List<FuncionarioDiaria> lista(){
 		return funcionarioDiariaRepository.findAll();
@@ -83,7 +83,7 @@ public class FuncionarioDiariaService {
 
 	public Iterable<FuncionarioDiaria> findByUnidade_idAndDiaria_id(Long id) {
 		// TODO Auto-generated method stub
-		return funcionarioDiariaRepository.findByUnidade_idAndDiaria_id(SessionUsuario.getInstance().getUsuario().getUnidade().getId(), id);
+		return funcionarioDiariaRepository.findByUnidade_idAndDiaria_id(SessionUsuario.getInstance().getUsuario().getFuncionario().getUnidadeAtual().getId(), id);
 	}
 
 	

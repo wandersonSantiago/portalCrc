@@ -15,6 +15,8 @@ import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @SequenceGenerator(name = "funcionario_id_seq", sequenceName = "funcionario_id_seq", schema="principal", initialValue = 1, allocationSize = 1)
 @Table(name="funcionario", schema="principal")
@@ -38,7 +40,15 @@ public class Funcionario  {
 	@JoinColumn(name="id_unidade_atual")
 	private Unidade unidadeAtual;
 	
+	@ManyToOne 
+	@JoinColumn(name="id_setor_atual")
+	private Setor setorAtual;
 		
+	@ManyToOne 
+	@JoinColumn(name="id_funcao_atual")
+	private Funcao funcaoAtual;
+	
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name="id_usuario_cadastro")
 	private Usuario usuarioCadastro;
@@ -94,6 +104,22 @@ public class Funcionario  {
 
 	public void setDataCadastro(Date dataCadastro) {
 		this.dataCadastro = dataCadastro;
+	}
+
+	public Funcao getFuncaoAtual() {
+		return funcaoAtual;
+	}
+
+	public void setFuncaoAtual(Funcao funcaoAtual) {
+		this.funcaoAtual = funcaoAtual;
+	}
+
+	public Setor getSetorAtual() {
+		return setorAtual;
+	}
+
+	public void setSetorAtual(Setor setorAtual) {
+		this.setorAtual = setorAtual;
 	}
 
 	

@@ -31,7 +31,7 @@ public class SetorService {
 		return setorRepository.findAll();
 	}
 	public Collection<Setor> listaPorTipoUnidade(){
-		return setorRepository.findByTipoUnidade_id(SessionUsuario.getInstance().getUsuario().getUnidade().getTipoUnidade().getId());
+		return setorRepository.findByTipoUnidade_id(SessionUsuario.getInstance().getUsuario().getFuncionario().getUnidadeAtual().getTipoUnidade().getId());
 	}
 	
 	public Setor buscaPorId(Long id){

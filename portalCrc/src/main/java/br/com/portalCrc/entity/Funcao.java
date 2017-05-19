@@ -12,6 +12,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @SequenceGenerator(name = "funcao_id_seq", sequenceName = "funcao_id_seq", schema="principal", initialValue = 1, allocationSize = 1)
 @Table(name="funcao", schema="principal")
@@ -28,6 +30,7 @@ public class Funcao {
 	@JoinColumn(name="id_secretaria")
 	private Secretaria secretaria;
 	
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name="id_usuario_cadastro")
 	private Usuario usuarioCadastro;

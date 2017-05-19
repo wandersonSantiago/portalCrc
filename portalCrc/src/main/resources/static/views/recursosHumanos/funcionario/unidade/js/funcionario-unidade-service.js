@@ -28,7 +28,15 @@ app.factory('FuncionarioUnidadeService', function($rootScope, toastr, $http){
 			},function(errResponse){
 				return $q.reject(errResponse);
 			});
-		},		
+		},	
+		buscarPorIdFuncionario: function(param){
+			return $http.get('/rest/recursosHumanos/funcionarioUnidade/funcionario/'+param)
+			.then(function(response){
+				return response.data;
+			},function(errResponse){
+				return $q.reject(errResponse);
+			});
+		},
 		
 		listar: function(){
 			return $http.get('/rest/recursosHumanos/funcionarioUnidade/lista')

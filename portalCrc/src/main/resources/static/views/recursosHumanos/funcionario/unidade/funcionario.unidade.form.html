@@ -51,7 +51,13 @@
 							<select class="form-control select2" ng-model="funcionarioUnidadeCtrl.funcionarioUnidade.funcao" ng-options="funcoes.descricao for funcoes in funcionarioUnidadeCtrl.funcao"  style="width: 100%;">
 									<option value="">{{funcionarioUnidadeCtrl.funcionarioUnidade.funcao.descricao}}</option>
 							</select>
-						</div>							
+						</div>
+						<div class="col-sm-3" >
+						Setor:
+							<select class="form-control select2" ng-model="funcionarioUnidadeCtrl.funcionarioUnidade.setor" ng-options="setor.nome for setor in funcionarioUnidadeCtrl.setores"  style="width: 100%;">
+									<option value="">{{funcionarioUnidadeCtrl.funcionarioUnidade.setor.nome}}</option>
+							</select>
+						</div>								
 					</div>
 
 					<hr>					

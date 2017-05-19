@@ -38,11 +38,11 @@ public class ContaFuncionarioDiariaService {
 	}
 	
 	public List<ContaFuncionarioDiaria> listaUnidade(){
-		return contaFuncionarioDiariaRepository.findByFuncionarioUnidadeAtual_id(SessionUsuario.getInstance().getUsuario().getUnidade().getId());
+		return contaFuncionarioDiariaRepository.findByFuncionarioUnidadeAtual_id(SessionUsuario.getInstance().getUsuario().getFuncionario().getUnidadeAtual().getId());
 	}
 	
 	public List<ContaFuncionarioDiaria> listaCoordenadoria(Long id){
-		return contaFuncionarioDiariaRepository.findByFuncionarioUnidadeAtualCoordenadoria_id(SessionUsuario.getInstance().getUsuario().getUnidade().getCoordenadoria().getId());
+		return contaFuncionarioDiariaRepository.findByFuncionarioUnidadeAtualCoordenadoria_id(SessionUsuario.getInstance().getUsuario().getFuncionario().getUnidadeAtual().getCoordenadoria().getId());
 	}
 	public List<ContaFuncionarioDiaria> lista(){
 		return contaFuncionarioDiariaRepository.findAll();

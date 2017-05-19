@@ -35,7 +35,7 @@ public class FuncionarioService {
 	public void salvarEditar(Funcionario funcionario){
 		salvaHistoricoDeCargo(funcionario);
 		salvaHistoricoDaUnidade(funcionario);
-		funcionario.setUnidadeAtual(SessionUsuario.getInstance().getUsuario().getUnidade());
+		funcionario.setUnidadeAtual(SessionUsuario.getInstance().getUsuario().getFuncionario().getUnidadeAtual());
 		funcionario.setUsuarioCadastro(SessionUsuario.getInstance().getUsuario());
 		funcionario.setDataCadastro(new Date());
 		funcionarioRepository.save(funcionario);
@@ -64,7 +64,7 @@ public class FuncionarioService {
 		FuncionarioUnidade unidades = new FuncionarioUnidade();
 		unidades.setAtivo(true);
 		unidades.setFuncionario(funcionario);
-		unidades.setUnidade(SessionUsuario.getInstance().getUsuario().getUnidade());
+		unidades.setUnidade(SessionUsuario.getInstance().getUsuario().getFuncionario().getUnidadeAtual());
 		unidades.setStatus(StatusFuncionario.LOTADO);
 		unidades.setUsuarioCadastro(SessionUsuario.getInstance().getUsuario());
 		unidades.setDataCadastro(new Date());
@@ -72,6 +72,6 @@ public class FuncionarioService {
 	}
 
 	public Iterable<Funcionario> listaPorUnidade() {		
-		return funcionarioRepository.findByUnidadeAtual_id(SessionUsuario.getInstance().getUsuario().getUnidade().getId());
+		return funcionarioRepository.findByUnidadeAtual_id(SessionUsuario.getInstance().getUsuario().getFuncionario().getUnidadeAtual().getId());
 	}
 }

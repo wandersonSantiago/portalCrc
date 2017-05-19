@@ -32,7 +32,7 @@
 		                    <img src="public/img/avatar_2x.png" class="img-circle" alt="User Image">
 		                    <p>
 		                     		{{usuario.funcionario.pessoa.nomeCompleto}}
-		                      <small>{{usuario.setor.nome}}</small>
+		                      <small>{{usuario.funcionario.setorAtual.nome}}</small>
 		                    </p>
 		                  </li>                 
 		                  <li class="user-footer">
@@ -45,7 +45,7 @@
 		                  </li>
 		                </ul>
 		              </li>
-		              <li><a>Unidade : {{usuario.unidade.dadosUnidade.mnemonico}}</a></li>          
+		              <li><a>Unidade : {{usuario.funcionario.unidadeAtual.dadosUnidade.mnemonico}}</a></li>          
          			<li>
 						<a href="" ng-controller="loginController as loginCtrl"  ng-click="loginCtrl.logout()"> Logout <i class="glyphicon glyphicon-log-out"></i>
 						</a>

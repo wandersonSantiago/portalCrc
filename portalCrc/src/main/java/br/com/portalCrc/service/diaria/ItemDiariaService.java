@@ -43,11 +43,11 @@ public class ItemDiariaService {
 	}
 	
 	public List<ItemDiaria> listaUnidade(Long id){
-		return itemDiariaRepository.listaUnidade(SessionUsuario.getInstance().getUsuario().getUnidade().getId(), id);
+		return itemDiariaRepository.listaUnidade(SessionUsuario.getInstance().getUsuario().getFuncionario().getUnidadeAtual().getId(), id);
 	}
 	
 	public List<ItemDiaria> listaCoordenadoria(Long id){
-		return itemDiariaRepository.findByUnidadeCoordenadoria_idAndDiaria_id(SessionUsuario.getInstance().getUsuario().getUnidade().getCoordenadoria().getId(), id);
+		return itemDiariaRepository.findByUnidadeCoordenadoria_idAndDiaria_id(SessionUsuario.getInstance().getUsuario().getFuncionario().getUnidadeAtual().getCoordenadoria().getId(), id);
 	}
 	public List<ItemDiaria> lista(){
 		return itemDiariaRepository.findAll();

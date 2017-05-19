@@ -50,7 +50,10 @@ public class FuncionarioUnidadeRestController {
 		public ResponseEntity<FuncionarioUnidade> buscarPorId(@PathVariable Long id) {
 			return new ResponseEntity<FuncionarioUnidade>(funcionarioUnidadeService.buscaPorId(id), HttpStatus.OK);
 		}
-
+	 @RequestMapping(value = "/funcionario/{id}", method = RequestMethod.GET)
+		public ResponseEntity<FuncionarioUnidade> buscarPorIdFuncionario(@PathVariable Long id) {
+			return new ResponseEntity<FuncionarioUnidade>(funcionarioUnidadeService.findByFuncionario_idTop1Desc(id), HttpStatus.OK);
+		}
 	 @RequestMapping(method = RequestMethod.GET, value = "/status")
 		public ResponseEntity<Iterable<StatusFuncionario>> status() {
 			Iterable<StatusFuncionario> status = Arrays.asList(StatusFuncionario.values());

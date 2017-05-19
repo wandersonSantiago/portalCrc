@@ -21,14 +21,14 @@ public class RamalService {
 	
 	@Transactional(readOnly = false)
 	public void salvarEditar(Ramal ramal){
-		ramal.setUnidade(SessionUsuario.getInstance().getUsuario().getUnidade());
+		ramal.setUnidade(SessionUsuario.getInstance().getUsuario().getFuncionario().getUnidadeAtual());
 		ramal.setUsuarioCadastro(SessionUsuario.getInstance().getUsuario());
 		ramal.setDataCadastro(new Date());
 		ramalRepository.save(ramal);
 	}
 	
 	public Collection<Ramal> lista(){
-		return ramalRepository.findByUnidade_id(SessionUsuario.getInstance().getUsuario().getUnidade().getId());
+		return ramalRepository.findByUnidade_id(SessionUsuario.getInstance().getUsuario().getFuncionario().getUnidadeAtual().getId());
 	}
 	
 	public Ramal buscaPorId(Long id){

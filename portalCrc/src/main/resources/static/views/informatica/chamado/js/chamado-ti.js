@@ -53,12 +53,13 @@ app.config(function($stateProvider, $urlRouterProvider) {
 		.state('chamadoTi.relatorio', {
 			url : "/relatorio",
 			templateUrl : "views/informatica/chamado/suporte/relatorio.html",
-			controller : "ChamadoTiRelatorioController as chamadoCtrl",
+			controller : "ChamadoTiRelatorioController as chamadoCtr",
 			ncyBreadcrumb: {
 				 	parent: 'chamadoTi.listar',
 				    label: 'relatorio'
 				  }
 		})
+		
 		.state('chamadoTi.suporteListar', {
 			url : "/lista/suporte",
 			templateUrl : "views/informatica/chamado/suporte/lista.suporte.html",

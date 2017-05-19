@@ -8,6 +8,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
 		templateUrl : 'views/recursosHumanos/funcionario/unidade/funcionario.unidade.index.html',
 		redirectTo : 'funcionario.listar',
 		ncyBreadcrumb: {
+			parent: 'funcionario.listar',
 			    label: 'funcionario'
 			  }
 	})

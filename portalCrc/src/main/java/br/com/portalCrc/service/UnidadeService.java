@@ -40,7 +40,7 @@ public class UnidadeService {
 	}
 
 	public Iterable<Unidade> buscaUnidadePorCoordenadoria(Long id) {
-		return unidadeRepository.findByCoordenadoria_id(SessionUsuario.getInstance().getUsuario().getUnidade().getCoordenadoria().getId());
+		return unidadeRepository.findByCoordenadoria_id(SessionUsuario.getInstance().getUsuario().getFuncionario().getUnidadeAtual().getCoordenadoria().getId());
 	}
 
 	public Iterable<Unidade> listaUnidadeCoordenadoria() {

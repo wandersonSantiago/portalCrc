@@ -21,14 +21,14 @@ public class CoordenadoriaService {
 	
 	@Transactional(readOnly = false)
 	public void salvarEditar(Coordenadoria coordenadoria){
-		coordenadoria.setSecretaria(SessionUsuario.getInstance().getUsuario().getUnidade().getCoordenadoria().getSecretaria());
+		coordenadoria.setSecretaria(SessionUsuario.getInstance().getUsuario().getFuncionario().getUnidadeAtual().getCoordenadoria().getSecretaria());
 		coordenadoria.setUsuarioCadastro(SessionUsuario.getInstance().getUsuario());
 		coordenadoria.setDataCadastro(new Date());
 		coordenadoriaRepository.save(coordenadoria);
 	}
 	
 	public Collection<Coordenadoria> lista(){
-		return coordenadoriaRepository.findBySecretaria_id(SessionUsuario.getInstance().getUsuario().getUnidade().getCoordenadoria().getSecretaria().getId());
+		return coordenadoriaRepository.findBySecretaria_id(SessionUsuario.getInstance().getUsuario().getFuncionario().getUnidadeAtual().getCoordenadoria().getSecretaria().getId());
 	}
 	
 	public Coordenadoria buscaPorId(Long id){

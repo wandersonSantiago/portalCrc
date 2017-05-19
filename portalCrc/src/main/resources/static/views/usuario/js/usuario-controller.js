@@ -26,7 +26,8 @@ function UsuarioCadastarController( UsuarioService, FuncionarioService, UnidadeS
 				then(function(response){
 					self.usuario = null;
 					}, function(errResponse){
-				});
+						sweetAlert({ timer : 3000,  text : errResponse.data.message,  type : "error", width: 300, higth: 300, padding: 20});
+					});
 			}else{			
 				sweetAlert({ timer : 3000, text: "senha não coencidem, digite novamente" , type : "error", width: 300, higth: 100, padding: 20});
 			
@@ -88,8 +89,8 @@ function UsuarioEditarController($stateParams, $state , UsuarioService, Funciona
 	
 	function submit(usuario){		
 		if(self.senha == self.senhaRepitida){
-			usuario.senha = self.senha;
-			UsuarioService.altera(usuario).
+			self.usuario.senha = self.senha;
+			UsuarioService.alterar(self.usuario).
 			then(function(response){
 				toastr.info("Usuario Salvo!!!")
 				self.usuario = null;

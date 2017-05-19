@@ -27,7 +27,7 @@ public class EquipamentoService {
 	
 	
 	public Collection<Equipamento> lista(){		
-		return equipamentoRepositorio.findByUnidade_id(SessionUsuario.getInstance().getUsuario().getUnidade().getId());
+		return equipamentoRepositorio.findByUnidade_id(SessionUsuario.getInstance().getUsuario().getFuncionario().getUnidadeAtual().getId());
 	}
 	
 	
@@ -50,7 +50,7 @@ public class EquipamentoService {
 			equipamento.getIp().setEmUso(true);
 			ipService.altera(equipamento.getIp());
 		}
-		equipamento.setUnidade(SessionUsuario.getInstance().getUsuario().getUnidade());
+		equipamento.setUnidade(SessionUsuario.getInstance().getUsuario().getFuncionario().getUnidadeAtual());
 		equipamento.setDataCadastro(new Date());
 		equipamento.setUsuarioCadastro(SessionUsuario.getInstance().getUsuario());
 		equipamento.setAtivo(true);

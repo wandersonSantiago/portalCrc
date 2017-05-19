@@ -23,7 +23,7 @@ public class PontoSevice {
 	
 	
 	public Collection<Ponto> lista(){
-		return pontoRepositorio.findByUnidade_id(SessionUsuario.getInstance().getUsuario().getUnidade().getId());
+		return pontoRepositorio.findByUnidade_id(SessionUsuario.getInstance().getUsuario().getFuncionario().getUnidadeAtual().getId());
 	}
 	
 	
@@ -40,7 +40,7 @@ public class PontoSevice {
 		ponto.setEmUso(false);
 	}
 		ponto.setUsuarioCadastro(SessionUsuario.getInstance().getUsuario());
-		ponto.setUnidade(SessionUsuario.getInstance().getUsuario().getUnidade());
+		ponto.setUnidade(SessionUsuario.getInstance().getUsuario().getFuncionario().getUnidadeAtual());
 		if(ponto.getPortaSwitch() != null){
 			ponto.getPortaSwitch().setEmUso(true);
 			ponto.getPortaSwitch().setSwitchs(ponto.getSwitchs());

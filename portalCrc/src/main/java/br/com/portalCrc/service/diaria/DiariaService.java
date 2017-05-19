@@ -37,7 +37,7 @@ public class DiariaService {
 			salvarValoresDiaria(diaria, 9);
 			diaria.setDataAbertura(new Date());
 			diaria.setStatus(StatusDiariaEnum.ABERTO);
-			diaria.setUnidadeCadastro(SessionUsuario.getInstance().getUsuario().getUnidade());
+			diaria.setUnidadeCadastro(SessionUsuario.getInstance().getUsuario().getFuncionario().getUnidadeAtual());
 			diaria.setUsuarioCadastro(SessionUsuario.getInstance().getUsuario());
 			diariaRepository.save(diaria);
 		}else{			

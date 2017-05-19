@@ -24,12 +24,12 @@ public class TipoUnidadeService {
 	public void salvarEditar(TipoUnidade tipoUnidade){
 		tipoUnidade.setDataCadastro(new Date());
 		tipoUnidade.setUsuarioCadastro(SessionUsuario.getInstance().getUsuario());
-		tipoUnidade.setSecretaria(SessionUsuario.getInstance().getUsuario().getUnidade().getCoordenadoria().getSecretaria());
+		tipoUnidade.setSecretaria(SessionUsuario.getInstance().getUsuario().getFuncionario().getUnidadeAtual().getCoordenadoria().getSecretaria());
 		tipoUnidadeRepository.save(tipoUnidade);
 	}
 	
 	public Collection<TipoUnidade> lista(){
-		return tipoUnidadeRepository.findBySecretaria_id(SessionUsuario.getInstance().getUsuario().getUnidade().getCoordenadoria().getSecretaria().getId());
+		return tipoUnidadeRepository.findBySecretaria_id(SessionUsuario.getInstance().getUsuario().getFuncionario().getUnidadeAtual().getCoordenadoria().getSecretaria().getId());
 	}
 	
 	public TipoUnidade buscaPorId(Long id){

@@ -14,6 +14,7 @@ import br.com.portalCrc.entity.Unidade;
 import br.com.portalCrc.entity.Usuario;
 import br.com.portalCrc.entity.chamado.ChamadoTi;
 import br.com.portalCrc.enums.chamado.StatusChamado;
+import br.com.portalCrc.pojo.ConverteData;
 import br.com.portalCrc.pojo.SessionUsuario;
 import br.com.portalCrc.repository.chamado.ChamadoTiRepository;
 
@@ -29,8 +30,8 @@ public class ChamadoTiService {
 	@Transactional(readOnly = false)
 	public void salvarEditar(ChamadoTi chamadoTi){
 		dataAtual = new Date();
-		chamadoTi.setSetor(SessionUsuario.getInstance().getUsuario().getSetor());
-		chamadoTi.setUnidade(SessionUsuario.getInstance().getUsuario().getUnidade());
+		chamadoTi.setSetor(SessionUsuario.getInstance().getUsuario().getFuncionario().getSetorAtual());
+		chamadoTi.setUnidade(SessionUsuario.getInstance().getUsuario().getFuncionario().getUnidadeAtual());
 		chamadoTi.setUsuarioSolicitante(SessionUsuario.getInstance().getUsuario());
 		chamadoTi.setStatus(StatusChamado.ABERTO);
 		chamadoTi.setLido(false);
@@ -84,13 +85,13 @@ public class ChamadoTiService {
 		Usuario usuario = new Usuario();
 		Unidade unidade =  new Unidade();
 		usuario = SessionUsuario.getInstance().getUsuario();
-		unidade = SessionUsuario.getInstance().getUsuario().getUnidade();
+		unidade = SessionUsuario.getInstance().getUsuario().getFuncionario().getUnidadeAtual();
 		return chamadoTiRepository.listaChamadoUsuario(usuario, unidade);
 	}
 	
 	public Collection<ChamadoTi> listaSuporte(){
 		Unidade unidade =  new Unidade();
-		unidade = SessionUsuario.getInstance().getUsuario().getUnidade();
+		unidade = SessionUsuario.getInstance().getUsuario().getFuncionario().getUnidadeAtual();
 		return chamadoTiRepository.listaSuporte(unidade);
 	}
 	
@@ -110,6 +111,20 @@ public class ChamadoTiService {
 	}
 
 	public Page<ChamadoTi> relatorio(PageRequest page) {
-		return chamadoTiRepository.findAll(page);
+		return chamadoTiRepository.findByUnidade_id(SessionUsuario.getInstance().getUsuario().getFuncionario().getUnidadeAtual().getId(), page);
 	}
+	
+	public Collection<ChamadoTi> relatorio(Date dataInicial, Date dataFinal) {
+		
+		return chamadoTiRepository.relatorio(new ConverteData(dataInicial).getString(),new ConverteData(dataFinal).getString(), SessionUsuario.getInstance().getUsuario().getFuncionario().getUnidadeAtual().getId());
+	}
+
+	public Page<ChamadoTi> buscarPorUnidadeComPaginacao(PageRequest pageRequest) {		
+		return chamadoTiRepository.findByUnidade_id(SessionUsuario.getInstance().getUsuario().getFuncionario().getUnidadeAtual().getId() , pageRequest);
+	}
+	
+	public Iterable<ChamadoTi> relatorioPorDataETitulo(Date dataInicial, Date dataFinal, String titulo) {
+		return chamadoTiRepository.relatorioPorDataETitulo(new ConverteData(dataInicial).getString(),new ConverteData(dataFinal).getString(), titulo, SessionUsuario.getInstance().getUsuario().getFuncionario().getUnidadeAtual().getId());
+	}
+	
 }

@@ -33,12 +33,12 @@ public class Usuario {
 	@ManyToOne
 	@JoinColumn(name="id_funcionario",nullable = true)
 	private Funcionario funcionario;
-	@ManyToOne
+	/*@ManyToOne
 	@JoinColumn(name="id_setor",nullable = true)
 	private Setor setor;
 	@ManyToOne
 	@JoinColumn(name="id_unidades",nullable = true)
-	private Unidade unidade;
+	private Unidade unidade;*/
 	@ElementCollection(targetClass=PerfilUsuario.class,fetch = FetchType.EAGER)
     @Enumerated(EnumType.STRING)
     @CollectionTable(name="perfil")
@@ -48,9 +48,9 @@ public class Usuario {
 	private String login;
 	@Column(nullable = false,length = 256)
 	private String senha;
-	@ManyToOne
+	/*@ManyToOne
 	@JoinColumn(name="id_usuario_cadastro")
-	private Usuario usuarioCadastro;
+	private Usuario usuarioCadastro;*/
 	@Column(name="data_cadastro")
 	private Date dataCadastro;
 	
@@ -74,21 +74,21 @@ public class Usuario {
 	public void setFuncionario(Funcionario funcionario) {
 		this.funcionario = funcionario;
 	}
-	public Unidade getUnidade() {
+	/*public Unidade getUnidade() {
 		return unidade;
 	}
 	public void setUnidade(Unidade unidade) {
 		this.unidade = unidade;
-	}
+	}*/
 	public Funcionario getFuncionario() {
 		return funcionario;
 	}
-	public Setor getSetor() {
+	/*public Setor getSetor() {
 		return setor;
 	}
 	public void setSetor(Setor setor) {
 		this.setor = setor;
-	}
+	}*/
 	public List<PerfilUsuario> getPerfilsUsuario() {
 		return perfilsUsuario;
 	}
@@ -101,12 +101,12 @@ public class Usuario {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public Usuario getUsuarioCadastro() {
+	/*public Usuario getUsuarioCadastro() {
 		return usuarioCadastro;
 	}
 	public void setUsuarioCadastro(Usuario usuarioCadastro) {
 		this.usuarioCadastro = usuarioCadastro;
-	}
+	}*/
 	public Date getDataCadastro() {
 		return dataCadastro;
 	}

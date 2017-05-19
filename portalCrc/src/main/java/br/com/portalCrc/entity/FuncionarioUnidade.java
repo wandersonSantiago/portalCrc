@@ -42,8 +42,15 @@ public class FuncionarioUnidade {
 	@ManyToOne
 	@JoinColumn(name="usuario_cadastro")
 	private Usuario usuarioCadastro;
-	
-	
+	@ManyToOne
+	@JoinColumn(name="funcao")
+	private Funcao funcao;
+	@ManyToOne
+	@JoinColumn(name="cargo")
+	private Cargo cargo;
+	@ManyToOne
+	@JoinColumn(name="setor")
+	private Setor setor;
 	
 	public Funcionario getFuncionario() {
 		return funcionario;
@@ -99,6 +106,30 @@ public class FuncionarioUnidade {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public Funcao getFuncao() {
+		return funcao;
+	}
+
+	public void setFuncao(Funcao funcao) {
+		this.funcao = funcao;
+	}
+
+	public Cargo getCargo() {
+		return cargo;
+	}
+
+	public void setCargo(Cargo cargo) {
+		this.cargo = cargo;
+	}
+
+	public Setor getSetor() {
+		return setor;
+	}
+
+	public void setSetor(Setor setor) {
+		this.setor = setor;
 	}	
 	
 	

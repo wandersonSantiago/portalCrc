@@ -16,7 +16,7 @@
 				<tbody	ng-repeat=" chamado in chamadoCtrl.chamados | filter : buscarChamado | orderBy : '-id'  ">
 					<tr>
 						<td>{{ chamado.titulo }}</td>
-						<td>{{ chamado.usuarioSolicitante.nome | limitTo:20}}</td>
+						<td>{{ chamado.usuarioSolicitante.funcionario.pessoa.nomeCompleto | limitTo:20}}</td>
 						<td>{{ chamado.setor.nome }}</td>	
 						<td>{{ chamado.status }}</td>							
 						<td>{{ chamado.dataAbertura | date : 'dd/MM/yyyy'}}</td>

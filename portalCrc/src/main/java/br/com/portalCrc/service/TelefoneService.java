@@ -23,7 +23,7 @@ public class TelefoneService {
 	
 	@Transactional(readOnly = false)
 	public void salvarEditar(Telefone telefone){
-		telefone.setUnidade(SessionUsuario.getInstance().getUsuario().getUnidade());
+		telefone.setUnidade(SessionUsuario.getInstance().getUsuario().getFuncionario().getUnidadeAtual());
 		telefone.setDataCadastro(new Date());
 		telefone.setUsuarioCadastro(SessionUsuario.getInstance().getUsuario());
 		telefoneRepository.save(telefone);

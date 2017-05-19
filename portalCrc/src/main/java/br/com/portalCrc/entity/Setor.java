@@ -15,6 +15,8 @@ import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import br.com.portalCrc.enums.TipoSetorEnum;
 
 @Entity
@@ -33,6 +35,7 @@ public class Setor {
 	@OneToOne
 	@JoinColumn(name="id_tipoUnidade")
 	private TipoUnidade tipoUnidade;
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name="id_usuario_cadastro")
 	private Usuario usuarioCadastro;

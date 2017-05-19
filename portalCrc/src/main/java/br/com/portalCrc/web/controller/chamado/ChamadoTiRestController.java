@@ -1,6 +1,7 @@
 package br.com.portalCrc.web.controller.chamado;
 
 import java.util.Arrays;
+import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -39,8 +40,18 @@ public class ChamadoTiRestController {
 	  Iterable<ChamadoTi> chamadoTi = chamadoTiService.listaSuporte();
 	  return new ResponseEntity<Iterable<ChamadoTi>>(chamadoTi, HttpStatus.OK);
 	 }
-	 
-	
+		@GetMapping(value = "/suporte/relatorio/dataInicial/{dataInicial}/dataFinal/{dataFinal}")
+	public ResponseEntity<Iterable<ChamadoTi>> relatorio(@PathVariable Date dataInicial, @PathVariable Date dataFinal) {
+		Iterable<ChamadoTi> chamadoTi = chamadoTiService.relatorio(dataInicial, dataFinal);
+		return new ResponseEntity<Iterable<ChamadoTi>>(chamadoTi, HttpStatus.OK);
+	}
+
+	@GetMapping(value = "/suporte/relatorio/dataInicial/{dataInicial}/dataFinal/{dataFinal}/titulo/{titulo}")
+	public ResponseEntity<Iterable<ChamadoTi>> relatorioPorDataETitulo(@PathVariable Date dataInicial,
+			@PathVariable Date dataFinal, @PathVariable String titulo) {
+		Iterable<ChamadoTi> chamado = chamadoTiService.relatorioPorDataETitulo(dataInicial, dataFinal, titulo);
+		return new ResponseEntity<Iterable<ChamadoTi>>(chamado, HttpStatus.OK);
+	}
 	 
 	 @GetMapping(value="/suporte/relatorio")
 		public ResponseEntity<Page<ChamadoTi>> relatorio(@RequestParam(defaultValue="0", required=false) int page

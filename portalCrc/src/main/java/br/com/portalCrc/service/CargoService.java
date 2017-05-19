@@ -21,14 +21,14 @@ public class CargoService {
 	
 	@Transactional(readOnly = false)
 	public void salvarEditar(Cargo cargo){
-		cargo.setSecretaria(SessionUsuario.getInstance().getUsuario().getUnidade().getCoordenadoria().getSecretaria());
+		cargo.setSecretaria(SessionUsuario.getInstance().getUsuario().getFuncionario().getUnidadeAtual().getCoordenadoria().getSecretaria());
 		cargo.setUsuarioCadastro(SessionUsuario.getInstance().getUsuario());
 		cargo.setDataCadastro(new Date());
 		cargoRepository.save(cargo);
 	}
 	
 	public Collection<Cargo> lista(){
-		return cargoRepository.findBySecretaria_id(SessionUsuario.getInstance().getUsuario().getUnidade().getCoordenadoria().getSecretaria().getId());
+		return cargoRepository.findBySecretaria_id(SessionUsuario.getInstance().getUsuario().getFuncionario().getUnidadeAtual().getCoordenadoria().getSecretaria().getId());
 	}
 	
 	public Cargo buscaPorId(Long id){

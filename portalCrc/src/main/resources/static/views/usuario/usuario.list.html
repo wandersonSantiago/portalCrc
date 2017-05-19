@@ -14,7 +14,7 @@
 					<tr>
 						<td>{{ user.login }}</td>
 						<td>{{ user.funcionario.pessoa.nomeCompleto}}</td>
-						<td>{{ user.unidade.dadosUnidade.mnemonico}}</td>
+						<td>{{ user.funcionario.unidadeAtual.dadosUnidade.mnemonico}}</td>
 						<td><a ui-sref="usuario.editar({idUsuario : user.id})"><i class="glyphicon glyphicon-edit"></i></a> 						
 				</tr>
 				</tbody>

@@ -96,6 +96,25 @@ app.factory('ChamadoTiService', function($rootScope, toastr, $http){
 				return $q.reject(errResponse);
 			});
 		},
+		relatorioPorData: function(dataInicial, dataFinal){
+			return $http.get('/rest/chamado/chamadoTi/suporte/relatorio/dataInicial/' +dataInicial +'/dataFinal/' +dataFinal)
+			.then(function(response){
+				return response.data;
+			},function(errResponse){
+				sweetAlert({ timer : 30000,  text : errResponse.data.message , type : "info", width: 300, higth: 100, padding: 20});
+					return $q.reject(errResponse);
+			});
+		},
+		
+		relatorioPorDataPorTitulo: function(dataInicial, dataFinal ,titulo){
+			return $http.get('/rest/chamado/chamadoTi/suporte/relatorio/dataInicial/' +dataInicial +'/dataFinal/' +dataFinal + '/titulo/' +titulo)
+			.then(function(response){
+				return response.data;
+			},function(errResponse){
+				sweetAlert({ timer : 30000,  text : errResponse.data.message , type : "info", width: 300, higth: 100, padding: 20});
+					return $q.reject(errResponse);
+			});
+		},
 		listaUsuario: function(){
 			return $http.get('/rest/chamado/chamadoTi/usuario/lista')
 			.then(function(response){
