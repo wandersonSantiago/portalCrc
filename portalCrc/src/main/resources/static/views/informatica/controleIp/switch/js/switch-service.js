@@ -38,6 +38,30 @@ app.factory('SwitchService', function($q, $http){
 				return $q.reject(errResponse);
 			});
 		},
+		listarAtivos: function(){
+			return $http.get('/rest/controleIp/switch/ativos')
+			.then(function(response){
+				return response.data;
+			},function(errResponse){
+				return $q.reject(errResponse);
+			});
+		},
+		listarInativos: function(){
+			return $http.get('/rest/controleIp/switch/inativos')
+			.then(function(response){
+				return response.data;
+			},function(errResponse){
+				return $q.reject(errResponse);
+			});
+		},
+		listarBaixados: function(){
+			return $http.get('/rest/controleIp/switch/baixados')
+			.then(function(response){
+				return response.data;
+			},function(errResponse){
+				return $q.reject(errResponse);
+			});
+		},
 				
 	}
 });

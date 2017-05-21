@@ -19,7 +19,25 @@ app.config(function($stateProvider, $urlRouterProvider) {
 			controller : "IpListarController as ipCtrl",
 			ncyBreadcrumb: {
 				 	parent: 'ip.cadastrar',
-				    label: 'lista ip'
+				    label: 'lista'
+				  }
+		})
+		.state('ip.ativos', {
+			url : "/ativos",
+			templateUrl : "views/informatica/controleIp/ip/ip.list.html",
+			controller : "IpListarAtivosController as ipCtrl",
+			ncyBreadcrumb: {
+				 	parent: 'ip.cadastrar',
+				    label: 'ativos'
+				  }
+		})
+		.state('ip.inativos', {
+			url : "/inativos",
+			templateUrl : "views/informatica/controleIp/ip/ip.list.html",
+			controller : "IpListarInativosController as ipCtrl",
+			ncyBreadcrumb: {
+				 	parent: 'ip.cadastrar',
+				    label: 'inativos'
 				  }
 		})
 		.state('ip.cadastrar', {

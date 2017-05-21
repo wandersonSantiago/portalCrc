@@ -8,6 +8,8 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import br.com.portalCrc.entity.controleIp.Ponto;
+import br.com.portalCrc.enums.controleIp.StatusPonto;
+import br.com.portalCrc.enums.controleIp.StatusPortaSwitch;
 import br.com.portalCrc.pojo.SessionUsuario;
 import br.com.portalCrc.repository.ControleIp.PontoRepositorio;
 
@@ -36,15 +38,16 @@ public class PontoSevice {
 	public void salvaOuAltera(Ponto ponto){
 	if(ponto.getId() != null){
 		verificaPortaSwicth(ponto);
-	}else{
-		ponto.setEmUso(false);
-	}
+	}	
 		ponto.setUsuarioCadastro(SessionUsuario.getInstance().getUsuario());
 		ponto.setUnidade(SessionUsuario.getInstance().getUsuario().getFuncionario().getUnidadeAtual());
 		if(ponto.getPortaSwitch() != null){
-			ponto.getPortaSwitch().setEmUso(true);
+			ponto.setStatus(StatusPonto.ATIVO);
+			ponto.getPortaSwitch().setStatus(StatusPortaSwitch.ATIVO);;
 			ponto.getPortaSwitch().setSwitchs(ponto.getSwitchs());
 			portaSwitchService.salvaOuAltera(ponto.getPortaSwitch());	
+		}else{
+			ponto.setStatus(StatusPonto.INATIVO);
 		}
 		pontoRepositorio.save(ponto);		
 	}
@@ -57,7 +60,8 @@ public class PontoSevice {
 
 
 	public Iterable<Ponto> listaEmUso(boolean b) {
-		return pontoRepositorio.findAllByEmUso(b);
+		return null;
+	//	return pontoRepositorio.findAllByEmUso(b);
 	}
 	
 	public void verificaPortaSwicth(Ponto ponto){
@@ -65,13 +69,18 @@ public class PontoSevice {
 		if(ponto.getPortaSwitch() != null){
 			Ponto p = pontoRepositorio.findOne(ponto.getId());	
 			if(p.getPortaSwitch() != null){
-				p.getPortaSwitch().setEmUso(false);
+				p.getPortaSwitch().setStatus(StatusPortaSwitch.INATIVO);;
 			}			
 		}else{
 			Ponto p = pontoRepositorio.findOne(ponto.getId());	
 			if(p.getPortaSwitch() != null){
-				p.getPortaSwitch().setEmUso(false);
+				p.getPortaSwitch().setStatus(StatusPortaSwitch.INATIVO);
 			}
 		}
+	}
+
+
+	public Iterable<Ponto> listaPorStatus(StatusPonto status) {
+		return pontoRepositorio.findByStatusAndUnidade_id(status, SessionUsuario.getInstance().getUsuario().getFuncionario().getUnidadeAtual().getId());
 	}
 }

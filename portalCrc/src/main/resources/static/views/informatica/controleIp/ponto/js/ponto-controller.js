@@ -1,6 +1,8 @@
 app.controller("PontoCadastarController", PontoCadastarController);
 app.controller("PontoEditarController", PontoEditarController);
 app.controller("PontoListarController", PontoListarController);
+app.controller("PontoListarAtivosController", PontoListarAtivosController);
+app.controller("PontoListarInativosController", PontoListarInativosController);
 app.controller("PontoShowController", PontoShowController);
 
 PontoCadastarController.$inject = [	'PortaSwitchService','SwitchService','SetorService', 'PontoService',  'toastr', '$rootScope', '$scope'];
@@ -164,6 +166,66 @@ function PontoListarController(PortaSwitchService, $stateParams, $state, PontoSe
 					});			  
 				})		
 		};
+}
+function PontoListarAtivosController(PortaSwitchService, $stateParams, $state, PontoService, toastr, $rootScope, $scope){
+	var self = this;
+	listar();
+	listarPortas();
+	self.limparPortas = limparPortas;
+	
+	 function listar(){
+		 PontoService.listarAtivos().
+			then(function(f){
+				self.pontos = f;	
+				$rootScope.qtdPontoAtivos = f.length;
+				}, function(errResponse){
+					sweetAlert({ timer : 3000,  text : errResponse.data.message,  type : "info", width: 300, higth: 300, padding: 20});
+			});
+		};
+	 function listarPortas(){
+		 PortaSwitchService.listar().
+			then(function(f){
+				self.portaSwitchs = f;				
+				}, function(errResponse){
+					sweetAlert({ timer : 3000,  text : errResponse.data.message,  type : "info", width: 300, higth: 300, padding: 20});
+			});
+		};
+		
+		
+			
+		function limparPortas(ponto) {			
+			swal({
+				  title: 'Desvincular ponto do switch!!!',
+				  type: 'info',
+				  showCancelButton: true,
+				  confirmButtonColor: '#3085d6',
+				  cancelButtonColor: '#d33',
+				  confirmButtonText: 'Sim!'
+				}).then(function () {
+					ponto.portaSwitch =null;
+					ponto.switchs =null;
+					PontoService.salvar(ponto).
+					then(function(response){
+						self.ponto = null;
+						}, function(errResponse){
+					});			  
+				})		
+		};
+}
+function PontoListarInativosController(PortaSwitchService, $stateParams, $state, PontoService, toastr, $rootScope, $scope){
+	var self = this;
+	listar();
+	
+	 function listar(){
+		 PontoService.listarInativos().
+			then(function(f){
+				self.pontos = f;	
+				$rootScope.qtdPontoInativos = f.length;
+				}, function(errResponse){
+					sweetAlert({ timer : 3000,  text : errResponse.data.message,  type : "info", width: 300, higth: 300, padding: 20});
+			});
+		};
+	
 }
 function PontoShowController( $stateParams, $state, PontoService, toastr, $rootScope, $scope){
 	

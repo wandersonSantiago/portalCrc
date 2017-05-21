@@ -39,8 +39,16 @@ app.factory('IpService', function($q, $http){
 			});
 		},
 		
-		listarIpSemUso: function(){
-			return $http.get('/rest/controleIp/ip/semUso')
+		listarIpInativo: function(){
+			return $http.get('/rest/controleIp/ip/inativo')
+			.then(function(response){
+				return response.data;
+			},function(errResponse){
+				return $q.reject(errResponse);
+			});
+		},
+		listarIpAtivo: function(){
+			return $http.get('/rest/controleIp/ip/ativo')
 			.then(function(response){
 				return response.data;
 			},function(errResponse){

@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import br.com.portalCrc.entity.controleIp.Ip;
 import br.com.portalCrc.entity.controleIp.TipoIp;
+import br.com.portalCrc.enums.controleIp.StatusIp;
 import br.com.portalCrc.pojo.SessionUsuario;
 import br.com.portalCrc.repository.ControleIp.IpRepositorio;
 
@@ -33,7 +34,7 @@ public class IpService {
 			ip.setTipo(tipo);
 			ip.setUnidade(SessionUsuario.getInstance().getUsuario().getFuncionario().getUnidadeAtual());
 			ip.setUsuarioCadastro(SessionUsuario.getInstance().getUsuario());
-			ip.setEmUso(false);
+			ip.setStatus(StatusIp.INATIVO);
 			ipRepositorio.save(ip);
 			
 			ip = new Ip();
@@ -54,8 +55,8 @@ public class IpService {
 		return ipRepositorio.findOne(id);
 	}
 
-	public Iterable<Ip> listaIpSemUso() {
-		return ipRepositorio.findByEmUsoAndUnidade_idOrderByIdAsc(false, SessionUsuario.getInstance().getUsuario().getFuncionario().getUnidadeAtual().getId());
+	public Iterable<Ip> listaIp(StatusIp status) {
+		return ipRepositorio.findByStatusAndUnidade_idOrderByIdAsc(status, SessionUsuario.getInstance().getUsuario().getFuncionario().getUnidadeAtual().getId());
 	}
 
 }

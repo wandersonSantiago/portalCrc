@@ -1,7 +1,12 @@
 <meta charset="UTF-8">
 			<div class="col-sm-12 ">
 			<form role="form-vertical" name="formEquipamento" ng-submit="equipamentoCtrl.submit()" >
-			
+				<div class="row" ng-if="equipamentoCtrl.equipamento">
+					<div class="col-sm-4">
+							<input type="button" ng-click="equipamentoCtrl.baixar(equipamentoCtrl.equipamento)" value="Baixar" title="Dar baixa no Equipamento"	class="btn btn-lg btn-danger btn-block btn-signin">
+						</div>
+					
+				</div>
 				<div class="row">
 						<div class="col-sm-6">
 						Descrição:

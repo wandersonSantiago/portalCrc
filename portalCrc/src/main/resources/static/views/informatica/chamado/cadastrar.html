@@ -11,10 +11,10 @@
 							</select>
 					</div>
 					<div class="col-sm-4" >
-					Tipo Equipamento:
+					Tipo :
 							<select class="form-control " ng-model="chamadoCtrl.chamadoTi.tipoEquipamento" id="tipo"
 							ng-options="tipoEquipamento for tipoEquipamento in chamadoCtrl.tipoEquipamentos" >
-								<option  value="">Tipo Equipamento</option>
+								<option  value="">Tipo</option>
 					</select>
 					</div>
 					</div>
@@ -33,6 +33,13 @@
 							<select class="form-control " ng-model="chamadoCtrl.chamadoTi.titulo" id="tituloImpressora"
 							ng-options="tituloImpressora for tituloImpressora in chamadoCtrl.tituloImpressoras" >
 								<option value="">Titulo</option>
+							</select>
+						</div>
+						<div ng-if="chamadoCtrl.chamadoTi.tipoEquipamento == 'SISTEMA'" class="col-sm-4"  ng-init="chamadoCtrl.tituloImpressora()" >
+							Sistema:
+							<select class="form-control " ng-model="chamadoCtrl.chamadoTi.titulo" id="tituloImpressora"
+							ng-options="tituloImpressora for tituloImpressora in chamadoCtrl.tituloImpressoras" >
+								<option value="">Sistema</option>
 							</select>
 						</div>							
 					</div>					

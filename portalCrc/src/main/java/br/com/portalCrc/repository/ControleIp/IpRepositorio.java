@@ -5,6 +5,7 @@ import java.util.Collection;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import br.com.portalCrc.entity.controleIp.Ip;
+import br.com.portalCrc.enums.controleIp.StatusIp;
 
 public interface IpRepositorio extends JpaRepository<Ip, Long>{
 
@@ -12,6 +13,6 @@ public interface IpRepositorio extends JpaRepository<Ip, Long>{
 
 	
 
-	Iterable<Ip> findByEmUsoAndUnidade_idOrderByIdAsc(boolean b, Long id);
+	Iterable<Ip> findByStatusAndUnidade_idOrderByIdAsc(StatusIp status, Long id);
 
 }

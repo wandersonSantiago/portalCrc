@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import br.com.portalCrc.entity.controleIp.PortaSwitch;
 import br.com.portalCrc.entity.controleIp.Switch;
+import br.com.portalCrc.enums.controleIp.StatusPortaSwitch;
 import br.com.portalCrc.enums.controleIp.StatusSwitch;
 import br.com.portalCrc.pojo.SessionUsuario;
 import br.com.portalCrc.repository.ControleIp.SwitchRepositorio;
@@ -50,11 +51,11 @@ public class SwitchService {
 		
 		List<PortaSwitch> lista  = new ArrayList<>();
 		
-		for(int i = 0 ; i < switchs.getQtdPortas() ; i++){
+		for(int i = 1 ; i <= switchs.getQtdPortas() ; i++){
 			PortaSwitch lista2 = new PortaSwitch();
 			lista2.setDataCadastro(new Date());
 			lista2.setNumero(i);
-			lista2.setStatus(StatusSwitch.INATIVO);
+			lista2.setStatus(StatusPortaSwitch.INATIVO);
 			lista2.setDescricao("Porta Comum");
 			lista2.setUnidade(SessionUsuario.getInstance().getUsuario().getFuncionario().getUnidadeAtual());
 			lista2.setUsuarioCadastro(SessionUsuario.getInstance().getUsuario());
@@ -62,5 +63,10 @@ public class SwitchService {
 			lista.add(lista2);
 		}
 		return lista;
+	}
+
+
+	public Iterable<Switch> listaPorStatus(StatusSwitch status) {
+		return switchRepositorio.findByStatusAndUnidade_id(status, SessionUsuario.getInstance().getUsuario().getFuncionario().getUnidadeAtual().getId());
 	}
 }

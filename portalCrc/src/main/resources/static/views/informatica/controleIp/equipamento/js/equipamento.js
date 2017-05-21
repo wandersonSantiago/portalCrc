@@ -22,6 +22,33 @@ app.config(function($stateProvider, $urlRouterProvider) {
 				    label: 'lista equipamento'
 				  }
 		})
+		.state('equipamento.ativo', {
+			url : "/ativo",
+			templateUrl : "views/informatica/controleIp/equipamento/equipamento.list.html",
+			controller : "EquipamentoListarAtivoController as equipamentoCtrl",
+			ncyBreadcrumb: {
+				 	parent: 'equipamento.cadastrar',
+				    label: 'inativo'
+				  }
+		})
+		.state('equipamento.inativo', {
+			url : "/inativo",
+			templateUrl : "views/informatica/controleIp/equipamento/equipamento.list.html",
+			controller : "EquipamentoListarInativoController as equipamentoCtrl",
+			ncyBreadcrumb: {
+				 	parent: 'equipamento.cadastrar',
+				    label: 'ativo'
+				  }
+		})
+		.state('equipamento.baixado', {
+			url : "/baixado",
+			templateUrl : "views/informatica/controleIp/equipamento/equipamento.list.html",
+			controller : "EquipamentoListarBaixadoController as equipamentoCtrl",
+			ncyBreadcrumb: {
+				 	parent: 'equipamento.cadastrar',
+				    label: 'ativo'
+				  }
+		})
 		.state('equipamento.cadastrar', {
 			url : "/cadastrar",
 			templateUrl : "views/informatica/controleIp/equipamento/equipamento.form.html",
@@ -31,6 +58,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
 			    label: 'Cadastrar equipamento'
 			  }
 		})
+		
 		.state('equipamento.editar', {
 			url : "/:idEquipamento/informatica/editar",
 			templateUrl : "views/informatica/controleIp/equipamento/equipamento.form.html",

@@ -92,7 +92,10 @@ public class ChamadoTiRestController {
 		public ResponseEntity<ChamadoTi> buscarPorId(@PathVariable Long id) {
 			return new ResponseEntity<ChamadoTi>(chamadoTiService.buscaPorId(id), HttpStatus.OK);
 		}
-	 
+	 @RequestMapping(value = "/count", method = RequestMethod.GET)
+		public ResponseEntity<Long> count() {
+			return new ResponseEntity<Long>(chamadoTiService.count(), HttpStatus.OK);
+		}
 	 @RequestMapping(method = RequestMethod.GET, value = "/prioridade")
 		public ResponseEntity<Iterable<PrioridadeChamado>> prioridade() {
 			Iterable<PrioridadeChamado> prioridadeChamado = Arrays.asList(PrioridadeChamado.values());

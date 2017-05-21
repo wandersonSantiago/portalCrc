@@ -9,7 +9,7 @@ public interface PortaSwitchRepositorio extends JpaRepository<PortaSwitch, Long>
 
 
 
-	@Query("From PortaSwitch p where p.switchs.id = ?1 AND p.emUso = 'false' AND p.status = 'ATIVO' ORDER BY p.id ASC"  )
+	@Query("From PortaSwitch p where p.switchs.id = ?1 AND p.status = 'INATIVO' ORDER BY p.id ASC"  )
 	Iterable<PortaSwitch> listaPortaLivre(Long id);
 
 }

@@ -1,6 +1,8 @@
 app.controller("IpCadastarController", IpCadastarController);
 app.controller("IpEditarController", IpEditarController);
 app.controller("IpListarController", IpListarController);
+app.controller("IpListarAtivosController", IpListarAtivosController);
+app.controller("IpListarInativosController", IpListarInativosController);
 app.controller("IpShowController", IpShowController);
 
 IpCadastarController.$inject = ['TipoIpService','IpService',  'toastr', '$rootScope', '$scope'];
@@ -73,11 +75,10 @@ function IpEditarController($stateParams, $state, IpService, toastr, $rootScope,
 }
 function IpListarController(TipoIpService, $stateParams, $state, IpService, toastr, $rootScope, $scope){
 	var self = this;
-	listar();
 	self.alterar =  alterar;
-	listarTipo();
+	listarTodos();
 	
-	 function listar(){
+	 function listarTodos(){
 		 IpService.listar().
 			then(function(f){
 				self.ips = f;	
@@ -85,7 +86,7 @@ function IpListarController(TipoIpService, $stateParams, $state, IpService, toas
 				}, function(errResponse){
 					sweetAlert({ timer : 3000,  text : errResponse.data.message,  type : "info", width: 300, higth: 300, padding: 20});
 			});
-		};
+		};				
 		
 		function alterar(ip) {		
 			IpService.alterar(ip).
@@ -105,6 +106,76 @@ function IpListarController(TipoIpService, $stateParams, $state, IpService, toas
 				});
 			};
 }
+
+function IpListarAtivosController(TipoIpService, $stateParams, $state, IpService, toastr, $rootScope, $scope){
+	var self = this;
+	self.alterar =  alterar;
+	listarTipo();
+	listarAtivo();
+	
+	
+		function listarAtivo(){
+			 IpService.listarIpAtivo().
+				then(function(f){
+					self.ips = f;	
+					$rootScope.qtdIpsAtivos = f.length;
+					}, function(errResponse){
+						sweetAlert({ timer : 3000,  text : errResponse.data.message,  type : "info", width: 300, higth: 300, padding: 20});
+				});
+			};
+		
+		function alterar(ip) {		
+			IpService.alterar(ip).
+			then(function(response){		
+				listar();
+				}, function(errResponse){
+			});
+		}
+		
+		 function listarTipo(){
+			 TipoIpService.listar().
+				then(function(f){
+					self.tipoIps = f;	
+					$rootScope.qtdTipoIps = f.length;
+					}, function(errResponse){
+						sweetAlert({ timer : 3000,  text : errResponse.data.message,  type : "info", width: 300, higth: 300, padding: 20});
+				});
+			};
+}
+function IpListarInativosController(TipoIpService, $stateParams, $state, IpService, toastr, $rootScope, $scope){
+	var self = this;
+	self.alterar =  alterar;
+	listarInativo();
+	
+	
+		function listarInativo(){
+			 IpService.listarIpInativo().
+				then(function(f){
+					self.ips = f;	
+					$rootScope.qtdIpsInativos = f.length;
+					}, function(errResponse){
+						sweetAlert({ timer : 3000,  text : errResponse.data.message,  type : "info", width: 300, higth: 300, padding: 20});
+				});
+			};	
+		function alterar(ip) {		
+			IpService.alterar(ip).
+			then(function(response){		
+				listar();
+				}, function(errResponse){
+			});
+		}
+		
+		 function listarTipo(){
+			 TipoIpService.listar().
+				then(function(f){
+					self.tipoIps = f;	
+					$rootScope.qtdTipoIps = f.length;
+					}, function(errResponse){
+						sweetAlert({ timer : 3000,  text : errResponse.data.message,  type : "info", width: 300, higth: 300, padding: 20});
+				});
+			};
+}
+
 function IpShowController( $stateParams, $state, IpService, toastr, $rootScope, $scope){
 	
 }

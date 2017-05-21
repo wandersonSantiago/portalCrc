@@ -11,6 +11,7 @@ import org.springframework.data.repository.query.Param;
 import br.com.portalCrc.entity.Unidade;
 import br.com.portalCrc.entity.Usuario;
 import br.com.portalCrc.entity.chamado.ChamadoTi;
+import br.com.portalCrc.enums.chamado.StatusChamado;
 
 public interface ChamadoTiRepository extends JpaRepository<ChamadoTi, Long> {
 
@@ -35,4 +36,8 @@ public interface ChamadoTiRepository extends JpaRepository<ChamadoTi, Long> {
 			+ "AND CAST(CAST(chamado.dataAbertura as date) as string) <= :dataFinal AND chamado.unidade = :id")
 	Collection<ChamadoTi> relatorio(@Param(value = "dataInicial") String dataInicial,
 			@Param(value = "dataFinal") String dataFinal, @Param(value = "id") Long id);
+
+	long countByStatus(StatusChamado aberto);
+
+	
 }

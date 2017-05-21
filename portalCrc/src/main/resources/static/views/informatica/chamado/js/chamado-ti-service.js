@@ -86,7 +86,14 @@ app.factory('ChamadoTiService', function($rootScope, toastr, $http){
 				return $q.reject(errResponse);
 			});
 		},
-		
+		count: function(){
+			return $http.get('/rest/chamado/chamadoTi/count')
+			.then(function(response){
+				return response.data;
+			},function(errResponse){
+				return $q.reject(errResponse);
+			});
+		},
 		relatorioChamadoSuporte: function(pages, maxResults){
 			var config = {params: {page: pages , maxResults : maxResults}};
 			return $http.get('/rest/chamado/chamadoTi/suporte/relatorio/', config)

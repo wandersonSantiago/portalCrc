@@ -46,6 +46,22 @@ app.factory('PontoService', function($q, $http){
 				return $q.reject(errResponse);
 			});
 		},
+		listarAtivos: function(){
+			return $http.get('/rest/controleIp/ponto/ativos')
+			.then(function(response){
+				return response.data;
+			},function(errResponse){
+				return $q.reject(errResponse);
+			});
+		},
+		listarInativos: function(){
+			return $http.get('/rest/controleIp/ponto/inativos')
+			.then(function(response){
+				return response.data;
+			},function(errResponse){
+				return $q.reject(errResponse);
+			});
+		},
 				
 	}
 });

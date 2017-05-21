@@ -97,14 +97,14 @@ function RamalListarController( UnidadeService, toastr ){
 			});
 		};
 }
-function RamalCoordenadoriaController( RamalService, toastr){ 
+function RamalCoordenadoriaController( UnidadeService, toastr){ 
 	
 	var self = this;	
 	
 	listar();	
 
 	 function listar(){
-		 RamalService.listarUnidadeCoordenadoria().
+		 UnidadeService.listarUnidadeCoordenadoria().
 			then(function(f){
 				self.unidades = f;
 				}, function(errResponse){

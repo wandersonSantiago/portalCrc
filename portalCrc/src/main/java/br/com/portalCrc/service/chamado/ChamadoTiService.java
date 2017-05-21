@@ -126,5 +126,9 @@ public class ChamadoTiService {
 	public Iterable<ChamadoTi> relatorioPorDataETitulo(Date dataInicial, Date dataFinal, String titulo) {
 		return chamadoTiRepository.relatorioPorDataETitulo(new ConverteData(dataInicial).getString(),new ConverteData(dataFinal).getString(), titulo, SessionUsuario.getInstance().getUsuario().getFuncionario().getUnidadeAtual().getId());
 	}
+
+	public long count() {
+		return chamadoTiRepository.countByStatus(StatusChamado.ABERTO);
+	}
 	
 }

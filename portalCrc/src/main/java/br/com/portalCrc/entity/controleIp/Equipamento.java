@@ -19,6 +19,7 @@ import javax.persistence.TemporalType;
 
 import br.com.portalCrc.entity.Unidade;
 import br.com.portalCrc.entity.Usuario;
+import br.com.portalCrc.enums.controleIp.StatusEquipamento;
 import br.com.portalCrc.enums.controleIp.TipoEquipamentoEnum;
 
 
@@ -63,8 +64,8 @@ public class Equipamento {
 	@Enumerated(EnumType.STRING)
 	private TipoEquipamentoEnum TipoEquipamento;
 	
-	@Column(name="ativo")
-	private Boolean ativo;
+	@Enumerated(EnumType.STRING)
+	private StatusEquipamento status;
 	
 	public Long getId() {
 		return id;
@@ -122,12 +123,13 @@ public class Equipamento {
 	public void setUsuarioCadastro(Usuario usuarioCadastro) {
 		this.usuarioCadastro = usuarioCadastro;
 	}
-	public Boolean getAtivo() {
-		return ativo;
+	public StatusEquipamento getStatus() {
+		return status;
 	}
-	public void setAtivo(Boolean ativo) {
-		this.ativo = ativo;
+	public void setStatus(StatusEquipamento status) {
+		this.status = status;
 	}
+	
 	
 	
 	

@@ -4,9 +4,10 @@
 			<table class="table table-hover table-bordered">
 				<thead>
 					<tr>
-						<th>numero</th>
-						<th>tipo</th>
-						<th>editar</th>
+						<th>Número</th>
+						<th>Tipo</th>
+						<th>Status</th>
+						<th>Editar</th>
 						
 					</tr>
 				</thead>
@@ -22,6 +23,7 @@
 									</select>
 								</div>						
 					</div></td>
+					<td>{{ ip.status }}</td>
 						<td ><a class="btn btn-success" ng-click="ipCtrl.alterar(ip)">Alterar</a> 						
 				</tr>
 				</tbody>

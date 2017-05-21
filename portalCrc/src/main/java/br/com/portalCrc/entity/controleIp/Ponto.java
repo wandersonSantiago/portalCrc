@@ -2,6 +2,8 @@ package br.com.portalCrc.entity.controleIp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -14,6 +16,7 @@ import javax.persistence.Table;
 import br.com.portalCrc.entity.Setor;
 import br.com.portalCrc.entity.Unidade;
 import br.com.portalCrc.entity.Usuario;
+import br.com.portalCrc.enums.controleIp.StatusPonto;
 
 @Entity
 @SequenceGenerator(name = "ponto_id_seq", sequenceName = "ponto_id_seq", schema="controle_ip", initialValue = 1, allocationSize = 1) 
@@ -34,8 +37,8 @@ public class Ponto {
 	@JoinColumn(name="setor", nullable=false)
 	private Setor setor;
 	
-	@Column(name="em_uso")
-	private Boolean emUso;
+	@Enumerated(EnumType.STRING)
+	private StatusPonto status;
 	
 	@OneToOne
 	@JoinColumn(name="porta_switch")
@@ -102,11 +105,11 @@ public class Ponto {
 	public void setSwitchs(Switch switchs) {
 		this.switchs = switchs;
 	}
-	public Boolean getEmUso() {
-		return emUso;
+	public StatusPonto getStatus() {
+		return status;
 	}
-	public void setEmUso(Boolean emUso) {
-		this.emUso = emUso;
+	public void setStatus(StatusPonto status) {
+		this.status = status;
 	}
 	
 	

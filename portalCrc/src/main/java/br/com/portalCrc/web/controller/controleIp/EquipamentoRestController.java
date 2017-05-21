@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import br.com.portalCrc.entity.controleIp.Equipamento;
+import br.com.portalCrc.enums.controleIp.StatusEquipamento;
 import br.com.portalCrc.enums.controleIp.TipoEquipamentoEnum;
 import br.com.portalCrc.service.controleIp.EquipamentoService;
 
@@ -41,12 +42,32 @@ public class EquipamentoRestController {
 		return new ResponseEntity<>(http , HttpStatus.CREATED);		
 	}
 	
+	@PutMapping(value="/baixar")
+	public ResponseEntity<Equipamento> baixar(@RequestBody Equipamento equipamento){
+		equipamentoService.baixarEquipamento(equipamento);
+		HttpHeaders http =  new HttpHeaders();
+		return new ResponseEntity<>(http , HttpStatus.CREATED);		
+	}
 	@GetMapping
 	public ResponseEntity<Iterable<Equipamento>> lista(){
 		Iterable<Equipamento> equipamento	= equipamentoService.lista();
 		return new ResponseEntity<Iterable<Equipamento>>(equipamento, HttpStatus.OK);
 	}
-	
+	@GetMapping(value="/ativo")
+	public ResponseEntity<Iterable<Equipamento>> listarAtivos(){
+		Iterable<Equipamento> equipamento	= equipamentoService.findByStatus(StatusEquipamento.ATIVO);
+		return new ResponseEntity<Iterable<Equipamento>>(equipamento, HttpStatus.OK);
+	}
+	@GetMapping(value="/inativo")
+	public ResponseEntity<Iterable<Equipamento>> listarInativos(){
+		Iterable<Equipamento> equipamento	= equipamentoService.findByStatus(StatusEquipamento.INATIVO);
+		return new ResponseEntity<Iterable<Equipamento>>(equipamento, HttpStatus.OK);
+	}
+	@GetMapping(value="/baixado")
+	public ResponseEntity<Iterable<Equipamento>> listarBaixados(){
+		Iterable<Equipamento> equipamento	= equipamentoService.findByStatus(StatusEquipamento.BAIXADO);
+		return new ResponseEntity<Iterable<Equipamento>>(equipamento, HttpStatus.OK);
+	}
 	 @GetMapping(value = "/buscaPorId/{id}")
 		public ResponseEntity<Equipamento> buscarPorId(@PathVariable Long id) {
 			return new ResponseEntity<Equipamento>(equipamentoService.buscaPorId(id), HttpStatus.OK);

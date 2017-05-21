@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.portalCrc.entity.controleIp.Ponto;
+import br.com.portalCrc.enums.controleIp.StatusPonto;
 import br.com.portalCrc.service.controleIp.PontoSevice;
 
 @RestController
@@ -45,7 +46,16 @@ public class PontoRestController {
 		Iterable<Ponto> ponto	= pontoSevice.lista();
 		return new ResponseEntity<Iterable<Ponto>>(ponto, HttpStatus.OK);
 	}
-	
+	@GetMapping(value="/ativos")
+	public ResponseEntity<Iterable<Ponto>> listaAtivos(){
+		Iterable<Ponto> ponto	= pontoSevice.listaPorStatus(StatusPonto.ATIVO);
+		return new ResponseEntity<Iterable<Ponto>>(ponto, HttpStatus.OK);
+	}
+	@GetMapping(value="inativos")
+	public ResponseEntity<Iterable<Ponto>> listaInativos(){
+		Iterable<Ponto> ponto	= pontoSevice.listaPorStatus(StatusPonto.INATIVO);
+		return new ResponseEntity<Iterable<Ponto>>(ponto, HttpStatus.OK);
+	}
 	@GetMapping(value = "/emUso/{status}")
 	public ResponseEntity<Iterable<Ponto>> listaEmUso(@PathVariable boolean status){
 		Iterable<Ponto> ponto	= pontoSevice.listaEmUso(status);

@@ -22,6 +22,33 @@ app.config(function($stateProvider, $urlRouterProvider) {
 				    label: 'lista switch'
 				  }
 		})
+		.state('switch.ativos', {
+			url : "/ativos",
+			templateUrl : "views/informatica/controleIp/switch/switch.list.html",
+			controller : "SwitchListarAtivosController as switchCtrl",
+			ncyBreadcrumb: {
+				 	parent: 'switch.cadastrar',
+				    label: 'ativos'
+				  }
+		})
+		.state('switch.inativos', {
+			url : "/inativos",
+			templateUrl : "views/informatica/controleIp/switch/switch.list.html",
+			controller : "SwitchListarInativosController as switchCtrl",
+			ncyBreadcrumb: {
+				 	parent: 'switch.cadastrar',
+				    label: 'inativos'
+				  }
+		})
+		.state('switch.baixados', {
+			url : "/baixados",
+			templateUrl : "views/informatica/controleIp/switch/switch.list.html",
+			controller : "SwitchListarBaixadosController as switchCtrl",
+			ncyBreadcrumb: {
+				 	parent: 'switch.cadastrar',
+				    label: 'baixados'
+				  }
+		})
 		.state('switch.cadastrar', {
 			url : "/cadastrar",
 			templateUrl : "views/informatica/controleIp/switch/switch.form.html",
@@ -38,6 +65,15 @@ app.config(function($stateProvider, $urlRouterProvider) {
 			ncyBreadcrumb: {
 				 	parent: 'switch.listar',
 				    label: 'Editar'
+				  }
+		})
+		.state('switch.show', {
+			url : "/:idSwitch/show",
+			templateUrl : "views/informatica/controleIp/switch/switch.show.html",
+			controller : "SwitchShowController as ctrl",
+			ncyBreadcrumb: {
+				 	parent: 'switch.listar',
+				    label: 'show'
 				  }
 		})
 		.state('switch.menu', {

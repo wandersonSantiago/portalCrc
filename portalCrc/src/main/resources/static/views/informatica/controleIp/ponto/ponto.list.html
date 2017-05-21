@@ -20,7 +20,7 @@
 						<td>{{ ponto.switchs.nome}}</td>
 						<td>{{ ponto.portaSwitch.numero}}</td>
 						<td><a ui-sref="ponto.editar({idPonto : ponto.id})"><i class="glyphicon glyphicon-edit"></i></a> 	
-						<td><a ng-click="pontoCtrl.limparPortas(ponto)"><i class="fa fa-object-ungroup"></i></a>									 
+						<td ng-if="ponto.status != 'INATIVO'"><a ng-click="pontoCtrl.limparPortas(ponto)"><i class="fa fa-object-ungroup"></i></a>									 
 				</tr>
 				</tbody>
 				<tfoot>

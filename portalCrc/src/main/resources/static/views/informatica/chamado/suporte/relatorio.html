@@ -137,7 +137,7 @@
 						<td>{{ chamado.status }}</td>	
 						<td>{{ chamado.dataAbertura | date : 'dd/MM/yyyy'}}</td>
 						<td>{{ chamado.dataAbertura | date : 'HH:mm:ss' }}</td>									
-						<td><a href="#/chamado/informatica/suporte/atendimento/{{chamado.id}}"><i class="glyphicon glyphicon-search"></i></a> 
+						<td><a ui-sref="chamadoTi.suporteAtendimento({idChamadoTi : chamado.id})"><i class="glyphicon glyphicon-search"></i></a> 
 					
 				</tr>
 				</tbody>

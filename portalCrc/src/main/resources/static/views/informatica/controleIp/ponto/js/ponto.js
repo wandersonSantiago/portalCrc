@@ -22,6 +22,24 @@ app.config(function($stateProvider, $urlRouterProvider) {
 				    label: 'lista ponto'
 				  }
 		})
+		.state('ponto.ativos', {
+			url : "/ativos",
+			templateUrl : "views/informatica/controleIp/ponto/ponto.list.html",
+			controller : "PontoListarAtivosController as pontoCtrl",
+			ncyBreadcrumb: {
+				 	parent: 'ponto.cadastrar',
+				    label: 'ativos'
+				  }
+		})
+		.state('ponto.inativos', {
+			url : "/inativos",
+			templateUrl : "views/informatica/controleIp/ponto/ponto.list.html",
+			controller : "PontoListarInativosController as pontoCtrl",
+			ncyBreadcrumb: {
+				 	parent: 'ponto.cadastrar',
+				    label: 'inativos'
+				  }
+		})
 		.state('ponto.cadastrar', {
 			url : "/cadastrar",
 			templateUrl : "views/informatica/controleIp/ponto/ponto.form.html",

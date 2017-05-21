@@ -5,6 +5,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
 			abstract : true,
 			url : '/',
 			templateUrl : 'views/home.index.html',
+			controller : "ChamadoTiAbertoController as homeCtrl",
 			ncyBreadcrumb: {
 				    label: 'home'
 				  }

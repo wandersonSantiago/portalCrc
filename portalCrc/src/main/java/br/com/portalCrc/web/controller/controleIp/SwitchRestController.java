@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.portalCrc.entity.controleIp.Switch;
+import br.com.portalCrc.enums.controleIp.StatusSwitch;
 import br.com.portalCrc.service.controleIp.SwitchService;
 
 @RestController
@@ -43,6 +44,24 @@ public class SwitchRestController {
 	@GetMapping
 	public ResponseEntity<Iterable<Switch>> lista(){
 		Iterable<Switch> switchs = switchService.lista();
+		return new ResponseEntity<Iterable<Switch>>(switchs, HttpStatus.OK);
+		
+	}
+	@GetMapping(value="/ativos")
+	public ResponseEntity<Iterable<Switch>> listaAtivos(){
+		Iterable<Switch> switchs = switchService.listaPorStatus(StatusSwitch.ATIVO);
+		return new ResponseEntity<Iterable<Switch>>(switchs, HttpStatus.OK);
+		
+	}
+	@GetMapping(value="/inativos")
+	public ResponseEntity<Iterable<Switch>> listaInativos(){
+		Iterable<Switch> switchs = switchService.listaPorStatus(StatusSwitch.INATIVO);
+		return new ResponseEntity<Iterable<Switch>>(switchs, HttpStatus.OK);
+		
+	}
+	@GetMapping(value="/baixados")
+	public ResponseEntity<Iterable<Switch>> listaBaixados(){
+		Iterable<Switch> switchs = switchService.listaPorStatus(StatusSwitch.BAIXADO);
 		return new ResponseEntity<Iterable<Switch>>(switchs, HttpStatus.OK);
 		
 	}

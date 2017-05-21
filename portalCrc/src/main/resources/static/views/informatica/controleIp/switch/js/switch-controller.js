@@ -1,6 +1,9 @@
 app.controller("SwitchCadastarController", SwitchCadastarController);
 app.controller("SwitchEditarController", SwitchEditarController);
 app.controller("SwitchListarController", SwitchListarController);
+app.controller("SwitchListarAtivosController", SwitchListarAtivosController);
+app.controller("SwitchListarInativosController", SwitchListarInativosController);
+app.controller("SwitchListarBaixadosController", SwitchListarBaixadosController);
 app.controller("SwitchShowController", SwitchShowController);
 
 SwitchCadastarController.$inject = ['SwitchService',  'toastr', '$rootScope', '$scope'];
@@ -71,6 +74,48 @@ function SwitchListarController($stateParams, $state, SwitchService, toastr, $ro
 			});
 		};
 }
+function SwitchListarAtivosController($stateParams, $state, SwitchService, toastr, $rootScope, $scope){
+	var self = this;
+	listar();
+	
+	 function listar(){
+		 SwitchService.listarAtivos().
+			then(function(f){
+				self.switchs = f;		
+				$rootScope.qtdSwitchAtivos = f.length;
+				}, function(errResponse){
+					sweetAlert({ timer : 3000,  text : errResponse.data.message,  type : "info", width: 300, higth: 300, padding: 20});
+			});
+		};
+}
+function SwitchListarInativosController($stateParams, $state, SwitchService, toastr, $rootScope, $scope){
+	var self = this;
+	listar();
+	
+	 function listar(){
+		 SwitchService.listarInativos().
+			then(function(f){
+				self.switchs = f;		
+				$rootScope.qtdSwitchInativos = f.length;
+				}, function(errResponse){
+					sweetAlert({ timer : 3000,  text : errResponse.data.message,  type : "info", width: 300, higth: 300, padding: 20});
+			});
+		};
+}
+function SwitchListarBaixadosController($stateParams, $state, SwitchService, toastr, $rootScope, $scope){
+	var self = this;
+	listar();
+	
+	 function listar(){
+		 SwitchService.listarBaixados().
+			then(function(f){
+				self.switchs = f;		
+				$rootScope.qtdSwitchBaixados = f.length;
+				}, function(errResponse){
+					sweetAlert({ timer : 3000,  text : errResponse.data.message,  type : "info", width: 300, higth: 300, padding: 20});
+			});
+		};
+}
 function SwitchShowController( $stateParams, $state, SwitchService, toastr, $rootScope, $scope){
 	var self = this;
 	var idSwitch = $stateParams.idSwitch;
@@ -79,7 +124,7 @@ function SwitchShowController( $stateParams, $state, SwitchService, toastr, $roo
 		if(!id)return;
 		SwitchService.buscarPorId(id).
 		then(function(p){
-			self.switch = p;
+			self.switchs = p;
 	}, function(errResponse){
 		sweetAlert({ timer : 3000,  text : errResponse.data.message,  type : "info", width: 300, higth: 300, padding: 20});
 			});

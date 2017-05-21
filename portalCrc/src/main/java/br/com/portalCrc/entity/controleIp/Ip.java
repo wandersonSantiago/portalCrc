@@ -4,6 +4,8 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -16,6 +18,7 @@ import javax.persistence.TemporalType;
 
 import br.com.portalCrc.entity.Unidade;
 import br.com.portalCrc.entity.Usuario;
+import br.com.portalCrc.enums.controleIp.StatusIp;
 
 @Entity
 
@@ -35,8 +38,8 @@ public class Ip {
 	@JoinColumn(name="tipo_ip_id")
 	private TipoIp tipo;
 	
-	@Column(name="em_uso")
-	private Boolean emUso;
+	@Enumerated(EnumType.STRING)
+	private StatusIp status;
 	
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="data_cadastro")
@@ -86,12 +89,13 @@ public class Ip {
 	public void setUsuarioCadastro(Usuario usuarioCadastro) {
 		this.usuarioCadastro = usuarioCadastro;
 	}
-	public Boolean getEmUso() {
-		return emUso;
+	public StatusIp getStatus() {
+		return status;
 	}
-	public void setEmUso(Boolean emUso) {
-		this.emUso = emUso;
+	public void setStatus(StatusIp status) {
+		this.status = status;
 	}
+	
 	
 	
 

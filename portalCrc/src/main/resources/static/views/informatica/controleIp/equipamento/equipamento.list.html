@@ -7,6 +7,7 @@
 						<th>TipoEquipamento</th>
 						<th>Descricao</th>
 						<th>Patrimonio</th>
+						<th>Status</th>
 						<th>Ip</th>
 						<th>Ponto</th>	
 						<th>Switch</th>
@@ -20,12 +21,14 @@
 						<td>{{ equipamento.tipoEquipamento}}</td>
 						<td>{{ equipamento.descricao }}</td>
 						<td>{{ equipamento.patrimonio }}</td>
+						<td>{{ equipamento.status}}</td>	
 						<td>{{ equipamento.ip.numero}}</td>						
 						<td>{{ equipamento.ponto.numero}}</td>
 						<td>{{ equipamento.ponto.switchs.nome}}</td>
 						<td>{{ equipamento.ponto.portaSwitch.numero}}</td>
 						<td>{{ equipamento.ponto.setor.nome}}</td>
 						<td><a ui-sref="equipamento.editar({idEquipamento : equipamento.id})"><i class="glyphicon glyphicon-edit"></i></a> 										 
+						
 				</tr>
 				</tbody>
 				<tfoot>

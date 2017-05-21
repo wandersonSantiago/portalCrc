@@ -4,15 +4,17 @@ app.controller("ChamadoTiAtendimentoController", ChamadoTiAtendimentoController)
 app.controller("ChamadoTiAtendimentoSuporteController", ChamadoTiAtendimentoSuporteController);
 app.controller("ChamadoTiRelatorioController", ChamadoTiRelatorioController);
 app.controller("ChamadoTiSuporteListarController", ChamadoTiSuporteListarController);
+app.controller("ChamadoTiAbertoController", ChamadoTiAbertoController);
 
 
 
 ChamadoTiCadastrarController.$inject = ['ChamadoTiService',  'toastr', '$rootScope', '$scope'];
 ChamadoTiListarController.$inject = ['ChamadoTiService', '$rootScope'];
 ChamadoTiAtendimentoController.$inject = ['$stateParams', '$state', 'ChamadoTiService', 'toastr', '$rootScope', '$scope'];
-ChamadoTiAtendimentoSuporteController.$inject = ['$stateParams', '$state', 'ChamadoTiService', 'toastr', '$rootScope', '$scope'];
+ChamadoTiAtendimentoSuporteController.$inject = ['EquipamentoService','$stateParams', '$state', 'ChamadoTiService', 'toastr', '$rootScope', '$scope'];
 ChamadoTiRelatorioController.$inject = ['ChamadoTiService', 'toastr', '$rootScope', '$scope'];
 ChamadoTiSuporteListarController.$inject = ['ChamadoTiService', 'toastr', '$rootScope', '$scope'];
+ChamadoTiAbertoController.$inject = ['$timeout','ChamadoTiService', 'toastr', '$rootScope', '$scope'];
 
 function ChamadoTiCadastrarController( ChamadoTiService, toastr, $rootScope, $scope){
 	var self = this;
@@ -118,13 +120,14 @@ function ChamadoTiAtendimentoController($stateParams, $state, ChamadoTiService, 
 		}
 	
 }
-function ChamadoTiAtendimentoSuporteController($stateParams,$state, ChamadoTiService, toastr, $rootScope, $scope){
+function ChamadoTiAtendimentoSuporteController(EquipamentoService, $stateParams,$state, ChamadoTiService, toastr, $rootScope, $scope){
 		
 		var self = this;		
 		var idChamadoTi = $stateParams.idChamadoTi;
 		self.submit = submit;
 		self.atenderChamado = atenderChamado;
 		self.fecharChamado = fecharChamado;
+		listarEquipamento();
 		
 		function submit(chamadoTi, texto) {
 			chamadoTi.mensagens = null;
@@ -143,7 +146,7 @@ function ChamadoTiAtendimentoSuporteController($stateParams,$state, ChamadoTiSer
 			if(!id)return;
 			ChamadoTiService.buscarPorId(id).
 			then(function(p){
-				self.chamadoTi = p;			
+				self.chamadoTi = p;
 				}, function(errResponse){
 			});
 		};
@@ -151,6 +154,15 @@ function ChamadoTiAtendimentoSuporteController($stateParams,$state, ChamadoTiSer
 		if(idChamadoTi){
 			buscarPorId(idChamadoTi);		
 		}
+		
+		 function listarEquipamento(){
+			 EquipamentoService.listar().
+				then(function(f){
+					self.equipamentos = f;
+					}, function(errResponse){
+						sweetAlert({ timer : 3000,  text : errResponse.data.message,  type : "info", width: 300, higth: 300, padding: 20});
+				});
+			};
 		
 		function atenderChamado(chamadoTi) {
 			self.chamadoTi.mensagens = null;
@@ -341,4 +353,54 @@ function ChamadoTiSuporteListarController( ChamadoTiService, toastr, $rootScope,
 							sweetAlert({ timer : 3000,  text : errResponse.data.message,  type : "info", width: 300, higth: 300, padding: 20});
 					});
 				};
+}
+function ChamadoTiAbertoController( $timeout, ChamadoTiService, toastr, $rootScope, $scope){
+	
+	var self = this;
+	var vid = document.getElementById("myAudio");
+	$rootScope.atualizarListaChamado = false;
+	
+	self.enableAutoplay = function() { 
+	    vid.autoplay = true;
+	    vid.load();
+	    
+	}	
+	
+	self.listar = function(){		
+		 ChamadoTiService.count().
+			then(function(f){
+			var	qtdChamados = f;	
+				$rootScope.qtdChamadosSuporteTi = qtdChamados;
+				if($rootScope.qtdChamadosSuporteTi > 0){
+					self.enableAutoplay(); 
+					sweetAlert({ timer : 3000,  text : "Novo Chamado",  type : "info", width: 300, higth: 300, padding: 20});
+					
+				}
+				}, function(errResponse){
+					sweetAlert({ timer : 3000,  text : errResponse.data.message,  type : "info", width: 300, higth: 300, padding: 20});
+			});
+		 
+		};
+		
+		self.atualizaListaChamadoSuporte = function(){
+			$rootScope.atualizarListaChamado = true;
+			if($rootScope.atualizarListaChamado === true ){
+					self.verificaMensagemLidaAtualizada();
+				}
+		};
+		
+		self.verificaMensagemLida = function(){			
+			if($rootScope.atualizarListaChamado === false && $rootScope.logado){
+				self.listar();
+				timeoutLida = setTimeout(self.verificaMensagemLida, 40000);			
+			}
+		};
+		
+		self.verificaMensagemLidaAtualizada = function(){
+			self.listar();	
+			$rootScope.atualizarListaChamado = false;
+			clearTimeout(timeoutLida);
+			self.verificaMensagemLida();			
+		};
+		//self.verificaMensagemLida(); 
 }

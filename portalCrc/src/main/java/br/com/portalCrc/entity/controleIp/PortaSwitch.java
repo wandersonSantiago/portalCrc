@@ -20,6 +20,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import br.com.portalCrc.entity.Unidade;
 import br.com.portalCrc.entity.Usuario;
+import br.com.portalCrc.enums.controleIp.StatusPortaSwitch;
 import br.com.portalCrc.enums.controleIp.StatusSwitch;
 
 @Entity
@@ -36,10 +37,9 @@ public class PortaSwitch {
 	private int numero;
 	
 	@Enumerated(EnumType.STRING)
-	private StatusSwitch status;
+	private StatusPortaSwitch status;
 	
-	@Column(name="em_uso")
-	private Boolean emUso;
+	
 	
 	@Column(name="descricao")
 	private String descricao;
@@ -74,12 +74,7 @@ public class PortaSwitch {
 		this.numero = numero;
 	}
 	
-	public StatusSwitch getStatus() {
-		return status;
-	}
-	public void setStatus(StatusSwitch status) {
-		this.status = status;
-	}
+	
 	public String getDescricao() {
 		return descricao;
 	}
@@ -104,17 +99,18 @@ public class PortaSwitch {
 	public void setSwitchs(Switch switchs) {
 		this.switchs = switchs;
 	}
-	public Boolean getEmUso() {
-		return emUso;
-	}
-	public void setEmUso(Boolean emUso) {
-		this.emUso = emUso;
-	}
+	
 	public Unidade getUnidade() {
 		return unidade;
 	}
 	public void setUnidade(Unidade unidade) {
 		this.unidade = unidade;
+	}
+	public StatusPortaSwitch getStatus() {
+		return status;
+	}
+	public void setStatus(StatusPortaSwitch status) {
+		this.status = status;
 	}
 	
 	

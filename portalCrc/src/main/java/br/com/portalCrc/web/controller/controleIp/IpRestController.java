@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.portalCrc.entity.controleIp.Ip;
+import br.com.portalCrc.enums.controleIp.StatusIp;
 import br.com.portalCrc.service.controleIp.IpService;
 
 @RestController
@@ -44,9 +45,14 @@ public class IpRestController {
 		return new ResponseEntity<Iterable<Ip>>(ip, HttpStatus.OK);
 	}
 	
-	@GetMapping(value ="/semUso")
-	public ResponseEntity<Iterable<Ip>> listaIpSemUso(){
-		Iterable<Ip> ip	= ipService.listaIpSemUso();
+	@GetMapping(value ="/inativo")
+	public ResponseEntity<Iterable<Ip>> listaIpInativo(){
+		Iterable<Ip> ip	= ipService.listaIp(StatusIp.INATIVO);
+		return new ResponseEntity<Iterable<Ip>>(ip, HttpStatus.OK);
+	}
+	@GetMapping(value ="/ativo")
+	public ResponseEntity<Iterable<Ip>> listaIpAtivo(){
+		Iterable<Ip> ip	= ipService.listaIp(StatusIp.ATIVO);
 		return new ResponseEntity<Iterable<Ip>>(ip, HttpStatus.OK);
 	}
 	

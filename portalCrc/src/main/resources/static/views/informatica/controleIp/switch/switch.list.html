@@ -7,12 +7,11 @@
 						<th>nome</th>
 						<th>quantidade</th>
 						<th>editar</th>
-						
 					</tr>
 				</thead>
 				<tbody ng-repeat=" switch in switchCtrl.switchs | filter : buscar "> 
 					<tr>
-						<td><a ui-sref="switch.visualizar({idSwitch : switch.id})">{{ switch.nome }}</a></td>
+						<td><a ui-sref="switch.show({idSwitch : switch.id})">{{ switch.nome }}</a></td>
 						<td>{{ switch.qtdPortas }}</td>		
 						<td><a ui-sref="switch.editar({idSwitch : switch.id})"><i class="glyphicon glyphicon-edit"></i></a> 					
 					</tr>
