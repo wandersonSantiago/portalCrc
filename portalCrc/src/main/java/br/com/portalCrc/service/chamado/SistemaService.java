@@ -22,6 +22,7 @@ public class SistemaService {
 
 	@Transactional(readOnly = false)
 	public void salvarOuEditar(Sistema sistema){
+		sistema.setUnidade(SessionUsuario.getInstance().getUsuario().getFuncionario().getUnidadeAtual());
 		sistemaRepository.save( sistema);
 	}
 	
