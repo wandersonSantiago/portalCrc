@@ -2,6 +2,17 @@ html, body, #mainWrapper {
 	height: 100%;
 	/* background-color:rgb(245, 245, 245); */
 }
+.full button span {
+    background-color: limegreen;
+    border-radius: 32px;
+    color: black;
+  }
+  .partially button span {
+    background-color: orange;
+    border-radius: 32px;
+    color: black;
+  }
+  
 
 .groupX {
     font-size: 16px;
@@ -95,7 +106,7 @@ body, .form-control {
 	margin-top: -7px;
 }
 
-/* padding 80px é necessário para escapar a navbar */
+/* padding 80px ï¿½ necessï¿½rio para escapar a navbar */
 #gcc-body {
 	min-height: 100%;
 	height: auto !important;
@@ -105,7 +116,7 @@ body, .form-control {
 }
 
 /* 
- * rodapé
+ * rodapï¿½
  */
 #footer, #header {
 	background-color: #1E4282;

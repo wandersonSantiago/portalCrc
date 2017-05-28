@@ -1,0 +1,95 @@
+
+<meta charset="UTF-8">
+
+<div class="container col-sm-12 ">
+	<form role="form-vertical" name="formVeiculo"
+		ng-submit="veiculoCtrl.submit()">
+
+		<div class="row">
+			<div class="label-control">Marca/Modelo</div>
+			<div class="col-sm-4">
+				<div class="input-group margin">
+					<select class="form-control select2" ng-model="marca"
+						ng-click="veiculoCtrl.buscarModelos(marca.id)"
+						ng-options="marca.nome for marca in veiculoCtrl.marcas">
+						<option value=""></option>
+					</select> <span class="input-group-btn"> <a type="button"
+						class="btn btn-info btn-flat"><i>Marca</i></a>
+					</span>
+				</div>
+			</div>
+			<div class="col-sm-4">
+				<div class="input-group margin">
+					<select class="form-control select2"
+						ng-model="veiculoCtrl.veiculo.modelo"
+						ng-options="modelo.nome for modelo in veiculoCtrl.modelos">
+						<option value=""></option>
+					</select> <span class="input-group-btn"> <a type="button"
+						class="btn btn-info btn-flat"><i>Modelo</i></a>
+					</span>
+				</div>
+			</div>
+			<div class="col-sm-4">
+				<div class="input-group margin">
+					<select class="form-control select2"
+						ng-model="veiculoCtrl.veiculo.cor"
+						ng-options="cor.nome for cor in veiculoCtrl.cores">
+						<option value=""></option>
+					</select> <span class="input-group-btn"> <a type="button"
+						class="btn btn-info btn-flat"><i>Cor</i></a>
+					</span>
+				</div>
+			</div>
+		</div>
+		<br> <br>
+
+		<div class="row">
+			<div class="label-control">UF/Cidade/Placa</div>
+			<div class="col-sm-4">
+				<div class="input-group margin">
+					<select class="form-control select2" ng-model="estado"
+						ng-click="veiculoCtrl.buscarCidades(estado.id)"
+						ng-options="estado.nome for estado in veiculoCtrl.estados">
+						<option value=""></option>
+					</select> <span class="input-group-btn"> <a type="button"
+						class="btn btn-info btn-flat"><i>Estado</i></a>
+					</span>
+				</div>
+			</div>
+			<div class="col-sm-4">
+				<div class="input-group margin">
+					<select class="form-control select2"
+						ng-model="veiculoCtrl.veiculo.cidade"
+						ng-options="cidade.nome for cidade in veiculoCtrl.cidades">
+						<option value=""></option>
+					</select> <span class="input-group-btn"> <a type="button"
+						class="btn btn-info btn-flat"><i>Cidade</i></a>
+					</span>
+				</div>
+			</div>
+			<div class="col-sm-4">
+				<div class="input-group margin">
+					<input class="form-control" type="text"
+						ng-model="veiculoCtrl.veiculo.placa"><span
+						class="input-group-btn"> <a type="button"
+						class="btn btn-info btn-flat"><i>Placa</i></a>
+					</span>
+				</div>
+			</div>
+		</div>
+		<br>
+		<br>
+		<br>
+		<div class="row ">
+			<div class="col-sm-4"></div>
+			<div class="col-sm-4">
+				<input type="submit" id="submit" value="salvar"
+					class="btn btn-lg btn-primary btn-block btn-signin">
+			</div>
+		</div>
+
+
+	</form>
+</div>
+
+

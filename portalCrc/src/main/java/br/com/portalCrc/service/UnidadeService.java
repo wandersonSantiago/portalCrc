@@ -52,4 +52,8 @@ public class UnidadeService {
 	public Iterable<Unidade> buscarUnidadePorCoordenadoriaPorTipo(Long id, String tipo) {
 		return unidadeRepository.findByCoordenadoria_IdByTipoUnidadeMnemonico(id, tipo);
 	}
+
+	public Iterable<Unidade> findByCoordenadoria_idAndTipo_id(Long idCoordenadoria, Long idTipo) {
+		return unidadeRepository.findByCoordenadoria_idAndTipoUnidade_id(idCoordenadoria, idTipo);
+	}
 }

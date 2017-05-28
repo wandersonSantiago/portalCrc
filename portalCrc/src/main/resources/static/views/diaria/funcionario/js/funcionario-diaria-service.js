@@ -72,8 +72,8 @@ app.factory('FuncionarioDiariaService', function($q, $http){
 				return $q.reject(errResponse);
 			});
 		},
-		buscarValoresDiaria : function(objeto){
-			return $http.get('/rest/diaria/funcionario/valores/' +objeto)
+		buscarValoresDiariaPorIndice : function(indice, idDiaria){
+			return $http.get('/rest/diaria/funcionario/valores/indice/' +indice+'/diaria/'+ idDiaria)
 			.then(function(response){
 				return response.data;
 			},function(errResponse){
@@ -82,6 +82,22 @@ app.factory('FuncionarioDiariaService', function($q, $http){
 		},
 		buscarFuncionarioPorDiariaPorId: function(objeto){
 			return $http.get('/rest/diaria/funcionario/'+objeto+'/funcionarios/')
+			.then(function(response){
+				return response.data;
+			},function(errResponse){
+				return $q.reject(errResponse);
+			});
+		},
+		cidades: function(objeto){
+			return $http.get('/rest/endereco/cidade/estado/' +objeto)
+			.then(function(response){
+				return response.data;
+			},function(errResponse){
+				return $q.reject(errResponse);
+			});
+		},
+		estados: function(objeto){
+			return $http.get('/rest/endereco/estado/pais/' +objeto)
 			.then(function(response){
 				return response.data;
 			},function(errResponse){

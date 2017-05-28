@@ -104,7 +104,7 @@ function EquipamentoEditarController(IpService, PontoService, $stateParams, $sta
 		};
 		
 	function listarIp(){
-		 IpService.listarIpSemUso().
+		 IpService.listarIpInativo().
 			then(function(f){
 				self.ips = f;				
 				}, function(errResponse){

@@ -40,6 +40,16 @@ app.factory('UnidadeService', function($q, $http){
 			});
 		},
 		
+		buscarPorCoordenadoriaPorTipo: function(idCoordenadoria, idTipo){
+			return $http.get('/rest/unidade/coordenadoria/'+ idCoordenadoria +'/tipo-unidade/'+ idTipo)
+			.then(function(response){
+				return response.data;
+				console.log(response.data);
+			},function(errResponse){
+				return $q.reject(errResponse);
+			});
+		},
+		
 		listar: function(){
 			return $http.get('/rest/unidade/lista')
 			.then(function(response){

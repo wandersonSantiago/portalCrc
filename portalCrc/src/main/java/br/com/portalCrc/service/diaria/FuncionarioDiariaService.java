@@ -77,12 +77,11 @@ public class FuncionarioDiariaService {
 		
 	}
 
-	public Iterable<ValoresDiariaLocalidade> valoresDiaria(Integer id) {
-		return valoresDiaraRepository.findByIndiceUfesp(id);
+	public Iterable<ValoresDiariaLocalidade> valoresDiaria(Integer id, Long idDiaria) {
+		return valoresDiaraRepository.findByIndiceUfespAndDiaria_id(id, idDiaria);
 	}
 
 	public Iterable<FuncionarioDiaria> findByUnidade_idAndDiaria_id(Long id) {
-		// TODO Auto-generated method stub
 		return funcionarioDiariaRepository.findByUnidade_idAndDiaria_id(SessionUsuario.getInstance().getUsuario().getFuncionario().getUnidadeAtual().getId(), id);
 	}
 

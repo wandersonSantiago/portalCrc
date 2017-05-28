@@ -6,6 +6,8 @@ import br.com.portalCrc.entity.diaria.ValoresDiariaLocalidade;
 
 public interface ValoresDiariaLocalidadeRepository extends JpaRepository<ValoresDiariaLocalidade, Long> {
 
-	Iterable<ValoresDiariaLocalidade> findByIndiceUfesp(Integer id);
+	
+
+	Iterable<ValoresDiariaLocalidade> findByIndiceUfespAndDiaria_id(Integer id, Long idDiaria);
 
 }

@@ -17,4 +17,6 @@ public interface UnidadeRepository extends JpaRepository<Unidade, Long>{
 	@Query("From Unidade u where u.coordenadoria.id = ?1 AND u.tipoUnidade.mnemonico = ?2 ")
 	Iterable<Unidade> findByCoordenadoria_IdByTipoUnidadeMnemonico(Long id, String tipo);
 
+	Iterable<Unidade> findByCoordenadoria_idAndTipoUnidade_id(Long idCoordenadoria, Long idTipo);
+
 }

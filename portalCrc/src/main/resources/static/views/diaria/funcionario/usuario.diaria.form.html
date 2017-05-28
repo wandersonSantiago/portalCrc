@@ -1,161 +1,363 @@
 <meta charset="UTF-8">
-			<div class="col-sm-12 ">
-				<form role="form-vertical" name="formDiaria"
-					ng-submit="funcionarioCtrl.submit()">						
-						
-					<div class="row">
-					<div class="col-sm-2">
-						Deslocamento:
-							<input class="form-control text-uppercase" placeholder="Destino" ng-model="funcionarioCtrl.itemDiaria.destino"  ng-blur="funcionarioCtrl.buscarValoresDiaria(funcionarioCtrl.contaFuncionarioDiaria.indiceUfesp)" id="destino" type="text"  required >
-						</div>
-					
-					<div class="col-sm-3">
-								Codigo:		
-								<select class="form-control select2" ng-model="funcionarioCtrl.itemDiaria.codigoLocalDeslocamento" 
-								ng-options="valor.deslocamento for valor in funcionarioCtrl.valoresDiaria">
-									<option value=""></option>
-								</select>													
-							</div>
-							<div class="col-sm-2">
-						Transporte:
-							<input class="form-control text-uppercase"  ng-model="funcionarioCtrl.itemDiaria.meioTransporte" id="destino" type="text"  required >
-						</div>	
-						<div class="col-sm-2">
-						Data Saida:
-							<input class="form-control" placeholder="Data diaria" ng-model="funcionarioCtrl.itemDiaria.dataHoraSaida" id="dataSaida" type="datetime-local"  required >
-						</div>
-							
-						<div class="col-sm-2">
-						data Chegada:
-							<input class="form-control" placeholder="Data diaria" ng-model="funcionarioCtrl.itemDiaria.dataHoraChegada" id="dataChegada" type="datetime-local"  required >
-						</div>
-											
-					</div>
-					<br>
-					<div  class="row">
-						<div class="col-sm-2">
-						qtd pernoite:
-							<div class="row">
-								<div class="col-sm-5">
-									<input class="form-control col-sm-1"  ng-model="quantidadePernoite" 	id="qtdPernoite" type="number" >								
-								</div>
-								<div class="col-sm-7">
-									<h4>{{funcionarioCtrl.pernoite = quantidadePernoite * funcionarioCtrl.itemDiaria.codigoLocalDeslocamento.pernoite | currency}}</h4>
-								</div>
-							</div>
-						</div>
-						<div class="col-sm-2">
-						regresso das 13h às 19h:
-							<div class="row">
-								<div class="col-sm-5">
-									<input class="form-control"  ng-model="quantidadeRetornoTrezeAsDezenove" id="qtdPernoite" type="number" >								
-								</div>
-								<div class="col-sm-7">
-									<h4>{{funcionarioCtrl.retornoTrezeAsDezenove = quantidadeRetornoTrezeAsDezenove * funcionarioCtrl.itemDiaria.codigoLocalDeslocamento.retornoTrezeAsDezenove | currency}}</h4>
-								</div>
-							</div>
-						</div>
-						<div class="col-sm-2">
-						regresso após às 19h:
-							<div class="row">
-								<div class="col-sm-5">
-									<input class="form-control"  ng-model="quantidadeRetornoAposDezenove" id="qtdPernoite" type="number" >								
-								</div>
-								<div class="col-sm-7">
-									<h4>{{funcionarioCtrl.retornoAposDezenove = quantidadeRetornoAposDezenove * funcionarioCtrl.itemDiaria.codigoLocalDeslocamento.retornoAposDezenove | currency}}</h4>
-								</div>
-							</div>
-						</div>
-						<div class="col-sm-2">
-						de 6h a 12h:
-							<div class="row">
-								<div class="col-sm-5">
-									<input class="form-control"  ng-model="quantidadeDeslocamentoSeisAsDoze" id="qtdPernoite" type="number" >								
-								</div>
-								<div class="col-sm-7">
-									<h4>{{funcionarioCtrl.deslocamentoSeisAsDoze = quantidadeDeslocamentoSeisAsDoze * funcionarioCtrl.itemDiaria.codigoLocalDeslocamento.deslocamentoSeisAsDoze | currency}}</h4>
-								</div>
-							</div>
-						</div>
-						<div class="col-sm-2">
-						regresso após às 19:00:
-							<div class="row">
-								<div class="col-sm-5">
-									<input class="form-control"  ng-model="quantidadeDeslocamentoMaisDeDoze" id="qtdPernoite" type="number" >								
-								</div>
-								<div class="col-sm-7">
-									<h4>{{funcionarioCtrl.deslocamentoMaisDeDoze = quantidadeDeslocamentoMaisDeDoze * funcionarioCtrl.itemDiaria.codigoLocalDeslocamento.deslocamentoMaisDeDoze | currency}}</h4>
-								</div>
-							</div>
-						</div>
-					</div>
-					<br>
-					<div ng-show="funcionarioCtrl.itemDiaria.dataHoraChegada" class="row">
-						<div class="col-sm-2">
-						Valor da Passagem:
-							<input class="form-control" placeholder="R$" ng-model="funcionarioCtrl.itemDiaria.valorPassagem" id="valorPassagem" type="text" ui-money-mask  >
-						</div>	
-						<div class="col-sm-6">
-						Motivo:
-						<textarea class="textarea text-uppercase form-control" ng-model="funcionarioCtrl.itemDiaria.motivo" id="motivo" placeholder="Motivo" required></textarea>
-						</div>		
-						<div ng-show="funcionarioCtrl.itemDiaria.motivo" class="col-sm-4" >
-						<br>
-								<input type="button" id="submit" value="Adicionar" ng-click="funcionarioCtrl.adicionaListaDiaria(funcionarioCtrl.itemDiaria)" class="btn btn-lg btn-primary btn-block btn-signin">
-							</div>	
-					<hr>	
-					</div>
-				
-<br>
-					<table ng-show="funcionarioCtrl.listaDiariaItens.length > 0" class="table table-hover table-bordered">
-						<thead>
-							<tr>
-								<th>Selecionar</th>
-								<th>Local</th>
-								<th>Código Local</th>
-								<th>Transporte</th>
-								<th>Saída</th>
-								<th>Retorno</th>
-								<th>Motivo</th>
-								<th>Passagem</th>
-								<th>A Receber</th>
-							</tr>
-						</thead>
-						<tbody ng-repeat="item in funcionarioCtrl.listaDiariaItens" ng-model="selecionado">
-							<tr>
-							<td><input type="checkbox"   ng-model="item.selecionado" ng-click="funcionarioCtrl.ativarExcluirLote(funcionarioCtrl.listaDiariaItens)" ></td>	
-								<td>{{item.localDeslocamento}}</td>		
-								<td>{{item.codigoLocalDeslocamento}}</td>	
-								<td>{{item.meioTransporte}}</td>	
-								<td>{{item.dataHoraSaida | date : 'dd/MM/yyyy - HH:mm'}}</td>	
-								<td>{{item.dataHoraChegada | date : 'dd/MM/yyyy - HH:mm'}}</td>	
-								<td>{{item.motivo}}</td>		
-								<td>{{item.valorPassagem | currency}}</td>						
-								<td>{{item.valorDiaria | currency}}</td>	
-							</tr>
-						</tbody>
-						<tfoot>
-							<tr>
-								<th><input type="button" class="btn-danger" ng-if="ativadoExcluirLote"  value="excluir" name="apagar" ng-click="funcionarioCtrl.apagarItens(funcionarioCtrl.listaDiariaItens)"></th>
-								<th></th>
-								<th></th>
-								<th></th>
-								<th></th>
-								<th></th>
-								<th></th>
-								<th></th>
-								<th>{{somaTotal | currency}}</th>
-							</tr>
-							</tfoot>
-					</table>
-					<br>
-					<div class="row ">
-					<div class="col-sm-4"></div>
-						<div class="col-sm-4">		
-							<input type="submit" id="submit" ng-disabled="funcionarioCtrl.listaDiariaItens < 1" value="salvar" class="btn btn-lg btn-primary btn-block btn-signin">
-						</div>
-					</div>
-
-				</form>
+<div class="col-sm-12 ">
+	<form role="form-vertical" name="formDiaria"
+		ng-submit="funcionarioCtrl.submit()">
+		<br>
+		<div class="row ">
+			<br> <span class="input-group-btn"> <a type="button"
+				data-toggle="modal" data-target="#informacaoModal"
+				data-whatever="@mdo" class="btn btn-info btn-flat">Informações <i
+					class="glyphicon glyphicon-search"></i></a>
+			</span>
+		</div>
+		<br>
+		<div class="row">
+			<div class="label-control">Destino</div>
+			<div class="col-sm-4">
+				<div class="input-group margin">
+					<select class="form-control select2" ng-model="estado"
+						ng-click="funcionarioCtrl.buscarCidades(estado.id)"
+						ng-options="estado.nome for estado in funcionarioCtrl.estados">
+						<option value=""></option>
+					</select> <span class="input-group-btn"> <a type="button"
+						class="btn btn-info btn-flat"><i>Estado</i></a>
+					</span>
+				</div>
 			</div>
-		
+			<div class="col-sm-4">
+				<div class="input-group margin">
+					<select class="form-control select2"
+						ng-model="funcionarioCtrl.itemDiaria.localDeslocamento"
+						ng-options="cidade.nome for cidade in funcionarioCtrl.cidades">
+						<option value=""></option>
+					</select> <span class="input-group-btn"> <a type="button"
+						class="btn btn-info btn-flat"><i>Cidade</i></a>
+					</span>
+				</div>
+			</div>
+			<div class="col-sm-4">
+				<div class="input-group margin">
+					<select class="form-control select2"
+						ng-model="funcionarioCtrl.itemDiaria.codigoLocalDeslocamento"
+						ng-options="valor.deslocamento for valor in funcionarioCtrl.valoresDiaria">
+						<option value=""></option>
+					</select> <span class="input-group-btn"> <a type="button"
+						data-toggle="modal" data-target="#codigoModal"
+						data-whatever="@mdo" class="btn btn-info btn-flat"><i>Código</i></a>
+					</span>
+				</div>
+			</div>
+		</div>
+		<br>
+		<div class="row">
+			<div class="label-control">Transporte</div>
+			<div class="col-sm-4">
+				<div class="input-group margin">
+					<input type="text" class="form-control text-uppercase"
+						ng-model="funcionarioCtrl.itemDiaria.meioTransporte" required>
+					<span class="input-group-btn"> <a type="button"
+						class="btn btn-info btn-flat" data-toggle="modal"
+						data-target="#transporteModal"><i class="fa fa-automobile"></i></a>
+					</span>
+				</div>
+			</div>
+		</div>
+		<br>
+		<div class="row">
+			<div class="label-control">Datas</div>
+			<div class="col-sm-3">
+				Data Saida:
+				<p class="input-group">
+					<input type="text" class="form-control"
+						uib-datepicker-popup="{{format}}"
+						ng-model="funcionarioCtrl.itemDiaria.dataSaida"
+						is-open="saida.opened" ng-required="true" close-text="Close" /> <span
+						class="input-group-btn">
+						<button type="button" class="btn btn-default"
+							ng-click="saidaOpen()">
+							<i class="glyphicon glyphicon-calendar"></i>
+						</button>
+					</span>
+				</p>
+			</div>
+
+			<div class="col-sm-1">Horário Saida:</div>
+			<div class="col-sm-2">
+				<div uib-timepicker ng-model="funcionarioCtrl.itemDiaria.horaSaida"
+					hour-step="1" minute-step="1" show-meridian="false"></div>
+
+			</div>
+			<div class="col-sm-3">
+				Data Chegada:
+				<p class="input-group">
+					<input type="text" class="form-control"
+						uib-datepicker-popup="{{format}}"
+						ng-model="funcionarioCtrl.itemDiaria.dataChegada"
+						is-open="chegada.opened" ng-required="true" close-text="Close" />
+					<span class="input-group-btn">
+						<button type="button" class="btn btn-default"
+							ng-click="chegadaOpen()">
+							<i class="glyphicon glyphicon-calendar"></i>
+						</button>
+					</span>
+				</p>
+			</div>
+
+			<div class="col-sm-1">Horário Chegada:</div>
+			<div class="col-sm-2">
+				<div uib-timepicker
+					ng-model="funcionarioCtrl.itemDiaria.horaChegada" hour-step="1"
+					minute-step="1" show-meridian="false"></div>
+			</div>
+		</div>
+		<div class="row ">
+			<br> <span class="input-group-btn"> <a type="button"
+				data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo"
+				class="btn btn-info btn-flat">Motivo <i
+					class="glyphicon glyphicon-search"></i></a>
+			</span>
+		</div>
+		<br>
+		<div class="row ">
+			<div class="col-sm-4"></div>
+			<div class="col-sm-4">
+				<input type="submit" id="submit"
+					ng-disabled="funcionarioCtrl.listaDiariaItens < 1"
+					value="Adicionar"
+					class="btn btn-lg btn-primary btn-block btn-signin">
+			</div>
+		</div>
+
+	</form>
+</div>
+
+<!-- INICIO  modal do informaçoes da codigo -->
+<div class="modal fade bs-example-modal-lg modal-primary"
+	id="codigoModal" tabindex="-1" role="dialog"
+	aria-labelledby="exampleModalLabel">
+	<div class="modal-dialog modal-lg" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				<h4 class="modal-title" id="exampleModalLabel">Informações dos
+					valores Por Local</h4>
+			</div>
+			<div class="modal-body">
+				<div class="row">
+					<div class="col-sm-12">
+						<h3>Valores das Diarias por localidade:</h3>
+						<br>
+						<div ng-repeat="valor in funcionarioCtrl.valoresDiaria">
+							<div class="row">
+								<div class="col-sm-1">
+									<h4>código</h4>
+									<h3>{{valor.codigo}}</h3>
+								</div>
+								<div class="col-sm-11">
+									<h4>Local</h4>
+									<h6>{{valor.deslocamento}}</h6>
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="col-sm-2">
+									alojamento
+									<h4>{{valor.alojamento | currency}}</h4>
+								</div>
+								<div class="col-sm-2">
+									valor pernoite
+									<h4>{{valor.pernoite | currency}}</h4>
+								</div>
+								<div class="col-sm-2">
+									13:00 às 19:00
+									<h4>{{valor.retornoTrezeAsDezenove | currency}}</h4>
+								</div>
+								<div class="col-sm-2">
+									após 19:00
+									<h4>{{valor.retornoAposDezenove | currency}}</h4>
+								</div>
+								<div class="col-sm-2">
+									6:00 às 12:00
+									<h4>{{valor.deslocamentoSeisAsDoze | currency}}</h4>
+								</div>
+								<div class="col-sm-2">
+									mais de 12:00
+									<h4>{{valor.deslocamentoMaisDeDoze | currency}}</h4>
+								</div>
+							</div>
+							<br>
+							<hr>
+							<br>
+						</div>
+					</div>
+				</div>
+
+			</div>
+			<div class="modal-footer ">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- FIM  modal do informaçoes da codigo -->
+<!-- INICIO  modal do informaçoes da diaria -->
+<div class="modal fade bs-example-modal-lg modal-primary"
+	id="informacaoModal" tabindex="-1" role="dialog"
+	aria-labelledby="exampleModalLabel">
+	<div class="modal-dialog modal-lg" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				<h4 class="modal-title" id="exampleModalLabel">Diária
+					{{funcionarioCtrl.diaria.mes}}</h4>
+			</div>
+			<div class="modal-body">
+				<div class="row">
+					<br>
+					<div class="col-sm-12">
+						<h3>Observação:</h3>
+						<br>
+						<h4>{{funcionarioCtrl.diaria.observacao}}</h4>
+					</div>
+				</div>
+				<br>
+				<div class="row">
+					<div class="col-sm-6">
+						<h3>Data Abertura:</h3>
+						<br>
+						<h4>{{funcionarioCtrl.diaria.dataAbertura | date :
+							'dd/MM/yyyy'}}</h4>
+					</div>
+					<div class="col-sm-6">
+						<h3>Valor UFESP:</h3>
+						<br>
+						<h4>{{funcionarioCtrl.diaria.valorUfesp | currency}}</h4>
+					</div>
+				</div>
+				<br>
+				<hr>
+				<br>
+			</div>
+			<div class="modal-footer ">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- FIM  modal do informaçoes da diaria -->
+
+<!-- INICIO modal do motivo da diaria -->
+<div class="modal fade modal-default" id="exampleModal" tabindex="-1"
+	role="dialog" aria-labelledby="exampleModalLabel">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				<h4 class="modal-title" id="exampleModalLabel">Adicione o
+					Motivo</h4>
+			</div>
+			<div class="modal-body">
+				<div class="form-group">
+					<label for="message-text" class="control-label">Motivo:</label>
+					<textarea class="form-control" id="message-text"></textarea>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+				<button type="button" class="btn btn-primary">Adicionar</button>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- FIM modal do motivo da diaria -->
+
+<!-- INICIO  modal do meio de Transporte -->
+<div class="modal fade bs-example-modal-lg modal-default"
+	id="transporteModal" tabindex="-1" role="dialog"
+	aria-labelledby="exampleModalLabel">
+	<div class="modal-dialog modal-lg" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				<h4 class="modal-title" id="exampleModalLabel">Adicione o meio
+					de trasnporte</h4>
+			</div>
+			<div class="modal-body">
+				<div class="row">
+					<div class="col-sm-4">
+						<!-- coordenadoria -->
+						<div class="input-group margin">
+							<select class="form-control select2"
+								ng-model="funcionarioCtrl.coordenadoria"
+								ng-options="coordenadoria.mnemonico for coordenadoria in funcionarioCtrl.coordenadorias ">
+								<option value=""></option>
+							</select> <span class="input-group-btn"> <a type="button"
+								class="btn btn-primary btn-flat"><i class="fa fa-home"></i></a>
+							</span>
+						</div>
+					</div>
+					<div class="col-sm-4" ng-if="funcionarioCtrl.coordenadoria">
+						<!-- tipo unidade -->
+						<div class="input-group margin">
+							<select class="form-control select2"
+								ng-model="funcionarioCtrl.tipo"
+								ng-click="funcionarioCtrl.buscarUnidades(funcionarioCtrl.tipo.id)"
+								ng-options="tipo.descricao for tipo in funcionarioCtrl.tiposUnidade">
+								<option value=""></option>
+							</select> <span class="input-group-btn"> <a type="button"
+								class="btn btn-default btn-flat"><i
+									class="fa fa-lightbulb-o"></i></a>
+							</span>
+						</div>
+					</div>
+					<div class="col-sm-4" ng-if="funcionarioCtrl.tipo">
+						<!-- unidade -->
+						<div class="input-group margin">
+							<select class="form-control select2"
+								ng-model="funcionarioCtrl.unidade"
+								ng-click="funcionarioCtrl.buscarVeiculos(funcionarioCtrl.unidade.id)"
+								ng-options="unidade.dadosUnidade.mnemonico for unidade in funcionarioCtrl.unidades ">
+								<option value=""></option>
+							</select> <span class="input-group-btn"> <a type="button"
+								class="btn btn-info btn-flat"><i class="fa fa-eye""></i></a>
+							</span>
+						</div>
+					</div>
+				</div>
+				<div class="row" ng-if="funcionarioCtrl.unidade">
+					<div class="col-sm-4">
+						<!-- veiculo -->
+						<div class="input-group margin">
+							<select class="form-control select2"
+								ng-model="funcionarioCtrl.veiculo"
+								ng-options="veiculo.placa for veiculo in funcionarioCtrl.veiculos ">
+								<option value=""></option>
+							</select> <span class="input-group-btn"> <a type="button"
+								class="btn btn-success btn-flat"><i class="fa fa-automobile"></i></a>
+							</span>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+				<button type="button" ng-click="funcionarioCtrl.adicionarVeiculo(funcionarioCtrl.veiculo)"
+					ng-disabled="!funcionarioCtrl.veiculo"
+					class="btn btn-primary">Adicionar</button>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- FIM  modal do meio de Transporte -->
