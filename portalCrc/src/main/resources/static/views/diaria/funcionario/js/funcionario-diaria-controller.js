@@ -51,7 +51,7 @@ function FuncionarioDiariaCadastrarController($state, ItemDiariaService,
 	self.buscarCidades = buscarCidades;
 	self.buscarUnidades = buscarUnidades;
 	self.buscarVeiculos = buscarVeiculos;
-	self.adicionarVeiculo = adicionarVeiculo;
+	self.submit = submit;
 	buscarEstados(1);
 	buscarCoordenadorias();
 	buscarTipoUnidade();
@@ -59,6 +59,24 @@ function FuncionarioDiariaCadastrarController($state, ItemDiariaService,
 	self.buscarValoresDiariaPorIndice = buscarValoresDiariaPorIndice;
 	buscarFuncionario($rootScope.usuario.funcionario.id);
 
+	function submit() {
+		
+		
+		
+		self.itens.codigoLocalDeslocamento = self.itens.codigoLocalDeslocamento;
+		self.itens.meioTransporte = self.itens.meioTransporte.placa;	
+		self.itens.localDeslocamento = self.itens.localDeslocamento.nome;	
+		
+		self.funcionarioDiaria = {funcionario :  $rootScope.usuario.funcionario, diaria : self.diaria};
+		self.funcionarioDiaria.itens = [self.itens];	
+			
+		FuncionarioDiariaService.salvar(self.funcionarioDiaria).
+			then(function(response){
+				toastr.info("Salvo com Sucesso!!!");					
+				}, function(errResponse){
+					sweetAlert({text : errResponse.data.message,  type : "info", width: 300, higth: 300, padding: 20});
+			});
+		};
 	function buscarFuncionario(id) {
 		FuncionarioContaDiariaService.buscarPorIdFuncionario(id).then(
 				function(f) {
@@ -84,9 +102,9 @@ function FuncionarioDiariaCadastrarController($state, ItemDiariaService,
 		ItemDiariaService.buscarDiariaPorId(id).then(function(p) {
 			self.diaria = p;
 			self.diaria.dataDiaria = new Date(p.dataDiaria);
-			$scope.funcionarioCtrl.funcionarioDiaria = {
+			/*self.funcionarioDiaria.diaria = {
 				diaria : self.diaria
-			};
+			};*/
 		}, function(errResponse) {
 		});
 	}
@@ -153,9 +171,7 @@ function FuncionarioDiariaCadastrarController($state, ItemDiariaService,
 			});
 		};
 		
-		function adicionarVeiculo(veiculo){
-			self.itemDiaria.meioTransporte = veiculo;
-		}
+		
 	// inicio Função data
 	$scope.saidaOpen = function() {
 		$scope.saida.opened = true;

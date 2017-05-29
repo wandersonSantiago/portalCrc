@@ -67,7 +67,7 @@ public class Switch {
 		return nome;
 	}
 	public void setNome(String nome) {
-		this.nome = nome;
+		this.nome = nome.toUpperCase();
 	}
 	
 	public StatusSwitch getStatus() {

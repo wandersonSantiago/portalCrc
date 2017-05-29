@@ -48,7 +48,7 @@ public class TipoIp {
 		return descricao;
 	}
 	public void setDescricao(String descricao) {
-		this.descricao = descricao;
+		this.descricao = descricao.toUpperCase();
 	}
 
 	public Unidade getUnidade() {

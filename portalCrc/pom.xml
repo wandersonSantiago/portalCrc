@@ -15,7 +15,7 @@
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>1.4.0.RELEASE</version>
-		<relativePath/> <!-- lookup parent from repository -->
+		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 
 	<properties>
@@ -42,9 +42,9 @@
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 		<dependency>
-		    <groupId>org.seleniumhq.selenium</groupId>
-		    <artifactId>selenium-java</artifactId>
-		    <version>3.0.1</version>
+			<groupId>org.seleniumhq.selenium</groupId>
+			<artifactId>selenium-java</artifactId>
+			<version>3.0.1</version>
 		</dependency>
 		<dependency>
 			<groupId>org.postgresql</groupId>
@@ -70,6 +70,16 @@
 			<artifactId>scala-library</artifactId>
 			<version>2.11.0</version>
 		</dependency>
+		<dependency>
+			<groupId>org.javamoney</groupId>
+			<artifactId>moneta</artifactId>
+			<version>1.0</version>
+		</dependency>
+		<dependency>
+           <groupId>joda-time</groupId>
+           <artifactId>joda-time</artifactId>
+           <version>2.5</version>
+ 	 </dependency>
 	</dependencies>
 
 	<build>

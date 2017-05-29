@@ -85,13 +85,13 @@ public class Equipamento {
 		return descricao;
 	}
 	public void setDescricao(String descricao) {
-		this.descricao = descricao;
+		this.descricao = descricao.toUpperCase();
 	}
 	public String getPatrimonio() {
 		return patrimonio;
 	}
 	public void setPatrimonio(String patrimonio) {
-		this.patrimonio = patrimonio;
+		this.patrimonio = patrimonio.toUpperCase();
 	}
 	public Ponto getPonto() {
 		return ponto;

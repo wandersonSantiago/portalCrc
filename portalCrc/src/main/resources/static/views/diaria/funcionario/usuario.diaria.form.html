@@ -15,8 +15,8 @@
 			<div class="label-control">Destino</div>
 			<div class="col-sm-4">
 				<div class="input-group margin">
-					<select class="form-control select2" ng-model="estado"
-						ng-click="funcionarioCtrl.buscarCidades(estado.id)"
+					<select class="form-control select2" ng-model="funcionarioCtrl.itens.estado"
+						ng-change="funcionarioCtrl.buscarCidades(funcionarioCtrl.itens.estado.id)"
 						ng-options="estado.nome for estado in funcionarioCtrl.estados">
 						<option value=""></option>
 					</select> <span class="input-group-btn"> <a type="button"
@@ -27,7 +27,7 @@
 			<div class="col-sm-4">
 				<div class="input-group margin">
 					<select class="form-control select2"
-						ng-model="funcionarioCtrl.itemDiaria.localDeslocamento"
+						ng-model="funcionarioCtrl.itens.localDeslocamento"
 						ng-options="cidade.nome for cidade in funcionarioCtrl.cidades">
 						<option value=""></option>
 					</select> <span class="input-group-btn"> <a type="button"
@@ -38,8 +38,8 @@
 			<div class="col-sm-4">
 				<div class="input-group margin">
 					<select class="form-control select2"
-						ng-model="funcionarioCtrl.itemDiaria.codigoLocalDeslocamento"
-						ng-options="valor.deslocamento for valor in funcionarioCtrl.valoresDiaria">
+						ng-model="funcionarioCtrl.itens.codigoLocalDeslocamento"
+						ng-options="valor.codigo for valor in funcionarioCtrl.valoresDiaria">
 						<option value=""></option>
 					</select> <span class="input-group-btn"> <a type="button"
 						data-toggle="modal" data-target="#codigoModal"
@@ -54,7 +54,7 @@
 			<div class="col-sm-4">
 				<div class="input-group margin">
 					<input type="text" class="form-control text-uppercase"
-						ng-model="funcionarioCtrl.itemDiaria.meioTransporte" required>
+						ng-model="funcionarioCtrl.itens.meioTransporte.placa" required>
 					<span class="input-group-btn"> <a type="button"
 						class="btn btn-info btn-flat" data-toggle="modal"
 						data-target="#transporteModal"><i class="fa fa-automobile"></i></a>
@@ -70,7 +70,7 @@
 				<p class="input-group">
 					<input type="text" class="form-control"
 						uib-datepicker-popup="{{format}}"
-						ng-model="funcionarioCtrl.itemDiaria.dataSaida"
+						ng-model="funcionarioCtrl.itens.dataSaida"
 						is-open="saida.opened" ng-required="true" close-text="Close" /> <span
 						class="input-group-btn">
 						<button type="button" class="btn btn-default"
@@ -83,7 +83,7 @@
 
 			<div class="col-sm-1">Horário Saida:</div>
 			<div class="col-sm-2">
-				<div uib-timepicker ng-model="funcionarioCtrl.itemDiaria.horaSaida"
+				<div uib-timepicker ng-model="funcionarioCtrl.itens.horaSaida"
 					hour-step="1" minute-step="1" show-meridian="false"></div>
 
 			</div>
@@ -92,7 +92,7 @@
 				<p class="input-group">
 					<input type="text" class="form-control"
 						uib-datepicker-popup="{{format}}"
-						ng-model="funcionarioCtrl.itemDiaria.dataChegada"
+						ng-model="funcionarioCtrl.itens.dataChegada"
 						is-open="chegada.opened" ng-required="true" close-text="Close" />
 					<span class="input-group-btn">
 						<button type="button" class="btn btn-default"
@@ -106,7 +106,7 @@
 			<div class="col-sm-1">Horário Chegada:</div>
 			<div class="col-sm-2">
 				<div uib-timepicker
-					ng-model="funcionarioCtrl.itemDiaria.horaChegada" hour-step="1"
+					ng-model="funcionarioCtrl.itens.horaChegada" hour-step="1"
 					minute-step="1" show-meridian="false"></div>
 			</div>
 		</div>
@@ -268,7 +268,7 @@
 			<div class="modal-body">
 				<div class="form-group">
 					<label for="message-text" class="control-label">Motivo:</label>
-					<textarea class="form-control" id="message-text"></textarea>
+					<textarea class="form-control text-uppercase" ng-model="funcionarioCtrl.itens.motivo" id="message-text"></textarea>
 				</div>
 			</div>
 			<div class="modal-footer">
@@ -313,7 +313,7 @@
 						<div class="input-group margin">
 							<select class="form-control select2"
 								ng-model="funcionarioCtrl.tipo"
-								ng-click="funcionarioCtrl.buscarUnidades(funcionarioCtrl.tipo.id)"
+								ng-change="funcionarioCtrl.buscarUnidades(funcionarioCtrl.tipo.id)"
 								ng-options="tipo.descricao for tipo in funcionarioCtrl.tiposUnidade">
 								<option value=""></option>
 							</select> <span class="input-group-btn"> <a type="button"
@@ -327,7 +327,7 @@
 						<div class="input-group margin">
 							<select class="form-control select2"
 								ng-model="funcionarioCtrl.unidade"
-								ng-click="funcionarioCtrl.buscarVeiculos(funcionarioCtrl.unidade.id)"
+								ng-change="funcionarioCtrl.buscarVeiculos(funcionarioCtrl.unidade.id)"
 								ng-options="unidade.dadosUnidade.mnemonico for unidade in funcionarioCtrl.unidades ">
 								<option value=""></option>
 							</select> <span class="input-group-btn"> <a type="button"
@@ -341,7 +341,7 @@
 						<!-- veiculo -->
 						<div class="input-group margin">
 							<select class="form-control select2"
-								ng-model="funcionarioCtrl.veiculo"
+								ng-model="funcionarioCtrl.itens.meioTransporte"
 								ng-options="veiculo.placa for veiculo in funcionarioCtrl.veiculos ">
 								<option value=""></option>
 							</select> <span class="input-group-btn"> <a type="button"
@@ -352,10 +352,7 @@
 				</div>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
-				<button type="button" ng-click="funcionarioCtrl.adicionarVeiculo(funcionarioCtrl.veiculo)"
-					ng-disabled="!funcionarioCtrl.veiculo"
-					class="btn btn-primary">Adicionar</button>
+				<button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>				
 			</div>
 		</div>
 	</div>

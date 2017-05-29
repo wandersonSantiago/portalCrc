@@ -17,9 +17,6 @@ import javax.persistence.TemporalType;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import br.com.portalCrc.entity.Unidade;
-import br.com.portalCrc.entity.Usuario;
-
 @Entity
 @SequenceGenerator(name = "item_diaria_id_seq", sequenceName = "item_diaria_id_seq", schema="diaria", initialValue = 1, allocationSize = 1)
 @Table(name="item_diaria", schema="diaria")
@@ -30,20 +27,27 @@ public class ItemDiaria {
 	private Long id;
 	
 	
-	@Column(name="localDeslocamento")
+	@Column(name="local_deslocamento")
 	private String localDeslocamento;
 	
-	@Column(name="codigoLocalDeslocamento")
-	private Integer codigoLocalDeslocamento;
+	@ManyToOne
+	@JoinColumn(name="codigo_local_deslocamento")
+	private ValoresDiariaLocalidade codigoLocalDeslocamento;
 	
-	@Column(name="meioTransporte")
+	@Column(name="meio_transporte")
 	private String meioTransporte;
 	
-	@Column(name="dataHoraSaida")
-	private Date dataHoraSaida;
+	@Column(name="data_saida")
+	private Date dataSaida;
 	
-	@Column(name="dataHoraChegada")
-	private Date dataHoraChegada;		
+	@Column(name="data_chegada")
+	private Date dataChegada;	
+	
+	@Column(name="hora_saida")
+	private Date horaSaida;
+	
+	@Column(name="hora_chegada")
+	private Date horaChegada;
 			
 	@Temporal(TemporalType.DATE)
 	private Date dataCadastro;
@@ -79,7 +83,7 @@ public class ItemDiaria {
 	}
 
 	public void setMotivo(String motivo) {
-		this.motivo = motivo;
+		this.motivo = motivo.toUpperCase();
 	}
 
 
@@ -120,7 +124,7 @@ public class ItemDiaria {
 	}
 
 	public void setLocalDeslocamento(String localDeslocamento) {
-		this.localDeslocamento = localDeslocamento;
+		this.localDeslocamento = localDeslocamento.toUpperCase();
 	}
 
 	public String getMeioTransporte() {
@@ -128,32 +132,52 @@ public class ItemDiaria {
 	}
 
 	public void setMeioTransporte(String meioTransporte) {
-		this.meioTransporte = meioTransporte;
+		this.meioTransporte = meioTransporte.toUpperCase();
 	}
 
-	public Date getDataHoraSaida() {
-		return dataHoraSaida;
+	
+
+	public Date getDataSaida() {
+		return dataSaida;
 	}
 
-	public void setDataHoraSaida(Date dataHoraSaida) {
-		this.dataHoraSaida = dataHoraSaida;
+	public void setDataSaida(Date dataSaida) {
+		this.dataSaida = dataSaida;
 	}
 
-	public Date getDataHoraChegada() {
-		return dataHoraChegada;
+	public Date getDataChegada() {
+		return dataChegada;
 	}
 
-	public void setDataHoraChegada(Date dataHoraChegada) {
-		this.dataHoraChegada = dataHoraChegada;
+	public void setDataChegada(Date dataChegada) {
+		this.dataChegada = dataChegada;
 	}
 
-	public Integer getCodigoLocalDeslocamento() {
+	public Date getHoraSaida() {
+		return horaSaida;
+	}
+
+	public void setHoraSaida(Date horaSaida) {
+		this.horaSaida = horaSaida;
+	}
+
+	public Date getHoraChegada() {
+		return horaChegada;
+	}
+
+	public void setHoraChegada(Date horaChegada) {
+		this.horaChegada = horaChegada;
+	}
+
+	public ValoresDiariaLocalidade getCodigoLocalDeslocamento() {
 		return codigoLocalDeslocamento;
 	}
 
-	public void setCodigoLocalDeslocamento(Integer codigoLocalDeslocamento) {
+	public void setCodigoLocalDeslocamento(ValoresDiariaLocalidade codigoLocalDeslocamento) {
 		this.codigoLocalDeslocamento = codigoLocalDeslocamento;
 	}
+
+	
 
 	
 	

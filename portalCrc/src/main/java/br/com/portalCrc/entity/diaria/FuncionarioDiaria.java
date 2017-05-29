@@ -34,8 +34,7 @@ public class FuncionarioDiaria {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "funcionario_diaria_id_seq")
 	private Long id;
 	
-	private Integer indiceUfesp;
-	
+		
 	@OneToMany(cascade = {CascadeType.MERGE ,CascadeType.PERSIST})
 	@JoinColumn(name="id_item_diaria",nullable = false)
 	private List<ItemDiaria> itens;	
@@ -120,15 +119,7 @@ public class FuncionarioDiaria {
 	public void setDiaria(Diaria diaria) {
 		this.diaria = diaria;
 	}
-	
-	public Integer getIndiceUfesp() {
-		return indiceUfesp;
-	}
-
-	public void setIndiceUfesp(Integer indiceUfesp) {
-		this.indiceUfesp = indiceUfesp;
-	}
-
+		
 	public BigDecimal getTotalValorDiaria() {
 		return totalValorDiaria;
 	}

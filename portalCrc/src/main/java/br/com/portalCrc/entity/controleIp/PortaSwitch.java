@@ -79,7 +79,7 @@ public class PortaSwitch {
 		return descricao;
 	}
 	public void setDescricao(String descricao) {
-		this.descricao = descricao;
+		this.descricao = descricao.toUpperCase();
 	}
 	public Date getDataCadastro() {
 		return dataCadastro;

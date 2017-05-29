@@ -67,13 +67,13 @@ public class Ponto {
 		return descricao;
 	}
 	public void setDescricao(String descricao) {
-		this.descricao = descricao;
+		this.descricao = descricao.toUpperCase();
 	}
 	public String getNumero() {
 		return numero;
 	}
 	public void setNumero(String numero) {
-		this.numero = numero;
+		this.numero = numero.toUpperCase();
 	}
 	public Setor getSetor() {
 		return setor;
