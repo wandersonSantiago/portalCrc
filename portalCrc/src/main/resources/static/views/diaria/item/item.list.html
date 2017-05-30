@@ -1,0 +1,37 @@
+<meta charset="UTF-8">
+		<div class="table-responsive"  >	
+		    <hr>    
+		<input class="form-control" type="text" placeholder="Pesquisar..." ng-model="buscar" >
+			<table class="table table-hover table-bordered" >
+				<thead>
+					<tr>
+						<td>Localidade</td>
+						<td>Saida</td>
+						<td>Chegada</td>
+						<td>Hora Saída</td>
+						<td>Hora Chegada</td>
+						<td>Valor</td>
+						<td>Transporte</td>
+						<td>Codigo Desl.</td>
+																
+					</tr>
+				</thead>
+				<tbody ng-repeat=" item in ctrl.itens | filter : busca |  orderBy : '-id'">
+					<tr>					
+					<td>{{ item.localDeslocamento }}</td>
+					<td>{{ item.dataSaida | date : 'dd/MM/yyyy'}}</td>
+					<td>{{ item.dataChegada | date : 'dd/MM/yyyy'}}</td>
+					<td>{{ item.horaSaida | date : 'HH:mm'}}</td>
+					<td>{{ item.horaChegada | date : 'HH:mm'}}</td>
+					<td>{{ item.valorDiaria | currency }}</td>
+					<td>{{ item.meioTransporte }}</td>
+					<td>{{ item.codigoLocalDeslocamento.codigo }}</td>
+					<td ><a title="teste" ui-sref="item.editar({idItem : item.id})"><i class="glyphicon glyphicon-edit"></i></a></td>
+					<td ><a href="" ng-click="ctrl.excluir(item)"><i class="glyphicon glyphicon-remove"></i></a></td>
+					
+					</tr>
+							
+				</tbody>				
+			</table>
+		</div>
+	

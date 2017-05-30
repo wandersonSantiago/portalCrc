@@ -64,7 +64,7 @@ public class ItemDiaria {
 	@Column(name="motivo")
 	private String motivo;
 	
-	@JsonIgnore
+	
 	@ManyToOne
 	@JoinColumn(name="id_funcionario_diaria")
 	private FuncionarioDiaria funcionarioDiaria;

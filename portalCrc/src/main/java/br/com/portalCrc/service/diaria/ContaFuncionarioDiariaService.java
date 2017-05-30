@@ -59,7 +59,11 @@ public class ContaFuncionarioDiariaService {
 	}
 
 	public ContaFuncionarioDiaria findByFuncionario_id(Long id) {
-		return contaFuncionarioDiariaRepository.findByFuncionario_id(id);
+		ContaFuncionarioDiaria conta = contaFuncionarioDiariaRepository.findByFuncionario_id(id);
+		if(conta == null){
+			throw new MensagemException("Este Funcionario não tem uma conta cadastrada!!!");
+		}
+		return conta;
 	}
 
 	public List<ContaFuncionarioDiaria> buscar(String texto) {

@@ -23,7 +23,7 @@
 						<span>{{diaria.valorUfesp | currency}}</span>
 					</td>
 					<td title="Cadastrar Diarias"><a ui-sref="funcionarioDiaria.verificar({idDiaria : diaria.id})"><i class="glyphicon glyphicon-copy"></i></a> 					
-					<td title="Cadastrar Diarias"><a ui-sref="funcionarioDiaria.usuario({idDiaria : diaria.id})"><i class="glyphicon glyphicon-copy"></i></a> 		
+					<td title="Cadastrar Diarias"><a ui-sref="item.cadastrar({idDiaria : diaria.id})"><i class="glyphicon glyphicon-copy"></i></a> 		
 					<td ng-if="diaria.status == 'ABERTO'"  title="Encerrar diária"><a ng-click="diariaCtrl.encerrar(diaria)" ><i class="glyphicon glyphicon-trash"></i></a> 		
 					<td title="Relatório da Unidade"><a ui-sref="item.unidade({idDiariaUnidade : diaria.id})"><i class="glyphicon glyphicon-list-alt"></i></a> 		
 					<td title="Relatório da Coordenadoria"><a ui-sref="item.coordenadoria({idDiariaCoordenadoria : diaria.id})"><i class="glyphicon glyphicon-list-alt"></i></a> 		
@@ -41,6 +41,3 @@
 			</table>
 		</div>
 		
-	</div>
-
-</div>

@@ -39,24 +39,55 @@ app.config(function($stateProvider, $urlRouterProvider) {
 				    label: 'lista item'
 				  }
 		})
+		
 		.state('item.cadastrar', {
 			url : "/:idDiaria/cadastrar",
-			templateUrl : "views/diaria/item/item.form.html",
-			controller : "ItemDiariaCadastrarController as itemCtrl",
+			 views: {
+	                '': {
+	                	controller : "ItemDiariaCadastrarController as ctrl",
+	                    templateUrl : "views/diaria/item/item.form.html",
+	                },
+	                'dadosPerfilCadastro': {
+	                	controller : "ItemDiariaCadastrarController as ctrl",
+	                    templateUrl : "views/diaria/item/item.list.html",
+	                },
+	            },	
+			
 			ncyBreadcrumb: {
 			 	parent: 'item',
 			    label: 'Cadastrar item'
 			  }
 		})
+		
 		.state('item.editar', {
 			url : "/:idItem/editar",
-			templateUrl : "views/diaria/item/item.form.html",
-			controller : "ItemDiariaEditarController as itemCtrl",
+			 views: {
+	                '': {
+	                	controller : "ItemDiariaEditarController as ctrl",
+	                    templateUrl : "views/diaria/item/item.form.html",
+	                },
+	                'dadosPerfilCadastro': {
+	                	controller : "ItemDiariaEditarController as ctrl",
+	                    templateUrl : "views/diaria/item/item.list.html",
+	                },
+	            },	
+			
 			ncyBreadcrumb: {
-				 	parent: 'item.listar',
-				    label: 'Editar'
-				  }
+			 	parent: 'item',
+			    label: 'Editar'
+			  }
 		})
+		
+			.state('item.cadastrarFuncionario', {
+			url : "/:idDiaria/funcionario/cadastrar",
+			templateUrl : "views/diaria/funcionario/funcionario.diaria.form.html",
+			controller : "FuncionarioDiariaCadastrarController as ctrl",
+			ncyBreadcrumb: {
+			 	parent: 'funcionarioDiaria',
+			    label: 'Cadastrar Diaria'
+			  }
+		})
+		
 		.state('item.visualizar', {
 			url : "/:idItem",
 			templateUrl : "views/diaria/item/item.show.html",

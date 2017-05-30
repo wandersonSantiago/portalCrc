@@ -2,9 +2,7 @@ package br.com.portalCrc.entity.diaria;
 
 import java.math.BigDecimal;
 import java.util.Date;
-import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,16 +10,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import br.com.portalCrc.entity.Funcionario;
 import br.com.portalCrc.entity.Unidade;
 import br.com.portalCrc.entity.Usuario;
 
@@ -35,13 +28,13 @@ public class FuncionarioDiaria {
 	private Long id;
 	
 		
-	@OneToMany(cascade = {CascadeType.MERGE ,CascadeType.PERSIST})
-	@JoinColumn(name="id_item_diaria",nullable = false)
-	private List<ItemDiaria> itens;	
+	/*@OneToMany
+	@JoinColumn(name="id_itens")
+	private List<ItemDiaria> itens;	*/
 
 	@ManyToOne
-	@JoinColumn(name="id_funcionario")
-	private Funcionario funcionario;
+	@JoinColumn(name="id_funcionario_conta")
+	private ContaFuncionarioDiaria contaFuncionario;
 	
 	@ManyToOne
 	@JoinColumn(name="id_unidade")
@@ -72,20 +65,22 @@ public class FuncionarioDiaria {
 		this.id = id;
 	}
 
-	public List<ItemDiaria> getItens() {
+/*	public List<ItemDiaria> getItens() {
 		return itens;
 	}
 
 	public void setItens(List<ItemDiaria> itens) {
 		this.itens = itens;
+	}*/
+
+	
+
+	public ContaFuncionarioDiaria getContaFuncionario() {
+		return contaFuncionario;
 	}
 
-	public Funcionario getFuncionario() {
-		return funcionario;
-	}
-
-	public void setFuncionario(Funcionario funcionario) {
-		this.funcionario = funcionario;
+	public void setContaFuncionario(ContaFuncionarioDiaria contaFuncionario) {
+		this.contaFuncionario = contaFuncionario;
 	}
 
 	public Unidade getUnidade() {

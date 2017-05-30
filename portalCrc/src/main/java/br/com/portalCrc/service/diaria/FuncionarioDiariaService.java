@@ -37,15 +37,7 @@ public class FuncionarioDiariaService {
 		funcionarioDiaria.setDataCadastro(new Date());
 		funcionarioDiaria.setUnidade(SessionUsuario.getInstance().getUsuario().getFuncionario().getUnidadeAtual());
 		funcionarioDiaria.setUsuarioCadastro(SessionUsuario.getInstance().getUsuario());
-		for (int i = 0; i < funcionarioDiaria.getItens().size(); i++) {
-			CalculaValor calcula = new CalculaValor();
-			funcionarioDiaria.getItens().get(i).setFuncionarioDiaria(funcionarioDiaria);
-			funcionarioDiaria.getItens().get(i).setDataCadastro(new Date());
-
-			int count = calcula.quantidadePernoite(funcionarioDiaria.getItens().get(i));
-			total = total.add(calcula.valorPernoite(count, funcionarioDiaria.getItens().get(i)));
-			funcionarioDiaria.getItens().get(i).setValorDiaria(total);
-		}
+	
 		funcionarioDiaria.setTotalValorDiaria(total);
 		if (funcionarioDiaria.getDiaria().getStatus() == StatusDiariaEnum.ABERTO) {
 			funcionarioDiariaRepository.save(funcionarioDiaria);
@@ -101,5 +93,15 @@ public class FuncionarioDiariaService {
 				SessionUsuario.getInstance().getUsuario().getFuncionario().getUnidadeAtual().getId(), id);
 	}
 
+	public FuncionarioDiaria findByUnidade_idAndFuncionario_idAndDiaria_id(Long idFuncionario,
+			Long idDiaria) {
+		FuncionarioDiaria funcionario = funcionarioDiariaRepository.findByUnidade_idAndContaFuncionario_idAndDiaria_id(
+				SessionUsuario.getInstance().getUsuario().getFuncionario().getUnidadeAtual().getId(), idFuncionario, idDiaria);
+			if(funcionario == null){
+				throw new MensagemException("Favor Conferir os Dados!!!");
+		}
+		return funcionario; }
+
+	
 
 }

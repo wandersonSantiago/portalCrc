@@ -32,7 +32,6 @@ public class ItemDiariaService {
 		int count = calcula.quantidadePernoite(itemDiaria);
 		total = total.add(calcula.valorPernoite(count, itemDiaria));
 		itemDiaria.setValorDiaria(total);
-	
 		if(itemDiaria.getFuncionarioDiaria().getDiaria().getStatus()  == StatusDiariaEnum.ABERTO){
 			itemDiariaRepository.save(itemDiaria);
 		}else{
@@ -72,6 +71,10 @@ public class ItemDiariaService {
 	public void excluir(Long id) {
 		itemDiariaRepository.delete(id);
 		
+	}
+
+	public Iterable<ItemDiaria> findByFuncionarioDiaria_id(Long id) {
+		return itemDiariaRepository.findByFuncionarioDiaria_id(id);
 	}
 
 	

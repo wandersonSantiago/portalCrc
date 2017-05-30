@@ -58,6 +58,12 @@ public class ItemDiariaRestController {
 		return new ResponseEntity<Iterable<ItemDiaria>>(itemDiaria, HttpStatus.OK);
 	}
 	
+	@GetMapping(value="/itens/{id}")
+	public ResponseEntity<Iterable<ItemDiaria>> itens(@PathVariable Long id){
+		Iterable<ItemDiaria> itemDiaria = itemDiariaRepository.findByFuncionarioDiaria_id(id);
+		return new ResponseEntity<Iterable<ItemDiaria>>(itemDiaria, HttpStatus.OK);
+	}
+	
 	@GetMapping(value="/listaUnidade/{id}")
 	public ResponseEntity<Iterable<ItemDiaria>> listaUnidade(@PathVariable Long id){
 		Iterable<ItemDiaria> itemDiaria = itemDiariaRepository.listaUnidade(id);
