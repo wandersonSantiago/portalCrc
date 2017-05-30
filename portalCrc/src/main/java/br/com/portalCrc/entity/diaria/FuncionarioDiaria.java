@@ -58,7 +58,7 @@ public class FuncionarioDiaria {
 	private BigDecimal totalValorDiaria;
 	
 	@ManyToOne
-	@JoinColumn(name="id_funcionario_diaria")
+	@JoinColumn(name="id_diaria")
 	private Diaria diaria;
 	
 	

@@ -41,7 +41,7 @@ public class DiariaService {
 			diaria.setUsuarioCadastro(SessionUsuario.getInstance().getUsuario());
 			diariaRepository.save(diaria);
 		}else{			
-			throw new DiariaException("o mês de " + diaria.getMes() + " consta cadastrado no ano " + anoAtual());
+			throw new MensagemException("o mês de " + diaria.getMes() + " consta cadastrado no ano " + anoAtual());
 		}
 	}
 	@Transactional(readOnly = false)

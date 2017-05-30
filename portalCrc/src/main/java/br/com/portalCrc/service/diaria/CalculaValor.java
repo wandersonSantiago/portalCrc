@@ -1,59 +1,88 @@
 package br.com.portalCrc.service.diaria;
 
 import java.math.BigDecimal;
-import java.util.Calendar;
-import java.util.Date;
 
 import org.joda.time.DateTime;
 import org.joda.time.Days;
 import org.joda.time.Hours;
-import org.joda.time.Months;
-import org.joda.time.Years;
 
 import br.com.portalCrc.entity.diaria.ItemDiaria;
 
 public class CalculaValor {
 
-	public BigDecimal valorPernoite(Integer totalPernoite, ItemDiaria item) {
+	
+	
+	public BigDecimal verificaHorarioDiaria(ItemDiaria item) {
 
-		BigDecimal total = null;
+		DateTime horarioChegada = new DateTime(item.getHoraChegada());
+		DateTime horarioSaida = new DateTime(item.getHoraSaida());
 
-		if (totalPernoite > 0) {
-			total = item.getCodigoLocalDeslocamento().getPernoite().multiply(new BigDecimal(totalPernoite));
+		Hours total = Hours.hoursBetween(horarioChegada, horarioSaida);
 
-			item.setValorDiaria(total);
-			
-		} else if (totalPernoite == 0) {
+		total.getHours();
 
-		}
-		return total;
-	}
+		return valorDiariaPorHorario(total, item);
 
-	public Integer quantidadePernoite(Date dataInicial, Date dataFinal) {
-		
-		DateTime  dataInicio= new DateTime(dataInicial);
-		DateTime dataFinals = new DateTime(dataFinal);
-		Days d = Days.daysBetween(dataInicio, dataFinals);
-		return d.getDays();
 	}
 	
-	public Integer verificaHorarioRetorno(Date HoraInicial, Date HoraFinal){
-		DateTime dataFinal = new DateTime(HoraFinal);
-		  DateTime dataInicio = new DateTime(HoraInicial);
-		  
-		  Hours h = Hours.hoursBetween(dataInicio, dataFinal);
-		  
-		return h.getHours();
-		
+
+	public BigDecimal valorDiariaPorHorario(Hours totalHoras, ItemDiaria item) {
+		BigDecimal totalValor = null;
+
+		if (totalHoras.getHours() >= 12) {
+			totalValor = item.getCodigoLocalDeslocamento().getDeslocamentoMaisDeDoze();
+		} else if (totalHoras.getHours() >= 6 || totalHoras.getHours() < 12) {
+			totalValor = item.getCodigoLocalDeslocamento().getDeslocamentoSeisAsDoze();
+		}else{
+			throw new MensagemException("Retorno não atigiu o minimo de horas!!!");
+		}
+		return totalValor;
 	}
-	  DateTime dataFinal = new DateTime();
-	  DateTime dataInicio = new DateTime(2011, 1, 1, 0, 0);
-	   
-	  Days d = Days.daysBetween(dataInicio, dataFinal);
-	                     
-	  Years y = Years.yearsBetween(dataInicio, dataFinal);
-	                     
-	  Hours h = Hours.hoursBetween(dataInicio, dataFinal);
-	                     
-	  Months m = Months.monthsBetween(dataInicio, dataFinal);
+	
+
+	public Integer quantidadePernoite(ItemDiaria item) {
+
+		DateTime dataFinals = new DateTime(item.getDataChegada());
+		DateTime dataInicio = new DateTime(item.getDataSaida());
+
+		Days d = Days.daysBetween(dataInicio, dataFinals);
+
+		return d.getDays();
+	}
+
+	
+	public BigDecimal valorPernoite(Integer totalPernoite, ItemDiaria item) {
+
+		BigDecimal totalValor = null;
+
+		if (totalPernoite > 0) {
+			totalValor = item.getCodigoLocalDeslocamento().getPernoite().multiply(new BigDecimal(totalPernoite));
+			totalValor  = totalValor.add(verificaHorarioRetorno(item));
+
+		} else if (totalPernoite == 0) {
+
+			totalValor = verificaHorarioDiaria(item);
+		}
+		return totalValor;
+	}
+
+	
+	private BigDecimal verificaHorarioRetorno(ItemDiaria item) {
+		BigDecimal valorRetorno
+		= null;
+		DateTime dataFinal = new DateTime(item.getHoraChegada());
+		int horaChegada = dataFinal.getHourOfDay(); 
+		Hours horas = Hours.hours(horaChegada);
+		
+		if(horas.getHours() >=  19){
+			valorRetorno = item.getCodigoLocalDeslocamento().getRetornoAposDezenove();
+		}else if(horas.getHours() >= 13 || horas.getHours() <  19){
+			valorRetorno = item.getCodigoLocalDeslocamento().getRetornoTrezeAsDezenove();
+		}else{
+			throw new MensagemException("Retorno não atigiu o minimo de horas!!!");
+		}
+
+		return valorRetorno;
+
+	}
 }

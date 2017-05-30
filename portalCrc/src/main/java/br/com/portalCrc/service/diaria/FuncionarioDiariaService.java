@@ -32,23 +32,25 @@ public class FuncionarioDiariaService {
 
 	@Transactional(readOnly = false)
 	public void salvaOuAltera(FuncionarioDiaria funcionarioDiaria) {
+
 		BigDecimal total = new BigDecimal(0);
 		funcionarioDiaria.setDataCadastro(new Date());
 		funcionarioDiaria.setUnidade(SessionUsuario.getInstance().getUsuario().getFuncionario().getUnidadeAtual());
 		funcionarioDiaria.setUsuarioCadastro(SessionUsuario.getInstance().getUsuario());
 		for (int i = 0; i < funcionarioDiaria.getItens().size(); i++) {
-			
+			CalculaValor calcula = new CalculaValor();
 			funcionarioDiaria.getItens().get(i).setFuncionarioDiaria(funcionarioDiaria);
 			funcionarioDiaria.getItens().get(i).setDataCadastro(new Date());
-			
-		
-			int count = quantidadePernoite(funcionarioDiaria.getItens().get(i));
-			total = total.add(valorPernoite(count, funcionarioDiaria.getItens().get(i)));
+
+			int count = calcula.quantidadePernoite(funcionarioDiaria.getItens().get(i));
+			total = total.add(calcula.valorPernoite(count, funcionarioDiaria.getItens().get(i)));
 			funcionarioDiaria.getItens().get(i).setValorDiaria(total);
 		}
 		funcionarioDiaria.setTotalValorDiaria(total);
 		if (funcionarioDiaria.getDiaria().getStatus() == StatusDiariaEnum.ABERTO) {
 			funcionarioDiariaRepository.save(funcionarioDiaria);
+		}else{
+			throw new MensagemException("Não foi possivel realizar este lançamento, Este mês esta encerrado!!!");
 		}
 
 	}
@@ -99,51 +101,5 @@ public class FuncionarioDiariaService {
 				SessionUsuario.getInstance().getUsuario().getFuncionario().getUnidadeAtual().getId(), id);
 	}
 
-	
 
-	public BigDecimal verificaHorarioRetorno(ItemDiaria item){
-		
-		DateTime dataFinal = new DateTime(item.getHoraChegada());
-		DateTime dataInicio = new DateTime(item.getHoraSaida());
-		  
-		  Hours total = Hours.hoursBetween(dataInicio, dataFinal);
-		 
-		  total.getHours();
-		  
-		return  valorDiariaPorHorario(total, item);
-		
-	}
-	
-	public BigDecimal valorDiariaPorHorario(Hours totalHoras, ItemDiaria item){
-		BigDecimal totalValor = null;
-		
-		  if(totalHoras.getHours() > 12){
-			totalValor = item.getCodigoLocalDeslocamento().getDeslocamentoMaisDeDoze();
-		}
-		return totalValor;
-	}
-			
-	public Integer quantidadePernoite(ItemDiaria item) {
-
-		DateTime   dataFinals = new DateTime(item.getDataChegada());
-		DateTime  dataInicio = new DateTime(item.getDataSaida());
-		
-		Days d = Days.daysBetween(dataInicio, dataFinals);
-		
-		return d.getDays();
-	}
-	
-	public BigDecimal valorPernoite(Integer totalPernoite, ItemDiaria item) {
-
-		BigDecimal totalValor = null;
-
-		if (totalPernoite > 0) {
-			totalValor = item.getCodigoLocalDeslocamento().getPernoite().multiply(new BigDecimal(totalPernoite));
-			
-		} else if (totalPernoite == 0) {
-			
-			totalValor = verificaHorarioRetorno(item);
-		}		
-		return totalValor;
-	}
 }

@@ -58,6 +58,9 @@ public class ItemDiaria {
 	@Column(name="valor_passagem")
 	private BigDecimal valorPassagem;
 	
+	@Column(name="obs_passagem")
+	private String obsPassagem;
+	
 	@Column(name="motivo")
 	private String motivo;
 	
@@ -136,6 +139,14 @@ public class ItemDiaria {
 	}
 
 	
+
+	public String getObsPassagem() {
+		return obsPassagem;
+	}
+
+	public void setObsPassagem(String obsPassagem) {
+		this.obsPassagem = obsPassagem.toUpperCase();
+	}
 
 	public Date getDataSaida() {
 		return dataSaida;

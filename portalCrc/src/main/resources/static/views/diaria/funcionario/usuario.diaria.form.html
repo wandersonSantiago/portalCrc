@@ -117,6 +117,13 @@
 					class="glyphicon glyphicon-search"></i></a>
 			</span>
 		</div>
+		<div class="row ">
+			<br> <span class="input-group-btn"> <a type="button"
+				data-toggle="modal" data-target="#passagemModal" data-whatever="@mdo"
+				class="btn btn-info btn-flat">Passagem<i
+					class="fa fa-bus"></i></a>
+			</span>
+		</div>
 		<br>
 		<div class="row ">
 			<div class="col-sm-4"></div>
@@ -279,6 +286,45 @@
 	</div>
 </div>
 <!-- FIM modal do motivo da diaria -->
+
+<!-- INICIO modal passagem-->
+<div class="modal fade modal-default" id="passagemModal" tabindex="-1"
+	role="dialog" aria-labelledby="exampleModalLabel">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				<h4 class="modal-title" id="exampleModalLabel">Adicione os dados da passagem</h4>
+			</div>
+			<div class="modal-body">
+				<div class="form-group">
+				Valor da Passagem
+				<div class="input-group margin col-sm-3">
+					<input  type="text" class="form-control select2"
+						ng-model="funcionarioCtrl.itens.valorPassagem" ui-money-mask>
+						 <span class="input-group-btn"> <a type="button"
+						class="btn btn-info btn-flat"><i>R$</i></a>
+					</span>				
+				</div>
+				
+					<label for="message-text" class="control-label">Observações:</label>
+					<textarea class="form-control text-uppercase" ng-model="funcionarioCtrl.itens.obsPassagem" id="message-text"></textarea>
+				
+				
+				
+			</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+				<button type="button" class="btn btn-primary">Adicionar</button>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- FIM modal do passagem-->
 
 <!-- INICIO  modal do meio de Transporte -->
 <div class="modal fade bs-example-modal-lg modal-default"
