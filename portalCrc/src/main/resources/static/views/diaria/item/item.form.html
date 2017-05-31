@@ -28,7 +28,7 @@
 				<div class="input-group margin">
 					<select class="form-control select2"
 						ng-model="ctrl.itemDiaria.localDeslocamento"
-						ng-options="cidade.nome for cidade in ctrl.cidades track by cidade.nome">
+						ng-options="cidade.nome for cidade in ctrl.cidades track by cidade.nome" required>
 						<option value=""></option>
 					</select> <span class="input-group-btn"> <a type="button"
 						class="btn btn-info btn-flat"><i>Cidade</i></a>
@@ -39,7 +39,7 @@
 				<div class="input-group margin">
 					<select class="form-control select2"
 						ng-model="ctrl.itemDiaria.codigoLocalDeslocamento"
-						ng-options="valor.codigo for valor in ctrl.valoresDiaria track by valor.codigo">
+						ng-options="valor.codigo for valor in ctrl.valoresDiaria track by valor.codigo" required>
 						<option value=""></option>
 					</select> <span class="input-group-btn"> <a type="button"
 						data-toggle="modal" data-target="#codigoModal"
@@ -71,7 +71,7 @@
 					<input type="text" class="form-control"
 						uib-datepicker-popup="{{format}}"
 						ng-model="ctrl.itemDiaria.dataSaida"
-						is-open="saida.opened" ng-required="true" close-text="Close" /> <span
+						is-open="saida.opened" ng-required="true" close-text="Close"  required/> <span
 						class="input-group-btn">
 						<button type="button" class="btn btn-default"
 							ng-click="saidaOpen()">
@@ -92,8 +92,8 @@
 				<p class="input-group">
 					<input type="text" class="form-control"
 						uib-datepicker-popup="{{format}}"
-						ng-model="ctrl.itemDiaria.dataChegada"
-						is-open="chegada.opened" ng-required="true" close-text="Close" />
+						ng-model="ctrl.itemDiaria.dataChegada" ng-change="ctrl.verificaDataFinal(ctrl.itemDiaria.dataSaida, ctrl.itemDiaria.dataChegada )"
+						is-open="chegada.opened" ng-required="true" close-text="Close" required/>
 					<span class="input-group-btn">
 						<button type="button" class="btn btn-default"
 							ng-click="chegadaOpen()">

@@ -1,37 +1,123 @@
 <meta charset="UTF-8">
-		<div class="table-responsive"  >	
-		    <hr>    
-		<input class="form-control" type="text" placeholder="Pesquisar..." ng-model="buscar" >
-			<table class="table table-hover table-bordered" >
-				<thead>
-					<tr>
-						<td>Localidade</td>
-						<td>Saida</td>
-						<td>Chegada</td>
-						<td>Hora Saída</td>
-						<td>Hora Chegada</td>
-						<td>Valor</td>
-						<td>Transporte</td>
-						<td>Codigo Desl.</td>
-																
-					</tr>
-				</thead>
-				<tbody ng-repeat=" item in ctrl.itens | filter : busca |  orderBy : '-id'">
-					<tr>					
-					<td>{{ item.localDeslocamento }}</td>
-					<td>{{ item.dataSaida | date : 'dd/MM/yyyy'}}</td>
-					<td>{{ item.dataChegada | date : 'dd/MM/yyyy'}}</td>
-					<td>{{ item.horaSaida | date : 'HH:mm'}}</td>
-					<td>{{ item.horaChegada | date : 'HH:mm'}}</td>
-					<td>{{ item.valorDiaria | currency }}</td>
-					<td>{{ item.meioTransporte }}</td>
-					<td>{{ item.codigoLocalDeslocamento.codigo }}</td>
-					<td ><a title="teste" ui-sref="item.editar({idItem : item.id})"><i class="glyphicon glyphicon-edit"></i></a></td>
-					<td ><a href="" ng-click="ctrl.excluir(item)"><i class="glyphicon glyphicon-remove"></i></a></td>
-					
-					</tr>
-							
-				</tbody>				
-			</table>
-		</div>
-	
+<div class="table-responsive">
+	<hr>
+	<input class="form-control" type="text" placeholder="Pesquisar..."
+		ng-model="buscar">
+	<table class="table table-hover table-bordered">
+		<thead>
+			<tr>
+				<td>Localidade</td>
+				<td>Saida</td>
+				<td>Chegada</td>
+				<td>Hora Saída</td>
+				<td>Hora Chegada</td>
+				<td>Valor</td>
+				<td>Transporte</td>
+				<td>Codigo Desl.</td>
+
+			</tr>
+		</thead>
+		<tbody ng-repeat=" item in itens | filter : busca |  orderBy : '-id'">
+			<tr>
+				<td ng-if="!item.editar">{{ item.localDeslocamento }}</td>
+				<td ng-if="item.editar">
+				<br>
+					<div class="input-group margin">
+						<select class="form-control select2"
+							ng-model="ctrl.itemDiaria.estado"
+							ng-change="ctrl.buscarCidades(ctrl.itemDiaria.estado.id)"
+							ng-options="estado.nome for estado in ctrl.estados track by estado.nome">
+							<option value=""></option>
+						</select> 
+					</div>
+				</td>
+				<td ng-if="item.editar">
+				<br>
+					<div class="input-group margin">
+						<select class="form-control select2"
+							ng-model="item.localDeslocamento" 
+							ng-options="cidade.nome for cidade in ctrl.cidades"
+							required>
+							<option value=""></option>
+						</select> 
+					</div>
+				</td>
+				<td ng-if="!item.editar">{{ item.dataSaida | date : 'dd/MM/yyyy'}}</td>
+				<td ng-if="item.editar">
+				<br>
+					<p class="input-group">
+						<input type="text" class="form-control"
+							uib-datepicker-popup="{{format}}"
+							ng-model="item.dataSaida" is-open="saida.opened"
+							ng-required="true" close-text="Close" required /> <span
+							class="input-group-btn">
+							<button type="button" class="btn btn-default"
+								ng-click="saidaOpen()">
+								<i class="glyphicon glyphicon-calendar"></i>
+							</button>
+						</span>
+					</p>
+				</td>
+				<td ng-if="!item.editar">{{ item.dataChegada | date : 'dd/MM/yyyy'}}</td>
+				<td ng-if="item.editar">
+					<div uib-timepicker ng-model="item.dataChegada"
+						hour-step="1" minute-step="1" show-meridian="false"></div>
+				</td>
+				<td ng-if="!item.editar">{{ item.horaSaida | date : 'HH:mm'}}</td>
+				<td ng-if="item.editar">
+					<div uib-timepicker ng-model="item.horaSaida"
+						hour-step="1" minute-step="1" show-meridian="false"></div>
+				</td>
+				<td ng-if="!item.editar">{{ item.horaChegada | date : 'HH:mm'}}</td>
+				<td ng-if="item.editar">
+				<br>
+					<p class="input-group">
+						<input type="text" class="form-control"
+							uib-datepicker-popup="{{format}}"
+							ng-model="item.horaChegada"
+							ng-change="ctrl.verificaDataFinal(ctrl.itemDiaria.dataSaida, ctrl.itemDiaria.dataChegada )"
+							is-open="chegada.opened" ng-required="true" close-text="Close"
+							required /> <span class="input-group-btn">
+							<button type="button" class="btn btn-default"
+								ng-click="chegadaOpen()">
+								<i class="glyphicon glyphicon-calendar"></i>
+							</button>
+						</span>
+					</p>
+				</td>
+				<td ng-if="!item.editar">{{ item.valorDiaria | currency }}</td>
+				<td ng-if="!item.editar">{{ item.meioTransporte }}</td>
+				<td ng-if="item.editar">
+				<br>
+					<div class="input-group margin">
+						<input type="text" class="form-control text-uppercase"
+							ng-model="item.meioTransporte" required>						
+					</div>
+				</td>
+				<td ng-if="!item.editar">{{ item.codigoLocalDeslocamento.codigo }}</td>
+				<td ng-if="item.editar">
+				<br>
+					<div class="input-group margin">
+					<select class="form-control select2"
+						ng-model="item.codigoLocalDeslocamento"
+						ng-options="valor.codigo for valor in ctrl.valoresDiaria track by valor.codigo" required>
+						<option value=""></option>
+					</select> 
+					</span>
+				</div>
+				</td>
+				<td ng-if="!item.editar"><a ng-click="ctrl.ativaEditar(item, 'true')" title="teste"><i
+						class="glyphicon glyphicon-edit"></i></a></td>
+				<td ng-if="item.editar"><a ng-click="ctrl.editar(item, 'false')" title="teste"><i
+						class="glyphicon glyphicon-edit"></i></a></td>
+				<td title="Cancelar edição" ng-if="item.editar"><a ng-click="ctrl.ativaEditar(item , 'false')" title="teste"><i
+						class="glyphicon glyphicon-edit"></i></a></td>
+				<td><a href="" ng-click="ctrl.excluir(item)"><i
+						class="glyphicon glyphicon-remove"></i></a></td>
+
+			</tr>
+
+		</tbody>
+	</table>
+</div>
+

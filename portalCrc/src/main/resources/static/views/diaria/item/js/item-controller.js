@@ -3,10 +3,13 @@ app.controller("ItemDiariaEditarController", ItemDiariaEditarController);
 app.controller("ItemDiariaListarController", ItemDiariaListarController);
 app.controller("ItemDiariaShowController", ItemDiariaShowController);
 
-/*// ItemDiariaCadastrarController.$inject = ['$stateParams','ItemDiariaService',
-// 'FuncionarioService', 'toastr', '$rootScope', '$scope'];
-ItemDiariaEditarController.$inject = [ '$location', '$stateParams', '$state',
-		'ItemDiariaService', 'toastr', '$rootScope', '$scope' ];*/
+/*
+ * // ItemDiariaCadastrarController.$inject =
+ * ['$stateParams','ItemDiariaService', // 'FuncionarioService', 'toastr',
+ * '$rootScope', '$scope']; ItemDiariaEditarController.$inject = [ '$location',
+ * '$stateParams', '$state', 'ItemDiariaService', 'toastr', '$rootScope',
+ * '$scope' ];
+ */
 ItemDiariaListarController.$inject = [ '$stateParams', '$state',
 		'ItemDiariaService', 'toastr', '$rootScope', '$scope' ];
 ItemDiariaShowController.$inject = [ '$stateParams', '$state',
@@ -23,6 +26,10 @@ function ItemDiariaCadastrarController($state, ItemDiariaService, $stateParams,
 	self.buscarUnidades = buscarUnidades;
 	self.buscarVeiculos = buscarVeiculos;
 	self.submit = submit;
+	self.excluir = excluir;
+	self.verificaDataFinal = verificaDataFinal;
+	self.ativaEditar = ativaEditar;
+	self.editar = editar;
 	buscarEstados(1);
 	buscarCoordenadorias();
 	buscarTipoUnidade();
@@ -30,15 +37,34 @@ function ItemDiariaCadastrarController($state, ItemDiariaService, $stateParams,
 	self.buscarValoresDiariaPorIndice = buscarValoresDiariaPorIndice;
 	buscarFuncionario($rootScope.usuario.funcionario.id);
 	
-	function submit() {
-		self.itemDiaria.meioTransporte = self.itemDiaria.meioTransporte.placa;
-		self.itemDiaria.localDeslocamento = self.itemDiaria.localDeslocamento.nome;
+	
+	function editar(item ){
+		self.itemDiaria.meioTransporte = item.meioTransporte;
+		self.itemDiaria.localDeslocamento = item.localDeslocamento.nome;
 		self.itemDiaria.funcionario = $rootScope.usuario.funcionario;
 		self.itemDiaria.diaria = self.diaria;
 		self.itemDiaria.funcionarioDiaria = self.funcionario;
-		ItemDiariaService.salvar(self.itemDiaria).then(
+		if(item.horaSaida == null || item.horaChegada == null){
+			sweetAlert({
+				text : "os campos horários são obrigatório!!!",
+				type : "info",
+				width : 300,
+				higth : 300,
+				padding : 20
+			});
+		}else
+		if(item.motivo == null){
+			sweetAlert({
+				text : "o campo motivo é obrigatório!!!",
+				type : "info",
+				width : 300,
+				higth : 300,
+				padding : 20
+			});
+		}else{
+		ItemDiariaService.alterar(self.itemDiaria).then(
 				function(response) {
-					buscarItensDiariaPorFuncionarioDiaria(self.itemDiaria.funcionarioDiaria.id);
+					buscarItensDiariaPorFuncionarioDiaria(self.funcionario.id);
 					toastr.info("Salvo com Sucesso!!!");
 				}, function(errResponse) {
 					sweetAlert({
@@ -48,8 +74,59 @@ function ItemDiariaCadastrarController($state, ItemDiariaService, $stateParams,
 						higth : 300,
 						padding : 20
 					});
-				});
+				});}
+		
+	}
+	
+	
+	function submit() {
+		self.itemDiaria.meioTransporte = self.itemDiaria.meioTransporte.placa;
+		self.itemDiaria.localDeslocamento = self.itemDiaria.localDeslocamento.nome;
+		self.itemDiaria.funcionario = $rootScope.usuario.funcionario;
+		self.itemDiaria.diaria = self.diaria;
+		self.itemDiaria.funcionarioDiaria = self.funcionario;
+		if(self.itemDiaria.horaSaida == null || self.itemDiaria.horaChegada == null){
+			sweetAlert({
+				text : "os campos horários são obrigatório!!!",
+				type : "info",
+				width : 300,
+				higth : 300,
+				padding : 20
+			});
+		}else
+		if(self.itemDiaria.motivo == null){
+			sweetAlert({
+				text : "o campo motivo é obrigatório!!!",
+				type : "info",
+				width : 300,
+				higth : 300,
+				padding : 20
+			});
+		}else{
+		ItemDiariaService.salvar(self.itemDiaria).then(
+				function(response) {
+					buscarItensDiariaPorFuncionarioDiaria(self.funcionario.id);
+					toastr.info("Salvo com Sucesso!!!");
+				}, function(errResponse) {
+					sweetAlert({
+						text : errResponse.data.message,
+						type : "info",
+						width : 300,
+						higth : 300,
+						padding : 20
+					});
+				});}
 	};
+	
+	
+	function ativaEditar(item , status){
+		if(status =='true'){
+			item.editar = true;
+		}else{
+			item.editar = false;
+		}		
+	}
+	
 	
 	function buscarFuncionario(id) {
 		FuncionarioContaDiariaService.buscarPorIdFuncionario(id).then(
@@ -88,7 +165,7 @@ function ItemDiariaCadastrarController($state, ItemDiariaService, $stateParams,
 	function buscarItensDiariaPorFuncionarioDiaria(id) {
 		ItemDiariaService.buscarItensDiariaPorFuncionarioDiaria(id).then(
 				function(f) {
-					self.itens = f;
+					$scope.itens = f;
 				}, function(errResponse) {				
 				});
 	};
@@ -160,7 +237,6 @@ function ItemDiariaCadastrarController($state, ItemDiariaService, $stateParams,
 			self.veiculos = f;
 		}, function(errResponse) {
 			sweetAlert({
-				timer : 3000,
 				text : errResponse.data.message,
 				type : "error",
 				width : 300,
@@ -168,6 +244,38 @@ function ItemDiariaCadastrarController($state, ItemDiariaService, $stateParams,
 				padding : 20
 			});
 		});
+	}
+	;
+	
+	function verificaDataFinal(dataInicial, dataFinal){
+		if(dataInicial > dataFinal){
+			self.itemDiaria.dataChegada = '';
+			sweetAlert({
+				text : "Data Final tem que ser igual ou posterior a data Inicial!!!",
+				type : "info",
+				width : 300,
+				higth : 300,
+				padding : 20
+			});
+		}
+			
+	}
+	function excluir(objeto) {
+		swal({
+			title : 'Excluir diária!!!',
+			text : 'Tem certeza que deseja excluir esta diária',
+			type : 'warning',
+			showCancelButton : true,
+			confirmButtonColor : '#3085d6',
+			cancelButtonColor : '#d33',
+			confirmButtonText : 'Excluir'
+		}).then(function() {
+			ItemDiariaService.excluir(objeto.id).then(function(response) {
+				buscarItensDiariaPorFuncionarioDiaria(self.funcionario.id);
+			}, function(errResponse) {
+			});
+
+		})
 	}
 	;
 
