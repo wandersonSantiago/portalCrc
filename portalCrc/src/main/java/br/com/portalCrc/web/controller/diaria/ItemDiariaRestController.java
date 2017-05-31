@@ -64,7 +64,7 @@ public class ItemDiariaRestController {
 		return new ResponseEntity<Iterable<ItemDiaria>>(itemDiaria, HttpStatus.OK);
 	}
 	
-	@GetMapping(value="/listaUnidade/{id}")
+	@GetMapping(value="/unidade/{id}")
 	public ResponseEntity<Iterable<ItemDiaria>> listaUnidade(@PathVariable Long id){
 		Iterable<ItemDiaria> itemDiaria = itemDiariaRepository.listaUnidade(id);
 		return new ResponseEntity<Iterable<ItemDiaria>>(itemDiaria, HttpStatus.OK);

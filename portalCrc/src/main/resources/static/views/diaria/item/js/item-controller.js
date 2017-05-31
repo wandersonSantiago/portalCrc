@@ -1,16 +1,10 @@
 app.controller("ItemDiariaCadastrarController", ItemDiariaCadastrarController);
 app.controller("ItemDiariaEditarController", ItemDiariaEditarController);
-app.controller("ItemDiariaListarController", ItemDiariaListarController);
+app.controller("ItemDiariaUnidadeListController", ItemDiariaUnidadeListController);
 app.controller("ItemDiariaShowController", ItemDiariaShowController);
 
-/*
- * // ItemDiariaCadastrarController.$inject =
- * ['$stateParams','ItemDiariaService', // 'FuncionarioService', 'toastr',
- * '$rootScope', '$scope']; ItemDiariaEditarController.$inject = [ '$location',
- * '$stateParams', '$state', 'ItemDiariaService', 'toastr', '$rootScope',
- * '$scope' ];
- */
-ItemDiariaListarController.$inject = [ '$stateParams', '$state',
+
+ItemDiariaUnidadeListController.$inject = [ '$stateParams', '$state',
 		'ItemDiariaService', 'toastr', '$rootScope', '$scope' ];
 ItemDiariaShowController.$inject = [ '$stateParams', '$state',
 		'ItemDiariaService', 'toastr', '$rootScope', '$scope' ];
@@ -28,8 +22,6 @@ function ItemDiariaCadastrarController($state, ItemDiariaService, $stateParams,
 	self.submit = submit;
 	self.excluir = excluir;
 	self.verificaDataFinal = verificaDataFinal;
-	self.ativaEditar = ativaEditar;
-	self.editar = editar;
 	buscarEstados(1);
 	buscarCoordenadorias();
 	buscarTipoUnidade();
@@ -38,45 +30,6 @@ function ItemDiariaCadastrarController($state, ItemDiariaService, $stateParams,
 	buscarFuncionario($rootScope.usuario.funcionario.id);
 	
 	
-	function editar(item ){
-		self.itemDiaria.meioTransporte = item.meioTransporte;
-		self.itemDiaria.localDeslocamento = item.localDeslocamento.nome;
-		self.itemDiaria.funcionario = $rootScope.usuario.funcionario;
-		self.itemDiaria.diaria = self.diaria;
-		self.itemDiaria.funcionarioDiaria = self.funcionario;
-		if(item.horaSaida == null || item.horaChegada == null){
-			sweetAlert({
-				text : "os campos horários são obrigatório!!!",
-				type : "info",
-				width : 300,
-				higth : 300,
-				padding : 20
-			});
-		}else
-		if(item.motivo == null){
-			sweetAlert({
-				text : "o campo motivo é obrigatório!!!",
-				type : "info",
-				width : 300,
-				higth : 300,
-				padding : 20
-			});
-		}else{
-		ItemDiariaService.alterar(self.itemDiaria).then(
-				function(response) {
-					buscarItensDiariaPorFuncionarioDiaria(self.funcionario.id);
-					toastr.info("Salvo com Sucesso!!!");
-				}, function(errResponse) {
-					sweetAlert({
-						text : errResponse.data.message,
-						type : "info",
-						width : 300,
-						higth : 300,
-						padding : 20
-					});
-				});}
-		
-	}
 	
 	
 	function submit() {
@@ -119,20 +72,12 @@ function ItemDiariaCadastrarController($state, ItemDiariaService, $stateParams,
 	};
 	
 	
-	function ativaEditar(item , status){
-		if(status =='true'){
-			item.editar = true;
-		}else{
-			item.editar = false;
-		}		
-	}
-	
-	
+		
 	function buscarFuncionario(id) {
 		FuncionarioContaDiariaService.buscarPorIdFuncionario(id).then(
 				function(f) {
 					buscarFuncionarioDiaria(f.id);
-					buscarValoresDiariaPorIndice(f.indiceUfesp, idDiaria)
+					buscarValoresDiariaPorIndice(f.indiceUfesp, idDiaria);
 				}, function(errResponse) {
 					$state.go('funcionarioContaDiaria.cadastrar');
 					sweetAlert({
@@ -343,7 +288,7 @@ function ItemDiariaEditarController($state, ItemDiariaService, $stateParams,
 	function buscarItensDiariaPorFuncionarioDiaria(id) {
 		ItemDiariaService.buscarItensDiariaPorFuncionarioDiaria(id).then(
 				function(f) {
-					self.itens = f;					
+					$scope.itens = f;					
 				}, function(errResponse) {				
 				});
 	};
@@ -476,14 +421,17 @@ function ItemDiariaEditarController($state, ItemDiariaService, $stateParams,
 	}
 	;
 }
-function ItemDiariaListarController($stateParams, $state, ItemDiariaService,
+function ItemDiariaUnidadeListController($stateParams, $state, ItemDiariaService,
 		toastr, $rootScope, $scope) {
 	var self = this;
-	listar();
+	var idDiaria = $stateParams.idDiaria;
+	$scope.listaDiariaExcel = [];
+	listar(idDiaria);
 
-	function listar() {
-		ItemDiariaService.listarSecretaria().then(function(f) {
-			self.itemDiarias = f;
+	function listar(idDiaria) {
+		ItemDiariaService.porUnidades(idDiaria).then(function(f) {
+			self.itens = f;
+			forLista(f);
 		}, function(errResponse) {
 			sweetAlert({
 				timer : 3000,
@@ -496,6 +444,26 @@ function ItemDiariaListarController($stateParams, $state, ItemDiariaService,
 		});
 	}
 	;
+	
+	forLista = function(f){
+		for(i = 0 ; i < f.length ; i++){
+			listaExcel(f[i]);
+		}
+	}
+	
+	listaExcel = function(lista){
+		$scope.listaDiariaExcel.push({
+			nome : lista.funcionarioDiaria.contaFuncionario.funcionario.pessoa.nomeCompleto,
+			cargo : lista.funcionarioDiaria.contaFuncionario.funcionario.cargoAtual.descricao,
+			unidadeLotado :		lista.funcionarioDiaria.unidade.dadosUnidade.mnemonico,
+			dataSaida: lista.dataSaida,
+			dataChegada : lista.dataChegada,
+			localDeslocamento: lista.localDeslocamento,
+			motivo: lista.motivo,
+			valorDiaria: lista.valorDiaria,
+			valorPassagem: lista.valorPassagem
+		});
+	};
 }
 function ItemDiariaShowController($stateParams, $state, ItemDiariaService,
 		toastr, $rootScope, $scope) {

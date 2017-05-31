@@ -37,10 +37,10 @@ public class ItemDiaria {
 	@Column(name="meio_transporte")
 	private String meioTransporte;
 	
-	@Column(name="data_saida")
+	@Temporal(TemporalType.DATE)
 	private Date dataSaida;
 	
-	@Column(name="data_chegada")
+	@Temporal(TemporalType.DATE)
 	private Date dataChegada;	
 	
 	@Column(name="hora_saida")

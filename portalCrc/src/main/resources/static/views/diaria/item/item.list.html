@@ -106,7 +106,7 @@
 					</span>
 				</div>
 				</td>
-				<td ng-if="!item.editar"><a ng-click="ctrl.ativaEditar(item, 'true')" title="teste"><i
+				<td ng-if="!item.editar"><a ui-sref="item.editar({idItem : item.id})" title="teste"><i
 						class="glyphicon glyphicon-edit"></i></a></td>
 				<td ng-if="item.editar"><a ng-click="ctrl.editar(item, 'false')" title="teste"><i
 						class="glyphicon glyphicon-edit"></i></a></td>

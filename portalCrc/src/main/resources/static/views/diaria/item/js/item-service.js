@@ -56,8 +56,8 @@ app.factory('ItemDiariaService', function($q, $http){
 				return $q.reject(errResponse);
 			});
 		},
-		listarUnidade: function(objeto){
-			return $http.get('/rest/diaria/item/listaUnidade/' +objeto)
+		porUnidades: function(idDiaria){
+			return $http.get('/rest/diaria/item/unidade/' +idDiaria)
 			.then(function(response){
 				return response.data;
 			},function(errResponse){

@@ -13,12 +13,12 @@ app.config(function($stateProvider, $urlRouterProvider) {
 	})
 	
 		.state('item.unidade', {
-			url : "/:idDiariaUnidade/listar/unidade",
+			url : "/:idDiaria/listar/unidade",
 			templateUrl : "views/diaria/item/item.unidade.list.html",
-			controller : "ItemDiariaCadastrarController as itemCtrl",
+			controller : "ItemDiariaUnidadeListController as ctrl",
 			ncyBreadcrumb: {
-				 	parent: 'item.cadastrar',
-				    label: 'lista item'
+				 	parent: 'diaria.listar',
+				    label: 'Unidade itens'
 				  }
 		})
 		.state('item.coordenadoria', {
