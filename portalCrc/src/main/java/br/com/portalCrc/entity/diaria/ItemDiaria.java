@@ -14,8 +14,10 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import br.com.portalCrc.entity.Cidade;
+import br.com.portalCrc.entity.Estado;
 
 @Entity
 @SequenceGenerator(name = "item_diaria_id_seq", sequenceName = "item_diaria_id_seq", schema="diaria", initialValue = 1, allocationSize = 1)
@@ -26,32 +28,49 @@ public class ItemDiaria {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "item_diaria_id_seq")
 	private Long id;
 	
+	@NotNull (message="Local de deslocamento não pode ser nulo")
+	@ManyToOne
+	@JoinColumn(name="id_cidade")
+	private Cidade localDeslocamento;
 	
-	@Column(name="local_deslocamento")
-	private String localDeslocamento;
+	@NotNull (message="Estado não pode ser nulo")
+	@ManyToOne
+	@JoinColumn(name="id_estado")
+	private Estado estado;
 	
+	@NotNull (message="Código de  deslocamento não pode ser nulo")
 	@ManyToOne
 	@JoinColumn(name="codigo_local_deslocamento")
 	private ValoresDiariaLocalidade codigoLocalDeslocamento;
 	
-	@Column(name="meio_transporte")
-	private String meioTransporte;
+	@NotNull (message="Meio de transporte saida não pode ser nulo")
+	@Column(name="meio_transporte_saida")
+	private String meioTransporteSaida;
 	
+	@NotNull (message="Meio de transporte retorno não pode ser nulo")
+	@Column(name="meio_transporte_retorno")
+	private String meioTransporteRetorno;
+	
+	@NotNull (message="Data de saída não pode ser nulo")
 	@Temporal(TemporalType.DATE)
 	private Date dataSaida;
 	
+	@NotNull (message="Data de retorno não pode ser nulo")
 	@Temporal(TemporalType.DATE)
 	private Date dataChegada;	
 	
+	@NotNull (message="Horario de saida não pode ser nulo")
 	@Column(name="hora_saida")
 	private Date horaSaida;
 	
+	@NotNull (message="Horario de retorno não pode ser nulo")
 	@Column(name="hora_chegada")
 	private Date horaChegada;
 			
 	@Temporal(TemporalType.DATE)
 	private Date dataCadastro;
 	
+	@NotNull (message="Valor das diaria não pode ser nulo")
 	@Column(name="valor_diaria")
 	private BigDecimal valorDiaria;
 	
@@ -61,10 +80,11 @@ public class ItemDiaria {
 	@Column(name="obs_passagem")
 	private String obsPassagem;
 	
+	@NotNull (message="Motido do deslocamento não pode ser nulo")
 	@Column(name="motivo")
 	private String motivo;
 	
-	
+	@NotNull (message="Funcionario não pode ser nulo")
 	@ManyToOne
 	@JoinColumn(name="id_funcionario_diaria")
 	private FuncionarioDiaria funcionarioDiaria;
@@ -122,23 +142,41 @@ public class ItemDiaria {
 		this.funcionarioDiaria = funcionarioDiaria;
 	}
 
-	public String getLocalDeslocamento() {
+	
+	public Cidade getLocalDeslocamento() {
 		return localDeslocamento;
 	}
 
-	public void setLocalDeslocamento(String localDeslocamento) {
-		this.localDeslocamento = localDeslocamento.toUpperCase();
+	public void setLocalDeslocamento(Cidade localDeslocamento) {
+		this.localDeslocamento = localDeslocamento;
 	}
 
-	public String getMeioTransporte() {
-		return meioTransporte;
+	public Estado getEstado() {
+		return estado;
 	}
 
-	public void setMeioTransporte(String meioTransporte) {
-		this.meioTransporte = meioTransporte.toUpperCase();
+	public void setEstado(Estado estado) {
+		this.estado = estado;
 	}
 
 	
+	
+
+	public String getMeioTransporteSaida() {
+		return meioTransporteSaida;
+	}
+
+	public void setMeioTransporteSaida(String meioTransporteSaida) {
+		this.meioTransporteSaida = meioTransporteSaida;
+	}
+
+	public String getMeioTransporteRetorno() {
+		return meioTransporteRetorno;
+	}
+
+	public void setMeioTransporteRetorno(String meioTransporteRetorno) {
+		this.meioTransporteRetorno = meioTransporteRetorno;
+	}
 
 	public String getObsPassagem() {
 		return obsPassagem;

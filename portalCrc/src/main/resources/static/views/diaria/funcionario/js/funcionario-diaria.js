@@ -17,7 +17,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
 			url : "/:idDiaria/verificar",
 			 views: {
 	                '': {
-	                	controller : "FuncionarioDiariaCadastrarController as funcionarioCtrl",
+	                	controller : "ListarFuncionarioDiariaController as ctrl",
 	                    templateUrl : "views/diaria/funcionario/verificacao.diaria.form.html",
 	                },
 	                'dadosPerfilCadastro': {

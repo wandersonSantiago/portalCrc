@@ -59,6 +59,25 @@ app.config(function($stateProvider, $urlRouterProvider) {
 			  }
 		})
 		
+		.state('item.financasCadastrar', {
+			url : "/:idDiaria/cadastrar/",
+			 views: {
+	                '': {
+	                	controller : "ItemDiariaFinancasCadastrarController as ctrl",
+	                    templateUrl : "views/diaria/item/item.form.html",
+	                },
+	                'dadosPerfilCadastro': {
+	                	controller : "ItemDiariaFinancasCadastrarController as ctrl",
+	                    templateUrl : "views/diaria/item/item.list.html",
+	                },
+	            },	
+			
+			ncyBreadcrumb: {
+			 	parent: 'item',
+			    label: 'Cadastrar item'
+			  }
+		})
+		
 		.state('item.editar', {
 			url : "/:idItem/editar",
 			 views: {

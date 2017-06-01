@@ -14,6 +14,7 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
 
 import br.com.portalCrc.entity.Unidade;
 import br.com.portalCrc.entity.Usuario;
@@ -28,14 +29,13 @@ public class FuncionarioDiaria {
 	private Long id;
 	
 		
-	/*@OneToMany
-	@JoinColumn(name="id_itens")
-	private List<ItemDiaria> itens;	*/
 
+	@NotNull (message="Conta do Funcionario não pode ser nulo")
 	@ManyToOne
 	@JoinColumn(name="id_funcionario_conta")
 	private ContaFuncionarioDiaria contaFuncionario;
 	
+	@NotNull (message="Unidade não pode ser nulo")
 	@ManyToOne
 	@JoinColumn(name="id_unidade")
 	private Unidade unidade;
@@ -50,6 +50,7 @@ public class FuncionarioDiaria {
 	@Column(name="tota_valor_diaria")
 	private BigDecimal totalValorDiaria;
 	
+	@NotNull (message="Diaria não pode ser nula")
 	@ManyToOne
 	@JoinColumn(name="id_diaria")
 	private Diaria diaria;

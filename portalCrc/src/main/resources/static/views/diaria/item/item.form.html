@@ -18,7 +18,7 @@
 					<select class="form-control select2" ng-model="ctrl.itemDiaria.estado"
 						ng-change="ctrl.buscarCidades(ctrl.itemDiaria.estado.id)"
 						ng-options="estado.nome for estado in ctrl.estados track by estado.nome">
-						<option value=""></option>
+						<option ng-value="ctrl.itemDiaria.estado" value="">{{ctrl.itemDiaria.estado.nome}}</option>
 					</select> <span class="input-group-btn"> <a type="button"
 						class="btn btn-info btn-flat"><i>Estado</i></a>
 					</span>
@@ -29,7 +29,7 @@
 					<select class="form-control select2"
 						ng-model="ctrl.itemDiaria.localDeslocamento"
 						ng-options="cidade.nome for cidade in ctrl.cidades track by cidade.nome" required>
-						<option value=""></option>
+						<option ng-value="ctrl.itemDiaria.localDeslocamento" value="">{{ctrl.itemDiaria.localDeslocamento.nome}}</option>
 					</select> <span class="input-group-btn"> <a type="button"
 						class="btn btn-info btn-flat"><i>Cidade</i></a>
 					</span>
@@ -52,12 +52,24 @@
 		<div class="row">
 			<div class="label-control">Transporte</div>
 			<div class="col-sm-4">
+			Saída:
 				<div class="input-group margin">
 					<input type="text" class="form-control text-uppercase"
-						ng-model="ctrl.itemDiaria.meioTransporte.placa" required>
+						ng-model="ctrl.itemDiaria.meioTransporteSaida.placa" required>
 					<span class="input-group-btn"> <a type="button"
 						class="btn btn-info btn-flat" data-toggle="modal"
-						data-target="#transporteModal"><i class="fa fa-automobile"></i></a>
+						data-target="#transporteSaidaModal"><i class="fa fa-automobile"></i></a>
+					</span>
+				</div>
+			</div>
+			<div class="col-sm-4">
+			Retorno:
+				<div class="input-group margin">
+					<input type="text" class="form-control text-uppercase"
+						ng-model="ctrl.itemDiaria.meioTransporteRetorno.placa" required>
+					<span class="input-group-btn"> <a type="button"
+						class="btn btn-info btn-flat" data-toggle="modal"
+						data-target="#transporteRetornoModal"><i class="fa fa-automobile"></i></a>
 					</span>
 				</div>
 			</div>
@@ -324,9 +336,9 @@
 </div>
 <!-- FIM modal do passagem-->
 
-<!-- INICIO  modal do meio de Transporte -->
+<!-- INICIO  modal do meio de Transporte Saida-->
 <div class="modal fade bs-example-modal-lg modal-default"
-	id="transporteModal" tabindex="-1" role="dialog"
+	id="transporteSaidaModal" tabindex="-1" role="dialog"
 	aria-labelledby="exampleModalLabel">
 	<div class="modal-dialog modal-lg" role="document">
 		<div class="modal-content">
@@ -385,7 +397,7 @@
 						<!-- veiculo -->
 						<div class="input-group margin">
 							<select class="form-control select2"
-								ng-model="ctrl.itemDiaria.meioTransporte"
+								ng-model="ctrl.itemDiaria.meioTransporteSaida"
 								ng-options="veiculo.placa for veiculo in ctrl.veiculos ">
 								<option value=""></option>
 							</select> <span class="input-group-btn"> <a type="button"
@@ -401,4 +413,83 @@
 		</div>
 	</div>
 </div>
-<!-- FIM  modal do meio de Transporte -->
+<!-- FIM  modal do meio de Transporte Saida-->
+
+<!-- INICIO  modal do meio de Transporte Retorno-->
+<div class="modal fade bs-example-modal-lg modal-default"
+	id="transporteRetornoModal" tabindex="-1" role="dialog"
+	aria-labelledby="exampleModalLabel">
+	<div class="modal-dialog modal-lg" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				<h4 class="modal-title" id="exampleModalLabel">Adicione o meio
+					de trasnporte</h4>
+			</div>
+			<div class="modal-body">
+				<div class="row">
+					<div class="col-sm-4">
+						<!-- coordenadoria -->
+						<div class="input-group margin">
+							<select class="form-control select2"
+								ng-model="ctrl.coordenadoria"
+								ng-options="coordenadoria.mnemonico for coordenadoria in ctrl.coordenadorias ">
+								<option value=""></option>
+							</select> <span class="input-group-btn"> <a type="button"
+								class="btn btn-primary btn-flat"><i class="fa fa-home"></i></a>
+							</span>
+						</div>
+					</div>
+					<div class="col-sm-4" ng-if="ctrl.coordenadoria">
+						<!-- tipo unidade -->
+						<div class="input-group margin">
+							<select class="form-control select2"
+								ng-model="ctrl.tipo"
+								ng-change="ctrl.buscarUnidades(ctrl.tipo.id)"
+								ng-options="tipo.descricao for tipo in ctrl.tiposUnidade">
+								<option value=""></option>
+							</select> <span class="input-group-btn"> <a type="button"
+								class="btn btn-default btn-flat"><i
+									class="fa fa-lightbulb-o"></i></a>
+							</span>
+						</div>
+					</div>
+					<div class="col-sm-4" ng-if="ctrl.tipo">
+						<!-- unidade -->
+						<div class="input-group margin">
+							<select class="form-control select2"
+								ng-model="ctrl.unidade"
+								ng-change="ctrl.buscarVeiculos(ctrl.unidade.id)"
+								ng-options="unidade.dadosUnidade.mnemonico for unidade in ctrl.unidades ">
+								<option value=""></option>
+							</select> <span class="input-group-btn"> <a type="button"
+								class="btn btn-info btn-flat"><i class="fa fa-eye"></i></a>
+							</span>
+						</div>
+					</div>
+				</div>
+				<div class="row" ng-if="ctrl.unidade">
+					<div class="col-sm-4">
+						<!-- veiculo -->
+						<div class="input-group margin">
+							<select class="form-control select2"
+								ng-model="ctrl.itemDiaria.meioTransporteRetorno"
+								ng-options="veiculo.placa for veiculo in ctrl.veiculos ">
+								<option value=""></option>
+							</select> <span class="input-group-btn"> <a type="button"
+								class="btn btn-success btn-flat"><i class="fa fa-automobile"></i></a>
+							</span>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-primary" data-dismiss="modal">Adicionar</button>			
+			</div>
+		</div>
+	</div>
+</div>
+<!-- FIM  modal do meio de Transporte Retorno-->

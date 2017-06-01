@@ -1,0 +1,39 @@
+<meta charset="UTF-8">
+<div class="table-responsive">
+
+	<input class="form-control" type="text" placeholder="Pesquisar..."
+		ng-model="buscar">
+	<table class="table table-hover table-bordered">
+		<thead>
+			<tr>
+				<th>Favorecido</th>
+				<th>Cargo</th>
+				<th>Unidade Lotado</th>
+				<th>Total da Diária</th>
+
+			</tr>
+		</thead>
+		<tbody
+			ng-repeat=" diaria in ctrl.itens | filter : busca |  orderBy : '-id'">
+			<tr>
+				<td>{{ diaria.contaFuncionario.funcionario.pessoa.nomeCompleto
+					}}</td>
+				<td>{{ diaria.contaFuncionario.funcionario.cargoAtual.descricao
+					}}</td>
+				<td>{{ diaria.unidade.dadosUnidade.mnemonico}}</td>
+				<td>{{ diaria.totalValorDiaria | currency}}</td>
+				<td ng-if="diaria.diaria.status == 'ABERTO'"><a title="teste"
+					ui-sref="item.editar({idItem : diaria.id})"><i
+						class="glyphicon glyphicon-edit"></i></a></td>
+				</tr>
+
+		</tbody>
+		<tfoot>
+			<tr>
+
+
+			</tr>
+		</tfoot>
+	</table>
+</div>
+

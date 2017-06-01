@@ -7,19 +7,20 @@
 		<thead>
 			<tr>
 				<td>Localidade</td>
-				<td>Saida</td>
-				<td>Chegada</td>
+				<td>Data Saida</td>
+				<td>Data Chegada</td>
 				<td>Hora Saída</td>
 				<td>Hora Chegada</td>
 				<td>Valor</td>
-				<td>Transporte</td>
+				<td>Transp. saida</td>
+				<td>Transp. retorno</td>
 				<td>Codigo Desl.</td>
 
 			</tr>
 		</thead>
 		<tbody ng-repeat=" item in itens | filter : busca |  orderBy : '-id'">
 			<tr>
-				<td ng-if="!item.editar">{{ item.localDeslocamento }}</td>
+				<td ng-if="!item.editar">{{ item.localDeslocamento.nome }}</td>
 				<td ng-if="item.editar">
 				<br>
 					<div class="input-group margin">
@@ -86,7 +87,8 @@
 					</p>
 				</td>
 				<td ng-if="!item.editar">{{ item.valorDiaria | currency }}</td>
-				<td ng-if="!item.editar">{{ item.meioTransporte }}</td>
+				<td ng-if="!item.editar">{{ item.meioTransporteSaida }}</td>
+				<td ng-if="!item.editar">{{ item.meioTransporteRetorno}}</td>
 				<td ng-if="item.editar">
 				<br>
 					<div class="input-group margin">
@@ -106,13 +108,11 @@
 					</span>
 				</div>
 				</td>
-				<td ng-if="!item.editar"><a ui-sref="item.editar({idItem : item.id})" title="teste"><i
+				<td ng-if="ctrl.editar"><a ui-sref="item.editar({idItem : item.id})" title="teste"><i
 						class="glyphicon glyphicon-edit"></i></a></td>
-				<td ng-if="item.editar"><a ng-click="ctrl.editar(item, 'false')" title="teste"><i
-						class="glyphicon glyphicon-edit"></i></a></td>
-				<td title="Cancelar edição" ng-if="item.editar"><a ng-click="ctrl.ativaEditar(item , 'false')" title="teste"><i
-						class="glyphicon glyphicon-edit"></i></a></td>
-				<td><a href="" ng-click="ctrl.excluir(item)"><i
+			
+			
+				<td ng-if="ctrl.editar"><a href="" ng-click="ctrl.excluir(item)"><i
 						class="glyphicon glyphicon-remove"></i></a></td>
 
 			</tr>

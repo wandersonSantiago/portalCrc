@@ -15,6 +15,7 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
 
 import br.com.portalCrc.entity.Funcionario;
 import br.com.portalCrc.entity.Usuario;
@@ -29,32 +30,41 @@ public class ContaFuncionarioDiaria {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "conta_funcionario_diaria_id_seq")
 	private Long id;
 	
+	@NotNull (message="Funcionario não pode ser nulo")
 	@OneToOne
 	@JoinColumn(name="id_funcionario")
 	private Funcionario funcionario;
 	
+	@NotNull (message="Usuario não pode ser nulo")
 	@ManyToOne
 	@JoinColumn(name="id_usuario_cadastro")
 	private Usuario usuarioCadastro;
 	
+	@NotNull (message="Data não pode ser nulo")
 	@Temporal(TemporalType.DATE)
-	private Date dataCadastro;
+	private Date dataCadastro;	
 	
+	@NotNull (message="banco não pode ser nulo")
 	@Column(name="banco")
 	private String banco;
 	
+	@NotNull (message="agencia não pode ser nulo")
 	@Column(name="agencia")
 	private String agencia;
 	
+	@NotNull (message="conta não pode ser nulo")
 	@Column(name="conta")
 	private String conta;
 	
+	@NotNull (message="salario não pode ser nulo")
 	@Column(name="salario_atual")
 	private BigDecimal salarioAtual;
 	
+	@NotNull (message="indice Ufesp não pode ser nulo")
 	@Column(name="indice_ufesp")
 	private Integer indiceUfesp;
 	
+	@NotNull (message="limitede diaria não pode ser nulo")
 	@Column(name="limiteCemPorCento")
 	private Double limiteCemPorCento;
 

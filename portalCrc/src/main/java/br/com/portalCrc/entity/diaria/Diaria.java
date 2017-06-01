@@ -18,6 +18,7 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -36,6 +37,7 @@ public class Diaria {
 	private Long id;
 	
 	
+	@NotNull (message="Valor Ufesp não pode ser nulo")
 	@Column(name="valorUfesp")
 	private BigDecimal valorUfesp;
 	
@@ -45,9 +47,11 @@ public class Diaria {
 	@Temporal(TemporalType.DATE)
 	private Date dataFechamento;		
 	
+	@NotNull (message="Mês não pode ser nulo")
 	@Enumerated(EnumType.STRING)
 	private MesDiariaEnum mes;
 
+	@NotNull (message="Status não pode ser nulo")
 	@Enumerated(EnumType.STRING)
 	private StatusDiariaEnum status;
 	
@@ -59,10 +63,12 @@ public class Diaria {
 	@JoinColumn(name="id_usuario_cadastro")
 	private Usuario usuarioCadastro;
 	
+	@NotNull (message="Unidade não pode ser nulo")
 	@ManyToOne
 	@JoinColumn(name="id_unidade_cadastro")
 	private Unidade unidadeCadastro;
 	
+	@NotNull (message="observacao não pode ser nulo")
 	@Column(name="observacao")
 	private String observacao;
 	

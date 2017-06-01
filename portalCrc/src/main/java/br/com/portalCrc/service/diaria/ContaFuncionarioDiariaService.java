@@ -1,5 +1,6 @@
 package br.com.portalCrc.service.diaria;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,8 @@ public class ContaFuncionarioDiariaService {
 	
 	@Transactional(readOnly = false)
 	public void salvaOuAltera(ContaFuncionarioDiaria contaFuncionarioDiaria){	
+		contaFuncionarioDiaria.setUsuarioCadastro(SessionUsuario.getInstance().getUsuario());
+		contaFuncionarioDiaria.setDataCadastro(new Date());
 			contaFuncionarioDiariaRepository.save(contaFuncionarioDiaria);
 
 	}

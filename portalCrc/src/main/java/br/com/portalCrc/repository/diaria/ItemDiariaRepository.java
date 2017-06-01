@@ -16,7 +16,7 @@ public interface ItemDiariaRepository extends JpaRepository<ItemDiaria, Long>{
 	List<ItemDiaria> findByUnidadeCoordenadoria_idAndDiaria_id(Long id, Long idDiaria);
 
 	@Query("From ItemDiaria d where  d.funcionarioDiaria.diaria.id = ?1")
-	Iterable<ItemDiaria> listaSecretaria(Long id);
+	List<ItemDiaria> listaSecretaria(Long id);
 
 	Iterable<ItemDiaria> findByFuncionarioDiaria_id(Long id);
 	

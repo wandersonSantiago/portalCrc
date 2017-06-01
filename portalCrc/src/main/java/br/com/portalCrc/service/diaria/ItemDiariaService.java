@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,7 +26,6 @@ public class ItemDiariaService {
 	@Transactional(readOnly = false)
 	public void salvaOuAltera(ItemDiaria itemDiaria){
 		itemDiaria.setDataCadastro(new Date());
-		
 		CalculaValor calcula = new CalculaValor();
 		itemDiaria.setDataCadastro(new Date());
 		BigDecimal total = new BigDecimal(0);
@@ -53,18 +53,36 @@ public class ItemDiariaService {
 	}
 	
 	public List<ItemDiaria> listaUnidade(Long id){
-		return itemDiariaRepository.listaUnidade(SessionUsuario.getInstance().getUsuario().getFuncionario().getUnidadeAtual().getId(), id);
+		List<ItemDiaria> lista 	= itemDiariaRepository.listaUnidade(SessionUsuario.getInstance().getUsuario().getFuncionario().getUnidadeAtual().getId(), id);
+		
+		if(lista.isEmpty() || lista == null){
+			throw new MensagemException("Unidade não tem lançameto nesta diaria! ");
+		}
+		
+		return lista;
 	}
 	
 	public List<ItemDiaria> listaCoordenadoria(Long id){
-		return itemDiariaRepository.findByUnidadeCoordenadoria_idAndDiaria_id(SessionUsuario.getInstance().getUsuario().getFuncionario().getUnidadeAtual().getCoordenadoria().getId(), id);
+		List<ItemDiaria> lista 	=  itemDiariaRepository.findByUnidadeCoordenadoria_idAndDiaria_id(SessionUsuario.getInstance().getUsuario().getFuncionario().getUnidadeAtual().getCoordenadoria().getId(), id);
+		
+		if(lista.isEmpty() || lista == null){
+			throw new MensagemException("Coordenadoria não tem lançameto nesta diaria! ");
+		}
+		
+		return lista;
+		
 	}
 	public List<ItemDiaria> lista(){
 		return itemDiariaRepository.findAll();
 	}
 
-	public Iterable<ItemDiaria> listaSecretaria(Long id) {		
-		return itemDiariaRepository.listaSecretaria(id);
+	public List<ItemDiaria> listaSecretaria(Long id) {		
+		List<ItemDiaria> lista 	=  itemDiariaRepository.listaSecretaria(id);
+		if(lista.isEmpty()|| lista == null){
+			throw new MensagemException("Secretaria não tem lançameto nesta diaria! ");
+		}
+		
+		return lista;
 	}
 
 	@Transactional(readOnly = false)

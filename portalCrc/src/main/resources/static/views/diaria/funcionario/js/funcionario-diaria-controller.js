@@ -9,8 +9,8 @@ app.controller("FuncionarioDiariaListarController",
 app.controller("FuncionarioDiariaShowController",
 		FuncionarioDiariaShowController);
 
-ListarFuncionarioDiariaController.$inject = [ '$stateParams',
-		'FuncionarioDiariaService', 'toastr', '$rootScope', '$scope' ];
+ListarFuncionarioDiariaController.$inject = [ '$state','$stateParams',
+		'FuncionarioDiariaService', 'toastr', '$rootScope', '$scope' , 'FuncionarioContaDiariaService'];
 FuncionarioDiariaCadastrarController.$inject = [ '$state', 'ItemDiariaService',
 		'$stateParams', 'FuncionarioDiariaService',
 		'FuncionarioContaDiariaService', 'toastr', '$rootScope', '$scope',
@@ -22,24 +22,42 @@ FuncionarioDiariaListarController.$inject = [ '$stateParams', '$state',
 FuncionarioDiariaShowController.$inject = [ '$stateParams', '$state',
 		'FuncionarioDiariaService', 'toastr', '$rootScope', '$scope' ];
 
-function ListarFuncionarioDiariaController($stateParams,
-		FuncionarioDiariaService, toastr, $rootScope, $scope, $log) {
+function ListarFuncionarioDiariaController($state, $stateParams,FuncionarioDiariaService, toastr, $rootScope, $scope, $log, FuncionarioContaDiariaService) {
+	
 	var self = this;
+	
+	self.buscarPorTexto = buscarPorTexto;
+	self.cadastrarDiariaFuncionario = cadastrarDiariaFuncionario;	
 	var idDiaria = $stateParams.idDiaria;
 
 	buscarFuncionarioPorDiariaPorId(idDiaria);
 
+	function buscarPorTexto(texto){
+		FuncionarioDiariaService.buscarPorTexto(texto).
+			then(function(f){
+				self.contaFuncionarioDiaria = f;
+				self.funcionarioDiaria.funcionario = f.funcionario;	
+				}, function(errResponse){
+					sweetAlert({  text : errResponse.data.message,  type : "error", width: 300, higth: 300, padding: 20});
+				});
+		};
+		
+	
 	function buscarFuncionarioPorDiariaPorId(id) {
-		if (!id)
-			return;
 		FuncionarioDiariaService.buscarFuncionarioPorDiariaPorId(id).then(
 				function(p) {
-					self.listaDiaria = p;
+					self.itens = p;
 				}, function(errResponse) {
 				});
 	}
 	;
-
+	
+		
+	function cadastrarDiariaFuncionario(funcionario){
+		idDiaria
+		$rootScope.idContaFuncionario = funcionario.id;		
+		$state.go('item.financasCadastrar', {idDiaria});
+	}
 }
 function FuncionarioDiariaCadastrarController($state, ItemDiariaService,
 		$stateParams, FuncionarioDiariaService, FuncionarioContaDiariaService,
@@ -87,6 +105,7 @@ function FuncionarioDiariaCadastrarController($state, ItemDiariaService,
 					
 				});
 	};
+		
 	
 }
 
