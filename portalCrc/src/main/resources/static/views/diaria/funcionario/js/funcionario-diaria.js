@@ -50,6 +50,15 @@ app.config(function($stateProvider, $urlRouterProvider) {
 			    label: 'Cadastrar Diaria'
 			  }
 		})
+		.state('funcionarioDiaria.cadastrarFinancas', {
+			url : "/:idDiaria/funcionario/cadastrar",
+			templateUrl : "views/diaria/funcionario/funcionario.diaria.form.html",
+			controller : "FuncionarioFinancasDiariaCadastrarController as ctrl",
+			ncyBreadcrumb: {
+			 	parent: 'funcionarioDiaria',
+			    label: 'Cadastrar Diaria'
+			  }
+		})
 		.state('funcionarioDiaria.editar', {
 			url : "/:idFuncionario/",
 			templateUrl : "views/diaria/funcionario/funcionario.diaria.form.html",

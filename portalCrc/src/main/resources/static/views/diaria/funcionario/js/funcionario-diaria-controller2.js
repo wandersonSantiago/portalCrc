@@ -92,7 +92,7 @@ function FuncionarioDiariaCadastrarController($state, ItemDiariaService, $stateP
 			};
 			
 			function cadastrarDiariaFuncionario(funcionario , diaria){				
-				$state.go('funcionarioDiaria.cadastrar');
+				$state.go('funcionarioDiaria.cadastrarFinancas');
 				$rootScope.funcionarioDiaria = {funcionario : funcionario, diaria : diaria}
 			}
 			

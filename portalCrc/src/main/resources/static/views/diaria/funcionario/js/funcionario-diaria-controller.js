@@ -8,7 +8,8 @@ app.controller("FuncionarioDiariaListarController",
 		FuncionarioDiariaListarController);
 app.controller("FuncionarioDiariaShowController",
 		FuncionarioDiariaShowController);
-
+app.controller("FuncionarioFinancasDiariaCadastrarController",
+		FuncionarioFinancasDiariaCadastrarController);
 
 function ListarFuncionarioDiariaController($state, $stateParams,FuncionarioDiariaService, toastr, $rootScope, $scope, $log, FuncionarioContaDiariaService) {
 	
@@ -56,11 +57,8 @@ function FuncionarioDiariaCadastrarController($state, ItemDiariaService,
 	var idDiaria = $stateParams.idDiaria;
 	self.submit = submit;
 	
-	if($rootScope.idContaFuncionario){
-		self.conta = $rootScope.idContaFuncionario;
-	}else{
 		self.conta = $rootScope.usuario.funcionario.id;
-	}
+	
 	buscarFuncionario(self.conta);
 
 	
@@ -223,4 +221,56 @@ function FuncionarioDiariaListarController($stateParams, $state,
 function FuncionarioDiariaShowController($stateParams, $state,
 		FuncionarioDiariaService, toastr, $rootScope, $scope) {
 
+}
+
+function FuncionarioFinancasDiariaCadastrarController($state, ItemDiariaService,
+		$stateParams, FuncionarioDiariaService, FuncionarioContaDiariaService,
+		toastr, $rootScope, $scope, CoordenadoriaService, UnidadeService,
+		TipoService, VeiculoService) {
+
+	var self = this;
+	var idDiaria = $stateParams.idDiaria;
+	self.submit = submit;
+	
+		self.conta = $rootScope.idContaFuncionario;
+
+	buscarFuncionario(self.conta);
+
+	
+	function submit() {		
+		self.funcionarioDiaria = {diaria : self.diaria, contaFuncionario : self.contaFuncionario};
+		FuncionarioDiariaService.salvar(self.funcionarioDiaria).
+			then(function(response){
+				toastr.info("Salvo com Sucesso!!!");	
+				$state.go('item.cadastrar', {idDiaria});
+				}, function(errResponse){
+					sweetAlert({text : errResponse.data.message,  type : "info", width: 300, higth: 300, padding: 20});
+			});
+		};
+	
+	function buscarDiariaPorId(id) {
+		if (!id)
+			return;
+		ItemDiariaService.buscarDiariaPorId(id).then(function(p) {
+			self.diaria = p;			
+			self.diaria.dataDiaria = new Date(p.dataDiaria);		
+		}, function(errResponse) {
+		});
+	}
+	;
+
+	if (idDiaria) {
+		buscarDiariaPorId(idDiaria);
+	}
+	
+	function buscarFuncionario(id) {
+		FuncionarioContaDiariaService.buscarPorIdFuncionario(id).then(
+				function(f) {
+					self.contaFuncionario = f;
+				}, function(errResponse) {
+					
+				});
+	};
+		
+	
 }

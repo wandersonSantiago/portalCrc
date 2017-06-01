@@ -13,6 +13,7 @@ function ItemDiariaCadastrarController($state, ItemDiariaService, $stateParams,
 
 	var self = this;
 	var idDiaria = $stateParams.idDiaria;
+	var idFuncionario;
 	self.buscarCidades = buscarCidades;
 	self.buscarUnidades = buscarUnidades;
 	self.buscarVeiculos = buscarVeiculos;
@@ -23,7 +24,11 @@ function ItemDiariaCadastrarController($state, ItemDiariaService, $stateParams,
 	buscarEstados(1);
 	buscarCoordenadorias();
 	buscarTipoUnidade();
-	var idFuncionario = $rootScope.usuario.funcionario.id;
+	
+		idFuncionario = $rootScope.usuario.funcionario.id;	
+		
+	
+	
 	self.buscarValoresDiariaPorIndice = buscarValoresDiariaPorIndice;
 	buscarFuncionario(idFuncionario);
 	
@@ -33,7 +38,7 @@ function ItemDiariaCadastrarController($state, ItemDiariaService, $stateParams,
 	function submit() {
 		self.itemDiaria.meioTransporteSaida = self.itemDiaria.meioTransporteSaida.placa;
 		self.itemDiaria.meioTransporteRetorno = self.itemDiaria.meioTransporteRetorno.placa;
-		self.itemDiaria.funcionario = $rootScope.usuario.funcionario;
+		self.itemDiaria.funcionario = self.funcionario.contaFuncionario.funcionario;
 		self.itemDiaria.diaria = self.diaria;
 		self.itemDiaria.funcionarioDiaria = self.funcionario;
 		if(self.itemDiaria.horaSaida == null || self.itemDiaria.horaChegada == null){
@@ -73,8 +78,7 @@ function ItemDiariaCadastrarController($state, ItemDiariaService, $stateParams,
 		
 	function buscarFuncionario(id) {
 		FuncionarioContaDiariaService.buscarPorIdFuncionario(id).then(
-				function(f) {
-					
+				function(f) {					
 					buscarFuncionarioDiaria(f.id);
 					buscarValoresDiariaPorIndice(f.indiceUfesp, idDiaria);
 				}, function(errResponse) {
@@ -250,6 +254,7 @@ function ItemDiariaFinancasCadastrarController($state, ItemDiariaService, $state
 
 	var self = this;
 	var idDiaria = $stateParams.idDiaria;
+	var idFuncionario;
 	self.buscarCidades = buscarCidades;
 	self.buscarUnidades = buscarUnidades;
 	self.buscarVeiculos = buscarVeiculos;
@@ -260,8 +265,12 @@ function ItemDiariaFinancasCadastrarController($state, ItemDiariaService, $state
 	buscarEstados(1);
 	buscarCoordenadorias();
 	buscarTipoUnidade();
+	
+		
+		idFuncionario = $rootScope.idContaFuncionario;
+		
 	self.buscarValoresDiariaPorIndice = buscarValoresDiariaPorIndice;
-	buscarFuncionario($rootScope.idContaFuncionario);
+	buscarFuncionario(idFuncionario);
 	
 	
 	
@@ -269,7 +278,7 @@ function ItemDiariaFinancasCadastrarController($state, ItemDiariaService, $state
 	function submit() {
 		self.itemDiaria.meioTransporteSaida = self.itemDiaria.meioTransporteSaida.placa;
 		self.itemDiaria.meioTransporteRetorno = self.itemDiaria.meioTransporteRetorno.placa;
-		self.itemDiaria.funcionario = $rootScope.usuario.funcionario;
+		self.itemDiaria.funcionario = self.funcionario.contaFuncionario.funcionario;
 		self.itemDiaria.diaria = self.diaria;
 		self.itemDiaria.funcionarioDiaria = self.funcionario;
 		if(self.itemDiaria.horaSaida == null || self.itemDiaria.horaChegada == null){
@@ -309,7 +318,7 @@ function ItemDiariaFinancasCadastrarController($state, ItemDiariaService, $state
 		
 	function buscarFuncionario(id) {
 		FuncionarioContaDiariaService.buscarPorIdFuncionario(id).then(
-				function(f) {
+				function(f) {					
 					buscarFuncionarioDiaria(f.id);
 					buscarValoresDiariaPorIndice(f.indiceUfesp, idDiaria);
 				}, function(errResponse) {
@@ -475,6 +484,7 @@ function ItemDiariaFinancasCadastrarController($state, ItemDiariaService, $state
 	};
 	$scope.format = "dd/MM/yyyy";
 	// termino função data
+
 
 }
 function ItemDiariaEditarController($state, ItemDiariaService, $stateParams,
