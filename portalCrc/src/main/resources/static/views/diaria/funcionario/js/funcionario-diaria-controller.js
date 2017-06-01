@@ -9,18 +9,6 @@ app.controller("FuncionarioDiariaListarController",
 app.controller("FuncionarioDiariaShowController",
 		FuncionarioDiariaShowController);
 
-ListarFuncionarioDiariaController.$inject = [ '$state','$stateParams',
-		'FuncionarioDiariaService', 'toastr', '$rootScope', '$scope' , 'FuncionarioContaDiariaService'];
-FuncionarioDiariaCadastrarController.$inject = [ '$state', 'ItemDiariaService',
-		'$stateParams', 'FuncionarioDiariaService',
-		'FuncionarioContaDiariaService', 'toastr', '$rootScope', '$scope',
-		'CoordenadoriaService', 'UnidadeService', 'TipoService' , 'VeiculoService'];
-FuncionarioDiariaEditarController.$inject = [ '$location', '$stateParams',
-		'$state', 'FuncionarioDiariaService', 'toastr', '$rootScope', '$scope' ];
-FuncionarioDiariaListarController.$inject = [ '$stateParams', '$state',
-		'FuncionarioDiariaService', 'toastr', '$rootScope', '$scope' ];
-FuncionarioDiariaShowController.$inject = [ '$stateParams', '$state',
-		'FuncionarioDiariaService', 'toastr', '$rootScope', '$scope' ];
 
 function ListarFuncionarioDiariaController($state, $stateParams,FuncionarioDiariaService, toastr, $rootScope, $scope, $log, FuncionarioContaDiariaService) {
 	
@@ -33,12 +21,12 @@ function ListarFuncionarioDiariaController($state, $stateParams,FuncionarioDiari
 	buscarFuncionarioPorDiariaPorId(idDiaria);
 
 	function buscarPorTexto(texto){
-		FuncionarioDiariaService.buscarPorTexto(texto).
+		FuncionarioContaDiariaService.buscarPorTexto(texto).
 			then(function(f){
 				self.contaFuncionarioDiaria = f;
 				self.funcionarioDiaria.funcionario = f.funcionario;	
 				}, function(errResponse){
-					sweetAlert({  text : errResponse.data.message,  type : "error", width: 300, higth: 300, padding: 20});
+					sweetAlert({text : errResponse.data.message,  type : "info", width: 300, higth: 300, padding: 20});
 				});
 		};
 		
@@ -67,8 +55,13 @@ function FuncionarioDiariaCadastrarController($state, ItemDiariaService,
 	var self = this;
 	var idDiaria = $stateParams.idDiaria;
 	self.submit = submit;
-	buscarFuncionario($rootScope.usuario.funcionario.id);
-	buscarFuncionario();
+	
+	if($rootScope.idContaFuncionario){
+		self.conta = $rootScope.idContaFuncionario;
+	}else{
+		self.conta = $rootScope.usuario.funcionario.id;
+	}
+	buscarFuncionario(self.conta);
 
 	
 	function submit() {		

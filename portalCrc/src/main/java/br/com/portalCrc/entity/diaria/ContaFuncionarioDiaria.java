@@ -32,7 +32,7 @@ public class ContaFuncionarioDiaria {
 	
 	@NotNull (message="Funcionario não pode ser nulo")
 	@OneToOne
-	@JoinColumn(name="id_funcionario")
+	@JoinColumn(name="id_funcionario", unique = true)
 	private Funcionario funcionario;
 	
 	@NotNull (message="Usuario não pode ser nulo")

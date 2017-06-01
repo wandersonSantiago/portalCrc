@@ -24,6 +24,10 @@ public class ContaFuncionarioDiariaService {
 	
 	@Transactional(readOnly = false)
 	public void salvaOuAltera(ContaFuncionarioDiaria contaFuncionarioDiaria){	
+		ContaFuncionarioDiaria existe = contaFuncionarioDiariaRepository.findByFuncionario_id(contaFuncionarioDiaria.getFuncionario().getId());
+		if(existe != null){
+			throw new MensagemException("Este Funcionario já tem uma conta cadastrada!!!");
+		}
 		contaFuncionarioDiaria.setUsuarioCadastro(SessionUsuario.getInstance().getUsuario());
 		contaFuncionarioDiaria.setDataCadastro(new Date());
 			contaFuncionarioDiariaRepository.save(contaFuncionarioDiaria);
@@ -72,9 +76,17 @@ public class ContaFuncionarioDiariaService {
 	public List<ContaFuncionarioDiaria> buscar(String texto) {
 		texto = texto.replaceAll("[./-]","");
 		if (texto.matches("[0-9]+")) {
-			return contaFuncionarioDiariaRepository.findByFuncionarioPessoaCpf("%" + texto + "%");
+			List<ContaFuncionarioDiaria> list = contaFuncionarioDiariaRepository.findByFuncionarioPessoaCpf("%" + texto + "%");
+			if(list.isEmpty() || list == null){
+				throw new MensagemException("Busca não encontrada, verifique se ja existe conta aberta para este funcioonario! " + texto);
+			}
+			return list;
 		} else {
-			return contaFuncionarioDiariaRepository.findByFuncionarioPessoaNomeCompletoIgnoreCaseContaining(texto);
+			List<ContaFuncionarioDiaria> list =  contaFuncionarioDiariaRepository.findByFuncionarioPessoaNomeCompletoIgnoreCaseContaining(texto);
+			if(list.isEmpty() || list == null){
+				throw new MensagemException("Busca não encontrada, verifique se ja existe conta aberta para este funcioonario! " + texto);
+			}
+			return list;
 		}
 	}
 

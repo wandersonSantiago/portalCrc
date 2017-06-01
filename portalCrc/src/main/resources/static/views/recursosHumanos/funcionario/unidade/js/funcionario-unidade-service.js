@@ -1,4 +1,4 @@
-app.factory('FuncionarioUnidadeService', function($rootScope, toastr, $http){
+app.factory('FuncionarioUnidadeService', function($q, $rootScope, toastr, $http){
 	
 	
 	return{
@@ -55,6 +55,13 @@ app.factory('FuncionarioUnidadeService', function($rootScope, toastr, $http){
 				return $q.reject(errResponse);
 			});
 		},
-		
+		buscarPorTexto :function(params){
+			return $http.get('/rest/recursosHumanos/funcionarioUnidade/buscar?q=' +params)
+			.then(function(response){
+				return response.data;
+			},function(errResponse){
+			return $q.reject(errResponse);
+			});
+		},
 	}
 });

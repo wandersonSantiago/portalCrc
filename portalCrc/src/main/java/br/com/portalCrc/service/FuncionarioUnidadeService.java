@@ -2,6 +2,9 @@ package br.com.portalCrc.service;
 
 import java.util.Collection;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -11,12 +14,13 @@ import org.springframework.transaction.annotation.Transactional;
 
 import br.com.portalCrc.entity.Funcionario;
 import br.com.portalCrc.entity.FuncionarioUnidade;
+import br.com.portalCrc.entity.Unidade;
 import br.com.portalCrc.entity.Usuario;
-import br.com.portalCrc.enums.StatusFuncionario;
 import br.com.portalCrc.pojo.SessionUsuario;
 import br.com.portalCrc.repository.FuncionarioRepository;
 import br.com.portalCrc.repository.FuncionarioUnidadeRepository;
 import br.com.portalCrc.repository.UsuarioRepository;
+import br.com.portalCrc.service.diaria.MensagemException;
 
 @Service
 @Transactional(readOnly = true, propagation = Propagation.REQUIRED)
@@ -83,6 +87,24 @@ public class FuncionarioUnidadeService {
 
 	public FuncionarioUnidade findByFuncionario_idTop1Desc(Long id) {		
 		return funcionarioUnidadeRepository.findTop1ByFuncionario_idOrderByIdDesc(id);
+	}
+
+	public List<FuncionarioUnidade> buscar(String texto) {
+		Long unidade = SessionUsuario.getInstance().getUsuario().getFuncionario().getUnidadeAtual().getId();
+			texto = texto.replaceAll("[./-]","");
+			if (texto.matches("[0-9]+")) {
+				List<FuncionarioUnidade> list = funcionarioUnidadeRepository.findDistinctFuncionario_cpfByUnidade_idAndFuncionarioPessoaCpf(unidade, "%" + texto + "%");
+				if(list.isEmpty() || list == null){
+					throw new MensagemException("Busca não encontrada, verifique se ja existe conta aberta para este funcioonario! " + texto);
+				}
+				return list;
+			} else {
+				List<FuncionarioUnidade> list =  funcionarioUnidadeRepository.findDistinctFuncionario_cpfByUnidade_idAndFuncionarioPessoaNomeCompletoIgnoreCaseContaining(unidade,texto);
+				if(list.isEmpty() || list == null){
+					throw new MensagemException("Busca não encontrada, verifique se ja existe conta aberta para este funcioonario! " + texto);
+				}
+				return list;
+			}
 	}
 
 	

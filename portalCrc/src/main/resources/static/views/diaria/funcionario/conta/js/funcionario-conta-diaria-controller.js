@@ -1,7 +1,8 @@
 app.controller("FuncionarioContaDiariaCadastrarController", FuncionarioContaDiariaCadastrarController);
 app.controller("FuncionarioContaDiariaEditarController", FuncionarioContaDiariaEditarController);
 app.controller("FuncionarioContaDiariaListarController", FuncionarioContaDiariaListarController);
-app.controller("FuncionarioDiariaListarController", FuncionarioDiariaListarController);
+app.controller("FuncionarioContaBuscarListarController", FuncionarioContaBuscarListarController);
+
 
 FuncionarioContaDiariaCadastrarController.$inject = ['$state','FuncionarioService','$stateParams','FuncionarioContaDiariaService', 'FuncionarioService', 'toastr', '$rootScope', '$scope'];
 FuncionarioContaDiariaEditarController.$inject = ['$state','FuncionarioService','$stateParams','FuncionarioContaDiariaService', 'FuncionarioService', 'toastr', '$rootScope', '$scope'];
@@ -19,9 +20,9 @@ function FuncionarioContaDiariaCadastrarController($state, FuncionarioService, $
 		FuncionarioContaDiariaService.salvar(self.contaFuncionarioDiaria).
 			then(function(response){
 				toastr.info("Salvo com Sucesso!!!");
-				$state.go('funcionarioContaDiaria.unidade');
+				$state.go('funcionarioContaDiaria.buscar');
 				}, function(errResponse){
-					sweetAlert({ timer : 3000,  text : errResponse.data.message,  type : "info", width: 300, higth: 300, padding: 20});
+					sweetAlert({text : errResponse.data.message,  type : "info", width: 300, higth: 300, padding: 20});
 			});
 		};
 		
@@ -78,7 +79,7 @@ function FuncionarioContaDiariaEditarController($state, FuncionarioService, $sta
 	
 }
 function FuncionarioContaDiariaListarController($stateParams, $state, FuncionarioContaDiariaService, toastr, $rootScope, $scope){
-	var self = this;
+	
 	listar();
 	
 	 function listar(){
@@ -90,16 +91,19 @@ function FuncionarioContaDiariaListarController($stateParams, $state, Funcionari
 			});
 		};
 }
-function FuncionarioDiariaListarController($stateParams, $state, FuncionarioService, toastr, $rootScope, $scope){
+
+function FuncionarioContaBuscarListarController($state, FuncionarioService, $rootScope, $scope){
 	var self = this;
-	listar();
+	self.buscarPorTexto = buscarPorTexto;
 	
-	 function listar(){
-		 FuncionarioService.listarPorUnidade().
+	function buscarPorTexto(texto){
+		FuncionarioService.buscarPorTexto(texto).
 			then(function(f){
-				self.funcionarios = f;				
+				self.funcionarios = f;
 				}, function(errResponse){
-					sweetAlert({ timer : 3000,  text : errResponse.data.message,  type : "info", width: 300, higth: 300, padding: 20});
-			});
+					sweetAlert({text : errResponse.data.message,  type : "info", width: 300, higth: 300, padding: 20});
+				});
 		};
+		
+	
 }

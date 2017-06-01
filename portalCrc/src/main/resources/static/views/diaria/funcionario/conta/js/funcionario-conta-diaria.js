@@ -14,22 +14,22 @@ app.config(function($stateProvider, $urlRouterProvider) {
 	})
 	
 		.state('funcionarioContaDiaria.unidade', {
-			url : "/unidade",
-			templateUrl : "views/diaria/funcionario/conta/funcionario.list.html",
-			controller : "FuncionarioDiariaListarController as funcionarioCtrl",
+			url : "/lista",
+			templateUrl : "views/diaria/funcionario/conta/funcionario.conta.list.html",
+			controller : "FuncionarioContaDiariaListarController as ctrl",
 			ncyBreadcrumb: {
 				 	parent: 'funcionarioContaDiaria',
 				    label: 'lista funcionario'
 				  }
 		})
-		
-		.state('funcionarioContaDiaria.listar', {
-			url : "/conta/unidade",
-			templateUrl : "views/diaria/funcionario/conta/funcionario.conta.list.html",
-			controller : "FuncionarioContaDiariaListarController as contaCtrl",
+					
+		.state('funcionarioContaDiaria.buscar', {
+			url : "/conta/buscar",
+			templateUrl : "views/diaria/funcionario/conta/funcionario.buscar.html",
+			controller : "FuncionarioContaBuscarListarController as ctrl",
 			ncyBreadcrumb: {
-				 	parent: 'funcionarioContaDiaria',
-				    label: 'lista funcionario'
+				 	parent: 'funcionarioContaDiaria.unidade',
+				    label: 'buscar funcionario'
 				  }
 		})
 		

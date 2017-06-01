@@ -1,0 +1,40 @@
+<meta charset="UTF-8">
+
+<div class="row">
+  <div class="col-lg-6">
+    <div class="input-group">
+      <input type="text" class="form-control" placeholder="Digite o nome ou qualquer número de documento" ng-model="texto" autofocus
+      	 ng-keyup="$event.keyCode == 13 && ctrl.buscarPorTexto(texto)">
+      <span class="input-group-btn">
+        <button class="btn btn-default" type="button" ng-click="ctrl.buscarPorTexto(texto)">buscar!</button>
+      </span>
+    </div><!-- /input-group -->
+  </div><!-- /.col-lg-6 -->
+  </div>
+  <br>
+<div class="table-responsive" ng-show="ctrl.funcionarios.length">
+<table class="table table-hover">
+	<tr>
+		
+		<!-- <th>Nome</th>			
+		<th>CPF</th>	
+		<th>Cargo</th>	
+		<th>Banco</th>	
+		<th>Agencia</th>
+		<th>Conta</th> -->
+	</tr>
+	<tr 
+		ng-repeat=" funcionario in ctrl.funcionarios | filter : buscaFuncionario">
+						<td>{{ funcionario.pessoa.nomeCompleto }}</td>
+						<td>{{ funcionario.pessoa.cpf }}</td>
+						<td>{{ funcionario.pessoa.telefoneCelular}}</td>
+						<td>{{ funcionario.pessoa.sexo }}</td>
+						<td>{{ funcionario.pessoa.endereco.localidade}}</td>
+						<td><a ui-sref="funcionarioContaDiaria.cadastrar({idFuncionario : funcionario.id})"><i class="glyphicon glyphicon-edit"></i></a>
+				</tr>
+	</table>
+</div>	
+
+
+
+

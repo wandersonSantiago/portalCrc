@@ -2,6 +2,7 @@ package br.com.portalCrc.service;
 
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,6 +17,7 @@ import br.com.portalCrc.pojo.SessionUsuario;
 import br.com.portalCrc.repository.FuncionarioCargoRepository;
 import br.com.portalCrc.repository.FuncionarioRepository;
 import br.com.portalCrc.repository.FuncionarioUnidadeRepository;
+import br.com.portalCrc.service.diaria.MensagemException;
 import scala.annotation.meta.setter;
 
 @Service
@@ -73,5 +75,23 @@ public class FuncionarioService {
 
 	public Iterable<Funcionario> listaPorUnidade() {		
 		return funcionarioRepository.findByUnidadeAtual_id(SessionUsuario.getInstance().getUsuario().getFuncionario().getUnidadeAtual().getId());
+	}
+	
+	public List<Funcionario> buscar(String texto) {
+		Long unidade = SessionUsuario.getInstance().getUsuario().getFuncionario().getUnidadeAtual().getId();
+			texto = texto.replaceAll("[./-]","");
+			if (texto.matches("[0-9]+")) {
+				List<Funcionario> list = funcionarioRepository.findByUnidadeAtual_idAndPessoaCpf(unidade, "%" + texto + "%");
+				if(list.isEmpty() || list == null){
+					throw new MensagemException("Busca não encontrada, verifique se ja existe conta aberta para este funcioonario! " + texto);
+				}
+				return list;
+			} else {
+				List<Funcionario> list =  funcionarioRepository.findByUnidadeAtual_idAndPessoaNomeCompletoIgnoreCaseContaining(unidade,texto);
+				if(list.isEmpty() || list == null){
+					throw new MensagemException("Busca não encontrada, verifique se ja existe conta aberta para este funcioonario! " + texto);
+				}
+				return list;
+			}
 	}
 }

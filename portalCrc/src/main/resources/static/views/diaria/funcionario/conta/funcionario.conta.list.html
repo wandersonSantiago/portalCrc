@@ -16,7 +16,7 @@
 					</tr>
 				</thead>
 				<tbody
-					ng-repeat=" conta in contaCtrl.contas | filter : buscaFuncionario">
+					ng-repeat=" conta in ctrl.contas | filter : buscaFuncionario">
 					<tr>
 						<td>{{ conta.funcionario.pessoa.nomeCompleto }}</td>
 						<td>{{ conta.banco }}</td>

@@ -310,7 +310,6 @@ function ItemDiariaFinancasCadastrarController($state, ItemDiariaService, $state
 	function buscarFuncionario(id) {
 		FuncionarioContaDiariaService.buscarPorIdFuncionario(id).then(
 				function(f) {
-					
 					buscarFuncionarioDiaria(f.id);
 					buscarValoresDiariaPorIndice(f.indiceUfesp, idDiaria);
 				}, function(errResponse) {

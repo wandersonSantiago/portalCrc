@@ -105,7 +105,7 @@ app.factory('FuncionarioDiariaService', function($q, $http){
 			});
 		},
 		buscarPorTexto :function(params){
-			return $http.get('/rest/diaria/funcionario/conta/buscar?q=' +params)
+			return $http.get('/rest/diaria/funcionario/buscar?q=' +params)
 			.then(function(response){
 				return response.data;
 			},function(errResponse){

@@ -130,7 +130,87 @@ public class FuncionarioUnidade {
 
 	public void setSetor(Setor setor) {
 		this.setor = setor;
-	}	
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((ativo == null) ? 0 : ativo.hashCode());
+		result = prime * result + ((cargo == null) ? 0 : cargo.hashCode());
+		result = prime * result + ((dataCadastro == null) ? 0 : dataCadastro.hashCode());
+		result = prime * result + ((funcao == null) ? 0 : funcao.hashCode());
+		result = prime * result + ((funcionario == null) ? 0 : funcionario.hashCode());
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((setor == null) ? 0 : setor.hashCode());
+		result = prime * result + ((status == null) ? 0 : status.hashCode());
+		result = prime * result + ((unidade == null) ? 0 : unidade.hashCode());
+		result = prime * result + ((usuarioCadastro == null) ? 0 : usuarioCadastro.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		FuncionarioUnidade other = (FuncionarioUnidade) obj;
+		if (ativo == null) {
+			if (other.ativo != null)
+				return false;
+		} else if (!ativo.equals(other.ativo))
+			return false;
+		if (cargo == null) {
+			if (other.cargo != null)
+				return false;
+		} else if (!cargo.equals(other.cargo))
+			return false;
+		if (dataCadastro == null) {
+			if (other.dataCadastro != null)
+				return false;
+		} else if (!dataCadastro.equals(other.dataCadastro))
+			return false;
+		if (funcao == null) {
+			if (other.funcao != null)
+				return false;
+		} else if (!funcao.equals(other.funcao))
+			return false;
+		if (funcionario == null) {
+			if (other.funcionario != null)
+				return false;
+		} else if (!funcionario.equals(other.funcionario))
+			return false;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		if (setor == null) {
+			if (other.setor != null)
+				return false;
+		} else if (!setor.equals(other.setor))
+			return false;
+		if (status != other.status)
+			return false;
+		if (unidade == null) {
+			if (other.unidade != null)
+				return false;
+		} else if (!unidade.equals(other.unidade))
+			return false;
+		if (usuarioCadastro == null) {
+			if (other.usuarioCadastro != null)
+				return false;
+		} else if (!usuarioCadastro.equals(other.usuarioCadastro))
+			return false;
+		return true;
+	}
+
+	
+
+	
 	
 	
 }
