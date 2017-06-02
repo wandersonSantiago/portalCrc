@@ -2,6 +2,8 @@ app.controller("ItemDiariaCadastrarController", ItemDiariaCadastrarController);
 app.controller("ItemDiariaEditarController", ItemDiariaEditarController);
 app.controller("ItemDiariaFinancasCadastrarController", ItemDiariaFinancasCadastrarController);
 app.controller("ItemDiariaUnidadeListController", ItemDiariaUnidadeListController);
+app.controller("ItemDiariaCoordenadoriaListController", ItemDiariaCoordenadoriaListController);
+app.controller("ItemDiariaSecretariaListController", ItemDiariaSecretariaListController);
 app.controller("ItemDiariaShowController", ItemDiariaShowController);
 
 
@@ -697,6 +699,97 @@ function ItemDiariaUnidadeListController($stateParams, $state, ItemDiariaService
 		});
 	};
 }
+
+
+function ItemDiariaCoordenadoriaListController($stateParams, $state, ItemDiariaService,
+		toastr, $rootScope, $scope) {
+	var self = this;
+	var idDiaria = $stateParams.idDiaria;
+	$scope.listaDiariaExcel = [];
+	listar(idDiaria);
+
+	function listar(idDiaria) {
+		ItemDiariaService.porCoordenadoria(idDiaria).then(function(f) {
+			self.itens = f;
+			forLista(f);
+		}, function(errResponse) {
+			sweetAlert({
+				text : errResponse.data.message,
+				type : "info",
+				width : 300,
+				higth : 300,
+				padding : 20
+			});
+		});
+	}
+	;
+	
+	forLista = function(f){
+		for(i = 0 ; i < f.length ; i++){
+			listaExcel(f[i]);
+		}
+	}
+	
+	listaExcel = function(lista){
+		$scope.listaDiariaExcel.push({
+			nome : lista.funcionarioDiaria.contaFuncionario.funcionario.pessoa.nomeCompleto,
+			cargo : lista.funcionarioDiaria.contaFuncionario.funcionario.cargoAtual.descricao,
+			unidadeLotado :		lista.funcionarioDiaria.unidade.dadosUnidade.mnemonico,
+			dataSaida: lista.dataSaida,
+			dataChegada : lista.dataChegada,
+			localDeslocamento: lista.localDeslocamento,
+			motivo: lista.motivo,
+			valorDiaria: lista.valorDiaria,
+			valorPassagem: lista.valorPassagem
+		});
+	};
+}
+
+function ItemDiariaSecretariaListController($stateParams, $state, ItemDiariaService,
+		toastr, $rootScope, $scope) {
+	var self = this;
+	var idDiaria = $stateParams.idDiaria;
+	$scope.listaDiariaExcel = [];
+	listar(idDiaria);
+
+	function listar(idDiaria) {
+		ItemDiariaService.porSecretaria(idDiaria).then(function(f) {
+			self.itens = f;
+			forLista(f);
+		}, function(errResponse) {
+			sweetAlert({
+				text : errResponse.data.message,
+				type : "info",
+				width : 300,
+				higth : 300,
+				padding : 20
+			});
+		});
+	}
+	;
+	
+	forLista = function(f){
+		for(i = 0 ; i < f.length ; i++){
+			listaExcel(f[i]);
+		}
+	}
+	
+	listaExcel = function(lista){
+		$scope.listaDiariaExcel.push({
+			nome : lista.funcionarioDiaria.contaFuncionario.funcionario.pessoa.nomeCompleto,
+			cargo : lista.funcionarioDiaria.contaFuncionario.funcionario.cargoAtual.descricao,
+			unidadeLotado :		lista.funcionarioDiaria.unidade.dadosUnidade.mnemonico,
+			dataSaida: lista.dataSaida,
+			dataChegada : lista.dataChegada,
+			localDeslocamento: lista.localDeslocamento,
+			motivo: lista.motivo,
+			valorDiaria: lista.valorDiaria,
+			valorPassagem: lista.valorPassagem
+		});
+	};
+}
+
+
 function ItemDiariaShowController($stateParams, $state, ItemDiariaService,
 		toastr, $rootScope, $scope) {
 

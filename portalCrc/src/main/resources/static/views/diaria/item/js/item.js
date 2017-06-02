@@ -8,35 +8,36 @@ app.config(function($stateProvider, $urlRouterProvider) {
 		templateUrl : 'views/diaria/item/item.index.html',
 		redirectTo : 'item.listar',
 		ncyBreadcrumb: {
+			parent: 'diaria.menu',
 			    label: 'item'
 			  }
 	})
 	
 		.state('item.unidade', {
 			url : "/:idDiaria/listar/unidade",
-			templateUrl : "views/diaria/item/item.unidade.list.html",
+			templateUrl : "views/diaria/item/item.master.list.html",
 			controller : "ItemDiariaUnidadeListController as ctrl",
 			ncyBreadcrumb: {
-				 	parent: 'diaria.listar',
-				    label: 'Unidade itens'
+				 	parent: 'item',
+				    label: 'listar itens'
 				  }
 		})
 		.state('item.coordenadoria', {
-			url : "/:idDiariaCoordenadoria/listar/coordenadoria",
-			templateUrl : "views/diaria/item/item.coordenadoria.list.html",
-			controller : "ItemDiariaCadastrarController as itemCtrl",
+			url : "/:idDiaria/listar/coordenadoria",
+			templateUrl : "views/diaria/item/item.master.list.html",
+			controller : "ItemDiariaCoordenadoriaListController as ctrl",
 			ncyBreadcrumb: {
-				 	parent: 'item.cadastrar',
-				    label: 'lista item'
+				 	parent: 'item',
+				    label: 'listar itens coordenadoria'
 				  }
 		})
 		.state('item.secretaria', {
-			url : "/:idDiariaSecretaria/listar/secretaria",
-			templateUrl : "views/diaria/item/item.secretaria.list.html",
-			controller : "ItemDiariaCadastrarController as itemCtrl",
+			url : "/:idDiaria/listar/secretaria",
+			templateUrl : "views/diaria/item/item.master.list.html",
+			controller : "ItemDiariaSecretariaListController as ctrl",
 			ncyBreadcrumb: {
-				 	parent: 'item.cadastrar',
-				    label: 'lista item'
+				 	parent: 'item',
+				    label: 'listar itens secretaria'
 				  }
 		})
 		
@@ -93,7 +94,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
 			
 			ncyBreadcrumb: {
 			 	parent: 'item',
-			    label: 'Editar'
+			    label: 'Editar item'
 			  }
 		})
 		
@@ -112,8 +113,8 @@ app.config(function($stateProvider, $urlRouterProvider) {
 			templateUrl : "views/diaria/item/item.show.html",
 			controller : "ItemDiariaVisualizarController as itemCtrl",
 			ncyBreadcrumb: {
-				 	parent: 'item.listar',
-				    label: 'Visualizar'
+				 	parent: 'item',
+				    label: 'Visualizar item'
 				  }
 		})
 

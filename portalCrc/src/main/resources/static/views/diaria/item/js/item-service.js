@@ -48,8 +48,8 @@ app.factory('ItemDiariaService', function($q, $http){
 			});
 		},	
 		
-		listarSecretaria: function(objeto){
-			return $http.get('/rest/diaria/item/listaSecretaria/' +objeto)
+		porSecretaria: function(idDiaria){
+			return $http.get('/rest/diaria/item/secretaria/' +idDiaria)
 			.then(function(response){
 				return response.data;
 			},function(errResponse){
@@ -64,8 +64,8 @@ app.factory('ItemDiariaService', function($q, $http){
 				return $q.reject(errResponse);
 			});
 		},
-		listarCoordenadoria: function(objeto){
-			return $http.get('/rest/diaria/item/listaCoordenadoria/' +objeto)
+		porCoordenadoria: function(idDiaria){
+			return $http.get('/rest/diaria/item/coordenadoria/' +idDiaria)
 			.then(function(response){
 				return response.data;
 			},function(errResponse){

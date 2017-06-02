@@ -47,9 +47,9 @@ public class FuncionarioDiariaRestController {
 		return new ResponseEntity<>(http , HttpStatus.CREATED);		
 	}
 	
-	@GetMapping(value="/listaSecretaria/{id}")
-	public ResponseEntity<Iterable<FuncionarioDiaria>> listaSecretaria(@PathVariable Long id){
-		Iterable<FuncionarioDiaria> funcionarioDiaria	= funcionarioDiariaService.listaSecretaria(id);
+	@GetMapping(value="/secretaria/{idDiaria}")
+	public ResponseEntity<Iterable<FuncionarioDiaria>> listaSecretaria(@PathVariable Long idDiaria){
+		Iterable<FuncionarioDiaria> funcionarioDiaria	= funcionarioDiariaService.listaSecretaria(idDiaria);
 		return new ResponseEntity<Iterable<FuncionarioDiaria>>(funcionarioDiaria, HttpStatus.OK);
 	}
 
@@ -59,17 +59,17 @@ public class FuncionarioDiariaRestController {
 		return new ResponseEntity<Iterable<ValoresDiariaLocalidade>>(funcionarioDiaria, HttpStatus.OK);
 	}
 	
-	@GetMapping(value="/listaCoordenadoria/{id}")
-	public ResponseEntity<Iterable<FuncionarioDiaria>> listaCoordenadoria(@PathVariable Long id){
-		Iterable<FuncionarioDiaria> funcionarioDiaria = funcionarioDiariaService.listaCoordenadoria(id);
+	@GetMapping(value="/coordenadoria/{idDiaria}")
+	public ResponseEntity<Iterable<FuncionarioDiaria>> listaCoordenadoria(@PathVariable Long idDiaria){
+		Iterable<FuncionarioDiaria> funcionarioDiaria = funcionarioDiariaService.listaCoordenadoria(idDiaria);
 		return new ResponseEntity<Iterable<FuncionarioDiaria>>(funcionarioDiaria, HttpStatus.OK);
 	}
 	
-	@GetMapping(value="/{id}/funcionarios")
+/*	@GetMapping(value="/{id}/funcionarios")
 	public ResponseEntity<Iterable<FuncionarioDiaria>> funcionariosPorDiaria(@PathVariable Long id){
 		Iterable<FuncionarioDiaria> funcionarioDiaria = funcionarioDiariaService.findByUnidade_idAndDiaria_id(id);
 		return new ResponseEntity<Iterable<FuncionarioDiaria>>(funcionarioDiaria, HttpStatus.OK);
-	}
+	}*/
 	
 	@GetMapping(value="/{idFuncionario}/diaria/{idDiaria}")
 	public ResponseEntity<FuncionarioDiaria> buscarFuncionario(@PathVariable Long idFuncionario, @PathVariable Long idDiaria){
@@ -77,9 +77,9 @@ public class FuncionarioDiariaRestController {
 		return new ResponseEntity<FuncionarioDiaria>(funcionarioDiaria, HttpStatus.OK);
 	}
 	
-	@GetMapping(value="/listaUnidade/{id}")
-	public ResponseEntity<Iterable<FuncionarioDiaria>> listaUnidade(@PathVariable Long id){
-		Iterable<FuncionarioDiaria> funcionarioDiaria = funcionarioDiariaService.listaUnidade(id);
+	@GetMapping(value="/unidade/{idDiaria}")
+	public ResponseEntity<Iterable<FuncionarioDiaria>> listaUnidade(@PathVariable Long idDiaria){
+		Iterable<FuncionarioDiaria> funcionarioDiaria = funcionarioDiariaService.listaUnidade(idDiaria);
 		return new ResponseEntity<Iterable<FuncionarioDiaria>>(funcionarioDiaria, HttpStatus.OK);
 	}
 	

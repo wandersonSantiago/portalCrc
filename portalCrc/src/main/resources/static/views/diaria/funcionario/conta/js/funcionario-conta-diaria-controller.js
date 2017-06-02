@@ -85,7 +85,7 @@ function FuncionarioContaDiariaListarController($stateParams, $state, Funcionari
 	 function listar(){
 		 FuncionarioContaDiariaService.listarPorUnidade().
 			then(function(f){
-				self.contas = f;				
+				$scope.contas = f;				
 				}, function(errResponse){
 					sweetAlert({ timer : 3000,  text : errResponse.data.message,  type : "info", width: 300, higth: 300, padding: 20});
 			});

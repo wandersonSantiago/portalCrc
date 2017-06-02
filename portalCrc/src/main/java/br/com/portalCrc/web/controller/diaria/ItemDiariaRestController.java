@@ -46,13 +46,13 @@ public class ItemDiariaRestController {
 		return new ResponseEntity<>(http , HttpStatus.CREATED);		
 	}
 	
-	@GetMapping(value="/listaSecretaria/{id}")
+	@GetMapping(value="/secretaria/{id}")
 	public ResponseEntity<Iterable<ItemDiaria>> listaSecretaria(@PathVariable Long id){
 		Iterable<ItemDiaria> itemDiaria	= itemDiariaRepository.listaSecretaria(id);
 		return new ResponseEntity<Iterable<ItemDiaria>>(itemDiaria, HttpStatus.OK);
 	}
 	
-	@GetMapping(value="/listaCoordenadoria/{id}")
+	@GetMapping(value="/coordenadoria/{id}")
 	public ResponseEntity<Iterable<ItemDiaria>> listaCoordenadoria(@PathVariable Long id){
 		Iterable<ItemDiaria> itemDiaria = itemDiariaRepository.listaCoordenadoria(id);
 		return new ResponseEntity<Iterable<ItemDiaria>>(itemDiaria, HttpStatus.OK);

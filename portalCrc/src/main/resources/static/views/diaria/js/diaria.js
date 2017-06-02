@@ -28,7 +28,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
 			controller : "DiariaListarController as diariaCtrl",
 			ncyBreadcrumb: {
 				 	parent: 'diaria.menu',
-				    label: 'lista diaria'
+				    label: 'listar diaria'
 				  }
 		})
 		.state('diaria.cadastrar', {

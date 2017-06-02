@@ -6,6 +6,12 @@ app.controller("FuncionarioDiariaEditarController",
 		FuncionarioDiariaEditarController);
 app.controller("FuncionarioDiariaListarController",
 		FuncionarioDiariaListarController);
+app.controller("FuncionarioDiariaCoordenadoriaListarController",
+		FuncionarioDiariaCoordenadoriaListarController);
+app.controller("FuncionarioDiariaUnidadeListarController",
+		FuncionarioDiariaUnidadeListarController);
+app.controller("FuncionarioDiariaSecretariaListarController",
+		FuncionarioDiariaSecretariaListarController);
 app.controller("FuncionarioDiariaShowController",
 		FuncionarioDiariaShowController);
 app.controller("FuncionarioFinancasDiariaCadastrarController",
@@ -274,3 +280,136 @@ function FuncionarioFinancasDiariaCadastrarController($state, ItemDiariaService,
 		
 	
 }
+function FuncionarioDiariaUnidadeListarController($stateParams, $state, FuncionarioDiariaService,
+		toastr, $rootScope, $scope) {
+	var self = this;
+	var idDiaria = $stateParams.idDiaria;
+	$scope.listaDiariaExcel = [];
+	listar(idDiaria);
+
+	function listar(idDiaria) {
+		FuncionarioDiariaService.porUnidade(idDiaria).then(function(f) {
+			self.itens = f;
+			forLista(f);
+		}, function(errResponse) {
+			sweetAlert({
+				text : errResponse.data.message,
+				type : "info",
+				width : 300,
+				higth : 300,
+				padding : 20
+			});
+		});
+	}
+	;
+	
+	forLista = function(f){
+		for(i = 0 ; i < f.length ; i++){
+			listaExcel(f[i]);
+		}
+	}
+	
+	listaExcel = function(lista){
+		$scope.listaDiariaExcel.push({
+			nome : lista.funcionarioDiaria.contaFuncionario.funcionario.pessoa.nomeCompleto,
+			cargo : lista.funcionarioDiaria.contaFuncionario.funcionario.cargoAtual.descricao,
+			unidadeLotado :		lista.funcionarioDiaria.unidade.dadosUnidade.mnemonico,
+			dataSaida: lista.dataSaida,
+			dataChegada : lista.dataChegada,
+			localDeslocamento: lista.localDeslocamento,
+			motivo: lista.motivo,
+			valorDiaria: lista.valorDiaria,
+			valorPassagem: lista.valorPassagem
+		});
+	};
+}
+
+function FuncionarioDiariaCoordenadoriaListarController($stateParams, $state, FuncionarioDiariaService,
+		toastr, $rootScope, $scope) {
+	var self = this;
+	var idDiaria = $stateParams.idDiaria;
+	$scope.listaDiariaExcel = [];
+	listar(idDiaria);
+
+	function listar(idDiaria) {
+		FuncionarioDiariaService.porCoordenadoria(idDiaria).then(function(f) {
+			self.itens = f;
+			forLista(f);
+		}, function(errResponse) {
+			sweetAlert({
+				text : errResponse.data.message,
+				type : "info",
+				width : 300,
+				higth : 300,
+				padding : 20
+			});
+		});
+	}
+	;
+	
+	forLista = function(f){
+		for(i = 0 ; i < f.length ; i++){
+			listaExcel(f[i]);
+		}
+	}
+	
+	listaExcel = function(lista){
+		$scope.listaDiariaExcel.push({
+			nome : lista.funcionarioDiaria.contaFuncionario.funcionario.pessoa.nomeCompleto,
+			cargo : lista.funcionarioDiaria.contaFuncionario.funcionario.cargoAtual.descricao,
+			unidadeLotado :		lista.funcionarioDiaria.unidade.dadosUnidade.mnemonico,
+			dataSaida: lista.dataSaida,
+			dataChegada : lista.dataChegada,
+			localDeslocamento: lista.localDeslocamento,
+			motivo: lista.motivo,
+			valorDiaria: lista.valorDiaria,
+			valorPassagem: lista.valorPassagem
+		});
+	};
+}
+
+
+function FuncionarioDiariaSecretariaListarController($stateParams, $state, FuncionarioDiariaService,
+		toastr, $rootScope, $scope) {
+	var self = this;
+	var idDiaria = $stateParams.idDiaria;
+	$scope.listaDiariaExcel = [];
+	listar(idDiaria);
+
+	function listar(idDiaria) {
+		FuncionarioDiariaService.porSecretaria(idDiaria).then(function(f) {
+			self.itens = f;
+			forLista(f);
+		}, function(errResponse) {
+			sweetAlert({
+				text : errResponse.data.message,
+				type : "info",
+				width : 300,
+				higth : 300,
+				padding : 20
+			});
+		});
+	}
+	;
+	
+	forLista = function(f){
+		for(i = 0 ; i < f.length ; i++){
+			listaExcel(f[i]);
+		}
+	}
+	
+	listaExcel = function(lista){
+		$scope.listaDiariaExcel.push({
+			nome : lista.funcionarioDiaria.contaFuncionario.funcionario.pessoa.nomeCompleto,
+			cargo : lista.funcionarioDiaria.contaFuncionario.funcionario.cargoAtual.descricao,
+			unidadeLotado :		lista.funcionarioDiaria.unidade.dadosUnidade.mnemonico,
+			dataSaida: lista.dataSaida,
+			dataChegada : lista.dataChegada,
+			localDeslocamento: lista.localDeslocamento,
+			motivo: lista.motivo,
+			valorDiaria: lista.valorDiaria,
+			valorPassagem: lista.valorPassagem
+		});
+	};
+}
+

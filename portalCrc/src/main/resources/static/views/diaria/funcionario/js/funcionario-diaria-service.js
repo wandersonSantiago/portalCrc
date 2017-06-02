@@ -48,24 +48,24 @@ app.factory('FuncionarioDiariaService', function($q, $http){
 			});
 		},	
 		
-		listarSecretaria: function(objeto){
-			return $http.get('/rest/diaria/funcionario/listaSecretaria/' +objeto)
+		porSecretaria: function(idDiaria){
+			return $http.get('/rest/diaria/funcionario/secretaria/' +idDiaria)
 			.then(function(response){
 				return response.data;
 			},function(errResponse){
 				return $q.reject(errResponse);
 			});
 		},
-		listarUnidade: function(objeto){
-			return $http.get('/rest/diaria/funcionario/listaUnidade/' +objeto)
+		porUnidade: function(idDiaria){
+			return $http.get('/rest/diaria/funcionario/unidade/' +idDiaria)
 			.then(function(response){
 				return response.data;
 			},function(errResponse){
 				return $q.reject(errResponse);
 			});
 		},
-		listarCoordenadoria: function(objeto){
-			return $http.get('/rest/diaria/funcionario/listaCoordenadoria/' +objeto)
+		porCoordenadoria: function(idDiaria){
+			return $http.get('/rest/diaria/funcionario/coordenadoria/' +idDiaria)
 			.then(function(response){
 				return response.data;
 			},function(errResponse){

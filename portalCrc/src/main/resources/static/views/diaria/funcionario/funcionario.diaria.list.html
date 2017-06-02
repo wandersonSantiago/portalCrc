@@ -16,8 +16,9 @@
 		<tbody
 			ng-repeat=" diaria in ctrl.itens | filter : busca |  orderBy : '-id'">
 			<tr>
-				<td>{{ diaria.contaFuncionario.funcionario.pessoa.nomeCompleto
-					}}</td>
+				<td><a href=""
+					ng-click="ctrl.cadastrarDiariaFuncionario(diaria.contaFuncionario.funcionario )">{{
+						diaria.contaFuncionario.funcionario.pessoa.nomeCompleto }}</a></td>
 				<td>{{ diaria.contaFuncionario.funcionario.cargoAtual.descricao
 					}}</td>
 				<td>{{ diaria.unidade.dadosUnidade.mnemonico}}</td>
@@ -25,7 +26,7 @@
 				<td ng-if="diaria.diaria.status == 'ABERTO'"><a title="teste"
 					ui-sref="item.editar({idItem : diaria.id})"><i
 						class="glyphicon glyphicon-edit"></i></a></td>
-				</tr>
+			</tr>
 
 		</tbody>
 		<tfoot>

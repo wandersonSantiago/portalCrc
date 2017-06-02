@@ -25,9 +25,9 @@
 					<td title="Cadastrar Diarias"><a ui-sref="funcionarioDiaria.verificar({idDiaria : diaria.id})"><i class="glyphicon glyphicon-copy"></i></a> 					
 					<td title="Cadastrar Diarias"><a ui-sref="item.cadastrar({idDiaria : diaria.id})"><i class="glyphicon glyphicon-copy"></i></a> 		
 					<td ng-if="diaria.status == 'ABERTO'"  title="Encerrar diária"><a ng-click="diariaCtrl.encerrar(diaria)" ><i class="glyphicon glyphicon-trash"></i></a> 		
-					<td title="Relatório da Unidade"><a ui-sref="item.unidade({idDiaria : diaria.id})"><i class="glyphicon glyphicon-list-alt"></i></a> 		
-					<td title="Relatório da Coordenadoria"><a ui-sref="item.coordenadoria({idDiariaCoordenadoria : diaria.id})"><i class="glyphicon glyphicon-list-alt"></i></a> 		
-					<td title="Relatório da Secretaria"><a ui-sref="item.secretaria({idDiariaSecretaria : diaria.id})"><i class="glyphicon glyphicon-list-alt"></i></a> 		
+					<td title="Relatório da Unidade"><a ui-sref="funcionarioDiaria.unidade({idDiaria : diaria.id})"><i class="glyphicon glyphicon-list-alt"></i></a> 		
+					<td title="Relatório da Coordenadoria"><a ui-sref="funcionarioDiaria.coordenadoria({idDiaria : diaria.id})"><i class="glyphicon glyphicon-list-alt"></i></a> 		
+					<td title="Relatório da Secretaria"><a ui-sref="funcionarioDiaria.secretaria({idDiaria : diaria.id})"><i class="glyphicon glyphicon-list-alt"></i></a> 		
 					
 				
 					<td title="Editar Diária"> <a ui-sref="diaria.editar({idDiaria : diaria.id})"><i class="glyphicon glyphicon-edit"></i></a> 

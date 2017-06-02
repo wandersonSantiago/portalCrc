@@ -5,14 +5,15 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import br.com.portalCrc.entity.diaria.FuncionarioDiaria;
 import br.com.portalCrc.entity.diaria.ItemDiaria;
 import br.com.portalCrc.enums.diaria.StatusDiariaEnum;
 import br.com.portalCrc.pojo.SessionUsuario;
+import br.com.portalCrc.repository.diaria.FuncionarioDiariaRepository;
 import br.com.portalCrc.repository.diaria.ItemDiariaRepository;
 
 @Service
@@ -22,18 +23,33 @@ public class ItemDiariaService {
 
 	@Autowired
 	private ItemDiariaRepository itemDiariaRepository;
+	@Autowired
+	private FuncionarioDiariaRepository funcionarioDiariaRepository;
 	
 	@Transactional(readOnly = false)
 	public void salvaOuAltera(ItemDiaria itemDiaria){
-		itemDiaria.setDataCadastro(new Date());
+		
+		FuncionarioDiaria funcionarioDiaria =  funcionarioDiariaRepository.findById(itemDiaria.getFuncionarioDiaria().getId());
+				
+	
 		CalculaValor calcula = new CalculaValor();
+		
 		itemDiaria.setDataCadastro(new Date());
-		BigDecimal total = new BigDecimal(0);
+		
+		BigDecimal valorTotalItem = new BigDecimal(0);
+		BigDecimal valorTotalDiaria = funcionarioDiaria.getTotalValorDiaria();
+		
 		int count = calcula.quantidadePernoite(itemDiaria);
-		total = total.add(calcula.valorPernoite(count, itemDiaria));
-		itemDiaria.setValorDiaria(total);
+		
+		valorTotalItem = valorTotalItem.add(calcula.valorPernoite(count, itemDiaria));
+		itemDiaria.setValorDiaria(valorTotalItem);
+		
+		valorTotalDiaria = valorTotalDiaria.add(valorTotalItem);
+		funcionarioDiaria.setTotalValorDiaria(valorTotalDiaria);
+		
 		if(itemDiaria.getFuncionarioDiaria().getDiaria().getStatus()  == StatusDiariaEnum.ABERTO){
 			itemDiariaRepository.save(itemDiaria);
+			funcionarioDiariaRepository.save(funcionarioDiaria);
 		}else{
 			throw new MensagemException("Não foi possivel realizar este lançamento, Este mês esta encerrado!!!");
 		}

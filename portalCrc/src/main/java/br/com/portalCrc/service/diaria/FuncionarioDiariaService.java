@@ -60,14 +60,26 @@ public class FuncionarioDiariaService {
 	}
 
 	public List<FuncionarioDiaria> listaUnidade(Long id) {
-		return funcionarioDiariaRepository.findByUnidade_id(
+		List<FuncionarioDiaria> lista 	= funcionarioDiariaRepository.findByUnidade_idAndDiaria_id(
 				SessionUsuario.getInstance().getUsuario().getFuncionario().getUnidadeAtual().getId(), id);
+
+		if(lista.isEmpty() || lista == null){
+			throw new MensagemException("Unidade não tem lançameto nesta diaria! ");
+		}
+		
+		return lista;
 	}
 
 	public List<FuncionarioDiaria> listaCoordenadoria(Long id) {
-		return funcionarioDiariaRepository.findByUnidadeCoordenadoria_idAndDiaria_id(
+		List<FuncionarioDiaria> lista 	=   funcionarioDiariaRepository.findByUnidadeCoordenadoria_idAndDiaria_id(
 				SessionUsuario.getInstance().getUsuario().getFuncionario().getUnidadeAtual().getCoordenadoria().getId(),
 				id);
+
+		if(lista.isEmpty() || lista == null){
+			throw new MensagemException("Coordenadoria não tem lançameto nesta diaria! ");
+		}
+		
+		return lista;
 	}
 
 	public List<FuncionarioDiaria> lista() {
@@ -75,7 +87,13 @@ public class FuncionarioDiariaService {
 	}
 
 	public Iterable<FuncionarioDiaria> listaSecretaria(Long id) {
-		return funcionarioDiariaRepository.findByUnidadeCoordenadoriaSecretaria_id(id);
+		Iterable<FuncionarioDiaria> lista 	= funcionarioDiariaRepository.findByDiaria_id(id);
+
+		if(lista == null){
+			throw new MensagemException("Secretaria não tem lançameto nesta diaria! ");
+		}
+		
+		return lista;
 	}
 
 	@Transactional(readOnly = false)
@@ -88,10 +106,10 @@ public class FuncionarioDiariaService {
 		return valoresDiaraRepository.findByIndiceUfespAndDiaria_id(id, idDiaria);
 	}
 
-	public Iterable<FuncionarioDiaria> findByUnidade_idAndDiaria_id(Long id) {
+	/*public Iterable<FuncionarioDiaria> findByUnidade_idAndDiaria_id(Long id) {
 		return funcionarioDiariaRepository.findByUnidade_idAndDiaria_id(
 				SessionUsuario.getInstance().getUsuario().getFuncionario().getUnidadeAtual().getId(), id);
-	}
+	}*/
 
 	public FuncionarioDiaria findByUnidade_idAndFuncionario_idAndDiaria_id(Long idFuncionario,
 			Long idDiaria) {

@@ -8,18 +8,18 @@ app.config(function($stateProvider, $urlRouterProvider) {
 		templateUrl : 'views/diaria/funcionario/conta/funcionario.conta.diaria.index.html',
 		redirectTo : 'funcionario.listar',
 		ncyBreadcrumb: {
-		 	parent: 'diaria',
-			    label: 'Diaria'
+		 	parent: 'diaria.menu',
+			    label: 'Contas'
 			  }
 	})
 	
-		.state('funcionarioContaDiaria.unidade', {
-			url : "/lista",
+		.state('funcionarioContaDiaria.listar', {
+			url : "/conta/lista",
 			templateUrl : "views/diaria/funcionario/conta/funcionario.conta.list.html",
 			controller : "FuncionarioContaDiariaListarController as ctrl",
 			ncyBreadcrumb: {
 				 	parent: 'funcionarioContaDiaria',
-				    label: 'lista funcionario'
+				    label: 'listar contas'
 				  }
 		})
 					
@@ -39,7 +39,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
 			controller : "FuncionarioContaDiariaCadastrarController as contaCtrl",
 			ncyBreadcrumb: {
 			 	parent: 'funcionarioContaDiaria.unidade',
-			    label: 'Cadastrar'
+			    label: 'Cadastrar contas'
 			  }
 		})
 				
@@ -49,7 +49,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
 			controller : "FuncionarioContaDiariaEditarController as contaCtrl",
 			ncyBreadcrumb: {
 				 	parent: 'funcionarioContaDiaria.listar',
-				    label: 'Editar'
+				    label: 'Editar contas'
 				  }
 		})
 		
