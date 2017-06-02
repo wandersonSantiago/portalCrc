@@ -19,7 +19,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
 			controller : "DiariaListarController as diariaCtrl",
 			ncyBreadcrumb: {
 				 	parent: 'diaria',
-				    label: 'menu'
+				    label: 'menu diária'
 				  }
 		})
 		.state('diaria.listar', {
@@ -46,7 +46,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
 			controller : "DiariaEditarController as diariaCtrl",
 			ncyBreadcrumb: {
 				 	parent: 'diaria.menu',
-				    label: 'Editar'
+				    label: 'Editar diaria'
 				  }
 		})
 		.state('diaria.relatorio', {
@@ -55,7 +55,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
 			controller : "DiariaListarController as diariaCtrl",
 			ncyBreadcrumb: {
 				 	parent: 'diaria.menu',
-				    label: 'Relatório'
+				    label: 'Relatório das diarias'
 				  }
 		})
 
