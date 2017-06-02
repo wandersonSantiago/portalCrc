@@ -1,6 +1,7 @@
 app.controller("UsuarioCadastarController", UsuarioCadastarController);
 app.controller("UsuarioEditarController", UsuarioEditarController);
 app.controller("UsuarioListarController", UsuarioListarController);
+app.controller("UsuarioPerfilController", UsuarioPerfilController);
 app.controller("UsuarioPermissaoController", UsuarioPermissaoController);
 
 
@@ -187,4 +188,29 @@ function UsuarioPermissaoController($stateParams, $state , UsuarioService, Permi
 		
 		
 	
+}
+
+function UsuarioPerfilController($scope, $state, toastr, UsuarioService, $stateParams){
+	
+	var self = this;
+	self.salvarFoto = salvarFoto;
+	$scope.obj = {};
+	
+	function salvarFoto(){
+	 	var file = $scope.obj.flow.files[0]
+    	var form = new FormData();
+    	form.append('file', file.file);	    	
+    	form.append('usuario',new Blob([JSON.stringify(self.usuario)], {
+            type: "application/json"
+        }) )
+		UsuarioService.salvarFoto(form)
+	   	 .then(function(response){
+	   		 toastr.success('Foto salva!', 'Sucesso!!!');				
+	   	 	},
+		function(errResponse){			 
+			 swal({ timer : 30000, text: errResponse.data.message ,  type : "error", width: 500, higth: 100, padding: 20}).catch(swal.noop);
+			 });
+	  };
+	
+
 }

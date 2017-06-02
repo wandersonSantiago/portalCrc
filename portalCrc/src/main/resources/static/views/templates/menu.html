@@ -6,7 +6,8 @@
 
 		<div class="user-panel">
 			<div class="pull-left image">
-				<img src="public/img/avatar_2x.png" class="img-circle"
+				<img ng-src="{{usuario.caminhoFoto ? usuario.caminhoFoto : '../../../../public/img/avatar_2x.png' }}"
+				 src="public/img/avatar_2x.png" class="img-circle"
 					alt="User Image">
 			</div>
 			<div class="pull-left info">

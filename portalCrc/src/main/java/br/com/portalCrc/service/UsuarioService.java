@@ -1,5 +1,6 @@
 package br.com.portalCrc.service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,4 +55,27 @@ public class UsuarioService {
 	{
 		return usuarioRepository.existeLogin(login);
 	}
+
+
+
+    public void save(String path, Usuario  user) {
+
+    user.setCaminhoFoto(path);
+    	usuarioRepository.save(user);
+    }
+
+   
+
+    
+
+    public String createPath() {
+
+        LocalDate localDate = LocalDate.now();
+
+        String mm = String.valueOf(localDate.getMonthValue());
+        String yyyy = String.valueOf(localDate.getYear());
+
+        return "C:\\uploads" + "\\" + yyyy + "\\" + mm;
+    }
+
 }

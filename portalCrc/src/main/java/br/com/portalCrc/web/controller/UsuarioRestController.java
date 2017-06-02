@@ -1,6 +1,11 @@
 package br.com.portalCrc.web.controller;
 
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.security.Principal;
+import java.util.logging.Logger;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,16 +13,21 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import br.com.portalCrc.entity.Usuario;
 import br.com.portalCrc.pojo.SessionUsuario;
 import br.com.portalCrc.service.UsuarioService;
+import br.com.portalCrc.service.diaria.MensagemException;
 
 
 
@@ -29,6 +39,12 @@ public class UsuarioRestController {
 	@Autowired
 	private UsuarioService usuarioService;
 
+    private String path;
+    private String name;
+    private String type;
+    private Long size;
+
+    
 	@RequestMapping(value="/usuario")
 	@ResponseBody
 	public Principal user(Principal user, HttpSession session) {
@@ -78,4 +94,52 @@ public class UsuarioRestController {
 	
 			return new ResponseEntity<>(user, HttpStatus.OK);
 		}
+   
+   @PostMapping(value = "/foto")
+	public ResponseEntity<?> recebeImagem( @RequestPart("file") MultipartFile file,  @RequestPart("usuario") Usuario usuario) {
+
+       path = "";
+       name = file.getOriginalFilename();
+       type = file.getContentType();
+       size = file.getSize();
+
+       try {
+           byte[] bytes = file.getBytes();
+
+           path = usuarioService.createPath();
+
+           File dir = new File(path);
+
+           if (!dir.exists()) {
+               dir.mkdirs();
+           }
+
+           File serverFile = new File(dir.getAbsolutePath() + "\\" + name);
+
+           if (!serverFile.exists()) {
+
+               BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(serverFile));
+
+               stream.write(bytes);
+
+               stream.close();
+
+               usuarioService.save(path, usuario);
+
+           } else {
+
+        		throw new MensagemException("Não foi possivel salvar a foto");
+        		
+           }
+
+       } catch (Exception e) {
+    	   e.printStackTrace();
+    	   throw new MensagemException("Não foi possivel salvar a foto" + e.getMessage());
+       }
+       return new ResponseEntity<>(HttpStatus.CREATED);
+
+
+      
+   }
+
 }

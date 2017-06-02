@@ -1,0 +1,75 @@
+<meta charset="UTF-8">
+
+<form name="formFoto" ng-submit="ctrl.submit()">
+	<div class="row">
+		<div class="col-sm-4"></div>
+		<div class="col-sm-4" flow-init="{singleFile:true}"
+			flow-file-added="!!{png:1,gif:1,jpg:1,jpeg:1}[$file.getExtension()]"
+			class="ng-scope" flow-name="obj.flow">
+			<div ng-show="!$flow.files.length">
+			<div class="col-sm-3"></div>
+				<img src="public/img/avatar_2x.png" class="img-circle"
+					alt="User Image">
+			</div>
+			<div class="thumbnail " ng-show="$flow.files.length">
+				<img flow-img="$flow.files[0]">
+			</div>
+			<br>
+			<div>
+				<span class="btn btn-primary col-sm-12" ng-show="!$flow.files.length"
+					flow-btn="">Selecione uma imagem<input type="file"
+					style="visibility: hidden; position: absolute;">
+					</span> <br>
+					<span class="btn btn-info col-sm-12  " ng-show="$flow.files.length"
+					flow-btn="">Trocar<input type="file"
+					style="visibility: hidden; position: absolute;">
+					</span><br> 
+					<span class="btn btn-danger col-sm-12 " ng-show="$flow.files.length"
+					ng-click="$flow.cancel()"> Remover </span>
+					<br>
+					<input ng-show="$flow.files.length" type="button" id="submit" value="Salvar" ng-click="ctrl.salvarFoto()"
+				class="btn btn-primary col-sm-12">
+			</div>
+		</div>
+	</div>
+	<br> <br>
+	<hr>
+	<h3><span class=" col-sm-12 form-control label label-success">Dados Pessoais</span></h3>
+	 {{usuario.funcionario.pessoa.nomeCompleto}} <br>
+	 {{usuario.funcionario.setorAtual.nome}} <br>
+	 {{usuario.funcionario.unidadeAtual.dadosUnidade.nome}} <br>
+	<hr>
+	<h3><span class=" col-sm-12 form-control label label-success">Alterar Senha</span></h3>
+
+	<div class="row">
+		<div class="col-sm-2"></div>
+		<div class="col-sm-4">
+			<div class="input-group margin">
+				<input type="password" class="form-control select2"
+					ng-model="ctrl.senha"> <span class="input-group-btn">
+					<a type="button" class="btn btn-info btn-flat"><i>Senha</i></a>
+				</span>
+			</div>
+		</div>
+		<div class="col-sm-4">
+			<div class="input-group margin">
+				<input type="password" class="form-control select2"
+					ng-model="ctrl.senhaRepitida"> <span
+					class="input-group-btn"> <a type="button"
+					class="btn btn-info btn-flat"><i>Repetir Senha</i></a>
+				</span>
+			</div>
+		</div>
+	</div>
+	<br> <br>
+
+	<div class="row ">
+		<div class="form-group col-sm-4"></div>
+		<div class="form-group col-sm-4">
+			<input type="submit" id="submit" value="Salvar"
+				class="btn btn-lg btn-primary btn-block btn-signin">
+		</div>
+
+	</div>
+
+</form>

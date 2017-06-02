@@ -29,7 +29,7 @@
 		                <ul class="dropdown-menu">
 		                  <!-- User image -->
 		                  <li class="user-header">
-		                    <img src="public/img/avatar_2x.png" class="img-circle" alt="User Image">
+		                    <img ng-src="{{usuario.caminhoFoto ? usuario.caminhoFoto : '../../../../public/img/avatar_2x.png' }}" class="img-circle" alt="User Image">
 		                    <p>
 		                     		{{usuario.funcionario.pessoa.nomeCompleto}}
 		                      <small>{{usuario.funcionario.setorAtual.nome}}</small>
@@ -37,9 +37,9 @@
 		                  </li>                 
 		                  <li class="user-footer">
 		                    <div class="pull-left">
-		                      <a href="" ng-click="userCtrl.buscaPorId(user.usuario.id)" data-toggle="modal" data-target="#alteraSenha" class="btn btn-default btn-flat">Alterar senha</a>
+		                      <a href="" ui-sref="usuario.perfil"  class="btn btn-default btn-flat">Perfil</a>
 		                    </div>
-		                    <div ng-if="role_coordenadoria" class="pull-right">
+		                    <div  class="pull-right">
 		                      <a href=""  ng-click="userCtrl.buscaPorId(user.usuario.id)" data-toggle="modal" data-target="#alteraEmpreendimento"  class="btn btn-default btn-flat">Alterar Unidade.</a>
 		                    </div>
 		                  </li>

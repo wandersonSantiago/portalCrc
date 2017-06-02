@@ -34,7 +34,7 @@ public class Usuario {
 	@JoinColumn(name="id_funcionario",nullable = true)
 	private Funcionario funcionario;
 	
-    
+    private String  caminhoFoto;
     
 	@Column(nullable = false,length = 15,unique = true)
 	private String login;
@@ -91,6 +91,13 @@ public class Usuario {
 	public void setDataCadastro(Date dataCadastro) {
 		this.dataCadastro = dataCadastro;
 	}
+	public String getCaminhoFoto() {
+		return caminhoFoto;
+	}
+	public void setCaminhoFoto(String caminhoFoto) {
+		this.caminhoFoto = caminhoFoto;
+	}
+	
 	
 	
 }

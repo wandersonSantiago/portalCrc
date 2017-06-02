@@ -12,12 +12,21 @@ app.config(function($stateProvider, $urlRouterProvider) {
 				  }
 		})
 		.state('usuario.listar', {
-			url : "",
+			url : "/listar",
 			templateUrl : "views/usuario/usuario.list.html",
 			controller : "UsuarioListarController as usuarioCtrl",
 			ncyBreadcrumb: {
 				 	parent: 'usuario.cadastrar',
 				    label: 'Lista'
+				  }
+		})
+		.state('usuario.perfil', {
+			url : "/perfil",
+			templateUrl : "views/usuario/usuario.perfil.html",
+			controller : "UsuarioPerfilController as ctrl",
+			ncyBreadcrumb: {
+				 	parent: 'usuario',
+				    label: 'Perfil Usuário'
 				  }
 		})
 		.state('usuario.cadastrar', {
