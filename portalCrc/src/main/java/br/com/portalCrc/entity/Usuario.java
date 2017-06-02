@@ -3,9 +3,7 @@
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.CollectionTable;
 import javax.persistence.Column;
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -14,11 +12,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
-import br.com.portalCrc.enums.PerfilUsuario;
+import br.com.portalCrc.enums.ModuloPermissaoEnum;
 
 
 @Entity
@@ -33,31 +33,30 @@ public class Usuario {
 	@ManyToOne
 	@JoinColumn(name="id_funcionario",nullable = true)
 	private Funcionario funcionario;
-	/*@ManyToOne
-	@JoinColumn(name="id_setor",nullable = true)
-	private Setor setor;
-	@ManyToOne
-	@JoinColumn(name="id_unidades",nullable = true)
-	private Unidade unidade;*/
-	@ElementCollection(targetClass=PerfilUsuario.class,fetch = FetchType.EAGER)
-    @Enumerated(EnumType.STRING)
-    @CollectionTable(name="perfil")
-    @Column(name="perfil_usuario")
-    List<PerfilUsuario> perfilsUsuario;
+	
+    
+    
 	@Column(nullable = false,length = 15,unique = true)
 	private String login;
 	@Column(nullable = false,length = 256)
 	private String senha;
-	/*@ManyToOne
-	@JoinColumn(name="id_usuario_cadastro")
-	private Usuario usuarioCadastro;*/
+	
 	@Column(name="data_cadastro")
 	private Date dataCadastro;
 	
+	@ManyToMany(fetch = FetchType.EAGER)
+	@JoinTable(name = "usuario_permissoes", schema="principal", joinColumns = @JoinColumn(name = "id_usuario"), 
+	inverseJoinColumns = @JoinColumn(name = "id_permissoes"))	
+	private List<Permissao> permissoes;
 	
 	
 	
-	
+	public List<Permissao> getPermissoes() {
+		return permissoes;
+	}
+	public void setPermissoes(List<Permissao> permissoes) {
+		this.permissoes = permissoes;
+	}
 	public String getLogin() {
 		return login;
 	}
@@ -74,46 +73,24 @@ public class Usuario {
 	public void setFuncionario(Funcionario funcionario) {
 		this.funcionario = funcionario;
 	}
-	/*public Unidade getUnidade() {
-		return unidade;
-	}
-	public void setUnidade(Unidade unidade) {
-		this.unidade = unidade;
-	}*/
+
 	public Funcionario getFuncionario() {
 		return funcionario;
 	}
-	/*public Setor getSetor() {
-		return setor;
-	}
-	public void setSetor(Setor setor) {
-		this.setor = setor;
-	}*/
-	public List<PerfilUsuario> getPerfilsUsuario() {
-		return perfilsUsuario;
-	}
-	public void setPerfilsUsuario(List<PerfilUsuario> perfilsUsuario) {
-		this.perfilsUsuario = perfilsUsuario;
-	}
+	
 	public Long getId() {
 		return id;
 	}
 	public void setId(Long id) {
 		this.id = id;
 	}
-	/*public Usuario getUsuarioCadastro() {
-		return usuarioCadastro;
-	}
-	public void setUsuarioCadastro(Usuario usuarioCadastro) {
-		this.usuarioCadastro = usuarioCadastro;
-	}*/
+
 	public Date getDataCadastro() {
 		return dataCadastro;
 	}
 	public void setDataCadastro(Date dataCadastro) {
 		this.dataCadastro = dataCadastro;
 	}
-
 	
 	
 }

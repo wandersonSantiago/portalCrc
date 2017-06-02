@@ -38,13 +38,13 @@ app.config(function($stateProvider, $urlRouterProvider) {
 				    label: 'Editar'
 				  }
 		})
-		.state('usuario.visualizar', {
-			url : "/:idUsuario",
-			templateUrl : "views/usuario/usuario.show.html",
-			controller : "UsuarioVisualizarController as usuarioCtrl",
+		.state('usuario.permissao', {
+			url : "/permissao",
+			templateUrl : "views/usuario/usuario.permissao.html",
+			controller : "UsuarioPermissaoController as Ctrl",
 			ncyBreadcrumb: {
 				 	parent: 'usuario.listar',
-				    label: 'Visualizar'
+				    label: 'Permissao'
 				  }
 		})
 

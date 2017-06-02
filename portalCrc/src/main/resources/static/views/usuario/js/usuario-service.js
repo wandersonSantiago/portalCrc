@@ -48,7 +48,6 @@ app.factory('UsuarioService', function($rootScope, toastr, $http,$q){
 			return $http.get('/rest/usuario/usuarios')
 			.then(function(response){
 				return response.data;
-				console.log(response.data);
 			},function(errResponse){
 				return $q.reject(errResponse);
 			});

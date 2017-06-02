@@ -8,8 +8,9 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import br.com.portalCrc.entity.Permissao;
 import br.com.portalCrc.entity.Usuario;
-import br.com.portalCrc.enums.PerfilUsuario;
+import br.com.portalCrc.enums.ModuloPermissaoEnum;
 import br.com.portalCrc.service.UsuarioService;
 
 
@@ -31,9 +32,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 			user.setUsername(usuario.getLogin());
 			user.setPassword(usuario.getSenha());
 
-			for(PerfilUsuario perl : usuario.getPerfilsUsuario())
+			for(Permissao perl : usuario.getPermissoes())
 			{
-				user.addAuthority("ROLE_"+perl.name());
+				user.addAuthority("ROLE_"+perl.getDescricao());
 				
 			}
 			

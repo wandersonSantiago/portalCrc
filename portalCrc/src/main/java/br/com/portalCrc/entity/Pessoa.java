@@ -29,7 +29,7 @@ public class Pessoa  {
 
 	@Column(nullable = false, length = 50)
 	private String nomeCompleto;
-	@Column(nullable = false)
+	//@Column(nullable = false)
 	private Integer idade;
 	@Column(nullable = false, length = 20)
 	private String rg;

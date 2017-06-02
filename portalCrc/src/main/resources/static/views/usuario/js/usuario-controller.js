@@ -1,11 +1,7 @@
 app.controller("UsuarioCadastarController", UsuarioCadastarController);
 app.controller("UsuarioEditarController", UsuarioEditarController);
 app.controller("UsuarioListarController", UsuarioListarController);
-
-
-UsuarioCadastarController.$inject = ['UsuarioService', 'FuncionarioService','UnidadeService','SetorService','toastr', '$rootScope', '$scope'];
-UsuarioEditarController.$inject = ['$stateParams', '$state', 'UsuarioService','FuncionarioService','SetorService','UnidadeService', 'toastr', '$rootScope', '$scope'];
-UsuarioListarController.$inject = ['$stateParams', '$state', 'UsuarioService',  'toastr', '$rootScope', '$scope'];
+app.controller("UsuarioPermissaoController", UsuarioPermissaoController);
 
 
 function UsuarioCadastarController( UsuarioService, FuncionarioService, UnidadeService, SetorService, toastr, $rootScope, $scope){
@@ -158,5 +154,37 @@ function UsuarioListarController($stateParams, $state , UsuarioService, toastr, 
 				}, function(errResponse){
 			});
 		};		
+	
+}
+
+function UsuarioPermissaoController($stateParams, $state , UsuarioService, PermissaoService,  toastr, $rootScope, $scope){
+	
+	var self = this;
+		
+	//listar();
+	
+	
+	function submit(usuario){		
+			self.usuario.senha = self.senha;
+			UsuarioService.alterar(self.usuario).
+			then(function(response){
+				toastr.info("Usuario Salvo!!!")
+				self.usuario = null;
+				}, function(errResponse){
+			sweetAlert({ timer : 3000, text: errResponse.data.message , type : "info", width: 300, higth: 100, padding: 20});
+					
+			});
+	};	
+	
+	 function listar(){
+		 PermissaoService.listar().
+			then(function(u){				
+					self.usuarios = u;			
+				}, function(errResponse){
+			});
+		};		
+		
+		
+		
 	
 }

@@ -70,14 +70,14 @@ Portal Coordenadoria Central
 </head>
 
 
-<div ng-if="!logado" ng-include="'views/login.html'"></div>
+<div ng-if="!authenticated" ng-include="'views/login.html'"></div>
 
 <body   class="hold-transition skin-purple sidebar-mini">
-	<div ng-if="logado" class="wrapper">
+	<div ng-if="authenticated" class="wrapper">
 
-		<div ng-if="logado" ng-include="'views/templates/header.html'"></div>
+		<div ng-if="authenticated" ng-include="'views/templates/header.html'"></div>
 
-		<div ng-if="logado" ng-include="'views/menu.html'"></div>
+		<div ng-if="authenticated" ng-include="'views/menu.html'"></div>
 
 		<div   class="content-wrapper">
 
@@ -93,7 +93,7 @@ Portal Coordenadoria Central
 		</div>
 
 
-		<div ng-if="logado" ng-include="'views/templates/footer.html'"></div>
+		<div ng-if="authenticated" ng-include="'views/templates/footer.html'"></div>
 
 		
 	</div>
@@ -108,10 +108,18 @@ Portal Coordenadoria Central
 	<script src="public/js/login.js"></script>
 	<script src="public/js/services/busca-cep-service.js"></script>
 	<script src="public/js/fone.js"></script>
+	<script src="public/js/auth/permission.js"></script>
+	<script src="public/js/dateInput.js"></script>
+	<script src="public/js/auth/AuthHttpResponseIterceptor.js" ></script>
+	<script src="public/js/rotas/rotas.js"></script>	
 	<script type="text/javascript" src="views/home.js"></script>
 		<script type="text/javascript" src="views/home-controller.js"></script>	
 	<script type="text/javascript" src="views/informatica/informatica.js"></script>
 	<script type="text/javascript" src="views/infra/infra.js"></script>
+	
+	<script type="text/javascript" src="views/usuario/permissao/js/permissao.js"></script>
+	<script type="text/javascript" src="views/usuario/permissao/js/permissao-controller.js"></script>
+	<script type="text/javascript" src="views/usuario/permissao/js/permissao-service.js"></script>
 	
 	<script type="text/javascript" src="views/usuario/js/usuario.js"></script>
 	<script type="text/javascript" src="views/usuario/js/usuario-controller.js"></script>
