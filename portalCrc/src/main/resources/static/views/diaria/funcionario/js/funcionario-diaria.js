@@ -15,18 +15,9 @@ app.config(function($stateProvider, $urlRouterProvider) {
 		
 		.state('funcionarioDiaria.verificar', {
 			url : "/:idDiaria/verificar",
-			 views: {
-	                '': {
-	                	controller : "ListarFuncionarioDiariaController as ctrl",
-	                    templateUrl : "views/diaria/funcionario/verificacao.diaria.form.html",
-	                },
-	                'dadosPerfilCadastro': {
-	                	controller : "ListarFuncionarioDiariaController as ctrl",
-	                    templateUrl : "views/diaria/funcionario/funcionario.diaria.list.html",
-	                },
-	            },	
-			
-			ncyBreadcrumb: {
+			controller : "ListarFuncionarioDiariaController as ctrl",
+	        templateUrl : "views/diaria/funcionario/verificacao.diaria.form.html",
+	     	ncyBreadcrumb: {
 			 	parent: 'funcionarioDiaria',
 			    label: 'Buscar funcionarios'
 			  }

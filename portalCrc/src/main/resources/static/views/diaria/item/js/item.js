@@ -109,9 +109,9 @@ app.config(function($stateProvider, $urlRouterProvider) {
 		})
 		
 		.state('item.visualizar', {
-			url : "/:idItem",
+			url : "/:idFuncionarioDiaria/diaria",
 			templateUrl : "views/diaria/item/item.show.html",
-			controller : "ItemDiariaVisualizarController as itemCtrl",
+			controller : "ItemDiariaShowController as ctrl",
 			ncyBreadcrumb: {
 				 	parent: 'item',
 				    label: 'Visualizar item'

@@ -10,11 +10,14 @@
 <br>
 <br>
 <br>
-<div class="padded" md-whiteframe="{{height}}" flex="100"
-	flex-gt-sm="50" layout="column" layout-align="center center"
+<div ng-repeat=" diaria in diariaCtrl.diarias | filter : buscar | orderBy : 'id'">
+<div class="col-sm-6"  flex-sm="45" flex-gt-sm="35" flex-gt-md="50" layout-padding layout-wrap layout-fill style="padding-bottom: 32px;" > 
+	
+<div  md-whiteframe="{{height}}" 
+	layout="column" layout-align="center center"
 	ng-init="height = 1" ng-mouseenter="height = 24"
 	ng-mouseleave="height = 5"
-	ng-repeat=" diaria in diariaCtrl.diarias | filter : buscar | orderBy : 'id'">
+	>
 
 	<div class="row">		
 		<span data-toggle="modal" title="Informações sobre esta diária." data-target="#informacaoModal" class="btn btn-primary btn-flat"><h3>{{diaria.mes}}</h3></span>
@@ -44,6 +47,8 @@
 			ui-sref="diaria.editar({idDiaria : diaria.id})"><i
 			class="glyphicon glyphicon-edit"></i></a>
 	</div>
+	</div>
+	
 	<!-- INICIO  modal do informaçoes da diaria -->
 <div class="modal fade bs-example-modal-lg modal-primary"
 	id="informacaoModal" tabindex="-1" role="dialog"
@@ -92,6 +97,5 @@
 	</div>
 </div>
 <!-- FIM  modal do informaçoes da diaria -->
-
-
+</div>
 </div>

@@ -106,10 +106,10 @@ public class FuncionarioDiariaService {
 		return valoresDiaraRepository.findByIndiceUfespAndDiaria_id(id, idDiaria);
 	}
 
-	/*public Iterable<FuncionarioDiaria> findByUnidade_idAndDiaria_id(Long id) {
+	public Iterable<FuncionarioDiaria> findByUnidade_idAndDiaria_id(Long id) {
 		return funcionarioDiariaRepository.findByUnidade_idAndDiaria_id(
 				SessionUsuario.getInstance().getUsuario().getFuncionario().getUnidadeAtual().getId(), id);
-	}*/
+	}
 
 	public FuncionarioDiaria findByUnidade_idAndFuncionario_idAndDiaria_id(Long idFuncionario,
 			Long idDiaria) {
@@ -119,6 +119,8 @@ public class FuncionarioDiariaService {
 				throw new MensagemException("Favor Conferir os Dados!!!");
 		}
 		return funcionario; }
+
+
 
 	
 

@@ -65,11 +65,11 @@ public class FuncionarioDiariaRestController {
 		return new ResponseEntity<Iterable<FuncionarioDiaria>>(funcionarioDiaria, HttpStatus.OK);
 	}
 	
-/*	@GetMapping(value="/{id}/funcionarios")
+  @GetMapping(value="/{id}/funcionarios")
 	public ResponseEntity<Iterable<FuncionarioDiaria>> funcionariosPorDiaria(@PathVariable Long id){
 		Iterable<FuncionarioDiaria> funcionarioDiaria = funcionarioDiariaService.findByUnidade_idAndDiaria_id(id);
 		return new ResponseEntity<Iterable<FuncionarioDiaria>>(funcionarioDiaria, HttpStatus.OK);
-	}*/
+	}
 	
 	@GetMapping(value="/{idFuncionario}/diaria/{idDiaria}")
 	public ResponseEntity<FuncionarioDiaria> buscarFuncionario(@PathVariable Long idFuncionario, @PathVariable Long idDiaria){

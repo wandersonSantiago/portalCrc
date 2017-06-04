@@ -1,38 +1,37 @@
 <meta charset="UTF-8">
-			    <md-nav-bar
-			      md-selected-nav-item="currentNavItem"
-			      nav-bar-aria-label="navigation links">
-			      <md-nav-item md-nav-click="ramalCtrl.buscarTodasUnidades()" name="page1">
-			        TODOS
-			      </md-nav-item>
-			      <md-nav-item md-nav-click="ramalCtrl.buscarUnidades('CDP')" name="page2">
-			        CDP
-			      </md-nav-item>
-			      <md-nav-item md-nav-click="ramalCtrl.buscarUnidades('CPP')" name="page3">
-			        CPP
-			      </md-nav-item>
-			      <md-nav-item md-nav-click="ramalCtrl.buscarUnidades('CR')" name="page4">
-			        CR
-			      </md-nav-item>
-			      <md-nav-item md-nav-click="ramalCtrl.buscarUnidades('PENITENCIARIA')" name="page5">
-			        PENITENCIARIA
-			      </md-nav-item>     
-			    </md-nav-bar>
-			
-			<br>
-					<div class="col-sm-12">
-						<input  class="form-control" placeholder="Busca..." ng-model="busca"> 
-					</div>
-					<br>
-					<div ng-repeat="unidade in ramalCtrl.unidades | filter : busca ">							    	         						
-						    <div class="col-sm-3">
-						      <md-card>
-						        <md-card-title>
-						          <md-card-title-text>
-						          <md-button ui-sref="ramal.unidades({idUnidade : unidade.id})">{{unidade.dadosUnidade.mnemonico}}</md-button>
-						          </md-card-title-text>
-						        </md-card-title>						        
-						      </md-card>
-						      </div>												     	  
-					</div>	
-			
+<md-nav-bar md-selected-nav-item="currentNavItem"
+	nav-bar-aria-label="navigation links"> <md-nav-item
+	md-nav-click="ramalCtrl.buscarTodasUnidades()" name="page1">
+TODOS </md-nav-item> <md-nav-item md-nav-click="ramalCtrl.buscarUnidades('CDP')"
+	name="page2"> CDP </md-nav-item> <md-nav-item
+	md-nav-click="ramalCtrl.buscarUnidades('CPP')" name="page3">
+CPP </md-nav-item> <md-nav-item md-nav-click="ramalCtrl.buscarUnidades('CR')"
+	name="page4"> CR </md-nav-item> <md-nav-item
+	md-nav-click="ramalCtrl.buscarUnidades('PENITENCIARIA')" name="page5">
+PENITENCIARIA </md-nav-item> </md-nav-bar>
+
+<br>
+<div class="row">
+<div class="col-sm-3">
+	<input class="form-control" placeholder="Pesquisar" ng-model="busca">
+</div>
+</div>
+<br>
+<div class="row">
+<div ng-repeat="unidade in ramalCtrl.unidades | filter : busca ">
+	<div class="col-sm-4" flex-sm="45" flex-gt-sm="35" flex-gt-md="25"
+		layout-padding layout-wrap layout-fill style="padding-bottom: 32px;">
+
+		<div md-whiteframe="{{height}}" layout="column"
+			layout-align="center center" ng-init="height = 1"
+			ng-mouseenter="height = 24" ng-mouseleave="height = 4">
+			<div class="row">
+				<md-button ui-sref="ramal.unidades({idUnidade : unidade.id})">{{unidade.dadosUnidade.mnemonico}}</md-button>
+
+			</div>
+		</div>
+	
+	</div>
+
+</div>
+</div>

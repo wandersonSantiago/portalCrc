@@ -792,5 +792,16 @@ function ItemDiariaSecretariaListController($stateParams, $state, ItemDiariaServ
 
 function ItemDiariaShowController($stateParams, $state, ItemDiariaService,
 		toastr, $rootScope, $scope) {
-
+	var self = this;
+	var idFuncionario = $stateParams.idFuncionarioDiaria;
+	
+	buscarItensDiariaPorFuncionarioDiaria(idFuncionario);
+	
+	function buscarItensDiariaPorFuncionarioDiaria(id) {
+		ItemDiariaService.buscarItensDiariaPorFuncionarioDiaria(id).then(
+				function(f) {
+					$scope.itens = f;
+				}, function(errResponse) {				
+				});
+	};
 }

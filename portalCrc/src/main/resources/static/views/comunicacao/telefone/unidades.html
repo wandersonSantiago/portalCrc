@@ -19,20 +19,26 @@
 			      </md-nav-item>     
 			    </md-nav-bar>
 			
-			<br>
-					<div class="col-sm-12">
+			<br><div class="row"> 
+			<div class="col-sm-3">
 						<input  class="form-control" placeholder="Busca..." ng-model="busca"> 
 					</div>
-					<br>
-					<div ng-repeat="unidade in foneCtrl.unidades | filter : busca ">							    	         						
-						    <div class="col-sm-3">
-						      <md-card>
-						        <md-card-title>
-						          <md-card-title-text>
-						          <md-button ui-sref="telefone.unidades({idUnidade : unidade.id})">{{unidade.dadosUnidade.mnemonico}}</md-button>
-						          </md-card-title-text>
-						        </md-card-title>						        
-						      </md-card>
-						      </div>												     	  
+			
+			</div>					
+					<br><br>
+					<div ng-repeat="unidade in foneCtrl.unidades | filter : busca ">
+					<div  class="col-sm-4" flex-sm="45" flex-gt-sm="35" flex-gt-md="25" layout-padding layout-wrap layout-fill style="padding-bottom: 32px;" > 
+		
+						<div md-whiteframe="{{height}}" 
+						layout="column" layout-align="center center" ng-init="height = 1"
+						ng-mouseenter="height = 24" ng-mouseleave="height = 4">
+							<div class="row">
+								<md-button ui-sref="telefone.unidades({idUnidade : unidade.id})">{{unidade.dadosUnidade.mnemonico}}</md-button>
+							          
+	
+							</div>		
+						</div>	<br><br>			    	         						
+						 										     	  
 					</div>	
+					</div>
 			

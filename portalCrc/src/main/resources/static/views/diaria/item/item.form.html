@@ -1,22 +1,34 @@
 <meta charset="UTF-8">
 <div class="col-sm-12 ">
-	<form role="form-vertical" name="formDiaria"
-		ng-submit="ctrl.submit()">
-		<br>Nome:
-		{{ctrl.funcionario.contaFuncionario.funcionario.pessoa.nomeCompleto}}
+	<form role="form-vertical" name="formDiaria" ng-submit="ctrl.submit()">
+		<br>
+		<div class="row ">
+			<div class="col-sm-6 ">
+				Nome:{{ctrl.funcionario.contaFuncionario.funcionario.pessoa.nomeCompleto}}
+			</div>
+			<div class="col-sm-6 ">
+				Total:{{ctrl.funcionario.totalValorDiaria | currency}}</div>
+		</div>
 		<div class="row ">
 			<br> <span class="input-group-btn"> <a type="button"
 				data-toggle="modal" data-target="#informacaoModal"
 				data-whatever="@mdo" class="btn btn-info btn-flat">Informações <i
 					class="glyphicon glyphicon-search"></i></a>
+			</span> <span class="input-group-btn"> <a type="button"
+				data-toggle="modal" data-target="#itensDiariaModal"
+				data-whatever="@mdo" class="btn btn-info btn-flat">Diárias
+					lançadas <i class="glyphicon glyphicon-search"></i>
+			</a>
 			</span>
+
 		</div>
 		<br>
 		<div class="row">
 			<div class="label-control">Destino</div>
 			<div class="col-sm-4">
 				<div class="input-group margin">
-					<select class="form-control select2" ng-model="ctrl.itemDiaria.estado"
+					<select class="form-control select2"
+						ng-model="ctrl.itemDiaria.estado"
 						ng-change="ctrl.buscarCidades(ctrl.itemDiaria.estado.id)"
 						ng-options="estado.nome for estado in ctrl.estados track by estado.nome">
 						<option ng-value="ctrl.itemDiaria.estado" value="">{{ctrl.itemDiaria.estado.nome}}</option>
@@ -29,7 +41,8 @@
 				<div class="input-group margin">
 					<select class="form-control select2"
 						ng-model="ctrl.itemDiaria.localDeslocamento"
-						ng-options="cidade.nome for cidade in ctrl.cidades track by cidade.nome" required>
+						ng-options="cidade.nome for cidade in ctrl.cidades track by cidade.nome"
+						required>
 						<option ng-value="ctrl.itemDiaria.localDeslocamento" value="">{{ctrl.itemDiaria.localDeslocamento.nome}}</option>
 					</select> <span class="input-group-btn"> <a type="button"
 						class="btn btn-info btn-flat"><i>Cidade</i></a>
@@ -40,7 +53,8 @@
 				<div class="input-group margin">
 					<select class="form-control select2"
 						ng-model="ctrl.itemDiaria.codigoLocalDeslocamento"
-						ng-options="valor.codigo for valor in ctrl.valoresDiaria track by valor.codigo" required>
+						ng-options="valor.codigo for valor in ctrl.valoresDiaria track by valor.codigo"
+						required>
 						<option value=""></option>
 					</select> <span class="input-group-btn"> <a type="button"
 						data-toggle="modal" data-target="#codigoModal"
@@ -53,24 +67,26 @@
 		<div class="row">
 			<div class="label-control">Transporte</div>
 			<div class="col-sm-4">
-			Saída:
+				Saída:
 				<div class="input-group margin">
 					<input type="text" class="form-control text-uppercase"
 						ng-model="ctrl.itemDiaria.meioTransporteSaida.placa" required>
 					<span class="input-group-btn"> <a type="button"
 						class="btn btn-info btn-flat" data-toggle="modal"
-						data-target="#transporteSaidaModal"><i class="fa fa-automobile"></i></a>
+						data-target="#transporteSaidaModal"><i
+							class="fa fa-automobile"></i></a>
 					</span>
 				</div>
 			</div>
 			<div class="col-sm-4">
-			Retorno:
+				Retorno:
 				<div class="input-group margin">
 					<input type="text" class="form-control text-uppercase"
 						ng-model="ctrl.itemDiaria.meioTransporteRetorno.placa" required>
 					<span class="input-group-btn"> <a type="button"
 						class="btn btn-info btn-flat" data-toggle="modal"
-						data-target="#transporteRetornoModal"><i class="fa fa-automobile"></i></a>
+						data-target="#transporteRetornoModal"><i
+							class="fa fa-automobile"></i></a>
 					</span>
 				</div>
 			</div>
@@ -82,9 +98,10 @@
 				Data Saida:
 				<p class="input-group">
 					<input type="text" class="form-control"
+					  	readonly
 						uib-datepicker-popup="{{format}}"
-						ng-model="ctrl.itemDiaria.dataSaida"
-						is-open="saida.opened" ng-required="true" close-text="Close"  required/> <span
+						ng-model="ctrl.itemDiaria.dataSaida" is-open="saida.opened"
+						ng-required="true" close-text="Close" required /> <span
 						class="input-group-btn">
 						<button type="button" class="btn btn-default"
 							ng-click="saidaOpen()">
@@ -104,10 +121,12 @@
 				Data Chegada:
 				<p class="input-group">
 					<input type="text" class="form-control"
+						  readonly
 						uib-datepicker-popup="{{format}}"
-						ng-model="ctrl.itemDiaria.dataChegada" ng-change="ctrl.verificaDataFinal(ctrl.itemDiaria.dataSaida, ctrl.itemDiaria.dataChegada )"
-						is-open="chegada.opened" ng-required="true" close-text="Close" required/>
-					<span class="input-group-btn">
+						ng-model="ctrl.itemDiaria.dataChegada"
+						ng-change="ctrl.verificaDataFinal(ctrl.itemDiaria.dataSaida, ctrl.itemDiaria.dataChegada )"
+						is-open="chegada.opened" ng-required="true" close-text="Close"
+						required /> <span class="input-group-btn">
 						<button type="button" class="btn btn-default"
 							ng-click="chegadaOpen()">
 							<i class="glyphicon glyphicon-calendar"></i>
@@ -118,9 +137,8 @@
 
 			<div class="col-sm-1">Horário Chegada:</div>
 			<div class="col-sm-2">
-				<div uib-timepicker
-					ng-model="ctrl.itemDiaria.horaChegada" hour-step="1"
-					minute-step="1" show-meridian="false"></div>
+				<div uib-timepicker ng-model="ctrl.itemDiaria.horaChegada"
+					hour-step="1" minute-step="1" show-meridian="false"></div>
 			</div>
 		</div>
 		<div class="row ">
@@ -132,8 +150,8 @@
 		</div>
 		<div class="row ">
 			<br> <span class="input-group-btn"> <a type="button"
-				data-toggle="modal" data-target="#passagemModal" data-whatever="@mdo"
-				class="btn btn-info btn-flat">Passagem<i
+				data-toggle="modal" data-target="#passagemModal"
+				data-whatever="@mdo" class="btn btn-info btn-flat">Passagem<i
 					class="fa fa-bus"></i></a>
 			</span>
 		</div>
@@ -142,8 +160,7 @@
 			<div class="col-sm-4"></div>
 			<div class="col-sm-4">
 				<input type="submit" id="submit"
-					ng-disabled="ctrl.listaDiariaItens < 1"
-					value="Adicionar"
+					ng-disabled="ctrl.listaDiariaItens < 1" value="Adicionar"
 					class="btn btn-lg btn-primary btn-block btn-signin">
 			</div>
 		</div>
@@ -251,8 +268,7 @@
 					<div class="col-sm-6">
 						<h3>Data Abertura:</h3>
 						<br>
-						<h4>{{ctrl.diaria.dataAbertura | date :
-							'dd/MM/yyyy'}}</h4>
+						<h4>{{ctrl.diaria.dataAbertura | date : 'dd/MM/yyyy'}}</h4>
 					</div>
 					<div class="col-sm-6">
 						<h3>Valor UFESP:</h3>
@@ -288,7 +304,8 @@
 			<div class="modal-body">
 				<div class="form-group">
 					<label for="message-text" class="control-label">Motivo:</label>
-					<textarea class="form-control text-uppercase" ng-model="ctrl.itemDiaria.motivo" id="message-text"></textarea>
+					<textarea class="form-control text-uppercase"
+						ng-model="ctrl.itemDiaria.motivo" id="message-text"></textarea>
 				</div>
 			</div>
 			<div class="modal-footer">
@@ -309,25 +326,27 @@
 					aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
-				<h4 class="modal-title" id="exampleModalLabel">Adicione os dados da passagem</h4>
+				<h4 class="modal-title" id="exampleModalLabel">Adicione os
+					dados da passagem</h4>
 			</div>
 			<div class="modal-body">
 				<div class="form-group">
-				Valor da Passagem
-				<div class="input-group margin col-sm-3">
-					<input  type="text" class="form-control select2"
-						ng-model="ctrl.itemDiaria.valorPassagem" ui-money-mask>
-						 <span class="input-group-btn"> <a type="button"
-						class="btn btn-info btn-flat"><i>R$</i></a>
-					</span>				
-				</div>
-				
+					Valor da Passagem
+					<div class="input-group margin col-sm-3">
+						<input type="text" class="form-control select2"
+							ng-model="ctrl.itemDiaria.valorPassagem" ui-money-mask> <span
+							class="input-group-btn"> <a type="button"
+							class="btn btn-info btn-flat"><i>R$</i></a>
+						</span>
+					</div>
+
 					<label for="message-text" class="control-label">Observações:</label>
-					<textarea class="form-control text-uppercase" ng-model="ctrl.itemDiaria.obsPassagem" id="message-text"></textarea>
-				
-				
-				
-			</div>
+					<textarea class="form-control text-uppercase"
+						ng-model="ctrl.itemDiaria.obsPassagem" id="message-text"></textarea>
+
+
+
+				</div>
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-primary" data-dismiss="modal">Adicionar</button>
@@ -368,8 +387,7 @@
 					<div class="col-sm-4" ng-if="ctrl.coordenadoria">
 						<!-- tipo unidade -->
 						<div class="input-group margin">
-							<select class="form-control select2"
-								ng-model="ctrl.tipo"
+							<select class="form-control select2" ng-model="ctrl.tipo"
 								ng-change="ctrl.buscarUnidades(ctrl.tipo.id)"
 								ng-options="tipo.descricao for tipo in ctrl.tiposUnidade">
 								<option value=""></option>
@@ -382,8 +400,7 @@
 					<div class="col-sm-4" ng-if="ctrl.tipo">
 						<!-- unidade -->
 						<div class="input-group margin">
-							<select class="form-control select2"
-								ng-model="ctrl.unidade"
+							<select class="form-control select2" ng-model="ctrl.unidade"
 								ng-change="ctrl.buscarVeiculos(ctrl.unidade.id)"
 								ng-options="unidade.dadosUnidade.mnemonico for unidade in ctrl.unidades ">
 								<option value=""></option>
@@ -409,7 +426,7 @@
 				</div>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-primary" data-dismiss="modal">Adicionar</button>			
+				<button type="button" class="btn btn-primary" data-dismiss="modal">Adicionar</button>
 			</div>
 		</div>
 	</div>
@@ -447,8 +464,7 @@
 					<div class="col-sm-4" ng-if="ctrl.coordenadoria">
 						<!-- tipo unidade -->
 						<div class="input-group margin">
-							<select class="form-control select2"
-								ng-model="ctrl.tipo"
+							<select class="form-control select2" ng-model="ctrl.tipo"
 								ng-change="ctrl.buscarUnidades(ctrl.tipo.id)"
 								ng-options="tipo.descricao for tipo in ctrl.tiposUnidade">
 								<option value=""></option>
@@ -461,8 +477,7 @@
 					<div class="col-sm-4" ng-if="ctrl.tipo">
 						<!-- unidade -->
 						<div class="input-group margin">
-							<select class="form-control select2"
-								ng-model="ctrl.unidade"
+							<select class="form-control select2" ng-model="ctrl.unidade"
 								ng-change="ctrl.buscarVeiculos(ctrl.unidade.id)"
 								ng-options="unidade.dadosUnidade.mnemonico for unidade in ctrl.unidades ">
 								<option value=""></option>
@@ -488,9 +503,72 @@
 				</div>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-primary" data-dismiss="modal">Adicionar</button>			
+				<button type="button" class="btn btn-primary" data-dismiss="modal">Adicionar</button>
 			</div>
 		</div>
 	</div>
 </div>
 <!-- FIM  modal do meio de Transporte Retorno-->
+<!-- INICIO  modal itens lançados-->
+<div class="modal fade bs-example-modal-lg modal-info"
+	id="itensDiariaModal" tabindex="-1" role="dialog"
+	aria-labelledby="exampleModalLabel">
+	<div class="modal-dialog modal-lg" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				<h4 class="modal-title" id="exampleModalLabel">Diarias lançadas</h4>
+			</div>
+			<div class="modal-body"></div>
+			<div class="col-sm-3">
+				<input class="form-control" type="text" placeholder="Pesquisar..."
+					ng-model="buscar">
+			</div>
+
+			<table class="table table-hover table-bordered">
+				<thead>
+					<tr>
+						<td>Localidade</td>
+						<td>Data Saida</td>
+						<td>Data Chegada</td>
+						<td>Hora Saída</td>
+						<td>Hora Chegada</td>
+						<td>Valor</td>
+						<td>Transp. saida</td>
+						<td>Transp. retorno</td>
+						<td>Codigo Desl.</td>
+
+					</tr>
+				</thead>
+				<tbody
+					ng-repeat=" item in itens | filter : buscar |  orderBy : '-id'">
+					<tr>
+						<td>{{ item.localDeslocamento.nome }}</td>
+						<td>{{ item.dataSaida | date : 'dd/MM/yyyy'}}</td>
+						<td>{{ item.dataChegada | date : 'dd/MM/yyyy'}}</td>
+						<td>{{ item.horaSaida | date : 'HH:mm'}}</td>
+						<td>{{ item.horaChegada | date : 'HH:mm'}}</td>
+						<td>{{ item.valorDiaria | currency }}</td>
+						<td>{{ item.meioTransporteSaida }}</td>
+						<td>{{ item.meioTransporteRetorno}}</td>
+						<td>{{ item.codigoLocalDeslocamento.codigo }}</td>
+						<td ng-if="ctrl.editar"><a
+							ui-sref="item.editar({idItem : item.id})" title="teste"><i
+								class="glyphicon glyphicon-edit"></i></a></td>
+						<td ng-if="ctrl.editar"><a href=""
+							ng-click="ctrl.excluir(item)"><i
+								class="glyphicon glyphicon-remove"></i></a></td>
+					</tr>
+				</tbody>
+			</table>
+
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- FIM  modal itens lançados-->

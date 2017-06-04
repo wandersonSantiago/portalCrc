@@ -7,7 +7,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
 			templateUrl : 'views/comunicacao/comunicacao.index.html',
 			ncyBreadcrumb: {			
 			 	parent: 'home.menu',
-				    label: 'comunicacao'
+				    label: 'Comunicacao'
 				  }
 		})
 		.state('comunicacao.menu', {
@@ -15,7 +15,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
 			templateUrl : "views/comunicacao/home.html",
 			ncyBreadcrumb: {				
 				 	parent: 'comunicacao',
-				    label: 'menu'
+				    label: 'Menu comunicação'
 				  }
 		})	
 		
@@ -24,7 +24,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
 			templateUrl : "views/comunicacao/telefone/telefone.form.html",
 			ncyBreadcrumb: {
 				 	parent: 'comunicacao.menu',
-				    label: 'telefone '
+				    label: 'Telefone '
 				  }
 		})	
 		.state('comunicacao.ramal', {
@@ -32,7 +32,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
 			templateUrl : "views/comunicacao/ramal/ramal.form.html",
 			ncyBreadcrumb: {
 				 	parent: 'comunicacao.menu',
-				    label: 'ramal '
+				    label: 'Ramal '
 				  }
 		})	
 });
