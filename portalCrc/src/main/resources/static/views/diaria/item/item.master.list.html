@@ -1,56 +1,61 @@
 <meta charset="UTF-8">
 <div class="table-responsive">
-
-	<button ng-json-export-excel data="listaDiariaExcel"
+<div class="row">
+<div class="col-sm-3">
+	<h2>
+		Relatório
+	</h2>
+</div>
+</div>
+<br>
+<div class="row">
+	<div class="col-sm-3">
+		<input class="form-control" placeholder="Pesquisar..." type="text" ng-model="buscar">
+	</div>
+	<div class="col-sm-8"></div>
+	<div class="col-sm-1">
+		<button ng-json-export-excel data="listaDiariaExcel"
 		report-fields="{nome: 'Favorecido', cargo:'Cargo', unidadeLotado: 'Unidade Lotado', dataSaida: 
 		'Data  Saida', dataChegada: 'Data  Retorno' , localDeslocamento: 'Destino', motivo: 'Motivo', valorDiaria: 'Valor Diária', valorPassagem: 'Valor Passagem' }"
 		filename="'lista diaria Unidade'" class="btn-sm btn-primary">Exportar
 		Excel</button>
+	</div>
+	
+</div>
+
+<br>
+
+	
 
 
-	<hr>
-	<input class="form-control" type="text" placeholder="Pesquisar..."
-		ng-model="buscar">
+	
 	<table class="table table-hover table-bordered">
 		<thead>
 			<tr>
-				<th>Favorecido</th>
-				<th>Cargo</th>
-				<th>Unidade Lotado</th>
-				<th>Data Saida</th>
-				<th>Data Retorno</th>
-				<th>Destino</th>
-				<th>Motivo</th>
-				<th>Valor da Diária</th>
-				<th>Valor da Passagem</th>
-				<th ng-if="diaria.diaria.status == 'ABERTO'">Editar</th>
+				<th class="btn btn-success btn-flat col-sm-2"><md-button  ><h5>Favorecido</h5></md-button> </th>
+				<th class="btn btn-success btn-flat col-sm-2"><md-button  ><h5>Cargo</h5></md-button> </th>
+				<th class="btn btn-success btn-flat col-sm-2"><md-button  ><h5>Unidade</h5></md-button> </th>
+				<th class="btn btn-success btn-flat col-sm-1"><md-button  ><h5>Saida</h5></md-button> </th>
+				<th class="btn btn-success btn-flat col-sm-1"><md-button  ><h5>Retorno</h5></md-button> </th>
+				<th class="btn btn-success btn-flat col-sm-1"><md-button  ><h5>Localidade</h5></md-button> </th>
+				<th class="btn btn-success btn-flat col-sm-1"><md-button  ><h5>Motivo</h5></md-button> </th>
+				<th class="btn btn-success btn-flat col-sm-1"><md-button  ><h5>Diaria</h5></md-button> </th>
+				<th class="btn btn-success btn-flat col-sm-1"><md-button  ><h5>Passagem</h5></md-button> </th>
 
 			</tr>
 		</thead>
 		<tbody
 			ng-repeat=" diaria in ctrl.itens | filter : busca |  orderBy : '-id'">
 			<tr>
-				<td>{{
-					diaria.funcionarioDiaria.contaFuncionario.funcionario.pessoa.nomeCompleto
-					}}</td>
-				<td>{{
-					diaria.funcionarioDiaria.contaFuncionario.funcionario.cargoAtual.descricao
-					}}</td>
-				<td>{{
-					diaria.funcionarioDiaria.unidade.dadosUnidade.mnemonico}}</td>
+				<td>{{diaria.funcionarioDiaria.contaFuncionario.funcionario.pessoa.nomeCompleto}}</td>
+				<td>{{diaria.funcionarioDiaria.contaFuncionario.funcionario.cargoAtual.descricao}}</td>
+				<td>{{diaria.funcionarioDiaria.unidade.dadosUnidade.mnemonico}}</td>
 				<td>{{ diaria.dataSaida | date : 'dd/MM/yyyy'}}</td>
 				<td>{{ diaria.dataChegada | date : 'dd/MM/yyyy'}}</td>
 				<td>{{ diaria.localDeslocamento.nome }}</td>
 				<td>{{ diaria.motivo }}</td>
 				<td>{{ diaria.valorDiaria | currency}}</td>
 				<td>{{ diaria.valorPassagem | currency}}</td>
-				<td ng-if="diaria.diaria.status == 'ABERTO'"><a title="teste"
-					ui-sref="item.editar({idItem : diaria.id})"><i
-						class="glyphicon glyphicon-edit"></i></a></td>
-				<td ng-if="diaria.diaria.status == 'ABERTO'"><a href=""
-					ng-click="itemCtrl.excluir(diaria)"><i
-						class="glyphicon glyphicon-remove"></i></a></td>
-
 			</tr>
 
 		</tbody>

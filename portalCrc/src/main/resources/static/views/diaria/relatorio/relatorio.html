@@ -1,39 +1,54 @@
 <meta charset="UTF-8">
-		<div class="table-responsive"  >
+<div class="row">
+<div class="col-sm-3">
+	<h2>
+		Relatório
+	</h2>
+</div>
+</div>
+<br>
+<div class="col-sm-4">
+<input class="form-control" type="text" placeholder="Pesquisar..."
+	ng-model="buscar">
+</div>
 
-		<input class="form-control" type="text" placeholder="Pesquisar..." ng-model="buscar" >
-			<table class="table table-hover table-bordered">
-				<thead>
-					<tr>		
-					<th>Ano Referencia</th>
-					<th>Mês Referencia</th>	
-					<th>Status</th>										
-					</tr>
-				</thead>
-				<tbody
-					ng-repeat=" diaria in diariaCtrl.listaDiarias | filter : buscar | orderBy : '-id' ">
-					<tr>
-					<td>{{ diaria.dataAbertura | date : 'yyyy'}}</td>
-					<td>{{diaria.mes}}</td>
-					<td>{{diaria.status}}</td>					
-					<td title="Relatório da Unidade"><a ui-sref="item.unidade({idDiaria : diaria.id})"><i class="glyphicon glyphicon-list-alt"></i></a> 		
-					<td title="Relatório da Coordenadoria"><a ui-sref="item.coordenadoria({idDiaria : diaria.id})"><i class="glyphicon glyphicon-list-alt"></i></a> 		
-					<td title="Relatório da Secretaria"><a ui-sref="item.secretaria({idDiaria : diaria.id})"><i class="glyphicon glyphicon-list-alt"></i></a> 		
-														
-					</tr>							
-				</tbody>
-				<tfoot>
-					<tr>
-					</tr>
-				</tfoot>
-			</table>
-			</div>
-			<div class="row">
+<br>
+<br>
+<br>
+<div class="row" ng-repeat=" diaria in diariaCtrl.listaDiarias | filter : buscar | orderBy : 'id'">
+<div class="col-sm-6"  flex-sm="45" flex-gt-sm="35" flex-gt-md="50" layout-padding layout-wrap layout-fill style="padding-bottom: 32px;" > 	
+<div  md-whiteframe="{{height}}" 
+	layout="column" layout-align="center center"
+	ng-init="height = 1" ng-mouseenter="height = 24"
+	ng-mouseleave="height = 5">
+	
+	<div class="row">		
+		<span data-toggle="modal" title="Informações sobre esta diária." data-target="#informacaoModal"
+		ng-model="diaria"  ng-click="diariaCtrl.informacaoModal(diaria)"  class="btn btn-success btn-flat"><h3>{{diaria.mes}}</h3></span>
+	</div>
+	<br>
+	<div class="row">
+		   <a
+			class="btn btn-info btn-flat"  title="Relatório diaria para unidades"
+			ui-sref="item.unidade({idDiaria : diaria.id})"><i
+			class="glyphicon glyphicon-list-alt"></i></a> 
+			<a
+			class="btn btn-info btn-flat" title="Relatório diaria para coordenadorias"
+			ui-sref="item.coordenadoria({idDiaria : diaria.id})"><i
+			class="glyphicon glyphicon-list-alt"></i></a> 
+			<a
+			class="btn btn-info btn-flat" title="Relatório diaria para secretarias"
+			ui-sref="item.secretaria({idDiaria : diaria.id})"><i
+			class="glyphicon glyphicon-list-alt"></i></a>			
+	</div>
+	</div>
+</div>	
+</div>	
+	<div class="row">
 				<div class="col-sm-5"></div>				
 				<div class="2">				
 					<nav>
-						<ul class="pagination">
-						
+						<ul class="pagination">						
 							<li class="{{0==diariaCtrl.getPage ?'disabled':''}}"><a
 								ng-if="0!=diariaCtrl.getPage" ng-click="diariaCtrl.lista(diariaCtrl.getPage -1, maxResults)"
 								aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
@@ -48,11 +63,64 @@
 									aria-hidden="true">&raquo;</span>
 							</a> <a ng-if="diariaCtrl.getPage+1==totalPages" aria-label="Next"> <span
 									aria-hidden="true">&raquo;</span>
-							</a></li>
-							
+							</a></li>							
 						</ul>
 					</nav>
 				</div>
 			</div>
+			
+	
+	<!-- INICIO  modal do informaçoes da diaria -->
+<div class="modal fade bs-example-modal-lg modal-primary"
+	id="informacaoModal" tabindex="-1" role="dialog"
+	aria-labelledby="exampleModalLabel">
+	<div class="modal-dialog modal-lg" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				<h4 class="modal-title" id="exampleModalLabel">Diária
+					{{info.mes}}</h4>
+			</div>
+			<div class="modal-body">
+				<div class="row">
+					<br>
+					<div class="col-sm-12">
+						<h3>Observação:</h3>
+						<br>
+						<h4>{{info.observacao}}</h4>
+					</div>
+				</div>
+				<br>
+				<div class="row">
+					<div class="col-sm-6">
+						<h3>Data Abertura:</h3>
+						<br>
+						<h4>{{info.dataAbertura | date :
+							'dd/MM/yyyy'}}</h4>
+					</div>
+					<div class="col-sm-6">
+						<h3>Valor UFESP:</h3>
+						<br>
+						<h4>{{info.valorUfesp | currency}}</h4>
+					</div>
+				</div>
+				<br>
+				<hr>
+				<br>
+			</div>
+			<div class="modal-footer ">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- FIM  modal do informaçoes da diaria -->
+
+
+		
+			
 		
 	

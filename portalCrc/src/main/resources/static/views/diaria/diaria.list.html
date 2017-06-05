@@ -20,7 +20,8 @@
 	>
 
 	<div class="row">		
-		<span data-toggle="modal" title="Informações sobre esta diária." data-target="#informacaoModal" class="btn btn-primary btn-flat"><h3>{{diaria.mes}}</h3></span>
+		<span data-toggle="modal" title="Informações sobre esta diária." data-target="#informacaoModal" 
+		ng-model="diaria"  ng-click="diariaCtrl.informacaoModal(diaria)" class="btn btn-primary btn-flat"><h3>{{diaria.mes}}</h3></span>
 
 	</div>
 	<br>

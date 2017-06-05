@@ -3,6 +3,8 @@ package br.com.portalCrc.web.controller.diaria;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -54,10 +56,10 @@ public class ContaFuncionarioDiariaRestController {
 		return new ResponseEntity<Iterable<ContaFuncionarioDiaria>>(contaFuncionarioDiaria, HttpStatus.OK);
 	}
 	
-	@GetMapping(value = "/buscar")
+	/*@GetMapping(value = "/buscar")
 	public ResponseEntity<?> buscar(@RequestParam("q")String texto) {
 			return new ResponseEntity<List<ContaFuncionarioDiaria>>(contaFuncionarioDiariaService.buscar(texto), HttpStatus.OK);
-	}
+	}*/
 	
 	@GetMapping(value="/listaCoordenadoria/{id}")
 	public ResponseEntity<Iterable<ContaFuncionarioDiaria>> listaCoordenadoria(@PathVariable Long id){
@@ -80,5 +82,9 @@ public class ContaFuncionarioDiariaRestController {
 		public ResponseEntity<ContaFuncionarioDiaria> buscarPorIdFuncionario(@PathVariable Long id) {
 			return new ResponseEntity<ContaFuncionarioDiaria>(contaFuncionarioDiariaService.findByFuncionario_id(id), HttpStatus.OK);
 	 }
+	 @GetMapping(value = "/buscar")
+		public ResponseEntity<?> buscar(@RequestParam("q")String texto) {
+		 return new ResponseEntity<List<ContaFuncionarioDiaria>>(contaFuncionarioDiariaService.buscar(texto), HttpStatus.OK);
+		}
 
 }

@@ -18,12 +18,11 @@
 </div>
 <br>
 
-<div class="padded" md-whiteframe="{{height}}" flex="100"
+<div ng-if="texto" class="padded" md-whiteframe="{{height}}" flex="100"
 	flex-gt-sm="50" layout="column" layout-align="center center"
-	ng-init="height = 1" ng-mouseenter="height = 24"
-	ng-mouseleave="height = 5"
+	ng-init="height = 1" ng-mouseenter="height = 3"
+	ng-mouseleave="height = 1"
 	ng-repeat="conta in ctrl.contaFuncionarioDiaria | filter: criterioDeBusca | orderBy: 'nome' ">
-
 	<div class="row">
 		<span ng-click="ctrl.cadastrarDiariaFuncionario(conta.funcionario)"
 			class="btn btn-primary btn-flat"><h5>{{conta.funcionario.pessoa.nomeCompleto}}
@@ -33,10 +32,9 @@
 <br>
 <br>
 <div class="row">
-	<h3>
-		<span class=" col-sm-12 form-control label label-success">Diárias
-			cadastradas</span>
-	</h3>
+	
+		<span class="btn btn-success btn-flat col-sm-12"><h3>Diárias cadastradas</h3></span>
+	
 </div>
 <br>
 <div class="row">
@@ -49,18 +47,28 @@
 
 <div class="padded" md-whiteframe="{{height}}" flex="100"
 	flex-gt-sm="100" layout="column" layout-align="center right"
-	ng-init="height = 1" ng-mouseenter="height = 24"
-	ng-mouseleave="height = 5"
+	ng-init="height = 1" ng-mouseenter="height = 3"
+	ng-mouseleave="height = 1"
 	ng-repeat=" diaria in ctrl.itens | filter : buscar |  orderBy : '-id'">
 	 <md-card-actions layout="row" layout-align="home center">
-          <md-button data-toggle="modal" title="Informações sobre esta diária." 
+	 <div class="col-sm-6">
+	 	<md-button data-toggle="modal" title="Informações sobre esta diária." ng-model="diaria"  ng-click="ctrl.informacaoModal(diaria)"
 			data-target="#informacaoModal"><h5>{{diaria.contaFuncionario.funcionario.pessoa.nomeCompleto }}</h5></md-button>
-          <md-button><h5>CPF :{{diaria.contaFuncionario.funcionario.pessoa.cpf}}</h5></md-button>
-           <md-button><h5>Valor total : {{diaria.totalValorDiaria | currency}}</h5></md-button>
-            <md-button class="md-raised md-primary" title="Continuar lançando"	ng-click="ctrl.cadastrarDiariaFuncionario(diaria.contaFuncionario.funcionario )"><h5>Lançar</h5></md-button>
-        </md-card-actions>
- 
-	<!-- INICIO  modal do informaçoes da diaria -->
+	 </div>
+     <div class="col-sm-2">
+   		<md-button><h5>CPF :{{diaria.contaFuncionario.funcionario.pessoa.cpf}}</h5></md-button>
+     </div>     
+     <div class="col-sm-2">
+     	<md-button ui-sref="item.visualizar({idFuncionarioDiaria : diaria.id})"><h5>Valor total : {{diaria.totalValorDiaria | currency}}</h5></md-button>
+     </div>     
+     <div class="col-sm-2">
+     	<md-button class="md-raised md-primary" title="Continuar lançando"	ng-click="ctrl.cadastrarDiariaFuncionario(diaria.contaFuncionario.funcionario )"><h5>Lançar</h5></md-button>
+     </div>      
+    </md-card-actions>
+
+</div>
+
+<!-- INICIO  modal do informaçoes da diaria -->
 	<div class="modal fade bs-example-modal-lg modal-primary"
 		id="informacaoModal" tabindex="-1" role="dialog"
 		aria-labelledby="exampleModalLabel">
@@ -72,7 +80,7 @@
 						<span aria-hidden="true">&times;</span>
 					</button>
 					<h4 class="modal-title" id="exampleModalLabel">Diária
-						{{diaria.diaria.mes}}</h4>
+						{{item.diaria.mes}}</h4>
 				</div>
 				<div class="modal-body">
 					<div class="row">
@@ -80,7 +88,7 @@
 						<div class="col-sm-12">
 							<h3>Observação:</h3>
 							<br>
-							<h4>{{diaria.diaria.observacao}}</h4>
+							<h4>{{item.diaria.observacao}}</h4>
 						</div>
 					</div>
 					<br>
@@ -88,12 +96,12 @@
 						<div class="col-sm-6">
 							<h3>Data Abertura:</h3>
 							<br>
-							<h4>{{diaria.diaria.dataAbertura | date : 'dd/MM/yyyy'}}</h4>
+							<h4>{{item.diaria.dataAbertura | date : 'dd/MM/yyyy'}}</h4>
 						</div>
 						<div class="col-sm-6">
 							<h3>Valor UFESP:</h3>
 							<br>
-							<h4>{{diaria.diaria.valorUfesp | currency}}</h4>
+							<h4>{{item.diaria.valorUfesp | currency}}</h4>
 						</div>
 					</div>
 					<br>
@@ -102,12 +110,12 @@
 						<div class="col-sm-6">
 							<h3>lançamento realizado por:</h3>
 							<br>
-							<h4>{{diaria.usuarioCadastro.funcionario.pessoa.nomeCompleto}}</h4>
+							<h4>{{item.usuarioCadastro.funcionario.pessoa.nomeCompleto}}</h4>
 						</div>
 						<div class="col-sm-6">
 							<h3>Setor:</h3>
 							<br>
-							<h4>{{diaria.usuarioCadastro.funcionario.setorAtual.nome}}</h4>
+							<h4>{{item.usuarioCadastro.funcionario.setorAtual.nome}}</h4>
 						</div>
 					</div>
 					
@@ -120,6 +128,3 @@
 		</div>
 	</div>
 	<!-- FIM  modal do informaçoes da diaria -->
-
-
-</div>

@@ -12,7 +12,8 @@
 		layout="column" layout-align="center center" ng-init="height = 1"
 		ng-mouseenter="height = 24" ng-mouseleave="height = 4">
 		<div class="row">
-			<span data-toggle="modal" title="Informações sobre este contato" data-target="#informacaoModal"  class="btn btn-primary btn-flat"><h5>{{telefone.setor.nome}}</h5></span>
+			<span data-toggle="modal" title="Informações sobre este contato" data-target="#informacaoModal"
+			ng-click="foneCtrl.modalInformacao(telefone)"  class="btn btn-primary btn-flat"><h5>{{telefone.setor.nome}}</h5></span>
 		</div><br>
 		<h3>
 			<input class="form-control" ng-model="telefone.telefone"
@@ -20,7 +21,7 @@
 		</h3>
 	</div>
 	</div>	
-
+</div>
 
 	<!-- INICIO  modal do informaçoes da setor -->
 <div class="modal fade bs-example-modal-lg modal-primary"
@@ -37,7 +38,7 @@
 					</h4>
 			</div>
 			<div class="modal-body">
-				{{telefone.descricao}}
+				{{descricao}}
 					
 			</div>
 			<div class="modal-footer ">
@@ -47,4 +48,3 @@
 	</div>
 </div>
 <!-- FIM  modal do informaçoes setor -->
-</div>

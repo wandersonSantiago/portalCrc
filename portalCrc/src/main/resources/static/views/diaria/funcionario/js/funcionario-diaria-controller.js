@@ -23,6 +23,7 @@ function ListarFuncionarioDiariaController($state, $stateParams,FuncionarioDiari
 	
 	self.buscarPorTexto = buscarPorTexto;
 	self.cadastrarDiariaFuncionario = cadastrarDiariaFuncionario;	
+	self.informacaoModal = informacaoModal;
 	var idDiaria = $stateParams.idDiaria;
 
 	buscarFuncionarioPorDiariaPorId(idDiaria);
@@ -37,7 +38,6 @@ function ListarFuncionarioDiariaController($state, $stateParams,FuncionarioDiari
 				});
 		};
 		
-	
 	function buscarFuncionarioPorDiariaPorId(id) {
 		FuncionarioDiariaService.buscarFuncionarioPorDiariaPorId(id).then(
 				function(p) {
@@ -46,6 +46,10 @@ function ListarFuncionarioDiariaController($state, $stateParams,FuncionarioDiari
 				});
 	}
 	;
+	
+	function informacaoModal(diaria){
+		$scope.item = diaria;
+	}
 	
 		
 	function cadastrarDiariaFuncionario(funcionario){
@@ -287,6 +291,11 @@ function FuncionarioDiariaUnidadeListarController($stateParams, $state, Funciona
 	$scope.listaDiariaExcel = [];
 	listar(idDiaria);
 
+	self.informacaoModal = informacaoModal;
+	
+	function informacaoModal(diaria){
+		$scope.item = diaria;
+	}
 	function listar(idDiaria) {
 		FuncionarioDiariaService.porUnidade(idDiaria).then(function(f) {
 			self.itens = f;
@@ -330,6 +339,11 @@ function FuncionarioDiariaCoordenadoriaListarController($stateParams, $state, Fu
 	var idDiaria = $stateParams.idDiaria;
 	$scope.listaDiariaExcel = [];
 	listar(idDiaria);
+	self.informacaoModal = informacaoModal;
+	
+	function informacaoModal(diaria){
+		$scope.item = diaria;
+	}
 
 	function listar(idDiaria) {
 		FuncionarioDiariaService.porCoordenadoria(idDiaria).then(function(f) {
@@ -375,7 +389,11 @@ function FuncionarioDiariaSecretariaListarController($stateParams, $state, Funci
 	var idDiaria = $stateParams.idDiaria;
 	$scope.listaDiariaExcel = [];
 	listar(idDiaria);
-
+	self.informacaoModal = informacaoModal;
+	
+	function informacaoModal(diaria){
+		$scope.item = diaria;
+	}
 	function listar(idDiaria) {
 		FuncionarioDiariaService.porSecretaria(idDiaria).then(function(f) {
 			self.itens = f;

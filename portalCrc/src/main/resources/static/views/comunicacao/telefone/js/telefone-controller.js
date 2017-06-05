@@ -9,7 +9,7 @@ TelefoneCadastarController.$inject = ['TelefoneService', 'SetorService', 'toastr
 TelefoneEditarController.$inject = ['TelefoneService', 'SetorService', 'toastr', '$state', '$stateParams'];
 TelefoneListarController.$inject = ['TelefoneService', 'toastr'];
 TelefoneCoordenadoriaController.$inject = ['UnidadeService', 'toastr'];
-TelefoneUnidadesController.$inject = ['TelefoneService', 'toastr', '$stateParams', 'UnidadeService'];
+TelefoneUnidadesController.$inject = ['$scope','TelefoneService', 'toastr', '$stateParams', 'UnidadeService'];
 
 
 function TelefoneCadastarController( TelefoneService, SetorService , toastr ){ 
@@ -118,7 +118,7 @@ function TelefoneCoordenadoriaController( UnidadeService, toastr){
 	
 }
 
-function TelefoneUnidadesController( TelefoneService, toastr, $stateParams, UnidadeService){ 
+function TelefoneUnidadesController($scope, TelefoneService, toastr, $stateParams, UnidadeService){ 
 	
 	var self = this;	
 	var idUnidade = $stateParams.idUnidade;
@@ -126,9 +126,12 @@ function TelefoneUnidadesController( TelefoneService, toastr, $stateParams, Unid
 	self.buscarUnidades = buscarUnidades;
 	self.buscarTodasUnidades = buscarTodasUnidades; 
 	
+	self.modalInformacao = function(telefone){
+		$scope.descricao = telefone.descricao;
+	};
 	function buscarTodasUnidades(){
 		buscarUnidadesPorCoordenadorias(idCoordenadoria);
-	}
+	};
 	
 	function buscarUnidades(tipo){
 		 UnidadeService.buscarUnidadesPorTipo(idCoordenadoria, tipo).

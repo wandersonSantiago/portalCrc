@@ -1,20 +1,15 @@
 <meta charset="UTF-8">
-<div class="row">
-		<div class="col-sm-4"></div>
-		<div class="col-sm-4" >
-			<div class="col-sm-3"></div>
-				<img ng-src="{{usuario.caminhoFoto ? usuario.caminhoFoto : '../../../../public/img/avatar_2x.png' }}"
-				 src="public/img/avatar_2x.png" class="img-circle"
-					alt="User Image">
-			</div>			
-			<br>			
-		</div>
 	<br> <br>
 	
 
-	<center> {{usuario.funcionario.pessoa.nomeCompleto}} <br>
-	 {{usuario.funcionario.setorAtual.nome}} <br>
-	 {{usuario.funcionario.unidadeAtual.dadosUnidade.nome}} <br>
+	<center> {{funcionario.contaFuncionario.funcionario.pessoa.nomeCompleto}} <br>
+	 {{funcionario.contaFuncionario.funcionario.setorAtual.nome}} <br>
+	 {{funcionario.contaFuncionario.funcionario.unidadeAtual.dadosUnidade.nome}} <br>
+	 <hr>
+		 {{funcionario.diaria.mes}} <br>
+	 	 {{funcionario.diaria.valorUfesp | currency}} <br>
+	  	 {{funcionario.diaria.dataAbertura | date : 'dd/MM/yyyy'}} <br>
+	  	 {{funcionario.diaria.status}} <br>
 	</center>
 	<div class="row">
 	<h3><span class=" col-sm-12 form-control label label-success">Dados Diaria</span></h3>
@@ -36,6 +31,7 @@
 				<td>Transp. saida</td>
 				<td>Transp. retorno</td>
 				<td>Codigo Desl.</td>
+				<td>Usuario cadastro</td>
 
 			</tr>
 		</thead>
@@ -49,7 +45,8 @@
 				<td >{{ item.valorDiaria | currency }}</td>
 				<td >{{ item.meioTransporteSaida }}</td>
 				<td >{{ item.meioTransporteRetorno}}</td>				
-				<td >{{ item.codigoLocalDeslocamento.codigo }}</td>				
+				<td >{{ item.codigoLocalDeslocamento.codigo }}</td>	
+				<td >{{ item.usuarioCadastro.funcionario.pessoa.nomeCompleto | limitTo:10 }}</td>				
 
 			</tr>
 

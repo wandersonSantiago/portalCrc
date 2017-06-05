@@ -18,6 +18,7 @@ import javax.validation.constraints.NotNull;
 
 import br.com.portalCrc.entity.Cidade;
 import br.com.portalCrc.entity.Estado;
+import br.com.portalCrc.entity.Usuario;
 
 @Entity
 @SequenceGenerator(name = "item_diaria_id_seq", sequenceName = "item_diaria_id_seq", schema="diaria", initialValue = 1, allocationSize = 1)
@@ -90,7 +91,9 @@ public class ItemDiaria {
 	private FuncionarioDiaria funcionarioDiaria;
 	
 	
-	
+	@ManyToOne
+	@JoinColumn(name="id_usuario_cadastro")
+	private Usuario usuarioCadastro;
 
 
 	public Long getId() {
@@ -161,6 +164,14 @@ public class ItemDiaria {
 
 	
 	
+
+	public Usuario getUsuarioCadastro() {
+		return usuarioCadastro;
+	}
+
+	public void setUsuarioCadastro(Usuario usuarioCadastro) {
+		this.usuarioCadastro = usuarioCadastro;
+	}
 
 	public String getMeioTransporteSaida() {
 		return meioTransporteSaida;

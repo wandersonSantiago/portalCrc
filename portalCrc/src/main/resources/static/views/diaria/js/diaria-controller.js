@@ -85,6 +85,13 @@ function DiariaListarController($stateParams, $state, DiariaService, toastr, $ro
 	$scope.maxResults = 15;
 	listar(0 , 12);
 	diariasEmAberto();
+	
+self.informacaoModal = informacaoModal;
+	
+	function informacaoModal(diaria){
+		$scope.info = diaria;
+	}
+	
 	 function listar(pages, maxResults){
 		 	self.totalPages = [];
 			self.getPage=pages;

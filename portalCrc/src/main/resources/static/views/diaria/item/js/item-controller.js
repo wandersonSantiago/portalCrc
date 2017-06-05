@@ -63,7 +63,7 @@ function ItemDiariaCadastrarController($state, ItemDiariaService, $stateParams,
 		}else{
 		ItemDiariaService.salvar(self.itemDiaria).then(
 				function(response) {
-					buscarItensDiariaPorFuncionarioDiaria(self.funcionario.id);
+					buscarFuncionarioDiaria(self.funcionario.contaFuncionario.id);
 					toastr.info("Salvo com Sucesso!!!");
 				}, function(errResponse) {
 					sweetAlert({
@@ -221,7 +221,7 @@ function ItemDiariaCadastrarController($state, ItemDiariaService, $stateParams,
 			confirmButtonText : 'Excluir'
 		}).then(function() {
 			ItemDiariaService.excluir(objeto.id).then(function(response) {
-				buscarItensDiariaPorFuncionarioDiaria(self.funcionario.id);
+				buscarFuncionarioDiaria(self.funcionario.contaFuncionario.id);
 			}, function(errResponse) {
 			});
 
@@ -461,7 +461,7 @@ function ItemDiariaFinancasCadastrarController($state, ItemDiariaService, $state
 			confirmButtonText : 'Excluir'
 		}).then(function() {
 			ItemDiariaService.excluir(objeto.id).then(function(response) {
-				buscarItensDiariaPorFuncionarioDiaria(self.funcionario.id);
+				buscarFuncionarioDiaria(self.funcionario.contaFuncionario.id);
 			}, function(errResponse) {
 			});
 
@@ -801,6 +801,9 @@ function ItemDiariaShowController($stateParams, $state, ItemDiariaService,
 		ItemDiariaService.buscarItensDiariaPorFuncionarioDiaria(id).then(
 				function(f) {
 					$scope.itens = f;
+					for(i = 0 ; i < $scope.itens.length ; i++){
+						$scope.funcionario = $scope.itens[i].funcionarioDiaria;
+					}
 				}, function(errResponse) {				
 				});
 	};

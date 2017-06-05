@@ -23,4 +23,7 @@ public interface ContaFuncionarioDiariaRepository  extends JpaRepository<ContaFu
 
 	List<ContaFuncionarioDiaria> findByFuncionarioPessoaNomeCompletoIgnoreCaseContaining(String texto);
 
+	/*List<ContaFuncionarioDiaria> findByFuncionario_unidadeAtual_idAndFuncionario_pessoa_nomeCompletoIgnoreCaseContainingOrFuncionario_pessoa_cpfContaining(
+			Long idUnidade, String string);*/
+
 }

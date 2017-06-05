@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import br.com.portalCrc.entity.Usuario;
 import br.com.portalCrc.entity.diaria.FuncionarioDiaria;
 import br.com.portalCrc.entity.diaria.ItemDiaria;
 import br.com.portalCrc.enums.diaria.StatusDiariaEnum;
@@ -35,7 +36,8 @@ public class ItemDiariaService {
 		CalculaValor calcula = new CalculaValor();
 		
 		itemDiaria.setDataCadastro(new Date());
-		
+		Usuario user = SessionUsuario.getInstance().getUsuario();
+		itemDiaria.setUsuarioCadastro(user);
 		BigDecimal valorTotalItem = new BigDecimal(0);
 		BigDecimal valorTotalDiaria = funcionarioDiaria.getTotalValorDiaria();
 		
@@ -103,7 +105,18 @@ public class ItemDiariaService {
 
 	@Transactional(readOnly = false)
 	public void excluir(Long id) {
-		itemDiariaRepository.delete(id);
+		
+		ItemDiaria item = itemDiariaRepository.findOne(id);
+		
+		FuncionarioDiaria funcionarioDiaria =  funcionarioDiariaRepository.findById(item.getFuncionarioDiaria().getId());
+			
+		BigDecimal valorTotalDiaria = funcionarioDiaria.getTotalValorDiaria();
+		
+		valorTotalDiaria = valorTotalDiaria.subtract(item.getValorDiaria());
+		funcionarioDiaria.setTotalValorDiaria(valorTotalDiaria);
+		
+		funcionarioDiariaRepository.save(funcionarioDiaria);
+		itemDiariaRepository.delete(item.getId());
 		
 	}
 

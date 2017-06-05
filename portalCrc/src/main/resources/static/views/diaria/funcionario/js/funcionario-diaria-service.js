@@ -104,8 +104,17 @@ app.factory('FuncionarioDiariaService', function($q, $http){
 				return $q.reject(errResponse);
 			});
 		},
-		buscarPorTexto :function(params){
+		buscarPorTexto : function(params){
 			return $http.get('/rest/diaria/funcionario/buscar?q=' +params)
+			.then(function(response){
+				return response.data;
+			},function(errResponse){
+			return $q.reject(errResponse);
+			});
+		},
+		buscarPorDiaria : function(texto, pagina){
+			var config = {params: {page: pagina, q:texto}};
+			return $http.get('/rest/diaria/funcionario/buscar/diaria', config)
 			.then(function(response){
 				return response.data;
 			},function(errResponse){

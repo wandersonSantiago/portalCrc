@@ -1,6 +1,8 @@
 package br.com.portalCrc.web.controller.diaria;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -87,6 +90,13 @@ public class FuncionarioDiariaRestController {
 		public ResponseEntity<FuncionarioDiaria> buscarPorId(@PathVariable Long id) {
 			return new ResponseEntity<FuncionarioDiaria>(funcionarioDiariaService.buscaPorId(id), HttpStatus.OK);
 	 }
+	 
+	 @GetMapping(value = "/buscar/diaria")
+		public ResponseEntity<?> buscar(@RequestParam(defaultValue="0", required=false) int page
+				,@RequestParam(defaultValue="20", required=false) int maxResults,
+				@RequestParam("q")String texto) {
+				return new ResponseEntity<Page<FuncionarioDiaria>>(funcionarioDiariaService.buscar(texto, new PageRequest(page, maxResults)), HttpStatus.OK);
+		}
 	 
 
 }
