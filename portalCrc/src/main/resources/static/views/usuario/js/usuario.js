@@ -7,7 +7,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
 			templateUrl : 'views/usuario/usuario.index.html',
 			redirectTo : 'usuario.listar',
 			ncyBreadcrumb: {
-				parent: 'home.menu',
+				parent: 'administrador.menu',
 				    label: 'home'
 				  }
 		})
@@ -48,9 +48,9 @@ app.config(function($stateProvider, $urlRouterProvider) {
 				  }
 		})
 		.state('usuario.permissao', {
-			url : "/permissao",
+			url : "/:idUsuario/permissao",
 			templateUrl : "views/usuario/usuario.permissao.html",
-			controller : "UsuarioPermissaoController as Ctrl",
+			controller : "UsuarioPermissaoController as ctrl",
 			ncyBreadcrumb: {
 				 	parent: 'usuario.listar',
 				    label: 'Permissao'

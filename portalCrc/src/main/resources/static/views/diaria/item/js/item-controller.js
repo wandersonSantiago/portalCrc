@@ -303,7 +303,7 @@ function ItemDiariaFinancasCadastrarController($state, ItemDiariaService, $state
 		}else{
 		ItemDiariaService.salvar(self.itemDiaria).then(
 				function(response) {
-					buscarItensDiariaPorFuncionarioDiaria(self.funcionario.id);
+					buscarFuncionarioDiaria(self.funcionario.contaFuncionario.id);
 					toastr.info("Salvo com Sucesso!!!");
 				}, function(errResponse) {
 					sweetAlert({

@@ -2,11 +2,8 @@
 
 import java.util.Date;
 import java.util.List;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -17,8 +14,6 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-
-import br.com.portalCrc.enums.ModuloPermissaoEnum;
 
 
 @Entity
@@ -48,7 +43,6 @@ public class Usuario {
 	@JoinTable(name = "usuario_permissoes", schema="principal", joinColumns = @JoinColumn(name = "id_usuario"), 
 	inverseJoinColumns = @JoinColumn(name = "id_permissoes"))	
 	private List<Permissao> permissoes;
-	
 	
 	
 	public List<Permissao> getPermissoes() {

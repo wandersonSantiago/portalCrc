@@ -9,10 +9,10 @@
 						<th>Opções</th>
 					</tr>
 				</thead>
-				<tbody	ng-repeat=" permissao in strl.permissoes | filter : buscar ">
+				<tbody	ng-repeat=" permissao in ctrl.permissoes | filter : buscar ">
 					<tr>
 						<td>{{ permissao.descricao }}</td>
-						<td>{{ permissao.tipo}}</td>
+						<td>{{ permissao.modulo}}</td>
 						<td><a ui-sref="permissao.editar({idPermissao : permissao.id})"><i class="glyphicon glyphicon-edit"></i></a> 						
 				</tr>
 				</tbody>

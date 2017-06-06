@@ -36,8 +36,8 @@ app.factory('UsuarioService', function($rootScope, toastr, $http,$q){
 				return $q.reject(errResponse);
 			});
 		},
-		alterar: function(usuario){
-			return $http.put('rest/usuario/altera', usuario)
+		alterar: function(parametroUsuario){
+			return $http.put('rest/usuario/altera', parametroUsuario)
 			.then(function(response){
 				return response.data;
 			},function(errResponse){
@@ -68,6 +68,16 @@ app.factory('UsuarioService', function($rootScope, toastr, $http,$q){
 				return response.data;
 			},function(errResponse){
 			return $q.reject(errResponse);
+			});
+		},
+		alterarSenha: function(idUsuario, senha, novaSenha){
+			var config = {params: {idUsuario , senha , novaSenha }};
+			return $http.put('rest/usuario/'+idUsuario+'/senha/'+senha+'/nova-senha/'+novaSenha)
+			.then(function(response){
+				return response.data;
+			},function(errResponse){
+				return $q.reject(errResponse);
+
 			});
 		},
 	}

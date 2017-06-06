@@ -5,7 +5,7 @@ app.controller("UsuarioPerfilController", UsuarioPerfilController);
 app.controller("UsuarioPermissaoController", UsuarioPermissaoController);
 
 
-function UsuarioCadastarController( UsuarioService, FuncionarioService, UnidadeService, SetorService, toastr, $rootScope, $scope){
+function UsuarioCadastarController(Auth,  UsuarioService, FuncionarioService, UnidadeService, SetorService, toastr, $rootScope, $scope){
 	
 	var self = this;
 	
@@ -73,7 +73,7 @@ function UsuarioCadastarController( UsuarioService, FuncionarioService, UnidadeS
 		
 }		
 
-function UsuarioEditarController($stateParams, $state , UsuarioService, FuncionarioService, SetorService, UnidadeService, toastr, $rootScope, $scope){
+function UsuarioEditarController($timeout, Auth, $stateParams, $state , UsuarioService, FuncionarioService, SetorService, UnidadeService, toastr, $rootScope, $scope){
 	
 	var self = this;
 	
@@ -83,6 +83,7 @@ function UsuarioEditarController($stateParams, $state , UsuarioService, Funciona
 	listarSetores();
 	self.submit = submit;
 	self.buscarPorId = buscarPorId;
+	self.alterarUnidade = alterarUnidade;
 	
 	function submit(usuario){		
 		if(self.senha == self.senhaRepitida){
@@ -100,6 +101,19 @@ function UsuarioEditarController($stateParams, $state , UsuarioService, Funciona
 		}
 	};	
 	
+	
+	function alterarUnidade(parametroUsuario){
+		parametroUsuario.senha = null;
+		UsuarioService.alterar(parametroUsuario).
+		then(function(response){
+			Auth.logout();		
+			}, function(errResponse){
+		sweetAlert({ timer : 3000, text: errResponse.data.message , type : "info", width: 300, higth: 100, padding: 20});
+		});
+	}
+	
+
+
 	function listarFuncionarios(){
 		 FuncionarioService.listar().
 			then(function(f){
@@ -108,6 +122,8 @@ function UsuarioEditarController($stateParams, $state , UsuarioService, Funciona
 					sweetAlert({ timer : 3000,  text : errResponse.data.message,  type : "error", width: 300, higth: 300, padding: 20});
 				});
 		};
+		
+		
 		
 	function listarUnidades(){
 		 UnidadeService.listar().
@@ -161,30 +177,39 @@ function UsuarioListarController($stateParams, $state , UsuarioService, toastr, 
 function UsuarioPermissaoController($stateParams, $state , UsuarioService, PermissaoService,  toastr, $rootScope, $scope){
 	
 	var self = this;
-		
-	//listar();
-	
+	var idUsuario = $stateParams.idUsuario;	
+	self.submit = submit;	
+	listar();
 	
 	function submit(usuario){		
-			self.usuario.senha = self.senha;
 			UsuarioService.alterar(self.usuario).
 			then(function(response){
-				toastr.info("Usuario Salvo!!!")
-				self.usuario = null;
+				toastr.info("Permissoes Atribuidas!!")
 				}, function(errResponse){
 			sweetAlert({ timer : 3000, text: errResponse.data.message , type : "info", width: 300, higth: 100, padding: 20});
-					
-			});
+		});
 	};	
 	
 	 function listar(){
 		 PermissaoService.listar().
 			then(function(u){				
-					self.usuarios = u;			
+					self.permissoes = u;			
 				}, function(errResponse){
 			});
 		};		
 		
+		function buscarPorId(id){
+			if(!id)return;
+			UsuarioService.buscarPorId(id).
+			then(function(p){
+				self.usuario = p;
+				}, function(errResponse){
+			});
+		};
+
+		if(idUsuario){
+			buscarPorId(idUsuario);		
+		}
 		
 		
 	
@@ -194,6 +219,7 @@ function UsuarioPerfilController($scope, $state, toastr, UsuarioService, $stateP
 	
 	var self = this;
 	self.salvarFoto = salvarFoto;
+	self.alterarSenha = alterarSenha;
 	$scope.obj = {};
 	
 	function salvarFoto(){
@@ -212,5 +238,19 @@ function UsuarioPerfilController($scope, $state, toastr, UsuarioService, $stateP
 			 });
 	  };
 	
+	  function alterarSenha(users , senhaVerificacao , senha , senhaRepetida){
+		  if(senha == senhaRepetida){
+				UsuarioService.alterarSenha(users.id, senhaVerificacao, senha).
+				then(function(response){
+					toastr.success('Alterado', 'Sucesso!!!');
+					}, function(errResponse){	
+						sweetAlert({text: errResponse.data.message , type : "info", width: 300, higth: 100, padding: 20});
+						});
+			}else{			
+				sweetAlert({ timer : 3000, text: "senha não coencidem, digite novamente" , type : "info", width: 300, higth: 100, padding: 20});
+		}
+		  
+		  
+	  }
 
 }

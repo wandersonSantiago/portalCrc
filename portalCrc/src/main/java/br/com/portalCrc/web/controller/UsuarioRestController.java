@@ -14,9 +14,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -28,6 +30,7 @@ import br.com.portalCrc.entity.Usuario;
 import br.com.portalCrc.pojo.SessionUsuario;
 import br.com.portalCrc.service.UsuarioService;
 import br.com.portalCrc.service.diaria.MensagemException;
+import ch.qos.logback.core.net.SyslogOutputStream;
 
 
 
@@ -53,8 +56,7 @@ public class UsuarioRestController {
 	}
 	
     @RequestMapping(method = RequestMethod.GET, value="/lista")
-	 public ResponseEntity<Iterable<Usuario>> buscarUsuarios() {	  
-	  System.out.println("lista ok");
+	 public ResponseEntity<Iterable<Usuario>> buscarUsuarios() {	
 	  Iterable<Usuario> usuario = usuarioService.buscarTodos();
 	  return new ResponseEntity<Iterable<Usuario>>(usuario, HttpStatus.OK);
 	 }
@@ -68,11 +70,18 @@ public class UsuarioRestController {
 		 return new ResponseEntity<Usuario>(headers, HttpStatus.CREATED);
 	 }
 
-	 @RequestMapping(method = RequestMethod.PUT, value="/altera")
-	 public ResponseEntity<Usuario> alterarUsuario(@RequestBody Usuario usuario,UriComponentsBuilder ucBuilder){
+	 @PutMapping(value="/altera")
+	 public ResponseEntity<Usuario> alterarUsuario(@RequestBody Usuario usuario,UriComponentsBuilder ucBuilder){		 
 		 usuarioService.salvarOuEditar(usuario);
 		 HttpHeaders headers =new HttpHeaders();
 		 headers.setLocation(ucBuilder.path("/rest/usuario/altera/{id}").buildAndExpand(usuario.getId()).toUri());
+		 return new ResponseEntity<Usuario>(headers, HttpStatus.CREATED);
+	 }
+	 
+	 @PutMapping(value="/{idUsuario}/senha/{senha}/nova-senha/{novaSenha}")
+	 public ResponseEntity<Usuario> alterarSenha(@PathVariable Long idUsuario, @PathVariable String senha , @PathVariable String novaSenha){		 
+		 usuarioService.alterarSenha(idUsuario, senha , novaSenha);
+		 HttpHeaders headers =new HttpHeaders();
 		 return new ResponseEntity<Usuario>(headers, HttpStatus.CREATED);
 	 }
 

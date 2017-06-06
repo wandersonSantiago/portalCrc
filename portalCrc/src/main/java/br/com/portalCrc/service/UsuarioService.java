@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import br.com.portalCrc.entity.Usuario;
 import br.com.portalCrc.repository.UsuarioRepository;
+import br.com.portalCrc.service.diaria.MensagemException;
 
 
 
@@ -32,9 +33,29 @@ public class UsuarioService {
 	@Transactional(readOnly = false)
 	public void salvarOuEditar(Usuario usuario)
 	{
-		String hash = new BCryptPasswordEncoder().encode(usuario.getSenha());
-		usuario.setSenha(hash);
+		String hash = null;
+		if(usuario.getSenha() != null){
+			hash = new BCryptPasswordEncoder().encode(usuario.getSenha());
+			usuario.setSenha(hash);
+		}else{
+			Usuario user = usuarioRepository.findOne(usuario.getId());	
+			hash = user.getSenha();
+		}		
+		usuario.setSenha(hash);		
 		usuarioRepository.save(usuario);
+	}
+	
+	public void alterarSenha(Long idUsuario, String senhaValidacao, String novaSenha) {
+		Usuario user = usuarioRepository.findOne(idUsuario);	
+		String hash = new BCryptPasswordEncoder().encode(senhaValidacao);
+		
+		if(user.getSenha() == hash){
+			String novaHash = new BCryptPasswordEncoder().encode(novaSenha);
+			user.setSenha(novaHash);
+			usuarioRepository.save(user);
+		}else{
+			throw new MensagemException("Senha de verificação inválida!!!");			
+		}
 	}
 	
 	public Usuario buscarUsuarioPorId(Long id){
@@ -77,5 +98,7 @@ public class UsuarioService {
 
         return "C:\\uploads" + "\\" + yyyy + "\\" + mm;
     }
+
+	
 
 }

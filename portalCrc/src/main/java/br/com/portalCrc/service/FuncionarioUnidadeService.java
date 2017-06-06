@@ -47,7 +47,7 @@ public class FuncionarioUnidadeService {
 	
 	@Transactional(readOnly = false)
 	public void salvarEditar(FuncionarioUnidade funcionarioUnidade){
-		salvaHistoricoFuncionario(funcionarioUnidade);
+		salvaHistoricoFuncionario(funcionarioUnidade.getFuncionario(), funcionarioUnidade);
 		criarUsuario(funcionarioUnidade.getFuncionario());
 		funcionarioUnidade.setDataCadastro(new Date());
 		funcionarioUnidade.setUnidade(SessionUsuario.getInstance().getUsuario().getFuncionario().getUnidadeAtual());
@@ -56,12 +56,12 @@ public class FuncionarioUnidadeService {
 	}
 	
 	@Transactional(readOnly = false)
-	public void salvaHistoricoFuncionario(FuncionarioUnidade funcionarioUnidade){
-		funcionarioUnidade.getFuncionario().setCargoAtual(funcionarioUnidade.getCargo());
-		funcionarioUnidade.getFuncionario().setUnidadeAtual(SessionUsuario.getInstance().getUsuario().getFuncionario().getUnidadeAtual());
-		funcionarioUnidade.getFuncionario().setFuncaoAtual(funcionarioUnidade.getFuncao());
-		funcionarioUnidade.getFuncionario().setSetorAtual(funcionarioUnidade.getSetor());
-		funcionarioRepository.save(funcionarioUnidade.getFuncionario());
+	public void salvaHistoricoFuncionario(Funcionario funcionario, FuncionarioUnidade funcionarioUnidade){
+		funcionario.setCargoAtual(funcionarioUnidade.getCargo());
+		funcionario.setUnidadeAtual(SessionUsuario.getInstance().getUsuario().getFuncionario().getUnidadeAtual());
+		funcionario.setFuncaoAtual(funcionarioUnidade.getFuncao());
+		funcionario.setSetorAtual(funcionarioUnidade.getSetor());
+		funcionarioRepository.save(funcionario);
 		
 	}
 	@Transactional(readOnly = false)

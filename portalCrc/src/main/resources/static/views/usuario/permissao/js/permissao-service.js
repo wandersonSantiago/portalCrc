@@ -4,7 +4,7 @@ app.factory('PermissaoService', function($rootScope, toastr, $http,$q){
 	return{
 		
 		salvar: function(permissao){
-			return $http.post('/rest/permissao/salva', permissao)
+			return $http.post('/rest/permissao', permissao)
 			.then(function(response){
 				return response.data;
 			},function(errResponse){
@@ -12,7 +12,7 @@ app.factory('PermissaoService', function($rootScope, toastr, $http,$q){
 			});
 		},
 		listar: function(){
-			return $http.get('rest/permissao/lista')
+			return $http.get('rest/permissao')
 			.then(function(response){
 				return response.data;
 			},function(errResponse){
@@ -20,7 +20,7 @@ app.factory('PermissaoService', function($rootScope, toastr, $http,$q){
 			});
 		},
 		buscarPorId: function(param){
-			return $http.get('rest/permissao/buscaPorId/'+param)
+			return $http.get('rest/permissao/'+param)
 			.then(function(response){
 				return response.data;
 			},function(errResponse){
@@ -28,7 +28,7 @@ app.factory('PermissaoService', function($rootScope, toastr, $http,$q){
 			});
 		},
 		alterar: function(permissao){
-			return $http.put('rest/permissao/altera', permissao)
+			return $http.put('rest/permissao', permissao)
 			.then(function(response){
 				return response.data;
 			},function(errResponse){

@@ -57,48 +57,21 @@
 		  
 		  <!-- MODAL -->
 	
-	<div ng-if="logado" class="modal fade" id="alteraSenha" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" ng-controller="UsuarioEditarController as userCtrl">
-				  <div class="modal-dialog" role="document" >
-				    <div class="modal-content">
-				      <div class="modal-header">
-				        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-				        <h4 class="modal-title" id="myModalLabel">Dados Usúario</h4>
-				      </div>
-				      <div class="modal-body">				      	
-				     		{{user.usuario.nome}}
-				      		<br>
-						      <div class="row">
-						      	<div class="col-sm-4">
-									<input type="password" class="form-control" id="senha" ng-model="userCtrl.senha" placeholder="Senha"
-										title="Digite uma senha" maxlength="12" required>
-								</div>
-								<div class="col-sm-4">
-									<input type="password" class="form-control" id="repitaSenha" ng-model="userCtrl.senhaRepitida" placeholder="Repita a Senha"
-										title="repita a senha" required>
-								</div>
-						      </div>					       
-				      </div>
-				      <div class="modal-footer">
-				        <button type="button" ng-click="userCtrl.altera(user.usuario)" class="btn btn-primary">Alterar</button>
-				        <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>				        
-				      </div>
-				    </div>
-				  </div>
-	</div>
+	
 				
 				
-				<div ng-if="role_coordenadoria" class="modal fade" id="alteraEmpreendimento" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" ng-controller="UsuarioEditarController as userCtrl">
+				<div  class="modal fade" id="alteraEmpreendimento" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" ng-controller="UsuarioEditarController as userCtrl">
 				  <div class="modal-dialog" role="document" >
-				    <div class="modal-content">
+				    <div class="modal-content" ng-controller="UsuarioEditarController as userCtrl">
 				      <div class="modal-header">
 				        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 				        <h4 class="modal-title" id="myModalLabel">Alterar Unidade</h4>
 				      </div>
 				      <div class="modal-body">				     		
 					      <div class="row">
-						      	<div  class="col-sm-12" ng-controller="unidadeController as unidadeCtr" ng-init="unidadeCtr.lista()">
-									<select class="form-control " ng-model="userCtrl.usuario.empreendimento" 
-										ng-options="unidades.dadosUnidade.nome group by unidades.tipoUnidade.descricao for unidades in unidadeCtr.listaUnidades"
+						      	<div  class="col-sm-12" >
+									<select class="form-control " ng-model="usuario.empreendimento" 
+										ng-options="unidades.dadosUnidade.nome group by unidades.tipoUnidade.descricao for unidades in userCtrl.unidades"
 										style="width: 100%;" required>
 										<option  value="">--selecione o Unidade--</option>
 									</select>
@@ -106,7 +79,7 @@
 					      </div>					       
 				      </div>
 				      <div class="modal-footer">
-				        <button type="button" ng-click="userCtrl.alteraEmpreendimento(user.usuario)" class="btn btn-primary">Alterar</button>
+				        <button type="button" ng-click="userCtrl.alterarUnidade(usuario)" class="btn btn-primary">Alterar</button>
 				        <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>				        
 				      </div>
 				    </div>

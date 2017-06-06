@@ -3,10 +3,6 @@ app.controller("FuncionarioEditarController", FuncionarioEditarController);
 app.controller("FuncionarioListarController", FuncionarioListarController);
 app.controller("FuncionarioShowController", FuncionarioShowController);
 
-FuncionarioCadastarController.$inject = ['FuncionarioService',  'buscaCepService', 'CargoService', 'toastr', '$rootScope', '$scope'];
-FuncionarioEditarController.$inject = ['$stateParams', '$state', 'FuncionarioService', 'CargoService', 'buscaCepService', 'toastr', '$rootScope', '$scope'];
-FuncionarioListarController.$inject = ['FuncionarioService'];
-FuncionarioShowController.$inject = ['$stateParams', '$state', 'FuncionarioService', 'toastr', '$rootScope', '$scope'];
 
 function FuncionarioCadastarController( FuncionarioService,  buscaCepService , CargoService, toastr, $rootScope, $scope){
 			var self = this;
@@ -126,6 +122,23 @@ function FuncionarioListarController( FuncionarioService){
 						});
 				};
 }
-function FuncionarioShowController( FuncionarioService, CoordenadoriaService, buscaCepService ,toastr, $rootScope, $scope){
+function FuncionarioShowController($stateParams,  FuncionarioService, CoordenadoriaService, buscaCepService ,toastr, $rootScope, $scope){
 	
+	var self = this;
+	var idFuncionario = $stateParams.idFuncionario;
+	
+	function buscarPorId(id){
+		if(!id)return;
+		FuncionarioService.buscarPorId(id).
+		then(function(p){
+			p.pessoa.dataNascimento = new Date(p.pessoa.dataNascimento);
+			self.funcionario = p;
+	}, function(errResponse){
+		sweetAlert({ timer : 3000,  text : errResponse.data.message,  type : "error", width: 300, higth: 300, padding: 20});
+		});
+	};
+
+	if(idFuncionario){
+		buscarPorId(idFuncionario);		
+	}
 }

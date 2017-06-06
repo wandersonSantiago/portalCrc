@@ -19,6 +19,7 @@ function PermissaoCadastarController( PermissaoService, FuncionarioService, Unid
 				PermissaoService.salvar(self.permissao).
 				then(function(response){
 					self.permissao = null;
+					toastr.info("Permissoes Salva!!")
 					}, function(errResponse){
 						sweetAlert({ timer : 3000,  text : errResponse.data.message,  type : "error", width: 300, higth: 300, padding: 20});
 					});		
@@ -76,7 +77,7 @@ function PermissaoEditarController($stateParams, $state , PermissaoService, Func
 	};
 
 	if(idPermissao){
-		self.buscarPorId(idPermissao);		
+		buscarPorId(idPermissao);		
 	}
 	
 	
@@ -92,7 +93,7 @@ function PermissaoListarController($stateParams, $state , PermissaoService, toas
 	 function listar(){
 		 PermissaoService.listar().
 			then(function(u){				
-					self.permissaos = u;			
+					self.permissoes = u;			
 				}, function(errResponse){
 			});
 		};		

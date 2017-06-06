@@ -1,9 +1,10 @@
-app.factory("Auth", function($http, $q, $sessionStorage, $rootScope, $urlRouter){
+app.factory("Auth", function($http, $q, $sessionStorage, $rootScope, $urlRouter, UsuarioService){
 	
 	var auth ={};
 	
 	auth.init = function(){
         if (auth.isLoggedIn()){
+        	$rootScope.usuario = auth.user();
             $rootScope.user = auth.currentUser();
             $rootScope.authenticated = true;
         }
@@ -71,19 +72,31 @@ app.factory("Auth", function($http, $q, $sessionStorage, $rootScope, $urlRouter)
 		.then(function(data){
 			 $rootScope.authenticated = false;
 			 $rootScope.user = null;
+			 $rootScope.usuario = null;
 			 $state.go("login");
 		},function(data){
 			$rootScope.authenticated = false;
 			 $rootScope.user = null;
+			 $rootScope.usuario = null;
 		});
 		delete $sessionStorage.user;
         delete $rootScope.user;
+        delete $rootScope.usuario;
 	}
 	
 	auth.currentUser = function(){
 	     return $sessionStorage.user;
 	};
 	    
+	
+	auth.user = function(){
+		UsuarioService.listarUsuarioLogado().
+		then(function(f){
+			$rootScope.usuario = f.usuario;
+		});
+		return $rootScope.usuario;
+	}
+	
     auth.isLoggedIn = function(){
         return $sessionStorage.user != null;
     };
