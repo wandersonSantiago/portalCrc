@@ -6,7 +6,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
 			url : '/admin',
 			templateUrl : 'views/usuario/usuario.index.html',
 			ncyBreadcrumb: {
-				aprent : "home.menu",
+				parent : "home.menu",
 				    label: 'Administrador'
 				  }
 		})
@@ -16,7 +16,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
 			controller : "UsuarioListarController as ctrl",
 			ncyBreadcrumb: {
 				 	parent: 'administrador',
-				    label: 'Menu Administrador'
+				    label: ' 	Administrador'
 				  }
 		})
 	

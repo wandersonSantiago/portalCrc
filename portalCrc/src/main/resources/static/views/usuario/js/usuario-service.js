@@ -19,8 +19,8 @@ app.factory('UsuarioService', function($rootScope, toastr, $http,$q){
 				return $q.reject(errResponse);
 			});
 		},
-		perfil: function(){
-			return $http.get('rest/usuario/perfil')
+		status: function(){
+			return $http.get('rest/usuario/status')
 			.then(function(response){
 				return response.data;
 			},function(errResponse){
@@ -37,7 +37,7 @@ app.factory('UsuarioService', function($rootScope, toastr, $http,$q){
 			});
 		},
 		alterar: function(parametroUsuario){
-			return $http.put('rest/usuario/altera', parametroUsuario)
+			return $http.put('rest/usuario/alterar', parametroUsuario)
 			.then(function(response){
 				return response.data;
 			},function(errResponse){

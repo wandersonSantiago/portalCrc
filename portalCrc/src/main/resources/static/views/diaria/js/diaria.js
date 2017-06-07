@@ -3,32 +3,21 @@ app.config(function($stateProvider, $urlRouterProvider) {
 	$stateProvider
 		
 	.state('diaria', {
-		abstract : true,
 		url : '/diaria',
 		templateUrl : 'views/diaria/diaria.index.html',
 		redirectTo : 'diaria.listar',
 		ncyBreadcrumb: {
-			parent: 'home.menu',
-			    label: 'diaria'
+			parent: 'financas.menu',
+			    label: 'Diaria'
 			  }
 	})
-	
-	.state('diaria.menu', {
-			url : "/menu",
-			templateUrl : "views/diaria/home.html",
-			controller : "DiariaListarController as diariaCtrl",
-			ncyBreadcrumb: {
-				 	parent: 'diaria',
-				    label: 'menu diária'
-				  }
-		})
 		.state('diaria.listar', {
 			url : "/listar",
 			templateUrl : "views/diaria/diaria.list.html",
 			controller : "DiariaListarController as diariaCtrl",
 			ncyBreadcrumb: {
-				 	parent: 'diaria.menu',
-				    label: 'listar diaria'
+				 	parent: 'diaria',
+				    label: 'listar'
 				  }
 		})
 		.state('diaria.cadastrar', {
@@ -36,8 +25,8 @@ app.config(function($stateProvider, $urlRouterProvider) {
 			templateUrl : "views/diaria/diaria.form.html",
 			controller : "DiariaCadastarController as diariaCtrl",
 			ncyBreadcrumb: {
-			 	parent: 'diaria.menu',
-			    label: 'Cadastrar diaria'
+			 	parent: 'diaria',
+			    label: 'Cadastrar'
 			  }
 		})
 		.state('diaria.editar', {
@@ -45,8 +34,8 @@ app.config(function($stateProvider, $urlRouterProvider) {
 			templateUrl : "views/diaria/diaria.form.html",
 			controller : "DiariaEditarController as diariaCtrl",
 			ncyBreadcrumb: {
-				 	parent: 'diaria.menu',
-				    label: 'Editar diaria'
+				 	parent: 'diaria',
+				    label: 'Editar'
 				  }
 		})
 		.state('diaria.relatorio', {
@@ -54,8 +43,8 @@ app.config(function($stateProvider, $urlRouterProvider) {
 			templateUrl : "views/diaria/relatorio/relatorio.html",
 			controller : "DiariaListarController as diariaCtrl",
 			ncyBreadcrumb: {
-				 	parent: 'diaria.menu',
-				    label: 'Relatório das diarias'
+				 	parent: 'diaria',
+				    label: 'Relatório'
 				  }
 		})
 

@@ -3,12 +3,12 @@ app.config(function($stateProvider, $urlRouterProvider) {
 	$stateProvider
 		
 	.state('cargo', {
-		abstract : true,
 		url : '/cargo',
 		templateUrl : 'views/recursosHumanos/cargo/cargo.index.html',
 		redirectTo : 'cargo.listar',
 		ncyBreadcrumb: {
-			    label: 'cargo'
+			parent: 'recursos-humanos.menu',
+			    label: 'Cargo'
 			  }
 	})
 	
@@ -17,8 +17,8 @@ app.config(function($stateProvider, $urlRouterProvider) {
 			templateUrl : "views/recursosHumanos/cargo/cargo.list.html",
 			controller : "CargoListarController as cargoCtrl",
 			ncyBreadcrumb: {
-				 	parent: 'cargo.cadastrar',
-				    label: 'lista cargo'
+				 	parent: 'cargo',
+				    label: 'Listar'
 				  }
 		})
 		.state('cargo.cadastrar', {
@@ -27,7 +27,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
 			controller : "CargoCadastarController as cargoCtrl",
 			ncyBreadcrumb: {
 			 	parent: 'cargo',
-			    label: 'Cadastrar cargo'
+			    label: 'Cadastrar'
 			  }
 		})
 		.state('cargo.editar', {

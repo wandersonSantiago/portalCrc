@@ -3,11 +3,11 @@ app.config(function($stateProvider, $urlRouterProvider) {
 	$stateProvider
 		
 	.state('funcao', {
-		abstract : true,
 		url : '/funcao',
 		templateUrl : 'views/recursosHumanos/funcao/funcao.index.html',
 		redirectTo : 'funcao.listar',
 		ncyBreadcrumb: {
+			parent: 'recursos-humanos.menu',
 			    label: 'funcao'
 			  }
 	})
@@ -17,8 +17,8 @@ app.config(function($stateProvider, $urlRouterProvider) {
 			templateUrl : "views/recursosHumanos/funcao/funcao.list.html",
 			controller : "FuncaoListarController as funcaoCtrl",
 			ncyBreadcrumb: {
-				 	parent: 'funcao.cadastrar',
-				    label: 'lista funcao'
+				 	parent: 'funcao',
+				    label: 'Listar'
 				  }
 		})
 		.state('funcao.cadastrar', {
@@ -27,7 +27,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
 			controller : "FuncaoCadastarController as funcaoCtrl",
 			ncyBreadcrumb: {
 			 	parent: 'funcao',
-			    label: 'Cadastrar funcao'
+			    label: 'Cadastrar'
 			  }
 		})
 		.state('funcao.editar', {

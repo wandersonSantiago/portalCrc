@@ -3,12 +3,11 @@ app.config(function($stateProvider, $urlRouterProvider) {
 	$stateProvider
 		
 	.state('setor', {
-		abstract : true,
 		url : '/setor',
 		templateUrl : 'views/recursosHumanos/setor/setor.index.html',
-		redirectTo : 'setor.listar',
 		ncyBreadcrumb: {
-			    label: 'setor'
+			parent: 'recursos-humanos.menu',
+			    label: 'Setor'
 			  }
 	})
 	
@@ -17,8 +16,8 @@ app.config(function($stateProvider, $urlRouterProvider) {
 			templateUrl : "views/recursosHumanos/setor/setor.list.html",
 			controller : "SetorListarController as setorCtrl",
 			ncyBreadcrumb: {
-				 	parent: 'setor.cadastrar',
-				    label: 'lista setor'
+				 	parent: 'setor',
+				    label: 'Listar'
 				  }
 		})
 		.state('setor.cadastrar', {
@@ -27,7 +26,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
 			controller : "SetorCadastarController as setorCtrl",
 			ncyBreadcrumb: {
 			 	parent: 'setor',
-			    label: 'Cadastrar setor'
+			    label: 'Cadastrar'
 			  }
 		})
 		.state('setor.editar', {

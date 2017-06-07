@@ -1,6 +1,7 @@
 package br.com.portalCrc.web.controller;
 
 import java.util.Arrays;
+import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -25,9 +26,9 @@ public class SetorRestController {
 	private SetorService setorService;
 	
 	 @RequestMapping(method = RequestMethod.GET, value="/lista")
-	 public ResponseEntity<Iterable<Setor>> lista() {	  
-	  Iterable<Setor> setor = setorService.lista();
-	  return new ResponseEntity<Iterable<Setor>>(setor, HttpStatus.OK);
+	 public ResponseEntity<Collection<Setor>> lista() {	  
+	  Collection<Setor> setor = setorService.listaPorTipoUnidade();
+	  return new ResponseEntity<Collection<Setor>>(setor, HttpStatus.OK);
 	 }
 	 
 	 

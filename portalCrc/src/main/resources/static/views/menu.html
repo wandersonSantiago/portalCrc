@@ -9,8 +9,8 @@
 					alt="User Image">			
 			</div>
 			<div class="pull-left info" >
-				<p><a href="" ui-sref="usuario.perfil">{{usuario.funcionario.pessoa.nomeCompleto | limitTo:10}}</a><p>
-				<a href="#"><i class="glyphicon glyphicon-star-empty"></i> Online</a>
+				<p><a href="" ui-sref="usuario.perfil">{{usuario.funcionario.pessoa.nomeCompleto | limitTo:17}}</a><p>
+				<a href="#" data-toggle="modal" data-target="#alteraStatus"><i   class="glyphicon glyphicon-star-empty"></i> {{usuario.status}}</a>
 			</div>
 		</div>
 		<form action="" class="sidebar-form">
@@ -213,5 +213,29 @@
 		});
 	</script>
 	</section>
-
 </aside>
+  <!-- MODAL -->				
+				<div  class="modal fade modal-primary" id="alteraStatus" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" ng-controller="UsuarioEditarController as userCtrl">
+				  <div class="modal-dialog" role="document" >
+				    <div class="modal-content" ng-controller="UsuarioPerfilController as ctrl">
+				      <div class="modal-header">
+				        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				      </div>
+				      <div class="modal-body">				     		
+					      <div class="input-group margin">
+								<select class="form-control"
+									ng-model="usuario.status"
+									ng-change="ctrl.alterarStatus(usuario)"
+									ng-options="status for status in ctrl.status track by status">
+									<option value=""></option>
+								</select> <span class="input-group-btn"> <a type="button"
+									class="btn btn-info btn-flat"><i>Status</i></a>
+								</span>
+							</div>			       
+				      </div>
+				      <div class="modal-footer">
+				      </div>
+				    </div>
+				  </div>
+				</div>
+		

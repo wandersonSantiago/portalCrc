@@ -4,6 +4,7 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.security.Principal;
+import java.util.Arrays;
 import java.util.logging.Logger;
 
 import javax.servlet.http.HttpSession;
@@ -27,6 +28,8 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import br.com.portalCrc.entity.Usuario;
+import br.com.portalCrc.enums.StatusUsuarioEnum;
+import br.com.portalCrc.enums.chamado.StatusChamado;
 import br.com.portalCrc.pojo.SessionUsuario;
 import br.com.portalCrc.service.UsuarioService;
 import br.com.portalCrc.service.diaria.MensagemException;
@@ -70,7 +73,7 @@ public class UsuarioRestController {
 		 return new ResponseEntity<Usuario>(headers, HttpStatus.CREATED);
 	 }
 
-	 @PutMapping(value="/altera")
+	 @PutMapping(value="/alterar")
 	 public ResponseEntity<Usuario> alterarUsuario(@RequestBody Usuario usuario,UriComponentsBuilder ucBuilder){		 
 		 usuarioService.salvarOuEditar(usuario);
 		 HttpHeaders headers =new HttpHeaders();
@@ -96,7 +99,11 @@ public class UsuarioRestController {
 		}
 	 
 	 
-
+	 @RequestMapping(method = RequestMethod.GET, value = "/status")
+		public ResponseEntity<Iterable<StatusUsuarioEnum>> status() {
+			Iterable<StatusUsuarioEnum> statusUsuario = Arrays.asList(StatusUsuarioEnum.values());
+			return new ResponseEntity<Iterable<StatusUsuarioEnum>>(statusUsuario, HttpStatus.OK);
+		}
 	 
    @RequestMapping("/usuarios")
 		public ResponseEntity<?> user(SessionUsuario user, HttpSession session) {

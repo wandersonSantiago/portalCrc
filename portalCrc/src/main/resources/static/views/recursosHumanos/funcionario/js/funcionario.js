@@ -3,13 +3,12 @@ app.config(function($stateProvider, $urlRouterProvider) {
 	$stateProvider
 		
 	.state('funcionario', {
-		abstract : true,
 		url : '/funcionario',
 		templateUrl : 'views/recursosHumanos/funcionario/funcionario.index.html',
 		redirectTo : 'funcionario.listar',
 		ncyBreadcrumb: {
-			parent: 'home.menu',
-			    label: 'funcionario'
+			parent: 'recursos-humanos.menu',
+			    label: 'Funcionario'
 			  }
 	})
 	
@@ -18,8 +17,8 @@ app.config(function($stateProvider, $urlRouterProvider) {
 			templateUrl : "views/recursosHumanos/funcionario/funcionario.list.html",
 			controller : "FuncionarioListarController as funcionarioCtrl",
 			ncyBreadcrumb: {
-				 	parent: 'funcionario.cadastrar',
-				    label: 'lista funcionario'
+				 	parent: 'funcionario',
+				    label: 'Listar'
 				  }
 		})
 		.state('funcionario.cadastrar', {
@@ -28,7 +27,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
 			controller : "FuncionarioCadastarController as cadFuncCtrl",
 			ncyBreadcrumb: {
 			 	parent: 'funcionario',
-			    label: 'Cadastrar funcionario'
+			    label: 'Cadastrar'
 			  }
 		})
 		.state('funcionario.editar', {

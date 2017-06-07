@@ -221,6 +221,9 @@ function UsuarioPerfilController($scope, $state, toastr, UsuarioService, $stateP
 	self.salvarFoto = salvarFoto;
 	self.alterarSenha = alterarSenha;
 	$scope.obj = {};
+	status();
+	self.alterarStatus = alterarStatus;
+	
 	
 	function salvarFoto(){
 	 	var file = $scope.obj.flow.files[0]
@@ -248,9 +251,24 @@ function UsuarioPerfilController($scope, $state, toastr, UsuarioService, $stateP
 						});
 			}else{			
 				sweetAlert({ timer : 3000, text: "senha não coencidem, digite novamente" , type : "info", width: 300, higth: 100, padding: 20});
-		}
-		  
+		}		  
 		  
 	  }
 
+	  function alterarStatus(usuario){
+		  usuario.senha = null;
+			UsuarioService.alterar(usuario).
+			then(function(response){
+				toastr.info("Status alterado!!")
+				}, function(errResponse){
+			sweetAlert({ timer : 3000, text: errResponse.data.message , type : "info", width: 300, higth: 100, padding: 20});
+		});
+	};	
+	  function status(){
+			 UsuarioService.status().
+				then(function(u){				
+						self.status = u;			
+					}, function(errResponse){
+				});
+			};		
 }

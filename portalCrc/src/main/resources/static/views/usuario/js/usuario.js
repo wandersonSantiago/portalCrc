@@ -2,13 +2,12 @@ app.config(function($stateProvider, $urlRouterProvider) {
 
 	$stateProvider
 		.state('usuario', {
-			abstract : true,
 			url : '/usuario',
 			templateUrl : 'views/usuario/usuario.index.html',
 			redirectTo : 'usuario.listar',
 			ncyBreadcrumb: {
 				parent: 'administrador.menu',
-				    label: 'home'
+				    label: 'Usuario'
 				  }
 		})
 		.state('usuario.listar', {
@@ -16,7 +15,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
 			templateUrl : "views/usuario/usuario.list.html",
 			controller : "UsuarioListarController as usuarioCtrl",
 			ncyBreadcrumb: {
-				 	parent: 'usuario.cadastrar',
+				 	parent: 'usuario',
 				    label: 'Lista'
 				  }
 		})
@@ -26,7 +25,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
 			controller : "UsuarioPerfilController as ctrl",
 			ncyBreadcrumb: {
 				 	parent: 'usuario',
-				    label: 'Perfil Usuário'
+				    label: 'Perfil'
 				  }
 		})
 		.state('usuario.cadastrar', {
