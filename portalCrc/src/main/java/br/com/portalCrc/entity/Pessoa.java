@@ -29,16 +29,16 @@ public class Pessoa  {
 
 	@Column(nullable = false, length = 50)
 	private String nomeCompleto;
-	//@Column(nullable = false)
-	private Integer idade;
-	@Column(nullable = false, length = 20)
+	@Column(nullable = false, length = 20, unique = true)
 	private String rg;
-	@Column(nullable = false, length = 20)
+	@Column(nullable = false, length = 20 , unique = true)
 	private String cpf;
 	@Column(nullable = false, length = 15)
 	private String telefoneFixo;
 	@Column(nullable = false, length = 15)
 	private String telefoneCelular;
+	@Column(nullable = true, length = 50)
+	private String email;
 	@Column(nullable = false)
 	private Date dataNascimento;
 	@Column(nullable = false)
@@ -56,15 +56,7 @@ public class Pessoa  {
 	public void setNomeCompleto(String nomeCompleto) {
 		this.nomeCompleto = nomeCompleto;
 	}
-
-	public Integer getIdade() {
-		return idade;
-	}
-
-	public void setIdade(Integer idade) {
-		this.idade = idade;
-	}
-
+	
 	public String getRg() {
 		return rg;
 	}
@@ -135,6 +127,14 @@ public class Pessoa  {
 
 	public void setEstadaCivil(EstadoCivilEnum estadaCivil) {
 		this.estadaCivil = estadaCivil;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 	
 

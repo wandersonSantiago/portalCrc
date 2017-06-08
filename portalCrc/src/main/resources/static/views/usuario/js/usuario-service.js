@@ -80,5 +80,14 @@ app.factory('UsuarioService', function($rootScope, toastr, $http,$q){
 
 			});
 		},
+		
+		buscarPorTexto : function(params){
+			return $http.get('rest/usuario/buscar?q=' +params)
+			.then(function(response){
+				return response.data;
+			},function(errResponse){
+			return $q.reject(errResponse);
+			});
+		},
 	}
 });

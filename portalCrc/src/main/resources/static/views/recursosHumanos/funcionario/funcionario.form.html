@@ -1,161 +1,175 @@
 <meta charset="UTF-8">
-			<div class="col-sm-12 ">
-				<form role="form-vertical" name="formCadastrarFuncionario"
-					ng-submit="cadFuncCtrl.submit()">
-					<div class="row">
-						<div class="col-sm-12">
-						Nome:
-							<input class="form-control" placeholder="Nome"
-								ng-model="cadFuncCtrl.funcionario.pessoa.nomeCompleto"
-								id="nomeCompleto" name="nome" type="text" required>
-						</div>
-					</div>
-					
-					<br>
-					
-					<div class="row">
-						<div class="col-sm-4" >
-						RG:
-						<input class="form-control" placeholder="RG" ng-model="cadFuncCtrl.funcionario.pessoa.rg" id="rg" type="text"	required>
-						</div>
-						
-						<div class="col-sm-4">
-						CPF:
-							<input class="form-control" name="cpfField" placeholder="CPF"
-								ng-model="cadFuncCtrl.funcionario.pessoa.cpf" id="cpf" type="text" ui-br-cpf-mask required>
-								<p ng-show="formCadastrarFuncionario.cpfField.$error.cpf"
-								class="alert alert-warning ">Digite um CPF válido!!</p>
-						</div>
-						<div class="col-sm-2">
-						Data nascimento:
-							<input class="form-control" placeholder="Data Nascimento"
-								ng-model="cadFuncCtrl.funcionario.pessoa.dataNascimento"
-								id="dataNascimento" type="date" required  >
-						</div>
-							<div class="col-sm-2">
-							Idade:
-							<input class="form-control"  placeholder="Idade"
-								ng-model="cadFuncCtrl.funcionario.pessoa.idade"
-								id="idade" type="text" ng-minlength="2" ng-maxlength="2" required  >
-						</div>
-					</div>
-					<br> 
-					
-					<br>
-					<div class="row">
-				
-						<div class="col-sm-3">
-						Telefone:
-							<input class="form-control" placeholder="Telefone Fixo"
-								ng-model="cadFuncCtrl.funcionario.pessoa.telefoneFixo"
-								id="telefoneFixo" type="tel"  ui-br-phone-number required>
-						</div>
-				
-						<div class="col-sm-3">
-						Celular:
-							<input class="form-control"
-								ng-model="cadFuncCtrl.funcionario.pessoa.telefoneCelular" placeholder="Celular"
-								id="telefoneCelular" type="tel" ui-br-phone-number required>
-						</div>
-						<div class="col-sm-3">
-						Sexo:
-							<select class="form-control select2" ng-model="cadFuncCtrl.funcionario.pessoa.sexo" style="width: 100%;" required>
-									<option value="">--Sexo--</option>
-									<option value="Masculino">Masculino</option>
-									<option value="Feminino">Feminino</option>
-							</select>
-						</div>						
-							<div class="col-sm-3">
-							Estado Civil:
-							<select class="form-control select2"  ng-model="cadFuncCtrl.funcionario.pessoa.estadoCivil" ng-options="estadoCivil for estadoCivil in cadFuncCtrl.listaEstadoCivil"  style="width: 100%;">
-								<option value="">{{cadFuncCtrl.funcionario.pessoa.estadoCivil}}</option>
-							</select>
-						</div>
-					</div>
-					
-					
-					<br>
-					
-						<hr>
-						<div class="row">
-							<div class="col-sm-3">
-							Cargo:
-								<select class="form-control select2" ng-model="cadFuncCtrl.funcionario.cargoAtual" ng-options="listarCargos.descricao group by listarCargos.shade for listarCargos in cadFuncCtrl.cargos"  style="width: 100%;">
-										<option value="">{{cadFuncCtrl.funcionario.cargoAtual.descricao}}</option>
-								</select>
-							</div>							
-						</div>		
-						
-					<hr>
-					
-					<h4>Endereço</h4>
+<div class="col-sm-12 ">
+	<form role="form-vertical" name="formCadastrarFuncionario"
+		ng-submit="cadFuncCtrl.submit()">
 
-					<br>
-					
-					
-					<div class="row">
-						<div class="col-sm-3">
-						CEP:
-							<input class="form-control"	ng-model="cadFuncCtrl.funcionario.pessoa.endereco.cep" id="cep" name="cepField"
-								type="text" placeholder="CEP"  ng-blur="cadFuncCtrl.findCep()"  onkeyup="if(this.value.length > 8) { numero.focus(); }"   ui-br-cep-mask required>
-								
-							<p ng-show="formCadastrarFuncionario.cepField.$error.cep" class="alert alert-warning ">Digite um CEP Válido</p>
-
-						</div>
-					</div>	
-					<br>
-					<div class="row">	
-						<div class="col-sm-5">
-						Rua:
-							<input class="form-control" placeholder="Rua"
-								ng-model="cadFuncCtrl.funcionario.pessoa.endereco.logradouro" id="rua"
-								type="text" maxlength="50" required>
-						</div>
-						<div class="col-sm-2">
-						Numero:
-							<input class="form-control" name="numero" placeholder="N°"
-								ng-model="cadFuncCtrl.funcionario.pessoa.endereco.numero" id="numero"
-								type="text"  required>
-						</div>
-						<div class="col-sm-5">
-						Complemento:
-							<input class="form-control" placeholder="Complemento"
-								ng-model="cadFuncCtrl.funcionario.pessoa.endereco.complemento"
-								id="complemento" maxlength="50" type="text">
-						</div>
-					</div>
-					<br>
-					<div class="row">
-						<div class="col-sm-5">
-						Bairro:
-							<input class="form-control" placeholder="Bairro"
-								ng-model="cadFuncCtrl.funcionario.pessoa.endereco.bairro" id="bairro"
-								type="text" maxlength="50" required>
-
-						</div>
-						<div class="col-sm-5">
-						Cidade:
-							<input class="form-control" placeholder="Cidade"
-								ng-model="cadFuncCtrl.funcionario.pessoa.endereco.localidade" id="cidade"
-								type="text"  maxlength="50" required>
-						</div>
-						<div class="col-sm-2">
-						Estado:
-							<input class="form-control" placeholder="Estado"
-								ng-model="cadFuncCtrl.funcionario.pessoa.endereco.uf" id="estado"
-								type="text"  maxlength="50" required>
-						</div>
-
-					</div>
-					
-					<br>
-					<div class="row ">
-						<div class="col-sm-4"></div>
-						<div class="col-sm-4">
-							<input type="submit" id="submit" value="Salvar"	class="btn btn-lg btn-primary btn-block btn-signin">
-						</div>
-					</div>
-
-				</form>
+		<div class="row">
+			<div class="col-sm-4">
+				CPF: <input class="form-control" name="cpfField" placeholder="CPF"
+					ng-model="cadFuncCtrl.funcionario.pessoa.cpf" id="cpf"
+					ng-blur="cadFuncCtrl.verificaCpf(cadFuncCtrl.funcionario.pessoa.cpf)"
+					type="text" ui-br-cpf-mask required>
+				<p ng-show="formCadastrarFuncionario.cpfField.$error.cpf"
+					class="alert alert-warning ">Digite um CPF válido!!</p>
 			</div>
-		
+		</div>
+		<br>
+		<div ng-if="cadFuncCtrl.funcionario.pessoa.cpf" class="padded" md-whiteframe="{{height}}"
+			flex="100" flex-gt-sm="50" layout="column"
+			layout-align="center center" ng-init="height = 1"
+			ng-mouseenter="height = 3" ng-mouseleave="height = 1">
+			<div class="row">
+				<span ui-sref="funcionario.visualizar({idFuncionario : funcionario.id})"
+					class="btn btn-primary btn-flat"><h5>{{funcionario.pessoa.nomeCompleto}}
+						CPF: {{funcionario.pessoa.cpf}}</h5></span>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-7">
+				Nome: <input class="form-control" placeholder="Nome"
+					ng-model="cadFuncCtrl.funcionario.pessoa.nomeCompleto"
+					id="nomeCompleto" name="nome" type="text" required>
+			</div>
+
+			<div class="col-sm-3">
+				RG: <input class="form-control" placeholder="RG"
+					ng-model="cadFuncCtrl.funcionario.pessoa.rg" id="rg" type="text"
+					required>
+			</div>
+
+
+			<div class="col-sm-2">
+				Data nascimento: <input class="form-control"
+					placeholder="Data Nascimento"
+					ng-model="cadFuncCtrl.funcionario.pessoa.dataNascimento"
+					id="dataNascimento" type="date" required>
+			</div>
+		</div>
+		<br> <br>
+		<div class="row">
+
+			<div class="col-sm-3">
+				Telefone: <input class="form-control" placeholder="Telefone Fixo"
+					ng-model="cadFuncCtrl.funcionario.pessoa.telefoneFixo"
+					id="telefoneFixo" type="tel" ui-br-phone-number required>
+			</div>
+
+			<div class="col-sm-3">
+				Celular: <input class="form-control"
+					ng-model="cadFuncCtrl.funcionario.pessoa.telefoneCelular"
+					placeholder="Celular" id="telefoneCelular" type="tel"
+					ui-br-phone-number required>
+			</div>
+			<div class="col-sm-3">
+				Sexo: <select class="form-control select2"
+					ng-model="cadFuncCtrl.funcionario.pessoa.sexo" style="width: 100%;"
+					required>
+					<option value="">--Sexo--</option>
+					<option value="Masculino">Masculino</option>
+					<option value="Feminino">Feminino</option>
+				</select>
+			</div>
+			<div class="col-sm-3">
+				Estado Civil: <select class="form-control select2"
+					ng-model="cadFuncCtrl.funcionario.pessoa.estadoCivil"
+					ng-options="estadoCivil for estadoCivil in cadFuncCtrl.listaEstadoCivil"
+					style="width: 100%;">
+					<option value="">{{cadFuncCtrl.funcionario.pessoa.estadoCivil}}</option>
+				</select>
+			</div>
+		</div>
+
+
+		<br>
+
+		<hr>
+		<div class="row">
+			<div class="col-sm-3">
+				Cargo: <select class="form-control select2"
+					ng-model="cadFuncCtrl.funcionario.cargoAtual"
+					ng-options="listarCargos.descricao group by listarCargos.shade for listarCargos in cadFuncCtrl.cargos"
+					style="width: 100%;">
+					<option value="">{{cadFuncCtrl.funcionario.cargoAtual.descricao}}</option>
+				</select>
+			</div>
+		</div>
+
+		<hr>
+
+		<h4>Endereço</h4>
+
+		<br>
+
+
+		<div class="row">
+			<div class="col-sm-3">
+				CEP: <input class="form-control"
+					ng-model="cadFuncCtrl.funcionario.pessoa.endereco.cep" id="cep"
+					name="cepField" type="text" placeholder="CEP"
+					ng-blur="cadFuncCtrl.findCep()"
+					onkeyup="if(this.value.length > 8) { numero.focus(); }"
+					ui-br-cep-mask required>
+
+				<p ng-show="formCadastrarFuncionario.cepField.$error.cep"
+					class="alert alert-warning ">Digite um CEP Válido</p>
+
+			</div>
+		</div>
+		<br>
+		<div class="row">
+			<div class="col-sm-5">
+				Rua: <input class="form-control" placeholder="Rua"
+					ng-model="cadFuncCtrl.funcionario.pessoa.endereco.logradouro"
+					id="rua" type="text" maxlength="50" required>
+			</div>
+			<div class="col-sm-2">
+				Numero: <input class="form-control" name="numero" placeholder="N°"
+					ng-model="cadFuncCtrl.funcionario.pessoa.endereco.numero"
+					id="numero" type="text" required>
+			</div>
+			<div class="col-sm-5">
+				Complemento: <input class="form-control" placeholder="Complemento"
+					ng-model="cadFuncCtrl.funcionario.pessoa.endereco.complemento"
+					id="complemento" maxlength="50" type="text">
+			</div>
+		</div>
+		<br>
+		<div class="row">
+			<div class="col-sm-5">
+				Bairro: <input class="form-control" placeholder="Bairro"
+					ng-model="cadFuncCtrl.funcionario.pessoa.endereco.bairro"
+					id="bairro" type="text" maxlength="50" required>
+
+			</div>
+			<div class="col-sm-5">
+				Cidade: <input class="form-control" placeholder="Cidade"
+					ng-model="cadFuncCtrl.funcionario.pessoa.endereco.localidade"
+					id="cidade" type="text" maxlength="50" required>
+			</div>
+			<div class="col-sm-2">
+				Estado: <input class="form-control" placeholder="Estado"
+					ng-model="cadFuncCtrl.funcionario.pessoa.endereco.uf" id="estado"
+					type="text" maxlength="50" required>
+			</div>
+
+		</div>
+		<br>
+		<div class="row">
+			<div class="col-sm-5">
+				E-Mail: <input class="form-control" placeholder="E-Mail"
+					ng-model="cadFuncCtrl.funcionario.pessoa.email" id="rua"
+					type="email" maxlength="50" required>
+			</div>
+		</div>
+		<br>
+		<div class="row ">
+			<div class="col-sm-4"></div>
+			<div class="col-sm-4">
+				<input type="submit" id="submit" value="Salvar"
+					class="btn btn-lg btn-primary btn-block btn-signin">
+			</div>
+		</div>
+
+	</form>
+</div>
+

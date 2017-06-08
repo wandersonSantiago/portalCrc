@@ -1,0 +1,31 @@
+<meta charset="UTF-8">
+
+<div class="row">
+	<div class="col-lg-6">
+		<div class="input-group">
+			<input type="text" class="form-control"
+				placeholder="Digite o nome ou qualquer número de documento"
+				ng-model="texto" autofocus
+				ng-keyup="$event.keyCode == 13 && ctrl.buscarPorTexto(texto)">
+			<span class="input-group-btn">
+				<button class="btn btn-default" type="button"
+					ng-click="ctrl.buscarPorTexto(texto)">buscar!</button>
+			</span>
+		</div>
+		<!-- /input-group -->
+	</div>
+	<!-- /.col-lg-6 -->
+</div>
+<br>
+
+<div ng-show="texto"  class="padded" md-whiteframe="{{height}}" flex="100"
+	flex-gt-sm="50" layout="column" layout-align="center center"
+	ng-init="height = 1" ng-mouseenter="height = 3"
+	ng-mouseleave="height = 1"
+	ng-repeat="usuario in ctrl.usuarios | orderBy: 'nomeCompleto' ">
+	<div class="row">
+		<span ui-sref="usuario.permissao({idUsuario : usuario.id})"	class="btn btn-primary btn-flat"><h5>{{usuario.funcionario.pessoa.nomeCompleto}}
+				CPF: {{usuario.funcionario.pessoa.cpf}}</h5></span>
+	</div>
+</div>
+<br>

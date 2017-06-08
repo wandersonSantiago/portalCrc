@@ -1,6 +1,5 @@
 package br.com.portalCrc.entity;
 
-import java.math.BigDecimal;
 import java.util.Date;
 
 import javax.persistence.CascadeType;
@@ -25,11 +24,9 @@ public class Funcionario  {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "funcionario_id_seq")
 	private Long id;
-	
-	
-	
+
 	@OneToOne(cascade = {CascadeType.MERGE ,CascadeType.PERSIST} )
-	@JoinColumn(name="id_pessoa")
+	@JoinColumn(name="id_pessoa" , unique = true , nullable = false)
 	private Pessoa pessoa;
 	
 	@ManyToOne

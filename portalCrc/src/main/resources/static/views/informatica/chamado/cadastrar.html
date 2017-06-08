@@ -53,7 +53,7 @@
 			</div>
 			<div class="box-body pad">
 				<div class="form-group">
-					<textarea id="compose-textarea" placeholder="Texto" ng-model="texto"
+					<textarea froala="froalaOptions"  placeholder="Texto" ng-model="texto"
 						class="form-control" style="height: 300px"></textarea>
 				</div>
 			</div>
@@ -93,9 +93,3 @@
 
 	</form>
 </div>
-<script>
-	$(function() {
-		//Add text editor
-		$("#compose-textarea").wysihtml5();
-	});
-</script>

@@ -10,6 +10,8 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import br.com.portalCrc.entity.Usuario;
+import br.com.portalCrc.entity.diaria.ContaFuncionarioDiaria;
+import br.com.portalCrc.pojo.SessionUsuario;
 import br.com.portalCrc.repository.UsuarioRepository;
 import br.com.portalCrc.service.diaria.MensagemException;
 
@@ -86,7 +88,24 @@ public class UsuarioService {
     }
 
    
-
+    public List<Usuario> buscar(String texto) {
+    	Long idUnidade = SessionUsuario.getInstance().getUsuario().getFuncionario().getUnidadeAtual().getId();
+		texto = texto.replaceAll("[./-]","");
+		if (texto.matches("[0-9]+")) {
+			List<Usuario> list = usuarioRepository.findByFuncionarioPessoaCpfAndFuncionario_unidadeAtual_id("%" + texto + "%", idUnidade);
+			if(list.isEmpty() || list == null){
+				throw new MensagemException("Busca não encontrada, verifique se este funcioonario esta cadastrado nesta Unidade! " + texto);
+			}
+			return list;
+		} else {
+			List<Usuario> list =  usuarioRepository.findByFuncionarioPessoaNomeCompletoIgnoreCaseContainingAndFuncionario_unidadeAtual_id(texto, idUnidade);
+			if(list.isEmpty() || list == null){
+				throw new MensagemException("Busca não encontrada, verifique se este funcioonario esta cadastrado nesta Unidade! " + texto);
+			}
+			return list;
+		}
+	}
+    
     
 
     public String createPath() {
@@ -99,6 +118,7 @@ public class UsuarioService {
         return "C:\\uploads" + "\\" + yyyy + "\\" + mm;
     }
 
+	
 	
 
 }

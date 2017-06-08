@@ -62,5 +62,13 @@ app.factory('FuncionarioService', function($q , $http){
 			return $q.reject(errResponse);
 			});
 		},
+		verificaCpf:function(cpf){
+			return $http.get('/rest/recursosHumanos/funcionario/cpf/' + cpf)
+			.then(function(response){
+				return response.data;
+			},function(errResponse){
+			return $q.reject(errResponse);
+			});
+		},
 	}
 });

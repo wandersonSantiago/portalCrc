@@ -1,9 +1,27 @@
+app.controller("UsuarioBuscarController", UsuarioBuscarController);
 app.controller("UsuarioCadastarController", UsuarioCadastarController);
 app.controller("UsuarioEditarController", UsuarioEditarController);
 app.controller("UsuarioListarController", UsuarioListarController);
 app.controller("UsuarioPerfilController", UsuarioPerfilController);
 app.controller("UsuarioPermissaoController", UsuarioPermissaoController);
 
+function UsuarioBuscarController($state, $stateParams,UsuarioService, toastr, $rootScope, $scope, $log) {
+	
+	var self = this;
+	
+	self.buscarPorTexto = buscarPorTexto;
+
+
+	function buscarPorTexto(texto){
+		UsuarioService.buscarPorTexto(texto).
+			then(function(f){
+				self.usuarios = f;
+				}, function(errResponse){
+					sweetAlert({text : errResponse.data.message,  type : "info", width: 300, higth: 300, padding: 20});
+				});
+		};
+			
+}
 
 function UsuarioCadastarController(Auth,  UsuarioService, FuncionarioService, UnidadeService, SetorService, toastr, $rootScope, $scope){
 	

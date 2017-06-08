@@ -58,6 +58,12 @@ public class FuncionarioRestController {
 		public ResponseEntity<Funcionario> buscarPorId(@PathVariable Long id) {
 			return new ResponseEntity<Funcionario>(funcionarioService.buscaPorId(id), HttpStatus.OK);
 		}
+	 
+	 @RequestMapping(value = "/cpf/{cpf}", method = RequestMethod.GET)
+		public ResponseEntity<Funcionario> verificaCpf(@PathVariable String cpf) {
+			return new ResponseEntity<Funcionario>(funcionarioService.verificaCpf(cpf), HttpStatus.OK);
+		}
+	 
 	 @GetMapping(value = "/buscar")
 		public ResponseEntity<?> buscar(@RequestParam("q")String texto) {
 				return new ResponseEntity<List<Funcionario>>(funcionarioService.buscar(texto), HttpStatus.OK);

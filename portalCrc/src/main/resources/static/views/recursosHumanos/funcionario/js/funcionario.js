@@ -40,7 +40,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
 				  }
 		})
 		.state('funcionario.visualizar', {
-			url : "/:idFuncionario",
+			url : "/:idFuncionario/visualizar",
 			templateUrl : "views/recursosHumanos/funcionario/funcionario.show.html",
 			controller : "FuncionarioShowController as funcionarioCtrl",
 			ncyBreadcrumb: {

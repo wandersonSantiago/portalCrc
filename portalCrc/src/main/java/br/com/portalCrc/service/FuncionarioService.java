@@ -81,17 +81,27 @@ public class FuncionarioService {
 		Long unidade = SessionUsuario.getInstance().getUsuario().getFuncionario().getUnidadeAtual().getId();
 			texto = texto.replaceAll("[./-]","");
 			if (texto.matches("[0-9]+")) {
-				List<Funcionario> list = funcionarioRepository.findByUnidadeAtual_idAndPessoaCpf(unidade, "%" + texto + "%");
+				List<Funcionario> list = funcionarioRepository.findByUnidadeAtual_idAndPessoa_cpf(unidade, "%" + texto + "%");
 				if(list.isEmpty() || list == null){
-					throw new MensagemException("Busca não encontrada, verifique se ja existe conta aberta para este funcioonario! " + texto);
+					throw new MensagemException("Busca não encontrada, verifique se ja existe conta aberta para este funcionario! " + texto);
 				}
 				return list;
 			} else {
 				List<Funcionario> list =  funcionarioRepository.findByUnidadeAtual_idAndPessoaNomeCompletoIgnoreCaseContaining(unidade,texto);
 				if(list.isEmpty() || list == null){
-					throw new MensagemException("Busca não encontrada, verifique se ja existe conta aberta para este funcioonario! " + texto);
+					throw new MensagemException("Busca não encontrada, verifique se ja existe conta aberta para este funcionario! " + texto);
 				}
 				return list;
 			}
+	}
+
+	public Funcionario verificaCpf(String cpf) {
+		Long idUnidade = SessionUsuario.getInstance().getUsuario().getFuncionario().getUnidadeAtual().getId();
+		
+		Funcionario funcionario = funcionarioRepository.findByPessoa_cpfAndUnidadeAtual_id(cpf , idUnidade);
+		if(funcionario == null){			
+			throw new MensagemException("Liberado para cadastro!! " + cpf);
+		}		
+		return funcionario;
 	}
 }

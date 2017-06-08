@@ -8,6 +8,7 @@ function FuncionarioCadastarController( FuncionarioService,  buscaCepService , C
 			var self = this;
 			self.findCep = findCep;
 			self.submit = submit;
+			self.verificaCpf = verificaCpf;
 			estadoCivil();
 			cargos();
 			
@@ -46,6 +47,15 @@ function FuncionarioCadastarController( FuncionarioService,  buscaCepService , C
 						sweetAlert({ timer : 3000,  text : errResponse.data.message,  type : "error", width: 300, higth: 300, padding: 20});
 				});
 			};
+			
+			 function verificaCpf(cpf){
+				 FuncionarioService.verificaCpf(cpf).
+					then(function(f){	
+						sweetAlert({text : "Este CPF já consta cadastrado na base de dados",  type : "info", width: 300, higth: 300, padding: 20});						
+						$scope.funcionario = f;
+						}, function(errResponse){
+					});
+				};
 }
 function FuncionarioEditarController($stateParams, $state , FuncionarioService, CargoService, buscaCepService ,  toastr, $rootScope, $scope){
 	

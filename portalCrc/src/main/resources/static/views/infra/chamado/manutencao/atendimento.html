@@ -39,7 +39,7 @@
 							</h3>							
 						</div>
 						<div class="box-body pad">							
-								<textarea class="textarea" placeholder="Texto" ng-model="chamadoCtrl.texto" id="texto"
+								<textarea class="textarea" placeholder="Texto" froala="froalaOptions" ng-model="chamadoCtrl.texto" id="texto"
 									style="width: 100%; height: 100px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
 						</div>
 					</div>			
@@ -71,28 +71,28 @@
 										<div ng-repeat=" mensagem in chamadoCtrl.chamadoManutencao.mensagens |  orderBy:'-id'">
 											<div class="direct-chat-msg" ng-if="user.name == mensagem.usuario.login">
 												<div class="direct-chat-info clearfix">
-													<span class="direct-chat-name pull-left">{{mensagem.usuario.nome}}</span>
+													<span class="direct-chat-name pull-left">{{mensagem.usuario.funcionario.pessoa.nomeCompleto}}</span>
 													<span class="direct-chat-timestamp pull-right">
 														Data : {{ mensagem.data | date : 'dd/MM/yyyy'}} 
 														Horas : {{ mensagem.data | date : 'HH:mm:ss'}} 
 													</span>
 													</div>
-												<img class="direct-chat-img" src="public/img/avatar_2x.png"
+												<img class="direct-chat-img" ng-src="{{usuario.caminhoFoto ? usuario.caminhoFoto : '../../../../public/img/avatar_2x.png' }}"
 													alt="message user image">
-												<div class="direct-chat-text">{{ mensagem.texto }}</div>
+												<div class="direct-chat-text" froala-view="mensagem.texto"></div>
 											</div>
 											<br>
 											<div class="direct-chat-msg right" ng-if="user.name != mensagem.usuario.login">
 												<div class="direct-chat-info clearfix">
-													<span class="direct-chat-name pull-right">{{mensagem.usuario.nome}}</span>
+													<span class="direct-chat-name pull-left">{{mensagem.usuario.funcionario.pessoa.nomeCompleto}}</span>
 													<span class="direct-chat-timestamp pull-left">
 														Data : {{ mensagem.data | date : 'dd/MM/yyyy'}} 
 														Horas : {{ mensagem.data | date : 'HH:mm:ss'}} 
 													</span>													
 												</div>
-												<img class="direct-chat-img" src="public/img/avatar_2x.png"
+												<img class="direct-chat-img" ng-src="{{usuario.caminhoFoto ? usuario.caminhoFoto : '../../../../public/img/avatar_2x.png' }}"
 													alt="message user image">
-												<div class="direct-chat-text">{{ mensagem.texto }}</div>
+												<div class="direct-chat-text" froala-view="mensagem.texto"></div>
 											</div>
 											<br>
 										</div>

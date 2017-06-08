@@ -28,6 +28,15 @@ app.config(function($stateProvider, $urlRouterProvider) {
 				    label: 'Perfil'
 				  }
 		})
+		.state('usuario.buscar', {
+			url : "/pesquisar",
+			templateUrl : "views/usuario/usuario.buscar.html",
+			controller : "UsuarioBuscarController as ctrl",
+			ncyBreadcrumb: {
+				 	parent: 'usuario',
+				    label: 'Pesquisar'
+				  }
+		})
 		.state('usuario.cadastrar', {
 			url : "/cadastrar",
 			templateUrl : "views/usuario/usuario.form.html",

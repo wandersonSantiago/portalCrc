@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.security.Principal;
 import java.util.Arrays;
+import java.util.List;
 import java.util.logging.Logger;
 
 import javax.servlet.http.HttpSession;
@@ -13,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -28,6 +30,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import br.com.portalCrc.entity.Usuario;
+import br.com.portalCrc.entity.diaria.ContaFuncionarioDiaria;
 import br.com.portalCrc.enums.StatusUsuarioEnum;
 import br.com.portalCrc.enums.chamado.StatusChamado;
 import br.com.portalCrc.pojo.SessionUsuario;
@@ -110,6 +113,11 @@ public class UsuarioRestController {
 	
 			return new ResponseEntity<>(user, HttpStatus.OK);
 		}
+   
+   @GetMapping(value = "/buscar")
+	public ResponseEntity<?> buscar(@RequestParam("q")String texto) {
+	 return new ResponseEntity<List<Usuario>>(usuarioService.buscar(texto), HttpStatus.OK);
+	}
    
    @PostMapping(value = "/foto")
 	public ResponseEntity<?> recebeImagem( @RequestPart("file") MultipartFile file,  @RequestPart("usuario") Usuario usuario) {
