@@ -15,7 +15,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
 			templateUrl : "views/infra/home.html",
 			ncyBreadcrumb: {
 				 	parent: 'infraestrutura',
-				    label: 'Menu'
+				    label: 'Infraestrutura'
 				  }
 		})	
 		

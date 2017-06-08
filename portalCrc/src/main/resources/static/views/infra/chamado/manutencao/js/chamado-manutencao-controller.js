@@ -7,13 +7,6 @@ app.controller("ChamadoManutencaoSuporteListarController", ChamadoManutencaoSupo
 
 
 
-ChamadoManutencaoCadastrarController.$inject = ['ChamadoManutencaoService',  'toastr', '$rootScope', '$scope'];
-ChamadoManutencaoListarController.$inject = ['ChamadoManutencaoService'];
-ChamadoManutencaoAtendimentoController.$inject = ['$stateParams', '$state', 'ChamadoManutencaoService', 'toastr', '$rootScope', '$scope'];
-ChamadoManutencaoAtendimentoSuporteController.$inject = ['$stateParams', '$state', 'ChamadoManutencaoService', 'toastr', '$rootScope', '$scope'];
-ChamadoManutencaoRelatorioController.$inject = ['$stateParams', '$state', 'ChamadoManutencaoService', 'toastr', '$rootScope', '$scope'];
-ChamadoManutencaoSuporteListarController.$inject = ['ChamadoManutencaoService', 'toastr', '$rootScope', '$scope'];
-
 function ChamadoManutencaoCadastrarController( ChamadoManutencaoService, toastr, $rootScope, $scope){
 	var self = this;
 	self.submit = submit;
@@ -191,6 +184,129 @@ function ChamadoManutencaoAtendimentoSuporteController($stateParams,$state, Cham
 }
 function ChamadoManutencaoRelatorioController( ChamadoManutencaoService, toastr, $rootScope, $scope){
 	
+	var self = this;
+	self.getPage=0;
+	self.totalPages = 0;
+	self.totalElements = 0;
+	$scope.maxResults = 15;
+	self.relatorioPorData = relatorioPorData;
+	self.relatorioPorDataPorTitulo = relatorioPorDataPorTitulo;
+	relatorioChamadoSuporte(0, 20);
+	
+	 $scope.ativaTabela = false;
+     $scope.ativaGrafico = false;     
+     $scope.porTitulo = false;
+     $scope.porPeriodo = true;
+	
+     self.ativaBotaoTabelaGrafico =  function(botao){
+    	 if(botao === false){
+    		 $scope.ativaTabela = true;
+    		 $scope.ativaGrafico = false;
+    	 }else if(botao === true){
+    		 $scope.ativaGrafico = true;
+    		 $scope.ativaTabela = false;
+    	 }
+     };
+     
+     $scope.ativaBuscaRelatorio =  function(botao){
+    	 if(botao == 'periodo'){
+    		 $scope.porTitulo = false;
+    	     $scope.porPeriodo = true;
+    	 }else if(botao == 'titulo'){
+    		 $scope.porTitulo = true;
+    	     $scope.porPeriodo = false;;
+    	 }
+     };
+    
+     
+     function relatorioChamadoSuporte(pages, maxResults){
+    	 
+    	 	self.totalPages = [];
+			self.getPage=pages;
+			ChamadoManutencaoService.relatorioChamadoSuporte(pages, maxResults).
+			then(function(f){
+				 $scope.ativaTabela = true;
+				$scope.relatorioChamadoSuporte = f.content;
+				$scope.totalPages = f.totalPages;
+				self.totalElements = f.totalElements;
+				for(i = 0; i < $scope.totalPages ; i++){
+					self.totalPages.push(i);
+				}
+				}, function(errResponse){
+			});
+     };
+     
+     function relatorioPorData(dataInicial , dataFinal){
+    	 ChamadoManutencaoService.relatorioPorData(dataInicial, dataFinal).
+			then(function(f){	
+				 $scope.ativaTabela = true;
+				$scope.relatorioChamadoSuporte = f;		
+				chart(f);
+				}, function(errResponse){
+			});
+  	     };
+  	     
+  	   function relatorioPorDataPorTitulo(dataInicial , dataFinal, titulo){
+  		 ChamadoManutencaoService.relatorioPorDataPorTitulo(dataInicial, dataFinal, titulo).
+				then(function(f){
+					 $scope.ativaTabela = true;
+					$scope.relatorioChamadoSuporte = f;					
+					}, function(errResponse){
+				});
+	     };
+    
+  	     function chart(chamado){
+  	    	for(i = 0 ; i < chamado.length ; i++){
+		    	 console.log(chamado[i]);
+		    	 
+		    	 $scope.labels = ["January", "February", "March", "April", "May", "June", "July"];
+		    	  $scope.series = ['Series A', 'Series B'];
+		    	  $scope.data = [
+		    	    [65, 59, 80, 81, 56, 55, 40],
+		    	    [28, 48, 40, 19, 86, 27, 90]
+		    	  ];
+		    	  $scope.onClick = function (points, evt) {
+		    	    console.log(points, evt);
+		    	  };
+		    	  $scope.datasetOverride = [{ yAxisID: 'y-axis-1' }, { yAxisID: 'y-axis-2' }];
+		    	  $scope.options = {
+		    	    scales: {
+		    	      yAxes: [
+		    	        {
+		    	          id: 'y-axis-1',
+		    	          type: 'linear',
+		    	          display: true,
+		    	          position: 'left'
+		    	        },
+		    	        {
+		    	          id: 'y-axis-2',
+		    	          type: 'linear',
+		    	          display: true,
+		    	          position: 'right'
+		    	        }
+		    	      ]
+		    	    }
+		    	  };
+		     }
+  	     }
+	
+  	// inicio Função data
+  		$scope.saidaOpen = function() {
+  			$scope.saida.opened = true;
+  		};
+
+  		$scope.saida = {
+  			opened : false
+  		};
+  		$scope.entradaOpen = function() {
+  			$scope.entrada.opened = true;
+  		};
+
+  		$scope.entrada = {
+  			opened : false
+  		};
+  		$scope.format = "dd/MM/yyyy";
+  		// termino função data
 	
 }
 function ChamadoManutencaoSuporteListarController( ChamadoManutencaoService, toastr, $rootScope, $scope){

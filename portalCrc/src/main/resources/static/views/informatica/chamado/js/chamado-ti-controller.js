@@ -216,6 +216,9 @@ function ChamadoTiRelatorioController( ChamadoTiService, toastr, $rootScope, $sc
 	self.relatorioPorData = relatorioPorData;
 	self.relatorioPorDataPorTitulo = relatorioPorDataPorTitulo;
 	relatorioChamadoSuporte(0, 20);
+	tipoEquipamento();
+	tituloImpressora();
+	titulo();
 	
 	 $scope.ativaTabela = false;
      $scope.ativaGrafico = false;     
@@ -278,6 +281,32 @@ function ChamadoTiRelatorioController( ChamadoTiService, toastr, $rootScope, $sc
 					}, function(errResponse){
 				});
 	     };
+	     
+	     function titulo(){
+			 ChamadoTiService.titulo().
+				then(function(f){
+					$scope.titulos = f;			
+					}, function(errResponse){
+						sweetAlert({ timer : 3000,  text : errResponse.data.message,  type : "info", width: 300, higth: 300, padding: 20});
+				});
+			};
+		function tituloImpressora(){
+			 ChamadoTiService.tituloImpressora().
+				then(function(f){
+					$scope.tituloImpressoras = f;			
+					}, function(errResponse){
+						sweetAlert({ timer : 3000,  text : errResponse.data.message,  type : "info", width: 300, higth: 300, padding: 20});
+				});
+			};	
+			
+		function tipoEquipamento(){
+			 ChamadoTiService.tipoEquipamento().
+				then(function(f){
+					$scope.tipoEquipamentos = f;			
+					}, function(errResponse){
+						sweetAlert({ timer : 3000,  text : errResponse.data.message,  type : "info", width: 300, higth: 300, padding: 20});
+				});
+			};
     
   	     function chart(chamado){
   	    	for(i = 0 ; i < chamado.length ; i++){
@@ -313,6 +342,23 @@ function ChamadoTiRelatorioController( ChamadoTiService, toastr, $rootScope, $sc
 		    	  };
 		     }
   	     }
+  	// inicio Função data
+ 		$scope.saidaOpen = function() {
+ 			$scope.saida.opened = true;
+ 		};
+
+ 		$scope.saida = {
+ 			opened : false
+ 		};
+ 		$scope.entradaOpen = function() {
+ 			$scope.entrada.opened = true;
+ 		};
+
+ 		$scope.entrada = {
+ 			opened : false
+ 		};
+ 		$scope.format = "dd/MM/yyyy";
+ 		// termino função data
 	
 }
 function ChamadoTiSuporteListarController( ChamadoTiService, toastr, $rootScope, $scope){

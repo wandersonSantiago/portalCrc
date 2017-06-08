@@ -1,6 +1,7 @@
 package br.com.portalCrc.web.controller.chamado;
 
 import java.util.Arrays;
+import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -18,7 +19,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import br.com.portalCrc.entity.chamado.ChamadoManutencao;
-import br.com.portalCrc.entity.chamado.ChamadoTi;
 import br.com.portalCrc.enums.chamado.PrioridadeChamado;
 import br.com.portalCrc.enums.chamado.StatusChamado;
 import br.com.portalCrc.enums.chamado.TituloChamadoManutencaoEnum;
@@ -121,4 +121,17 @@ public class ChamadoManutencaoRestController {
 			return new ResponseEntity<Iterable<TituloChamadoManutencaoEnum>>(tituloChamadoManutencaoEnum, HttpStatus.OK);
 		}
 
+		@GetMapping(value = "/suporte/relatorio/dataInicial/{dataInicial}/dataFinal/{dataFinal}")
+	public ResponseEntity<Iterable<ChamadoManutencao>> relatorio(@PathVariable Date dataInicial, @PathVariable Date dataFinal) {
+		Iterable<ChamadoManutencao> chamado = chamadoManutencaoService.relatorio(dataInicial, dataFinal);
+		return new ResponseEntity<Iterable<ChamadoManutencao>>(chamado, HttpStatus.OK);
+	}
+
+	@GetMapping(value = "/suporte/relatorio/dataInicial/{dataInicial}/dataFinal/{dataFinal}/titulo/{titulo}")
+	public ResponseEntity<Iterable<ChamadoManutencao>> relatorioPorDataETitulo(@PathVariable Date dataInicial,
+			@PathVariable Date dataFinal, @PathVariable String titulo) {
+		Iterable<ChamadoManutencao> chamado = chamadoManutencaoService.relatorioPorDataETitulo(dataInicial, dataFinal, titulo);
+		return new ResponseEntity<Iterable<ChamadoManutencao>>(chamado, HttpStatus.OK);
+	}
+	
 }

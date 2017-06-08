@@ -8,8 +8,8 @@ app.config(function($stateProvider, $urlRouterProvider) {
 		templateUrl : 'views/infra/chamado/manutencao/chamado.manutencao.index.html',
 		redirectTo : 'chamadoManutencao.listar',
 		ncyBreadcrumb: {
-				parent: 'infraestrutura.menu',
-			    label: 'chamado Manutencao'
+				parent: 'chamadoManutencao.menu',
+			    label: 'chamado'
 			  }
 	})
 	
@@ -18,8 +18,8 @@ app.config(function($stateProvider, $urlRouterProvider) {
 			templateUrl : "views/infra/chamado/manutencao/lista.html",
 			controller : "ChamadoManutencaoListarController as chamadoCtrl",
 			ncyBreadcrumb: {
-				 	parent: 'chamadoManutencao.cadastrar',
-				    label: 'lista chamados'
+				 	parent: 'chamadoManutencao',
+				    label: 'listar'
 				  }
 		})
 		.state('chamadoManutencao.cadastrar', {
@@ -28,7 +28,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
 			controller : "ChamadoManutencaoCadastrarController as chamadoCtrl",
 			ncyBreadcrumb: {
 			 	parent: 'chamadoManutencao',
-			    label: 'abrir chamado manutencao'
+			    label: 'Novo'
 			  }
 		})
 		.state('chamadoManutencao.atendimento', {
@@ -36,7 +36,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
 			templateUrl : "views/infra/chamado/manutencao/atendimento.html",
 			controller : "ChamadoManutencaoAtendimentoController as chamadoCtrl",
 			ncyBreadcrumb: {
-				 	parent: 'chamadoManutencao.listar',
+				 	parent: 'chamadoManutencao',
 				    label: 'atendimento'
 				  }
 		})
@@ -45,17 +45,17 @@ app.config(function($stateProvider, $urlRouterProvider) {
 			templateUrl : "views/infra/chamado/manutencao/suporte/atendimento.html",
 			controller : "ChamadoManutencaoAtendimentoSuporteController as chamadoCtrl",
 			ncyBreadcrumb: {
-				 	parent: 'chamadoManutencao.suporteListar',
-				    label: 'atendimento suporte'
+				 	parent: 'chamadoManutencao',
+				    label: 'atendimento'
 				  }
 		})
 
 		.state('chamadoManutencao.relatorio', {
 			url : "/relatorio",
 			templateUrl : "views/infra/chamado/manutencao/suporte/relatorio.html",
-			controller : "ChamadoManutencaoRelatorioController as chamadoCtrl",
+			controller : "ChamadoManutencaoRelatorioController as chamadoCtr",
 			ncyBreadcrumb: {
-				 	parent: 'chamadoManutencao.listar',
+				 	parent: 'chamadoManutencao',
 				    label: 'relatorio'
 				  }
 		})
@@ -64,8 +64,8 @@ app.config(function($stateProvider, $urlRouterProvider) {
 			templateUrl : "views/infra/chamado/manutencao/suporte/lista.suporte.html",
 			controller : "ChamadoManutencaoSuporteListarController as chamadoCtrl",
 			ncyBreadcrumb: {
-				 	parent: 'chamadoManutencao.listar',
-				    label: 'lista suporte'
+				 	parent: 'chamadoManutencao',
+				    label: 'listar suporte'
 				  }
 		})
 		
@@ -74,8 +74,8 @@ app.config(function($stateProvider, $urlRouterProvider) {
 			templateUrl : "views/infra/chamado/manutencao/home.html",
 			controller : "ChamadoManutencaoSuporteListarController as chamadoCtrl",
 			ncyBreadcrumb: {
-				 	parent: 'chamadoManutencao.listar',
-				    label: 'Menu'
+				 	parent: 'infraestrutura.menu',
+				    label: 'Chamado'
 				  }
 		})
 });

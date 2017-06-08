@@ -59,26 +59,7 @@
 			</div>
 		</div>
 
-		<br> <br>
-		<div class="row">
-		<div class="col-sm-6" flow-init="{singleFile:true}"
-			flow-file-added="!!{png:1,gif:1,jpg:1,jpeg:1}[$file.getExtension()]"
-			class="ng-scope" flow-name="obj.flow">						
-			<div class="thumbnail ng-hide" ng-show="$flow.files.length">
-				<img flow-img="$flow.files[0]">
-			</div>
-			<div>
-				<span class="btn btn-primary" ng-show="!$flow.files.length"
-					flow-btn="">Selecionar imagem<input type="file"
-					style="visibility: hidden; position: absolute;"></span> <span
-					class="btn btn-info ng-hide" ng-show="$flow.files.length"
-					flow-btn="">Trocar<input type="file"
-					style="visibility: hidden; position: absolute;"></span> <span
-					class="btn btn-danger ng-hide" ng-show="$flow.files.length"
-					ng-click="$flow.cancel()"> Remover </span>
-			</div>
-		</div>
-	</div>
+	
 	<br>
 	<br>
 		<div class="row ">

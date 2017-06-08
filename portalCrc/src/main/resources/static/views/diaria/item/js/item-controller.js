@@ -692,7 +692,7 @@ function ItemDiariaUnidadeListController($stateParams, $state, ItemDiariaService
 			unidadeLotado :		lista.funcionarioDiaria.unidade.dadosUnidade.mnemonico,
 			dataSaida: lista.dataSaida,
 			dataChegada : lista.dataChegada,
-			localDeslocamento: lista.localDeslocamento,
+			localDeslocamento: lista.localDeslocamento.nome,
 			motivo: lista.motivo,
 			valorDiaria: lista.valorDiaria,
 			valorPassagem: lista.valorPassagem
@@ -737,7 +737,7 @@ function ItemDiariaCoordenadoriaListController($stateParams, $state, ItemDiariaS
 			unidadeLotado :		lista.funcionarioDiaria.unidade.dadosUnidade.mnemonico,
 			dataSaida: lista.dataSaida,
 			dataChegada : lista.dataChegada,
-			localDeslocamento: lista.localDeslocamento,
+			localDeslocamento: lista.localDeslocamento.nome,
 			motivo: lista.motivo,
 			valorDiaria: lista.valorDiaria,
 			valorPassagem: lista.valorPassagem
@@ -781,7 +781,7 @@ function ItemDiariaSecretariaListController($stateParams, $state, ItemDiariaServ
 			unidadeLotado :		lista.funcionarioDiaria.unidade.dadosUnidade.mnemonico,
 			dataSaida: lista.dataSaida,
 			dataChegada : lista.dataChegada,
-			localDeslocamento: lista.localDeslocamento,
+			localDeslocamento: lista.localDeslocamento.nome,
 			motivo: lista.motivo,
 			valorDiaria: lista.valorDiaria,
 			valorPassagem: lista.valorPassagem

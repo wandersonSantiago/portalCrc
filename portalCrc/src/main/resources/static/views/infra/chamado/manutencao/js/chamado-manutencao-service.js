@@ -69,7 +69,7 @@ app.factory('ChamadoManutencaoService', function($rootScope, toastr, $http){
 		
 		relatorioChamadoSuporte: function(pages, maxResults){
 			var config = {params: {page: pages , maxResults : maxResults}};
-			return $http.get('/rest/chamado/chamadoTi/suporte/relatorio/', config)
+			return $http.get('/rest/chamado/chamadoManutencao/suporte/relatorio/', config)
 			.then(function(response){
 				return response.data;
 			},function(errResponse){
@@ -124,6 +124,25 @@ app.factory('ChamadoManutencaoService', function($rootScope, toastr, $http){
 				return response.data;
 			},function(errResponse){
 				return $q.reject(errResponse);
+			});
+		},
+		relatorioPorData: function(dataInicial, dataFinal){
+			return $http.get('/rest/chamado/chamadoManutencao/suporte/relatorio/dataInicial/' +dataInicial +'/dataFinal/' +dataFinal)
+			.then(function(response){
+				return response.data;
+			},function(errResponse){
+				sweetAlert({ text : errResponse.data.message , type : "info", width: 300, higth: 100, padding: 20});
+					return $q.reject(errResponse);
+			});
+		},
+		
+		relatorioPorDataPorTitulo: function(dataInicial, dataFinal ,titulo){
+			return $http.get('/rest/chamado/chamadoManutencao/suporte/relatorio/dataInicial/' +dataInicial +'/dataFinal/' +dataFinal + '/titulo/' +titulo)
+			.then(function(response){
+				return response.data;
+			},function(errResponse){
+				sweetAlert({ text : errResponse.data.message , type : "info", width: 300, higth: 100, padding: 20});
+					return $q.reject(errResponse);
 			});
 		},
 		

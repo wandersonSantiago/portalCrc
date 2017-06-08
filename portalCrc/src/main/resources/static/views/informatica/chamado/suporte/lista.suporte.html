@@ -1,19 +1,25 @@
 <meta charset="UTF-8">
+<div class="row">
+		<div class="col-sm-3">
+			<input class="form-control" placeholder="Pesquisar..." type="text" ng-model="buscar">
+		</div>
+	</div>
+<br>
 
 		<div class="table-responsive" >
-			<input class="form-control" type="text"  ng-model="buscarChamado"  placeholder="Pesquisar...">
 		<table class="table table-hover table-bordered " >
 				<thead>
 					<tr>
-						<th>Titulo</th>
-				  		<th>Equipamento</th>				  		
-						<th>Solicitante</th>						
-						<th>Setor</th>						
-						<th>Status</th>						
-						<th>Data de abertura</th>							
-						<th>Horário</th>	
-						<th>Qtd</th>				
-						<th>Opções</th>
+						<th class="btn btn-primary btn-flat col-sm-2"><md-button  ><h5>Titulo</h5></md-button> </th>
+						<th class="btn btn-primary btn-flat col-sm-2"><md-button  ><h5>Equipamento</h5></md-button> </th>
+						<th class="btn btn-primary btn-flat col-sm-2"><md-button  ><h5>Solicitante</h5></md-button> </th>
+						<th class="btn btn-primary btn-flat col-sm-1"><md-button  ><h5>Setor</h5></md-button> </th>
+						<th class="btn btn-primary btn-flat col-sm-1"><md-button  ><h5>Status</h5></md-button> </th>
+						<th class="btn btn-primary btn-flat col-sm-1"><md-button  ><h5>Abertura</h5></md-button> </th>
+						<th class="btn btn-primary btn-flat col-sm-1"><md-button  ><h5>Horário</h5></md-button> </th>
+						<th class="btn btn-primary btn-flat col-sm-1"><md-button  ><h5>Qtd</h5></md-button> </th>							
+						<th class="btn btn-primary btn-flat col-sm-1"><md-button  ><h5>Opções</h5></md-button> </th>
+					
 					</tr>
 				</thead>
 				<tbody	ng-repeat=" chamado in chamadoCtrl.chamados | filter : buscarChamado | orderBy : '-id'  ">
@@ -27,8 +33,8 @@
 						<td>{{ chamado.dataAbertura | date : 'HH:mm:ss' }}</td>	
 						<td>{{ chamado.mensagens.length}}</td>								
 						<td><a ui-sref="chamadoTi.suporteAtendimento({idChamadoTi : chamado.id})"><i class="glyphicon glyphicon-search"></i></a> 
-						<td ng-if="!chamado.silenciar"><a href="" ng-click="chamadoCtrl.silenciarChamadoTrue(chamado)"><i class="glyphicon glyphicon-volume-up"></i></a></td>
-						<td ng-if="chamado.silenciar"><a href="" ng-click="chamadoCtrl.silenciarChamadoFalse(chamado)"><i class="glyphicon glyphicon-volume-off"></i></a></td>					
+						<a ng-if="!chamado.silenciar" href="" ng-click="chamadoCtrl.silenciarChamadoTrue(chamado)"><i class="glyphicon glyphicon-volume-up"></i></a>
+						<a ng-if="chamado.silenciar" href="" ng-click="chamadoCtrl.silenciarChamadoFalse(chamado)"><i class="glyphicon glyphicon-volume-off"></i></a></td>					
 				
 				</tr>
 				</tbody>
