@@ -30,5 +30,9 @@ public class SistemaService {
 		return sistemaRepository.findByUnidade_id(SessionUsuario.getInstance().getUsuario().getFuncionario().getUnidadeAtual().getId());
 	}
 
+	public Sistema buscaPorId(Long id) {
+		return sistemaRepository.findOne(id);
+	}
+
 
 }

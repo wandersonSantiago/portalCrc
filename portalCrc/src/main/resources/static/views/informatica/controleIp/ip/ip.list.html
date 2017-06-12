@@ -1,22 +1,29 @@
  <meta charset="UTF-8">
-		<div class="table-responsive">
-		<input class="form-control" type="text" ng-model="buscaIp" placeholder="Pesquisar...">
+ 
+ <div class="row">
+	<div class="col-sm-3">
+		<input class="form-control" placeholder="Pesquisar..." type="text" ng-model="buscar">
+	</div>
+</div>
+
+<br>
+		<div class="panel-body table-responsive">
 			<table class="table table-hover table-bordered">
 				<thead>
 					<tr>
-						<th>Número</th>
-						<th>Tipo</th>
-						<th>Status</th>
-						<th>Editar</th>
+							<th class="btn btn-primary btn-flat col-sm-2"><h6>Número</h6></th>
+					<th class="btn btn-primary btn-flat col-sm-2"><h6>Tipo</h6></th>
+					<th class="btn btn-primary btn-flat col-sm-1"><h6>Status</h6> </th>					
+					<th class="btn btn-primary btn-flat col-sm-1"><h6>Editar</h6> </th>
 						
 					</tr>
 				</thead>
 				<tbody
-					 ng-repeat=" ip in ipCtrl.ips | filter : buscaIp | orderBy : 'id' "> 
+					 ng-repeat=" ip in ipCtrl.ips | filter : buscar | orderBy : 'id' "> 
 					<tr>
 						<td>{{ ip.numero }}</td>
 						<td><div class="row">
-							<div class="col-sm-6"  >
+							<div class="col-sm-12"  >
 								<select class="form-control " ng-model="ip.tipo" 
 									ng-options="tipoIp.descricao for tipoIp in ipCtrl.tipoIps"  required >
 										<option ng-value="ip.tipo" value="">{{ip.tipo.descricao}}</option>

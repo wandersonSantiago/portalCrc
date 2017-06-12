@@ -1,18 +1,27 @@
  <meta charset="UTF-8">
-		<div class="table-responsive">
-		<input class="form-control" type="text" ng-model="buscarSetor" placeholder="Pesquisar...">
+ 
+ <div class="row">
+	<div class="col-sm-3">
+		<input class="form-control" placeholder="Pesquisar..." type="text" ng-model="buscar">
+	</div>
+</div>
+
+<br>
+		<div class="panel-body table-responsive">
 			<table class="table table-hover table-bordered">
 				<thead>
 					<tr>
-						<th>Descricao</th>
-						<th>Numero</th>
-						<th>Setor</th>						
-						<th>Switch</th>
-						<th>Porta</th>
+							<th class="btn btn-primary btn-flat col-sm-2"><h6>Descricao</h6></th>
+					<th class="btn btn-primary btn-flat col-sm-2"><h6>Numero</h6></th>
+					<th class="btn btn-primary btn-flat col-sm-1"><h6>Setor</h6> </th>					
+					<th class="btn btn-primary btn-flat col-sm-1"><h6>Switch</h6> </th>						
+					<th class="btn btn-primary btn-flat col-sm-1"><h6>Porta</h6> </th>
+					<th class="btn btn-primary btn-flat col-sm-1"><h6>Opções</h6> </th>
+				
 					</tr>
 				</thead>
 				<tbody
-					ng-repeat=" ponto in pontoCtrl.pontos | filter : buscarSetor ">
+					ng-repeat=" ponto in pontoCtrl.pontos | filter : buscar ">
 					<tr>
 						<td>{{ ponto.descricao }}</td>
 						<td>{{ ponto.numero }}</td>
@@ -20,7 +29,7 @@
 						<td>{{ ponto.switchs.nome}}</td>
 						<td>{{ ponto.portaSwitch.numero}}</td>
 						<td><a ui-sref="ponto.editar({idPonto : ponto.id})"><i class="glyphicon glyphicon-edit"></i></a> 	
-						<td ng-if="ponto.status != 'INATIVO'"><a ng-click="pontoCtrl.limparPortas(ponto)"><i class="fa fa-object-ungroup"></i></a>									 
+						<a  ng-if="ponto.status != 'INATIVO'" ng-click="pontoCtrl.limparPortas(ponto)"><i class="fa fa-object-ungroup"></i></a>									 
 				</tr>
 				</tbody>
 				<tfoot>

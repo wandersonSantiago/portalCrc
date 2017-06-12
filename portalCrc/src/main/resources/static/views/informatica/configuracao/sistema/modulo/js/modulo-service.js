@@ -1,9 +1,8 @@
-app.factory('SistemaService', function($q, $http){
-	var url = "/rest/chamado/sistema/";
-	
+app.factory('ModuloService', function($q, $http){
+	var url = '/rest/informatica/sistema/modulo';	
 	return{
-		salvar: function(sistema){
-			return $http.post(url, sistema)
+		salvar: function(modulo){
+			return $http.post(url + , modulo)
 			.then(function(response){
 				return response.data;
 			},function(errResponse){
@@ -11,8 +10,8 @@ app.factory('SistemaService', function($q, $http){
 			});
 		},
 		
-		alterar: function(sistema){
-			return $http.put(url , sistema)
+		alterar: function(modulo){
+			return $http.put(url + , modulo)
 			.then(function(response){
 				return response.data;
 			},function(errResponse){
@@ -21,16 +20,14 @@ app.factory('SistemaService', function($q, $http){
 		},
 		
 		
-		buscarPorId: function(sistema){
-			return $http.get(url +'/id'+sistema)
+		buscarPorId: function(modulo){
+			return $http.get(url +'/'+modulo)
 			.then(function(response){
 				return response.data;
 			},function(errResponse){
 				return $q.reject(errResponse);
 			});
-		},	
-		
-	
+		},			
 		
 		listar: function(){
 			return $http.get(url)
@@ -40,6 +37,7 @@ app.factory('SistemaService', function($q, $http){
 				return $q.reject(errResponse);
 			});
 		},
+		
 		
 		
 		

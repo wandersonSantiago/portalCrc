@@ -29,4 +29,8 @@ public class ModuloSistemaService {
 		return moduloSistemaRepository.findByUnidade_id(SessionUsuario.getInstance().getUsuario().getFuncionario().getUnidadeAtual().getId());
 	}
 
+	public ModuloSistema buscaPorId(Long id) {
+		return moduloSistemaRepository.findOne(id);
+	}
+
 }

@@ -1,0 +1,41 @@
+<meta charset="UTF-8">
+
+<div class="container col-sm-12 ">
+	<form role="form-vertical" name="formSecretaria"
+		ng-submit="secretariaCtrl.submit()">
+
+		<div class="row">
+			<div class="col-sm-4">
+				<select class="form-control select2" ng-model="ctrl.temasistema"
+					id="secretariaId"
+					ng-options="sistema.nome for sistema in ctrl.sistemas">
+					<option value=""></option>
+				</select>
+			</div>
+			<div class="col-sm-4">
+				<select class="form-control select2" ng-model="ctrl.tema.modulo
+					id="secretariaId"
+					ng-options="modulo.nome for modulo in ctrl.modulos">
+					<option value=""></option>
+				</select>
+			</div>
+			<div class="col-sm-4">
+				<input class="form-control" placeholder="Nome"
+					ng-model="ctrl.tema.nome" id="idNome" name="nome" type="text"
+					required>
+			</div>
+		</div>
+		<br>
+
+
+		<div class="row ">
+			<div class="col-sm-4"></div>
+			<div class="col-sm-4">
+				<input type="submit" id="submit" value="Salvar"
+					class="btn btn-lg btn-primary btn-block btn-signin">
+			</div>
+		</div>
+
+
+	</form>
+</div>

@@ -1,17 +1,21 @@
 <meta charset="UTF-8">
 
 			<div class="container col-sm-12 ">
-				<form role="form-vertical" name="formSecretaria" ng-submit="secretariaCtrl.submit()">
+				<form role="form-vertical" name="form" ng-submit="ctrl.submit()">
 									
 					<div class="row">
 												
 						<div class="col-sm-6" >
-							<input class="form-control" placeholder="Nome" ng-model="secretariaCtrl.secretaria.nome" id="razaoSocial" name="nome" type="text" required>						
+							<input class="form-control" placeholder="Nome" ng-model="ctrl.modulo.nome" id="idNome" name="nome" type="text" required>						
 						</div>
 					
 						<div class="col-sm-6" >
-							<input class="form-control" placeholder="Mini nome"	ng-model="secretariaCtrl.secretaria.mnemonico"	id="miniNome" name="miniNome" type="text" required>
-						</div>
+							<div class="col-sm-6">
+							<select class="form-control select2" ng-model="ctrl.modulo.sistema" id="secretariaId"
+							ng-options="sistema.nome for sistema in ctrl.sistemas"  >
+								<option value=""></option>
+							</select>
+						</div></div>
 					</div>					
 					<br>
 					

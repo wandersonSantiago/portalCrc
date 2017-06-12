@@ -1,19 +1,26 @@
 <meta charset="UTF-8">
 
+<div class="row">
+	<div class="col-sm-3">
+		<input class="form-control" placeholder="Pesquisar..." type="text" ng-model="buscar">
+	</div>
+</div>
+
+<br>
 		<div class="panel-body table-responsive">
-		<input class="form-control" type="text" ng-model="buscaSetor" placeholder="Buscar">
 			<table class="table table-hover table-bordered">
 				<thead>
 					<tr>
-						<th>descricao</th>
-						<th>telefone</th>
-						<th>Setor</th>
-						<th>Unidade</th>
-						<th>Opções</th>
+					<th class="btn btn-primary btn-flat col-sm-2"><md-button  ><h5>descricao</h5></md-button> </th>
+					<th class="btn btn-primary btn-flat col-sm-2"><md-button  ><h5>telefone</h5></md-button> </th>
+					<th class="btn btn-primary btn-flat col-sm-2"><md-button  ><h5>Setor</h5></md-button> </th>
+					<th class="btn btn-primary btn-flat col-sm-1"><md-button  ><h5>Unidade</h5></md-button> </th>
+					<th class="btn btn-primary btn-flat col-sm-1"><md-button  ><h5>Opções</h5></md-button> </th>
+						
 					</tr>
 				</thead>
 				<tbody
-					ng-repeat=" telefone in foneCtrl.telefones | filter : buscaSetor ">
+					ng-repeat=" telefone in foneCtrl.telefones | filter : buscar ">
 					<tr>
 						<td>{{ telefone.descricao }}</td>
 						<td>{{ telefone.telefone }}</td>

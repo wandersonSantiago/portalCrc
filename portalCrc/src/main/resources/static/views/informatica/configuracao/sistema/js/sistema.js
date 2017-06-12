@@ -5,7 +5,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
 	.state('sistema', {
 		abstract : true,
 		url : '/sistema',
-		templateUrl : 'views/informatica/chamado/sistema/sistema.index.html',
+		templateUrl : 'views/informatica/configuracao/sistema/sistema.index.html',
 		redirectTo : 'sistema.listar',
 		ncyBreadcrumb: {
 			    label: 'sistema'
@@ -14,7 +14,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
 	
 		.state('sistema.listar', {
 			url : "/listar",
-			templateUrl : "views/informatica/chamado/sistema/sistema.list.html",
+			templateUrl : "views/informatica/configuracao/sistema/sistema.list.html",
 			controller : "SistemaListarController as ctrl",
 			ncyBreadcrumb: {
 				 	parent: 'sistema.cadastrar',
@@ -23,7 +23,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
 		})
 		.state('sistema.cadastrar', {
 			url : "/cadastrar",
-			templateUrl : "views/informatica/chamado/sistema/sistema.form.html",
+			templateUrl : "views/informatica/configuracao/sistema/sistema.form.html",
 			controller : "SistemaCadastarController as ctrl",
 			ncyBreadcrumb: {
 			 	parent: 'sistema',
@@ -32,7 +32,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
 		})
 		.state('sistema.editar', {
 			url : "/:idSistema/editar",
-			templateUrl : "views/informatica/chamado/sistema/sistema.form.html",
+			templateUrl : "views/informatica/configuracao/sistema/sistema.form.html",
 			controller : "SistemaEditarController as ctrl",
 			ncyBreadcrumb: {
 				 	parent: 'sistema.listar',
@@ -41,7 +41,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
 		})
 		.state('sistema.visualizar', {
 			url : "/:idSistema",
-			templateUrl : "views/informatica/chamado/sistema/sistema.show.html",
+			templateUrl : "views/informatica/configuracao/sistema/sistema.show.html",
 			controller : "SistemaVisualizarController as ctrl",
 			ncyBreadcrumb: {
 				 	parent: 'sistema.listar',

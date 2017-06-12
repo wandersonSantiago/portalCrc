@@ -13,7 +13,7 @@
 					ng-repeat=" sistema in ctrl.sistemas | filter : busca ">
 					<tr>
 						<td>{{ sistema.descricao }}</td>					
-						<td><a ui-sref="sistema.editar({idSistema: sistema.id})"><i class="glyphicon glyphicon-edit"></i></a> 
+						<td><a ui-sref="sistema.editar({idSistema : sistema.id})"><i class="glyphicon glyphicon-edit"></i></a> 
 						
 				</tr>
 				</tbody>

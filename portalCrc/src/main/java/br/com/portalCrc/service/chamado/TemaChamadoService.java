@@ -29,4 +29,8 @@ public class TemaChamadoService {
 		return temaChamadoRepository.findByUnidade_id(SessionUsuario.getInstance().getUsuario().getFuncionario().getUnidadeAtual().getId());
 	}
 
+	public TemaChamado buscaPorId(Long id) {
+		return temaChamadoRepository.findOne(id);
+	}
+
 }
