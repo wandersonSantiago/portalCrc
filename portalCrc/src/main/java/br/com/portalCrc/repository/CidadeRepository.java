@@ -8,7 +8,7 @@ import br.com.portalCrc.entity.Cidade;
 
 public interface CidadeRepository extends JpaRepository<Cidade, Long>{
 
-	Collection<Cidade> findByEstado_id(Long idEstado);
+	Collection<Cidade> findByEstado_idOrderByNome(Integer idEstado);
 
 	
 

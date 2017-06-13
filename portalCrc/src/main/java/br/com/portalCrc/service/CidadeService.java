@@ -24,8 +24,8 @@ public class CidadeService {
 		cargoRepository.save(cargo);
 	}
 	
-	public Collection<Cidade> lista(Long idEstado){
-		return cargoRepository.findByEstado_id(idEstado);
+	public Collection<Cidade> lista(Integer idEstado){
+		return cargoRepository.findByEstado_idOrderByNome(idEstado);
 	}
 	
 	public Cidade buscaPorId(Long id){

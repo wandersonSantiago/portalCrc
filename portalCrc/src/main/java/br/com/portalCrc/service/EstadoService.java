@@ -23,7 +23,7 @@ public class EstadoService {
 		cargoRepository.save(cargo);
 	}
 	
-	public Collection<Estado> lista(Long idPais){
+	public Collection<Estado> lista(Integer idPais){
 		return cargoRepository.findByPais_id(idPais);
 	}
 	

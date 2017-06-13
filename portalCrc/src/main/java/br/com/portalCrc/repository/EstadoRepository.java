@@ -8,6 +8,6 @@ import br.com.portalCrc.entity.Estado;
 
 public interface EstadoRepository extends JpaRepository<Estado, Long>{
 
-	Collection<Estado> findByPais_id(Long idPais);
+	Collection<Estado> findByPais_id(Integer idPais);
 
 }

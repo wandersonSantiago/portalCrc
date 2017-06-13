@@ -30,8 +30,7 @@
 					<select class="form-control select2"
 						ng-model="ctrl.itemDiaria.estado"
 						ng-change="ctrl.buscarCidades(ctrl.itemDiaria.estado.id)"
-						ng-options="estado.nome for estado in ctrl.estados track by estado.nome">
-						<option ng-value="ctrl.itemDiaria.estado" value="">{{ctrl.itemDiaria.estado.nome}}</option>
+						ng-options="estado.nome for estado in ctrl.estados track by estado.id">
 					</select> <span class="input-group-btn"> <a type="button"
 						class="btn btn-info btn-flat"><i>Estado</i></a>
 					</span>
@@ -41,9 +40,8 @@
 				<div class="input-group margin">
 					<select class="form-control select2"
 						ng-model="ctrl.itemDiaria.localDeslocamento"
-						ng-options="cidade.nome for cidade in ctrl.cidades track by cidade.nome"
+						ng-options="cidade.nome for cidade in ctrl.cidades track by cidade.id"
 						required>
-						<option ng-value="ctrl.itemDiaria.localDeslocamento" value="">{{ctrl.itemDiaria.localDeslocamento.nome}}</option>
 					</select> <span class="input-group-btn"> <a type="button"
 						class="btn btn-info btn-flat"><i>Cidade</i></a>
 					</span>
@@ -53,7 +51,7 @@
 				<div class="input-group margin">
 					<select class="form-control select2"
 						ng-model="ctrl.itemDiaria.codigoLocalDeslocamento"
-						ng-options="valor.codigo for valor in ctrl.valoresDiaria track by valor.codigo"
+						ng-options="valor.codigo for valor in ctrl.valoresDiaria track by valor.id"
 						required>
 						<option value=""></option>
 					</select> <span class="input-group-btn"> <a type="button"
@@ -159,9 +157,9 @@
 		<div class="row ">
 			<div class="col-sm-4"></div>
 			<div class="col-sm-4">
-				<input type="submit" id="submit"
-					ng-disabled="ctrl.listaDiariaItens < 1" value="Adicionar"
-					class="btn btn-lg btn-primary btn-block btn-signin">
+				<button id="submit"
+					ng-disabled="ctrl.listaDiariaItens < 1" 
+					class="btn btn-lg btn-primary btn-block btn-signin">{{botao}}</button>
 			</div>
 		</div>
 
@@ -340,9 +338,9 @@
 						</span>
 					</div>
 
-					<label for="message-text" class="control-label">Observações:</label>
-					<textarea class="form-control text-uppercase"
-						ng-model="ctrl.itemDiaria.obsPassagem" id="message-text"></textarea>
+					<label for="texto" class="control-label">Observações:</label>
+					<input type="text" class="form-control text-uppercase"
+						ng-model="ctrl.itemDiaria.observacaoPassagem" id="texto">
 
 
 
@@ -377,7 +375,7 @@
 						<div class="input-group margin">
 							<select class="form-control select2"
 								ng-model="ctrl.coordenadoria"
-								ng-options="coordenadoria.mnemonico for coordenadoria in ctrl.coordenadorias ">
+								ng-options="coordenadoria.mnemonico for coordenadoria in ctrl.coordenadorias track by coordenadoria.id">
 								<option value=""></option>
 							</select> <span class="input-group-btn"> <a type="button"
 								class="btn btn-primary btn-flat"><i class="fa fa-home"></i></a>
@@ -389,7 +387,7 @@
 						<div class="input-group margin">
 							<select class="form-control select2" ng-model="ctrl.tipo"
 								ng-change="ctrl.buscarUnidades(ctrl.tipo.id)"
-								ng-options="tipo.descricao for tipo in ctrl.tiposUnidade">
+								ng-options="tipo.descricao for tipo in ctrl.tiposUnidade track by tipo.id">
 								<option value=""></option>
 							</select> <span class="input-group-btn"> <a type="button"
 								class="btn btn-default btn-flat"><i
@@ -402,7 +400,7 @@
 						<div class="input-group margin">
 							<select class="form-control select2" ng-model="ctrl.unidade"
 								ng-change="ctrl.buscarVeiculos(ctrl.unidade.id)"
-								ng-options="unidade.dadosUnidade.mnemonico for unidade in ctrl.unidades ">
+								ng-options="unidade.dadosUnidade.mnemonico for unidade in ctrl.unidades track by unidade.id">
 								<option value=""></option>
 							</select> <span class="input-group-btn"> <a type="button"
 								class="btn btn-info btn-flat"><i class="fa fa-eye"></i></a>
@@ -454,7 +452,7 @@
 						<div class="input-group margin">
 							<select class="form-control select2"
 								ng-model="ctrl.coordenadoria"
-								ng-options="coordenadoria.mnemonico for coordenadoria in ctrl.coordenadorias ">
+								ng-options="coordenadoria.mnemonico for coordenadoria in ctrl.coordenadorias track by coordenadoria.id ">
 								<option value=""></option>
 							</select> <span class="input-group-btn"> <a type="button"
 								class="btn btn-primary btn-flat"><i class="fa fa-home"></i></a>
@@ -466,7 +464,7 @@
 						<div class="input-group margin">
 							<select class="form-control select2" ng-model="ctrl.tipo"
 								ng-change="ctrl.buscarUnidades(ctrl.tipo.id)"
-								ng-options="tipo.descricao for tipo in ctrl.tiposUnidade">
+								ng-options="tipo.descricao for tipo in ctrl.tiposUnidade track by tipo.id">
 								<option value=""></option>
 							</select> <span class="input-group-btn"> <a type="button"
 								class="btn btn-default btn-flat"><i
@@ -479,7 +477,7 @@
 						<div class="input-group margin">
 							<select class="form-control select2" ng-model="ctrl.unidade"
 								ng-change="ctrl.buscarVeiculos(ctrl.unidade.id)"
-								ng-options="unidade.dadosUnidade.mnemonico for unidade in ctrl.unidades ">
+								ng-options="unidade.dadosUnidade.mnemonico for unidade in ctrl.unidades  track by unidade.id">
 								<option value=""></option>
 							</select> <span class="input-group-btn"> <a type="button"
 								class="btn btn-info btn-flat"><i class="fa fa-eye"></i></a>
@@ -493,7 +491,7 @@
 						<div class="input-group margin">
 							<select class="form-control select2"
 								ng-model="ctrl.itemDiaria.meioTransporteRetorno"
-								ng-options="veiculo.placa for veiculo in ctrl.veiculos ">
+								ng-options="veiculo.placa for veiculo in ctrl.veiculos track by veiculo.id">
 								<option value=""></option>
 							</select> <span class="input-group-btn"> <a type="button"
 								class="btn btn-success btn-flat"><i class="fa fa-automobile"></i></a>

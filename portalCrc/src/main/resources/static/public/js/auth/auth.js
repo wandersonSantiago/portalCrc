@@ -60,7 +60,8 @@ app.factory("Auth", function($http, $q, $sessionStorage, $rootScope, $urlRouter,
             return false;
         }
         for(let permission of permissions){
-            if ( $rootScope.user.authorities.indexOf(permission) >= 0){
+            if ( $rootScope.user.authorities.indexOf.name(permission) >= 0){
+            	console.log($rootScope.user.authorities.indexOf.name)
             	return true;
             }    
         }

@@ -1,28 +1,30 @@
 package br.com.portalCrc.entity;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
-@SequenceGenerator(name = "pais_id_seq", sequenceName = "pais_id_seq", schema="principal", initialValue = 1, allocationSize = 1)
-@Table(name="pais", schema="principal")
+@Table(name="tb_pais", schema="comum")
 public class Pais {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pais_id_seq")
-	private Long id;
+	@Column(name="pais_id")
+	private Integer id;
 
+	@Column(name="pai_nome")
 	private String nome;
 
-	public Long getId() {
+	@Column(name="pai_iso", columnDefinition= "bpchar")
+	private String sigla;
+	
+	
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -34,6 +36,11 @@ public class Pais {
 		this.nome = nome;
 	}
 	
-	
+	public String getSigla() {
+		return sigla;
+	}
+	public void setSigla(String sigla) {
+		this.sigla = sigla;
+	}
 	
 }

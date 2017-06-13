@@ -25,13 +25,13 @@ public class EnderecoRestController {
 	private EstadoService estadoService;
 	
 	 @GetMapping(value="/cidade/estado/{idEstado}")
-	 public ResponseEntity<Iterable<Cidade>> cidades(@PathVariable Long idEstado) {	  
+	 public ResponseEntity<Iterable<Cidade>> cidades(@PathVariable Integer idEstado) {	  
 	  Iterable<Cidade> cidade = cidadeService.lista(idEstado);
 	  return new ResponseEntity<Iterable<Cidade>>(cidade, HttpStatus.OK);
 	 }
 	 
 	 @GetMapping(value="/estado/pais/{idPais}")
-	 public ResponseEntity<Iterable<Estado>> estados(@PathVariable Long idPais) {	  
+	 public ResponseEntity<Iterable<Estado>> estados(@PathVariable Integer idPais) {	  
 	  Iterable<Estado> estado = estadoService.lista(idPais);
 	  return new ResponseEntity<Iterable<Estado>>(estado, HttpStatus.OK);
 	 }

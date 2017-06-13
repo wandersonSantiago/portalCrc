@@ -34,7 +34,7 @@ public class ItemDiariaRestController {
 		
 	@PutMapping
 	public ResponseEntity<ItemDiaria> alterar(@RequestBody ItemDiaria itemDiaria, UriComponentsBuilder ucBuilder){
-		itemDiariaRepository.salvaOuAltera(itemDiaria);
+		itemDiariaRepository.altera(itemDiaria);
 		HttpHeaders http =  new HttpHeaders();
 		return new ResponseEntity<>(http , HttpStatus.CREATED);		
 	}

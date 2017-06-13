@@ -71,6 +71,9 @@ public class ItemDiaria {
 	@Temporal(TemporalType.DATE)
 	private Date dataCadastro;
 	
+	@Temporal(TemporalType.DATE)
+	private Date dataAlteracao;
+	
 	@NotNull (message="Valor das diaria não pode ser nulo")
 	@Column(name="valor_diaria")
 	private BigDecimal valorDiaria;
@@ -78,8 +81,8 @@ public class ItemDiaria {
 	@Column(name="valor_passagem")
 	private BigDecimal valorPassagem;
 	
-	@Column(name="obs_passagem")
-	private String obsPassagem;
+	@Column(name="observacao_passagem")
+	private String observacaoPassagem;
 	
 	@NotNull (message="Motido do deslocamento não pode ser nulo")
 	@Column(name="motivo")
@@ -94,6 +97,10 @@ public class ItemDiaria {
 	@ManyToOne
 	@JoinColumn(name="id_usuario_cadastro")
 	private Usuario usuarioCadastro;
+	
+	@ManyToOne
+	@JoinColumn(name="id_usuario_alteracao")
+	private Usuario usuarioAlteracao;
 
 
 	public Long getId() {
@@ -189,12 +196,14 @@ public class ItemDiaria {
 		this.meioTransporteRetorno = meioTransporteRetorno;
 	}
 
-	public String getObsPassagem() {
-		return obsPassagem;
+	
+
+	public String getObservacaoPassagem() {
+		return observacaoPassagem;
 	}
 
-	public void setObsPassagem(String obsPassagem) {
-		this.obsPassagem = obsPassagem.toUpperCase();
+	public void setObservacaoPassagem(String observacaoPassagem) {
+		this.observacaoPassagem = observacaoPassagem;
 	}
 
 	public Date getDataSaida() {
@@ -236,6 +245,24 @@ public class ItemDiaria {
 	public void setCodigoLocalDeslocamento(ValoresDiariaLocalidade codigoLocalDeslocamento) {
 		this.codigoLocalDeslocamento = codigoLocalDeslocamento;
 	}
+
+	public Date getDataAlteracao() {
+		return dataAlteracao;
+	}
+
+	public void setDataAlteracao(Date dataAlteracao) {
+		this.dataAlteracao = dataAlteracao;
+	}
+
+	public Usuario getUsuarioAlteracao() {
+		return usuarioAlteracao;
+	}
+
+	public void setUsuarioAlteracao(Usuario usuarioAlteracao) {
+		this.usuarioAlteracao = usuarioAlteracao;
+	}
+
+
 
 	
 
