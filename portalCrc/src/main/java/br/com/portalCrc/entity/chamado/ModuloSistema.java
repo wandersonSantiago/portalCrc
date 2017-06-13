@@ -57,7 +57,7 @@ public class ModuloSistema {
 	}
 
 	public void setDescrição(String descrição) {
-		this.descrição = descrição;
+		this.descrição = descrição.toUpperCase();
 	}
 
 	public Sistema getSistema() {

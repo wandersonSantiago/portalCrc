@@ -39,14 +39,14 @@ public class DadosUnidade {
 		return nome;
 	}
 	public void setNome(String nome) {
-		this.nome = nome;
+		this.nome = nome.toUpperCase();
 	}
 
 	public String getMnemonico() {
 		return mnemonico;
 	}
 	public void setMnemonico(String mnemonico) {
-		this.mnemonico = mnemonico;
+		this.mnemonico = mnemonico.toUpperCase();
 	}
 	public Endereco getEndereco() {
 		return endereco;

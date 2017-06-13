@@ -9,6 +9,6 @@ public enum ModuloPermissaoEnum {
 	FINANCAS,
 	GERENCIAMENTO,
 	RECURSOS_HUMANOS,
-	ADMINISTRADOR;
+	ADMIN;
 	
 }

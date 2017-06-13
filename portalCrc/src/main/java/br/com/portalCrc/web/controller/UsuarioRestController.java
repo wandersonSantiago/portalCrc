@@ -6,7 +6,6 @@ import java.io.FileOutputStream;
 import java.security.Principal;
 import java.util.Arrays;
 import java.util.List;
-import java.util.logging.Logger;
 
 import javax.servlet.http.HttpSession;
 
@@ -26,17 +25,13 @@ import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import br.com.portalCrc.entity.Usuario;
-import br.com.portalCrc.entity.diaria.ContaFuncionarioDiaria;
 import br.com.portalCrc.enums.StatusUsuarioEnum;
-import br.com.portalCrc.enums.chamado.StatusChamado;
 import br.com.portalCrc.pojo.SessionUsuario;
 import br.com.portalCrc.service.UsuarioService;
 import br.com.portalCrc.service.diaria.MensagemException;
-import ch.qos.logback.core.net.SyslogOutputStream;
 
 
 
@@ -56,8 +51,7 @@ public class UsuarioRestController {
     
 	@RequestMapping(value="/usuario")
 	@ResponseBody
-	public Principal user(Principal user, HttpSession session) {
-				
+	public Principal user(Principal user, HttpSession session) {				
 		return user;
 	}
 	

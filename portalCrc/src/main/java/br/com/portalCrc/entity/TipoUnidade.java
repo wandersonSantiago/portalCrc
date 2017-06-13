@@ -41,7 +41,7 @@ public class TipoUnidade {
 		return descricao;
 	}
 	public void setDescricao(String descricao) {
-		this.descricao = descricao;
+		this.descricao = descricao.toUpperCase();
 	}
 	public Secretaria getSecretaria() {
 		return secretaria;
@@ -53,7 +53,7 @@ public class TipoUnidade {
 		return mnemonico;
 	}
 	public void setMnemonico(String mnemonico) {
-		this.mnemonico = mnemonico;
+		this.mnemonico = mnemonico.toUpperCase();
 	}
 	public Long getId() {
 		return id;

@@ -65,15 +65,6 @@ public class FuncionarioDiaria {
 	public void setId(Long id) {
 		this.id = id;
 	}
-
-/*	public List<ItemDiaria> getItens() {
-		return itens;
-	}
-
-	public void setItens(List<ItemDiaria> itens) {
-		this.itens = itens;
-	}*/
-
 	
 
 	public ContaFuncionarioDiaria getContaFuncionario() {

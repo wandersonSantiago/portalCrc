@@ -6,6 +6,6 @@ public enum TipoSetorEnum {
 	DEPARTAMENTO,
 	CENTRO,
 	NUCLEO,
-	SETOR,
+	SETOR;
 
 }

@@ -51,7 +51,7 @@ public class Coordenadoria{
 	}
 
 	public void setNome(String nome) {
-		this.nome = nome;
+		this.nome = nome.toUpperCase();
 	}
 
 	public String getMnemonico() {
@@ -59,7 +59,7 @@ public class Coordenadoria{
 	}
 
 	public void setMnemonico(String mnemonico) {
-		this.mnemonico = mnemonico;
+		this.mnemonico = mnemonico.toUpperCase();
 	}
 
 	public Long getId() {

@@ -43,7 +43,7 @@ public class ChamadoTi extends Chamado {
 	}
 
 	public void setDescricaoServico(String descricaoServico) {
-		this.descricaoServico = descricaoServico;
+		this.descricaoServico = descricaoServico.toUpperCase();
 	}
 
 	public TipoEquipamentoChamadoTi getTipoEquipamento() {

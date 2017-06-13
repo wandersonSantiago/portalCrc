@@ -57,7 +57,7 @@ public class TemaChamado {
 	}
 
 	public void setTema(String tema) {
-		this.tema = tema;
+		this.tema = tema.toUpperCase();
 	}
 
 	public ModuloSistema getModulo() {

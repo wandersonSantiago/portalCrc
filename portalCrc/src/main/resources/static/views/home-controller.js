@@ -9,6 +9,8 @@ function HomeListarController($stateParams, $state,  toastr, $rootScope, $scope,
 	var self = this;
 	listarUsuarioLogado();
 	
+	$rootScope.titulo = "Portal Coordenadoria Central";
+	
 	 function listarUsuarioLogado(){
 		 UsuarioService.listarUsuarioLogado().
 			then(function(f){

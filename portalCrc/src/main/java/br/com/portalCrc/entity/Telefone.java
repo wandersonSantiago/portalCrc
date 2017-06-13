@@ -63,7 +63,7 @@ public class Telefone {
 		return descricao;
 	}
 	public void setDescricao(String descricao) {
-		this.descricao = descricao;
+		this.descricao = descricao.toUpperCase();
 	}
 	public String getTelefone() {
 		return telefone;

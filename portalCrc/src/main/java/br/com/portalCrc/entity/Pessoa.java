@@ -54,7 +54,7 @@ public class Pessoa  {
 	}
 
 	public void setNomeCompleto(String nomeCompleto) {
-		this.nomeCompleto = nomeCompleto;
+		this.nomeCompleto = nomeCompleto.toUpperCase();
 	}
 	
 	public String getRg() {

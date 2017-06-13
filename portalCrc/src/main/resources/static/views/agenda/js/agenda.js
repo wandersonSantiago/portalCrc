@@ -14,6 +14,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
 	
 		.state('agenda.listar', {
 			url : "/listar",
+			permissions: ["AGENDA_LISTAR", "ADMIN"],
 			templateUrl : "views/agenda/agenda.list.html",
 			controller : "AgendaListarController as agendaCtrl",
 			ncyBreadcrumb: {
@@ -22,16 +23,17 @@ app.config(function($stateProvider, $urlRouterProvider) {
 				  }
 		})
 		.state('agenda.cadastrar', {
-			url : "/cadastrar",
+			url : "/cadastrar",			 
 			templateUrl : "views/agenda/agenda.form.html",
 			controller : "AgendaCadastarController as vm",
 			ncyBreadcrumb: {
 			 	parent: 'agenda',
 			    label: 'Cadastrar agenda'
-			  }
+			  },
 		})
 		.state('agenda.editar', {
 			url : "/:idAgenda/editar",
+			permissions: ["AGENDA_EDITAR", "ADMIN"],
 			templateUrl : "views/agenda/agenda.form.html",
 			controller : "AgendaEditarController as agendaCtrl",
 			ncyBreadcrumb: {
@@ -41,6 +43,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
 		})
 		.state('agenda.visualizar', {
 			url : "/:idAgenda",
+			permissions: ["AGENDA_VISUALIZAR", "ADMIN"],
 			templateUrl : "views/agenda/agenda.show.html",
 			controller : "AgendaVisualizarController as agendaCtrl",
 			ncyBreadcrumb: {

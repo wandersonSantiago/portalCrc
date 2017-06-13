@@ -18,7 +18,7 @@ public class ChamadoManutencao extends Chamado {
 	}
 
 	public void setDescricaoServico(String descricaoServico) {
-		this.descricaoServico = descricaoServico;
+		this.descricaoServico = descricaoServico.toUpperCase();
 	}
 	
 	

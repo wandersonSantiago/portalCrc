@@ -35,19 +35,19 @@ public class Endereco  {
 		return logradouro;
 	}
 	public void setLogradouro(String logradouro) {
-		this.logradouro = logradouro;
+		this.logradouro = logradouro.toUpperCase();
 	}
 	public String getBairro() {
 		return bairro;
 	}
 	public void setBairro(String bairro) {
-		this.bairro = bairro;
+		this.bairro = bairro.toUpperCase();
 	}
 	public String getLocalidade() {
 		return localidade;
 	}
 	public void setLocalidade(String localidade) {
-		this.localidade = localidade;
+		this.localidade = localidade.toUpperCase();
 	}
 	public Integer getNumero() {
 		return numero;
@@ -59,7 +59,7 @@ public class Endereco  {
 		return uf;
 	}
 	public void setUf(String uf) {
-		this.uf = uf;
+		this.uf = uf.toUpperCase();
 	}
 	public String getCep() {
 		return cep;
@@ -71,7 +71,7 @@ public class Endereco  {
 		return complemento;
 	}
 	public void setComplemento(String complemento) {
-		this.complemento = complemento;
+		this.complemento = complemento.toUpperCase();
 	}
 	public Long getId() {
 		return id;
