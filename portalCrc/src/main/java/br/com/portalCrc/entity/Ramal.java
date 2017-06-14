@@ -12,6 +12,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import com.couchbase.client.deps.com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @SequenceGenerator(name = "ramal_id_seq", sequenceName = "ramal_id_seq", schema="principal", initialValue = 1, allocationSize = 1)
 @Table(name="ramal", schema="principal")
@@ -31,6 +33,7 @@ public class Ramal {
 	@ManyToOne
 	@JoinColumn(name="id_setor")
 	private Setor setor;
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name="id_usuario_cadastro")
 	private Usuario usuarioCadastro;

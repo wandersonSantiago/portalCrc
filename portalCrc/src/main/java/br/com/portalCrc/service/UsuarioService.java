@@ -47,17 +47,18 @@ public class UsuarioService {
 		usuarioRepository.save(usuario);
 	}
 	
+	@Transactional(readOnly = false)
 	public void alterarSenha(Long idUsuario, String senhaValidacao, String novaSenha) {
 		Usuario user = usuarioRepository.findOne(idUsuario);	
 		String hash = new BCryptPasswordEncoder().encode(senhaValidacao);
 		
-		if(user.getSenha() == hash){
+	//	if(user.getSenha() == hash){
 			String novaHash = new BCryptPasswordEncoder().encode(novaSenha);
 			user.setSenha(novaHash);
 			usuarioRepository.save(user);
-		}else{
+		/*}else{
 			throw new MensagemException("Senha de verificação inválida!!!");			
-		}
+		}*/
 	}
 	
 	public Usuario buscarUsuarioPorId(Long id){

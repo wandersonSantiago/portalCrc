@@ -14,6 +14,9 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+
 @Entity
 @SequenceGenerator(name = "funcionario_cargo_id_seq", sequenceName = "funcionario_cargo_id_seq", schema="principal", initialValue = 1, allocationSize = 1)
 @Table(name="funcionario_cargo", schema="principal")
@@ -36,6 +39,7 @@ public class FuncionarioCargo {
 	@Column(name="data_cadastro")
 	private Date dataCadastro;
 	
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name="usuario_cadastro")
 	private Usuario usuarioCadastro;

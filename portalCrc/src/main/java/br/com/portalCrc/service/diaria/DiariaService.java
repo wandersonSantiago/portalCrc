@@ -30,19 +30,33 @@ public class DiariaService {
 	private ValoresDiariaLocalidadeRepository valoresDiariaLocalidadeRepository;
 	
 	@Transactional(readOnly = false)
-	public void salvaOuAltera(Diaria diaria) {
-				
-		if(verificaSeExisteMesDeDiariaNoAno(diaria) == false){
-			salvarValoresDiaria(diaria, 7);
-			salvarValoresDiaria(diaria, 9);
-			diaria.setDataAbertura(new Date());
-			diaria.setStatus(StatusDiariaEnum.ABERTO);
-			diaria.setUnidadeCadastro(SessionUsuario.getInstance().getUsuario().getFuncionario().getUnidadeAtual());
-			diaria.setUsuarioCadastro(SessionUsuario.getInstance().getUsuario());
-			diariaRepository.save(diaria);
-		}else{			
-			throw new MensagemException("o mês de " + diaria.getMes() + " consta cadastrado no ano " + anoAtual());
+	public void salvaOuAltera(Diaria diaria) {	
+			if(verificaSeExisteMesDeDiariaNoAno(diaria) == false){
+				salvarValoresDiaria(diaria, 7);
+				salvarValoresDiaria(diaria, 9);
+				diaria.setDataAbertura(new Date());
+				diaria.setStatus(StatusDiariaEnum.ABERTO);
+				diaria.setUnidadeCadastro(SessionUsuario.getInstance().getUsuario().getFuncionario().getUnidadeAtual());
+				diaria.setUsuarioCadastro(SessionUsuario.getInstance().getUsuario());
+				diariaRepository.save(diaria);
+			}else{			
+				throw new MensagemException("o mês de " + diaria.getMes() + " consta cadastrado no ano " + anoAtual());
+			}			
+		
+	}
+	
+	@Transactional(readOnly = false)
+	public void alterar(Diaria diaria){
+		Diaria verificaDiaria = diariaRepository.findOne(diaria.getId());
+		if(verificaDiaria.getMes() != diaria.getMes()){
+			if(verificaSeExisteMesDeDiariaNoAno(diaria) == true){
+				throw new MensagemException("o mês de " + diaria.getMes() + " consta cadastrado no ano " + anoAtual());
+			}
 		}
+		diaria.setDataAlteracao(new Date());
+		diaria.setUsuarioAlteracao(SessionUsuario.getInstance().getUsuario());
+		diariaRepository.save(diaria);
+		diariaRepository.save(diaria);
 	}
 	@Transactional(readOnly = false)
 	public void salvarValoresDiaria(Diaria diaria, Integer indice){
@@ -113,10 +127,7 @@ public class DiariaService {
 		valoresDiariaLocalidadeRepository.save(indice5);
 	}
 	
-	@Transactional(readOnly = false)
-	public void alterar(Diaria diaria){
-		diariaRepository.save(diaria);
-	}
+	
 	
 	public Diaria buscaPorId(Long id){
 		return diariaRepository.findOne(id);

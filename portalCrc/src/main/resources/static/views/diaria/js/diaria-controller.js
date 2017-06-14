@@ -43,10 +43,9 @@ function DiariaEditarController($stateParams, $state, DiariaService, toastr, $ro
 	
 	
 	function submit(diaria) {
-		self.diaria.mes = null;
 		DiariaService.alterar(self.diaria).
 			then(function(response){
-				toastr.success("Salvo com Sucesso!!!");
+				toastr.success("Alterado com Sucesso!!!");
 				self.diaria = null;
 				$state.go('diaria.listar');
 				}, function(errResponse){

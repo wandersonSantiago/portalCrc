@@ -2,9 +2,7 @@ package br.com.portalCrc.service;
 
 import java.util.Collection;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -19,6 +17,7 @@ import br.com.portalCrc.entity.Usuario;
 import br.com.portalCrc.pojo.SessionUsuario;
 import br.com.portalCrc.repository.FuncionarioRepository;
 import br.com.portalCrc.repository.FuncionarioUnidadeRepository;
+import br.com.portalCrc.repository.UnidadeRepository;
 import br.com.portalCrc.repository.UsuarioRepository;
 import br.com.portalCrc.service.diaria.MensagemException;
 
@@ -33,7 +32,8 @@ public class FuncionarioUnidadeService {
 	private FuncionarioRepository funcionarioRepository;	
 	@Autowired 
 	private UsuarioRepository usuarioRepository;
-	
+	@Autowired
+	private UnidadeRepository unidadeRepository;
 	
 	
 	
@@ -105,6 +105,15 @@ public class FuncionarioUnidadeService {
 				}
 				return list;
 			}
+	}
+
+	@Transactional(readOnly = false)
+	public void alterarUnidade(Long idUnidade) {
+		Funcionario funcionario = SessionUsuario.getInstance().getUsuario().getFuncionario();
+		Unidade unidade = unidadeRepository.findOne(idUnidade);
+		funcionario.setUnidadeAtual(unidade);
+		
+		funcionarioRepository.save(funcionario);
 	}
 
 	

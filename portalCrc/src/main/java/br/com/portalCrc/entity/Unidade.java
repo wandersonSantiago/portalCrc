@@ -14,6 +14,9 @@ import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+
 
 @Entity
 @SequenceGenerator(name = "unidade_id_seq", sequenceName = "unidade_id_seq", schema="principal", initialValue = 1, allocationSize = 1)
@@ -36,6 +39,7 @@ public class Unidade  {
 	@JoinColumn(name="id_tipoUnidade")
 	private TipoUnidade tipoUnidade;
 	
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name="id_usuario_cadastro")
 	private Usuario usuarioCadastro;

@@ -91,7 +91,7 @@ function UsuarioCadastarController(Auth,  UsuarioService, FuncionarioService, Un
 		
 }		
 
-function UsuarioEditarController($timeout, Auth, $stateParams, $state , UsuarioService, FuncionarioService, SetorService, UnidadeService, toastr, $rootScope, $scope){
+function UsuarioEditarController(FuncionarioUnidadeService, $timeout, Auth, $stateParams, $state , UsuarioService, FuncionarioService, SetorService, UnidadeService, toastr, $rootScope, $scope){
 	
 	var self = this;
 	
@@ -120,17 +120,19 @@ function UsuarioEditarController($timeout, Auth, $stateParams, $state , UsuarioS
 	};	
 	
 	
-	function alterarUnidade(parametroUsuario){
-		parametroUsuario.senha = null;
-		UsuarioService.alterar(parametroUsuario).
+	function alterarUnidade(idUnidade){
+		FuncionarioUnidadeService.alterarUnidade(idUnidade).
 		then(function(response){
-			Auth.logout();		
+			self.myVar = setInterval(function(){ logout() }, 500);
 			}, function(errResponse){
 		sweetAlert({ timer : 3000, text: errResponse.data.message , type : "info", width: 300, higth: 100, padding: 20});
 		});
 	}
 	
-
+	function logout(){
+		Auth.logout();
+		clearInterval(self.myVar);
+	}
 
 	function listarFuncionarios(){
 		 FuncionarioService.listar().

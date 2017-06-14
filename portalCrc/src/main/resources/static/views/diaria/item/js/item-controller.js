@@ -68,8 +68,8 @@ function ItemDiariaCadastrarController($state, ItemDiariaService, $stateParams,
 					toastr.info("Salvo com Sucesso!!!");
 					self.itemDiaria.meioTransporteRetorno = {placa : self.itemDiaria.meioTransporteRetorno};
 					self.itemDiaria.meioTransporteSaida = {placa : self.itemDiaria.meioTransporteSaida};
-					self.itemDiaria.dataSaida = null;
-					self.itemDiaria.dataChegada = null;
+					self.itemDiaria.dataSaida = "";
+					self.itemDiaria.dataChegada = "";
 				}, function(errResponse) {
 					sweetAlert({
 						text : errResponse.data.message,
@@ -522,8 +522,17 @@ function ItemDiariaEditarController($state, ItemDiariaService, $stateParams,
 	self.submit = submit;
 	buscarCoordenadorias();
 	buscarTipoUnidade();
-
+	self.proximaPagina = proximaPagina;
 					
+	function proximaPagina(item) {
+		self.myVar = setInterval(function(){ editar(item) }, 500);			
+	};
+	
+	function editar(item){
+		$state.go('item.editar' , {idItem : item.id});
+		clearInterval(self.myVar);
+	}
+	
 	function submit() {
 		self.itemDiaria.meioTransporteSaida = self.itemDiaria.meioTransporteSaida.placa;
 		self.itemDiaria.meioTransporteRetorno = self.itemDiaria.meioTransporteRetorno.placa;
@@ -570,8 +579,6 @@ function ItemDiariaEditarController($state, ItemDiariaService, $stateParams,
 			self.itemDiaria = p;
 			self.itemDiaria.meioTransporteRetorno = {placa : self.itemDiaria.meioTransporteRetorno};
 			self.itemDiaria.meioTransporteSaida = {placa : self.itemDiaria.meioTransporteSaida};
-			self.itemDiaria.dataChegada = new Date(p.dataChegada);
-			self.itemDiaria.dataSaida = new Date(p.dataSaida);
 			self.funcionario = self.itemDiaria.funcionarioDiaria;
 			self.diaria = self.itemDiaria.funcionarioDiaria.diaria;
 			buscarValoresDiariaPorIndice(self.funcionario.contaFuncionario.indiceUfesp, self.diaria.id);	

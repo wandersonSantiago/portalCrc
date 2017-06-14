@@ -59,9 +59,18 @@ public class Diaria {
 	@OneToMany(mappedBy="diaria")
 	private List<FuncionarioDiaria> funcionarios;	
 	
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name="id_usuario_cadastro")
 	private Usuario usuarioCadastro;
+	
+	@ManyToOne
+	@JoinColumn(name="id_usuario_alteracao")
+	private Usuario usuarioAlteracao;
+	
+	@Temporal(TemporalType.DATE)
+	private Date dataAlteracao;
+	
 	
 	@NotNull (message="Unidade não pode ser nulo")
 	@ManyToOne
@@ -153,6 +162,22 @@ public class Diaria {
 
 	public void setValorUfesp(BigDecimal valorUfesp) {
 		this.valorUfesp = valorUfesp;
+	}
+
+	public Usuario getUsuarioAlteracao() {
+		return usuarioAlteracao;
+	}
+
+	public void setUsuarioAlteracao(Usuario usuarioAlteracao) {
+		this.usuarioAlteracao = usuarioAlteracao;
+	}
+
+	public Date getDataAlteracao() {
+		return dataAlteracao;
+	}
+
+	public void setDataAlteracao(Date dataAlteracao) {
+		this.dataAlteracao = dataAlteracao;
 	}
 	
 

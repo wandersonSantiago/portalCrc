@@ -19,7 +19,14 @@ app.factory('FuncionarioUnidadeService', function($q, $rootScope, toastr, $http)
 				return $q.reject(errResponse);
 			});
 		},
-		
+		alterarUnidade : function(idUnidade){
+			return $http.put('/rest/recursosHumanos/funcionarioUnidade/alterar/unidade/'+idUnidade)
+			.then(function(response){
+				return response.data;
+			},function(errResponse){
+				return $q.reject(errResponse);
+			});
+		},
 		
 		buscarPorId: function(param){
 			return $http.get('/rest/recursosHumanos/funcionarioUnidade/buscaPorId/'+param)

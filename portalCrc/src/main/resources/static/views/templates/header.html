@@ -66,7 +66,7 @@
 				      <div class="modal-body">				     		
 					      <div class="row">
 						      	<div  class="col-sm-12" >
-									<select class="form-control " ng-model="usuario.empreendimento" 
+									<select class="form-control " ng-model="unidade" 
 										ng-options="unidades.dadosUnidade.nome group by unidades.tipoUnidade.descricao for unidades in userCtrl.unidades"
 										style="width: 100%;" required>
 										<option  value="">--selecione o Unidade--</option>
@@ -75,7 +75,7 @@
 					      </div>					       
 				      </div>
 				      <div class="modal-footer">
-				        <button type="button" ng-click="userCtrl.alterarUnidade(usuario)" class="btn btn-primary">Alterar</button>
+				        <button type="button" data-dismiss="modal" ng-click="userCtrl.alterarUnidade(unidade.id)" class="btn btn-primary">Alterar</button>
 				        <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>				        
 				      </div>
 				    </div>

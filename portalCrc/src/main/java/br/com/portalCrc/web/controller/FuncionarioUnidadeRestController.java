@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import br.com.portalCrc.entity.FuncionarioUnidade;
+import br.com.portalCrc.entity.Unidade;
+import br.com.portalCrc.entity.Usuario;
 import br.com.portalCrc.enums.StatusFuncionario;
 import br.com.portalCrc.service.FuncionarioUnidadeService;
 
@@ -48,6 +50,12 @@ public class FuncionarioUnidadeRestController {
 		 return new ResponseEntity<FuncionarioUnidade>(headers, HttpStatus.CREATED);
 	 }
 
+	 @RequestMapping(method = RequestMethod.PUT, value="/alterar/unidade/{idUnidade}")
+		public ResponseEntity<FuncionarioUnidade> alterarUnidade(@PathVariable Long idUnidade){
+			 funcionarioUnidadeService.alterarUnidade(idUnidade);
+			 HttpHeaders headers =new HttpHeaders();
+			 return new ResponseEntity<FuncionarioUnidade>(headers, HttpStatus.CREATED);
+		 }
 	 
 	 @RequestMapping(value = "/buscaPorId/{id}", method = RequestMethod.GET)
 		public ResponseEntity<FuncionarioUnidade> buscarPorId(@PathVariable Long id) {

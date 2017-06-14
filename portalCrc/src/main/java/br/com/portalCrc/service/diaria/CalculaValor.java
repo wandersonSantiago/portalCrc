@@ -17,7 +17,7 @@ public class CalculaValor {
 		DateTime horarioChegada = new DateTime(item.getHoraChegada());
 		DateTime horarioSaida = new DateTime(item.getHoraSaida());
 
-		Hours total = Hours.hoursBetween(horarioChegada, horarioSaida);
+		Hours total = Hours.hoursBetween(horarioSaida, horarioChegada);
 
 		total.getHours();
 
@@ -27,11 +27,11 @@ public class CalculaValor {
 	
 
 	public BigDecimal valorDiariaPorHorario(Hours totalHoras, ItemDiaria item) {
-		BigDecimal totalValor = null;
+		BigDecimal totalValor =  new BigDecimal(0);
 
 		if (totalHoras.getHours() >= 12) {
 			totalValor = item.getCodigoLocalDeslocamento().getDeslocamentoMaisDeDoze();
-		} else if (totalHoras.getHours() >= 6 || totalHoras.getHours() < 12) {
+		} else if (totalHoras.getHours() >= 6) {
 			totalValor = item.getCodigoLocalDeslocamento().getDeslocamentoSeisAsDoze();
 		}else{
 			throw new MensagemException("Retorno não atigiu o minimo de horas!!!");
@@ -53,7 +53,7 @@ public class CalculaValor {
 	
 	public BigDecimal valorPernoite(Integer totalPernoite, ItemDiaria item) {
 
-		BigDecimal totalValor = null;
+		BigDecimal totalValor = new BigDecimal(0);
 
 		if (totalPernoite > 0) {
 			totalValor = item.getCodigoLocalDeslocamento().getPernoite().multiply(new BigDecimal(totalPernoite));
@@ -69,17 +69,17 @@ public class CalculaValor {
 	
 	private BigDecimal verificaHorarioRetorno(ItemDiaria item) {
 		BigDecimal valorRetorno
-		= null;
+		= new BigDecimal(0);
 		DateTime dataFinal = new DateTime(item.getHoraChegada());
 		int horaChegada = dataFinal.getHourOfDay(); 
 		Hours horas = Hours.hours(horaChegada);
 		
 		if(horas.getHours() >=  19){
 			valorRetorno = item.getCodigoLocalDeslocamento().getRetornoAposDezenove();
-		}else if(horas.getHours() >= 13 || horas.getHours() <  19){
+		}else if(horas.getHours() >= 13){
 			valorRetorno = item.getCodigoLocalDeslocamento().getRetornoTrezeAsDezenove();
 		}else{
-			throw new MensagemException("Retorno não atigiu o minimo de horas!!!");
+			System.out.println("Retorno não atigiu o minimo de horas!!!");
 		}
 
 		return valorRetorno;

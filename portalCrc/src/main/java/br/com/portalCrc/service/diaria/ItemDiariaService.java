@@ -28,45 +28,36 @@ public class ItemDiariaService {
 	private FuncionarioDiariaRepository funcionarioDiariaRepository;
 	
 	@Transactional(readOnly = false)
-	public void salvaOuAltera(ItemDiaria itemDiaria){
-		
-		FuncionarioDiaria funcionarioDiaria =  funcionarioDiariaRepository.findById(itemDiaria.getFuncionarioDiaria().getId());
-				
-	
-		CalculaValor calcula = new CalculaValor();
-		
-		itemDiaria.setDataCadastro(new Date());
+	public void salvaOuAltera(ItemDiaria itemDiaria){		
+		FuncionarioDiaria funcionarioDiaria =  funcionarioDiariaRepository.findById(itemDiaria.getFuncionarioDiaria().getId());				
 		Usuario user = SessionUsuario.getInstance().getUsuario();
+		
+		itemDiaria.setDataCadastro(new Date());		
 		itemDiaria.setUsuarioCadastro(user);
+		
+		
+		CalculaValor calcula = new CalculaValor();
+		int count = calcula.quantidadePernoite(itemDiaria);
+		
 		BigDecimal valorTotalItem = new BigDecimal(0);
 		BigDecimal valorTotalDiaria = funcionarioDiaria.getTotalValorDiaria();
-		
-		int count = calcula.quantidadePernoite(itemDiaria);
 		
 		valorTotalItem = valorTotalItem.add(calcula.valorPernoite(count, itemDiaria));
 		itemDiaria.setValorDiaria(valorTotalItem);
 		
-		valorTotalDiaria = valorTotalDiaria.add(valorTotalItem);
-		funcionarioDiaria.setTotalValorDiaria(valorTotalDiaria);
-		
-		if(itemDiaria.getFuncionarioDiaria().getDiaria().getStatus()  == StatusDiariaEnum.ABERTO){
-			itemDiariaRepository.save(itemDiaria);
-			funcionarioDiariaRepository.save(funcionarioDiaria);
-		}else{
-			throw new MensagemException("Não foi possivel realizar este lançamento, Este mês esta encerrado!!!");
-		}
-		
+		somaValorTotalDiaria(valorTotalDiaria, valorTotalItem , funcionarioDiaria , itemDiaria);		 		
 	}
+	
 	
 	@Transactional(readOnly = false)
 	public void altera(ItemDiaria itemDiaria){
 		FuncionarioDiaria funcionarioDiaria =  funcionarioDiariaRepository.findById(itemDiaria.getFuncionarioDiaria().getId());
 		ItemDiaria item = itemDiariaRepository.findOne(itemDiaria.getId());
+		Usuario user = SessionUsuario.getInstance().getUsuario();
 		
 		CalculaValor calcula = new CalculaValor();
 		
 		itemDiaria.setDataAlteracao(new Date());
-		Usuario user = SessionUsuario.getInstance().getUsuario();
 		itemDiaria.setUsuarioAlteracao(user);
 		
 		BigDecimal valorTotalItem = new BigDecimal(0);
@@ -77,7 +68,13 @@ public class ItemDiariaService {
 		valorTotalItem = valorTotalItem.add(calcula.valorPernoite(count, itemDiaria));
 		itemDiaria.setValorDiaria(valorTotalItem);
 		
-		valorTotalDiaria = valorTotalDiaria.subtract(item.getValorDiaria());
+		valorTotalDiaria = valorTotalDiaria.subtract(item.getValorDiaria());		
+		
+		somaValorTotalDiaria(valorTotalDiaria, valorTotalItem , funcionarioDiaria , itemDiaria);
+	}
+	
+	
+	public void somaValorTotalDiaria(BigDecimal valorTotalDiaria , BigDecimal valorTotalItem, FuncionarioDiaria funcionarioDiaria, ItemDiaria itemDiaria ){
 		
 		valorTotalDiaria = valorTotalDiaria.add(valorTotalItem);
 		funcionarioDiaria.setTotalValorDiaria(valorTotalDiaria);

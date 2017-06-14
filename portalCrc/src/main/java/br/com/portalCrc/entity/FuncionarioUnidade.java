@@ -15,6 +15,8 @@ import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import br.com.portalCrc.enums.StatusFuncionario;
 
 @Entity
@@ -39,6 +41,7 @@ public class FuncionarioUnidade {
 	private Unidade unidade;
 	@Column(name="data_cadastro")
 	private Date dataCadastro;
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name="usuario_cadastro")
 	private Usuario usuarioCadastro;

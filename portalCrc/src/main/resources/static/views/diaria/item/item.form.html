@@ -97,7 +97,7 @@
 				<p class="input-group">
 					<input type="text" class="form-control"
 					  	readonly
-						uib-datepicker-popup="{{format}}"
+						uib-datepicker-popup="{{format}}" date-input
 						ng-model="ctrl.itemDiaria.dataSaida" is-open="saida.opened"
 						ng-required="true" close-text="Close" required /> <span
 						class="input-group-btn">
@@ -120,7 +120,7 @@
 				<p class="input-group">
 					<input type="text" class="form-control"
 						  readonly
-						uib-datepicker-popup="{{format}}"
+						uib-datepicker-popup="{{format}}" date-input
 						ng-model="ctrl.itemDiaria.dataChegada"
 						ng-change="ctrl.verificaDataFinal(ctrl.itemDiaria.dataSaida, ctrl.itemDiaria.dataChegada )"
 						is-open="chegada.opened" ng-required="true" close-text="Close"
@@ -526,7 +526,7 @@
 					ng-model="buscar">
 			</div>
 
-			<table class="table table-hover table-bordered">
+			<table class="table table-hover table-bordered" ng-controller="ItemDiariaEditarController as ctrlEditar">
 				<thead>
 					<tr>
 						<td>Localidade</td>
@@ -553,8 +553,7 @@
 						<td>{{ item.meioTransporteSaida }}</td>
 						<td>{{ item.meioTransporteRetorno}}</td>
 						<td>{{ item.codigoLocalDeslocamento.codigo }}</td>
-						<td ng-if="ctrl.editar"><a
-							ui-sref="item.editar({idItem : item.id})" title="teste"><i
+						<td ng-if="ctrl.editar"><a href="" data-dismiss="modal" ng-click="ctrlEditar.proximaPagina(item)" title="teste"><i
 								class="glyphicon glyphicon-edit"></i></a></td>
 						<td ng-if="ctrl.editar"><a href=""
 							ng-click="ctrl.excluir(item)"><i

@@ -5,6 +5,7 @@ app.factory("Auth", function($http, $q, $sessionStorage, $rootScope, $urlRouter,
 	auth.init = function(){
         if (auth.isLoggedIn()){
         	$rootScope.usuario = auth.user();
+        	$rootScope.loginIncorreto = false;
             $rootScope.user = auth.currentUser();
             $rootScope.authenticated = true;
         }
@@ -18,9 +19,11 @@ app.factory("Auth", function($http, $q, $sessionStorage, $rootScope, $urlRouter,
       	      if (response.data) {
       	    	$sessionStorage.user = response.data;
       	        $rootScope.authenticated = true;
+      	        $rootScope.loginIncorreto = false;
       	        $rootScope.user = $sessionStorage.user;
       	      } else {
       	        $rootScope.authenticated = false;
+      	        $rootScope.loginIncorreto = true;
       	        delete $sessionStorage.user;
       	        delete $rootScope.user;
       	      }
@@ -28,6 +31,7 @@ app.factory("Auth", function($http, $q, $sessionStorage, $rootScope, $urlRouter,
       	      resolve();
       	    }, function() {
       	      $rootScope.authenticated = false;
+      	      $rootScope.loginIncorreto = true;
       	      $rootScope.user = null;
       	      callback && callback();
       	      reject();
@@ -60,8 +64,11 @@ app.factory("Auth", function($http, $q, $sessionStorage, $rootScope, $urlRouter,
             return false;
         }
         for(let permission of permissions){
-            if ( $rootScope.user.authorities.indexOf.name(permission) >= 0){
-            	console.log($rootScope.user.authorities.indexOf.name)
+        	$rootScope.permissao = [];
+        	for(i = 0 ; i < $rootScope.user.authorities.length ; i++){
+        		$rootScope.permissao[i] = $rootScope.user.authorities[i].name;
+        	}
+            if ( $rootScope.permissao.indexOf(permission) >= 0){
             	return true;
             }    
         }

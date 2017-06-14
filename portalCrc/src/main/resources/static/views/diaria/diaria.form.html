@@ -12,10 +12,17 @@
 				</select>
 			</div>
 			<div class="col-sm-6">
-				Valor UFESP: <input type="text" class="form-control"
+				Valor UFESP: <input type="text" class="form-control" ng-disabled="diariaCtrl.diaria.id"
 					ng-model="diariaCtrl.diaria.valorUfesp" ui-money-mask
 					placeholder="R$" required>
-			</div>
+				<md-tooltip md-direction="top">
+				<span ng-show="!diariaCtrl.diaria.id" class="form-label">Favor conferir o valor da UFESP antes de Salvar, pois não poderá ter alterção posterior!!!</span>				
+				<span ng-show="diariaCtrl.diaria.id" class="form-label">Se for necessário a alteração favor entrar em contato com o suporte técnico!!!</span>				
+				
+				</md-tooltip>
+				<button ng-show="diariaCtrl.diaria.valorUfesp && !diariaCtrl.diaria.id" type="button" class="form-control btn btn-warning"><h5>Favor conferir o valor da UFESP antes de Salvar, pois não poderá ter alterção posterior!!!</h5></button>
+				<button ng-show="diariaCtrl.diaria.id" type="button" class="form-control btn btn-danger"><h4>Valor UFESP não pode ser alterado!!!</h4></button>
+		</div>
 		</div>
 		<br> <br>
 		<div class="row">
