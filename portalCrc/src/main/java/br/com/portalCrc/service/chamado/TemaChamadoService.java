@@ -7,8 +7,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import br.com.portalCrc.entity.chamado.ModuloSistema;
 import br.com.portalCrc.entity.chamado.TemaChamado;
-import br.com.portalCrc.pojo.SessionUsuario;
+import br.com.portalCrc.enums.chamado.TipoEquipamentoChamado;
 import br.com.portalCrc.repository.chamado.TemaChamadoRepository;
 
 @Service
@@ -26,11 +27,19 @@ public class TemaChamadoService {
 	}
 	
 	public List<TemaChamado> findAll(){
-		return temaChamadoRepository.findByUnidade_id(SessionUsuario.getInstance().getUsuario().getFuncionario().getUnidadeAtual().getId());
+		return temaChamadoRepository.findAll();
 	}
 
 	public TemaChamado buscaPorId(Long id) {
 		return temaChamadoRepository.findOne(id);
+	}
+
+	public Iterable<TemaChamado> findByTipoEquipamento(TipoEquipamentoChamado tema) {
+		return temaChamadoRepository.findByTipoEquipamento(tema);
+	}
+
+	public Iterable<TemaChamado> findByModulo_id(Long idModulo) {
+		return temaChamadoRepository.findByModulo_id(idModulo);
 	}
 
 }

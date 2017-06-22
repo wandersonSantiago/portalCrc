@@ -81,6 +81,22 @@ app.factory('EquipamentoService', function($q, $http){
 				return $q.reject(errResponse);
 			});
 		},
+		buscarServicos: function(idServico){
+			return $http.get('/rest/controleIp/equipamento/'+idServico+'/servicos')
+			.then(function(response){
+				return response.data;
+			},function(errResponse){
+				return $q.reject(errResponse);
+			});
+		},
+		existePatrimonio: function(patrimonio){
+			return $http.get('/rest/controleIp/equipamento/existe-patrimonio/' +patrimonio)
+			.then(function(response){
+				return response.data;
+			},function(errResponse){
+				return $q.reject(errResponse);
+			});
+		},
 				
 	}
 });

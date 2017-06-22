@@ -38,8 +38,9 @@ public abstract class Chamado {
 	@Enumerated(EnumType.STRING)
 	protected StatusChamado status;	
 
-	@Column(name="titulo")
-	protected String titulo;
+	@ManyToOne
+	@JoinColumn(name="id_titulo")
+	protected TemaChamado titulo;
 	
 	@Column(name="lido")
 	protected Boolean lido;
@@ -90,10 +91,11 @@ public abstract class Chamado {
 	public void setStatus(StatusChamado status) {
 		this.status = status;
 	}
-	public String getTitulo() {
+	
+	public TemaChamado getTitulo() {
 		return titulo;
 	}
-	public void setTitulo(String titulo) {
+	public void setTitulo(TemaChamado titulo) {
 		this.titulo = titulo;
 	}
 	public Date getDataAbertura() {

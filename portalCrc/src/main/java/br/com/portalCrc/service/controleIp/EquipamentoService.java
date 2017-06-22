@@ -2,6 +2,7 @@ package br.com.portalCrc.service.controleIp;
 
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,11 +10,16 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import br.com.portalCrc.entity.controleIp.Equipamento;
+import br.com.portalCrc.entity.controleIp.ManutencaoEquipamento;
+import br.com.portalCrc.entity.controleIp.ServicosEquipamento;
 import br.com.portalCrc.enums.controleIp.StatusEquipamento;
 import br.com.portalCrc.enums.controleIp.StatusIp;
 import br.com.portalCrc.enums.controleIp.StatusPonto;
 import br.com.portalCrc.pojo.SessionUsuario;
 import br.com.portalCrc.repository.ControleIp.EquipamentoRepositorio;
+import br.com.portalCrc.repository.ControleIp.ManutencaoEquipamentoRepository;
+import br.com.portalCrc.repository.ControleIp.ServicosEquipamentoRepository;
+import br.com.portalCrc.service.diaria.MensagemException;
 
 @Service
 @Transactional(readOnly = true , propagation = Propagation.REQUIRED)
@@ -25,26 +31,36 @@ public class EquipamentoService {
 	private IpService ipService;
 	@Autowired
 	private PontoSevice pontoService;
-	
+	@Autowired
+	private ServicosEquipamentoRepository servicoEquipamento;
+	@Autowired
+	private ManutencaoEquipamentoRepository manutencaoEquipamentoRepository;
 	
 	
 	public Collection<Equipamento> lista(){		
 		return equipamentoRepositorio.findByUnidade_id(SessionUsuario.getInstance().getUsuario().getFuncionario().getUnidadeAtual().getId());
 	}
 	
-	
 	public Equipamento buscaPorId(Long id){		
 		return equipamentoRepositorio.findOne(id);
 	}
 	
+	public Iterable<Equipamento> findByStatus(StatusEquipamento status) {		
+		return equipamentoRepositorio.findByStatusAndUnidade_id(status, SessionUsuario.getInstance().getUsuario().getFuncionario().getUnidadeAtual().getId());
+	}
+		
+	public List<ServicosEquipamento> buscarServicos(Long idEquipamento) {
+		return servicoEquipamento.findByEquipamento_id(idEquipamento);
+	}
 	
 	@Transactional(readOnly = false)
 	public void salvaOuAltera(Equipamento equipamento){	
 		if(equipamento.getId() != null){
 			verificaIp(equipamento);
 			verificaPonto(equipamento);
-		}else{
-			equipamento.setStatus(StatusEquipamento.INATIVO);
+			equipamento.setDataAlteracao(new Date());
+		}else{			
+			equipamento.setStatus(StatusEquipamento.INATIVO);			
 		}
 		if(equipamento.getPonto() != null){
 			equipamento.getPonto().setStatus(StatusPonto.ATIVO);;
@@ -57,8 +73,13 @@ public class EquipamentoService {
 		equipamento.setUnidade(SessionUsuario.getInstance().getUsuario().getFuncionario().getUnidadeAtual());
 		equipamento.setDataCadastro(new Date());
 		equipamento.setUsuarioCadastro(SessionUsuario.getInstance().getUsuario());
-				
-		equipamentoRepositorio.save(equipamento);
+										
+		equipamentoRepositorio.save(equipamento);	
+		
+		if( equipamento.getDataAlteracao() == null){
+			criarCadastroManutencaoPreventiva(equipamento);
+		}
+		
 	}
 	
 	@Transactional(readOnly = false)
@@ -76,6 +97,10 @@ public class EquipamentoService {
 		equipamento.setStatus(StatusEquipamento.BAIXADO);
 		equipamento.setDataCadastro(new Date());
 		equipamento.setUsuarioCadastro(SessionUsuario.getInstance().getUsuario());
+		
+	
+		
+		inativaManutencaoPreventiva(equipamento);
 		equipamentoRepositorio.save(equipamento);
 	}
 	
@@ -105,9 +130,35 @@ public class EquipamentoService {
 		}
 	}
 
-
-	public Iterable<Equipamento> findByStatus(StatusEquipamento status) {		
-		return equipamentoRepositorio.findByStatusAndUnidade_id(status, SessionUsuario.getInstance().getUsuario().getFuncionario().getUnidadeAtual().getId());
+	@Transactional(readOnly = false)
+	public void criarCadastroManutencaoPreventiva(Equipamento equipamento){
+		ManutencaoEquipamento manutencao = new ManutencaoEquipamento();
+		ManutencaoEquipamentoService cadastrarPreventiva = new ManutencaoEquipamentoService();
+		manutencao.setDataPreventiva(cadastrarPreventiva.dataPreventiva());
+		manutencao.setEquipamento(equipamento);
+		manutencao.setStatus(true);
+		manutencao.setUsuarioCadastro(SessionUsuario.getInstance().getUsuario());
+		manutencao.setDescricao("Preventiva Padrão");
+		manutencaoEquipamentoRepository.save(manutencao);
+		
 	}
+	@Transactional(readOnly = false)
+	public void inativaManutencaoPreventiva(Equipamento equipamento){
+		ManutencaoEquipamento item = manutencaoEquipamentoRepository.findTop1ByEquipamento_idOrderByIdDesc(equipamento.getId());
+			item.setStatus(false);
+		manutencaoEquipamentoRepository.save(item);
+		
+	}
+
+	public Equipamento findByPatrimonio(String patrimonio) {
+		Equipamento verifica = equipamentoRepositorio.findByPatrimonioIgnoreCase(patrimonio);
+		
+		if(verifica != null){
+			throw new MensagemException("Este Patrimonio já esta Cadastrado");
+		}
+		return verifica;
+	}
+
+	
 
 }

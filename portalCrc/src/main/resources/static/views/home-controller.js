@@ -2,14 +2,13 @@
 app.controller("HomeListarController", HomeListarController);
 app.controller("HomeShowController", HomeShowController);
 
-HomeListarController.$inject = ['$stateParams', '$state', 'toastr', '$rootScope', '$scope', 'UsuarioService'];
-HomeShowController.$inject = ['$stateParams', '$state', 'toastr', '$rootScope', '$scope'];
 
-function HomeListarController($stateParams, $state,  toastr, $rootScope, $scope, UsuarioService){
+
+function HomeListarController($stateParams, $state,  toastr, $rootScope, $scope, UsuarioService, ManutencaoEquipamentoService){
 	var self = this;
 	listarUsuarioLogado();
+	listar()
 	
-	$rootScope.titulo = "Portal Coordenadoria Central";
 	
 	 function listarUsuarioLogado(){
 		 UsuarioService.listarUsuarioLogado().
@@ -20,6 +19,24 @@ function HomeListarController($stateParams, $state,  toastr, $rootScope, $scope,
 					sweetAlert({ timer : 3000,  text : errResponse.data.message,  type : "info", width: 300, higth: 300, padding: 20});
 			});
 		};
+		
+	;
+
+		function listar() {
+			ManutencaoEquipamentoService.listarAtivosPrioridade().then(function(f) {
+				$rootScope.manutencaoEquipamentos = f;
+			}, function(errResponse) {
+				sweetAlert({
+					timer : 3000,
+					text : errResponse.data.message,
+					type : "info",
+					width : 300,
+					higth : 300,
+					padding : 20
+				});
+			});
+		}
+		;
 }
 function HomeShowController( $stateParams, $state,  toastr, $rootScope, $scope){
 	

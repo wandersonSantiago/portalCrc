@@ -3,7 +3,7 @@ app.factory('TemaService', function($q, $http){
 	
 	return{
 		salvar: function(tema){
-			return $http.post(url + , tema)
+			return $http.post(url  , tema)
 			.then(function(response){
 				return response.data;
 			},function(errResponse){
@@ -12,7 +12,7 @@ app.factory('TemaService', function($q, $http){
 		},
 		
 		alterar: function(tema){
-			return $http.put(url +, tema)
+			return $http.put(url , tema)
 			.then(function(response){
 				return response.data;
 			},function(errResponse){
@@ -40,7 +40,24 @@ app.factory('TemaService', function($q, $http){
 			});
 		},		
 		
-		
+		buscarPorTipo: function(tipo){
+			var config = {params: {tema: tipo}};
+			return $http.get(url +'/tema/', config)
+			.then(function(response){
+				return response.data;
+			},function(errResponse){
+				return $q.reject(errResponse);
+			});
+		},	
+		buscarPorModulo: function(id){
+			var config = {params: {idModulo: id}};
+			return $http.get(url +'/modulo/', config)
+			.then(function(response){
+				return response.data;
+			},function(errResponse){
+				return $q.reject(errResponse);
+			});
+		},	
 		
 	}
 });

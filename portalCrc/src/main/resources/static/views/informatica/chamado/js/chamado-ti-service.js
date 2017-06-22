@@ -154,22 +154,6 @@ app.factory('ChamadoTiService', function($rootScope, toastr, $http){
 				return $q.reject(errResponse);
 			});
 		},
-		titulo : function(){
-			return $http.get('/rest/chamado/chamadoTi/titulo/tI')
-			.then(function(response){
-				return response.data;
-			},function(errResponse){
-				return $q.reject(errResponse);
-			});
-		},
-		tituloImpressora : function(){
-			return $http.get('/rest/chamado/chamadoTi/titulo/impressora')
-			.then(function(response){
-				return response.data;
-			},function(errResponse){
-				return $q.reject(errResponse);
-			});
-		},
-		
+				
 	}
 });

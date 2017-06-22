@@ -26,7 +26,7 @@ public class ModuloSistema {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "modulo_id_seq")
 	private Long id;
 	
-	private String descrição;
+	private String descricao;
 	
 	@ManyToOne
 	@JoinColumn(name="id_sistema")
@@ -52,12 +52,12 @@ public class ModuloSistema {
 		this.id = id;
 	}
 
-	public String getDescrição() {
-		return descrição;
+	public String getDescricao() {
+		return descricao;
 	}
 
-	public void setDescrição(String descrição) {
-		this.descrição = descrição.toUpperCase();
+	public void setDescricao(String descricao) {
+		this.descricao = descricao.toUpperCase();
 	}
 
 	public Sistema getSistema() {

@@ -11,10 +11,10 @@
               </div>
             </div>
 		<div class="box-body no-padding">
-              <ul class="nav nav-pills nav-stacked">
-                <li><a href="" ui-sref="diaria.cadastrar"><i class="fa fa-inbox"></i>Novo mês</a></li>
-                <li><a href="" ui-sref="diaria.listar"><i class="fa fa-envelope-o"></i>Em aberto</a></li>
-                <li><a href="" ui-sref="diaria.relatorio"><i class="fa fa-legal "></i> Relatorios</a></li>
+               <ul class="nav nav-pills nav-stacked">
+                <li permission="['DIARIA_CADASTRAR' , 'ADMIN']"><a href="" ui-sref="diaria.cadastrar"><i class="fa fa-inbox"></i>Novo mês</a></li>
+                <li permission="['DIARIA_ABERTO' , 'ADMIN']"><a href="" ui-sref="diaria.listar"><i class="fa fa-envelope-o"></i>Em aberto</a></li>
+                <li permission="['DIARIA_ITEM_RELATORIO' , 'ADMIN']"><a href="" ui-sref="diaria.relatorio"><i class="fa fa-legal "></i> Relatorios</a></li>
                 </li>
               </ul>
             </div>

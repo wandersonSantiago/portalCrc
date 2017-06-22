@@ -27,7 +27,7 @@
 				</thead>
 				<tbody	ng-repeat=" equipamento in equipamentoCtrl.equipamentos | filter : buscar | orderBy : 'ponto.setor.nome'">
 					<tr>
-						<td>{{ equipamento.tipoEquipamento}}</td>
+						<td><a ui-sref="equipamento.show({idEquipamento : equipamento.id})"><i>{{ equipamento.tipoEquipamento}}</i></a></td>
 						<td>{{ equipamento.descricao }}</td>
 						<td>{{ equipamento.patrimonio }}</td>
 						<td>{{ equipamento.status}}</td>	
@@ -36,7 +36,8 @@
 						<td>{{ equipamento.ponto.switchs.nome}}</td>
 						<td>{{ equipamento.ponto.portaSwitch.numero}}</td>
 						<td>{{ equipamento.ponto.setor.nome}}</td>
-						<td><a ui-sref="equipamento.editar({idEquipamento : equipamento.id})"><i class="glyphicon glyphicon-edit"></i></a> 										 
+						<td title="Editar Equipamento"><a ui-sref="equipamento.editar({idEquipamento : equipamento.id})"><i class="glyphicon glyphicon-edit"></i></a> 	
+						<td title="Cadastrar uma manutenção preventiva"><a ui-sref="manutencaoEquipamento.salvar({idEquipamento : equipamento.id})"><i class="glyphicon glyphicon-wrench"></i></a>								 
 						
 				</tr>
 				</tbody>

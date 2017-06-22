@@ -92,7 +92,17 @@ function FuncionarioUnidadeEditarController( FuncionarioUnidadeService, Coordena
 	
 }
 function FuncionarioUnidadeListarController( FuncionarioUnidadeService, CoordenadoriaService, buscaCepService ,toastr, $rootScope, $scope){
+	var self = this;
+	listar();
 	
+	function listar(){
+		FuncionarioUnidadeService.listar().
+			then(function(f){
+				self.funcionarios = f;				
+				}, function(errResponse){
+					sweetAlert({ timer : 3000,  text : errResponse.data.message,  type : "error", width: 300, higth: 300, padding: 20});
+				});
+		};
 }
 function FuncionarioUnidadeShowController( FuncionarioUnidadeService, CoordenadoriaService, buscaCepService ,toastr, $rootScope, $scope){
 	

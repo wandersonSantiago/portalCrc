@@ -27,13 +27,13 @@ public interface ChamadoTiRepository extends JpaRepository<ChamadoTi, Long> {
 
 	@Query("FROM ChamadoTi chamado WHERE CAST(CAST(chamado.dataAbertura as date) as string) >= :dataInicial "
 			+ "AND CAST(CAST(chamado.dataAbertura as date) as string) <= :dataFinal "
-			+ "AND chamado.titulo = :titulo AND chamado.unidade = :id")
-	Iterable<ChamadoTi> relatorioPorDataETitulo(@Param(value = "dataInicial") String dataInicial,
-			@Param(value = "dataFinal") String dataFinal, @Param(value = "titulo") String titulo,
+			+ "AND chamado.titulo.id = :idTitulo AND chamado.unidade.id = :id")
+	Collection<ChamadoTi> relatorioPorDataETitulo(@Param(value = "dataInicial") String dataInicial,
+			@Param(value = "dataFinal") String dataFinal, @Param(value = "idTitulo") Long idTitulo,
 			@Param(value = "id") Long id);
 
 	@Query("FROM ChamadoTi chamado WHERE CAST(CAST(chamado.dataAbertura as date) as string) >= :dataInicial "
-			+ "AND CAST(CAST(chamado.dataAbertura as date) as string) <= :dataFinal AND chamado.unidade = :id")
+			+ "AND CAST(CAST(chamado.dataAbertura as date) as string) <= :dataFinal AND chamado.unidade.id = :id")
 	Collection<ChamadoTi> relatorio(@Param(value = "dataInicial") String dataInicial,
 			@Param(value = "dataFinal") String dataFinal, @Param(value = "id") Long id);
 

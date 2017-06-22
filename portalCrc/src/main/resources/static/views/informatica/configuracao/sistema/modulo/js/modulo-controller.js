@@ -2,16 +2,13 @@ app.controller("ModuloCadastarController", ModuloCadastarController);
 app.controller("ModuloEditarController", ModuloEditarController);
 app.controller("ModuloListarController", ModuloListarController);
 
-ModuloCadastarController.$inject = ['ModuloService', 'toastr', '$rootScope', '$scope'];
-ModuloEditarController.$inject = ['$stateParams', '$state', 'ModuloService','toastr', '$rootScope', '$scope'];
-ModuloListarController.$inject = ['$stateParams', '$state', 'ModuloService', 'toastr', '$rootScope', '$scope'];
 
-function ModuloCadastarController( ModuloService, toastr, $rootScope, $scope){
+function ModuloCadastarController( ModuloService, toastr, $rootScope, $scope, SistemaService){
 	
 	var self = this;
 	
 	self.submit = submit;
-	modulos();
+	sistemas();
 	
 
 	function submit(modulo) {
@@ -24,10 +21,10 @@ function ModuloCadastarController( ModuloService, toastr, $rootScope, $scope){
 			});
 		};
 	
-	function modulos(){
-		 ModuloService.listarTipoModulo().
+	function sistemas(){
+		 SistemaService.listar().
 			then(function(f){
-				self.modulos = f;				
+				self.sistemas = f;				
 				}, function(errResponse){
 					sweetAlert({ timer : 3000,  text : errResponse.data.message,  type : "error", width: 300, higth: 300, padding: 20});
 			});
@@ -36,13 +33,13 @@ function ModuloCadastarController( ModuloService, toastr, $rootScope, $scope){
 	
 		
 }
-function ModuloEditarController($stateParams, $state,ModuloService, toastr, $rootScope, $scope){
+function ModuloEditarController($stateParams, $state,ModuloService, toastr, $rootScope, $scope, SistemaService){
 	
 
 	var self = this;
 	var idModulo = $stateParams.idModulo;
 	self.submit = submit;
-	modulos();
+	sistemas();
 	
 
 	function submit(modulo) {
@@ -56,14 +53,14 @@ function ModuloEditarController($stateParams, $state,ModuloService, toastr, $roo
 			});
 		};
 	
-	function modulos(){
-		 ModuloService.listarTipoModulo().
-			then(function(f){
-				self.modulos = f;				
-				}, function(errResponse){
-					sweetAlert({ timer : 3000,  text : errResponse.data.message,  type : "error", width: 300, higth: 300, padding: 20});
-			});
-		};
+		function sistemas(){
+			 SistemaService.listar().
+				then(function(f){
+					self.sistemas = f;				
+					}, function(errResponse){
+						sweetAlert({ timer : 3000,  text : errResponse.data.message,  type : "error", width: 300, higth: 300, padding: 20});
+				});
+			};
 	
 		
 	function buscarPorId(id){

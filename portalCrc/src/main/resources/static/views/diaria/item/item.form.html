@@ -27,22 +27,40 @@
 			<div class="label-control">Destino</div>
 			<div class="col-sm-4">
 				<div class="input-group margin">
-					<select class="form-control select2"
+					<md-autocomplete md-no-cache="funCtrl.noCache"
+						md-selected-item="ctrl.itemDiaria.estado"
+						md-search-text="busca"
+						md-selected-item-change="ctrl.buscarCidades(ctrl.itemDiaria.estado.id)"
+						md-items=" estado in ctrl.estados | filter : busca"
+						md-item-text="estado.nome" md-min-length="0"
+						placeholder="buscar"> <md-item-template>
+					<span md-highlight-text="busca" md-highlight-flags="^i">{{estado.nome}}</span>
+					</md-item-template> </md-autocomplete>
+					<!-- <select class="form-control select2"
 						ng-model="ctrl.itemDiaria.estado"
 						ng-change="ctrl.buscarCidades(ctrl.itemDiaria.estado.id)"
 						ng-options="estado.nome for estado in ctrl.estados track by estado.id">
-					</select> <span class="input-group-btn"> <a type="button"
+					</select> -->
+					<span class="input-group-btn"> <a type="button"
 						class="btn btn-info btn-flat"><i>Estado</i></a>
 					</span>
 				</div>
 			</div>
 			<div class="col-sm-4">
 				<div class="input-group margin">
-					<select class="form-control select2"
+				<md-autocomplete md-no-cache="funCtrl.noCache"
+						md-selected-item="ctrl.itemDiaria.localDeslocamento"
+						md-search-text="buscar"
+						md-items=" cidade in ctrl.cidades | filter : buscar"
+						md-item-text="cidade.nome" md-min-length="0"
+						placeholder="buscar"> <md-item-template>
+					<span md-highlight-text="buscar" md-highlight-flags="^i">{{cidade.nome}}</span>
+					</md-item-template> </md-autocomplete>
+					<!-- <select class="form-control select2"
 						ng-model="ctrl.itemDiaria.localDeslocamento"
 						ng-options="cidade.nome for cidade in ctrl.cidades track by cidade.id"
 						required>
-					</select> <span class="input-group-btn"> <a type="button"
+					</select> --> <span class="input-group-btn"> <a type="button"
 						class="btn btn-info btn-flat"><i>Cidade</i></a>
 					</span>
 				</div>
@@ -95,8 +113,7 @@
 			<div class="col-sm-3">
 				Data Saida:
 				<p class="input-group">
-					<input type="text" class="form-control"
-					  	readonly
+					<input type="text" class="form-control" readonly
 						uib-datepicker-popup="{{format}}" date-input
 						ng-model="ctrl.itemDiaria.dataSaida" is-open="saida.opened"
 						ng-required="true" close-text="Close" required /> <span
@@ -118,8 +135,7 @@
 			<div class="col-sm-3">
 				Data Chegada:
 				<p class="input-group">
-					<input type="text" class="form-control"
-						  readonly
+					<input type="text" class="form-control" readonly
 						uib-datepicker-popup="{{format}}" date-input
 						ng-model="ctrl.itemDiaria.dataChegada"
 						ng-change="ctrl.verificaDataFinal(ctrl.itemDiaria.dataSaida, ctrl.itemDiaria.dataChegada )"
@@ -140,11 +156,12 @@
 			</div>
 		</div>
 		<div class="row ">
-			<br> <span class="input-group-btn"> <a type="button"
-				data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo"
-				class="btn btn-info btn-flat">Motivo <i
-					class="glyphicon glyphicon-search"></i></a>
-			</span>
+			<br>
+			<div class="form-group">
+				<label for="message-text" class="control-label">Motivo:</label>
+				<textarea class="form-control text-uppercase"
+					ng-model="ctrl.itemDiaria.motivo" id="message-text"></textarea>
+			</div>
 		</div>
 		<div class="row ">
 			<br> <span class="input-group-btn"> <a type="button"
@@ -158,7 +175,9 @@
 			<div class="col-sm-4"></div>
 			<div class="col-sm-4">
 				<button id="submit"
-					ng-disabled="ctrl.listaDiariaItens < 1" 
+					ng-disabled="!ctrl.itemDiaria.estado || !ctrl.itemDiaria.localDeslocamento || !ctrl.itemDiaria.codigoLocalDeslocamento ||
+					!ctrl.itemDiaria.meioTransporteSaida.placa || !ctrl.itemDiaria.meioTransporteRetorno.placa ||  !ctrl.itemDiaria.dataSaida
+					|| !ctrl.itemDiaria.horaSaida || !ctrl.itemDiaria.dataChegada || !ctrl.itemDiaria.horaChegada || !ctrl.itemDiaria.motivo"
 					class="btn btn-lg btn-primary btn-block btn-signin">{{botao}}</button>
 			</div>
 		</div>
@@ -285,35 +304,6 @@
 	</div>
 </div>
 <!-- FIM  modal do informaçoes da diaria -->
-
-<!-- INICIO modal do motivo da diaria -->
-<div class="modal fade modal-default" id="exampleModal" tabindex="-1"
-	role="dialog" aria-labelledby="exampleModalLabel">
-	<div class="modal-dialog" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal"
-					aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-				<h4 class="modal-title" id="exampleModalLabel">Adicione o
-					Motivo</h4>
-			</div>
-			<div class="modal-body">
-				<div class="form-group">
-					<label for="message-text" class="control-label">Motivo:</label>
-					<textarea class="form-control text-uppercase"
-						ng-model="ctrl.itemDiaria.motivo" id="message-text"></textarea>
-				</div>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-primary" data-dismiss="modal">Adicionar</button>
-			</div>
-		</div>
-	</div>
-</div>
-<!-- FIM modal do motivo da diaria -->
-
 <!-- INICIO modal passagem-->
 <div class="modal fade modal-default" id="passagemModal" tabindex="-1"
 	role="dialog" aria-labelledby="exampleModalLabel">
@@ -338,8 +328,8 @@
 						</span>
 					</div>
 
-					<label for="texto" class="control-label">Observações:</label>
-					<input type="text" class="form-control text-uppercase"
+					<label for="texto" class="control-label">Observações:</label> <input
+						type="text" class="form-control text-uppercase"
 						ng-model="ctrl.itemDiaria.observacaoPassagem" id="texto">
 
 
@@ -526,7 +516,8 @@
 					ng-model="buscar">
 			</div>
 
-			<table class="table table-hover table-bordered" ng-controller="ItemDiariaEditarController as ctrlEditar">
+			<table class="table table-hover table-bordered"
+				ng-controller="ItemDiariaEditarController as ctrlEditar">
 				<thead>
 					<tr>
 						<td>Localidade</td>
@@ -553,7 +544,8 @@
 						<td>{{ item.meioTransporteSaida }}</td>
 						<td>{{ item.meioTransporteRetorno}}</td>
 						<td>{{ item.codigoLocalDeslocamento.codigo }}</td>
-						<td ng-if="ctrl.editar"><a href="" data-dismiss="modal" ng-click="ctrlEditar.proximaPagina(item)" title="teste"><i
+						<td ng-if="ctrl.editar"><a href="" data-dismiss="modal"
+							ng-click="ctrlEditar.proximaPagina(item)" title="teste"><i
 								class="glyphicon glyphicon-edit"></i></a></td>
 						<td ng-if="ctrl.editar"><a href=""
 							ng-click="ctrl.excluir(item)"><i

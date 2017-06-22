@@ -6,16 +6,17 @@
 					<div class="row">
 												
 						<div class="col-sm-6" >
-							<input class="form-control" placeholder="Nome" ng-model="ctrl.modulo.nome" id="idNome" name="nome" type="text" required>						
+							<input class="form-control" placeholder="Nome" ng-model="ctrl.modulo.descricao" id="idNome" name="nome" type="text" required>						
 						</div>
 					
 						<div class="col-sm-6" >
 							<div class="col-sm-6">
 							<select class="form-control select2" ng-model="ctrl.modulo.sistema" id="secretariaId"
-							ng-options="sistema.nome for sistema in ctrl.sistemas"  >
+							ng-options="sistema.descricao for sistema in ctrl.sistemas track by sistema.id"  >
 								<option value=""></option>
 							</select>
-						</div></div>
+							</div>
+						</div>
 					</div>					
 					<br>
 					

@@ -36,7 +36,7 @@ public class UsuarioService {
 	public void salvarOuEditar(Usuario usuario)
 	{
 		String hash = null;
-		if(usuario.getSenha() != null){
+		if(usuario.getId() == null){
 			hash = new BCryptPasswordEncoder().encode(usuario.getSenha());
 			usuario.setSenha(hash);
 		}else{

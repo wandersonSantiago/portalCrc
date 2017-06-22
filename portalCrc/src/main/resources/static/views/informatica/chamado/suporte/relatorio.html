@@ -12,122 +12,97 @@
 		</div>
 		<br>
 		<div ng-show="porTitulo" class="row">
-			<div class="col-sm-2">
-				Tipo Equipamento <select class="form-control "
-					ng-model="equipamento" id="tipo"
-					ng-options="tipoEquipamento for tipoEquipamento in tipoEquipamentos">
-					<option value="">Tipo Equipamento</option>
+			<div class="col-sm-4">
+				Tipo : <select class="form-control "
+					ng-model="chamadoCtr.chamadoTi.tipoEquipamento" id="tipo"
+					ng-change="chamadoCtr.buscarTema(chamadoCtr.chamadoTi.tipoEquipamento)"
+					ng-options="tipoEquipamento for tipoEquipamento in chamadoCtr.tipoEquipamentos">
+					<option value="">Tipo</option>
 				</select>
 			</div>
-			<div>
-				<div ng-show="equipamento == 'COMPUTADOR'" class="col-sm-2">
-					Titulo <select class="form-control select2" ng-model="titulo"
-						id="titulo" ng-options="titulo for titulo in titulos">
-						<option value="">Titulo</option>
-					</select>
-				</div>
-				<div ng-show="equipamento == 'IMPRESSORA'" class="col-sm-2">
-					Titulo <select class="form-control " ng-model="titulo"
-						id="tituloImpressora"
-						ng-options="tituloImpressora for tituloImpressora in tituloImpressoras">
-						<option value="">Titulo</option>
-					</select>
-				</div>
-				
-				<div ng-show="equipamento == 'SISTEMA'" class="col-sm-3">
-					Sistema <select class="form-control " ng-model="titulo"
-						id="tituloImpressora"
-						ng-options="tituloImpressora for tituloImpressora in tituloImpressoras">
-						<option value="">Sistema</option>
-					</select>
-				</div>
-				
-				<div ng-show="equipamento == 'SISTEMA'" class="col-sm-3">
-					Módulo <select class="form-control " ng-model="titulo"
-						id="tituloImpressora"
-						ng-options="tituloImpressora for tituloImpressora in tituloImpressoras">
-						<option value="">Módulo</option>
-					</select>
-				</div>
-				<div ng-show="equipamento == 'SISTEMA'" class="col-sm-3">
-					Titulo <select class="form-control " ng-model="titulo"
-						id="tituloImpressora"
-						ng-options="tituloImpressora for tituloImpressora in tituloImpressoras">
-						<option value="">Titulo</option>
-					</select>
-					<br>
-				</div>
-			</div>
-
-			<div class="col-sm-2">
-				Data inicial: <p class="input-group">
-				<input type="text" class="form-control" readonly
-					uib-datepicker-popup="{{format}}" ng-model="dataInicial"
-					is-open="entrada.opened" ng-required="true" close-text="Close"
-					required /> <span class="input-group-btn">
-					<button type="button" class="btn btn-default"
-						ng-click="entradaOpen()">
-						<i class="glyphicon glyphicon-calendar"></i>
-					</button>
-				</span>
-			</p>
-			</div>
-			<div class="col-sm-2">
-				Data final: <p class="input-group">
-				<input type="text" class="form-control" readonly
-					uib-datepicker-popup="{{format}}" ng-model="dataFinal"
-					is-open="saida.opened" ng-required="true" close-text="Close"
-					required /> <span class="input-group-btn">
-					<button type="button" class="btn btn-default"
-						ng-click="saidaOpen()">
-						<i class="glyphicon glyphicon-calendar"></i>
-					</button>
-				</span>
-			</p>
-			</div>
-			<div class="col-sm-2">
-				<br> <input type="button" id="buscar" value="Buscar"
-					ng-click="chamadoCtr.relatorioPorDataPorTitulo(dataInicial, dataFinal, titulo)"
-					class="btn btn-lg btn-primary btn-block btn-signin">
+			<div
+				ng-if="chamadoCtr.chamadoTi.tipoEquipamento == 'COMPUTADOR' || chamadoCtr.chamadoTi.tipoEquipamento == 'IMPRESSORA' "
+				class="col-sm-4">
+				Titulo: <select class="form-control select2"
+					ng-model="chamadoCtr.titulo" id="titulo"
+					ng-options="titulo.descricao for titulo in chamadoCtr.titulos">
+					<option value="">Titulo</option>
+				</select>
 			</div>
 		</div>
+		<br>
+		<div class="row" ng-show="porTitulo">
+			<div class="col-sm-3"
+				ng-if="chamadoCtr.chamadoTi.tipoEquipamento === 'SISTEMA'">
+				Sistema: <select class="form-control select2"
+					ng-model="chamadoCtr.sistema" id="secretariaId"
+					ng-change="chamadoCtr.modulos(chamadoCtr.sistema.id)"
+					ng-options="sistema.descricao for sistema in chamadoCtr.sistemas">
+				</select>
+			</div>
+			<div class="col-sm-3"
+				ng-if="chamadoCtr.chamadoTi.tipoEquipamento === 'SISTEMA' && chamadoCtr.sistema">
+				Módulo: <select class="form-control select2"
+					ng-model="chamadoCtr.modulo" id="secretariaId"
+					ng-change="chamadoCtr.buscarTituloPorModulo(chamadoCtr.modulo.id)"
+					ng-options="modulo.descricao for modulo in chamadoCtr.modulos">
+				</select>
+			</div>
+			<div class="col-sm-3"
+				ng-if="chamadoCtr.chamadoTi.tipoEquipamento === 'SISTEMA' &&  chamadoCtr.modulo">
+				Titulo: <select class="form-control select2" ng-model="chamadoCtr.titulo"
+					id="titulo"
+					ng-options="titulo.descricao for titulo in chamadoCtr.titulos">
+					<option value="">Titulo</option>
+				</select>
+			</div>
+		</div>
+		<br>
+		<div class="row">
+			<div class="col-sm-2">
+				Data inicial:
+				<p class="input-group">
+					<input type="text" class="form-control" readonly
+						uib-datepicker-popup="{{format}}" ng-model="dataInicial"
+						is-open="entrada.opened" ng-required="true" close-text="Close"
+						required /> <span class="input-group-btn">
+						<button type="button" class="btn btn-default"
+							ng-click="entradaOpen()">
+							<i class="glyphicon glyphicon-calendar"></i>
+						</button>
+					</span>
+				</p>
+			</div>
+			<div class="col-sm-2">
+				Data final:
+				<p class="input-group">
+					<input type="text" class="form-control" readonly
+						uib-datepicker-popup="{{format}}" ng-model="dataFinal"
+						is-open="saida.opened" ng-required="true" close-text="Close"
+						required /> <span class="input-group-btn">
+						<button type="button" class="btn btn-default"
+							ng-click="saidaOpen()">
+							<i class="glyphicon glyphicon-calendar"></i>
+						</button>
+					</span>
+				</p>
+			</div>
+			<div class="col-sm-2" ng-show="porTitulo">
+				<br> <input type="button" id="buscar" value="Buscar" ng-disabled="!dataInicial || !dataFinal || !chamadoCtr.titulo.id"
+					ng-click="chamadoCtr.relatorioPorDataPorTitulo(dataInicial, dataFinal, chamadoCtr.titulo.id)"
+					class="btn btn-lg btn-primary btn-block btn-signin">
+			</div>
 
-		<div ng-show="porPeriodo" class="row">
-			<div class="col-sm-1"></div>
-			<div class="col-sm-2">
-				Data inicial: <p class="input-group">
-				<input type="text" class="form-control" readonly
-					uib-datepicker-popup="{{format}}" ng-model="dataInicial"
-					is-open="entrada.opened" ng-required="true" close-text="Close"
-					required /> <span class="input-group-btn">
-					<button type="button" class="btn btn-default"
-						ng-click="entradaOpen()">
-						<i class="glyphicon glyphicon-calendar"></i>
-					</button>
-				</span>
-			</p>
-			</div>
-			<div class="col-sm-2">
-				Data final: <p class="input-group">
-				<input type="text" class="form-control" readonly
-					uib-datepicker-popup="{{format}}" ng-model="dataFinal"
-					is-open="saida.opened" ng-required="true" close-text="Close"
-					required /> <span class="input-group-btn">
-					<button type="button" class="btn btn-default"
-						ng-click="saidaOpen()">
-						<i class="glyphicon glyphicon-calendar"></i>
-					</button>
-				</span>
-			</p>
-			</div>
-			<div class="col-sm-2">
-				<input type="button" id="buscar" value="Buscar"
+
+
+			<div class="col-sm-2" ng-show="porPeriodo">
+				<br> <input type="button" id="buscar" value="Buscar" ng-disabled="!dataInicial || !dataFinal"
 					ng-click="chamadoCtr.relatorioPorData(dataInicial, dataFinal)"
 					class="btn btn-lg btn-primary btn-block btn-signin">
 			</div>
 		</div>
-		<br> <br> <br>
 	</div>
+	<br> <br> <br>
 </div>
 <div class="row">
 	<div ng-if="ativaTabela" class="col-sm-2">
@@ -143,7 +118,7 @@
 </div>
 <br>
 <br>
-
+<div ng-if="ativaTabela">
 <div class="row">
 	<div class="col-sm-3">
 		<input class="form-control" placeholder="Pesquisar..." type="text"
@@ -175,14 +150,13 @@
 					</md-button></th>
 				<th class="btn btn-success btn-flat col-sm-1"><md-button>
 					<h5>Opções</h5>
-					</md-button>
-				</th>
+					</md-button></th>
 			</tr>
 		</thead>
 		<tbody
 			ng-repeat=" chamado in relatorioChamadoSuporte | filter : buscaChamado | orderBy : '-id'  ">
 			<tr>
-				<td>{{ chamado.titulo }}</td>
+				<td>{{ chamado.titulo.descricao }}</td>
 				<td>{{
 					chamado.usuarioSolicitante.funcionario.pessoa.nomeCompleto }}</td>
 				<td>{{ chamado.status }}</td>
@@ -197,35 +171,36 @@
 		<tfoot>
 		</tfoot>
 	</table>
-	</div>
-	<div class="row">
-		<div class="col-sm-5"></div>
-		<div class="2">
-			<nav>
-				<ul class="pagination">
+</div>
+<div class="row">
+	<div class="col-sm-5"></div>
+	<div class="2">
+		<nav>
+			<ul class="pagination">
 
-					<li class="{{0==chamadoCtr.getPage ?'disabled':''}}"><a
-						ng-if="0!=chamadoCtr.getPage"
-						ng-click="chamadoCtr.relatorioChamadoSuporte(chamadoCtr.getPage -1, maxResults)"
-						aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
-					</a> <a ng-if="0==chamadoCtr.getPage" aria-label="Previous"> <span
-							aria-hidden="true">&laquo;</span></a></li>
-					<li ng-repeat="page in chamadoCtr.totalPages"
-						class="{{page==chamadoCtr.getPage ?'active':''}}"><a
-						ng-click="chamadoCtr.relatorioChamadoSuporte(page , maxResults)">{{page
-							+ 1}}</a></li>
-					<li class="{{chamadoCtr.getPage+1 == totalPages ?'disabled':''}}"><a
-						ng-if="chamadoCtr.getPage+1 != totalPages"
-						ng-click="chamadoCtr.relatorioChamadoSuporte(chamadoCtr.getPage+1, maxResults)"
-						aria-label="Next"> <span aria-hidden="true">&raquo;</span>
-					</a> <a ng-if="chamadoCtr.getPage+1==totalPages" aria-label="Next">
-							<span aria-hidden="true">&raquo;</span>
-					</a></li>
+				<li class="{{0==chamadoCtr.getPage ?'disabled':''}}"><a
+					ng-if="0!=chamadoCtr.getPage"
+					ng-click="chamadoCtr.relatorioChamadoSuporte(chamadoCtr.getPage -1, maxResults)"
+					aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
+				</a> <a ng-if="0==chamadoCtr.getPage" aria-label="Previous"> <span
+						aria-hidden="true">&laquo;</span></a></li>
+				<li ng-repeat="page in chamadoCtr.totalPages"
+					class="{{page==chamadoCtr.getPage ?'active':''}}"><a
+					ng-click="chamadoCtr.relatorioChamadoSuporte(page , maxResults)">{{page
+						+ 1}}</a></li>
+				<li class="{{chamadoCtr.getPage+1 == totalPages ?'disabled':''}}"><a
+					ng-if="chamadoCtr.getPage+1 != totalPages"
+					ng-click="chamadoCtr.relatorioChamadoSuporte(chamadoCtr.getPage+1, maxResults)"
+					aria-label="Next"> <span aria-hidden="true">&raquo;</span>
+				</a> <a ng-if="chamadoCtr.getPage+1==totalPages" aria-label="Next">
+						<span aria-hidden="true">&raquo;</span>
+				</a></li>
 
-				</ul>
-			</nav>
-		</div>
+			</ul>
+		</nav>
 	</div>
+</div>
+</div>
 <div ng-if="ativaGrafico" class="panel panel-default">
 	<div class="panel-heading">
 		<span class="lead">Gráfico </span>

@@ -57,6 +57,10 @@ public class Equipamento {
 	@Column(name="data_cadastro", nullable=false)
 	private Date dataCadastro;
 	
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name="data_alteracao")
+	private Date dataAlteracao;
+	
 	@ManyToOne
 	@JoinColumn(name="id_usuario_cadastro", nullable=false)
 	private Usuario usuarioCadastro;
@@ -128,6 +132,12 @@ public class Equipamento {
 	}
 	public void setStatus(StatusEquipamento status) {
 		this.status = status;
+	}
+	public Date getDataAlteracao() {
+		return dataAlteracao;
+	}
+	public void setDataAlteracao(Date dataAlteracao) {
+		this.dataAlteracao = dataAlteracao;
 	}
 	
 	

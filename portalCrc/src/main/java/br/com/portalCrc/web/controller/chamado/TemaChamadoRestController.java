@@ -10,11 +10,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import br.com.portalCrc.entity.chamado.Sistema;
+import br.com.portalCrc.entity.chamado.ModuloSistema;
 import br.com.portalCrc.entity.chamado.TemaChamado;
+import br.com.portalCrc.enums.chamado.TipoEquipamentoChamado;
 import br.com.portalCrc.service.chamado.TemaChamadoService;
 
 @RestController
@@ -45,7 +47,18 @@ public class TemaChamadoRestController {
 	  return new ResponseEntity<Iterable<TemaChamado>>(temaChamado, HttpStatus.OK);
 	 }
 	 
-	 @RequestMapping(value = "/{id}")
+	 @GetMapping(value="/tema")
+	 public ResponseEntity<Iterable<TemaChamado>> buscarPorTema(@RequestParam TipoEquipamentoChamado tema) {	  
+	  Iterable<TemaChamado> temaChamado = temaChamadoService.findByTipoEquipamento(tema);
+	  return new ResponseEntity<Iterable<TemaChamado>>(temaChamado, HttpStatus.OK);
+	 }
+	 @GetMapping(value="/modulo")
+	 public ResponseEntity<Iterable<TemaChamado>> buscarPorModulo(@RequestParam Long idModulo) {	  
+	  Iterable<TemaChamado> temaChamado = temaChamadoService.findByModulo_id(idModulo);
+	  return new ResponseEntity<Iterable<TemaChamado>>(temaChamado, HttpStatus.OK);
+	 }
+	 
+	 @GetMapping(value = "/{id}")
 		public ResponseEntity<TemaChamado> buscarPorId(@PathVariable Long id) {
 			return new ResponseEntity<TemaChamado>(temaChamadoService.buscaPorId(id), HttpStatus.OK);
 		}

@@ -26,11 +26,15 @@ public class ModuloSistemaService {
 	}
 	
 	public List<ModuloSistema> findAll(){
-		return moduloSistemaRepository.findByUnidade_id(SessionUsuario.getInstance().getUsuario().getFuncionario().getUnidadeAtual().getId());
+		return moduloSistemaRepository.findAll();
 	}
 
 	public ModuloSistema buscaPorId(Long id) {
 		return moduloSistemaRepository.findOne(id);
+	}
+
+	public Iterable<ModuloSistema> findBySistema_id(Long idSistema) {
+		return moduloSistemaRepository.findBySistema_id(idSistema);
 	}
 
 }

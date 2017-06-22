@@ -45,6 +45,8 @@ function ItemDiariaCadastrarController($state, ItemDiariaService, $stateParams,
 		self.itemDiaria.diaria = self.diaria;
 		self.itemDiaria.funcionarioDiaria = self.funcionario;
 		if(self.itemDiaria.horaSaida == null || self.itemDiaria.horaChegada == null){
+			self.itemDiaria.meioTransporteRetorno = {placa : self.itemDiaria.meioTransporteRetorno};
+			self.itemDiaria.meioTransporteSaida = {placa : self.itemDiaria.meioTransporteSaida};
 			sweetAlert({
 				text : "os campos horários são obrigatório!!!",
 				type : "info",
@@ -54,6 +56,8 @@ function ItemDiariaCadastrarController($state, ItemDiariaService, $stateParams,
 			});
 		}else
 		if(self.itemDiaria.motivo == null){
+			self.itemDiaria.meioTransporteRetorno = {placa : self.itemDiaria.meioTransporteRetorno};
+			self.itemDiaria.meioTransporteSaida = {placa : self.itemDiaria.meioTransporteSaida};
 			sweetAlert({
 				text : "o campo motivo é obrigatório!!!",
 				type : "info",
@@ -71,6 +75,8 @@ function ItemDiariaCadastrarController($state, ItemDiariaService, $stateParams,
 					self.itemDiaria.dataSaida = "";
 					self.itemDiaria.dataChegada = "";
 				}, function(errResponse) {
+					self.itemDiaria.meioTransporteRetorno = {placa : self.itemDiaria.meioTransporteRetorno};
+					self.itemDiaria.meioTransporteSaida = {placa : self.itemDiaria.meioTransporteSaida};
 					sweetAlert({
 						text : errResponse.data.message,
 						type : "info",

@@ -13,10 +13,10 @@
             </div>
 		<div class="box-body no-padding">
               <ul class="nav nav-pills nav-stacked">
-                <li><a href="" ui-sref="ip.cadastrar"><i class="fa fa-plus-circle"></i>Novo</a></li>
-                <li><a href="" ui-sref="ip.listar"><i class="fa fa-spinner"></i>Todos<span class="label label-info pull-right">{{qtdIps}}</span></a></li>
-                <li><a href="" ui-sref="ip.ativos"><i class="fa fa-thumbs-up"></i>Ativos<span class="label label-success pull-right">{{qtdIpsAtivos}}</span></a></li>
-                <li><a href="" ui-sref="ip.inativos"><i class="fa fa-thumbs-down"></i>Inativos<span class="label label-warning pull-right">{{qtdIpsInativos}}</span></a></li>
+                <li permission="['TIPO_IP_CADASTRAR' , 'ADMIN']"><a href="" ui-sref="ip.cadastrar"><i class="fa fa-plus-circle"></i>Novo</a></li>
+                <li permission="['TIPO_IP_LISTAR' , 'ADMIN']"><a href="" ui-sref="ip.listar"><i class="fa fa-spinner"></i>Todos<span class="label label-info pull-right">{{qtdIps}}</span></a></li>
+                <li permission="['TIPO_IP_LISTAR' , 'ADMIN']"><a href="" ui-sref="ip.ativos"><i class="fa fa-thumbs-up"></i>Ativos<span class="label label-success pull-right">{{qtdIpsAtivos}}</span></a></li>
+                <li permission="['TIPO_IP_LISTAR' , 'ADMIN']"><a href="" ui-sref="ip.inativos"><i class="fa fa-thumbs-down"></i>Inativos<span class="label label-warning pull-right">{{qtdIpsInativos}}</span></a></li>
                </ul>
             </div>
            </div>

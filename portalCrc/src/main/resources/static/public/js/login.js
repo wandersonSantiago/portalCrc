@@ -2,7 +2,7 @@
 app.controller('LoginController', function($rootScope, $scope, $location, $http, $state, Auth,  blockUI) {
 	
 	$scope.user = [];
-	 
+	$rootScope.titulo = "Portal Coordenadoria Central";
 	  $scope.login = function() {
 		  blockUI.start();
 		  Auth.login($scope.user, function() {

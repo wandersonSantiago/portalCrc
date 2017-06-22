@@ -1,0 +1,38 @@
+ <meta charset="UTF-8">
+ 
+ <div class="row">
+	<div class="col-sm-3">
+		<input class="form-control" placeholder="Pesquisar..." type="text" ng-model="buscar">
+	</div>
+</div>
+
+<br>
+		<div class="panel-body table-responsive">
+			<table class="table table-hover table-bordered">
+				<thead>
+					<tr>
+					<th class="btn btn-primary btn-flat col-sm-2"><h6>Data Preventiva</h6></th>
+					<th class="btn btn-primary btn-flat col-sm-2"><h6>Data Ultima Manutenção</h6></th>
+					<th class="btn btn-primary btn-flat col-sm-1"><h6>Descrição</h6></th>
+					<th class="btn btn-primary btn-flat col-sm-1"><h6>Patrimonio</h6> </th>
+					<th class="btn btn-primary btn-flat col-sm-1"><h6>Técnico última manutenção</h6></th>
+					<th class="btn btn-primary btn-flat col-sm-1"><h6>Setor</h6></th>
+					
+					
+					</tr>
+				</thead>
+				<tbody	ng-repeat=" equipamento in ctrl.manutencaoEquipamentos | filter : buscar | orderBy : 'ponto.setor.nome'">
+					<tr>
+						<td>{{ equipamento.dataPreventiva | date : 'dd/MM/yyyy' }}</td>
+						<td>{{ equipamento.dataUltimaManutencao | date : 'dd/MM/yyyy' }}</td>
+						<td>{{ equipamento.descricao }}</td>
+						<td>{{ equipamento.equipamento.patrimonio }}</td>
+						<td>{{ equipamento.tecnico.funcionario.pessoa.nomeCompleto }}</td>	
+						<td>{{ equipamento.equipamento.ponto.setor.nome}}</td>							
+				</tr>
+				</tbody>
+				<tfoot>
+				</tfoot>
+			</table>
+		</div>
+	

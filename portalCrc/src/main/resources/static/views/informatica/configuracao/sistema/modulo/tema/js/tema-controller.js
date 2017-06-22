@@ -2,16 +2,24 @@ app.controller("TemaCadastarController", TemaCadastarController);
 app.controller("TemaEditarController", TemaEditarController);
 app.controller("TemaListarController", TemaListarController);
 
-TemaCadastarController.$inject = ['TemaService', 'toastr', '$rootScope', '$scope'];
-TemaEditarController.$inject = ['$stateParams', '$state', 'TemaService', 'toastr', '$rootScope', '$scope'];
-TemaListarController.$inject = ['$stateParams', '$state', 'TemaService', 'toastr', '$rootScope', '$scope'];
 
-function TemaCadastarController( TemaService, toastr, $rootScope, $scope){
+function TemaCadastarController( TemaService, toastr, $rootScope, $scope, SistemaService, ModuloService , ChamadoTiService){
 	
 	var self = this;
 	
-	self.findCep = findCep;
 	self.submit = submit;
+	self.modulos = modulos;
+	sistemas();
+	tipoEquipamento();
+	
+	function tipoEquipamento(){
+		 ChamadoTiService.tipoEquipamento().
+			then(function(f){
+				self.tipoEquipamentos = f;			
+				}, function(errResponse){
+					sweetAlert({ timer : 3000,  text : errResponse.data.message,  type : "info", width: 300, higth: 300, padding: 20});
+			});
+		};
 	
 	function submit(tema) {
 		TemaService.salvar(self.tema).
@@ -23,34 +31,43 @@ function TemaCadastarController( TemaService, toastr, $rootScope, $scope){
 			});
 		};
 	
-	function tiposDeTema(){
-		 TemaService.listarTipoTema().
+	function sistemas(){
+		 SistemaService.listar().
 			then(function(f){
-				self.tipos = f;				
+				self.sistemas = f;				
 				}, function(errResponse){
 					sweetAlert({ timer : 3000,  text : errResponse.data.message,  type : "error", width: 300, higth: 300, padding: 20});
 			});
 		};
 		
-	 function listarCoordenadorias(){
-		 CoordenadoriaService.listar().
+	 function modulos(idSistema){
+		 ModuloService.buscarPorSistema(idSistema).
 			then(function(f){
-				self.coordenadorias = f;			
+				self.modulos = f;			
 				}, function(errResponse){
 					sweetAlert({ timer : 3000,  text : errResponse.data.message,  type : "error", width: 300, higth: 300, padding: 20});
 			});
 		};
 		
 }
-function TemaEditarController($stateParams, $state,TemaService, toastr, $rootScope, $scope){
+function TemaEditarController($stateParams, $state,TemaService, toastr, $rootScope, $scope, SistemaService , ModuloService , ChamadoTiService){
 	
 
 	var self = this;
 	var idTema = $stateParams.idTema;
-	self.findCep = findCep;
 	self.submit = submit;
+	sistemas();
 	
+tipoEquipamento();
 	
+	function tipoEquipamento(){
+		 ChamadoTiService.tipoEquipamento().
+			then(function(f){
+				self.tipoEquipamentos = f;			
+				}, function(errResponse){
+					sweetAlert({ timer : 3000,  text : errResponse.data.message,  type : "info", width: 300, higth: 300, padding: 20});
+			});
+		};
 
 	function submit(tema) {
 		TemaService.alterar(self.tema).
@@ -62,22 +79,32 @@ function TemaEditarController($stateParams, $state,TemaService, toastr, $rootSco
 					sweetAlert({ timer : 3000,  text : errResponse.data.message,  type : "error", width: 300, higth: 300, padding: 20});
 			});
 		};
-	
-	function tiposDeTema(){
-		 TemaService.listarTipoTema().
-			then(function(f){
-				self.tipos = f;				
-				}, function(errResponse){
-					sweetAlert({ timer : 3000,  text : errResponse.data.message,  type : "error", width: 300, higth: 300, padding: 20});
-			});
-		};
 		
-	 		
+		function sistemas(){
+			 SistemaService.listar().
+				then(function(f){
+					self.sistemas = f;				
+					}, function(errResponse){
+						sweetAlert({ timer : 3000,  text : errResponse.data.message,  type : "error", width: 300, higth: 300, padding: 20});
+				});
+			};
+			
+		 function modulos(idSistema){
+			 ModuloService.buscarPorSistema(idSistema).
+				then(function(f){
+					self.modulos = f;			
+					}, function(errResponse){
+						sweetAlert({ timer : 3000,  text : errResponse.data.message,  type : "error", width: 300, higth: 300, padding: 20});
+				});
+			};
+			
+		 		
 	function buscarPorId(id){
 			if(!id)return;
 			TemaService.buscarPorId(id).
 			then(function(p){
 				self.tema = p;
+				modulos(p.sistema.id);
 		}, function(errResponse){
 			sweetAlert({ timer : 3000,  text : errResponse.data.message,  type : "error", width: 300, higth: 300, padding: 20});
 		});

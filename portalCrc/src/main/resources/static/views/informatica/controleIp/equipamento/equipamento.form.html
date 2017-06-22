@@ -1,21 +1,21 @@
 <meta charset="UTF-8">
 			<div class="col-sm-12 ">
 			<form role="form-vertical" name="formEquipamento" ng-submit="equipamentoCtrl.submit()" >
-				<div class="row" ng-if="equipamentoCtrl.equipamento">
+				<div class="row" ng-if="equipamentoCtrl.equipamento.id">
 					<div class="col-sm-4">
 							<input type="button" ng-click="equipamentoCtrl.baixar(equipamentoCtrl.equipamento)" value="Baixar" title="Dar baixa no Equipamento"	class="btn btn-lg btn-danger btn-block btn-signin">
 						</div>
 					
 				</div>
 				<div class="row">
-						<div class="col-sm-6">
+						<div class="col-sm-6 ">
 						Descrição:
-							<input class="form-control" placeholder="Descricao"  ng-model="equipamentoCtrl.equipamento.descricao" id="descricao" name="descricao" type="text" required>
+							<input class="form-control text-uppercase" placeholder="Descricao"  ng-model="equipamentoCtrl.equipamento.descricao" id="descricao" name="descricao" type="text" required>
 							
 						</div>
 						<div class="col-sm-6">
 						Patrimonio:
-							<input class="form-control" placeholder="Patrimonio"  ng-model="equipamentoCtrl.equipamento.patrimonio" id="nome" name="patrimonio" type="text" required>
+							<input class="form-control text-uppercase" placeholder="Patrimonio"  ng-model="equipamentoCtrl.equipamento.patrimonio" id="nome" ng-blur="equipamentoCtrl.existePatrimonio(equipamentoCtrl.equipamento.patrimonio)" name="patrimonio" type="text" required>
 							
 						</div>
 				</div>
@@ -24,16 +24,14 @@
 						<div class="col-sm-6">
 						Ip:
 						<select class="form-control " ng-model="equipamentoCtrl.equipamento.ip" 
-							ng-options="ip.numero for ip in equipamentoCtrl.ips"  >
-								<option value="">{{equipamentoCtrl.equipamento.ip.numero}}</option>
+							ng-options="ip.numero for ip in equipamentoCtrl.ips track by ip.id"  >
 							</select>
 						</div>	
 						
 						<div class="col-sm-6">
 						Tipo de Equipamento:
 						<select class="form-control " ng-model="equipamentoCtrl.equipamento.tipoEquipamento" 
-							ng-options="tipoEquipamentoEnum for tipoEquipamentoEnum in equipamentoCtrl.tipoEquipamentoEnum" >
-								<option value="">{{equipamentoCtrl.equipamento.tipoEquipamento}}</option>
+							ng-options="tipoEquipamentoEnum for tipoEquipamentoEnum in equipamentoCtrl.tipoEquipamentoEnum track by tipoEquipamentoEnum" >
 							</select>
 						</div>																		
 				</div>
@@ -43,8 +41,7 @@
 					<div class="col-sm-6">
 					Número Ponto:
 						<select class="form-control select2" ng-model="equipamentoCtrl.equipamento.ponto" 
-							ng-options="ponto.numero for ponto in equipamentoCtrl.pontos"  >
-								<option value="">{{equipamentoCtrl.equipamento.ponto.numero}}</option>
+							ng-options="ponto.numero for ponto in equipamentoCtrl.pontos track by ponto.id"  >
 							</select>
 						</div>		
 																

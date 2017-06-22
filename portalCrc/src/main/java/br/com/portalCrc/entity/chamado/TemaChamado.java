@@ -4,6 +4,8 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -16,6 +18,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import br.com.portalCrc.entity.Unidade;
 import br.com.portalCrc.entity.Usuario;
+import br.com.portalCrc.enums.chamado.TipoEquipamentoChamado;
 
 @Entity
 @SequenceGenerator(name = "tema_id_seq", sequenceName = "tema_id_seq", schema="chamado", initialValue = 1, allocationSize = 1)
@@ -26,11 +29,18 @@ public class TemaChamado {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "tema_id_seq")
 	private Long id;
 	
-	private String tema;
+	private String descricao;
+	
+	@ManyToOne
+	@JoinColumn(name="id_sistema")
+	private Sistema sistema;
 	
 	@ManyToOne
 	@JoinColumn(name="id_modulo")
 	private ModuloSistema modulo;
+	
+	@Enumerated(EnumType.STRING)
+	private TipoEquipamentoChamado tipoEquipamento;
 	
 	@ManyToOne
 	@JoinColumn(name="id_unidade")
@@ -52,12 +62,22 @@ public class TemaChamado {
 		this.id = id;
 	}
 
-	public String getTema() {
-		return tema;
+	
+
+	public String getDescricao() {
+		return descricao;
 	}
 
-	public void setTema(String tema) {
-		this.tema = tema.toUpperCase();
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
+	}
+
+	public Sistema getSistema() {
+		return sistema;
+	}
+
+	public void setSistema(Sistema sistema) {
+		this.sistema = sistema;
 	}
 
 	public ModuloSistema getModulo() {
@@ -90,6 +110,14 @@ public class TemaChamado {
 
 	public void setDataCadastro(Date dataCadastro) {
 		this.dataCadastro = dataCadastro;
+	}
+
+	public TipoEquipamentoChamado getTipoEquipamento() {
+		return tipoEquipamento;
+	}
+
+	public void setTipoEquipamento(TipoEquipamentoChamado tipoEquipamento) {
+		this.tipoEquipamento = tipoEquipamento;
 	}
 
 	

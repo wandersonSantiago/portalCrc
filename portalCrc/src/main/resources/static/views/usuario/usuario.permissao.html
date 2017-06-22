@@ -29,18 +29,97 @@
 
 
 		<br> <br> <br> <br>
-		<div>
 			<div class="row">
 				<h3>
-					<span class=" col-sm-12 form-control label label-success">Permissões 
+					<span class=" col-sm-12 form-control label label-primary">Gerenciamento 
 						</span>
 				</h3>
 			</div>
 			<br>
 			<div class="row">
-				<div class="col-xs-6 col-sm-2"
+				<div class="col-xs-4 col-sm-3"
 					ng-repeat="permissao in ctrl.permissoes">
-					<label class="checkbox-inline"><input type="checkbox"
+					<label class="checkbox-inline" ng-show="permissao.modulo == 'GERENCIAMENTO'"><input type="checkbox" 
+						data-checklist-model="ctrl.usuario.permissoes"
+						data-checklist-value="permissao">{{permissao.descricao}}</label>
+				</div>
+			</div>
+			<br>
+			<div class="row">
+				<h3>
+					<span class=" col-sm-12 form-control label label-primary">Comunicação 
+						</span>
+				</h3>
+			</div>
+			<br>
+			<div class="row">
+				<div class="col-xs-4 col-sm-3"
+					ng-repeat="permissao in ctrl.permissoes">
+					<label class="checkbox-inline" ng-show="permissao.modulo == 'COMUNICACAO'"><input type="checkbox" 
+						data-checklist-model="ctrl.usuario.permissoes"
+						data-checklist-value="permissao">{{permissao.descricao}}</label>
+				</div>
+			</div>
+			<br>
+			<div class="row">
+				<h3>
+					<span class=" col-sm-12 form-control label label-primary">Chamado 
+						</span>
+				</h3>
+			</div>
+			<br>
+			<div class="row">
+				<div class="col-xs-4 col-sm-3"
+					ng-repeat="permissao in ctrl.permissoes">
+					<label class="checkbox-inline" ng-show="permissao.modulo == 'CHAMADO'"><input type="checkbox" 
+						data-checklist-model="ctrl.usuario.permissoes"
+						data-checklist-value="permissao">{{permissao.descricao}}</label>
+				</div>
+			</div>
+			<br>
+			<div class="row">
+				<h3>
+					<span class=" col-sm-12 form-control label label-primary">Controle IP 
+						</span>
+				</h3>
+			</div>
+			<br>
+			<div class="row">
+				<div class="col-xs-4 col-sm-3"
+					ng-repeat="permissao in ctrl.permissoes">
+					<label class="checkbox-inline" ng-show="permissao.modulo == 'CONTROLE_IP'"><input type="checkbox" 
+						data-checklist-model="ctrl.usuario.permissoes"
+						data-checklist-value="permissao">{{permissao.descricao}}</label>
+				</div>
+			</div>
+			<br>
+			<div class="row">
+				<h3>
+					<span class=" col-sm-12 form-control label label-primary">Fincanças 
+						</span>
+				</h3>
+			</div>
+			<br>
+			<div class="row">
+				<div class="col-xs-4 col-sm-3"
+					ng-repeat="permissao in ctrl.permissoes">
+					<label class="checkbox-inline" ng-show="permissao.modulo == 'FINANCAS'"><input type="checkbox" 
+						data-checklist-model="ctrl.usuario.permissoes"
+						data-checklist-value="permissao">{{permissao.descricao}}</label>
+				</div>
+			</div>
+			<br>
+			<div class="row">
+				<h3>
+					<span class=" col-sm-12 form-control label label-primary">Recursos Humanos 
+						</span>
+				</h3>
+			</div>
+			<br>
+			<div class="row">
+				<div class="col-xs-4 col-sm-3"
+					ng-repeat="permissao in ctrl.permissoes">
+					<label class="checkbox-inline" ng-show="permissao.modulo == 'RECURSOS_HUMANOS'"><input type="checkbox" 
 						data-checklist-model="ctrl.usuario.permissoes"
 						data-checklist-value="permissao">{{permissao.descricao}}</label>
 				</div>

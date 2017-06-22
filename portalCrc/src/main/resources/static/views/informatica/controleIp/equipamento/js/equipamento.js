@@ -68,16 +68,16 @@ app.config(function($stateProvider, $urlRouterProvider) {
 				    label: 'Editar'
 				  }
 		})
-		/*.state('equipamento.visualizar', {
-			url : "/:idEquipamento",
-			templateUrl : "views/controleIp/equipamento/equipamento.show.html",
-			controller : "EquipamentoVisualizarController as equipamentoCtrl",
+		.state('equipamento.show', {
+			url : "/:idEquipamento/show",
+			templateUrl : "views/informatica/controleIp/equipamento/equipamento.show.html",
+			controller : "EquipamentoShowController as ctrl",
 			ncyBreadcrumb: {
 				 	parent: 'equipamento.listar',
 				    label: 'Visualizar'
 				  }
 		})
-*/
+
 		.state('equipamento.menu', {
 			url : "/menu",
 			templateUrl : "views/informatica/controleIp/equipamento/home.html",

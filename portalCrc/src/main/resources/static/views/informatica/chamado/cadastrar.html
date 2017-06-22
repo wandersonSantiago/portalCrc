@@ -13,7 +13,7 @@
 			</div>
 			<div class="col-sm-4">
 				Tipo : <select class="form-control "
-					ng-model="chamadoCtrl.chamadoTi.tipoEquipamento" id="tipo"
+					ng-model="chamadoCtrl.chamadoTi.tipoEquipamento" id="tipo" ng-change="chamadoCtrl.buscarTema(chamadoCtrl.chamadoTi.tipoEquipamento)"
 					ng-options="tipoEquipamento for tipoEquipamento in chamadoCtrl.tipoEquipamentos">
 					<option value="">Tipo</option>
 				</select>
@@ -21,28 +21,34 @@
 		</div>
 		<br> <br>
 		<div class="row">
-			<div ng-if="chamadoCtrl.chamadoTi.tipoEquipamento == 'COMPUTADOR'"
+			<div ng-if="chamadoCtrl.chamadoTi.tipoEquipamento == 'COMPUTADOR' || chamadoCtrl.chamadoTi.tipoEquipamento == 'IMPRESSORA' "
 				class="col-sm-4">
 				Titulo: <select class="form-control select2"
 					ng-model="chamadoCtrl.chamadoTi.titulo" id="titulo"
-					ng-options="titulo for titulo in chamadoCtrl.titulos">
+					ng-options="titulo.descricao for titulo in chamadoCtrl.titulos">
 					<option value="">Titulo</option>
 				</select>
-			</div>
-			<div ng-if="chamadoCtrl.chamadoTi.tipoEquipamento == 'IMPRESSORA'"
-				class="col-sm-4" ng-init="chamadoCtrl.tituloImpressora()">
-				Titulo: <select class="form-control "
-					ng-model="chamadoCtrl.chamadoTi.titulo" id="tituloImpressora"
-					ng-options="tituloImpressora for tituloImpressora in chamadoCtrl.tituloImpressoras">
-					<option value="">Titulo</option>
+			</div>			
+			<div class="col-sm-3" ng-if="chamadoCtrl.chamadoTi.tipoEquipamento === 'SISTEMA'">
+			Sistema:
+				<select class="form-control select2" ng-model="chamadoCtrl.sistema"
+					id="secretariaId" ng-change="chamadoCtrl.modulos(chamadoCtrl.sistema.id)"
+					ng-options="sistema.descricao for sistema in chamadoCtrl.sistemas">
 				</select>
 			</div>
-			<div ng-if="chamadoCtrl.chamadoTi.tipoEquipamento == 'SISTEMA'"
-				class="col-sm-4" ng-init="chamadoCtrl.tituloImpressora()">
-				Sistema: <select class="form-control "
-					ng-model="chamadoCtrl.chamadoTi.titulo" id="tituloImpressora"
-					ng-options="tituloImpressora for tituloImpressora in chamadoCtrl.tituloImpressoras">
-					<option value="">Sistema</option>
+			<div class="col-sm-3" ng-if="chamadoCtrl.chamadoTi.tipoEquipamento === 'SISTEMA' && chamadoCtrl.sistema">
+			Módulo:
+				<select class="form-control select2" ng-model="chamadoCtrl.modulo"
+					id="secretariaId" ng-change="chamadoCtrl.buscarTituloPorModulo(chamadoCtrl.modulo.id)"
+					ng-options="modulo.descricao for modulo in chamadoCtrl.modulos">
+				</select>
+			</div>
+			<div class="col-sm-3" ng-if="chamadoCtrl.chamadoTi.tipoEquipamento === 'SISTEMA' &&  chamadoCtrl.modulo">
+			Titulo:
+				<select class="form-control select2"
+					ng-model="chamadoCtrl.chamadoTi.titulo" id="titulo"
+					ng-options="titulo.descricao for titulo in chamadoCtrl.titulos">
+					<option value="">Titulo</option>
 				</select>
 			</div>
 		</div>
@@ -57,9 +63,7 @@
 						class="form-control" style="height: 300px"></textarea>
 				</div>
 			</div>
-		</div>
-
-	
+		</div>	
 	<br>
 	<br>
 		<div class="row ">

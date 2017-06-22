@@ -28,26 +28,27 @@
 		</div>
 <!-- menu admin Sistema -->
 		<ul class="sidebar-menu">
-			<li permission="['COMUNICACAO' , 'ADMIN']" class="header">COMUNICAÇÂO</li>
-					<li permission="['TELEFONE' , 'ADMIN']" class="treeview"><a href=""><i class="glyphicon glyphicon-earphone"></i> <span>Telefones</span>
+			<li class="header">COMUNICAÇÂO</li>
+					<li class="treeview"><a href=""><i class="glyphicon glyphicon-earphone"></i> <span>Telefones</span>
 						<i class="fa fa-angle-left pull-right"></i></a>
 						<ul class="treeview-menu">
 							<li permission="['TELEFONE_CADASTRAR' , 'ADMIN']"  ><a class="top" ui-sref="telefone.cadastrar">cadastrar</a></li>
-							<li permission="['TELEFONE_LISTAR' , 'ADMIN']" ><a class="top" ui-sref="telefone.listar">lista</a></li>
+							<li ><a class="top" ui-sref="telefone.listar">lista</a></li>
 						</ul>
 					</li>  
 					
-					<li permission="['RAMAL' , 'ADMIN']" class="treeview"><a href=""><i class="glyphicon glyphicon-phone-alt"></i> <span>Ramal</span>
+					<li  class="treeview"><a href=""><i class="glyphicon glyphicon-phone-alt"></i> <span>Ramal</span>
 						<i class="fa fa-angle-left pull-right"></i></a>
 						<ul  class="treeview-menu">
 							  <li permission="['RAMAL_CADASTRAR' , 'ADMIN']" ><a class="top" ui-sref="ramal.cadastrar">cadastro</a></li>
-							  <li permission="['RAMAL_LISTAR' , 'ADMIN']"><a class="top" ui-sref="ramal.listar">lista</a></li>	
+							  <li><a class="top" ui-sref="ramal.listar">lista</a></li>	
 						</ul>						
 					</li>
 										
 					<li permission="['CONTROLE_IP' , 'ADMIN']" class="header">CONTROLE DE IP</li>
 					<li permission="['EQUIPAMENTO' , 'ADMIN']" class="treeview"><a href=""><i class="fa fa-laptop"></i> <span>Equipamento</span>
-						<i class="fa fa-angle-left pull-right"></i></a>
+					<span title="Quantidade de Equipamentos cadastros na manutenção preventivas" class="label label-warning pull-right">{{manutencaoEquipamentos.length}}</span>
+						</a>
 						<ul class="treeview-menu">
 							 <li permission="['EQUIPAMENTO_CADASTRAR' , 'ADMIN']" ><a class="top" ui-sref="equipamento.cadastrar">cadastrar</a></li>
 							 <li permission="['EQUIPAMENTO_LISTAR' , 'ADMIN']"><a class="top" ui-sref="equipamento.ativo">lista</a></li>

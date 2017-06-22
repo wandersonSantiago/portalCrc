@@ -2,7 +2,7 @@ app.factory('ModuloService', function($q, $http){
 	var url = '/rest/informatica/sistema/modulo';	
 	return{
 		salvar: function(modulo){
-			return $http.post(url + , modulo)
+			return $http.post(url , modulo)
 			.then(function(response){
 				return response.data;
 			},function(errResponse){
@@ -11,7 +11,7 @@ app.factory('ModuloService', function($q, $http){
 		},
 		
 		alterar: function(modulo){
-			return $http.put(url + , modulo)
+			return $http.put(url, modulo)
 			.then(function(response){
 				return response.data;
 			},function(errResponse){
@@ -38,7 +38,14 @@ app.factory('ModuloService', function($q, $http){
 			});
 		},
 		
-		
+		buscarPorSistema: function(idSistema){
+			return $http.get(url +'/sistema/'+ idSistema)
+			.then(function(response){
+				return response.data;
+			},function(errResponse){
+				return $q.reject(errResponse);
+			});
+		},		
 		
 		
 	}

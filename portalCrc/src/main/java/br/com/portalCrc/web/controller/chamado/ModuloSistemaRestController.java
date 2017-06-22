@@ -43,7 +43,14 @@ public class ModuloSistemaRestController {
 	  Iterable<ModuloSistema> moduloSistema = moduloSistemaService.findAll();
 	  return new ResponseEntity<Iterable<ModuloSistema>>(moduloSistema, HttpStatus.OK);
 	 }
-	 @RequestMapping(value = "/{id}")
+	 
+	 @GetMapping(value="/sistema/{idSistema}")
+	 public ResponseEntity<Iterable<ModuloSistema>> buscarPorSistema(@PathVariable Long idSistema) {	  
+	  Iterable<ModuloSistema> moduloSistema = moduloSistemaService.findBySistema_id(idSistema);
+	  return new ResponseEntity<Iterable<ModuloSistema>>(moduloSistema, HttpStatus.OK);
+	 }
+	 
+	 @GetMapping(value = "/{id}")
 		public ResponseEntity<ModuloSistema> buscarPorId(@PathVariable Long id) {
 			return new ResponseEntity<ModuloSistema>(moduloSistemaService.buscaPorId(id), HttpStatus.OK);
 		}

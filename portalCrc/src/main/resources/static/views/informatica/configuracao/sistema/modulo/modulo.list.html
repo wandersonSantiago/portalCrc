@@ -1,21 +1,21 @@
 <meta charset="UTF-8">
 
 		<div class="panel-body table-responsive">
-		<input class="form-control" type="text" ng-model="buscaSecretaria" placeholder="Buscar">
+		<input class="form-control" type="text" ng-model="buscar" placeholder="Buscar">
 			<table class="table table-hover table-bordered">
 				<thead>
 					<tr>
-						<th>Mnemonico</th>
-						<th>Nome</th>					
+						<th>Descrição</th>
+						<th>Sistema</th>					
 						<th>Opções</th>
 					</tr>
 				</thead>
 				<tbody
-					ng-repeat=" secretaria in secretariaCtrl.secretarias | filter : buscaSecretaria ">
+					ng-repeat=" modulo in ctrl.modulos | filter : buscar ">
 					<tr>
-						<td>{{ secretaria.mnemonico }}</td>
-						<td>{{ secretaria.nome }}</td>					
-						<td><a ui-sref="secretaria.editar({idSecretaria : secretaria.id})"><i class="glyphicon glyphicon-edit"></i></a> 
+						<td>{{ modulo.descricao }}</td>
+						<td>{{ modulo.descricao }}</td>					
+						<td><a ui-sref="modulo.editar({idModulo : modulo.id})"><i class="glyphicon glyphicon-edit"></i></a> 
 						
 				</tr>
 				</tbody>

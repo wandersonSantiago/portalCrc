@@ -9,7 +9,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
 		redirectTo : 'funcionario.listar',
 		ncyBreadcrumb: {
 			parent: 'funcionario.listar',
-			    label: 'funcionario'
+			    label: 'Funcionario Unidade'
 			  }
 	})
 	
@@ -23,5 +23,14 @@ app.config(function($stateProvider, $urlRouterProvider) {
 			  }
 	})
 	
+	.state('funcionarioUnidade.listar', {
+		url : "/:idFuncionario/unidade/consulta",
+		templateUrl : "views/recursosHumanos/funcionario/unidade/funcionario.unidade.list.html",
+		controller : "FuncionarioUnidadeListarController as ctrl",
+		ncyBreadcrumb: {
+			 	parent: 'funcionarioUnidade',
+			    label: 'Consultar'
+			  }
+	})
 
 });

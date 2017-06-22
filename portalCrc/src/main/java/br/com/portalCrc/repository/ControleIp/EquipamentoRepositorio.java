@@ -12,11 +12,8 @@ public interface EquipamentoRepositorio extends JpaRepository<Equipamento, Long>
 
 	Collection<Equipamento> findByUnidade_id(Long id);
 
-
-
 	Iterable<Equipamento> findByStatusAndUnidade_id(StatusEquipamento status, Long id);
-	
-	
-     
+
+	Equipamento findByPatrimonioIgnoreCase(String patrimonio);
 
 }

@@ -26,24 +26,24 @@
 	</div>
 	<br>
 	<div class="row">
-		<a class="btn btn-primary btn-flat" title="Lançar diaria para determinado funcionário"
+		<a permission="['DIARIA_CADASTRAR_FINANCAS' , 'ADMIN']" class="btn btn-primary btn-flat" title="Lançar diaria para determinado funcionário"
 			ui-sref="funcionarioDiaria.verificar({idDiaria : diaria.id})"><i
-			class="glyphicon glyphicon-copy"></i></a> <a
+			class="glyphicon glyphicon-copy"></i></a> <a permission="['DIARIA_CADASTRAR_USUARIO' , 'ADMIN']"
 			class="btn btn-primary btn-flat"  title="Lançar diaria"
 			ui-sref="item.cadastrar({idDiaria : diaria.id})"><i
-			class="glyphicon glyphicon-copy"></i></a> <a
+			class="glyphicon glyphicon-copy"></i></a> <a permission="['DIARIA_ENCERRAR' , 'ADMIN']"
 			class="btn btn-warning btn-flat"  title="Encerrar diaria, apos este encerramento os funcionarios não poderão lançar mais diarias!!!"
 			ng-click="diariaCtrl.encerrar(diaria)"><i
-			class="glyphicon glyphicon-off"></i></a> <a
+			class="glyphicon glyphicon-off"></i></a> <a permission="['DIARIA_RELATORIO_UNIDADE' , 'ADMIN']"
 			class="btn btn-info btn-flat"  title="Relatório diaria para unidades"
 			ui-sref="funcionarioDiaria.unidade({idDiaria : diaria.id})"><i
-			class="glyphicon glyphicon-list-alt"></i></a> <a
+			class="glyphicon glyphicon-list-alt"></i></a> <a permission="['DIARIA_RELATORIO_COORDENADORIA' , 'ADMIN']"
 			class="btn btn-info btn-flat" title="Relatório diaria para coordenadorias"
 			ui-sref="funcionarioDiaria.coordenadoria({idDiaria : diaria.id})"><i
-			class="glyphicon glyphicon-list-alt"></i></a> <a
+			class="glyphicon glyphicon-list-alt"></i></a> <a permission="['DIARIA_RELATORIO_SECRETARIA' , 'ADMIN']"
 			class="btn btn-info btn-flat" title="Relatório diaria para secretarias"
 			ui-sref="funcionarioDiaria.secretaria({idDiaria : diaria.id})"><i
-			class="glyphicon glyphicon-list-alt"></i></a> <a
+			class="glyphicon glyphicon-list-alt"></i></a> <a permission="['DIARIA_EDITAR' , 'ADMIN']"
 			class="btn btn-success btn-flat" title="Editar diaria"
 			ui-sref="diaria.editar({idDiaria : diaria.id})"><i
 			class="glyphicon glyphicon-edit"></i></a>

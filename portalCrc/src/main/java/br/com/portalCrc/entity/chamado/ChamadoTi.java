@@ -1,5 +1,6 @@
 package br.com.portalCrc.entity.chamado;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -9,7 +10,8 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import br.com.portalCrc.entity.controleIp.Equipamento;
-import br.com.portalCrc.enums.chamado.TipoEquipamentoChamadoTi;
+import br.com.portalCrc.entity.controleIp.ServicosEquipamento;
+import br.com.portalCrc.enums.chamado.TipoEquipamentoChamado;
 
 @Entity
 @Table(name="chamado_ti", schema="chamado")
@@ -17,19 +19,18 @@ public class ChamadoTi extends Chamado {
 
 	
 	
-	@Column(name="descricao_servico")
-	private String descricaoServico;
 	
 	@Enumerated(EnumType.STRING)
-	private TipoEquipamentoChamadoTi tipoEquipamento;
+	private TipoEquipamentoChamado tipoEquipamento;
 	
 	@OneToOne
 	@JoinColumn(name="id_equipamento")
 	private Equipamento equipamento;
 	
+	@OneToOne(cascade = {CascadeType.MERGE ,CascadeType.PERSIST} )
+	@JoinColumn(name="id_servicos")
+	private ServicosEquipamento servicos;
 	
-	
-
 	public Equipamento getEquipamento() {
 		return equipamento;
 	}
@@ -38,20 +39,20 @@ public class ChamadoTi extends Chamado {
 		this.equipamento = equipamento;
 	}
 
-	public String getDescricaoServico() {
-		return descricaoServico;
-	}
-
-	public void setDescricaoServico(String descricaoServico) {
-		this.descricaoServico = descricaoServico.toUpperCase();
-	}
-
-	public TipoEquipamentoChamadoTi getTipoEquipamento() {
+	public TipoEquipamentoChamado getTipoEquipamento() {
 		return tipoEquipamento;
 	}
 
-	public void setTipoEquipamento(TipoEquipamentoChamadoTi tipoEquipamento) {
+	public void setTipoEquipamento(TipoEquipamentoChamado tipoEquipamento) {
 		this.tipoEquipamento = tipoEquipamento;
+	}
+
+	public ServicosEquipamento getServicos() {
+		return servicos;
+	}
+
+	public void setServicos(ServicosEquipamento servicos) {
+		this.servicos = servicos;
 	}
 	
 	

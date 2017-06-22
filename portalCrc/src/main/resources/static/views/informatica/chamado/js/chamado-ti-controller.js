@@ -8,22 +8,16 @@ app.controller("ChamadoTiAbertoController", ChamadoTiAbertoController);
 
 
 
-ChamadoTiCadastrarController.$inject = ['ChamadoTiService',  'toastr', '$rootScope', '$scope'];
-ChamadoTiListarController.$inject = ['ChamadoTiService', '$rootScope'];
-ChamadoTiAtendimentoController.$inject = ['$stateParams', '$state', 'ChamadoTiService', 'toastr', '$rootScope', '$scope'];
-ChamadoTiAtendimentoSuporteController.$inject = ['EquipamentoService','$stateParams', '$state', 'ChamadoTiService', 'toastr', '$rootScope', '$scope'];
-ChamadoTiRelatorioController.$inject = ['ChamadoTiService', 'toastr', '$rootScope', '$scope'];
-ChamadoTiSuporteListarController.$inject = ['ChamadoTiService', 'toastr', '$rootScope', '$scope'];
-ChamadoTiAbertoController.$inject = ['$timeout','ChamadoTiService', 'toastr', '$rootScope', '$scope'];
 
-function ChamadoTiCadastrarController( ChamadoTiService, toastr, $rootScope, $scope){
+function ChamadoTiCadastrarController( ChamadoTiService, toastr, $rootScope, $scope, TemaService , SistemaService, ModuloService){
 	var self = this;
 	self.submit = submit;
-	
-	tituloImpressora();
-	titulo();
+	self.buscarTema = buscarTema;
+	self.buscarTituloPorModulo = buscarTituloPorModulo;
+	self.modulos = modulos;
 	prioridade();
 	tipoEquipamento();
+	sistemas();
 	
 	function submit(chamadoTi) {
 		self.chamadoTi.mensagens = [{texto : $scope.texto}];
@@ -46,22 +40,23 @@ function ChamadoTiCadastrarController( ChamadoTiService, toastr, $rootScope, $sc
 			});
 		};
 		
-		function titulo(){
-			 ChamadoTiService.titulo().
+		function buscarTema(tipo){
+			 TemaService.buscarPorTipo(tipo).
 				then(function(f){
 					self.titulos = f;			
 					}, function(errResponse){
 						sweetAlert({ timer : 3000,  text : errResponse.data.message,  type : "info", width: 300, higth: 300, padding: 20});
 				});
 			};
-		function tituloImpressora(){
-			 ChamadoTiService.tituloImpressora().
-				then(function(f){
-					self.tituloImpressoras = f;			
-					}, function(errResponse){
-						sweetAlert({ timer : 3000,  text : errResponse.data.message,  type : "info", width: 300, higth: 300, padding: 20});
-				});
-			};	
+			
+			function buscarTituloPorModulo(idModulo){
+				 TemaService.buscarPorModulo(idModulo).
+					then(function(f){
+						self.titulos = f;			
+						}, function(errResponse){
+							sweetAlert({ timer : 3000,  text : errResponse.data.message,  type : "info", width: 300, higth: 300, padding: 20});
+					});
+				};
 			
 		function tipoEquipamento(){
 			 ChamadoTiService.tipoEquipamento().
@@ -71,6 +66,24 @@ function ChamadoTiCadastrarController( ChamadoTiService, toastr, $rootScope, $sc
 						sweetAlert({ timer : 3000,  text : errResponse.data.message,  type : "info", width: 300, higth: 300, padding: 20});
 				});
 			};
+			
+			function sistemas(){
+				 SistemaService.listar().
+					then(function(f){
+						self.sistemas = f;				
+						}, function(errResponse){
+							sweetAlert({ timer : 3000,  text : errResponse.data.message,  type : "error", width: 300, higth: 300, padding: 20});
+					});
+				};
+				
+			 function modulos(idSistema){
+				 ModuloService.buscarPorSistema(idSistema).
+					then(function(f){
+						self.modulos = f;			
+						}, function(errResponse){
+							sweetAlert({ timer : 3000,  text : errResponse.data.message,  type : "error", width: 300, higth: 300, padding: 20});
+					});
+				};
 	
 }
 function ChamadoTiListarController( ChamadoTiService, $rootScope){
@@ -127,6 +140,7 @@ function ChamadoTiAtendimentoSuporteController(EquipamentoService, $stateParams,
 		self.submit = submit;
 		self.atenderChamado = atenderChamado;
 		self.fecharChamado = fecharChamado;
+		self.salvarServicos = salvarServicos;
 		listarEquipamento();
 		
 		function submit(chamadoTi, texto) {
@@ -142,6 +156,17 @@ function ChamadoTiAtendimentoSuporteController(EquipamentoService, $stateParams,
 				});
 		};
 	
+		function salvarServicos(descricao , equipamento) {
+			self.chamadoTi.mensagens = null;
+			self.chamadoTi.servicos = {descricao : descricao, equipamento : equipamento};
+			ChamadoTiService.salvarServicos(self.chamadoTi).
+			then(function(response){
+				toastr.success("Serviço salvo com Sucesso!!!");
+				buscarPorId(idChamadoTi);
+					}, function(errResponse){
+						sweetAlert({ timer : 3000,  text : errResponse.data.message,  type : "info", width: 300, higth: 300, padding: 20});
+				});
+		};
 		function buscarPorId(id){
 			if(!id)return;
 			ChamadoTiService.buscarPorId(id).
@@ -206,7 +231,7 @@ function ChamadoTiAtendimentoSuporteController(EquipamentoService, $stateParams,
 	
 	
 }
-function ChamadoTiRelatorioController( ChamadoTiService, toastr, $rootScope, $scope){
+function ChamadoTiRelatorioController( ChamadoTiService, toastr, $rootScope, $scope, TemaService, SistemaService, ModuloService){
 	
 	var self = this;
 	self.getPage=0;
@@ -217,8 +242,12 @@ function ChamadoTiRelatorioController( ChamadoTiService, toastr, $rootScope, $sc
 	self.relatorioPorDataPorTitulo = relatorioPorDataPorTitulo;
 	relatorioChamadoSuporte(0, 20);
 	tipoEquipamento();
-	tituloImpressora();
-	titulo();
+	
+
+	self.buscarTema = buscarTema;
+	self.buscarTituloPorModulo = buscarTituloPorModulo;
+	self.modulos = modulos;
+	sistemas();
 	
 	 $scope.ativaTabela = false;
      $scope.ativaGrafico = false;     
@@ -273,8 +302,8 @@ function ChamadoTiRelatorioController( ChamadoTiService, toastr, $rootScope, $sc
 			});
   	     };
   	     
-  	   function relatorioPorDataPorTitulo(dataInicial , dataFinal, titulo){
-  		 ChamadoTiService.relatorioPorDataPorTitulo(dataInicial, dataFinal, titulo).
+  	   function relatorioPorDataPorTitulo(dataInicial , dataFinal, idTitulo){
+  		 ChamadoTiService.relatorioPorDataPorTitulo(dataInicial, dataFinal, idTitulo).
 				then(function(f){
 					 $scope.ativaTabela = true;
 					$scope.relatorioChamadoSuporte = f;					
@@ -282,41 +311,60 @@ function ChamadoTiRelatorioController( ChamadoTiService, toastr, $rootScope, $sc
 				});
 	     };
 	     
-	     function titulo(){
-			 ChamadoTiService.titulo().
+	    				
+	     function buscarTema(tipo){
+			 TemaService.buscarPorTipo(tipo).
 				then(function(f){
-					$scope.titulos = f;			
+					self.titulos = f;			
 					}, function(errResponse){
 						sweetAlert({ timer : 3000,  text : errResponse.data.message,  type : "info", width: 300, higth: 300, padding: 20});
 				});
 			};
-		function tituloImpressora(){
-			 ChamadoTiService.tituloImpressora().
-				then(function(f){
-					$scope.tituloImpressoras = f;			
-					}, function(errResponse){
-						sweetAlert({ timer : 3000,  text : errResponse.data.message,  type : "info", width: 300, higth: 300, padding: 20});
-				});
-			};	
+			
+			function buscarTituloPorModulo(idModulo){
+				 TemaService.buscarPorModulo(idModulo).
+					then(function(f){
+						self.titulos = f;			
+						}, function(errResponse){
+							sweetAlert({ timer : 3000,  text : errResponse.data.message,  type : "info", width: 300, higth: 300, padding: 20});
+					});
+				};
 			
 		function tipoEquipamento(){
 			 ChamadoTiService.tipoEquipamento().
 				then(function(f){
-					$scope.tipoEquipamentos = f;			
+					self.tipoEquipamentos = f;			
 					}, function(errResponse){
 						sweetAlert({ timer : 3000,  text : errResponse.data.message,  type : "info", width: 300, higth: 300, padding: 20});
 				});
 			};
+			
+			function sistemas(){
+				 SistemaService.listar().
+					then(function(f){
+						self.sistemas = f;				
+						}, function(errResponse){
+							sweetAlert({ timer : 3000,  text : errResponse.data.message,  type : "error", width: 300, higth: 300, padding: 20});
+					});
+				};
+				
+			 function modulos(idSistema){
+				 ModuloService.buscarPorSistema(idSistema).
+					then(function(f){
+						self.modulos = f;			
+						}, function(errResponse){
+							sweetAlert({ timer : 3000,  text : errResponse.data.message,  type : "error", width: 300, higth: 300, padding: 20});
+					});
+				};
     
   	     function chart(chamado){
   	    	for(i = 0 ; i < chamado.length ; i++){
-		    	 console.log(chamado[i]);
 		    	 
-		    	 $scope.labels = ["January", "February", "March", "April", "May", "June", "July"];
-		    	  $scope.series = ['Series A', 'Series B'];
+		    	 $scope.labels = [new Date(chamado[i].dataAbertura)];
+		    	  $scope.series = ['Qauntidade de chamados', 'Quantidade de mensagens'];
 		    	  $scope.data = [
-		    	    [65, 59, 80, 81, 56, 55, 40],
-		    	    [28, 48, 40, 19, 86, 27, 90]
+		    	    [chamado.length],
+		    	    [chamado[i].mensagens.length]
 		    	  ];
 		    	  $scope.onClick = function (points, evt) {
 		    	    console.log(points, evt);

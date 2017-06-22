@@ -10,4 +10,6 @@ public interface ModuloSistemaRepository extends JpaRepository<ModuloSistema, Lo
 
 	List<ModuloSistema> findByUnidade_id(Long id);
 
+	Iterable<ModuloSistema> findBySistema_id(Long idSistema);
+
 }
