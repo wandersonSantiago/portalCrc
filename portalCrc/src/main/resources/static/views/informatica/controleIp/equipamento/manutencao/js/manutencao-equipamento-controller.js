@@ -119,10 +119,12 @@ function ManutencaoEquipamentoEditarController($stateParams,
 function ManutencaoEquipamentoListarController($stateParams, $state, ManutencaoEquipamentoService,
 		toastr, $rootScope, $scope) {
 	var self = this;
-	listar();
-
-	function listar() {
-		ManutencaoEquipamentoService.listarAtivos().then(function(f) {
+	listarAgendado();
+	 $scope.agendado = true;
+	 
+	 
+	function listarRealizado() {
+		ManutencaoEquipamentoService.listarRealizado().then(function(f) {
 			self.manutencaoEquipamentos = f;
 		}, function(errResponse) {
 			sweetAlert({
@@ -136,7 +138,32 @@ function ManutencaoEquipamentoListarController($stateParams, $state, ManutencaoE
 		});
 	}
 	;
-
+	function listarAgendado() {
+		ManutencaoEquipamentoService.listarAgendado().then(function(f) {
+			self.manutencaoEquipamentos = f;
+		}, function(errResponse) {
+			sweetAlert({
+				timer : 3000,
+				text : errResponse.data.message,
+				type : "info",
+				width : 300,
+				higth : 300,
+				padding : 20
+			});
+		});
+	}
+	;
+	 self.ativaBotaoStatus =  function(botao){
+    	 if(botao === 'realizado'){
+    		 $scope.realizado = true;
+    		 $scope.agendado = false;
+    		 listarRealizado();
+    	 }else if(botao === 'agendado'){
+    		 $scope.realizado = false;
+    		 $scope.agendado = true;
+    		 listarAgendado();
+    	 }
+     };
 
 }
 function ManutencaoEquipamentoShowController($stateParams, $state, ManutencaoEquipamentoService,
@@ -202,7 +229,7 @@ function ManutencaoEquipamentoServicoController($stateParams, $state, Manutencao
 
 
 	function submit(manutencaoEquipamento) {
-		self.manutencaoEquipamento.servicos = {equipamento : self.manutencaoEquipamento.equipamento};
+		self.manutencaoEquipamento.servicos = {equipamento : self.manutencaoEquipamento.equipamento , descricao : self.manutencaoEquipamento.servicos.descricao};
 		ManutencaoEquipamentoService.alterar(self.manutencaoEquipamento).then(function(response) {
 			toastr.info("Alterado com Sucesso!!!");
 			self.manutencaoEquipamento = null;

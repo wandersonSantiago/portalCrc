@@ -19,6 +19,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import br.com.portalCrc.entity.Unidade;
 import br.com.portalCrc.entity.Usuario;
 import br.com.portalCrc.enums.chamado.TipoEquipamentoChamado;
+import br.com.portalCrc.enums.chamado.TipoTema;
 
 @Entity
 @SequenceGenerator(name = "tema_id_seq", sequenceName = "tema_id_seq", schema="chamado", initialValue = 1, allocationSize = 1)
@@ -40,7 +41,7 @@ public class TemaChamado {
 	private ModuloSistema modulo;
 	
 	@Enumerated(EnumType.STRING)
-	private TipoEquipamentoChamado tipoEquipamento;
+	private TipoTema tipoEquipamento;
 	
 	@ManyToOne
 	@JoinColumn(name="id_unidade")
@@ -112,14 +113,13 @@ public class TemaChamado {
 		this.dataCadastro = dataCadastro;
 	}
 
-	public TipoEquipamentoChamado getTipoEquipamento() {
+	public TipoTema getTipoEquipamento() {
 		return tipoEquipamento;
 	}
 
-	public void setTipoEquipamento(TipoEquipamentoChamado tipoEquipamento) {
+	public void setTipoEquipamento(TipoTema tipoEquipamento) {
 		this.tipoEquipamento = tipoEquipamento;
 	}
-
 	
 	
 }

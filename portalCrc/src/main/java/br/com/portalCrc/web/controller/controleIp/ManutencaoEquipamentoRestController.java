@@ -43,10 +43,17 @@ public class ManutencaoEquipamentoRestController {
 		return new ResponseEntity<Iterable<ManutencaoEquipamento>>(manutencaoEquipamento, HttpStatus.OK);
 	}
 	
-	@GetMapping(value="/ativos")
+	@GetMapping(value="/realizado")
 	public ResponseEntity<Iterable<ManutencaoEquipamento>> listaAtivos(){
 		Boolean status = true;
-		Iterable<ManutencaoEquipamento> manutencaoEquipamento	= manutencaoEquipamentoService.findByStatus(status);
+		Iterable<ManutencaoEquipamento> manutencaoEquipamento	= manutencaoEquipamentoService.findByStatusNotNull(status);
+		return new ResponseEntity<Iterable<ManutencaoEquipamento>>(manutencaoEquipamento, HttpStatus.OK);
+	}
+	
+	@GetMapping(value="/agendado")
+	public ResponseEntity<Iterable<ManutencaoEquipamento>> fyndByStatusAndTecnicoIsNull(){
+		Boolean status = true;
+		Iterable<ManutencaoEquipamento> manutencaoEquipamento	= manutencaoEquipamentoService.findByStatusIsNull(status);
 		return new ResponseEntity<Iterable<ManutencaoEquipamento>>(manutencaoEquipamento, HttpStatus.OK);
 	}
 	
@@ -54,7 +61,7 @@ public class ManutencaoEquipamentoRestController {
 	public ResponseEntity<Iterable<ManutencaoEquipamento>> listaAtivosPrioridade(){
 		Boolean status = true;
 		Iterable<ManutencaoEquipamento> manutencaoEquipamento = manutencaoEquipamentoService
-				.findByStatusAndEquipamento_unidade_idAndDataPreventivaBETWEENDataPreventiva(status);
+				.buscarPreventivasPrioridade(status);
 		return new ResponseEntity<Iterable<ManutencaoEquipamento>>(manutencaoEquipamento, HttpStatus.OK);
 	}
 	

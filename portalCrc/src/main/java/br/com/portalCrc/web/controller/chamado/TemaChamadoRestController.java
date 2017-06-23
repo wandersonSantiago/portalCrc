@@ -14,9 +14,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import br.com.portalCrc.entity.chamado.ModuloSistema;
 import br.com.portalCrc.entity.chamado.TemaChamado;
-import br.com.portalCrc.enums.chamado.TipoEquipamentoChamado;
+import br.com.portalCrc.enums.chamado.TipoTema;
 import br.com.portalCrc.service.chamado.TemaChamadoService;
 
 @RestController
@@ -48,7 +47,7 @@ public class TemaChamadoRestController {
 	 }
 	 
 	 @GetMapping(value="/tema")
-	 public ResponseEntity<Iterable<TemaChamado>> buscarPorTema(@RequestParam TipoEquipamentoChamado tema) {	  
+	 public ResponseEntity<Iterable<TemaChamado>> buscarPorTema(@RequestParam TipoTema tema) {	  
 	  Iterable<TemaChamado> temaChamado = temaChamadoService.findByTipoEquipamento(tema);
 	  return new ResponseEntity<Iterable<TemaChamado>>(temaChamado, HttpStatus.OK);
 	 }

@@ -23,6 +23,7 @@ import br.com.portalCrc.entity.chamado.ChamadoTi;
 import br.com.portalCrc.enums.chamado.PrioridadeChamado;
 import br.com.portalCrc.enums.chamado.StatusChamado;
 import br.com.portalCrc.enums.chamado.TipoEquipamentoChamado;
+import br.com.portalCrc.enums.chamado.TipoTema;
 import br.com.portalCrc.service.chamado.ChamadoTiService;
 
 @RestController
@@ -141,8 +142,8 @@ public class ChamadoTiRestController {
 			return new ResponseEntity<Iterable<StatusChamado>>(statusChamado, HttpStatus.OK);
 		}
 	 @RequestMapping(method = RequestMethod.GET, value = "/equipamento/tipo")
-		public ResponseEntity<Iterable<TipoEquipamentoChamado>> tipoEquipamentoChamado() {
-			Iterable<TipoEquipamentoChamado> tipoEquipamentoChamadoTi = Arrays.asList(TipoEquipamentoChamado.values());
-			return new ResponseEntity<Iterable<TipoEquipamentoChamado>>(tipoEquipamentoChamadoTi, HttpStatus.OK);
+		public ResponseEntity<Iterable<TipoTema>> tipoTema() {
+			Iterable<TipoTema> tipoTema = Arrays.asList(TipoTema.values());
+			return new ResponseEntity<Iterable<TipoTema>>(tipoTema, HttpStatus.OK);
 		}		
 }

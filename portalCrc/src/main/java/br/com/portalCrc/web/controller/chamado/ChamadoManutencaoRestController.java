@@ -19,9 +19,10 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import br.com.portalCrc.entity.chamado.ChamadoManutencao;
+import br.com.portalCrc.entity.chamado.TemaChamado;
 import br.com.portalCrc.enums.chamado.PrioridadeChamado;
 import br.com.portalCrc.enums.chamado.StatusChamado;
-import br.com.portalCrc.enums.chamado.TituloChamadoManutencaoEnum;
+import br.com.portalCrc.enums.chamado.TipoTema;
 import br.com.portalCrc.service.chamado.ChamadoManutencaoService;
 
 @RestController
@@ -115,12 +116,7 @@ public class ChamadoManutencaoRestController {
 			Iterable<StatusChamado> statusChamado = Arrays.asList(StatusChamado.values());
 			return new ResponseEntity<Iterable<StatusChamado>>(statusChamado, HttpStatus.OK);
 		}
-	 @RequestMapping(method = RequestMethod.GET, value = "/titulo")
-		public ResponseEntity<Iterable<TituloChamadoManutencaoEnum>> titulo() {
-			Iterable<TituloChamadoManutencaoEnum> tituloChamadoManutencaoEnum = Arrays.asList(TituloChamadoManutencaoEnum.values());
-			return new ResponseEntity<Iterable<TituloChamadoManutencaoEnum>>(tituloChamadoManutencaoEnum, HttpStatus.OK);
-		}
-
+	
 		@GetMapping(value = "/suporte/relatorio/dataInicial/{dataInicial}/dataFinal/{dataFinal}")
 	public ResponseEntity<Iterable<ChamadoManutencao>> relatorio(@PathVariable Date dataInicial, @PathVariable Date dataFinal) {
 		Iterable<ChamadoManutencao> chamado = chamadoManutencaoService.relatorio(dataInicial, dataFinal);

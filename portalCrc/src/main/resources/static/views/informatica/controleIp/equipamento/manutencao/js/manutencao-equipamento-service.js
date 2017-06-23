@@ -46,15 +46,22 @@ app.factory('ManutencaoEquipamentoService', function($q, $http){
 			});
 		},
 		
-		listarAtivos: function(){
-			return $http.get(url +'/ativos')
+		listarRealizado: function(){
+			return $http.get(url +'/realizado')
 			.then(function(response){
 				return response.data;				
 			},function(errResponse){
 				return $q.reject(errResponse);
 			});
 		},
-		
+		listarAgendado: function(){
+			return $http.get(url +'/agendado')
+			.then(function(response){
+				return response.data;				
+			},function(errResponse){
+				return $q.reject(errResponse);
+			});
+		},
 		listarAtivosPrioridade: function(){
 			return $http.get(url +'/ativos/prioridade')
 			.then(function(response){

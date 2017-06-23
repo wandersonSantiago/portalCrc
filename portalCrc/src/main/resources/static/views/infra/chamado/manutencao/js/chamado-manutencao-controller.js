@@ -7,11 +7,11 @@ app.controller("ChamadoManutencaoSuporteListarController", ChamadoManutencaoSupo
 
 
 
-function ChamadoManutencaoCadastrarController( ChamadoManutencaoService, toastr, $rootScope, $scope){
+function ChamadoManutencaoCadastrarController( ChamadoManutencaoService, toastr, $rootScope, $scope, TemaService){
 	var self = this;
 	self.submit = submit;
 		
-	titulo();
+	buscarTema('MANUTENCAO');
 	prioridade();
 	
 	function submit(chamadoManutencao) {
@@ -35,8 +35,8 @@ function ChamadoManutencaoCadastrarController( ChamadoManutencaoService, toastr,
 			});
 		};
 		
-		function titulo(){
-			 ChamadoManutencaoService.titulo().
+		function buscarTema(tipo){
+			 TemaService.buscarPorTipo(tipo).
 				then(function(f){
 					self.titulos = f;			
 					}, function(errResponse){

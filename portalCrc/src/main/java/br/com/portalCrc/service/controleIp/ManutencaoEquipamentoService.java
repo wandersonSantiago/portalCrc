@@ -29,19 +29,24 @@ public class ManutencaoEquipamentoService {
 		return manutencaoEquipamentoRepository.findOne(id);
 	}
 
-	public Iterable<ManutencaoEquipamento> findByStatus(Boolean status) {
+	public Iterable<ManutencaoEquipamento> findByStatusIsNull(Boolean status) {
 		Long idUnidade = SessionUsuario.getInstance().getUsuario().getFuncionario().getUnidadeAtual().getId();
-		return manutencaoEquipamentoRepository.findByStatusAndEquipamento_unidade_id(status, idUnidade);
+		return manutencaoEquipamentoRepository.findByStatusAndEquipamento_unidade_idAndTecnicoIsNull(status, idUnidade);
+	}
+	
+	public Iterable<ManutencaoEquipamento> findByStatusNotNull(Boolean status) {
+		Long idUnidade = SessionUsuario.getInstance().getUsuario().getFuncionario().getUnidadeAtual().getId();
+		return manutencaoEquipamentoRepository.findByStatusAndEquipamento_unidade_idAndTecnicoIsNotNull(status, idUnidade);
 	}
 
-	public Iterable<ManutencaoEquipamento> findByStatusAndEquipamento_unidade_idAndDataPreventivaBETWEENDataPreventiva(
+	public Iterable<ManutencaoEquipamento> buscarPreventivasPrioridade(
 			Boolean status) {
 		Long idUnidade = SessionUsuario.getInstance().getUsuario().getFuncionario().getUnidadeAtual().getId();
 
 		Date dataFinal = dataFinalPrioridade();
-		return manutencaoEquipamentoRepository
-				.findByStatusAndEquipamento_unidade_idAndDataPreventivaBETWEENDataPreventiva(dataFinal, status,
-						idUnidade);
+		
+		return manutencaoEquipamentoRepository.findByDataPreventivaLessThanEqualAndStatusAndEquipamento_unidade_idAndTecnicoIsNull(dataFinal, status, idUnidade);
+	
 	}
 
 	@Transactional(readOnly = false)
@@ -62,6 +67,8 @@ public class ManutencaoEquipamentoService {
 		manutencaoEquipamento.setTecnico(SessionUsuario.getInstance().getUsuario());
 		manutencaoEquipamento.setDataUltimaManutencao(new Date());
 		manutencaoEquipamento.setDataPreventiva(dataPreventiva());
+		manutencaoEquipamento.getServicos().setTecnico(SessionUsuario.getInstance().getUsuario());;
+		manutencaoEquipamento.getServicos().setDataCadastro(new Date());
 		manutencaoEquipamentoRepository.save(manutencaoEquipamento);
 	}
 

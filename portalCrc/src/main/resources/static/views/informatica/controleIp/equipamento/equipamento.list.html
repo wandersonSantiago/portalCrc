@@ -20,7 +20,7 @@
 					<th class="btn btn-primary btn-flat col-sm-1"><h6>Switch</h6> </th>
 					<th class="btn btn-primary btn-flat col-sm-1"><h6>Porta</h6> </th>
 					<th class="btn btn-primary btn-flat col-sm-2"><h6>Setor</h6></th>
-					<th class="btn btn-primary btn-flat col-sm-1"><h6>Editar</h6></th>
+					<th class="btn btn-primary btn-flat col-sm-1"><h6>Opções</h6></th>
 					
 					
 					</tr>
@@ -36,8 +36,8 @@
 						<td>{{ equipamento.ponto.switchs.nome}}</td>
 						<td>{{ equipamento.ponto.portaSwitch.numero}}</td>
 						<td>{{ equipamento.ponto.setor.nome}}</td>
-						<td title="Editar Equipamento"><a ui-sref="equipamento.editar({idEquipamento : equipamento.id})"><i class="glyphicon glyphicon-edit"></i></a> 	
-						<td title="Cadastrar uma manutenção preventiva"><a ui-sref="manutencaoEquipamento.salvar({idEquipamento : equipamento.id})"><i class="glyphicon glyphicon-wrench"></i></a>								 
+						<td><a title="Editar Equipamento" ui-sref="equipamento.editar({idEquipamento : equipamento.id})"><i class="glyphicon glyphicon-edit"></i></a> 	
+						<a  title="Cadastrar uma manutenção preventiva" ui-sref="manutencaoEquipamento.salvar({idEquipamento : equipamento.id})"><i class="glyphicon glyphicon-wrench"></i></a>								 
 						
 				</tr>
 				</tbody>

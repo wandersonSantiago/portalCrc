@@ -103,7 +103,7 @@
 										mensagem.data | date : 'HH:mm:ss'}} </span>
 								</div>
 								<img class="direct-chat-img"
-									ng-src="{{chamadoCtrl.chamadoTi.usuarioSolicitante.caminhoFoto ? chamadoCtrl.chamadoTi.usuarioSolicitante.caminhoFoto : '../../../../public/img/avatar_2x.png' }}"
+									ng-src="{{mensagem.usuario.caminhoFoto ? mensagem.usuario.caminhoFoto : '../../../../public/img/avatar_2x.png' }}"
 									alt="message user image">
 								<div class="direct-chat-text" froala-view="mensagem.texto"></div>
 							</div>
@@ -117,7 +117,7 @@
 										| date : 'HH:mm:ss'}} </span>
 								</div>
 								<img class="direct-chat-img"
-									ng-src="{{chamadoCtrl.chamadoTi.usuarioAtendente.caminhoFoto ? chamadoCtrl.chamadoTi.usuarioAtendente.caminhoFoto : '../../../../public/img/avatar_2x.png' }}"
+									ng-src="{{mensagem.usuario.caminhoFoto ? mensagem.usuario.caminhoFoto : '../../../../public/img/avatar_2x.png' }}"
 									alt="message user image">
 								<div class="direct-chat-text" froala-view="mensagem.texto"></div>
 							</div>

@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import br.com.portalCrc.entity.chamado.ModuloSistema;
 import br.com.portalCrc.entity.chamado.TemaChamado;
 import br.com.portalCrc.enums.chamado.TipoEquipamentoChamado;
+import br.com.portalCrc.enums.chamado.TipoTema;
 import br.com.portalCrc.repository.chamado.TemaChamadoRepository;
 
 @Service
@@ -34,7 +35,7 @@ public class TemaChamadoService {
 		return temaChamadoRepository.findOne(id);
 	}
 
-	public Iterable<TemaChamado> findByTipoEquipamento(TipoEquipamentoChamado tema) {
+	public Iterable<TemaChamado> findByTipoEquipamento(TipoTema tema) {
 		return temaChamadoRepository.findByTipoEquipamento(tema);
 	}
 

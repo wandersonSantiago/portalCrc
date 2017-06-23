@@ -18,7 +18,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import br.com.portalCrc.entity.Permissao;
 import br.com.portalCrc.enums.ModuloPermissaoEnum;
-import br.com.portalCrc.enums.chamado.TituloChamadoImpressoraEnum;
+import br.com.portalCrc.enums.chamado.TipoTema;
 import br.com.portalCrc.service.PermissaoService;
 
 
