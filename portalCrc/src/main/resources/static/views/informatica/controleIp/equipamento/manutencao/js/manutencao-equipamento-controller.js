@@ -16,7 +16,6 @@ function ManutencaoEquipamentoCadastarController($stateParams, EquipamentoServic
 			self.manutencaoEquipamento = null;
 		}, function(errResponse) {
 			sweetAlert({
-				timer : 3000,
 				text : errResponse.data.message,
 				type : "info",
 				width : 300,
@@ -63,7 +62,16 @@ function ManutencaoEquipamentoCadastarController($stateParams, EquipamentoServic
 		};
 		$scope.format = "dd/MM/yyyy";
 		// termino função data
-	
+		
+		
+		  $scope.toggleMin = function() {
+			    $scope.inlineOptions = {minDate : new Date()};
+			    $scope.dateOptions= {minDate : $scope.inlineOptions.minDate};
+			  };
+
+			  $scope.toggleMin();
+
+			 
 }
 function ManutencaoEquipamentoEditarController($stateParams,
 		$state, ManutencaoEquipamentoService, toastr, $rootScope, $scope) {

@@ -147,7 +147,7 @@
 		<tbody
 			ng-repeat=" chamado in relatorioChamadoSuporte | filter : buscar | orderBy : '-id'  ">
 			<tr>
-				<td>{{ chamado.titulo }}</td>
+				<td>{{ chamado.titulo.descricao }}</td>
 				<td>{{ chamado.usuarioSolicitante.nome }}</td>
 				<td>{{ chamado.setor.nome }}</td>
 				<td>{{ chamado.status }}</td>

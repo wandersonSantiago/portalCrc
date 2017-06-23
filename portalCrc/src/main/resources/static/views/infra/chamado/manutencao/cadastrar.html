@@ -16,7 +16,7 @@
 					<div class="row">							
 						<div class="col-sm-4">
 							<select class="form-control select2" ng-model="chamadoCtrl.chamadoManutencao.titulo" id="titulo"
-							ng-options="titulo for titulo in chamadoCtrl.titulos"
+							ng-options="titulo.descricao for titulo in chamadoCtrl.titulos"
 							  style=" width: 100%;" >
 								<option value="">Titulo</option>
 							</select>

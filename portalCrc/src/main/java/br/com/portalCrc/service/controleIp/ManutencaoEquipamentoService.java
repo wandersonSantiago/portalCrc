@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import br.com.portalCrc.entity.controleIp.ManutencaoEquipamento;
 import br.com.portalCrc.pojo.SessionUsuario;
 import br.com.portalCrc.repository.ControleIp.ManutencaoEquipamentoRepository;
+import br.com.portalCrc.service.diaria.MensagemException;
 
 @Service
 @Transactional(readOnly = true, propagation = Propagation.REQUIRED)
@@ -56,6 +57,12 @@ public class ManutencaoEquipamentoService {
 		if (item != null) {
 			item.setStatus(false);
 			manutencaoEquipamentoRepository.save(item);
+		}
+		if(manutencaoEquipamento.getDescricao() == null){
+			manutencaoEquipamento.setDescricao("PREVENTIVA PADRÃO");
+		}
+		if(manutencaoEquipamento.getDataPreventiva().before(new Date())){
+			throw new MensagemException("Data preventiva tem que ser posterior a data atual!!!");
 		}
 		manutencaoEquipamento.setStatus(true);
 		manutencaoEquipamento.setUsuarioCadastro(SessionUsuario.getInstance().getUsuario());

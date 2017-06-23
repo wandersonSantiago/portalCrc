@@ -1,45 +1,35 @@
 <meta charset="UTF-8">
-			<div class="col-sm-12 ">
-			<form role="form-vertical" name="formEquipamento" ng-submit="ctrl.submit()" >
-				<div class="row">
-						<div class="col-sm-6">
-							Descrição:
-								{{ctrl.equipamento.descricao}}
-						</div>
-						<div class="col-sm-6">
-							Patrimonio:
-								{{ctrl.equipamento.patrimonio}}
-						</div>
-				</div>
-				<br>
-				<div class="row">
-					<div class="col-sm-4">
-							Setor:
-								{{ctrl.equipamento.setor.nome}}
-						</div>
-						<div class="col-sm-4">
-							Ponto:
-								{{ctrl.equipamento.ponto.numero}}
-						</div>
-						<div class="col-sm-4">
-							Ip:
-								{{ctrl.equipamento.ip.descricao}}
-						</div>
-				</div>
-				<br>
-				<div class="row">
-					<div class="col-sm-12">
-						Informação:
-						<input type="text" class="form-control text-uppercase" maxlength="20" ng-model="ctrl.manutencaoEquipamento.descricao">
-					</div>
-				</div>
-				<br>
-				<div class="row">
-					<div class="col-sm-4">
-					Data Agendamento:
-						<p class="input-group">
-					<input type="text" class="form-control" 
-						uib-datepicker-popup="{{format}}" ng-model="ctrl.manutencaoEquipamento.dataPreventiva"
+<div class="col-sm-12 ">
+	<form role="form-vertical" name="formEquipamento"
+		ng-submit="ctrl.submit()">
+		<div class="row">
+			<div class="col-sm-6">Descrição: {{ctrl.equipamento.descricao}}
+			</div>
+			<div class="col-sm-6">Patrimonio:
+				{{ctrl.equipamento.patrimonio}}</div>
+		</div>
+		<br>
+		<div class="row">
+			<div class="col-sm-4">Setor: {{ctrl.equipamento.setor.nome}}</div>
+			<div class="col-sm-4">Ponto: {{ctrl.equipamento.ponto.numero}}
+			</div>
+			<div class="col-sm-4">Ip: {{ctrl.equipamento.ip.descricao}}</div>
+		</div>
+		<br>
+		<div class="row">
+			<div class="col-sm-12">
+				Informação: <input type="text" class="form-control text-uppercase"
+					maxlength="20" ng-model="ctrl.manutencaoEquipamento.descricao">
+			</div>
+		</div>
+		<br>
+		<div class="row">
+			<div class="col-sm-4">
+				Data Agendamento:
+				<p class="input-group">
+					<input type="text" class="form-control" readonly
+						datepicker-options="dateOptions" uib-datepicker-popup="{{format}}"
+						ng-model="ctrl.manutencaoEquipamento.dataPreventiva"
 						is-open="entrada.opened" ng-required="true" close-text="Close"
 						required /> <span class="input-group-btn">
 						<button type="button" class="btn btn-default"
@@ -48,18 +38,18 @@
 						</button>
 					</span>
 				</p>
-					</div>
-				</div>
-					<br>				
-					<div class="row ">
-					<div class="col-sm-4"></div>
-						<div class="col-sm-4">
-							<input type="submit" id="submit" value="Salvar"	class="btn btn-lg btn-primary btn-block btn-signin">
-						</div>
-							
-					</div>
-						
-									
-				</form>
 			</div>
-	
+		</div>
+		<br>
+		<div class="row ">
+			<div class="col-sm-4"></div>
+			<div class="col-sm-4">
+				<input type="submit" id="submit" value="Salvar" ng-disabled="!ctrl.manutencaoEquipamento.descricao || !ctrl.manutencaoEquipamento.dataPreventiva"
+					class="btn btn-lg btn-primary btn-block btn-signin">
+			</div>
+
+		</div>
+
+
+	</form>
+</div>
