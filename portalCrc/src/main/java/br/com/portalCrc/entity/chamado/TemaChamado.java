@@ -18,7 +18,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import br.com.portalCrc.entity.Unidade;
 import br.com.portalCrc.entity.Usuario;
-import br.com.portalCrc.enums.chamado.TipoEquipamentoChamado;
 import br.com.portalCrc.enums.chamado.TipoTema;
 
 @Entity

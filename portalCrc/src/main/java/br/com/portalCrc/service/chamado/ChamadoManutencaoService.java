@@ -14,7 +14,6 @@ import org.springframework.transaction.annotation.Transactional;
 import br.com.portalCrc.entity.Unidade;
 import br.com.portalCrc.entity.Usuario;
 import br.com.portalCrc.entity.chamado.ChamadoManutencao;
-import br.com.portalCrc.entity.chamado.ChamadoTi;
 import br.com.portalCrc.enums.chamado.StatusChamado;
 import br.com.portalCrc.pojo.ConverteData;
 import br.com.portalCrc.pojo.SessionUsuario;

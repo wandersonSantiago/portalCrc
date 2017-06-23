@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import br.com.portalCrc.entity.chamado.ModuloSistema;
-import br.com.portalCrc.entity.chamado.TemaChamado;
 import br.com.portalCrc.service.chamado.ModuloSistemaService;
 
 @RestController

@@ -18,7 +18,6 @@ import br.com.portalCrc.repository.FuncionarioCargoRepository;
 import br.com.portalCrc.repository.FuncionarioRepository;
 import br.com.portalCrc.repository.FuncionarioUnidadeRepository;
 import br.com.portalCrc.service.diaria.MensagemException;
-import scala.annotation.meta.setter;
 
 @Service
 @Transactional(readOnly = true, propagation = Propagation.REQUIRED)

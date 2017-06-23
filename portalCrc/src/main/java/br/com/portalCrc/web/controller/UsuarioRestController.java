@@ -45,8 +45,6 @@ public class UsuarioRestController {
 
     private String path;
     private String name;
-    private String type;
-    private Long size;
 
     
 	@RequestMapping(value="/usuario")
@@ -91,8 +89,8 @@ public class UsuarioRestController {
 			return new ResponseEntity<Usuario>(usuarioService.buscarUsuarioPorId(id), HttpStatus.OK);
 		}
 	 @RequestMapping(value = "/existeLogin/{login}", method = RequestMethod.GET)
-	 public ResponseEntity<Usuario> verificarSeExisteLogin(@PathVariable String login) {
-			return new ResponseEntity(usuarioService.existeLoginCadastrado(login), HttpStatus.OK);
+	 public ResponseEntity<Object> verificarSeExisteLogin(@PathVariable String login) {
+			return new ResponseEntity<Object>(usuarioService.existeLoginCadastrado(login), HttpStatus.OK);
 		}
 	 
 	 
@@ -118,9 +116,6 @@ public class UsuarioRestController {
 
        path = "";
        name = file.getOriginalFilename();
-       type = file.getContentType();
-       size = file.getSize();
-
        try {
            byte[] bytes = file.getBytes();
 

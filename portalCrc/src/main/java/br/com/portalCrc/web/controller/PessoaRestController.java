@@ -22,14 +22,15 @@ public class PessoaRestController {
 	private PessoaService pessoaService;
 	
 	@RequestMapping(method = RequestMethod.GET, value = "/existeCpf/{cpf}")
-	public ResponseEntity existeCpf(@PathVariable String cpf){
+	public ResponseEntity<?> existeCpf(@PathVariable String cpf){
 		
-		return new ResponseEntity(pessoaService.existeCpf(cpf), HttpStatus.OK);
+		return new ResponseEntity<>(pessoaService.existeCpf(cpf), HttpStatus.OK);
+		
 	}
 	@RequestMapping(method = RequestMethod.GET, value = "/existeRg/{rg}")
-	public ResponseEntity existeRg(@PathVariable String rg){
+	public ResponseEntity<?> existeRg(@PathVariable String rg){
 		
-		return new ResponseEntity(pessoaService.existeRg(rg), HttpStatus.OK);
+		return new ResponseEntity<>(pessoaService.existeRg(rg), HttpStatus.OK);
 	}
 	
 	@RequestMapping(method = RequestMethod.GET, value="/estadoCivil")

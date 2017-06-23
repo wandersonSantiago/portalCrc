@@ -10,7 +10,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import br.com.portalCrc.entity.Permissao;
 import br.com.portalCrc.entity.Usuario;
-import br.com.portalCrc.enums.ModuloPermissaoEnum;
 import br.com.portalCrc.service.UsuarioService;
 
 

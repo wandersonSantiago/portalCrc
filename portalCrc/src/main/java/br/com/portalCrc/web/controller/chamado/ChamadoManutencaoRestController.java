@@ -19,10 +19,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import br.com.portalCrc.entity.chamado.ChamadoManutencao;
-import br.com.portalCrc.entity.chamado.TemaChamado;
 import br.com.portalCrc.enums.chamado.PrioridadeChamado;
 import br.com.portalCrc.enums.chamado.StatusChamado;
-import br.com.portalCrc.enums.chamado.TipoTema;
 import br.com.portalCrc.service.chamado.ChamadoManutencaoService;
 
 @RestController

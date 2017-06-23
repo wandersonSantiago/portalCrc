@@ -8,7 +8,6 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import br.com.portalCrc.entity.chamado.ModuloSistema;
-import br.com.portalCrc.pojo.SessionUsuario;
 import br.com.portalCrc.repository.chamado.ModuloSistemaRepository;
 
 @Service

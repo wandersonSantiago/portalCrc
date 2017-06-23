@@ -17,8 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import br.com.portalCrc.entity.FuncionarioUnidade;
-import br.com.portalCrc.entity.Unidade;
-import br.com.portalCrc.entity.Usuario;
 import br.com.portalCrc.enums.StatusFuncionario;
 import br.com.portalCrc.service.FuncionarioUnidadeService;
 

@@ -4,7 +4,6 @@ import java.util.Collection;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import br.com.portalCrc.entity.Unidade;
 import br.com.portalCrc.entity.controleIp.Equipamento;
 import br.com.portalCrc.enums.controleIp.StatusEquipamento;
 

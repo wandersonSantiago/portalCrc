@@ -22,7 +22,6 @@ import org.springframework.web.util.UriComponentsBuilder;
 import br.com.portalCrc.entity.chamado.ChamadoTi;
 import br.com.portalCrc.enums.chamado.PrioridadeChamado;
 import br.com.portalCrc.enums.chamado.StatusChamado;
-import br.com.portalCrc.enums.chamado.TipoEquipamentoChamado;
 import br.com.portalCrc.enums.chamado.TipoTema;
 import br.com.portalCrc.service.chamado.ChamadoTiService;
 

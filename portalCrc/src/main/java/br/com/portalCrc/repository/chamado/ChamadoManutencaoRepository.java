@@ -9,7 +9,6 @@ import org.springframework.data.repository.query.Param;
 import br.com.portalCrc.entity.Unidade;
 import br.com.portalCrc.entity.Usuario;
 import br.com.portalCrc.entity.chamado.ChamadoManutencao;
-import br.com.portalCrc.entity.chamado.ChamadoTi;
 
 public interface ChamadoManutencaoRepository extends JpaRepository<ChamadoManutencao, Long>{
 

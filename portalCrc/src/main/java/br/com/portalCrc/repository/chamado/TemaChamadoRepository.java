@@ -4,9 +4,7 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import br.com.portalCrc.entity.chamado.ModuloSistema;
 import br.com.portalCrc.entity.chamado.TemaChamado;
-import br.com.portalCrc.enums.chamado.TipoEquipamentoChamado;
 import br.com.portalCrc.enums.chamado.TipoTema;
 
 public interface TemaChamadoRepository extends JpaRepository<TemaChamado, Long>{

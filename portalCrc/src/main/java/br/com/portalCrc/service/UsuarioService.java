@@ -10,7 +10,6 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import br.com.portalCrc.entity.Usuario;
-import br.com.portalCrc.entity.diaria.ContaFuncionarioDiaria;
 import br.com.portalCrc.pojo.SessionUsuario;
 import br.com.portalCrc.repository.UsuarioRepository;
 import br.com.portalCrc.service.diaria.MensagemException;
@@ -50,7 +49,7 @@ public class UsuarioService {
 	@Transactional(readOnly = false)
 	public void alterarSenha(Long idUsuario, String senhaValidacao, String novaSenha) {
 		Usuario user = usuarioRepository.findOne(idUsuario);	
-		String hash = new BCryptPasswordEncoder().encode(senhaValidacao);
+	//	String hash = new BCryptPasswordEncoder().encode(senhaValidacao);
 		
 	//	if(user.getSenha() == hash){
 			String novaHash = new BCryptPasswordEncoder().encode(novaSenha);
