@@ -19,5 +19,8 @@ public interface ItemDiariaRepository extends JpaRepository<ItemDiaria, Long>{
 	List<ItemDiaria> listaSecretaria(Long id);
 
 	Iterable<ItemDiaria> findByFuncionarioDiaria_id(Long id);
+
+	Iterable<ItemDiaria> findByFuncionarioDiaria_diaria_idAndFuncionarioDiaria_contaFuncionario_funcionario_id(
+			Long idDiaria, Long idFuncionario);
 	
 }

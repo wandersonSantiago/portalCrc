@@ -45,6 +45,9 @@ public class Equipamento {
 	@Column(name="patrimonio", unique = true)
 	private String patrimonio;
 	
+	@Column(name="mac_adress", unique = true)
+	private String macAdress;
+	
 	@OneToOne
 	@JoinColumn(name="ponto")
 	private Ponto ponto;
@@ -138,6 +141,12 @@ public class Equipamento {
 	}
 	public void setDataAlteracao(Date dataAlteracao) {
 		this.dataAlteracao = dataAlteracao;
+	}
+	public String getMacAdress() {
+		return macAdress;
+	}
+	public void setMacAdress(String macAdress) {
+		this.macAdress = macAdress;
 	}
 	
 	

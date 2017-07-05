@@ -30,10 +30,7 @@ public class Funcao {
 	@JoinColumn(name="id_secretaria")
 	private Secretaria secretaria;
 	
-	@JsonIgnore
-	@ManyToOne
-	@JoinColumn(name="id_usuario_cadastro")
-	private Usuario usuarioCadastro;
+	
 	
 	@Column(name="data_cadastro")
 	private Date dataCadastro;
@@ -62,14 +59,7 @@ public class Funcao {
 		this.secretaria = secretaria;
 	}
 
-	public Usuario getUsuarioCadastro() {
-		return usuarioCadastro;
-	}
-
-	public void setUsuarioCadastro(Usuario usuarioCadastro) {
-		this.usuarioCadastro = usuarioCadastro;
-	}
-
+	
 	public Date getDataCadastro() {
 		return dataCadastro;
 	}

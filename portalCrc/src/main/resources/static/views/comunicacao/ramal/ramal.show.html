@@ -13,7 +13,7 @@
 			layout="column" layout-align="center center" ng-init="height = 1"
 			ng-mouseenter="height = 24" ng-mouseleave="height = 4">
 			<div class="row">
-				<span data-toggle="modal" title="Informações sobre este contato" data-target="#informacaoModal"  class="btn btn-primary btn-flat"><h5>{{ramal.setor.nome}}</h5></span>
+				<span data-toggle="modal" title="Informações sobre este contato" data-target="#informacaoModal" ng-click="ramalCtrl.modalInformacao(ramal)" class="btn btn-primary btn-flat"><h5>{{ramal.setor.nome}}</h5></span>
 			</div>
 			<h3>{{ramal.numero}}</h3>
 		</div>
@@ -33,7 +33,7 @@
 					</h4>
 			</div>
 			<div class="modal-body">
-				{{ramal.descricao}}
+				{{descricao}}
 					
 			</div>
 			<div class="modal-footer ">

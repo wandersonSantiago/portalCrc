@@ -1,6 +1,6 @@
 <meta charset="UTF-8">
-<div class="row">
-	<div class="col-sm-2">
+<div class="row ">
+	<div class="col-sm-2" permission="['CONTA_FUNCIONARIO' , 'ADMIN']">
 	 <div class="box box-solid">
             <div class="box-header with-border">
               <h3 class="box-title">Menu</h3>
@@ -12,8 +12,8 @@
             </div>
 		<div class="box-body no-padding">
               <ul class="nav nav-pills nav-stacked">
-                <li><a href="" ui-sref="funcionarioContaDiaria.buscar"><i class="fa fa-envelope-o"></i>buscar</a></li>
-                <li><a href="" ui-sref="funcionarioContaDiaria.listar"><i class="fa fa-envelope-o"></i>Contas existentes</a></li>               
+                <li><a href="" permission="['CONTA_FUNCIONARIO' , 'ADMIN']" ui-sref="funcionarioContaDiaria.buscar"><i class="fa fa-envelope-o"></i>buscar</a></li>
+                <li><a href="" permission="['CONTA_FUNCIONARIO' , 'ADMIN']" ui-sref="funcionarioContaDiaria.listar"><i class="fa fa-envelope-o"></i>Contas existentes</a></li>               
               </ul>
             </div>
            </div>

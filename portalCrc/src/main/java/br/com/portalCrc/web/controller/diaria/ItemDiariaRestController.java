@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import br.com.portalCrc.entity.diaria.FuncionarioDiaria;
 import br.com.portalCrc.entity.diaria.ItemDiaria;
 import br.com.portalCrc.service.diaria.ItemDiariaService;
 
@@ -69,6 +70,7 @@ public class ItemDiariaRestController {
 		Iterable<ItemDiaria> itemDiaria = itemDiariaRepository.listaUnidade(id);
 		return new ResponseEntity<Iterable<ItemDiaria>>(itemDiaria, HttpStatus.OK);
 	}
+	
 	
 	 @GetMapping(value = "/{id}")
 		public ResponseEntity<ItemDiaria> buscarPorId(@PathVariable Long id) {

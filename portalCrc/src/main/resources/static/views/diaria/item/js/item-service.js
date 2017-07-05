@@ -98,5 +98,6 @@ app.factory('ItemDiariaService', function($q, $http){
 			});
 		},
 		
+		
 	}
 });

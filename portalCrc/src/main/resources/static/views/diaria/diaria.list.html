@@ -26,24 +26,29 @@
 	</div>
 	<br>
 	<div class="row">
-		<a permission="['DIARIA_CADASTRAR_FINANCAS' , 'ADMIN']" class="btn btn-primary btn-flat" title="Lançar diaria para determinado funcionário"
+		<a permission="['DIARIA_FINANCAS' , 'ADMIN']" class="btn btn-primary btn-flat" title="Lançar diaria para determinado funcionário"
 			ui-sref="funcionarioDiaria.verificar({idDiaria : diaria.id})"><i
-			class="glyphicon glyphicon-copy"></i></a> <a permission="['DIARIA_CADASTRAR_USUARIO' , 'ADMIN']"
+			class="glyphicon glyphicon-copy"></i></a> <a permission="['DIARIA' , 'ADMIN']"
 			class="btn btn-primary btn-flat"  title="Lançar diaria"
 			ui-sref="item.cadastrar({idDiaria : diaria.id})"><i
-			class="glyphicon glyphicon-copy"></i></a> <a permission="['DIARIA_ENCERRAR' , 'ADMIN']"
+			class="glyphicon glyphicon-copy"></i></a> 
+			<a permission="['DIARIA' , 'ADMIN']"
+			class="btn btn-info btn-flat"  title="Total de Diária do referente mês " 
+			ui-sref="item.usuario({idDiaria : diaria.id})"><i
+			class="glyphicon glyphicon-user"></i></a>
+			<a permission="['DIARIA_FINANCAS' , 'ADMIN']"
 			class="btn btn-warning btn-flat"  title="Encerrar diaria, apos este encerramento os funcionarios não poderão lançar mais diarias!!!"
 			ng-click="diariaCtrl.encerrar(diaria)"><i
-			class="glyphicon glyphicon-off"></i></a> <a permission="['DIARIA_RELATORIO_UNIDADE' , 'ADMIN']"
+			class="glyphicon glyphicon-off"></i></a> <a permission="['DIARIA_UNIDADE' , 'ADMIN']"
 			class="btn btn-info btn-flat"  title="Relatório diaria para unidades"
 			ui-sref="funcionarioDiaria.unidade({idDiaria : diaria.id})"><i
-			class="glyphicon glyphicon-list-alt"></i></a> <a permission="['DIARIA_RELATORIO_COORDENADORIA' , 'ADMIN']"
+			class="glyphicon glyphicon-list-alt"></i></a> <a permission="['DIARIA_COORDENADORIA' , 'ADMIN']"
 			class="btn btn-info btn-flat" title="Relatório diaria para coordenadorias"
 			ui-sref="funcionarioDiaria.coordenadoria({idDiaria : diaria.id})"><i
-			class="glyphicon glyphicon-list-alt"></i></a> <a permission="['DIARIA_RELATORIO_SECRETARIA' , 'ADMIN']"
+			class="glyphicon glyphicon-list-alt"></i></a> <a permission="['DIARIA_SECRETARIA' , 'ADMIN']"
 			class="btn btn-info btn-flat" title="Relatório diaria para secretarias"
 			ui-sref="funcionarioDiaria.secretaria({idDiaria : diaria.id})"><i
-			class="glyphicon glyphicon-list-alt"></i></a> <a permission="['DIARIA_EDITAR' , 'ADMIN']"
+			class="glyphicon glyphicon-list-alt"></i></a> <a permission="['DIARIA_FINANCAS' , 'ADMIN']"
 			class="btn btn-success btn-flat" title="Editar diaria"
 			ui-sref="diaria.editar({idDiaria : diaria.id})"><i
 			class="glyphicon glyphicon-edit"></i></a>
@@ -62,7 +67,7 @@
 					<span aria-hidden="true">&times;</span>
 				</button>
 				<h4 class="modal-title" id="exampleModalLabel">Diária
-					{{diaria.mes}}</h4>
+					{{info.mes}}</h4>
 			</div>
 			<div class="modal-body">
 				<div class="row">
@@ -70,7 +75,7 @@
 					<div class="col-sm-12">
 						<h3>Observação:</h3>
 						<br>
-						<h4>{{diaria.observacao}}</h4>
+						<h4>{{info.observacao}}</h4>
 					</div>
 				</div>
 				<br>
@@ -78,13 +83,13 @@
 					<div class="col-sm-6">
 						<h3>Data Abertura:</h3>
 						<br>
-						<h4>{{diaria.dataAbertura | date :
+						<h4>{{info.dataAbertura | date :
 							'dd/MM/yyyy'}}</h4>
 					</div>
 					<div class="col-sm-6">
 						<h3>Valor UFESP:</h3>
 						<br>
-						<h4>{{diaria.valorUfesp | currency}}</h4>
+						<h4>{{info.valorUfesp | currency}}</h4>
 					</div>
 				</div>
 				<br>

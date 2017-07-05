@@ -35,10 +35,6 @@ public class Coordenadoria{
 	private Secretaria secretaria;
 	@Column(name="data_cadastro")
 	private Date dataCadastro;
-	@JsonIgnore
-	@ManyToOne
-	@JoinColumn(name="id_usuario_cadastro")
-	private Usuario usuarioCadastro;
 	
 	
 	
@@ -74,14 +70,7 @@ public class Coordenadoria{
 		this.id = id;
 	}
 
-	public Usuario getUsuarioCadastro() {
-		return usuarioCadastro;
-	}
-
-	public void setUsuarioCadastro(Usuario usuarioCadastro) {
-		this.usuarioCadastro = usuarioCadastro;
-	}
-
+	
 	public Date getDataCadastro() {
 		return dataCadastro;
 	}

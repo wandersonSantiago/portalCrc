@@ -41,10 +41,6 @@ public class FuncionarioUnidade {
 	private Unidade unidade;
 	@Column(name="data_cadastro")
 	private Date dataCadastro;
-	@JsonIgnore
-	@ManyToOne
-	@JoinColumn(name="usuario_cadastro")
-	private Usuario usuarioCadastro;
 	@ManyToOne
 	@JoinColumn(name="funcao")
 	private Funcao funcao;
@@ -95,14 +91,7 @@ public class FuncionarioUnidade {
 		this.dataCadastro = dataCadastro;
 	}
 
-	public Usuario getUsuarioCadastro() {
-		return usuarioCadastro;
-	}
-
-	public void setUsuarioCadastro(Usuario usuarioCadastro) {
-		this.usuarioCadastro = usuarioCadastro;
-	}
-
+	
 	public Long getId() {
 		return id;
 	}
@@ -148,7 +137,6 @@ public class FuncionarioUnidade {
 		result = prime * result + ((setor == null) ? 0 : setor.hashCode());
 		result = prime * result + ((status == null) ? 0 : status.hashCode());
 		result = prime * result + ((unidade == null) ? 0 : unidade.hashCode());
-		result = prime * result + ((usuarioCadastro == null) ? 0 : usuarioCadastro.hashCode());
 		return result;
 	}
 
@@ -203,11 +191,7 @@ public class FuncionarioUnidade {
 				return false;
 		} else if (!unidade.equals(other.unidade))
 			return false;
-		if (usuarioCadastro == null) {
-			if (other.usuarioCadastro != null)
-				return false;
-		} else if (!usuarioCadastro.equals(other.usuarioCadastro))
-			return false;
+		
 		return true;
 	}
 

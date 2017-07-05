@@ -37,7 +37,6 @@ public class FuncionarioService {
 		salvaHistoricoDeCargo(funcionario);
 		salvaHistoricoDaUnidade(funcionario);
 		funcionario.setUnidadeAtual(SessionUsuario.getInstance().getUsuario().getFuncionario().getUnidadeAtual());
-		funcionario.setUsuarioCadastro(SessionUsuario.getInstance().getUsuario());
 		funcionario.setDataCadastro(new Date());
 		funcionarioRepository.save(funcionario);
 	}
@@ -56,7 +55,6 @@ public class FuncionarioService {
 		cargos.setCargo(funcionario.getCargoAtual());
 		cargos.setFuncionario(funcionario);
 		cargos.setDataCadastro(new Date());
-		cargos.setUsuarioCadastro(SessionUsuario.getInstance().getUsuario());
 		funcionarioCargoRepository.save(cargos);
 	}
 	
@@ -67,7 +65,6 @@ public class FuncionarioService {
 		unidades.setFuncionario(funcionario);
 		unidades.setUnidade(SessionUsuario.getInstance().getUsuario().getFuncionario().getUnidadeAtual());
 		unidades.setStatus(StatusFuncionario.LOTADO);
-		unidades.setUsuarioCadastro(SessionUsuario.getInstance().getUsuario());
 		unidades.setDataCadastro(new Date());
 		funcionarioUnidadeRepository.save(unidades);
 	}

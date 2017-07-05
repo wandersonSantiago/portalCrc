@@ -32,7 +32,7 @@
 					<li class="treeview"><a href=""><i class="glyphicon glyphicon-earphone"></i> <span>Telefones</span>
 						<i class="fa fa-angle-left pull-right"></i></a>
 						<ul class="treeview-menu">
-							<li permission="['TELEFONE_CADASTRAR' , 'ADMIN']"  ><a class="top" ui-sref="telefone.cadastrar">cadastrar</a></li>
+							<li permission="['TELEFONE' , 'ADMIN']"  ><a class="top" ui-sref="telefone.cadastrar">cadastrar</a></li>
 							<li ><a class="top" ui-sref="telefone.listar">lista</a></li>
 						</ul>
 					</li>  
@@ -40,69 +40,69 @@
 					<li  class="treeview"><a href=""><i class="glyphicon glyphicon-phone-alt"></i> <span>Ramal</span>
 						<i class="fa fa-angle-left pull-right"></i></a>
 						<ul  class="treeview-menu">
-							  <li permission="['RAMAL_CADASTRAR' , 'ADMIN']" ><a class="top" ui-sref="ramal.cadastrar">cadastro</a></li>
+							  <li permission="['RAMAL' , 'ADMIN']" ><a class="top" ui-sref="ramal.cadastrar">cadastro</a></li>
 							  <li><a class="top" ui-sref="ramal.listar">lista</a></li>	
 						</ul>						
 					</li>
 										
-					<li permission="['CONTROLE_IP' , 'ADMIN']" class="header">CONTROLE DE IP</li>
+					<li permission="['EQUIPAMENTO','IP', 'TIPO_IP', 'PONTO','SWITCH' , 'ADMIN']" class="header">CONTROLE DE IP</li>
 					<li permission="['EQUIPAMENTO' , 'ADMIN']" class="treeview"><a href=""><i class="fa fa-laptop"></i> <span>Equipamento</span>
 					<span title="Quantidade de Equipamentos cadastros na manutenção preventivas" class="label label-warning pull-right">{{manutencaoEquipamentos.length}}</span>
 						</a>
 						<ul class="treeview-menu">
-							 <li permission="['EQUIPAMENTO_CADASTRAR' , 'ADMIN']" ><a class="top" ui-sref="equipamento.cadastrar">cadastrar</a></li>
-							 <li permission="['EQUIPAMENTO_LISTAR' , 'ADMIN']"><a class="top" ui-sref="equipamento.ativo">lista</a></li>
+							 <li permission="['EQUIPAMENTO' , 'ADMIN']" ><a class="top" ui-sref="equipamento.cadastrar">cadastrar</a></li>
+							 <li permission="['EQUIPAMENTO' , 'ADMIN']"><a class="top" ui-sref="equipamento.ativo">lista</a></li>
 						</ul>
 					</li>  
 					
 					<li permission="['IP' , 'ADMIN']" class="treeview"><a href=""><i class="fa fa-sitemap"></i> <span>IPs</span>
 						<i class="fa fa-angle-left pull-right"></i></a>
 						<ul class="treeview-menu">
-							 <li permission="['IP_CADASTRAR' , 'ADMIN']" ><a class="top" ui-sref="ip.cadastrar">cadastrar</a></li>
-						     <li permission="['IP_LISTAR' , 'ADMIN']"><a class="top" ui-sref="ip.ativos">lista</a></li>
+							 <li permission="['IP' , 'ADMIN']" ><a class="top" ui-sref="ip.cadastrar">cadastrar</a></li>
+						     <li permission="['IP' , 'ADMIN']"><a class="top" ui-sref="ip.ativos">lista</a></li>
 						</ul>
 					</li> 
 					
 					<li permission="['TIPO_IP' , 'ADMIN']" class="treeview"><a href=""><i class="fa  fa-share-alt"></i> <span>Tipo IP</span>
 						<i class="fa fa-angle-left pull-right"></i></a>
 						<ul class="treeview-menu">
-							 <li permission="['TIPO_IP_CADASTRAR' , 'ADMIN']"><a class="top" ui-sref="tipoIp.cadastrar">cadastrar</a></li>
-							 <li permission="['TIPO_IP_LISTAR' , 'ADMIN']"><a class="top" ui-sref="tipoIp.ativos">lista</a></li>
+							 <li permission="['TIPO_IP' , 'ADMIN']"><a class="top" ui-sref="tipoIp.cadastrar">cadastrar</a></li>
+							 <li permission="['TIPO_IP' , 'ADMIN']"><a class="top" ui-sref="tipoIp.ativos">lista</a></li>
 						</ul>
 					</li> 
 					
 					<li permission="['PONTO' , 'ADMIN']" class="treeview"><a href=""><i class="fa fa-plug"></i> <span>Ponto</span>
 						<i class="fa fa-angle-left pull-right"></i></a>
 						<ul class="treeview-menu">
-							 <li permission="['PONTO_CADASTRAR' , 'ADMIN']"><a class="top" ui-sref="ponto.cadastrar">cadastrar</a></li>
-							 <li permission="['PONTO_LISTAR' , 'ADMIN']"><a class="top" ui-sref="ponto.ativos">lista</a></li>
+							 <li permission="['PONTO' , 'ADMIN']"><a class="top" ui-sref="ponto.cadastrar">cadastrar</a></li>
+							 <li permission="['PONTO' , 'ADMIN']"><a class="top" ui-sref="ponto.ativos">lista</a></li>
 						</ul>
 					</li> 
 					
 					<li permission="['SWITCH' , 'ADMIN']" class="treeview"><a href=""><i class="fa fa-tty"></i> <span>Switch</span>
 						<i class="fa fa-angle-left pull-right"></i></a>
 						<ul class="treeview-menu">
-							 <li permission="['SWITCH_CADASTRAR' , 'ADMIN']"><a class="top" ui-sref="switch.cadastrar">cadastrar</a></li>
-						     <li permission="['SWITCH_LISTAR' , 'ADMIN']"><a class="top" ui-sref="switch.ativos">lista</a></li>
+							 <li permission="['SWITCH' , 'ADMIN']"><a class="top" ui-sref="switch.cadastrar">cadastrar</a></li>
+						     <li permission="['SWITCH' , 'ADMIN']"><a class="top" ui-sref="switch.ativos">lista</a></li>
 						</ul>
 					</li> 
-					<li permission="['CHAMADO' , 'ADMIN']" class="header">CHAMADOS</li>
-					<li permission="['INFORMATICA_CHAMADO' , 'ADMIN']" class="treeview"><a href=""><i class="fa fa-server "></i> <span>Informática</span>
+					<li  class="header">CHAMADOS</li>
+					<li  class="treeview"><a href=""><i class="fa fa-server "></i> <span>Informática</span>
 						<i class="fa fa-angle-left pull-right"></i></a>
 						<ul class="treeview-menu">
-							 <li permission="['INFORMATICA_CHAMADO_CADASTRAR' , 'ADMIN']"><a class="top" ui-sref="chamadoTi.cadastrar">cadastrar</a></li>
-							<li permission="['INFORMATICA_CHAMADO_LISTAR' , 'ADMIN']"><a class="top" ui-sref="chamadoTi.listar">Meus Chamados</a></li>
-							<li permission="['INFORMATICA_CHAMADO_SUPORTE_LISTAR' , 'ADMIN']"><a class="top" ui-sref="chamadoTi.suporteListar">Suporte Chamado</a></li>
-							<li permission="['INFORMATICA_CHAMADO_RELATORIO' , 'ADMIN']"><a class="top" ui-sref="chamadoTi.relatorio">Relatório</a></li>
+							 <li permission="['CHAMADO_USUARIO' , 'ADMIN']"><a class="top" ui-sref="chamadoTi.cadastrar">cadastrar</a></li>
+							<li permission="['CHAMADO_USUARIO' , 'ADMIN']"><a class="top" ui-sref="chamadoTi.listar">Meus Chamados</a></li>
+							<li permission="['CHAMADO_INFORMATICA_TECNICO' , 'ADMIN']"><a class="top" ui-sref="chamadoTi.suporteListar">Suporte Chamado</a></li>
+							<li permission="['CHAMADO_INFORMATICA_TECNICO' , 'ADMIN']"><a class="top" ui-sref="chamadoTi.relatorio">Relatório</a></li>
 						</ul>
 					</li> 
-					<li permission="['MANUTENCAO_CHAMADO' , 'ADMIN']" class="treeview"><a href=""><i class="fa fa-legal"></i> <span>Manutenção</span>
+					<li  class="treeview"><a href=""><i class="fa fa-legal"></i> <span>Manutenção</span>
 						<i class="fa fa-angle-left pull-right"></i></a>
 						<ul class="treeview-menu">
-					 		<li permission="['MANUTENCAO_CHAMADO_CADASTRAR' , 'ADMIN']"><a class="top" ui-sref="chamadoManutencao.cadastrar">cadastro</a></li>
-							<li permission="['MANUTENCAO_CHAMADO_LISTAR' , 'ADMIN']"><a class="top" ui-sref="chamadoManutencao.listar">Meus Chamados</a></li>
-							<li permission="['MANUTENCAO_CHAMADO_SUPORTE_LISTAR' , 'ADMIN']"><a class="top" ui-sref="chamadoManutencao.suporteListar">Suporte Chamado</a></li>
-							<li permission="['MANUTENCAO_CHAMADO_RELATORIO' , 'ADMIN']"><a class="top" ui-sref="chamadoManutencao.relatorio">Relatório</a></li>
+					 		<li permission="['CHAMADO_USUARIO' , 'ADMIN']"><a class="top" ui-sref="chamadoManutencao.cadastrar">cadastro</a></li>
+							<li permission="['CHAMADO_USUARIO' , 'ADMIN']"><a class="top" ui-sref="chamadoManutencao.listar">Meus Chamados</a></li>
+							<li permission="['CHAMADO_MANUTENCAO_TECNICO' , 'ADMIN']"><a class="top" ui-sref="chamadoManutencao.suporteListar">Suporte Chamado</a></li>
+							<li permission="['CHAMADO_MANUTENCAO_TECNICO' , 'ADMIN']"><a class="top" ui-sref="chamadoManutencao.relatorio">Relatório</a></li>
 						</ul>
 					</li>
 					<li permission="['ADMIN']" class="treeview"><a href=""><i class="fa fa-server "></i> <span>Configuração</span>
@@ -116,23 +116,30 @@
 							<li permission="['ADMIN']"><a class="top" ui-sref="tema.listar">listar</a></li>
 						</ul>
 					</li>	
-					<li permission="['FINANCAS' , 'ADMIN']" class="header">FINANÇAS</li>
+					<li permission="['DIARIA' , 'ADMIN']" class="header">FINANÇAS</li>
 					<li permission="['DIARIA' , 'ADMIN']" class="treeview"><a href=""><i class="fa fa-dollar "></i> <span>Diaria</span>
 						<i class="fa fa-angle-left pull-right"></i></a>
 						<ul class="treeview-menu">
 							<li permission="['CONTA_FUNCIONARIO' , 'ADMIN']" ><a class="top" ui-sref="funcionarioContaDiaria.buscar">Conta</a></li>
-							<li permission="['DIARIA_CADASTRAR' , 'ADMIN']" ><a class="top" ui-sref="diaria.cadastrar">cadastrar novo mês</a></li>
-							<li permission="['DIARIA_ABERTO' , 'ADMIN']" ><a class="top" ui-sref="diaria.listar">Em aberto</a></li>
-							<li permission="['DIARIA_RELATORIO' , 'ADMIN']"><a class="top" ui-sref="diaria.relatorio">Relatórios</a></li>
+							<li permission="['DIARIA_FINANCAS' , 'ADMIN']" ><a class="top" ui-sref="diaria.cadastrar">cadastrar novo mês</a></li>
+							<li permission="['DIARIA' , 'ADMIN']" ><a class="top" ui-sref="diaria.listar">Em aberto</a></li>
+							<li permission="['DIARIA_UNIDADE' , 'DIARIA_COORDENADORIA', 'DIARIA_SECRETARIA', 'ADMIN']"><a class="top" ui-sref="diaria.relatorio">Relatórios</a></li>
+						</ul>
+					</li> 
+					<li permission="['CADASTRO_VEICULOS' , 'ADMIN']" class="header">INFRAESTRUTURA</li>
+					<li permission="['CADASTRO_VEICULOS' , 'ADMIN']" class="treeview"><a href=""><i class="fa fa-dollar "></i> <span>Veiculos</span>
+						<i class="fa fa-angle-left pull-right"></i></a>
+						<ul class="treeview-menu">
+							<li permission="['CADASTRO_VEICULOS' , 'ADMIN']" ><a class="top" ui-sref="veiculo.cadastrar">cadastrar</a></li>
+							<li permission="['CADASTRO_VEICULOS' , 'ADMIN']" ><a class="top" ui-sref="veiculo.listar">listar</a></li>
 						</ul>
 					</li> 
 						
-					<li permission="['GERENCIAMENTO' , 'ADMIN']" class="header">GERENCIAMENTO</li>
-					<li permission="['USUARIOS' , 'ADMIN']" class="treeview"><a href=""><i class="glyphicon glyphicon-user "></i> <span>Usuario</span>
+					<li permission="['USUARIO_UNIDADE', 'USUARIO_COORDENADORIA' , 'ADMIN']" class="header">GERENCIAMENTO</li>
+					<li permission="['USUARIO_UNIDADE', 'USUARIO_COORDENADORIA' , 'ADMIN']" class="treeview"><a href=""><i class="glyphicon glyphicon-user "></i> <span>Usuario</span>
 						<i class="fa fa-angle-left pull-right"></i></a>
 						<ul class="treeview-menu">
-					       <li permission="['USUARIOS_CADASTRAR' , 'ADMIN']"><a class="top" ui-sref="usuario.cadastrar">cadastrar</a></li>
-						   <li permission="['USUARIOS_LISTAR' , 'ADMIN']"><a class="top" ui-sref="usuario.listar">lista</a></li>
+						   <li permission="['USUARIO_UNIDADE', 'USUARIO_COORDENADORIA' , 'ADMIN']"><a class="top" ui-sref="usuario.listar">lista</a></li>
 						</ul>
 					</li> 
 					<li permission="[ 'ADMIN']" class="treeview"><a href=""><i class="glyphicon glyphicon-user "></i> <span>Permissão</span>
@@ -143,34 +150,34 @@
 						</ul>
 					</li> 
 					
-					<li permission="['RECURSOS_HUMANOS' , 'ADMIN']" class="header">RECURSOS HUMANOS</li>
-					<li  permission="['FUNCIONARIO' , 'ADMIN']" class="treeview"><a href=""><i class="fa fa-user-plus"></i> <span>Funcionário</span>
+					<li permission="['FUNCIONARIO_UNIDADE', 'CARGO', 'SETOR', 'FUNCAO' , 'ADMIN']" class="header">RECURSOS HUMANOS</li>
+					<li  permission="['FUNCIONARIO_UNIDADE' , 'ADMIN']" class="treeview"><a href=""><i class="fa fa-user-plus"></i> <span>Funcionário</span>
 						<i class="fa fa-angle-left pull-right"></i></a>
 						<ul class="treeview-menu">
-							 <li permission="['FUNCIONARIO_CADASTRAR' , 'ADMIN']"><a class="top" ui-sref="funcionario.cadastrar">cadastrar</a></li>
-						     <li permission="['FUNCIONARIO_LISTAR' , 'ADMIN']"><a class="top" ui-sref="funcionario.listar">lista</a></li>
+							 <li permission="['FUNCIONARIO_UNIDADE' , 'ADMIN']"><a class="top" ui-sref="funcionario.cadastrar">cadastrar</a></li>
+						     <li permission="['FUNCIONARIO_UNIDADE' , 'ADMIN']"><a class="top" ui-sref="funcionario.listar">lista</a></li>
 						</ul>
 					</li> 
 					<li permission="['CARGO' , 'ADMIN']" class="treeview"><a href=""><i class="fa fa-shield"></i> <span>Cargo</span>
 						<i class="fa fa-angle-left pull-right"></i></a>
 						<ul class="treeview-menu">
-					 		<li permission="['CARGO_CADASTRAR' , 'ADMIN']"><a class="top" ui-sref="cargo.cadastrar">cadastro</a></li>
-						    <li permission="['CARGO_LISTAR' , 'ADMIN']"><a class="top" ui-sref="cargo.listar">lista</a></li>
+					 		<li permission="['CARGO' , 'ADMIN']"><a class="top" ui-sref="cargo.cadastrar">cadastro</a></li>
+						    <li permission="['CARGO' , 'ADMIN']"><a class="top" ui-sref="cargo.listar">lista</a></li>
 						</ul>
 					</li>
 					
 					<li permission="['SETOR' , 'ADMIN']" class="treeview"><a href=""><i class="fa fa-map-signs"></i> <span>Setor</span>
 						<i class="fa fa-angle-left pull-right"></i></a>
 						<ul class="treeview-menu">
-							 <li permission="['SETOR_CADASTRAR' , 'ADMIN']"><a class="top" ui-sref="setor.cadastrar">cadastro</a></li>
-							 <li permission="[ 'SETOR_LISTAR','ADMIN']"><a class="top" ui-sref="setor.listar">lista</a></li>
+							 <li permission="['SETOR' , 'ADMIN']"><a class="top" ui-sref="setor.cadastrar">cadastro</a></li>
+							 <li permission="[ 'SETOR','ADMIN']"><a class="top" ui-sref="setor.listar">lista</a></li>
 						</ul>
 					</li> 
 					<li permission="['FUNCAO' , 'ADMIN']" class="treeview"><a href=""><i class="fa fa-cubes"></i> <span>Função</span>
 						<i class="fa fa-angle-left pull-right"></i></a>
 						<ul class="treeview-menu">
-					 		<li permission="['FUNCAO_CADASTRAR' , 'ADMIN']"><a class="top" ui-sref="funcao.cadastrar">cadastro</a></li>
-							<li permission="['FUNCAO_LISTAR' , 'ADMIN']"><a class="top" ui-sref="funcao.listar">lista</a></li>
+					 		<li permission="['FUNCAO' , 'ADMIN']"><a class="top" ui-sref="funcao.cadastrar">cadastro</a></li>
+							<li permission="['FUNCAO' , 'ADMIN']"><a class="top" ui-sref="funcao.listar">lista</a></li>
 						</ul>
 					</li>
 					<li permission="['ADMIN']" class="header">CADASTROS</li>

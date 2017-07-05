@@ -42,9 +42,8 @@
 					type="text" disabled required>
 			</div>
 			<div class="col-sm-6" ng-if="chamadoCtrl.chamadoTi.usuarioAtendente">
-				Técnico <input class="form-control"
-					ng-model="chamadoCtrl.chamadoTi.usuarioAtendente.funcionario.pessoa.nomeCompleto"
-					type="text" disabled required>
+				Técnico <div class="form-control label-control label-warning"
+					type="text" >{{chamadoCtrl.chamadoTi.usuarioAtendente.funcionario.pessoa.nomeCompleto}}</div>
 			</div>
 		</div>
 		<div class="row">
@@ -58,7 +57,7 @@
 		<div ng-if="chamadoCtrl.chamadoTi.status == 'EM_ANDAMENTO'">
 			<div class="box">
 				<div class="box-header">
-					<h3 class="box-title">Escreva o Problema</h3>
+					<h3 class="box-title">Mensagem</h3>
 				</div>
 				<div class="box-body pad">
 					<textarea class="textarea" placeholder="Texto"
@@ -95,9 +94,9 @@
 						<div
 							ng-repeat=" mensagem in chamadoCtrl.chamadoTi.mensagens | orderBy:'-id' ">
 							<div class="direct-chat-msg"
-								ng-if="user.name == mensagem.usuario.login">
+								ng-if="user.name != mensagem.usuario.login">
 								<div class="direct-chat-info clearfix">
-									<span class="direct-chat-name pull-left">{{chamadoCtrl.chamadoTi.usuarioSolicitante.funcionario.pessoa.nomeCompleto}}</span>
+									<span class="direct-chat-name pull-left">{{mensagem.usuario.funcionario.pessoa.nomeCompleto}}</span>
 									<span class="direct-chat-timestamp pull-right"> Data :
 										{{ mensagem.data | date : 'dd/MM/yyyy'}} Horas : {{
 										mensagem.data | date : 'HH:mm:ss'}} </span>
@@ -109,9 +108,9 @@
 							</div>
 							<br>
 							<div class="direct-chat-msg right"
-								ng-if="user.name != mensagem.usuario.login">
+								ng-if="user.name == mensagem.usuario.login">
 								<div class="direct-chat-info clearfix">
-									<span class="direct-chat-name pull-right">{{chamadoCtrl.chamadoTi.usuarioAtendente.funcionario.pessoa.nomeCompleto}}</span>
+									<span class="direct-chat-name pull-right">{{mensagem.usuario.funcionario.pessoa.nomeCompleto}}</span>
 									<span class="direct-chat-timestamp pull-left"> Data : {{
 										mensagem.data | date : 'dd/MM/yyyy'}} Horas : {{ mensagem.data
 										| date : 'HH:mm:ss'}} </span>

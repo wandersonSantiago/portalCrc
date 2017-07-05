@@ -66,11 +66,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
 	                '': {
 	                	controller : "ItemDiariaFinancasCadastrarController as ctrl",
 	                    templateUrl : "views/diaria/item/item.form.html",
-	                },
-	                'dadosPerfilCadastro': {
-	                	controller : "ItemDiariaFinancasCadastrarController as ctrl",
-	                    templateUrl : "views/diaria/item/item.list.html",
-	                },
+	                }               
 	            },	
 			
 			ncyBreadcrumb: {
@@ -115,6 +111,16 @@ app.config(function($stateProvider, $urlRouterProvider) {
 			ncyBreadcrumb: {
 				 	parent: 'item',
 				    label: 'Visualizar item'
+				  }
+		})
+		
+		.state('item.usuario', {
+			url : "/diaria/:idDiaria/usuario",
+			templateUrl : "views/diaria/item/item.show.html",
+			controller : "ItemDiariaUsuarioController as ctrl",
+			ncyBreadcrumb: {
+				 	parent: 'item',
+				    label: 'usuario item'
 				  }
 		})
 

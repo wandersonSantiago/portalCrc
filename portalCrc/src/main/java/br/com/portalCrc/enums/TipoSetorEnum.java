@@ -6,6 +6,8 @@ public enum TipoSetorEnum {
 	DEPARTAMENTO,
 	CENTRO,
 	NUCLEO,
-	SETOR;
+	SETOR,
+	ASSISTENCIA_TECNICA,
+	GRUPO_REGIONAL;
 
 }

@@ -30,7 +30,7 @@ function TelefoneCadastarController( TelefoneService, SetorService , toastr ){
 		}
 	
 	 function setores(){
-		 SetorService.listar().
+		 SetorService.listarPorUnidade().
 			then(function(f){
 				self.setores = f;
 				}, function(errResponse){

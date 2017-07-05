@@ -8,7 +8,7 @@ RamalCadastarController.$inject = ['RamalService', 'SetorService', 'toastr' ];
 RamalEditarController.$inject = ['RamalService', 'SetorService', 'toastr', '$stateParams', '$state'];
 RamalListarController.$inject = ['RamalService', 'toastr'];
 RamalCoordenadoriaController.$inject = ['UnidadeService', 'toastr'];
-RamalUnidadesController.$inject = ['RamalService', 'toastr', '$stateParams', 'UnidadeService'];
+RamalUnidadesController.$inject = ['RamalService', 'toastr', '$stateParams', 'UnidadeService', '$scope'];
 
 function RamalCadastarController( RamalService, SetorService , toastr ){ 
 	
@@ -28,7 +28,7 @@ function RamalCadastarController( RamalService, SetorService , toastr ){
 		}
 	
 	function setores(){
-		 SetorService.listar().
+		 SetorService.listarPorUnidade().
 			then(function(f){
 				self.setores = f;
 				}, function(errResponse){
@@ -113,7 +113,7 @@ function RamalCoordenadoriaController( UnidadeService, toastr){
 		};
 	
 }
-function RamalUnidadesController( RamalService, toastr, $stateParams, UnidadeService){ 
+function RamalUnidadesController( RamalService, toastr, $stateParams, UnidadeService, $scope){ 
 	
 	var self = this;	
 	var idUnidade = $stateParams.idUnidade;
@@ -121,6 +121,9 @@ function RamalUnidadesController( RamalService, toastr, $stateParams, UnidadeSer
 	self.buscarUnidades = buscarUnidades;
 	self.buscarTodasUnidades = buscarTodasUnidades; 
 	
+	self.modalInformacao = function(ramal){
+		$scope.descricao = ramal.descricao;
+	};
 	function buscarTodasUnidades(){
 		buscarUnidadesPorCoordenadorias(idCoordenadoria);
 	}

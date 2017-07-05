@@ -80,7 +80,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
 		.state('funcionarioDiaria.visualizar', {
 			url : "/:idFuncionario",
 			templateUrl : "views/diaria/funcionario/funcionario.show.html",
-			controller : "FuncionarioDiariaVisualizarController as funcionarioCtrl",
+			controller : "FuncionarioDiariaShowController as funcionarioCtrl",
 			ncyBreadcrumb: {
 				 	parent: 'funcionarioDiaria',
 				    label: 'Visualizar diaria'

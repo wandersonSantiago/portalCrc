@@ -146,6 +146,8 @@ public class ItemDiariaService {
 		return itemDiariaRepository.findByFuncionarioDiaria_id(id);
 	}
 
+
+
 	
 
 }

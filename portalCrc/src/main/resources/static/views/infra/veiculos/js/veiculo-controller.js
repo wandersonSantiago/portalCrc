@@ -13,7 +13,7 @@ function VeiculoCadastarController( VeiculoService,  toastr, $rootScope, $scope,
 	var self = this;
 	self.submit = submit;
 	
-//	buscarEstados(33);
+	buscarEstados(33);
 	buscarMarcas();
 	buscarCores();
 	self.buscarCidades = buscarCidades;

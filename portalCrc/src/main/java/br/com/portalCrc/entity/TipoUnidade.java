@@ -32,10 +32,6 @@ public class TipoUnidade {
 	@OneToOne
 	@JoinColumn(name="id_secretaria")
 	private Secretaria secretaria;
-	@JsonIgnore
-	@ManyToOne
-	@JoinColumn(name="id_usuario_cadastro")
-	private Usuario usuarioCadastro;
 	@Column(name="data_cadastro")
 	private Date dataCadastro;
 	
@@ -65,12 +61,7 @@ public class TipoUnidade {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public Usuario getUsuarioCadastro() {
-		return usuarioCadastro;
-	}
-	public void setUsuarioCadastro(Usuario usuarioCadastro) {
-		this.usuarioCadastro = usuarioCadastro;
-	}
+
 	public Date getDataCadastro() {
 		return dataCadastro;
 	}

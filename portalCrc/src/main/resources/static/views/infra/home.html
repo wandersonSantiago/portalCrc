@@ -1,5 +1,5 @@
 <meta charset="UTF-8">    
-         <div permission="['MANUTENCAO_CHAMADO' , 'ADMIN']" class="col-lg-3 col-xs-6">
+         <div permission="['CHAMADO_USUARIO', 'CHAMADO_MANUTENCAO_TECNICO' , 'ADMIN']" class="col-lg-3 col-xs-6">
           <!-- small box -->
           <div class="small-box bg-green">
             <div class="inner">
@@ -9,13 +9,13 @@
             <div class="icon">
               <i class="fa fa-bank "></i>
             </div>
-            <a ui-sref="chamadoManutencao.menu" class="small-box-footer">
+            <a ui-sref="chamadoManutencao.listar" class="small-box-footer">
               avançar<i class="fa fa-arrow-circle-right"></i>
             </a>
           </div>
         </div>
         
-         <div class="col-lg-3 col-xs-6">
+         <div permission="['CADASTRO_VEICULOS' , 'ADMIN']" class="col-lg-3 col-xs-6">
           <!-- small box -->
           <div class="small-box bg-blue">
             <div class="inner">

@@ -5,7 +5,7 @@ app.controller("ItemDiariaUnidadeListController", ItemDiariaUnidadeListControlle
 app.controller("ItemDiariaCoordenadoriaListController", ItemDiariaCoordenadoriaListController);
 app.controller("ItemDiariaSecretariaListController", ItemDiariaSecretariaListController);
 app.controller("ItemDiariaShowController", ItemDiariaShowController);
-
+app.controller("ItemDiariaUsuarioController", ItemDiariaUsuarioController);
 
 
 function ItemDiariaCadastrarController($state, ItemDiariaService, $stateParams,
@@ -68,6 +68,7 @@ function ItemDiariaCadastrarController($state, ItemDiariaService, $stateParams,
 		}else{
 		ItemDiariaService.salvar(self.itemDiaria).then(
 				function(response) {
+					buscarItensDiariaPorFuncionarioDiaria(self.funcionario.id);
 					buscarFuncionarioDiaria(self.funcionario.contaFuncionario.id);
 					toastr.info("Salvo com Sucesso!!!");
 					self.itemDiaria.meioTransporteRetorno = {placa : self.itemDiaria.meioTransporteRetorno};
@@ -319,6 +320,7 @@ function ItemDiariaFinancasCadastrarController($state, ItemDiariaService, $state
 		}else{
 		ItemDiariaService.salvar(self.itemDiaria).then(
 				function(response) {
+					buscarItensDiariaPorFuncionarioDiaria(self.funcionario.id);
 					buscarFuncionarioDiaria(self.funcionario.contaFuncionario.id);
 					toastr.info("Salvo com Sucesso!!!");
 					self.itemDiaria.meioTransporteRetorno = {placa : self.itemDiaria.meioTransporteRetorno};
@@ -366,7 +368,7 @@ function ItemDiariaFinancasCadastrarController($state, ItemDiariaService, $state
 					buscarUnidades(self.tipo.id);
 					buscarItensDiariaPorFuncionarioDiaria(f.id);
 				}, function(errResponse) {
-					$state.go('item.cadastrarFuncionario', {idDiaria});
+					$state.go('funcionarioDiaria.cadastrarFinancas', {idDiaria});
 					sweetAlert({
 						text : errResponse.data.message,
 						type : "info",
@@ -811,8 +813,7 @@ function ItemDiariaSecretariaListController($stateParams, $state, ItemDiariaServ
 				padding : 20
 			});
 		});
-	}
-	;
+	};
 	
 	forLista = function(f){
 		for(i = 0 ; i < f.length ; i++){
@@ -850,6 +851,56 @@ function ItemDiariaShowController($stateParams, $state, ItemDiariaService,
 					for(i = 0 ; i < $scope.itens.length ; i++){
 						$scope.funcionario = $scope.itens[i].funcionarioDiaria;
 					}
+				}, function(errResponse) {				
+				});
+	};
+}
+
+function ItemDiariaUsuarioController($stateParams, $state, ItemDiariaService, toastr, $rootScope, $scope, FuncionarioContaDiariaService) {
+	var self = this;
+	var idFuncionario = $rootScope.usuario.funcionario.id;
+	var idDiaria = $stateParams.idDiaria;
+	
+	buscarFuncionario(idFuncionario);
+	
+	
+	function buscarFuncionario(id) {
+		FuncionarioContaDiariaService.buscarPorIdFuncionario(id).then(
+				function(f) {					
+					buscarFuncionarioDiaria(f.id);
+				}, function(errResponse) {
+					$state.go('funcionarioContaDiaria.cadastrar', {idFuncionario});
+					sweetAlert({
+						text : errResponse.data.message,
+						type : "info",
+						width : 300,
+						higth : 300,
+						padding : 20
+					});
+				});
+	};
+	
+	function buscarFuncionarioDiaria(id) {
+		ItemDiariaService.buscarPorIdFuncionario(idDiaria, id).then(
+				function(f) {
+					$scope.funcionario = f;				
+					buscarItensDiariaPorFuncionarioDiaria(f.id);
+				}, function(errResponse) {
+					$state.go('item.cadastrarFuncionario', {idDiaria});
+					sweetAlert({
+						text : errResponse.data.message,
+						type : "info",
+						width : 300,
+						higth : 300,
+						padding : 20
+					});
+				});
+	};
+		
+	function buscarItensDiariaPorFuncionarioDiaria(id) {
+		ItemDiariaService.buscarItensDiariaPorFuncionarioDiaria(id).then(
+				function(f) {
+					$scope.itens = f;
 				}, function(errResponse) {				
 				});
 	};

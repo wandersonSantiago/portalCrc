@@ -62,7 +62,7 @@ function EquipamentoCadastarController(IpService, PontoService,
 	;
 
 	function listarPonto(status) {
-		PontoService.listarEmUso(status).then(function(f) {
+		PontoService.listarAtivos(status).then(function(f) {
 			self.pontos = f;
 		}, function(errResponse) {
 			sweetAlert({
@@ -164,7 +164,7 @@ function EquipamentoEditarController(IpService, PontoService, $stateParams,
 	;
 
 	function listarPonto(status) {
-		PontoService.listarEmUso(status).then(function(f) {
+		PontoService.listarAtivos(status).then(function(f) {
 			self.pontos = f;
 		}, function(errResponse) {
 			sweetAlert({

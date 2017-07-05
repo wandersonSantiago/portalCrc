@@ -39,8 +39,8 @@
 		                    <div class="pull-left">
 		                      <a href="" ui-sref="usuario.perfil"  class="btn btn-default btn-flat">Perfil</a>
 		                    </div>
-		                    <div  class="pull-right">
-		                      <a href=""  ng-click="userCtrl.buscaPorId(user.usuario.id)" data-toggle="modal" data-target="#alteraEmpreendimento"  class="btn btn-default btn-flat">Alterar Unidade.</a>
+		                    <div  class="pull-right" permission="['ADMIN']">
+		                      <a href=""  ng-click="userCtrl.buscaPorId(user.usuario.id)" data-toggle="modal" data-target="#alterarUnidade"  class="btn btn-default btn-flat">Alterar Unidade.</a>
 		                    </div>
 		                  </li>
 		                </ul>
@@ -56,7 +56,7 @@
 		  </header>
 		  
 		  <!-- MODAL -->				
-				<div  class="modal fade modal-primary" id="alteraEmpreendimento" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" ng-controller="UsuarioEditarController as userCtrl">
+				<div  class="modal fade modal-primary" id="alterarUnidade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" ng-controller="UsuarioEditarController as userCtrl">
 				  <div class="modal-dialog" role="document" >
 				    <div class="modal-content" ng-controller="UsuarioEditarController as userCtrl">
 				      <div class="modal-header">

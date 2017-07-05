@@ -45,10 +45,6 @@ public class Funcionario  {
 	@JoinColumn(name="id_funcao_atual")
 	private Funcao funcaoAtual;
 	
-	@JsonIgnore
-	@ManyToOne
-	@JoinColumn(name="id_usuario_cadastro")
-	private Usuario usuarioCadastro;
 	
 	@Column(name="data_cadastro")
 	private Date dataCadastro;
@@ -87,14 +83,7 @@ public class Funcionario  {
 		this.id = id;
 	}
 
-	public Usuario getUsuarioCadastro() {
-		return usuarioCadastro;
-	}
-
-	public void setUsuarioCadastro(Usuario usuarioCadastro) {
-		this.usuarioCadastro = usuarioCadastro;
-	}
-
+	
 	public Date getDataCadastro() {
 		return dataCadastro;
 	}

@@ -27,10 +27,15 @@ public class SetorRestController {
 	
 	 @RequestMapping(method = RequestMethod.GET, value="/lista")
 	 public ResponseEntity<Collection<Setor>> lista() {	  
-	  Collection<Setor> setor = setorService.listaPorTipoUnidade();
+	  Collection<Setor> setor = setorService.lista();
 	  return new ResponseEntity<Collection<Setor>>(setor, HttpStatus.OK);
 	 }
 	 
+	 @RequestMapping(method = RequestMethod.GET, value="/lista/unidade")
+	 public ResponseEntity<Collection<Setor>> listaPorUnidade() {	  
+	  Collection<Setor> setor = setorService.listaPorTipoUnidade();
+	  return new ResponseEntity<Collection<Setor>>(setor, HttpStatus.OK);
+	 }
 	 
 	 @RequestMapping(method = RequestMethod.POST, value="/salvar")
 	 public ResponseEntity<Setor> salvar(@RequestBody Setor setor,UriComponentsBuilder ucBuilder){

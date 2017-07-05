@@ -50,11 +50,6 @@ public class DiariaRestController {
 		return new ResponseEntity<>(http , HttpStatus.CREATED);		
 	}
 	
-/*	@GetMapping
-	public ResponseEntity<Iterable<Diaria>> lista(){
-		Iterable<Diaria> diaria	= diariaService.lista();
-		return new ResponseEntity<Iterable<Diaria>>(diaria, HttpStatus.OK);
-	}*/
 	
 	@GetMapping
 	public ResponseEntity<Page<Diaria>> lista(@RequestParam(defaultValue="0", required=false) int page
@@ -69,18 +64,7 @@ public class DiariaRestController {
 		Iterable<Diaria> diaria	= diariaService.diariasEmAberto();
 		return new ResponseEntity<Iterable<Diaria>>(diaria, HttpStatus.OK);
 	}
-	
-	/*@GetMapping(value="/listaCoordenadoria")
-	public ResponseEntity<Iterable<ItemDiaria>> listaCoordenadoria(){
-		Iterable<ItemDiaria> diaria = diariaService.listaCoordenadoria();
-		return new ResponseEntity<Iterable<ItemDiaria>>(diaria, HttpStatus.OK);
-	}
-	
-	@GetMapping(value="/listaUnidade")
-	public ResponseEntity<Iterable<ItemDiaria>> listaUnidade(){
-		Iterable<ItemDiaria> diaria = diariaService.listaUnidade();
-		return new ResponseEntity<Iterable<ItemDiaria>>(diaria, HttpStatus.OK);
-	}*/
+
 	
 	 @GetMapping(value = "/{id}")
 		public ResponseEntity<Diaria> buscarPorId(@PathVariable Long id) {

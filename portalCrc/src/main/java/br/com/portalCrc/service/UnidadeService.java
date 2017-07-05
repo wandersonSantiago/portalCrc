@@ -23,7 +23,6 @@ public class UnidadeService {
 	@Transactional(readOnly = false)
 	public void salvarEditar(Unidade unidade){
 		unidade.setDataCadastro(new Date());
-		unidade.setUsuarioCadastro(SessionUsuario.getInstance().getUsuario());
 		unidadeRepository.save(unidade);
 	}
 	

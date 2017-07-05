@@ -22,7 +22,6 @@ public class FuncaoService {
 	@Transactional(readOnly = false)
 	public void salvarEditar(Funcao funcao){
 		funcao.setSecretaria(SessionUsuario.getInstance().getUsuario().getFuncionario().getUnidadeAtual().getCoordenadoria().getSecretaria());
-		funcao.setUsuarioCadastro(SessionUsuario.getInstance().getUsuario());
 		funcao.setDataCadastro(new Date());
 		funcaoRepository.save(funcao);
 	}

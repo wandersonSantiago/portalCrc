@@ -23,7 +23,6 @@ public class SetorService {
 	@Transactional(readOnly = false)
 	public void salvarEditar(Setor setor){
 		setor.setDataCadastro(new Date());
-		setor.setUsuarioCadastro(SessionUsuario.getInstance().getUsuario());
 		setorRepository.save(setor);
 	}
 	

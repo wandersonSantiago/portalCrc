@@ -35,10 +35,6 @@ public class Setor {
 	@OneToOne
 	@JoinColumn(name="id_tipoUnidade")
 	private TipoUnidade tipoUnidade;
-	@JsonIgnore
-	@ManyToOne
-	@JoinColumn(name="id_usuario_cadastro")
-	private Usuario usuarioCadastro;
 	@Column(name="data_cadastro")
 	private Date dataCadastro;
 	
@@ -71,17 +67,6 @@ public class Setor {
 	public void setTipoUnidade(TipoUnidade tipoUnidade) {
 		this.tipoUnidade = tipoUnidade;
 	}
-
-
-	public Usuario getUsuarioCadastro() {
-		return usuarioCadastro;
-	}
-
-
-	public void setUsuarioCadastro(Usuario usuarioCadastro) {
-		this.usuarioCadastro = usuarioCadastro;
-	}
-
 
 	public Date getDataCadastro() {
 		return dataCadastro;

@@ -22,7 +22,6 @@ public class CoordenadoriaService {
 	@Transactional(readOnly = false)
 	public void salvarEditar(Coordenadoria coordenadoria){
 		coordenadoria.setSecretaria(SessionUsuario.getInstance().getUsuario().getFuncionario().getUnidadeAtual().getCoordenadoria().getSecretaria());
-		coordenadoria.setUsuarioCadastro(SessionUsuario.getInstance().getUsuario());
 		coordenadoria.setDataCadastro(new Date());
 		coordenadoriaRepository.save(coordenadoria);
 	}

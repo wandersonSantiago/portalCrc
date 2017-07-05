@@ -38,11 +38,7 @@ public class Unidade  {
 	@OneToOne
 	@JoinColumn(name="id_tipoUnidade")
 	private TipoUnidade tipoUnidade;
-	
-	@JsonIgnore
-	@ManyToOne
-	@JoinColumn(name="id_usuario_cadastro")
-	private Usuario usuarioCadastro;
+
 	
 	@Column(name="data_cadastro")
 	private Date dataCadastro;
@@ -82,13 +78,6 @@ public class Unidade  {
 		this.id = id;
 	}
 
-	public Usuario getUsuarioCadastro() {
-		return usuarioCadastro;
-	}
-
-	public void setUsuarioCadastro(Usuario usuarioCadastro) {
-		this.usuarioCadastro = usuarioCadastro;
-	}
 
 	public Date getDataCadastro() {
 		return dataCadastro;

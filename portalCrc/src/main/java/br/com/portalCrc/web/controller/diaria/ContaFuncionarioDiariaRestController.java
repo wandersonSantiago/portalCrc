@@ -1,5 +1,6 @@
 package br.com.portalCrc.web.controller.diaria;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,9 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import br.com.portalCrc.entity.diaria.ContaFuncionarioDiaria;
+import br.com.portalCrc.enums.diaria.IndiceUfespEnum;
+import br.com.portalCrc.enums.diaria.LimitePorcentagemSalarioEnum;
+import br.com.portalCrc.enums.diaria.MesDiariaEnum;
 import br.com.portalCrc.service.diaria.ContaFuncionarioDiariaService;
 
 @RestController
@@ -36,7 +40,7 @@ public class ContaFuncionarioDiariaRestController {
 		
 	@PutMapping
 	public ResponseEntity<ContaFuncionarioDiaria> alterar(@RequestBody ContaFuncionarioDiaria contaFuncionarioDiaria, UriComponentsBuilder ucBuilder){
-		contaFuncionarioDiariaService.salvaOuAltera(contaFuncionarioDiaria);
+		contaFuncionarioDiariaService.altera(contaFuncionarioDiaria);
 		HttpHeaders http =  new HttpHeaders();
 		return new ResponseEntity<>(http , HttpStatus.CREATED);		
 	}
@@ -53,12 +57,7 @@ public class ContaFuncionarioDiariaRestController {
 		Iterable<ContaFuncionarioDiaria> contaFuncionarioDiaria	= contaFuncionarioDiariaService.listaSecretaria(id);
 		return new ResponseEntity<Iterable<ContaFuncionarioDiaria>>(contaFuncionarioDiaria, HttpStatus.OK);
 	}
-	
-	/*@GetMapping(value = "/buscar")
-	public ResponseEntity<?> buscar(@RequestParam("q")String texto) {
-			return new ResponseEntity<List<ContaFuncionarioDiaria>>(contaFuncionarioDiariaService.buscar(texto), HttpStatus.OK);
-	}*/
-	
+		
 	@GetMapping(value="/listaCoordenadoria/{id}")
 	public ResponseEntity<Iterable<ContaFuncionarioDiaria>> listaCoordenadoria(@PathVariable Long id){
 		Iterable<ContaFuncionarioDiaria> contaFuncionarioDiaria = contaFuncionarioDiariaService.listaCoordenadoria(id);
@@ -83,6 +82,18 @@ public class ContaFuncionarioDiariaRestController {
 	 @GetMapping(value = "/buscar")
 		public ResponseEntity<?> buscar(@RequestParam("q")String texto) {
 		 return new ResponseEntity<List<ContaFuncionarioDiaria>>(contaFuncionarioDiariaService.buscar(texto), HttpStatus.OK);
+		}
+	 
+	 @GetMapping(value = "/indice")
+		public ResponseEntity<Iterable<IndiceUfespEnum>> indiceEnum() {
+			Iterable<IndiceUfespEnum> indiceUfespEnum = Arrays.asList(IndiceUfespEnum.values());
+			return new ResponseEntity<Iterable<IndiceUfespEnum>>(indiceUfespEnum, HttpStatus.OK);
+		}
+	 
+	 @GetMapping(value = "/limite")
+		public ResponseEntity<Iterable<LimitePorcentagemSalarioEnum>> limiteEnum() {
+			Iterable<LimitePorcentagemSalarioEnum> limitePorcentagemSalarioEnum = Arrays.asList(LimitePorcentagemSalarioEnum.values());
+			return new ResponseEntity<Iterable<LimitePorcentagemSalarioEnum>>(limitePorcentagemSalarioEnum, HttpStatus.OK);
 		}
 
 }

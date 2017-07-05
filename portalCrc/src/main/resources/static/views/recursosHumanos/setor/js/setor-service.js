@@ -21,6 +21,15 @@ app.factory('SetorService', function($http,$q , $rootScope, toastr)
 				});
 			},
 			
+			listarPorUnidade: function(){
+				return $http.get('rest/recursosHumanos/setor/lista/unidade')
+				.then(function(response){
+					return response.data;
+				},function(errResponse){
+					return $q.reject(errResponse);
+				});
+			},
+			
 			listarTipoSetor: function(){
 				return $http.get('rest/recursosHumanos/setor/tipoSetor')
 				.then(function(response){

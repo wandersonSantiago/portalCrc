@@ -7,6 +7,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import br.com.portalCrc.entity.diaria.FuncionarioDiaria;
+import br.com.portalCrc.entity.diaria.ItemDiaria;
 
 public interface FuncionarioDiariaRepository extends JpaRepository<FuncionarioDiaria, Long>{
 

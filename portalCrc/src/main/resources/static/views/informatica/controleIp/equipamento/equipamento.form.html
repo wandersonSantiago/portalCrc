@@ -12,7 +12,7 @@
 						Descrição:
 							<input class="form-control text-uppercase" placeholder="Descricao"  ng-model="equipamentoCtrl.equipamento.descricao" id="descricao" name="descricao" type="text" required>
 							
-						</div>
+						</div>						
 						<div class="col-sm-6">
 						Patrimonio:
 							<input class="form-control text-uppercase" placeholder="Patrimonio"  ng-model="equipamentoCtrl.equipamento.patrimonio" id="nome" ng-blur="equipamentoCtrl.existePatrimonio(equipamentoCtrl.equipamento.patrimonio)" name="patrimonio" type="text" required>
@@ -20,13 +20,13 @@
 						</div>
 				</div>
 					<br>
-				<div class="row">						
-						<div class="col-sm-6">
-						Ip:
-						<select class="form-control " ng-model="equipamentoCtrl.equipamento.ip" 
-							ng-options="ip.numero for ip in equipamentoCtrl.ips track by ip.id"  >
-							</select>
-						</div>	
+				<div class="row">	
+				<div class="col-sm-6">
+						Mac-Adress:
+							<input class="form-control text-uppercase" placeholder="Mac-Adress"  ng-model="equipamentoCtrl.equipamento.macAdress" id="macAdress"  name=""macAdress"" type="text" required>
+							
+						</div>					
+						
 						
 						<div class="col-sm-6">
 						Tipo de Equipamento:
@@ -39,10 +39,19 @@
 					
 					<div class="row">
 					<div class="col-sm-6">
+						Ip:
+						<select class="form-control " ng-model="equipamentoCtrl.equipamento.ip" 
+							ng-options="ip.numero for ip in equipamentoCtrl.ips"  >
+							<option ng-value="equipamentoCtrl.equipamento.ip" value="">{{equipamentoCtrl.equipamento.ip.numero}}</option>
+								</select>
+						</div>	
+					<div class="col-sm-6">
 					Número Ponto:
 						<select class="form-control select2" ng-model="equipamentoCtrl.equipamento.ponto" 
-							ng-options="ponto.numero for ponto in equipamentoCtrl.pontos track by ponto.id"  >
+							ng-options="ponto.numero for ponto in equipamentoCtrl.pontos"  >
+							<option ng-value="equipamentoCtrl.equipamento.ponto" value="">{{equipamentoCtrl.equipamento.ponto.numero}}</option>
 							</select>
+							
 						</div>		
 																
 					</div>

@@ -1,6 +1,7 @@
 package br.com.portalCrc.entity.diaria;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -70,8 +71,8 @@ public class ValoresDiariaLocalidade {
 		return pernoite;
 	}
 
-	public void setPernoite(BigDecimal pernoite) {
-		this.pernoite = pernoite;
+	public void setPernoite(BigDecimal pernoite) {				
+		this.pernoite = pernoite.setScale(2, RoundingMode.HALF_DOWN);
 	}
 
 	public BigDecimal getRetornoTrezeAsDezenove() {
@@ -79,7 +80,7 @@ public class ValoresDiariaLocalidade {
 	}
 
 	public void setRetornoTrezeAsDezenove(BigDecimal retornoTrezeAsDezenove) {
-		this.retornoTrezeAsDezenove = retornoTrezeAsDezenove;
+		this.retornoTrezeAsDezenove = retornoTrezeAsDezenove.setScale(5, RoundingMode.HALF_DOWN);
 	}
 
 	public BigDecimal getRetornoAposDezenove() {
@@ -87,7 +88,7 @@ public class ValoresDiariaLocalidade {
 	}
 
 	public void setRetornoAposDezenove(BigDecimal retornoAposDezenove) {
-		this.retornoAposDezenove = retornoAposDezenove;
+		this.retornoAposDezenove = retornoAposDezenove.setScale(5, RoundingMode.HALF_DOWN);
 	}
 
 	public BigDecimal getDeslocamentoSeisAsDoze() {
@@ -95,7 +96,7 @@ public class ValoresDiariaLocalidade {
 	}
 
 	public void setDeslocamentoSeisAsDoze(BigDecimal deslocamentoSeisAsDoze) {
-		this.deslocamentoSeisAsDoze = deslocamentoSeisAsDoze;
+		this.deslocamentoSeisAsDoze = deslocamentoSeisAsDoze.setScale(5, RoundingMode.HALF_DOWN);
 	}
 
 	public BigDecimal getDeslocamentoMaisDeDoze() {
@@ -103,7 +104,7 @@ public class ValoresDiariaLocalidade {
 	}
 
 	public void setDeslocamentoMaisDeDoze(BigDecimal deslocamentoMaisDeDoze) {
-		this.deslocamentoMaisDeDoze = deslocamentoMaisDeDoze;
+		this.deslocamentoMaisDeDoze = deslocamentoMaisDeDoze.setScale(5,RoundingMode.HALF_DOWN);
 	}
 
 	public Integer getIndiceUfesp() {
@@ -127,7 +128,7 @@ public class ValoresDiariaLocalidade {
 	}
 
 	public void setAlojamento(BigDecimal alojamento) {
-		this.alojamento = alojamento;
+		this.alojamento = alojamento.setScale(5, RoundingMode.HALF_DOWN);
 	}
 	
 	

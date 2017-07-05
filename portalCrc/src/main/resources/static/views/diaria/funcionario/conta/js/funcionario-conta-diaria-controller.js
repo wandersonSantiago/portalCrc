@@ -13,14 +13,26 @@ function FuncionarioContaDiariaCadastrarController($state, FuncionarioService, $
 	var self = this;
 	var idFuncionario = $stateParams.idFuncionario;	
 	self.submit = submit;
-
+	limite();
+	indice();
+	
 	
 	function submit(contaFuncionarioDiaria) {
+		if($scope.indiceUfesp == 'SETES'){
+			self.contaFuncionarioDiaria.indiceUfesp = 7;
+		}else{
+			self.contaFuncionarioDiaria.indiceUfesp = 9;
+		}
+		if($scope.limiteCemPorCento == 'CEM_POR_CENTO'){
+			self.contaFuncionarioDiaria.limiteCemPorCento = 100;
+		}else{
+			self.contaFuncionarioDiaria.limiteCemPorCento = 50;
+		}
 		self.contaFuncionarioDiaria.funcionario = self.funcionario;
 		FuncionarioContaDiariaService.salvar(self.contaFuncionarioDiaria).
 			then(function(response){
 				toastr.info("Salvo com Sucesso!!!");
-				$state.go('funcionarioContaDiaria.buscar');
+				$state.go('diaria.listar');
 				}, function(errResponse){
 					sweetAlert({text : errResponse.data.message,  type : "info", width: 300, higth: 300, padding: 20});
 			});
@@ -40,7 +52,23 @@ function FuncionarioContaDiariaCadastrarController($state, FuncionarioService, $
 				buscarFuncionarioPorId(idFuncionario);				
 			}
 			
-	
+			function limite(){
+				 FuncionarioContaDiariaService.limite().
+					then(function(f){
+						$scope.limites = f;				
+						}, function(errResponse){
+							sweetAlert({ timer : 3000,  text : errResponse.data.message,  type : "info", width: 300, higth: 300, padding: 20});
+					});
+				};
+				
+				function indice(){
+					 FuncionarioContaDiariaService.indice().
+						then(function(f){
+							$scope.indices = f;				
+							}, function(errResponse){
+								sweetAlert({ timer : 3000,  text : errResponse.data.message,  type : "info", width: 300, higth: 300, padding: 20});
+						});
+					};
 	
 		
 }
@@ -49,14 +77,25 @@ function FuncionarioContaDiariaEditarController($state, FuncionarioService, $sta
 	var self = this;
 	var idConta = $stateParams.idConta;	
 	self.submit = submit;
-
+	limite();
+	indice();
 	
 	function submit(contaFuncionarioDiaria) {
+		if($scope.indiceUfesp == 'SETE'){
+			self.contaFuncionarioDiaria.indiceUfesp = 7;
+		}else{
+			self.contaFuncionarioDiaria.indiceUfesp = 9;
+		}
+		if($scope.limiteCemPorCento == 'CEM_POR_CENTO'){
+			self.contaFuncionarioDiaria.limiteCemPorCento = 100;
+		}else{
+			self.contaFuncionarioDiaria.limiteCemPorCento = 50;
+		}
 		self.contaFuncionarioDiaria.funcionario = self.funcionario;
 		FuncionarioContaDiariaService.alterar(self.contaFuncionarioDiaria).
 			then(function(response){
 				toastr.info("alterado com Sucesso!!!");
-				$state.go('funcionarioContaDiaria.listar');
+				$state.go('diaria.listar');
 				}, function(errResponse){
 					sweetAlert({ timer : 3000,  text : errResponse.data.message,  type : "info", width: 300, higth: 300, padding: 20});
 			});
@@ -68,6 +107,17 @@ function FuncionarioContaDiariaEditarController($state, FuncionarioService, $sta
 				FuncionarioContaDiariaService.buscarPorId(id).
 				then(function(p){
 					self.contaFuncionarioDiaria = p;
+					
+					if(self.contaFuncionarioDiaria.indiceUfesp == 7){
+						$scope.indiceUfesp = 'SETE';
+					}else{
+						$scope.indiceUfesp = 'NOVE';
+					}
+					if(self.contaFuncionarioDiaria.limiteCemPorCento == 100){
+						$scope.limiteCemPorCento = 'CEM_POR_CENTO';
+					}else{
+						$scope.limiteCemPorCento = 'CINQUENTA_POR_CENTO';
+					}
 					self.funcionario = p.funcionario;
 			}, function(errResponse){
 				});
@@ -76,6 +126,24 @@ function FuncionarioContaDiariaEditarController($state, FuncionarioService, $sta
 			if(idConta){
 				buscarContaFuncionarioPorId(idConta);				
 			}
+			
+			function limite(){
+				 FuncionarioContaDiariaService.limite().
+					then(function(f){
+						$scope.limites = f;				
+						}, function(errResponse){
+							sweetAlert({ timer : 3000,  text : errResponse.data.message,  type : "info", width: 300, higth: 300, padding: 20});
+					});
+				};
+				
+				function indice(){
+					 FuncionarioContaDiariaService.indice().
+						then(function(f){
+							$scope.indices = f;				
+							}, function(errResponse){
+								sweetAlert({ timer : 3000,  text : errResponse.data.message,  type : "info", width: 300, higth: 300, padding: 20});
+						});
+					};
 	
 }
 function FuncionarioContaDiariaListarController($stateParams, $state, FuncionarioContaDiariaService, toastr, $rootScope, $scope){

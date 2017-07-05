@@ -11,6 +11,12 @@
 	  	 {{funcionario.diaria.dataAbertura | date : 'dd/MM/yyyy'}} <br>
 	  	 {{funcionario.diaria.status}} <br>
 	</center>
+	<div class="row">	
+		<div class="col-sm-2">
+		Valor Total:<br>
+		<h3>{{funcionario.totalValorDiaria | currency}}</h3>
+		</div>
+	</div>
 	<div class="row">
 	<h3><span class=" col-sm-12 form-control label label-success">Dados Diaria</span></h3>
 	</div>

@@ -8,10 +8,12 @@
     		
 </footer>
 <div>
-			<div ng-show="false">
+<div permission="['CHAMADO_INFORMATICA_TECNICO' , 'ADMIN']" >
+			<div  ng-show="false" ng-controller="ChamadoTiAbertoController">
 				<audio id="myAudio"  controls="controls"	height="5px" width="10px">
-					<source src="/public/img/som.mp3" type="audio/mpeg" />
+					<source src="/public/music/som.mp3" type="audio/mpeg" />
 					<embed height="5px" width="10px" src="/public/music/som.mp3" />
 				</audio>
+			</div>
 			</div>
 			</div>

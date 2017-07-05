@@ -12,9 +12,9 @@
             </div>
 		<div class="box-body no-padding">
               <ul class="nav nav-pills nav-stacked">
-                <li><a href="" ui-sref="funcionario.cadastrar"><i class="glyphicon glyphicon-plus"></i>Novo</a></li>
-                <li><a href="" ui-sref="funcionario.listar"><i class="glyphicon glyphicon-search"></i>Pesquisar</a></li>
-                <li><a href="" ui-sref="funcionario.relatorio"><i class="fa fa-legal "></i> Unidade</a></li>
+                <li><a  permission="['FUNCIONARIO_UNIDADE', 'ADMIN']" href="" ui-sref="funcionario.cadastrar"><i class="glyphicon glyphicon-plus"></i>Novo</a></li>
+                <li><a  permission="['FUNCIONARIO_UNIDADE', 'ADMIN']" href="" ui-sref="funcionario.listar"><i class="glyphicon glyphicon-search"></i>Pesquisar</a></li>
+                <li><a  permission="['FUNCIONARIO_UNIDADE', 'ADMIN']" href="" ui-sref="funcionario.relatorio"><i class="fa fa-legal "></i> Unidade</a></li>
                 </li>
               </ul>
             </div>

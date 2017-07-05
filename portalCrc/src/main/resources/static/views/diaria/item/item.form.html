@@ -27,7 +27,7 @@
 			<div class="label-control">Destino</div>
 			<div class="col-sm-4">
 				<div class="input-group margin">
-					<md-autocomplete md-no-cache="funCtrl.noCache"
+					<md-autocomplete md-no-cache="ctrl.noCache"
 						md-selected-item="ctrl.itemDiaria.estado"
 						md-search-text="busca"
 						md-selected-item-change="ctrl.buscarCidades(ctrl.itemDiaria.estado.id)"
@@ -35,35 +35,28 @@
 						md-item-text="estado.nome" md-min-length="0"
 						placeholder="buscar"> <md-item-template>
 					<span md-highlight-text="busca" md-highlight-flags="^i">{{estado.nome}}</span>
-					</md-item-template> </md-autocomplete>
-					<!-- <select class="form-control select2"
-						ng-model="ctrl.itemDiaria.estado"
-						ng-change="ctrl.buscarCidades(ctrl.itemDiaria.estado.id)"
-						ng-options="estado.nome for estado in ctrl.estados track by estado.id">
-					</select> -->
+					</md-item-template> </md-autocomplete>				
 					<span class="input-group-btn"> <a type="button"
 						class="btn btn-info btn-flat"><i>Estado</i></a>
 					</span>
 				</div>
 			</div>
+			<div>
 			<div class="col-sm-4">
 				<div class="input-group margin">
-				<md-autocomplete md-no-cache="funCtrl.noCache"
+				<md-autocomplete md-no-cache="ctrl.noCache"
 						md-selected-item="ctrl.itemDiaria.localDeslocamento"
-						md-search-text="buscar"
-						md-items=" cidade in ctrl.cidades | filter : buscar"
+						md-search-text="buscarCidade"
+						md-items=" cidade in ctrl.cidades | filter : buscarCidade"
 						md-item-text="cidade.nome" md-min-length="0"
 						placeholder="buscar"> <md-item-template>
-					<span md-highlight-text="buscar" md-highlight-flags="^i">{{cidade.nome}}</span>
+					<span md-highlight-text="buscarCidade" md-highlight-flags="^i">{{cidade.nome}}</span>
 					</md-item-template> </md-autocomplete>
-					<!-- <select class="form-control select2"
-						ng-model="ctrl.itemDiaria.localDeslocamento"
-						ng-options="cidade.nome for cidade in ctrl.cidades track by cidade.id"
-						required>
-					</select> --> <span class="input-group-btn"> <a type="button"
+				 <span class="input-group-btn"> <a type="button"
 						class="btn btn-info btn-flat"><i>Cidade</i></a>
 					</span>
 				</div>
+			</div>
 			</div>
 			<div class="col-sm-4">
 				<div class="input-group margin">

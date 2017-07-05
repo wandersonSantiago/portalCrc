@@ -21,7 +21,6 @@ public class SecretariaService {
 	
 	@Transactional(readOnly = false)
 	public void salvarEditar (Secretaria secretaria){
-		secretaria.setUsuarioCadastro(SessionUsuario.getInstance().getUsuario());
 		secretaria.setDataCadastro(new Date());
 		secretariaReqpository.save(secretaria);
 	}

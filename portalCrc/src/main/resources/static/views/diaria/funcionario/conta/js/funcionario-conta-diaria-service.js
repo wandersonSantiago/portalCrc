@@ -55,6 +55,22 @@ app.factory('FuncionarioContaDiariaService', function($q, $http){
 				return $q.reject(errResponse);
 			});
 		},
+		limite: function(){
+			return $http.get(url +'/limite')
+			.then(function(response){
+				return response.data;
+			},function(errResponse){
+				return $q.reject(errResponse);
+			});
+		},
+		indice: function(){
+			return $http.get(url +'/indice')
+			.then(function(response){
+				return response.data;
+			},function(errResponse){
+				return $q.reject(errResponse);
+			});
+		},
 		buscarPorTexto :function(texto, pagina){
 			pagina = 0;
 			var config = {params: {page: pagina, q:texto}};

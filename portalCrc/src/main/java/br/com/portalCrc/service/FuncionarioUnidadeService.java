@@ -51,7 +51,6 @@ public class FuncionarioUnidadeService {
 		criarUsuario(funcionarioUnidade.getFuncionario());
 		funcionarioUnidade.setDataCadastro(new Date());
 		funcionarioUnidade.setUnidade(SessionUsuario.getInstance().getUsuario().getFuncionario().getUnidadeAtual());
-		funcionarioUnidade.setUsuarioCadastro(SessionUsuario.getInstance().getUsuario());
 		funcionarioUnidadeRepository.save(funcionarioUnidade);
 	}
 	
@@ -76,8 +75,8 @@ public class FuncionarioUnidadeService {
 			Usuario usuario = new Usuario();
 			usuario.setDataCadastro(new Date());
 			usuario.setFuncionario(funcionario);
-			usuario.setLogin(funcionario.getPessoa().getCpf());		
-			String hash = new BCryptPasswordEncoder().encode(funcionario.getPessoa().getCpf());
+			usuario.setLogin(funcionario.getPessoa().getRg());		
+			String hash = new BCryptPasswordEncoder().encode(funcionario.getPessoa().getRg());
 			usuario.setSenha(hash);
 			usuarioRepository.save(usuario);
 		}		

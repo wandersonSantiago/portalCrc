@@ -454,27 +454,37 @@ function ChamadoTiAbertoController( $timeout, ChamadoTiService, toastr, $rootSco
 	var vid = document.getElementById("myAudio");
 	$rootScope.atualizarListaChamado = false;
 	
-	self.enableAutoplay = function() { 
-	    vid.autoplay = true;
-	    vid.load();
-	    
-	}	
+	
 	
 	self.listar = function(){		
-		 ChamadoTiService.count().
+		 ChamadoTiService.listaSuporte().
 			then(function(f){
 			var	qtdChamados = f;	
-				$rootScope.qtdChamadosSuporteTi = qtdChamados;
-				if($rootScope.qtdChamadosSuporteTi > 0){
+			var silenciar = true;
+			for(i = 0 ; i < qtdChamados.length ; i++ ){
+				if(qtdChamados[i].silenciar === false){
+					silenciar = false;
+				}
+				
+			}
+				$rootScope.qtdChamadosSuporteTi = qtdChamados.length;
+				if($rootScope.qtdChamadosSuporteTi > 0 && silenciar === false){
+
+					console.log(new Date());
 					self.enableAutoplay(); 
-					sweetAlert({ timer : 3000,  text : "Novo Chamado",  type : "info", width: 300, higth: 300, padding: 20});
-					
+					sweetAlert({ timer : 3000,  text : "Novo Chamado",  type : "info", width: 300, higth: 300, padding: 20});					
 				}
 				}, function(errResponse){
 					sweetAlert({ timer : 3000,  text : errResponse.data.message,  type : "info", width: 300, higth: 300, padding: 20});
 			});
 		 
 		};
+		
+		self.enableAutoplay = function() { 
+		    vid.autoplay = true;
+		    vid.load();
+		    
+		}	
 		
 		self.atualizaListaChamadoSuporte = function(){
 			$rootScope.atualizarListaChamado = true;
@@ -484,17 +494,17 @@ function ChamadoTiAbertoController( $timeout, ChamadoTiService, toastr, $rootSco
 		};
 		
 		self.verificaMensagemLida = function(){			
-			if($rootScope.atualizarListaChamado === false && $rootScope.logado){
+			if($rootScope.atualizarListaChamado === false && $rootScope.authenticated){
 				self.listar();
-				timeoutLida = setTimeout(self.verificaMensagemLida, 40000);			
+				timeoutLida = setTimeout(self.verificaMensagemLida, 120000);			
 			}
 		};
 		
 		self.verificaMensagemLidaAtualizada = function(){
-			self.listar();	
 			$rootScope.atualizarListaChamado = false;
 			clearTimeout(timeoutLida);
 			self.verificaMensagemLida();			
 		};
-		//self.verificaMensagemLida(); 
+		
+		self.verificaMensagemLida(); 
 }
