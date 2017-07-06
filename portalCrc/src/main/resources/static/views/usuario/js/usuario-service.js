@@ -60,6 +60,7 @@ app.factory('UsuarioService', function($rootScope, toastr, $http,$q){
 				return $q.reject(errResponse);
 			});
 		},
+	
 		salvarFoto: function(form){
 			return $http.post('/rest/usuario/foto', form, {
 	            transformRequest: angular.identity,

@@ -1,6 +1,7 @@
 package br.com.portalCrc.service;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +14,6 @@ import br.com.portalCrc.entity.Usuario;
 import br.com.portalCrc.pojo.SessionUsuario;
 import br.com.portalCrc.repository.UsuarioRepository;
 import br.com.portalCrc.service.diaria.MensagemException;
-
 
 
 
@@ -80,10 +80,10 @@ public class UsuarioService {
 	}
 
 
-
+	 @Transactional(readOnly = false)
     public void save(String path, Usuario  user) {
 
-    user.setCaminhoFoto(path);
+    	user.setCaminhoFoto(path);
     	usuarioRepository.save(user);
     }
 
@@ -107,15 +107,21 @@ public class UsuarioService {
 	}
     
     
-
+    @Transactional(readOnly = false)
+	public void salvarFoto(Usuario usuario, byte[] imagem) {
+		if(imagem == null){
+			throw new MensagemException("Imagem não pode ser nula!");
+		}
+		usuarioRepository.save(usuario);
+	}
+    
     public String createPath() {
 
-        LocalDate localDate = LocalDate.now();
-
-        String mm = String.valueOf(localDate.getMonthValue());
-        String yyyy = String.valueOf(localDate.getYear());
-
-        return "C:\\uploads" + "\\" + yyyy + "\\" + mm;
+        Usuario  user = SessionUsuario.getInstance().getUsuario();        
+        
+        String login = String.valueOf(user.getLogin());
+                
+        return "src/main/resources/static/public/fotos/"  + login;
     }
 
 	

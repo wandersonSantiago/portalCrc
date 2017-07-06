@@ -3,7 +3,10 @@ package br.com.portalCrc.web.controller;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.security.Principal;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 
@@ -114,20 +117,47 @@ public class UsuarioRestController {
    @PostMapping(value = "/foto")
 	public ResponseEntity<?> recebeImagem( @RequestPart("file") MultipartFile file,  @RequestPart("usuario") Usuario usuario) {
 
-       path = "";
-       name = file.getOriginalFilename();
+	   path = "";
+       
+       
+	   
+	   Usuario  user = SessionUsuario.getInstance().getUsuario();
+       
+       LocalDateTime time = LocalDateTime.now();
+       String  hora = String.valueOf(time.getHour());
+       String minutos = String.valueOf(time.getMinute());
+       String segundos = String.valueOf(time.getSecond());
+       
+       LocalDate date = LocalDate.now();
+       
+       String dia = String.valueOf(date.getDayOfMonth());
+       String mes = String.valueOf(date.getMonthValue());
+       String ano = String.valueOf(date.getYear());
+       
+       
+       
+       String login = String.valueOf(user.getLogin());
+       
+       String pasta = ano+" "+mes+" "+dia+" "+hora+" "+minutos+" "+segundos;
+       
+       name = pasta + file.getOriginalFilename();
+       
+       String caminho = "/public/fotos/" + login +"/"+ name;
+       
+       
        try {
            byte[] bytes = file.getBytes();
 
            path = usuarioService.createPath();
 
+          
            File dir = new File(path);
 
            if (!dir.exists()) {
                dir.mkdirs();
            }
 
-           File serverFile = new File(dir.getAbsolutePath() + "\\" + name);
+           File serverFile = new File(dir.getAbsolutePath() + "/" + name);
 
            if (!serverFile.exists()) {
 
@@ -136,8 +166,8 @@ public class UsuarioRestController {
                stream.write(bytes);
 
                stream.close();
-
-               usuarioService.save(path, usuario);
+               
+               usuarioService.save(caminho, usuario);
 
            } else {
 
@@ -154,5 +184,5 @@ public class UsuarioRestController {
 
       
    }
-
+   	
 }

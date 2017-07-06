@@ -1,6 +1,6 @@
 <meta charset="UTF-8">
 
-<form name="formFoto" >
+<form name="formFoto" ng-submit="ctrl.submit()" >
 	<div class="row">
 		<div class="col-sm-4"></div>
 		<div class="col-sm-4" flow-init="{singleFile:true}"
@@ -27,11 +27,13 @@
 					<span class="btn btn-danger col-sm-12 " ng-show="$flow.files.length"
 					ng-click="$flow.cancel()"> Remover </span>
 					<br>
-					<input ng-show="$flow.files.length" type="button" id="submit" value="Salvar" ng-click="ctrl.salvarFoto()"
-				class="btn btn-primary col-sm-12">
+					<input type="submit" id="submit" value="Salvar" ng-show="$flow.files.length"
+				class="btn btn-lg btn-primary btn-block btn-signin">
+					
 			</div>
 		</div>
 	</div>
+	</form>
 	<br> <br>
 	<br>
 	<span class=" col-sm-12 btn btn-flat  btn-primary"><h5>Dados Pessoais</h5></span>
@@ -104,4 +106,3 @@
 
 	</div>
  -->
-</form>
