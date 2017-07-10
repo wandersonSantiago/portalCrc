@@ -32,7 +32,7 @@
 						<td>{{ chamado.dataAbertura | date : 'dd/MM/yyyy'}}</td>
 						<td>{{ chamado.dataAbertura | date : 'HH:mm:ss' }}</td>	
 						<td>{{ chamado.mensagens.length}}</td>								
-						<td><a ui-sref="chamadoTi.suporteAtendimento({idChamadoTi : chamado.id})"><i class="glyphicon glyphicon-search"></i></a> 
+						<td class="text-center"><a ui-sref="chamadoTi.suporteAtendimento({idChamadoTi : chamado.id})"><i class="glyphicon glyphicon-search"></i></a> &nbsp;&nbsp;&nbsp;
 						<a ng-if="!chamado.silenciar" href="" ng-click="chamadoCtrl.silenciarChamadoTrue(chamado)"><i class="glyphicon glyphicon-volume-up"></i></a>
 						<a ng-if="chamado.silenciar" href="" ng-click="chamadoCtrl.silenciarChamadoFalse(chamado)"><i class="glyphicon glyphicon-volume-off"></i></a></td>					
 				

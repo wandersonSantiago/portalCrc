@@ -11,8 +11,8 @@
 			<table class="table table-hover table-bordered">
 				<thead>
 					<tr>
-							<th class="btn btn-primary btn-flat col-sm-2"><h6>TipoEquipamento</h6></th>
-					<th class="btn btn-primary btn-flat col-sm-1"><h6>Descricao</h6></th>
+							<th class="btn btn-primary btn-flat col-sm-1"><h6>TipoEquipamento</h6></th>
+					<th class="btn btn-primary btn-flat col-sm-2"><h6>Descricao</h6></th>
 					<th class="btn btn-primary btn-flat col-sm-1"><h6>Patrimonio</h6> </th>
 					<th class="btn btn-primary btn-flat col-sm-1"><h6>Status</h6></th>
 					<th class="btn btn-primary btn-flat col-sm-1"><h6>Ip</h6></th>
@@ -36,7 +36,7 @@
 						<td>{{ equipamento.ponto.switchs.nome}}</td>
 						<td>{{ equipamento.ponto.portaSwitch.numero}}</td>
 						<td>{{ equipamento.ponto.setor.nome}}</td>
-						<td><a title="Editar Equipamento" ui-sref="equipamento.editar({idEquipamento : equipamento.id})"><i class="glyphicon glyphicon-edit"></i></a> 	
+						<td class="text-center"><a title="Editar Equipamento" ui-sref="equipamento.editar({idEquipamento : equipamento.id})"><i class="glyphicon glyphicon-edit"></i></a> 	&nbsp;&nbsp;&nbsp;
 						<a  title="Cadastrar uma manutenção preventiva" ui-sref="manutencaoEquipamento.salvar({idEquipamento : equipamento.id})"><i class="glyphicon glyphicon-wrench"></i></a>								 
 						
 				</tr>

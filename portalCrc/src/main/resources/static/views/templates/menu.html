@@ -4,7 +4,7 @@
 <!-- dados do usuario logado -->
 		<div class="user-panel">
 			<div class="pull-left image">
-				<img ng-src="{{usuario.caminhoFoto ? usuario.caminhoFoto : '../../../../public/img/avatar_2x.png' }}"
+				<img ng-src="/rest/usuario/{{usuario.id}}/foto"
 				  class="img-circle"
 					alt="User Image">			
 			</div>

@@ -14,7 +14,10 @@ app.config(function($stateProvider, $urlRouterProvider) {
 	})
 	
 		.state('item.unidade', {
-			url : "/:idDiaria/listar/unidade",
+			url : "/listar/unidade",
+			params: {
+				idDiaria: null,
+			  },
 			templateUrl : "views/diaria/item/item.master.list.html",
 			controller : "ItemDiariaUnidadeListController as ctrl",
 			ncyBreadcrumb: {
@@ -23,7 +26,10 @@ app.config(function($stateProvider, $urlRouterProvider) {
 				  }
 		})
 		.state('item.coordenadoria', {
-			url : "/:idDiaria/listar/coordenadoria",
+			url : "/listar/coordenadoria",
+			params: {
+				idDiaria: null,
+			  },
 			templateUrl : "views/diaria/item/item.master.list.html",
 			controller : "ItemDiariaCoordenadoriaListController as ctrl",
 			ncyBreadcrumb: {
@@ -32,7 +38,10 @@ app.config(function($stateProvider, $urlRouterProvider) {
 				  }
 		})
 		.state('item.secretaria', {
-			url : "/:idDiaria/listar/secretaria",
+			url : "/listar/secretaria",
+			params: {
+				idDiaria: null,
+			  },
 			templateUrl : "views/diaria/item/item.master.list.html",
 			controller : "ItemDiariaSecretariaListController as ctrl",
 			ncyBreadcrumb: {
@@ -42,33 +51,29 @@ app.config(function($stateProvider, $urlRouterProvider) {
 		})
 		
 		.state('item.cadastrar', {
-			url : "/:idDiaria/cadastrar",
-			 views: {
-	                '': {
-	                	controller : "ItemDiariaCadastrarController as ctrl",
-	                    templateUrl : "views/diaria/item/item.form.html",
-	                },
-	                'dadosPerfilCadastro': {
-	                	controller : "ItemDiariaCadastrarController as ctrl",
-	                    templateUrl : "views/diaria/item/item.list.html",
-	                },
-	            },	
-			
-			ncyBreadcrumb: {
+			url : "/cadastrar",
+			params: {
+				idDiaria: null,
+				idFuncionario: null
+			  },
+			 
+	          controller : "ItemDiariaCadastrarController as ctrl",
+	          templateUrl : "views/diaria/item/item.form.html",
+	          ncyBreadcrumb: {
 			 	parent: 'item',
 			    label: 'Cadastrar item'
 			  }
 		})
 		
 		.state('item.financasCadastrar', {
-			url : "/:idDiaria/cadastrar/",
-			 views: {
-	                '': {
-	                	controller : "ItemDiariaFinancasCadastrarController as ctrl",
-	                    templateUrl : "views/diaria/item/item.form.html",
-	                }               
-	            },	
-			
+			url : "/financas/cadastrar/",
+			params: {
+				idDiaria: null,
+				idFuncionario: null
+			  },
+	         controller : "ItemDiariaCadastrarController as ctrl",
+	         templateUrl : "views/diaria/item/item.form.html",
+	         
 			ncyBreadcrumb: {
 			 	parent: 'item',
 			    label: 'Cadastrar item'
@@ -76,18 +81,14 @@ app.config(function($stateProvider, $urlRouterProvider) {
 		})
 		
 		.state('item.editar', {
-			url : "/:idItem/editar",
-			 views: {
-	                '': {
-	                	controller : "ItemDiariaEditarController as ctrl",
-	                    templateUrl : "views/diaria/item/item.form.html",
-	                },
-	                'dadosPerfilCadastro': {
-	                	controller : "ItemDiariaEditarController as ctrl",
-	                    templateUrl : "views/diaria/item/item.list.html",
-	                },
-	            },	
-			
+			url : "/editar",
+			params: {
+				idItem: null,
+			  },
+			 
+	        controller : "ItemDiariaEditarController as ctrl",
+	        templateUrl : "views/diaria/item/item.form.html",
+	         
 			ncyBreadcrumb: {
 			 	parent: 'item',
 			    label: 'Editar item'
@@ -95,7 +96,11 @@ app.config(function($stateProvider, $urlRouterProvider) {
 		})
 		
 			.state('item.cadastrarFuncionario', {
-			url : "/:idDiaria/funcionario/cadastrar",
+			url : "/funcionario/cadastrar",
+			params: {
+				idDiaria: null,
+				idFuncionario: null
+			  },
 			templateUrl : "views/diaria/funcionario/funcionario.diaria.form.html",
 			controller : "FuncionarioDiariaCadastrarController as ctrl",
 			ncyBreadcrumb: {
@@ -105,7 +110,10 @@ app.config(function($stateProvider, $urlRouterProvider) {
 		})
 		
 		.state('item.visualizar', {
-			url : "/:idFuncionarioDiaria/diaria",
+			url : "/diaria",
+			params: {
+				idFuncionarioDiaria: null,
+			  },
 			templateUrl : "views/diaria/item/item.show.html",
 			controller : "ItemDiariaShowController as ctrl",
 			ncyBreadcrumb: {
@@ -115,7 +123,10 @@ app.config(function($stateProvider, $urlRouterProvider) {
 		})
 		
 		.state('item.usuario', {
-			url : "/diaria/:idDiaria/usuario",
+			url : "/diaria/usuario",
+			params: {
+				idDiaria: null,
+			  },
 			templateUrl : "views/diaria/item/item.show.html",
 			controller : "ItemDiariaUsuarioController as ctrl",
 			ncyBreadcrumb: {

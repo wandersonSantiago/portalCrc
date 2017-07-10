@@ -8,13 +8,16 @@ app.config(function($stateProvider, $urlRouterProvider) {
 		templateUrl : 'views/diaria/funcionario/funcionario.diaria.index.html',
 		redirectTo : 'funcionario.listar',
 		ncyBreadcrumb: {
-		 	parent: 'diaria.menu',
+		 	parent: 'home.menu',
 			    label: 'funcionario'
 			  }
 	})
 		
 		.state('funcionarioDiaria.verificar', {
-			url : "/:idDiaria/verificar",
+			url : "/verificar",
+			params: {
+				idDiaria: null,
+			  },
 			controller : "ListarFuncionarioDiariaController as ctrl",
 	        templateUrl : "views/diaria/funcionario/verificacao.diaria.form.html",
 	     	ncyBreadcrumb: {
@@ -24,7 +27,10 @@ app.config(function($stateProvider, $urlRouterProvider) {
 		})
 		
 		.state('funcionarioDiaria.unidade', {
-			url : "/:idDiaria/funcionario/listar/unidade",
+			url : "/funcionario/listar/unidade",
+			params: {
+				idDiaria: null,
+			  },
 			templateUrl : "views/diaria/funcionario/funcionario.diaria.list.html",
 			controller : "FuncionarioDiariaUnidadeListarController as ctrl",
 			ncyBreadcrumb: {
@@ -33,7 +39,10 @@ app.config(function($stateProvider, $urlRouterProvider) {
 			  }
 		})
 		.state('funcionarioDiaria.coordenadoria', {
-			url : "/:idDiaria/funcionario/listar/coordenadoria",
+			url : "/funcionario/listar/coordenadoria",
+			params: {
+				idDiaria: null,
+			  },
 			templateUrl : "views/diaria/funcionario/funcionario.diaria.list.html",
 			controller : "FuncionarioDiariaCoordenadoriaListarController as ctrl",
 			ncyBreadcrumb: {
@@ -42,7 +51,10 @@ app.config(function($stateProvider, $urlRouterProvider) {
 			  }
 		})
 		.state('funcionarioDiaria.secretaria', {
-			url : "/:idDiaria/funcionario/listar/secretaria",
+			url : "/funcionario/listar/secretaria",
+			params: {
+				idDiaria: null,
+			  },
 			templateUrl : "views/diaria/funcionario/funcionario.diaria.list.html",
 			controller : "FuncionarioDiariaSecretariaListarController as ctrl",
 			ncyBreadcrumb: {
@@ -51,7 +63,10 @@ app.config(function($stateProvider, $urlRouterProvider) {
 			  }
 		})
 		.state('funcionarioDiaria.cadastrar', {
-			url : "/:idDiaria/funcionario/cadastrar",
+			url : "/funcionario/cadastrar",
+			params: {
+				idDiaria: null,
+			  },
 			templateUrl : "views/diaria/funcionario/funcionario.diaria.form.html",
 			controller : "FuncionarioDiariaCadastrarController as ctrl",
 			ncyBreadcrumb: {
@@ -60,7 +75,10 @@ app.config(function($stateProvider, $urlRouterProvider) {
 			  }
 		})
 		.state('funcionarioDiaria.cadastrarFinancas', {
-			url : "/:idDiaria/funcionario/cadastrar",
+			url : "/funcionario/cadastrar",
+			params: {
+				idDiaria: null,
+			  },
 			templateUrl : "views/diaria/funcionario/funcionario.diaria.form.html",
 			controller : "FuncionarioFinancasDiariaCadastrarController as ctrl",
 			ncyBreadcrumb: {
@@ -69,7 +87,10 @@ app.config(function($stateProvider, $urlRouterProvider) {
 			  }
 		})
 		.state('funcionarioDiaria.editar', {
-			url : "/:idFuncionario/",
+			url : "/funcionario",
+			params: {
+				idFuncionario: null,
+			  },
 			templateUrl : "views/diaria/funcionario/funcionario.diaria.form.html",
 			controller : "FuncionarioDiariaEditarController as funcionarioCtrl",
 			ncyBreadcrumb: {
@@ -78,7 +99,10 @@ app.config(function($stateProvider, $urlRouterProvider) {
 				  }
 		})
 		.state('funcionarioDiaria.visualizar', {
-			url : "/:idFuncionario",
+			url : "/funcionario",
+			params: {
+				idFuncionario: null,
+			  },
 			templateUrl : "views/diaria/funcionario/funcionario.show.html",
 			controller : "FuncionarioDiariaShowController as funcionarioCtrl",
 			ncyBreadcrumb: {

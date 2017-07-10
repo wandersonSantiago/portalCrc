@@ -8,7 +8,7 @@
 			class="ng-scope" flow-name="obj.flow">
 			<div ng-show="!$flow.files.length">
 			<div class="col-sm-3"></div>
-				<img ng-src="{{usuario.caminhoFoto ? usuario.caminhoFoto : '../../../../public/img/avatar_2x.png' }}"
+				<img ng-src="/rest/usuario/{{usuario.id}}/foto"
 				  class="img-circle" alt="User Image">
 			</div>
 			<div class="thumbnail " ng-show="$flow.files.length">
@@ -33,9 +33,10 @@
 			</div>
 		</div>
 	</div>
-	</form>
+	</form >
 	<br> <br>
 	<br>
+	<form name="form">
 	<span class=" col-sm-12 btn btn-flat  btn-primary"><h5>Dados Pessoais</h5></span>
 	<br><br>	<br><br>
 	<center> {{usuario.funcionario.pessoa.nomeCompleto}} <br>
@@ -82,7 +83,7 @@
 					<a type="button" class="btn btn-info btn-flat"><i>Nova Senha</i></a>
 				</span>
 			</div>
-			<p ng-show="!formFoto.senha.$valid"
+			<p ng-show="!form.senha.$valid"
 					class="alert alert-warning ">A senha deve conter no mínimo 6 digitos!!</p>
 		</div>
 		<div class="col-sm-4">
@@ -97,12 +98,5 @@
 		<md-button ng-disabled="!senhaVerificacao || !senha || !senhaRepitida" ng-click="ctrl.alterarSenha(usuario , senhaVerificacao, senha, senhaRepitida  )" class="md-raised md-primary">Alterar Senha</md-button>
 	</div>
 	<br> <br>
-	<!-- <div class="row ">
-		<div class="form-group col-sm-4"></div>
-		<div class="form-group col-sm-4">
-			<input type="button" ng-click="ctrl.alterarSenha(usuario , senhaVerificacao, senha, senhaRepitida  )" id="submit" value="Salvar"
-				class="btn btn-lg btn-primary btn-block btn-signin">
-		</div>
 
-	</div>
- -->
+</form>

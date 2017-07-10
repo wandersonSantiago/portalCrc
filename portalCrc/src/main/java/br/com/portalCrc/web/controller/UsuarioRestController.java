@@ -2,8 +2,11 @@ package br.com.portalCrc.web.controller;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.security.Principal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -12,7 +15,9 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import org.apache.tomcat.util.http.parser.MediaType;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,6 +38,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import br.com.portalCrc.entity.Usuario;
 import br.com.portalCrc.enums.StatusUsuarioEnum;
 import br.com.portalCrc.pojo.SessionUsuario;
+import br.com.portalCrc.service.ImagemService;
 import br.com.portalCrc.service.UsuarioService;
 import br.com.portalCrc.service.diaria.MensagemException;
 
@@ -46,8 +52,9 @@ public class UsuarioRestController {
 	@Autowired
 	private UsuarioService usuarioService;
 
-    private String path;
-    private String name;
+	@Autowired
+	private ImagemService imagemService;
+
 
     
 	@RequestMapping(value="/usuario")
@@ -114,75 +121,37 @@ public class UsuarioRestController {
 	 return new ResponseEntity<List<Usuario>>(usuarioService.buscar(texto), HttpStatus.OK);
 	}
    
+   
    @PostMapping(value = "/foto")
 	public ResponseEntity<?> recebeImagem( @RequestPart("file") MultipartFile file,  @RequestPart("usuario") Usuario usuario) {
 
-	   path = "";
+	   String name = imagemService.userName(file);
+	   String caminho = usuarioService.caminhoFoto(file);
        
-       
-	   
-	   Usuario  user = SessionUsuario.getInstance().getUsuario();
-       
-       LocalDateTime time = LocalDateTime.now();
-       String  hora = String.valueOf(time.getHour());
-       String minutos = String.valueOf(time.getMinute());
-       String segundos = String.valueOf(time.getSecond());
-       
-       LocalDate date = LocalDate.now();
-       
-       String dia = String.valueOf(date.getDayOfMonth());
-       String mes = String.valueOf(date.getMonthValue());
-       String ano = String.valueOf(date.getYear());
-       
-       
-       
-       String login = String.valueOf(user.getLogin());
-       
-       String pasta = ano+" "+mes+" "+dia+" "+hora+" "+minutos+" "+segundos;
-       
-       name = pasta + file.getOriginalFilename();
-       
-       String caminho = "/public/fotos/" + login +"/"+ name;
-       
-       
-       try {
-           byte[] bytes = file.getBytes();
-
-           path = usuarioService.createPath();
-
-          
-           File dir = new File(path);
-
-           if (!dir.exists()) {
-               dir.mkdirs();
-           }
-
-           File serverFile = new File(dir.getAbsolutePath() + "/" + name);
-
-           if (!serverFile.exists()) {
-
-               BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(serverFile));
-
-               stream.write(bytes);
-
-               stream.close();
-               
-               usuarioService.save(caminho, usuario);
-
-           } else {
-
-        		throw new MensagemException("Não foi possivel salvar a foto");
-        		
-           }
+       try {  	              
+           imagemService.createPathAndSaveFile(caminho,  name, file);         
+           usuarioService.save(caminho + name, usuario);
 
        } catch (Exception e) {
     	   e.printStackTrace();
     	   throw new MensagemException("Não foi possivel salvar a foto" + e.getMessage());
        }
-       return new ResponseEntity<>(HttpStatus.CREATED);
-
-
-      
+       return new ResponseEntity<>(HttpStatus.CREATED);      
    }
+   
+   
+   	@ResponseBody
+	@RequestMapping(value="/{id}/foto", method = RequestMethod.GET)
+	public ResponseEntity<InputStreamResource> getFotoPreso(@PathVariable Long id) throws FileNotFoundException{
+   		Usuario user = usuarioService.buscarUsuarioPorId(id);
+   		
+		InputStream in = imagemService.getFoto(user.getCaminhoFoto());
+		return ResponseEntity.ok()
+				.contentType(org.springframework.http.MediaType.IMAGE_JPEG)
+				.body(new InputStreamResource(in));
+	}
+
+
+
    	
 }

@@ -30,7 +30,10 @@ app.config(function($stateProvider, $urlRouterProvider) {
 			  }
 		})
 		.state('diaria.editar', {
-			url : "/:idDiaria/editar",
+			url : "/editar",
+			params: {
+				idDiaria: null,
+			  },
 			templateUrl : "views/diaria/diaria.form.html",
 			controller : "DiariaEditarController as diariaCtrl",
 			ncyBreadcrumb: {
