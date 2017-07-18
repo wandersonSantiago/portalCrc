@@ -93,7 +93,7 @@
 						<div
 							ng-repeat=" mensagem in chamadoCtrl.chamadoManutencao.mensagens | orderBy:'-id' ">
 							<div class="direct-chat-msg"
-								ng-if="user.name == mensagem.usuario.login">
+								ng-if="user.name != mensagem.usuario.login">
 								<div class="direct-chat-info clearfix">
 									<span class="direct-chat-name pull-left">{{mensagem.usuario.nome}}</span>
 									<span class="direct-chat-timestamp pull-right"> Data :
@@ -101,13 +101,13 @@
 										mensagem.data | date : 'HH:mm:ss'}} </span>
 								</div>
 								<img class="direct-chat-img"
-									ng-src="{{mensagem.usuario.caminhoFoto ? mensagem.usuario.caminhoFoto : '../../../../public/img/avatar_2x.png' }}"
+									ng-src="/rest/usuario/{{mensagem.usuario.id}}/foto"
 									alt="message user image">
 								<div class="direct-chat-text" froala-view="mensagem.texto"></div>
 							</div>
 							<br>
 							<div class="direct-chat-msg right"
-								ng-if="user.name != mensagem.usuario.login">
+								ng-if="user.name == mensagem.usuario.login">
 								<div class="direct-chat-info clearfix">
 									<span class="direct-chat-name pull-right">{{mensagem.usuario.nome}}</span>
 									<span class="direct-chat-timestamp pull-left"> Data : {{
@@ -115,7 +115,7 @@
 										| date : 'HH:mm:ss'}} </span>
 								</div>
 								<img class="direct-chat-img"
-									ng-src="{{mensagem.usuario.caminhoFoto ? mensagem.usuario.caminhoFoto : '../../../../public/img/avatar_2x.png' }}"
+									ng-src="/rest/usuario/{{mensagem.usuario.id}}/foto"
 									alt="message user image">
 								<div class="direct-chat-text" froala-view="mensagem.texto"></div>
 							</div>

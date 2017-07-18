@@ -77,5 +77,11 @@ public class ItemDiariaRestController {
 			return new ResponseEntity<ItemDiaria>(itemDiariaRepository.buscaPorId(id), HttpStatus.OK);
 	 }
 	 
+	 @PostMapping(value="/{idItem}/analizado")
+	 public ResponseEntity<ItemDiaria> analizado(@PathVariable Long idItem){
+		itemDiariaRepository.analizado(idItem);
+		 HttpHeaders headers =new HttpHeaders();
+		 return new ResponseEntity<ItemDiaria>(headers, HttpStatus.CREATED);
+	 }
 
 }

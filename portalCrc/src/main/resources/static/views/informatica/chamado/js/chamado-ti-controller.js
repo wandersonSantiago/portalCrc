@@ -42,7 +42,7 @@ function ChamadoTiCadastrarController( ChamadoTiService, toastr, $rootScope, $sc
 		
 		function buscarTema(tipo){
 			 TemaService.buscarPorTipo(tipo).
-				then(function(f){
+				then(function(f){					
 					self.titulos = f;			
 					}, function(errResponse){
 						sweetAlert({ timer : 3000,  text : errResponse.data.message,  type : "info", width: 300, higth: 300, padding: 20});
@@ -61,6 +61,7 @@ function ChamadoTiCadastrarController( ChamadoTiService, toastr, $rootScope, $sc
 		function tipoEquipamento(){
 			 ChamadoTiService.tipoEquipamento().
 				then(function(f){
+					f.splice(3);
 					self.tipoEquipamentos = f;			
 					}, function(errResponse){
 						sweetAlert({ timer : 3000,  text : errResponse.data.message,  type : "info", width: 300, higth: 300, padding: 20});

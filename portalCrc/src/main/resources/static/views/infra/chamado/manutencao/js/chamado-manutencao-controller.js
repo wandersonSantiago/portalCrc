@@ -130,6 +130,7 @@ function ChamadoManutencaoAtendimentoSuporteController($stateParams,$state, Cham
 		
 		function atenderChamado(chamadoManutencao) {
 			self.chamadoManutencao.mensagens = null;
+			self.chamadoManutencao.descricaoServico = 'Comum';
 			swal({
 				  title: 'Atender Chamado!!!',
 				  text: "Tem que certeza que deseja atender este chamado?",
@@ -327,6 +328,7 @@ function ChamadoManutencaoSuporteListarController( ChamadoManutencaoService, toa
 			
 			function silenciarChamadoFalse(chamadoManutencao) {
 				chamadoManutencao.mensagens = null;
+				chamadoManutencao.descricaoServico = 'Comum';
 				ChamadoManutencaoService.silenciarChamadoFalse(chamadoManutencao).
 					then(function(response){
 						toastr.success("Som ativo!!!");		
@@ -338,6 +340,7 @@ function ChamadoManutencaoSuporteListarController( ChamadoManutencaoService, toa
 				
 			function silenciarChamadoTrue(chamadoManutencao) {
 				chamadoManutencao.mensagens = null;
+				chamadoManutencao.descricaoServico = 'Comum';
 				ChamadoManutencaoService.silenciarChamadoTrue(chamadoManutencao).
 					then(function(response){
 						toastr.info("Chamado silenciado!!!");

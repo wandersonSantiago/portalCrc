@@ -26,11 +26,11 @@
 	</div>
 	<br>
 	<div class="row">
-		<a permission="['DIARIA_FINANCAS' , 'ADMIN']" class="btn btn-primary btn-flat" title="Lançar diaria para determinado funcionário"
+		<a permission="['DIARIA_FINANCAS_LANCAMENTO' , 'ADMIN']" class="btn btn-primary btn-flat" title="Lançar diaria para determinado funcionário"
 			ui-sref="funcionarioDiaria.verificar({idDiaria : diaria.id})"><i
 			class="glyphicon glyphicon-copy"></i></a> <a permission="['DIARIA' , 'ADMIN']"
 			class="btn btn-primary btn-flat"  title="Lançar diaria"
-			ui-sref="item.cadastrar({idDiaria : diaria.id})"><i
+			ui-sref="item.cadastrar({idDiaria : diaria.id, idFuncionario : usuario.funcionario.id})"><i
 			class="glyphicon glyphicon-copy"></i></a> 
 			<a permission="['DIARIA' , 'ADMIN']"
 			class="btn btn-info btn-flat"  title="Total de Diária do referente mês " 
@@ -39,13 +39,13 @@
 			<a permission="['DIARIA_FINANCAS' , 'ADMIN']"
 			class="btn btn-warning btn-flat"  title="Encerrar diaria, apos este encerramento os funcionarios não poderão lançar mais diarias!!!"
 			ng-click="diariaCtrl.encerrar(diaria)"><i
-			class="glyphicon glyphicon-off"></i></a> <a permission="['DIARIA_UNIDADE' , 'ADMIN']"
+			class="glyphicon glyphicon-off"></i></a> <a permission="['DIARIA_FINANCAS_UNIDADE' , 'ADMIN']"
 			class="btn btn-info btn-flat"  title="Relatório diaria para unidades"
 			ui-sref="funcionarioDiaria.unidade({idDiaria : diaria.id})"><i
-			class="glyphicon glyphicon-list-alt"></i></a> <a permission="['DIARIA_COORDENADORIA' , 'ADMIN']"
+			class="glyphicon glyphicon-list-alt"></i></a> <a permission="['DIARIA_FINANCAS_COORDENADORIA' , 'ADMIN']"
 			class="btn btn-info btn-flat" title="Relatório diaria para coordenadorias"
 			ui-sref="funcionarioDiaria.coordenadoria({idDiaria : diaria.id})"><i
-			class="glyphicon glyphicon-list-alt"></i></a> <a permission="['DIARIA_SECRETARIA' , 'ADMIN']"
+			class="glyphicon glyphicon-list-alt"></i></a> <a permission="['DIARIA_FINANCAS_SECRETARIA' , 'ADMIN']"
 			class="btn btn-info btn-flat" title="Relatório diaria para secretarias"
 			ui-sref="funcionarioDiaria.secretaria({idDiaria : diaria.id})"><i
 			class="glyphicon glyphicon-list-alt"></i></a> <a permission="['DIARIA_FINANCAS' , 'ADMIN']"

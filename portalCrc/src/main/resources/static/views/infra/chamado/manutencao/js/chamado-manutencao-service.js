@@ -1,4 +1,4 @@
-app.factory('ChamadoManutencaoService', function($rootScope, toastr, $http){
+app.factory('ChamadoManutencaoService', function($rootScope, toastr, $http, $q){
 	
 	
 	return{

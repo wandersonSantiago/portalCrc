@@ -136,12 +136,16 @@ function FuncionarioDiariaShowController($stateParams, $state,
 
 }
 
-function FuncionarioDiariaUnidadeListarController($stateParams, $state, FuncionarioDiariaService,
+function FuncionarioDiariaUnidadeListarController($localStorage, $stateParams, $state, FuncionarioDiariaService,
 		toastr, $rootScope, $scope) {
 	var self = this;
-	var idDiaria = $stateParams.idDiaria;
-	$scope.listaDiariaExcel = [];
-	listar(idDiaria);
+	
+	if($stateParams.idDiaria){
+		$localStorage.idDiaria = $stateParams.idDiaria;
+	}
+	
+	
+	listar($localStorage.idDiaria);
 
 	self.informacaoModal = informacaoModal;
 	
@@ -151,7 +155,7 @@ function FuncionarioDiariaUnidadeListarController($stateParams, $state, Funciona
 	function listar(idDiaria) {
 		FuncionarioDiariaService.porUnidade(idDiaria).then(function(f) {
 			self.itens = f;
-			forLista(f);
+		forLista(f);
 		}, function(errResponse) {
 			sweetAlert({
 				text : errResponse.data.message,
@@ -165,32 +169,28 @@ function FuncionarioDiariaUnidadeListarController($stateParams, $state, Funciona
 	;
 	
 	forLista = function(f){
+		$scope.valorTotal = 0;
 		for(i = 0 ; i < f.length ; i++){
-			listaExcel(f[i]);
+			var soma;
+			soma = parseFloat(f[i].totalValorDiaria);
+			$scope.valorTotal += parseFloat(soma);
+			console.log($scope.valorTotal);
 		}
 	}
 	
-	listaExcel = function(lista){
-		$scope.listaDiariaExcel.push({
-			nome : lista.funcionarioDiaria.contaFuncionario.funcionario.pessoa.nomeCompleto,
-			cargo : lista.funcionarioDiaria.contaFuncionario.funcionario.cargoAtual.descricao,
-			unidadeLotado :		lista.funcionarioDiaria.unidade.dadosUnidade.mnemonico,
-			dataSaida: lista.dataSaida,
-			dataChegada : lista.dataChegada,
-			localDeslocamento: lista.localDeslocamento,
-			motivo: lista.motivo,
-			valorDiaria: lista.valorDiaria,
-			valorPassagem: lista.valorPassagem
-		});
-	};
+	
 }
 
-function FuncionarioDiariaCoordenadoriaListarController($stateParams, $state, FuncionarioDiariaService,
+function FuncionarioDiariaCoordenadoriaListarController($localStorage, $stateParams, $state, FuncionarioDiariaService,
 		toastr, $rootScope, $scope) {
 	var self = this;
-	var idDiaria = $stateParams.idDiaria;
-	$scope.listaDiariaExcel = [];
-	listar(idDiaria);
+	
+	if($stateParams.idDiaria){
+		$localStorage.idDiaria = $stateParams.idDiaria;
+	}
+	
+	listar($localStorage.idDiaria);
+	
 	self.informacaoModal = informacaoModal;
 	
 	function informacaoModal(diaria){
@@ -214,33 +214,26 @@ function FuncionarioDiariaCoordenadoriaListarController($stateParams, $state, Fu
 	;
 	
 	forLista = function(f){
+		$scope.valorTotal = 0;
 		for(i = 0 ; i < f.length ; i++){
-			listaExcel(f[i]);
+			var soma;
+			soma = parseFloat(f[i].totalValorDiaria);
+			$scope.valorTotal += parseFloat(soma);
+			console.log($scope.valorTotal);
 		}
 	}
-	
-	listaExcel = function(lista){
-		$scope.listaDiariaExcel.push({
-			nome : lista.funcionarioDiaria.contaFuncionario.funcionario.pessoa.nomeCompleto,
-			cargo : lista.funcionarioDiaria.contaFuncionario.funcionario.cargoAtual.descricao,
-			unidadeLotado :		lista.funcionarioDiaria.unidade.dadosUnidade.mnemonico,
-			dataSaida: lista.dataSaida,
-			dataChegada : lista.dataChegada,
-			localDeslocamento: lista.localDeslocamento,
-			motivo: lista.motivo,
-			valorDiaria: lista.valorDiaria,
-			valorPassagem: lista.valorPassagem
-		});
-	};
 }
 
 
-function FuncionarioDiariaSecretariaListarController($stateParams, $state, FuncionarioDiariaService,
+function FuncionarioDiariaSecretariaListarController($localStorage, $stateParams, $state, FuncionarioDiariaService,
 		toastr, $rootScope, $scope) {
 	var self = this;
-	var idDiaria = $stateParams.idDiaria;
-	$scope.listaDiariaExcel = [];
-	listar(idDiaria);
+	
+	if($stateParams.idDiaria){
+		$localStorage.idDiaria = $stateParams.idDiaria;
+	}
+	
+	listar($localStorage.idDiaria);
 	self.informacaoModal = informacaoModal;
 	
 	function informacaoModal(diaria){
@@ -259,27 +252,16 @@ function FuncionarioDiariaSecretariaListarController($stateParams, $state, Funci
 				padding : 20
 			});
 		});
-	}
-	;
+	};
 	
 	forLista = function(f){
+		$scope.valorTotal = 0;
 		for(i = 0 ; i < f.length ; i++){
-			listaExcel(f[i]);
+			var soma;
+			soma = parseFloat(f[i].totalValorDiaria);
+			$scope.valorTotal += parseFloat(soma);
+			console.log($scope.valorTotal);
 		}
 	}
-	
-	listaExcel = function(lista){
-		$scope.listaDiariaExcel.push({
-			nome : lista.funcionarioDiaria.contaFuncionario.funcionario.pessoa.nomeCompleto,
-			cargo : lista.funcionarioDiaria.contaFuncionario.funcionario.cargoAtual.descricao,
-			unidadeLotado :		lista.funcionarioDiaria.unidade.dadosUnidade.mnemonico,
-			dataSaida: lista.dataSaida,
-			dataChegada : lista.dataChegada,
-			localDeslocamento: lista.localDeslocamento,
-			motivo: lista.motivo,
-			valorDiaria: lista.valorDiaria,
-			valorPassagem: lista.valorPassagem
-		});
-	};
 }
 

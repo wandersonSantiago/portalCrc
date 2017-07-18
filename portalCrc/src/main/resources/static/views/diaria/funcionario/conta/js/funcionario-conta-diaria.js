@@ -49,7 +49,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
 		.state('funcionarioContaDiaria.editar', {
 			url : "/conta/editar",
 			params: {
-				idFuncionario: null
+				idConta: null
 			  },
 			templateUrl : "views/diaria/funcionario/conta/funcionario.conta.form.html",
 			controller : "FuncionarioContaDiariaEditarController as contaCtrl",

@@ -93,6 +93,8 @@ public class ItemDiaria {
 	@JoinColumn(name="id_funcionario_diaria")
 	private FuncionarioDiaria funcionarioDiaria;
 	
+	@Column(name="analizado")
+	private boolean analizado;
 	
 	@ManyToOne
 	@JoinColumn(name="id_usuario_cadastro")
@@ -102,6 +104,9 @@ public class ItemDiaria {
 	@JoinColumn(name="id_usuario_alteracao")
 	private Usuario usuarioAlteracao;
 
+	
+	
+	
 
 	public Long getId() {
 		return id;
@@ -151,7 +156,6 @@ public class ItemDiaria {
 	public void setFuncionarioDiaria(FuncionarioDiaria funcionarioDiaria) {
 		this.funcionarioDiaria = funcionarioDiaria;
 	}
-
 	
 	public Cidade getLocalDeslocamento() {
 		return localDeslocamento;
@@ -168,10 +172,6 @@ public class ItemDiaria {
 	public void setEstado(Estado estado) {
 		this.estado = estado;
 	}
-
-	
-	
-
 	public Usuario getUsuarioCadastro() {
 		return usuarioCadastro;
 	}
@@ -260,6 +260,14 @@ public class ItemDiaria {
 
 	public void setUsuarioAlteracao(Usuario usuarioAlteracao) {
 		this.usuarioAlteracao = usuarioAlteracao;
+	}
+
+	public boolean isAnalizado() {
+		return analizado;
+	}
+
+	public void setAnalizado(boolean analizado) {
+		this.analizado = analizado;
 	}
 
 

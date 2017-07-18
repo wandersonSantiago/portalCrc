@@ -22,7 +22,7 @@
 					
 					</tr>
 				</thead>
-				<tbody	ng-repeat=" chamado in chamadoCtrl.chamados | filter : buscarChamado | orderBy : '-id'  ">
+				<tbody	ng-repeat=" chamado in chamadoCtrl.chamados | filter : buscarChamado | orderBy : 'status'  ">
 					<tr>
 						<td>{{ chamado.titulo.descricao }}</td>
 						<td>{{ chamado.tipoEquipamento }}</td>

@@ -537,10 +537,11 @@
 						<td>{{ item.meioTransporteSaida }}</td>
 						<td>{{ item.meioTransporteRetorno}}</td>
 						<td>{{ item.codigoLocalDeslocamento.codigo }}</td>
-						<td ng-if="ctrl.editar"><a href="" data-dismiss="modal"
+						<td ng-if="item.analizado"><button disabled class="btn btn-success">Analizado</button></td>
+						<td ng-show="ctrl.editar"  ng-if="!item.analizado"><a href="" data-dismiss="modal"
 							ng-click="ctrlEditar.proximaPagina(item)" title="teste"><i
 								class="glyphicon glyphicon-edit"></i></a></td>
-						<td ng-if="ctrl.editar"><a href=""
+						<td ng-show="ctrl.editar"  ng-if="!item.analizado"><a href=""
 							ng-click="ctrl.excluir(item)"><i
 								class="glyphicon glyphicon-remove"></i></a></td>
 					</tr>

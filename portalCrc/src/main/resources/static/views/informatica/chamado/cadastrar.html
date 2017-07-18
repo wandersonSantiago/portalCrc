@@ -32,15 +32,15 @@
 			<div class="col-sm-3" ng-if="chamadoCtrl.chamadoTi.tipoEquipamento === 'SISTEMA'">
 			Sistema:
 				<select class="form-control select2" ng-model="chamadoCtrl.sistema"
-					id="secretariaId" ng-change="chamadoCtrl.modulos(chamadoCtrl.sistema.id)"
-					ng-options="sistema.descricao for sistema in chamadoCtrl.sistemas">
+					id="secretariaId" ng-options="sistema.descricao for sistema in chamadoCtrl.sistemas"
+					ng-change="chamadoCtrl.modulos(chamadoCtrl.sistema.id)">
 				</select>
 			</div>
 			<div class="col-sm-3" ng-if="chamadoCtrl.chamadoTi.tipoEquipamento === 'SISTEMA' && chamadoCtrl.sistema">
 			Módulo:
 				<select class="form-control select2" ng-model="chamadoCtrl.modulo"
-					id="secretariaId" ng-change="chamadoCtrl.buscarTituloPorModulo(chamadoCtrl.modulo.id)"
-					ng-options="modulo.descricao for modulo in chamadoCtrl.modulos">
+					id="secretariaId" ng-options="modulo.descricao for modulo in chamadoCtrl.modulos"
+					ng-change="chamadoCtrl.buscarTituloPorModulo(chamadoCtrl.modulo.id)">
 				</select>
 			</div>
 			<div class="col-sm-3" ng-if="chamadoCtrl.chamadoTi.tipoEquipamento === 'SISTEMA' &&  chamadoCtrl.modulo">

@@ -98,6 +98,15 @@ app.factory('ItemDiariaService', function($q, $http){
 			});
 		},
 		
+		analizado: function(idItem){
+			return $http.post('/rest/diaria/item/'+idItem+'/analizado')
+			.then(function(response){
+				return response.data;
+			},function(errResponse){
+				return $q.reject(errResponse);
+			});
+		},
+		
 		
 	}
 });

@@ -18,7 +18,7 @@
 		</div>
 	</div>
 	<div class="row">
-	<h3><span class=" col-sm-12 form-control label label-success">Dados Diaria</span></h3>
+	<h3><span class=" col-sm-12 form-control label label-primary">Dados Diaria</span></h3>
 	</div>
 	<div class="row">
 	<h3><span class=" col-sm-12 form-control label label-success">{{funcionarioDiaria}}</span></h3>
@@ -52,7 +52,9 @@
 				<td >{{ item.meioTransporteSaida }}</td>
 				<td >{{ item.meioTransporteRetorno}}</td>				
 				<td >{{ item.codigoLocalDeslocamento.codigo }}</td>	
-				<td >{{ item.usuarioCadastro.funcionario.pessoa.nomeCompleto | limitTo:10 }}</td>				
+				<td >{{ item.usuarioCadastro.funcionario.pessoa.nomeCompleto | limitTo:10 }}</td>	
+				<td permission="['DIARIA_FINANCAS' , 'ADMIN']" ng-if="!item.analizado"><button ng-click="ctrl.analizado(item.id)" class="btn btn-primary">Analizar</button></td>			
+				<td ng-if="item.analizado"><button disabled class="btn btn-success">Analizado</button></td>
 
 			</tr>
 

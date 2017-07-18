@@ -8,7 +8,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
 		templateUrl : 'views/diaria/item/item.index.html',
 		redirectTo : 'item.listar',
 		ncyBreadcrumb: {
-			parent: 'diaria.menu',
+			parent: 'home.menu',
 			    label: 'item'
 			  }
 	})
@@ -104,7 +104,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
 			templateUrl : "views/diaria/funcionario/funcionario.diaria.form.html",
 			controller : "FuncionarioDiariaCadastrarController as ctrl",
 			ncyBreadcrumb: {
-			 	parent: 'funcionarioDiaria',
+			 	parent: 'item',
 			    label: 'Cadastrar Diaria'
 			  }
 		})

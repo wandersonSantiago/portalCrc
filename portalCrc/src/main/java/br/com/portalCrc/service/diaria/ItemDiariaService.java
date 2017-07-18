@@ -28,7 +28,11 @@ public class ItemDiariaService {
 	private FuncionarioDiariaRepository funcionarioDiariaRepository;
 	
 	@Transactional(readOnly = false)
-	public void salvaOuAltera(ItemDiaria itemDiaria){		
+	public void salvaOuAltera(ItemDiaria itemDiaria){	
+		
+		if(itemDiaria.isAnalizado()){
+			throw new MensagemException("Lançamento encerrado!!!");
+		}
 		FuncionarioDiaria funcionarioDiaria =  funcionarioDiariaRepository.findById(itemDiaria.getFuncionarioDiaria().getId());				
 		Usuario user = SessionUsuario.getInstance().getUsuario();
 		
@@ -144,6 +148,12 @@ public class ItemDiariaService {
 
 	public Iterable<ItemDiaria> findByFuncionarioDiaria_id(Long id) {
 		return itemDiariaRepository.findByFuncionarioDiaria_id(id);
+	}
+
+	@Transactional(readOnly = false)
+	public void analizado(Long idItem) {		
+		ItemDiaria item = itemDiariaRepository.findOne(idItem);
+		item.setAnalizado(true);
 	}
 
 
