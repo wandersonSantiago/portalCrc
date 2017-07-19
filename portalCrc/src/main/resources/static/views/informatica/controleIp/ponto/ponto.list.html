@@ -28,7 +28,7 @@
 						<td>{{ ponto.setor.nome}}</td>
 						<td>{{ ponto.switchs.nome}}</td>
 						<td>{{ ponto.portaSwitch.numero}}</td>
-						<td><a ui-sref="ponto.editar({idPonto : ponto.id})"><i class="glyphicon glyphicon-edit"></i></a> 	
+						<td class="text-center"><a ui-sref="ponto.editar({idPonto : ponto.id})"><i class="glyphicon glyphicon-edit"></i></a> 	&nbsp;&nbsp;&nbsp; 
 						<a  ng-if="ponto.status != 'INATIVO'" ng-click="pontoCtrl.limparPortas(ponto)"><i class="fa fa-object-ungroup"></i></a>									 
 				</tr>
 				</tbody>

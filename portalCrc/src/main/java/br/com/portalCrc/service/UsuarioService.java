@@ -111,7 +111,7 @@ public class UsuarioService {
 	       String login = String.valueOf(user.getLogin());
 	                          
 	      	       
-	       String caminho = "C:/fotos/"+login+"/";
+	       String caminho = "/home/fotos/"+login+"/";
 	       
 	       return caminho;
 

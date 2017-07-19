@@ -151,7 +151,7 @@
 			</tr>
 		</thead>
 		<tbody
-			ng-repeat=" chamado in relatorioChamadoSuporte | filter : buscaChamado | orderBy : '-id'  ">
+			ng-repeat=" chamado in relatorioChamadoSuporte | filter : buscar | orderBy : '-id'  ">
 			<tr>
 				<td>{{ chamado.titulo.descricao }}</td>
 				<td>{{
