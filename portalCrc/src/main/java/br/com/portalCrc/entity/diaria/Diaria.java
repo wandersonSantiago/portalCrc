@@ -97,7 +97,7 @@ public class Diaria {
 	}
 
 	public void setObservacao(String observacao) {
-		this.observacao = observacao.toUpperCase();
+		this.observacao = observacao;
 	}
 
 	public Usuario getUsuarioCadastro() {

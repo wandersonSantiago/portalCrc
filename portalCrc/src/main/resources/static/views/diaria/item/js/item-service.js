@@ -107,6 +107,15 @@ app.factory('ItemDiariaService', function($q, $http){
 			});
 		},
 		
+		tipos: function(){
+			return $http.get('/rest/diaria/item/tipos')
+			.then(function(response){
+				return response.data;
+			},function(errResponse){
+				return $q.reject(errResponse);
+			});
+		},
+		
 		
 	}
 });

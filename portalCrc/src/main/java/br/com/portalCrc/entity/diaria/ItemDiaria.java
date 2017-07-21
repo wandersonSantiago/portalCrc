@@ -1,14 +1,20 @@
 package br.com.portalCrc.entity.diaria;
 
 import java.math.BigDecimal;
+import java.util.Collection;
 import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -19,6 +25,7 @@ import javax.validation.constraints.NotNull;
 import br.com.portalCrc.entity.Cidade;
 import br.com.portalCrc.entity.Estado;
 import br.com.portalCrc.entity.Usuario;
+import br.com.portalCrc.enums.diaria.TipoDiariaEnum;
 
 @Entity
 @SequenceGenerator(name = "item_diaria_id_seq", sequenceName = "item_diaria_id_seq", schema="diaria", initialValue = 1, allocationSize = 1)
@@ -29,10 +36,12 @@ public class ItemDiaria {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "item_diaria_id_seq")
 	private Long id;
 	
+		
 	@NotNull (message="Local de deslocamento não pode ser nulo")
-	@ManyToOne
-	@JoinColumn(name="id_cidade")
-	private Cidade localDeslocamento;
+	@ManyToMany(fetch = FetchType.EAGER)
+	@JoinTable(name = "item_diaria_Localidade", schema="diaria", joinColumns = @JoinColumn(name = "id_item_diaria"), 
+	inverseJoinColumns = @JoinColumn(name = "id_cidade"))	
+	private Collection<Cidade> localDeslocamentos;	
 	
 	@NotNull (message="Estado não pode ser nulo")
 	@ManyToOne
@@ -79,7 +88,7 @@ public class ItemDiaria {
 	private BigDecimal valorDiaria;
 	
 	@Column(name="valor_passagem")
-	private BigDecimal valorPassagem;
+	private BigDecimal valorPassagem = new BigDecimal(0);
 	
 	@Column(name="observacao_passagem")
 	private String observacaoPassagem;
@@ -104,6 +113,8 @@ public class ItemDiaria {
 	@JoinColumn(name="id_usuario_alteracao")
 	private Usuario usuarioAlteracao;
 
+	@Enumerated(EnumType.STRING)
+	private TipoDiariaEnum tipo;
 	
 	
 	
@@ -121,7 +132,7 @@ public class ItemDiaria {
 	}
 
 	public void setMotivo(String motivo) {
-		this.motivo = motivo.toUpperCase();
+		this.motivo = motivo;
 	}
 
 
@@ -157,12 +168,13 @@ public class ItemDiaria {
 		this.funcionarioDiaria = funcionarioDiaria;
 	}
 	
-	public Cidade getLocalDeslocamento() {
-		return localDeslocamento;
+	
+	public Collection<Cidade> getLocalDeslocamentos() {
+		return localDeslocamentos;
 	}
 
-	public void setLocalDeslocamento(Cidade localDeslocamento) {
-		this.localDeslocamento = localDeslocamento;
+	public void setLocalDeslocamentos(Collection<Cidade> localDeslocamentos) {
+		this.localDeslocamentos = localDeslocamentos;
 	}
 
 	public Estado getEstado() {
@@ -270,11 +282,13 @@ public class ItemDiaria {
 		this.analizado = analizado;
 	}
 
+	public TipoDiariaEnum getTipo() {
+		return tipo;
+	}
 
-
-	
-
-	
+	public void setTipo(TipoDiariaEnum tipo) {
+		this.tipo = tipo;
+	}
 	
 	
 }

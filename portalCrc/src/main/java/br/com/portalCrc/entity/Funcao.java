@@ -40,7 +40,7 @@ public class Funcao {
 	}
 
 	public void setDescricao(String descricao) {
-		this.descricao = descricao.toUpperCase();
+		this.descricao = descricao;
 	}
 
 	public Long getId() {

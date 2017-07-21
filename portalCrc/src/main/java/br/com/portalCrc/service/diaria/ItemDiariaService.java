@@ -78,6 +78,7 @@ public class ItemDiariaService {
 	}
 	
 	
+	@Transactional(readOnly = false)
 	public void somaValorTotalDiaria(BigDecimal valorTotalDiaria , BigDecimal valorTotalItem, FuncionarioDiaria funcionarioDiaria, ItemDiaria itemDiaria ){
 		
 		valorTotalDiaria = valorTotalDiaria.add(valorTotalItem);

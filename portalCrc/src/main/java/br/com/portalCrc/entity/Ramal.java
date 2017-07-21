@@ -58,7 +58,7 @@ public class Ramal {
 		return descricao;
 	}
 	public void setDescricao(String descricao) {
-		this.descricao = descricao.toUpperCase();
+		this.descricao = descricao;
 	}
 	public Integer getNumero() {
 		return numero;

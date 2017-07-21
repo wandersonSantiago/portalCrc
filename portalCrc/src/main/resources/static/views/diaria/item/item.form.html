@@ -2,6 +2,15 @@
 <div class="col-sm-12 ">
 	<form role="form-vertical" name="formDiaria" ng-submit="ctrl.submit()">
 		<br>
+		<div class="row">		
+		<div class="col-sm-4">
+		Selecione o Tipo:
+			<select class="form-control" ng-model="ctrl.itemDiaria.tipo" ng-options="tipo for tipo in ctrl.tipos track by tipo">
+			</select>
+		</div>
+			
+		</div>
+		<br>
 		<div class="row ">
 			<div class="col-sm-6 ">
 				Nome:{{ctrl.funcionario.contaFuncionario.funcionario.pessoa.nomeCompleto}}
@@ -41,12 +50,12 @@
 					</span>
 				</div>
 			</div>
-			<div>
 			<div class="col-sm-4">
 				<div class="input-group margin">
 				<md-autocomplete md-no-cache="ctrl.noCache"
-						md-selected-item="ctrl.itemDiaria.localDeslocamento"
+						md-selected-item="ctrl.localDeslocamento"
 						md-search-text="buscarCidade"
+						md-selected-item-change="ctrl.adicionarLocal(ctrl.localDeslocamento)"
 						md-items=" cidade in ctrl.cidades | filter : buscarCidade"
 						md-item-text="cidade.nome" md-min-length="0"
 						placeholder="buscar"> <md-item-template>
@@ -57,8 +66,18 @@
 					</span>
 				</div>
 			</div>
-			</div>
-			<div class="col-sm-4">
+			<div ng-repeat="cidade in localDeslocamentos">
+				<div class="col-sm-1"><br>
+					<span ng-click="ctrl.removerLocal(cidade)" class="label label-default">{{cidade.nome}}</span>
+				</div>			
+			</div>			
+			
+			
+		</div>
+		<br>
+		<div class="row">
+		<div class="col-sm-4">
+		Código:
 				<div class="input-group margin">
 					<select class="form-control select2"
 						ng-model="ctrl.itemDiaria.codigoLocalDeslocamento"
@@ -71,12 +90,8 @@
 					</span>
 				</div>
 			</div>
-		</div>
-		<br>
-		<div class="row">
-			<div class="label-control">Transporte</div>
 			<div class="col-sm-4">
-				Saída:
+				Transporte Saída:
 				<div class="input-group margin">
 					<input type="text" class="form-control text-uppercase"
 						ng-model="ctrl.itemDiaria.meioTransporteSaida.placa" required>
@@ -88,6 +103,7 @@
 				</div>
 			</div>
 			<div class="col-sm-4">
+			
 				Retorno:
 				<div class="input-group margin">
 					<input type="text" class="form-control text-uppercase"
@@ -152,7 +168,7 @@
 			<br>
 			<div class="form-group">
 				<label for="message-text" class="control-label">Motivo:</label>
-				<textarea class="form-control text-uppercase"
+				<textarea class="form-control"
 					ng-model="ctrl.itemDiaria.motivo" id="message-text"></textarea>
 			</div>
 		</div>
@@ -168,7 +184,7 @@
 			<div class="col-sm-4"></div>
 			<div class="col-sm-4">
 				<button id="submit"
-					ng-disabled="!ctrl.itemDiaria.estado || !ctrl.itemDiaria.localDeslocamento || !ctrl.itemDiaria.codigoLocalDeslocamento ||
+					ng-disabled="!ctrl.itemDiaria.estado || !ctrl.localDeslocamento || !ctrl.itemDiaria.codigoLocalDeslocamento || !ctrl.itemDiaria.tipo ||
 					!ctrl.itemDiaria.meioTransporteSaida.placa || !ctrl.itemDiaria.meioTransporteRetorno.placa ||  !ctrl.itemDiaria.dataSaida
 					|| !ctrl.itemDiaria.horaSaida || !ctrl.itemDiaria.dataChegada || !ctrl.itemDiaria.horaChegada || !ctrl.itemDiaria.motivo"
 					class="btn btn-lg btn-primary btn-block btn-signin">{{botao}}</button>
@@ -322,7 +338,7 @@
 					</div>
 
 					<label for="texto" class="control-label">Observações:</label> <input
-						type="text" class="form-control text-uppercase"
+						type="text" class="form-control"
 						ng-model="ctrl.itemDiaria.observacaoPassagem" id="texto">
 
 
@@ -528,7 +544,11 @@
 				<tbody
 					ng-repeat=" item in itens | filter : buscar |  orderBy : '-id'">
 					<tr>
-						<td>{{ item.localDeslocamento.nome }}</td>
+						<td>
+							<div ng-repeat="cidade in item.localDeslocamentos" >							
+							{{ cidade.nome }}&nbsp;<a ng-if="item.localDeslocamentos.length > 0">/</a>&nbsp;
+							</div>
+						</td>
 						<td>{{ item.dataSaida | date : 'dd/MM/yyyy'}}</td>
 						<td>{{ item.dataChegada | date : 'dd/MM/yyyy'}}</td>
 						<td>{{ item.horaSaida | date : 'HH:mm'}}</td>

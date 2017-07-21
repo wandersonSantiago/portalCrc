@@ -1,5 +1,7 @@
 package br.com.portalCrc.web.controller.diaria;
 
+import java.util.Arrays;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -14,8 +16,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import br.com.portalCrc.entity.diaria.FuncionarioDiaria;
 import br.com.portalCrc.entity.diaria.ItemDiaria;
+import br.com.portalCrc.enums.diaria.MesDiariaEnum;
+import br.com.portalCrc.enums.diaria.TipoDiariaEnum;
 import br.com.portalCrc.service.diaria.ItemDiariaService;
 
 
@@ -83,5 +86,11 @@ public class ItemDiariaRestController {
 		 HttpHeaders headers =new HttpHeaders();
 		 return new ResponseEntity<ItemDiaria>(headers, HttpStatus.CREATED);
 	 }
+	 
+	 @GetMapping(value = "/tipos")
+		public ResponseEntity<Iterable<TipoDiariaEnum>> tipoDiariaEnum() {
+			Iterable<TipoDiariaEnum> tipoDiariaEnum = Arrays.asList(TipoDiariaEnum.values());
+			return new ResponseEntity<Iterable<TipoDiariaEnum>>(tipoDiariaEnum, HttpStatus.OK);
+		}
 
 }

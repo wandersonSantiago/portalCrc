@@ -46,7 +46,7 @@ public class DadosUnidade {
 		return mnemonico;
 	}
 	public void setMnemonico(String mnemonico) {
-		this.mnemonico = mnemonico.toUpperCase();
+		this.mnemonico = mnemonico;
 	}
 	public Endereco getEndereco() {
 		return endereco;

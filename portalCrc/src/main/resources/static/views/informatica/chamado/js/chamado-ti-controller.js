@@ -507,5 +507,5 @@ function ChamadoTiAbertoController( $timeout, ChamadoTiService, toastr, $rootSco
 			self.verificaMensagemLida();			
 		};
 		
-		self.verificaMensagemLida(); 
+		/*self.verificaMensagemLida(); */
 }

@@ -17,10 +17,14 @@ function ItemDiariaCadastrarController($localStorage, $state, ItemDiariaService,
 	self.excluir = excluir;
 	self.verificaDataFinal = verificaDataFinal;
 	self.editar = true;
+	self.adicionarLocal = adicionarLocal;
+	self.removerLocal = removerLocal;
 	buscarEstados(33);
 	buscarCoordenadorias();
 	buscarTipoUnidade();
+	tipos();
 	$scope.botao = "Salvar";
+	$scope.localDeslocamentos = [];
 	
 	if($stateParams.idDiaria){
 		$localStorage.idDiaria = $stateParams.idDiaria;
@@ -45,6 +49,7 @@ function ItemDiariaCadastrarController($localStorage, $state, ItemDiariaService,
 		self.itemDiaria.funcionario = self.funcionario.contaFuncionario.funcionario;
 		self.itemDiaria.diaria = self.diaria;
 		self.itemDiaria.funcionarioDiaria = self.funcionario;
+		self.itemDiaria.localDeslocamentos = $scope.localDeslocamentos;
 		if(self.itemDiaria.horaSaida == null || self.itemDiaria.horaChegada == null){
 			self.itemDiaria.meioTransporteRetorno = {placa : self.itemDiaria.meioTransporteRetorno};
 			self.itemDiaria.meioTransporteSaida = {placa : self.itemDiaria.meioTransporteSaida};
@@ -90,6 +95,19 @@ function ItemDiariaCadastrarController($localStorage, $state, ItemDiariaService,
 	};
 	
 	
+	function adicionarLocal(cidade){
+		if(!cidade){
+			return
+		}
+		$scope.localDeslocamentos.push(cidade)
+	}
+	
+	function removerLocal(local){
+		
+		var indice = $scope.localDeslocamentos.indexOf(local);
+		
+		$scope.localDeslocamentos.splice(indice,1)
+	}
 		
 	function buscarFuncionario(id) {
 		FuncionarioContaDiariaService.buscarPorIdFuncionario(id).then(
@@ -106,6 +124,15 @@ function ItemDiariaCadastrarController($localStorage, $state, ItemDiariaService,
 						higth : 300,
 						padding : 20
 					});
+				});
+	};
+	
+	function tipos() {
+		ItemDiariaService.tipos().then(
+				function(f) {					
+					self.tipos = f;
+				}, function(errResponse) {
+					
 				});
 	};
 	
@@ -207,13 +234,7 @@ function ItemDiariaCadastrarController($localStorage, $state, ItemDiariaService,
 		VeiculoService.buscarPorUnidade(idUnidade).then(function(f) {
 			self.veiculos = f;
 		}, function(errResponse) {
-			sweetAlert({
-				text : errResponse.data.message,
-				type : "error",
-				width : 300,
-				higth : 300,
-				padding : 20
-			});
+			
 		});
 	}
 	;
@@ -512,13 +533,16 @@ function ItemDiariaUnidadeListController($stateParams, $state, ItemDiariaService
 		}
 		if(lista.valorPassagem){
 			var valorPassagem = lista.valorPassagem.toString().replace(".", ",");
-		}		
+		}	
+		
+		/*if(lista.dataSaida != lista.dataChegada){
+			lista.motivo = lista.motivo +"  - retorno no dia  " +lista.dataChegada;
+		}*/
 		$scope.listaDiariaExcel.push({
 			nome : lista.funcionarioDiaria.contaFuncionario.funcionario.pessoa.nomeCompleto,
 			cargo : lista.funcionarioDiaria.contaFuncionario.funcionario.cargoAtual.descricao,
 			unidadeLotado :		lista.funcionarioDiaria.unidade.dadosUnidade.mnemonico,
 			dataSaida: lista.dataSaida,
-			dataChegada : lista.dataChegada,
 			localDeslocamento: lista.localDeslocamento.nome,
 			motivo: lista.motivo,
 			valorDiaria: valorDiaria,
@@ -564,12 +588,14 @@ function ItemDiariaCoordenadoriaListController($stateParams, $state, ItemDiariaS
 		if(lista.valorPassagem){
 			var valorPassagem = lista.valorPassagem.toString().replace(".", ",");
 		}		
+		if(lista.dataSaida != lista.dataChegada){
+			lista.motivo = lista.motivo +"  - retorno no dia  " +lista.dataChegada;
+		}
 		$scope.listaDiariaExcel.push({
 			nome : lista.funcionarioDiaria.contaFuncionario.funcionario.pessoa.nomeCompleto,
 			cargo : lista.funcionarioDiaria.contaFuncionario.funcionario.cargoAtual.descricao,
 			unidadeLotado :		lista.funcionarioDiaria.unidade.dadosUnidade.mnemonico,
 			dataSaida: lista.dataSaida,
-			dataChegada : lista.dataChegada,
 			localDeslocamento: lista.localDeslocamento.nome,
 			motivo: lista.motivo,
 			valorDiaria: valorDiaria,
@@ -613,12 +639,14 @@ function ItemDiariaSecretariaListController($stateParams, $state, ItemDiariaServ
 		if(lista.valorPassagem){
 			var valorPassagem = lista.valorPassagem.toString().replace(".", ",");
 		}		
+		if(lista.dataSaida != lista.dataChegada){
+			lista.motivo = lista.motivo +"  - retorno no dia  " +lista.dataChegada;
+		}
 		$scope.listaDiariaExcel.push({
 			nome : lista.funcionarioDiaria.contaFuncionario.funcionario.pessoa.nomeCompleto,
 			cargo : lista.funcionarioDiaria.contaFuncionario.funcionario.cargoAtual.descricao,
 			unidadeLotado :		lista.funcionarioDiaria.unidade.dadosUnidade.mnemonico,
 			dataSaida: lista.dataSaida,
-			dataChegada : lista.dataChegada,
 			localDeslocamento: lista.localDeslocamento.nome,
 			motivo: lista.motivo,
 			valorDiaria: valorDiaria,
@@ -633,6 +661,9 @@ function ItemDiariaShowController($stateParams, $state, ItemDiariaService,
 	var self = this;
 	var idFuncionario = $stateParams.idFuncionarioDiaria;
 	self.analizado = analizado;
+	tipos();
+	
+	self.tipo = 'ADMINISTRATIVO';
 	
 	buscarItensDiariaPorFuncionarioDiaria(idFuncionario);
 	
@@ -656,6 +687,16 @@ function ItemDiariaShowController($stateParams, $state, ItemDiariaService,
 				});
 	};
 	
+	function tipos() {
+		ItemDiariaService.tipos().then(
+				function(f) {					
+					self.tipos = f;
+				}, function(errResponse) {
+					
+				});
+	};
+	
+	
 }
 
 function ItemDiariaUsuarioController($stateParams, $state, ItemDiariaService, toastr, $rootScope, $scope, FuncionarioContaDiariaService) {
@@ -665,6 +706,9 @@ function ItemDiariaUsuarioController($stateParams, $state, ItemDiariaService, to
 	
 	buscarFuncionario(idFuncionario);
 	
+	tipos();
+	
+	self.tipo = 'ADMINISTRATIVO';
 	
 	function buscarFuncionario(id) {
 		FuncionarioContaDiariaService.buscarPorIdFuncionario(id).then(
@@ -704,6 +748,15 @@ function ItemDiariaUsuarioController($stateParams, $state, ItemDiariaService, to
 				function(f) {
 					$scope.itens = f;
 				}, function(errResponse) {				
+				});
+	};
+	
+	function tipos() {
+		ItemDiariaService.tipos().then(
+				function(f) {					
+					self.tipos = f;
+				}, function(errResponse) {
+					
 				});
 	};
 }
