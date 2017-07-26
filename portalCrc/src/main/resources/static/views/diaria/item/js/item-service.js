@@ -89,6 +89,15 @@ app.factory('ItemDiariaService', function($q, $http){
 			});
 		},
 		
+		itensPorFuncionarioDiariaETipo: function(idFuncionario, tipo){
+			return $http.get('/rest/diaria/item/itens/'+idFuncionario+"/tipo/"+tipo)
+			.then(function(response){
+				return response.data;
+			},function(errResponse){
+				return $q.reject(errResponse);
+			});
+		},
+		
 		buscarPorIdFuncionario: function(idDiaria , idFuncionario){
 			return $http.get('/rest/diaria/funcionario/'+idFuncionario+'/diaria/' +idDiaria)
 			.then(function(response){

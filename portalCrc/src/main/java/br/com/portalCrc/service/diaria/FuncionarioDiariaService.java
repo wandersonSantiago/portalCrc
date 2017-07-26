@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import br.com.portalCrc.entity.Usuario;
 import br.com.portalCrc.entity.diaria.FuncionarioDiaria;
 import br.com.portalCrc.entity.diaria.ValoresDiariaLocalidade;
 import br.com.portalCrc.enums.diaria.StatusDiariaEnum;
@@ -28,13 +29,15 @@ public class FuncionarioDiariaService {
 	@Autowired
 	private ValoresDiariaLocalidadeRepository valoresDiaraRepository;
 
+	
 	@Transactional(readOnly = false)
 	public void salvaOuAltera(FuncionarioDiaria funcionarioDiaria) {
-
+		Usuario usuario = SessionUsuario.getInstance().getUsuario();
 		BigDecimal total = new BigDecimal(0);
 		funcionarioDiaria.setDataCadastro(new Date());
-		funcionarioDiaria.setUnidade(SessionUsuario.getInstance().getUsuario().getFuncionario().getUnidadeAtual());
+		funcionarioDiaria.setUnidade(usuario.getFuncionario().getUnidadeAtual());
 		funcionarioDiaria.setUsuarioCadastro(SessionUsuario.getInstance().getUsuario());
+		funcionarioDiaria.setCargo(usuario.getFuncionario().getCargoAtual());
 
 		funcionarioDiaria.setTotalValorDiaria(total);
 		if (funcionarioDiaria.getDiaria().getStatus() == StatusDiariaEnum.ABERTO) {

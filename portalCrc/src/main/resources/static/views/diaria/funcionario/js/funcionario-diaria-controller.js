@@ -38,8 +38,7 @@ function ListarFuncionarioDiariaController(DiariaService, $state, $stateParams,F
 					self.itens = p;
 				}, function(errResponse) {
 				});
-	}
-	;
+	};
 	
 	function informacaoModal(diaria){
 		$scope.item = diaria;
@@ -260,7 +259,6 @@ function FuncionarioDiariaSecretariaListarController($localStorage, $stateParams
 			var soma;
 			soma = parseFloat(f[i].totalValorDiaria);
 			$scope.valorTotal += parseFloat(soma);
-			console.log($scope.valorTotal);
 		}
 	}
 }

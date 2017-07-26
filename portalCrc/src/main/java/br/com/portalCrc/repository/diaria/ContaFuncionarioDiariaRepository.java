@@ -17,13 +17,11 @@ public interface ContaFuncionarioDiariaRepository  extends JpaRepository<ContaFu
 
 	List<ContaFuncionarioDiaria> findByFuncionarioUnidadeAtual_id(Long id);
 
-	ContaFuncionarioDiaria findByFuncionario_id(Long id);
+	List<ContaFuncionarioDiaria> findByFuncionarioPessoaCpfAndStatus(String string, boolean status);
 
-	List<ContaFuncionarioDiaria> findByFuncionarioPessoaCpf(String string);
+	List<ContaFuncionarioDiaria> findByFuncionarioPessoaNomeCompletoIgnoreCaseContainingAndStatus(String texto, boolean status);
 
-	List<ContaFuncionarioDiaria> findByFuncionarioPessoaNomeCompletoIgnoreCaseContaining(String texto);
+	ContaFuncionarioDiaria findByFuncionario_idAndStatus(Long id, boolean status);
 
-	/*List<ContaFuncionarioDiaria> findByFuncionario_unidadeAtual_idAndFuncionario_pessoa_nomeCompletoIgnoreCaseContainingOrFuncionario_pessoa_cpfContaining(
-			Long idUnidade, String string);*/
-
+	
 }

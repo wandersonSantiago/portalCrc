@@ -13,6 +13,7 @@ import br.com.portalCrc.entity.Usuario;
 import br.com.portalCrc.entity.diaria.FuncionarioDiaria;
 import br.com.portalCrc.entity.diaria.ItemDiaria;
 import br.com.portalCrc.enums.diaria.StatusDiariaEnum;
+import br.com.portalCrc.enums.diaria.TipoDiariaEnum;
 import br.com.portalCrc.pojo.SessionUsuario;
 import br.com.portalCrc.repository.diaria.FuncionarioDiariaRepository;
 import br.com.portalCrc.repository.diaria.ItemDiariaRepository;
@@ -82,7 +83,22 @@ public class ItemDiariaService {
 	public void somaValorTotalDiaria(BigDecimal valorTotalDiaria , BigDecimal valorTotalItem, FuncionarioDiaria funcionarioDiaria, ItemDiaria itemDiaria ){
 		
 		valorTotalDiaria = valorTotalDiaria.add(valorTotalItem);
-		funcionarioDiaria.setTotalValorDiaria(valorTotalDiaria);
+		BigDecimal maximoDiaria = new BigDecimal(0);
+		BigDecimal glosada = new BigDecimal(0);
+		BigDecimal salario = funcionarioDiaria.getContaFuncionario().getSalarioAtual();
+		BigDecimal porcentagem = new BigDecimal(funcionarioDiaria.getContaFuncionario().getLimiteCemPorCento());
+		BigDecimal divisor = new BigDecimal(100);
+		
+		maximoDiaria = salario.multiply(porcentagem).divide(divisor);
+		
+		if(valorTotalDiaria.compareTo(maximoDiaria) == 1){
+			glosada = valorTotalDiaria.subtract(maximoDiaria);
+			funcionarioDiaria.setGlosada(glosada);
+			funcionarioDiaria.setTotalValorDiaria(maximoDiaria);
+		}else{
+			funcionarioDiaria.setTotalValorDiaria(valorTotalDiaria);
+		}	
+		
 		
 		if(itemDiaria.getFuncionarioDiaria().getDiaria().getStatus()  == StatusDiariaEnum.ABERTO){
 			itemDiariaRepository.save(itemDiaria);
@@ -136,10 +152,27 @@ public class ItemDiariaService {
 		ItemDiaria item = itemDiariaRepository.findOne(id);
 		
 		FuncionarioDiaria funcionarioDiaria =  funcionarioDiariaRepository.findById(item.getFuncionarioDiaria().getId());
-			
+		
+		BigDecimal glosada = funcionarioDiaria.getGlosada();
+		BigDecimal itemValor = item.getValorDiaria();
 		BigDecimal valorTotalDiaria = funcionarioDiaria.getTotalValorDiaria();
 		
-		valorTotalDiaria = valorTotalDiaria.subtract(item.getValorDiaria());
+		if(glosada != null){
+			if(itemValor.compareTo(glosada)==1){
+				funcionarioDiaria.setGlosada(new BigDecimal(0));				
+				BigDecimal diferenca = itemValor.subtract(glosada);
+				valorTotalDiaria = valorTotalDiaria.subtract(diferenca);
+				
+			}else{
+				BigDecimal diferenca = glosada.subtract(itemValor);
+				funcionarioDiaria.setGlosada(diferenca);
+				
+			}
+		}else{
+			valorTotalDiaria = valorTotalDiaria.subtract(item.getValorDiaria());
+		}
+		
+		
 		funcionarioDiaria.setTotalValorDiaria(valorTotalDiaria);
 		
 		funcionarioDiariaRepository.save(funcionarioDiaria);
@@ -155,6 +188,11 @@ public class ItemDiariaService {
 	public void analizado(Long idItem) {		
 		ItemDiaria item = itemDiariaRepository.findOne(idItem);
 		item.setAnalizado(true);
+	}
+
+
+	public Iterable<ItemDiaria> findByFuncionarioDiaria_idAndTipo(Long idFuncionario, TipoDiariaEnum tipo) {
+		return itemDiariaRepository.findByFuncionarioDiaria_idAndTipo(idFuncionario, tipo);
 	}
 
 

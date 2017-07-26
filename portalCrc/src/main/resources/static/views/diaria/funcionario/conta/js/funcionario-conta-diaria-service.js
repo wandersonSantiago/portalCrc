@@ -82,5 +82,13 @@ app.factory('FuncionarioContaDiariaService', function($q, $http){
 			});
 		},
 		
+		buscarContaPorIdFuncionario: function(idFuncionario){
+			return $http.get(url +'/funcionario/' + idFuncionario)
+			.then(function(response){
+				return response.data;
+			},function(errResponse){
+				return $q.reject(errResponse);
+			});
+		},
 	}
 });

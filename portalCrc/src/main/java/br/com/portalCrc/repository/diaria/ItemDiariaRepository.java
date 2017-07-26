@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import br.com.portalCrc.entity.diaria.ItemDiaria;
+import br.com.portalCrc.enums.diaria.TipoDiariaEnum;
 
 public interface ItemDiariaRepository extends JpaRepository<ItemDiaria, Long>{
 
@@ -22,5 +23,7 @@ public interface ItemDiariaRepository extends JpaRepository<ItemDiaria, Long>{
 
 	Iterable<ItemDiaria> findByFuncionarioDiaria_diaria_idAndFuncionarioDiaria_contaFuncionario_funcionario_id(
 			Long idDiaria, Long idFuncionario);
+
+	Iterable<ItemDiaria> findByFuncionarioDiaria_idAndTipo(Long idFuncionario, TipoDiariaEnum tipo);
 	
 }

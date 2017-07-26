@@ -10,12 +10,15 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 
+import br.com.portalCrc.entity.Cargo;
+import br.com.portalCrc.entity.Setor;
 import br.com.portalCrc.entity.Unidade;
 import br.com.portalCrc.entity.Usuario;
 
@@ -35,6 +38,11 @@ public class FuncionarioDiaria {
 	@JoinColumn(name="id_funcionario_conta")
 	private ContaFuncionarioDiaria contaFuncionario;
 	
+	@OneToOne
+	private Cargo cargo;
+	@OneToOne
+	private Setor setor;
+	
 	@NotNull (message="Unidade não pode ser nulo")
 	@ManyToOne
 	@JoinColumn(name="id_unidade")
@@ -49,6 +57,9 @@ public class FuncionarioDiaria {
 	
 	@Column(name="tota_valor_diaria")
 	private BigDecimal totalValorDiaria;
+	
+	@Column(name="glosada")
+	private BigDecimal glosada;
 	
 	@NotNull (message="Diaria não pode ser nula")
 	@ManyToOne
@@ -113,6 +124,30 @@ public class FuncionarioDiaria {
 
 	public void setTotalValorDiaria(BigDecimal totalValorDiaria) {
 		this.totalValorDiaria = totalValorDiaria;
+	}
+
+	public BigDecimal getGlosada() {
+		return glosada;
+	}
+
+	public void setGlosada(BigDecimal glosada) {
+		this.glosada = glosada;
+	}
+
+	public Cargo getCargo() {
+		return cargo;
+	}
+
+	public void setCargo(Cargo cargo) {
+		this.cargo = cargo;
+	}
+
+	public Setor getSetor() {
+		return setor;
+	}
+
+	public void setSetor(Setor setor) {
+		this.setor = setor;
 	}
 	
 

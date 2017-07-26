@@ -1,24 +1,29 @@
 <meta charset="UTF-8">
 <div class="col-sm-12 ">
 	<form role="form-vertical" name="formDiaria" ng-submit="ctrl.submit()">
-		<br>
-		<div class="row">		
+		<div class="row ">
+			<div class="btn btn-success btn-flat col-sm-4 ">
+				Nome:{{ctrl.funcionario.contaFuncionario.funcionario.pessoa.nomeCompleto}}
+			</div>
+			<div class="btn btn-primary btn-flat col-sm-2 ">
+				Salário:{{ctrl.funcionario.contaFuncionario.salarioAtual | currency}}</div>			
+			<div class="btn btn-success btn-flat col-sm-2 ">
+				Limite:{{ctrl.funcionario.contaFuncionario.limiteCemPorCento * ctrl.funcionario.contaFuncionario.salarioAtual / 100 | currency}}</div>			
+			<div class="btn btn-info btn-flat col-sm-2 ">
+				Total:{{ctrl.funcionario.totalValorDiaria | currency}}</div>
+				
+				<div ng-show="ctrl.funcionario.glosada" class="btn btn-danger btn-flat col-sm-2">
+				Glosada:{{ctrl.funcionario.glosada | currency}}</div>			
+			</div>
+		
+			<br>
+		<div class="row ">
 		<div class="col-sm-4">
 		Selecione o Tipo:
 			<select class="form-control" ng-model="ctrl.itemDiaria.tipo" ng-options="tipo for tipo in ctrl.tipos track by tipo">
 			</select>
 		</div>
-			
-		</div>
-		<br>
-		<div class="row ">
-			<div class="col-sm-6 ">
-				Nome:{{ctrl.funcionario.contaFuncionario.funcionario.pessoa.nomeCompleto}}
-			</div>
-			<div class="col-sm-6 ">
-				Total:{{ctrl.funcionario.totalValorDiaria | currency}}</div>
-		</div>
-		<div class="row ">
+		
 			<br> <span class="input-group-btn"> <a type="button"
 				data-toggle="modal" data-target="#informacaoModal"
 				data-whatever="@mdo" class="btn btn-info btn-flat">Informações <i
@@ -93,7 +98,7 @@
 			<div class="col-sm-4">
 				Transporte Saída:
 				<div class="input-group margin">
-					<input type="text" class="form-control text-uppercase"
+					<input type="text" class="form-control"
 						ng-model="ctrl.itemDiaria.meioTransporteSaida.placa" required>
 					<span class="input-group-btn"> <a type="button"
 						class="btn btn-info btn-flat" data-toggle="modal"
@@ -106,7 +111,7 @@
 			
 				Retorno:
 				<div class="input-group margin">
-					<input type="text" class="form-control text-uppercase"
+					<input type="text" class="form-control"
 						ng-model="ctrl.itemDiaria.meioTransporteRetorno.placa" required>
 					<span class="input-group-btn"> <a type="button"
 						class="btn btn-info btn-flat" data-toggle="modal"
@@ -184,7 +189,7 @@
 			<div class="col-sm-4"></div>
 			<div class="col-sm-4">
 				<button id="submit"
-					ng-disabled="!ctrl.itemDiaria.estado || !ctrl.localDeslocamento || !ctrl.itemDiaria.codigoLocalDeslocamento || !ctrl.itemDiaria.tipo ||
+					ng-disabled="!ctrl.itemDiaria.estado || !localDeslocamentos || !ctrl.itemDiaria.codigoLocalDeslocamento || !ctrl.itemDiaria.tipo ||
 					!ctrl.itemDiaria.meioTransporteSaida.placa || !ctrl.itemDiaria.meioTransporteRetorno.placa ||  !ctrl.itemDiaria.dataSaida
 					|| !ctrl.itemDiaria.horaSaida || !ctrl.itemDiaria.dataChegada || !ctrl.itemDiaria.horaChegada || !ctrl.itemDiaria.motivo"
 					class="btn btn-lg btn-primary btn-block btn-signin">{{botao}}</button>

@@ -1,10 +1,4 @@
 <meta charset="UTF-8">
-<div class="row">
-	<div class="col-sm-3">
-		<h2>Relatório</h2>
-	</div>
-</div>
-
 <br>
 <div class="row">
 	<div class="col-sm-3">
@@ -50,7 +44,7 @@
 						}}</h5>
 					</md-button></td>
 				<td>{{diaria.contaFuncionario.funcionario.pessoa.cpf}}</td>
-				<td>{{diaria.contaFuncionario.funcionario.cargoAtual.descricao}}</td>
+				<td>{{diaria.cargo.descricao}}</td>
 				<td>{{diaria.unidade.dadosUnidade.mnemonico}}</td>
 				<td><md-button
 						ui-sref="item.visualizar({idFuncionarioDiaria : diaria.id})">

@@ -40,7 +40,7 @@ public class ContaFuncionarioDiariaRestController {
 		
 	@PutMapping
 	public ResponseEntity<ContaFuncionarioDiaria> alterar(@RequestBody ContaFuncionarioDiaria contaFuncionarioDiaria, UriComponentsBuilder ucBuilder){
-		contaFuncionarioDiariaService.altera(contaFuncionarioDiaria);
+		contaFuncionarioDiariaService.salvaOuAltera(contaFuncionarioDiaria);
 		HttpHeaders http =  new HttpHeaders();
 		return new ResponseEntity<>(http , HttpStatus.CREATED);		
 	}

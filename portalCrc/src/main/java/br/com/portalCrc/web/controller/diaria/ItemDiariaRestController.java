@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import br.com.portalCrc.entity.diaria.ItemDiaria;
-import br.com.portalCrc.enums.diaria.MesDiariaEnum;
 import br.com.portalCrc.enums.diaria.TipoDiariaEnum;
 import br.com.portalCrc.service.diaria.ItemDiariaService;
 
@@ -59,6 +58,12 @@ public class ItemDiariaRestController {
 	@GetMapping(value="/coordenadoria/{id}")
 	public ResponseEntity<Iterable<ItemDiaria>> listaCoordenadoria(@PathVariable Long id){
 		Iterable<ItemDiaria> itemDiaria = itemDiariaRepository.listaCoordenadoria(id);
+		return new ResponseEntity<Iterable<ItemDiaria>>(itemDiaria, HttpStatus.OK);
+	}
+	
+	@GetMapping(value="/itens/{idFuncionario}/tipo/{tipo}")
+	public ResponseEntity<Iterable<ItemDiaria>> itensAndTipo(@PathVariable Long idFuncionario, @PathVariable TipoDiariaEnum tipo){
+		Iterable<ItemDiaria> itemDiaria = itemDiariaRepository.findByFuncionarioDiaria_idAndTipo(idFuncionario, tipo);
 		return new ResponseEntity<Iterable<ItemDiaria>>(itemDiaria, HttpStatus.OK);
 	}
 	

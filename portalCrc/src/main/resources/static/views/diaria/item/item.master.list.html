@@ -48,7 +48,7 @@
 			ng-repeat=" diaria in ctrl.itens | filter : busca |  orderBy : '-id'">
 			<tr>
 				<td class="text-center">{{diaria.funcionarioDiaria.contaFuncionario.funcionario.pessoa.nomeCompleto}}</td>
-				<td class="text-center">{{diaria.funcionarioDiaria.contaFuncionario.funcionario.cargoAtual.descricao}}</td>
+				<td class="text-center">{{diaria.funcionarioDiaria.cargo.descricao}}</td>
 				<!-- <td>{{diaria.funcionarioDiaria.unidade.dadosUnidade.mnemonico}}</td> -->
 				<td class="text-center">{{ diaria.dataSaida | date : 'dd/MM/yyyy'}}</td>
 				<!-- <td>{{ diaria.dataChegada | date : 'dd/MM/yyyy'}}</td> -->

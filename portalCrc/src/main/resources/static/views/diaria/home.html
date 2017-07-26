@@ -14,7 +14,7 @@
             </a>
           </div>
         </div>
-       <div permission="['CONTA_FUNCIONARIO' , 'ADMIN']" class="col-lg-3 col-xs-6">
+       <div permission="['DIARIA_FINANCAS_UNIDADE' , 'ADMIN']" class="col-lg-3 col-xs-6">
           <!-- small box -->
           <div class="small-box bg-blue">
             <div class="inner">
@@ -25,6 +25,21 @@
               <i class="fa fa-bank "></i>
             </div>
             <a ui-sref="funcionarioContaDiaria.listar" class="small-box-footer">
+              avançar<i class="fa fa-arrow-circle-right"></i>
+            </a>
+          </div>
+        </div>
+         <div permission="['DIARIA' , 'ADMIN']" class="col-lg-3 col-xs-6">
+          <!-- small box -->
+          <div class="small-box bg-red">
+            <div class="inner">
+              <h3>03</h3>
+              <p>Cadastrar Conta</p>
+            </div>
+            <div class="icon">
+              <i class="fa fa-bank "></i>
+            </div>
+            <a ui-sref="funcionarioContaDiaria.cadastrar({idFuncionario : usuario.funcionario.id})" class="small-box-footer">
               avançar<i class="fa fa-arrow-circle-right"></i>
             </a>
           </div>

@@ -138,7 +138,7 @@ public class DiariaService {
 		return diariaRepository.diariasEmAberto();
 	}
 	public Page<Diaria> lista(PageRequest pageRequest){
-		return diariaRepository.findAll(pageRequest);
+		return diariaRepository.findByStatus(StatusDiariaEnum.FECHADO, pageRequest);
 	}
 	
 	@Transactional(readOnly = false)

@@ -32,7 +32,7 @@ public class ContaFuncionarioDiaria {
 	
 	@NotNull (message="Funcionario não pode ser nulo")
 	@OneToOne
-	@JoinColumn(name="id_funcionario", unique = true)
+	@JoinColumn(name="id_funcionario")
 	private Funcionario funcionario;
 	
 	@NotNull (message="Usuario não pode ser nulo")
@@ -67,6 +67,9 @@ public class ContaFuncionarioDiaria {
 	@NotNull (message="limitede diaria não pode ser nulo")
 	@Column(name="limiteCemPorCento")
 	private Double limiteCemPorCento;
+	
+	@Column(name="status")
+	private boolean status;
 
 	public Long getId() {
 		return id;
@@ -146,6 +149,14 @@ public class ContaFuncionarioDiaria {
 
 	public void setLimiteCemPorCento(Double limiteCemPorCento) {
 		this.limiteCemPorCento = limiteCemPorCento;
+	}
+
+	public boolean isStatus() {
+		return status;
+	}
+
+	public void setStatus(boolean status) {
+		this.status = status;
 	}
 
 	

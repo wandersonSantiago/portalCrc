@@ -302,11 +302,17 @@ function ItemDiariaEditarController($state, ItemDiariaService, $stateParams,
 	self.buscarCidades = buscarCidades;
 	self.buscarUnidades = buscarUnidades;
 	self.buscarVeiculos = buscarVeiculos;
+	self.adicionarLocal = adicionarLocal;
+	self.removerLocal = removerLocal;
 	self.submit = submit;
 	self.excluir = excluir;
 	buscarCoordenadorias();
 	buscarTipoUnidade();
+	tipos();
 	self.proximaPagina = proximaPagina;
+	$scope.localDeslocamentos = [];
+	
+	
 					
 	function proximaPagina(item) {
 		self.myVar = setInterval(function(){ editar(item) }, 500);			
@@ -320,6 +326,7 @@ function ItemDiariaEditarController($state, ItemDiariaService, $stateParams,
 	function submit() {
 		self.itemDiaria.meioTransporteSaida = self.itemDiaria.meioTransporteSaida.placa;
 		self.itemDiaria.meioTransporteRetorno = self.itemDiaria.meioTransporteRetorno.placa;
+		self.itemDiaria.localDeslocamentos = $scope.localDeslocamentos;
 		if(self.itemDiaria.horaSaida == null || self.itemDiaria.horaChegada == null){
 			sweetAlert({
 				text : "os campos horários são obrigatório!!!",
@@ -355,6 +362,19 @@ function ItemDiariaEditarController($state, ItemDiariaService, $stateParams,
 				});}
 	};
 		
+	function adicionarLocal(cidade){
+		if(!cidade){
+			return
+		}
+		$scope.localDeslocamentos.push(cidade)
+	}
+	
+	function removerLocal(local){
+		
+		var indice = $scope.localDeslocamentos.indexOf(local);
+		
+		$scope.localDeslocamentos.splice(indice,1)
+	}
 	
 	function buscarPorId(id) {
 		if (!id)
@@ -373,6 +393,7 @@ function ItemDiariaEditarController($state, ItemDiariaService, $stateParams,
 			self.unidade = self.funcionario.contaFuncionario.funcionario.unidadeAtual;
 			buscarUnidades(self.tipo.id);
 			buscarVeiculos(self.unidade.id);
+			$scope.localDeslocamentos = self.itemDiaria.localDeslocamentos;
 		}, function(errResponse) {
 		});
 	};
@@ -395,6 +416,15 @@ function ItemDiariaEditarController($state, ItemDiariaService, $stateParams,
 				function(f) {
 					$scope.itens = f;
 				}, function(errResponse) {				
+				});
+	};
+	
+	function tipos() {
+		ItemDiariaService.tipos().then(
+				function(f) {					
+					self.tipos = f;
+				}, function(errResponse) {
+					
 				});
 	};
 
@@ -498,7 +528,7 @@ function ItemDiariaEditarController($state, ItemDiariaService, $stateParams,
 	
 	
 }
-function ItemDiariaUnidadeListController($stateParams, $state, ItemDiariaService,
+function ItemDiariaUnidadeListController($filter, $stateParams, $state, ItemDiariaService,
 		toastr, $rootScope, $scope) {
 	var self = this;
 	var idDiaria = $stateParams.idDiaria;
@@ -523,11 +553,28 @@ function ItemDiariaUnidadeListController($stateParams, $state, ItemDiariaService
 	
 	forLista = function(f){
 		for(i = 0 ; i < f.length ; i++){
-			listaExcel(f[i]);
+			listaExcel(f[i]);			
+			
 		}
 	}
 	
 	listaExcel = function(lista){
+		var cidade = '';
+		for(c = 0 ; c < lista.localDeslocamentos.length ; c++){			
+			cidade += lista.localDeslocamentos[c].nome;
+			
+			if(c +1 < lista.localDeslocamentos.length){
+				cidade += " , ";
+			}
+		}
+		var motivo = lista.motivo;
+		if(lista.dataSaida < lista.dataChegada){
+			lista.dataChegada  = $filter('date')(lista.dataChegada, "dd/MM/yyyy"); 
+			motivo += " - retorno no dia " + lista.dataChegada;
+		}
+		if(lista.valorPassagem == 0){
+			var valorPassagem = 0.00;
+		}
 		if(lista.valorDiaria){
 			var valorDiaria =  lista.valorDiaria.toString().replace(".", ",");			
 		}
@@ -535,16 +582,14 @@ function ItemDiariaUnidadeListController($stateParams, $state, ItemDiariaService
 			var valorPassagem = lista.valorPassagem.toString().replace(".", ",");
 		}	
 		
-		/*if(lista.dataSaida != lista.dataChegada){
-			lista.motivo = lista.motivo +"  - retorno no dia  " +lista.dataChegada;
-		}*/
+				
 		$scope.listaDiariaExcel.push({
 			nome : lista.funcionarioDiaria.contaFuncionario.funcionario.pessoa.nomeCompleto,
 			cargo : lista.funcionarioDiaria.contaFuncionario.funcionario.cargoAtual.descricao,
 			unidadeLotado :		lista.funcionarioDiaria.unidade.dadosUnidade.mnemonico,
 			dataSaida: lista.dataSaida,
-			localDeslocamento: lista.localDeslocamento.nome,
-			motivo: lista.motivo,
+			localDeslocamento: cidade,
+			motivo: motivo,
 			valorDiaria: valorDiaria,
 			valorPassagem: valorPassagem
 		});
@@ -552,7 +597,7 @@ function ItemDiariaUnidadeListController($stateParams, $state, ItemDiariaService
 }
 
 
-function ItemDiariaCoordenadoriaListController($stateParams, $state, ItemDiariaService,
+function ItemDiariaCoordenadoriaListController($filter, $stateParams, $state, ItemDiariaService,
 		toastr, $rootScope, $scope) {
 	var self = this;
 	var idDiaria = $stateParams.idDiaria;
@@ -582,29 +627,44 @@ function ItemDiariaCoordenadoriaListController($stateParams, $state, ItemDiariaS
 	}
 	
 	listaExcel = function(lista){
+		var cidade = '';
+		for(c = 0 ; c < lista.localDeslocamentos.length ; c++){			
+			cidade += lista.localDeslocamentos[c].nome;
+			
+			if(c +1 < lista.localDeslocamentos.length){
+				cidade += " , ";
+			}
+		}
+		var motivo = lista.motivo;
+		if(lista.dataSaida < lista.dataChegada){
+			lista.dataChegada  = $filter('date')(lista.dataChegada, "dd/MM/yyyy"); 
+			motivo += " - retorno no dia " + lista.dataChegada;
+		}
+		if(lista.valorPassagem == 0){
+			var valorPassagem = 0.00;
+		}
 		if(lista.valorDiaria){
 			var valorDiaria =  lista.valorDiaria.toString().replace(".", ",");			
 		}
 		if(lista.valorPassagem){
 			var valorPassagem = lista.valorPassagem.toString().replace(".", ",");
-		}		
-		if(lista.dataSaida != lista.dataChegada){
-			lista.motivo = lista.motivo +"  - retorno no dia  " +lista.dataChegada;
-		}
+		}	
+		
+				
 		$scope.listaDiariaExcel.push({
 			nome : lista.funcionarioDiaria.contaFuncionario.funcionario.pessoa.nomeCompleto,
 			cargo : lista.funcionarioDiaria.contaFuncionario.funcionario.cargoAtual.descricao,
 			unidadeLotado :		lista.funcionarioDiaria.unidade.dadosUnidade.mnemonico,
 			dataSaida: lista.dataSaida,
-			localDeslocamento: lista.localDeslocamento.nome,
-			motivo: lista.motivo,
+			localDeslocamento: cidade,
+			motivo: motivo,
 			valorDiaria: valorDiaria,
 			valorPassagem: valorPassagem
 		});
 	};
 }
 
-function ItemDiariaSecretariaListController($stateParams, $state, ItemDiariaService,
+function ItemDiariaSecretariaListController($filter, $stateParams, $state, ItemDiariaService,
 		toastr, $rootScope, $scope) {
 	var self = this;
 	var idDiaria = $stateParams.idDiaria;
@@ -633,22 +693,37 @@ function ItemDiariaSecretariaListController($stateParams, $state, ItemDiariaServ
 	}
 	
 	listaExcel = function(lista){
+		var cidade = '';
+		for(c = 0 ; c < lista.localDeslocamentos.length ; c++){			
+			cidade += lista.localDeslocamentos[c].nome;
+			
+			if(c +1 < lista.localDeslocamentos.length){
+				cidade += " , ";
+			}
+		}
+		var motivo = lista.motivo;
+		if(lista.dataSaida < lista.dataChegada){
+			lista.dataChegada  = $filter('date')(lista.dataChegada, "dd/MM/yyyy"); 
+			motivo += " - retorno no dia " + lista.dataChegada;
+		}
+		if(lista.valorPassagem == 0){
+			var valorPassagem = 0.00;
+		}
 		if(lista.valorDiaria){
 			var valorDiaria =  lista.valorDiaria.toString().replace(".", ",");			
 		}
 		if(lista.valorPassagem){
 			var valorPassagem = lista.valorPassagem.toString().replace(".", ",");
-		}		
-		if(lista.dataSaida != lista.dataChegada){
-			lista.motivo = lista.motivo +"  - retorno no dia  " +lista.dataChegada;
-		}
+		}	
+		
+				
 		$scope.listaDiariaExcel.push({
 			nome : lista.funcionarioDiaria.contaFuncionario.funcionario.pessoa.nomeCompleto,
 			cargo : lista.funcionarioDiaria.contaFuncionario.funcionario.cargoAtual.descricao,
 			unidadeLotado :		lista.funcionarioDiaria.unidade.dadosUnidade.mnemonico,
 			dataSaida: lista.dataSaida,
-			localDeslocamento: lista.localDeslocamento.nome,
-			motivo: lista.motivo,
+			localDeslocamento: cidade,
+			motivo: motivo,
 			valorDiaria: valorDiaria,
 			valorPassagem: valorPassagem
 		});
@@ -661,18 +736,24 @@ function ItemDiariaShowController($stateParams, $state, ItemDiariaService,
 	var self = this;
 	var idFuncionario = $stateParams.idFuncionarioDiaria;
 	self.analizado = analizado;
+	self.itensPorFuncionarioDiariaETipo = itensPorFuncionarioDiariaETipo;
 	tipos();
 	
 	self.tipo = 'ADMINISTRATIVO';
 	
-	buscarItensDiariaPorFuncionarioDiaria(idFuncionario);
+	itensPorFuncionarioDiariaETipo(idFuncionario, self.tipo);
 	
-	function buscarItensDiariaPorFuncionarioDiaria(id) {
-		ItemDiariaService.buscarItensDiariaPorFuncionarioDiaria(id).then(
+	function itensPorFuncionarioDiariaETipo(id , tipo) {
+		
+		ItemDiariaService.itensPorFuncionarioDiariaETipo(id, tipo).then(
 				function(f) {
-					$scope.itens = f;
+					$scope.itens = f;					
+					$scope.valorTotal = 0;					
 					for(i = 0 ; i < $scope.itens.length ; i++){
-						$scope.funcionario = $scope.itens[i].funcionarioDiaria;
+						$scope.funcionario = $scope.itens[i].funcionarioDiaria;						
+						var soma;
+						soma = parseFloat($scope.itens[i].valorDiaria);
+						$scope.valorTotal += parseFloat(soma);
 					}
 				}, function(errResponse) {				
 				});
@@ -682,7 +763,7 @@ function ItemDiariaShowController($stateParams, $state, ItemDiariaService,
 		ItemDiariaService.analizado(idItem).then(
 				function(f) {		
 					toastr.success("analizado!");
-					buscarItensDiariaPorFuncionarioDiaria(idFuncionario)
+					itensPorFuncionarioDiariaETipo(idFuncionario, self.tipo)
 				}, function(errResponse) {				
 				});
 	};

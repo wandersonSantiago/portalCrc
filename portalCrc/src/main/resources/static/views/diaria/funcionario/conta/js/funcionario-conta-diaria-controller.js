@@ -18,7 +18,7 @@ function FuncionarioContaDiariaCadastrarController($state, FuncionarioService, $
 	
 	
 	function submit(contaFuncionarioDiaria) {
-		if($scope.indiceUfesp == 'SETES'){
+		if($scope.indiceUfesp == 'SETE'){
 			self.contaFuncionarioDiaria.indiceUfesp = 7;
 		}else{
 			self.contaFuncionarioDiaria.indiceUfesp = 9;
@@ -44,6 +44,7 @@ function FuncionarioContaDiariaCadastrarController($state, FuncionarioService, $
 				FuncionarioService.buscarPorId(id).
 				then(function(p){
 					self.funcionario = p;
+					buscarContaPorIdFuncionario(p.id);
 			}, function(errResponse){
 				});
 			};
@@ -51,6 +52,16 @@ function FuncionarioContaDiariaCadastrarController($state, FuncionarioService, $
 			if(idFuncionario){
 				buscarFuncionarioPorId(idFuncionario);				
 			}
+			
+		function buscarContaPorIdFuncionario(id){
+				if(!id)return;
+				FuncionarioContaDiariaService.buscarContaPorIdFuncionario(id).
+				then(function(p){
+					var idConta = p.id
+					$state.go('funcionarioContaDiaria.editar', {idConta});
+			}, function(errResponse){
+				});
+			};
 			
 			function limite(){
 				 FuncionarioContaDiariaService.limite().

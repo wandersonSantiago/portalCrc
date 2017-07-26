@@ -20,25 +20,28 @@ public class ContaFuncionarioDiariaService {
 
 	@Autowired
 	private ContaFuncionarioDiariaRepository contaFuncionarioDiariaRepository;
+	private ContaFuncionarioDiaria existe;
 	
 	
 	@Transactional(readOnly = false)
 	public void salvaOuAltera(ContaFuncionarioDiaria contaFuncionarioDiaria){	
-		ContaFuncionarioDiaria existe = contaFuncionarioDiariaRepository.findByFuncionario_id(contaFuncionarioDiaria.getFuncionario().getId());
+		existe = contaFuncionarioDiariaRepository.findByFuncionario_idAndStatus(contaFuncionarioDiaria.getFuncionario().getId(), true);
 		if(existe != null){
-			throw new MensagemException("Este Funcionario já tem uma conta cadastrada!!!");
+			existe.setStatus(false);
+			contaFuncionarioDiaria.setId(null);
 		}
 		contaFuncionarioDiaria.setUsuarioCadastro(SessionUsuario.getInstance().getUsuario());
 		contaFuncionarioDiaria.setDataCadastro(new Date());
-			contaFuncionarioDiariaRepository.save(contaFuncionarioDiaria);
+		contaFuncionarioDiaria.setStatus(true);
+		contaFuncionarioDiariaRepository.save(contaFuncionarioDiaria);
 
 	}
 	
-	@Transactional(readOnly = false)
+/*	@Transactional(readOnly = false)
 	public void altera(ContaFuncionarioDiaria contaFuncionarioDiaria){
 			contaFuncionarioDiariaRepository.save(contaFuncionarioDiaria);
 		
-	}
+	}*/
 	
 	public ContaFuncionarioDiaria buscaPorId(Long id){
 		return contaFuncionarioDiariaRepository.findOne(id);
@@ -66,7 +69,7 @@ public class ContaFuncionarioDiariaService {
 	}
 
 	public ContaFuncionarioDiaria findByFuncionario_id(Long id) {
-		ContaFuncionarioDiaria conta = contaFuncionarioDiariaRepository.findByFuncionario_id(id);
+		ContaFuncionarioDiaria conta = contaFuncionarioDiariaRepository.findByFuncionario_idAndStatus(id, true);
 		if(conta == null){
 			throw new MensagemException("Este Funcionario não tem uma conta cadastrada!!!");
 		}
@@ -76,31 +79,20 @@ public class ContaFuncionarioDiariaService {
 	public List<ContaFuncionarioDiaria> buscar(String texto) {
 		texto = texto.replaceAll("[./-]","");
 		if (texto.matches("[0-9]+")) {
-			List<ContaFuncionarioDiaria> list = contaFuncionarioDiariaRepository.findByFuncionarioPessoaCpf("%" + texto + "%");
+			List<ContaFuncionarioDiaria> list = contaFuncionarioDiariaRepository.findByFuncionarioPessoaCpfAndStatus("%" + texto + "%", true);
 			if(list.isEmpty() || list == null){
 				throw new MensagemException("Busca não encontrada, verifique se ja existe conta aberta para este funcioonario! " + texto);
 			}
 			return list;
 		} else {
-			List<ContaFuncionarioDiaria> list =  contaFuncionarioDiariaRepository.findByFuncionarioPessoaNomeCompletoIgnoreCaseContaining(texto);
+			List<ContaFuncionarioDiaria> list =  contaFuncionarioDiariaRepository.findByFuncionarioPessoaNomeCompletoIgnoreCaseContainingAndStatus(texto, true);
 			if(list.isEmpty() || list == null){
 				throw new MensagemException("Busca não encontrada, verifique se ja existe conta aberta para este funcioonario! " + texto);
 			}
 			return list;
 		}
 	}
-
-	/*public List<ContaFuncionarioDiaria> buscarPorTexto(String texto) {
-			Long idUnidade = SessionUsuario.getInstance().getUsuario().getFuncionario().getUnidadeAtual().getId();
-			List<ContaFuncionarioDiaria> list = contaFuncionarioDiariaRepository
-					.findByFuncionario_unidadeAtual_idAndFuncionario_pessoa_nomeCompletoIgnoreCaseContainingOrFuncionario_pessoa_cpfContaining(
-							idUnidade, "%" + texto + "%");
-			if (list.isEmpty() || list == null) {
-				throw new MensagemException("Nenhum resultado encontrado para: " + texto);
-			}
-
-			return list;
-		}*/
+	
 }
 
 	
