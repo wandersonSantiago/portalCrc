@@ -196,6 +196,20 @@ public class ItemDiariaService {
 	}
 
 
+	@Transactional(readOnly = false)
+	public void retorno(Long idItem) {
+		ItemDiaria item = itemDiariaRepository.findOne(idItem);
+		
+		if(item.isRetorno()){
+			item.setRetorno(false);
+		}else{
+			item.setRetorno(true);
+		}
+		
+		
+	}
+
+
 
 	
 

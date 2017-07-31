@@ -111,6 +111,8 @@
 				<!-- <td >{{ item.usuarioCadastro.funcionario.pessoa.nomeCompleto | limitTo:10 }}</td> -->	
 				<td permission="['DIARIA_FINANCAS_UNIDADE' , 'ADMIN']" ng-if="!item.analizado"><button ng-click="ctrl.analizado(item.id)" class="btn btn-primary">Analisar</button></td>			
 				<td ng-if="item.analizado"><button disabled class="btn btn-success">Analisado</button></td>
+				<td ng-if="item.dataChegada === item.dataSaida" permission="['DIARIA_FINANCAS_UNIDADE' , 'ADMIN']" ><button ng-if="!item.retorno" ng-disabled="item.analizado" ng-click="ctrl.retorno(item.id)" class="btn btn-primary">não retorno</button>		
+				<button  ng-disabled="item.analizado"  ng-if="item.retorno" ng-click="ctrl.retorno(item.id)"  class="btn btn-success">retorno</button></td>
 
 			</tr>			
 		</tbody>

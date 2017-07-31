@@ -92,6 +92,13 @@ public class ItemDiariaRestController {
 		 return new ResponseEntity<ItemDiaria>(headers, HttpStatus.CREATED);
 	 }
 	 
+	 @PostMapping(value="/{idItem}/retorno")
+	 public ResponseEntity<ItemDiaria> retorno(@PathVariable Long idItem){
+		itemDiariaRepository.retorno(idItem);
+		 HttpHeaders headers =new HttpHeaders();
+		 return new ResponseEntity<ItemDiaria>(headers, HttpStatus.CREATED);
+	 }
+	 
 	 @GetMapping(value = "/tipos")
 		public ResponseEntity<Iterable<TipoDiariaEnum>> tipoDiariaEnum() {
 			Iterable<TipoDiariaEnum> tipoDiariaEnum = Arrays.asList(TipoDiariaEnum.values());

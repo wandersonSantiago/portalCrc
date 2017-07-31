@@ -761,6 +761,7 @@ function ItemDiariaShowController($stateParams, $state, ItemDiariaService,
 	var self = this;
 	var idFuncionario = $stateParams.idFuncionarioDiaria;
 	self.analizado = analizado;
+	self.retorno = retorno;
 	self.itensPorFuncionarioDiariaETipo = itensPorFuncionarioDiariaETipo;
 	tipos();
 	
@@ -780,6 +781,15 @@ function ItemDiariaShowController($stateParams, $state, ItemDiariaService,
 						soma = parseFloat($scope.itens[i].valorDiaria);
 						$scope.valorTotal += parseFloat(soma);
 					}
+				}, function(errResponse) {				
+				});
+	};
+	
+	function retorno(idItem) {
+		ItemDiariaService.retorno(idItem).then(
+				function(f) {		
+					toastr.success("retorno lançado!");
+					itensPorFuncionarioDiariaETipo(idFuncionario, self.tipo)
 				}, function(errResponse) {				
 				});
 	};

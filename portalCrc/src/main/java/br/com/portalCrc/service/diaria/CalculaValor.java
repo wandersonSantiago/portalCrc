@@ -61,7 +61,12 @@ public class CalculaValor {
 
 		} else if (totalPernoite == 0) {
 
-			totalValor = verificaHorarioDiaria(item);
+			if(item.isRetorno()){
+				totalValor = verificaHorarioRetorno(item);
+			}else{
+				totalValor = verificaHorarioDiaria(item);
+			}
+			
 		}
 		return totalValor;
 	}

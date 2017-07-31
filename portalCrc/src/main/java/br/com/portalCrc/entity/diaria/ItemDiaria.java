@@ -105,6 +105,9 @@ public class ItemDiaria {
 	@Column(name="analizado")
 	private boolean analizado;
 	
+	@Column(name="retorno")
+	private boolean retorno = false;
+	
 	@ManyToOne
 	@JoinColumn(name="id_usuario_cadastro")
 	private Usuario usuarioCadastro;
@@ -289,6 +292,13 @@ public class ItemDiaria {
 	public void setTipo(TipoDiariaEnum tipo) {
 		this.tipo = tipo;
 	}
-	
-	
+
+	public boolean isRetorno() {
+		return retorno;
+	}
+
+	public void setRetorno(boolean retorno) {
+		this.retorno = retorno;
+	}
+		
 }
