@@ -109,8 +109,8 @@
 				<td >{{ item.horaChegada | date : 'HH:mm'}}</td>				
 				<td >{{ item.valorDiaria | currency }}</td>				
 				<!-- <td >{{ item.usuarioCadastro.funcionario.pessoa.nomeCompleto | limitTo:10 }}</td> -->	
-				<td permission="['DIARIA_FINANCAS_UNIDADE' , 'ADMIN']" ng-if="!item.analizado"><button ng-click="ctrl.analizado(item.id)" class="btn btn-primary">Analizar</button></td>			
-				<td ng-if="item.analizado"><button disabled class="btn btn-success">Analizado</button></td>
+				<td permission="['DIARIA_FINANCAS_UNIDADE' , 'ADMIN']" ng-if="!item.analizado"><button ng-click="ctrl.analizado(item.id)" class="btn btn-primary">Analisar</button></td>			
+				<td ng-if="item.analizado"><button disabled class="btn btn-success">Analisado</button></td>
 
 			</tr>			
 		</tbody>

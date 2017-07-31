@@ -10,8 +10,8 @@
 			</div>
 			<div class="col-sm-2">
 				<div class="pull-left image">
-				<img ng-src="{{ctrl.usuario.caminhoFoto ? ctrl.usuario.caminhoFoto : '../../../../public/img/avatar_2x.png' }}"
-					alt="User Image">
+				<img ng-src="/rest/usuario/{{ctrl.usuario.id}}/foto"
+				  class="img-circle" alt="User Image">
 			</div>
 			</div>
 			<div class="col-xs-4">

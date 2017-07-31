@@ -107,6 +107,16 @@ app.factory('ItemDiariaService', function($q, $http){
 			});
 		},
 		
+		buscarPorIdFuncionarioPorConta: function(idDiaria , idFuncionario){
+			return $http.get('/rest/diaria/funcionario/conta/'+idFuncionario+'/diaria/' +idDiaria)
+			.then(function(response){
+				return response.data;
+			},function(errResponse){
+				return $q.reject(errResponse);
+			});
+		},
+		
+		
 		analizado: function(idItem){
 			return $http.post('/rest/diaria/item/'+idItem+'/analizado')
 			.then(function(response){

@@ -38,7 +38,7 @@ function ItemDiariaCadastrarController($localStorage, $state, ItemDiariaService,
 	
 	
 	self.buscarValoresDiariaPorIndice = buscarValoresDiariaPorIndice;
-	buscarFuncionario($localStorage.idFuncionario);
+	buscarFuncionarioDiaria($localStorage.idFuncionario);
 	
 	
 	
@@ -75,7 +75,7 @@ function ItemDiariaCadastrarController($localStorage, $state, ItemDiariaService,
 		ItemDiariaService.salvar(self.itemDiaria).then(
 				function(response) {
 					buscarItensDiariaPorFuncionarioDiaria(self.funcionario.id);
-					buscarFuncionarioDiaria(self.funcionario.contaFuncionario.id);
+					buscarFuncionarioDiaria($localStorage.idFuncionario);
 					toastr.info("Salvo com Sucesso!!!");
 					self.itemDiaria.meioTransporteRetorno = {placa : self.itemDiaria.meioTransporteRetorno};
 					self.itemDiaria.meioTransporteSaida = {placa : self.itemDiaria.meioTransporteSaida};
@@ -112,7 +112,7 @@ function ItemDiariaCadastrarController($localStorage, $state, ItemDiariaService,
 	function buscarFuncionario(id) {
 		FuncionarioContaDiariaService.buscarPorIdFuncionario(id).then(
 				function(f) {					
-					buscarFuncionarioDiaria(f.id);
+					buscarFuncionarioDiariaPorConta(f.id);
 					buscarValoresDiariaPorIndice(f.indiceUfesp, $localStorage.idDiaria);
 				}, function(errResponse) {
 					var idFuncionario = $localStorage.idFuncionario;
@@ -136,8 +136,8 @@ function ItemDiariaCadastrarController($localStorage, $state, ItemDiariaService,
 				});
 	};
 	
-	function buscarFuncionarioDiaria(id) {
-		ItemDiariaService.buscarPorIdFuncionario($localStorage.idDiaria, id).then(
+	function buscarFuncionarioDiariaPorConta(id) {
+		ItemDiariaService.buscarFuncionarioDiariaPorConta($localStorage.idDiaria, id).then(
 				function(f) {
 					self.funcionario = f;
 					self.coordenadoria = self.funcionario.contaFuncionario.funcionario.unidadeAtual.coordenadoria;
@@ -160,6 +160,31 @@ function ItemDiariaCadastrarController($localStorage, $state, ItemDiariaService,
 				});
 	};
 		
+	function buscarFuncionarioDiaria(id) {
+		ItemDiariaService.buscarPorIdFuncionario($localStorage.idDiaria, id).then(
+				function(f) {
+					self.funcionario = f;
+					self.coordenadoria = self.funcionario.contaFuncionario.funcionario.unidadeAtual.coordenadoria;
+					self.tipo = self.funcionario.contaFuncionario.funcionario.unidadeAtual.tipoUnidade;
+					self.unidade = self.funcionario.contaFuncionario.funcionario.unidadeAtual;
+					buscarUnidades(self.tipo.id);
+					buscarVeiculos(self.unidade.id);
+					buscarItensDiariaPorFuncionarioDiaria(f.id);		
+					buscarValoresDiariaPorIndice(f.contaFuncionario.indiceUfesp, $localStorage.idDiaria);
+				}, function(errResponse) {
+					var idDiaria	= $localStorage.idDiaria;	
+					var idFuncionario = $localStorage.idFuncionario;
+					$state.go('item.cadastrarFuncionario', {idDiaria , idFuncionario});
+					sweetAlert({
+						text : errResponse.data.message,
+						type : "info",
+						width : 300,
+						higth : 300,
+						padding : 20
+					});
+				});
+	};
+	
 	function buscarItensDiariaPorFuncionarioDiaria(id) {
 		ItemDiariaService.buscarItensDiariaPorFuncionarioDiaria(id).then(
 				function(f) {
@@ -263,7 +288,7 @@ function ItemDiariaCadastrarController($localStorage, $state, ItemDiariaService,
 			confirmButtonText : 'Excluir'
 		}).then(function() {
 			ItemDiariaService.excluir(objeto.id).then(function(response) {
-				buscarFuncionarioDiaria(self.funcionario.contaFuncionario.id);
+				buscarFuncionarioDiaria($localStorage.idFuncionario);
 			}, function(errResponse) {
 			});
 
@@ -762,7 +787,7 @@ function ItemDiariaShowController($stateParams, $state, ItemDiariaService,
 	function analizado(idItem) {
 		ItemDiariaService.analizado(idItem).then(
 				function(f) {		
-					toastr.success("analizado!");
+					toastr.success("analisado!");
 					itensPorFuncionarioDiariaETipo(idFuncionario, self.tipo)
 				}, function(errResponse) {				
 				});
@@ -784,36 +809,19 @@ function ItemDiariaUsuarioController($stateParams, $state, ItemDiariaService, to
 	var self = this;
 	var idFuncionario = $rootScope.usuario.funcionario.id;
 	var idDiaria = $stateParams.idDiaria;
-	
-	buscarFuncionario(idFuncionario);
+	self.itensPorFuncionarioDiariaETipo = itensPorFuncionarioDiariaETipo;
+	buscarFuncionarioDiaria(idFuncionario);
 	
 	tipos();
 	
-	self.tipo = 'ADMINISTRATIVO';
-	
-	function buscarFuncionario(id) {
-		FuncionarioContaDiariaService.buscarPorIdFuncionario(id).then(
-				function(f) {					
-					buscarFuncionarioDiaria(f.id);
-				}, function(errResponse) {
-					$state.go('funcionarioContaDiaria.cadastrar', {idFuncionario});
-					sweetAlert({
-						text : errResponse.data.message,
-						type : "info",
-						width : 300,
-						higth : 300,
-						padding : 20
-					});
-				});
-	};
+	self.tipo = 'ADMINISTRATIVO';	
 	
 	function buscarFuncionarioDiaria(id) {
 		ItemDiariaService.buscarPorIdFuncionario(idDiaria, id).then(
 				function(f) {
 					$scope.funcionario = f;				
-					buscarItensDiariaPorFuncionarioDiaria(f.id);
+					itensPorFuncionarioDiariaETipo(f.id, self.tipo);
 				}, function(errResponse) {
-					$state.go('item.cadastrarFuncionario', {idDiaria});
 					sweetAlert({
 						text : errResponse.data.message,
 						type : "info",
@@ -824,10 +832,17 @@ function ItemDiariaUsuarioController($stateParams, $state, ItemDiariaService, to
 				});
 	};
 		
-	function buscarItensDiariaPorFuncionarioDiaria(id) {
-		ItemDiariaService.buscarItensDiariaPorFuncionarioDiaria(id).then(
+	function itensPorFuncionarioDiariaETipo(id, tipo) {
+		ItemDiariaService.itensPorFuncionarioDiariaETipo(id, tipo).then(
 				function(f) {
-					$scope.itens = f;
+					$scope.itens = f;					
+					$scope.valorTotal = 0;					
+					for(i = 0 ; i < $scope.itens.length ; i++){
+						$scope.funcionario = $scope.itens[i].funcionarioDiaria;						
+						var soma;
+						soma = parseFloat($scope.itens[i].valorDiaria);
+						$scope.valorTotal += parseFloat(soma);
+					}
 				}, function(errResponse) {				
 				});
 	};

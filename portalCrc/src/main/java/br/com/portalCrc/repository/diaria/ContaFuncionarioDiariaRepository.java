@@ -23,5 +23,7 @@ public interface ContaFuncionarioDiariaRepository  extends JpaRepository<ContaFu
 
 	ContaFuncionarioDiaria findByFuncionario_idAndStatus(Long id, boolean status);
 
+	List<ContaFuncionarioDiaria> findByFuncionario_id(Long id);
+
 	
 }

@@ -21,7 +21,6 @@ import org.springframework.web.util.UriComponentsBuilder;
 import br.com.portalCrc.entity.diaria.ContaFuncionarioDiaria;
 import br.com.portalCrc.enums.diaria.IndiceUfespEnum;
 import br.com.portalCrc.enums.diaria.LimitePorcentagemSalarioEnum;
-import br.com.portalCrc.enums.diaria.MesDiariaEnum;
 import br.com.portalCrc.service.diaria.ContaFuncionarioDiariaService;
 
 @RestController
@@ -33,14 +32,14 @@ public class ContaFuncionarioDiariaRestController {
 	
 	@PostMapping
 	 public ResponseEntity<ContaFuncionarioDiaria> salvar(@RequestBody ContaFuncionarioDiaria contaFuncionarioDiaria, UriComponentsBuilder ucBuilder){
-		contaFuncionarioDiariaService.salvaOuAltera(contaFuncionarioDiaria);
+		contaFuncionarioDiariaService.salvar(contaFuncionarioDiaria);
 		 HttpHeaders headers =new HttpHeaders();
 		 return new ResponseEntity<ContaFuncionarioDiaria>(headers, HttpStatus.CREATED);
 	 }
 		
 	@PutMapping
 	public ResponseEntity<ContaFuncionarioDiaria> alterar(@RequestBody ContaFuncionarioDiaria contaFuncionarioDiaria, UriComponentsBuilder ucBuilder){
-		contaFuncionarioDiariaService.salvaOuAltera(contaFuncionarioDiaria);
+		contaFuncionarioDiariaService.altera(contaFuncionarioDiaria);
 		HttpHeaders http =  new HttpHeaders();
 		return new ResponseEntity<>(http , HttpStatus.CREATED);		
 	}

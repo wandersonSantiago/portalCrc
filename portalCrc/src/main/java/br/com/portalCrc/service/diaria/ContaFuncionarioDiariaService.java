@@ -24,7 +24,7 @@ public class ContaFuncionarioDiariaService {
 	
 	
 	@Transactional(readOnly = false)
-	public void salvaOuAltera(ContaFuncionarioDiaria contaFuncionarioDiaria){	
+	public void salvar(ContaFuncionarioDiaria contaFuncionarioDiaria){	
 		existe = contaFuncionarioDiariaRepository.findByFuncionario_idAndStatus(contaFuncionarioDiaria.getFuncionario().getId(), true);
 		if(existe != null){
 			existe.setStatus(false);
@@ -37,11 +37,11 @@ public class ContaFuncionarioDiariaService {
 
 	}
 	
-/*	@Transactional(readOnly = false)
+	@Transactional(readOnly = false)
 	public void altera(ContaFuncionarioDiaria contaFuncionarioDiaria){
 			contaFuncionarioDiariaRepository.save(contaFuncionarioDiaria);
 		
-	}*/
+	}
 	
 	public ContaFuncionarioDiaria buscaPorId(Long id){
 		return contaFuncionarioDiariaRepository.findOne(id);

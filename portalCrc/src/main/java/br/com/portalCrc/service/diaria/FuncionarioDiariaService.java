@@ -28,8 +28,8 @@ public class FuncionarioDiariaService {
 
 	@Autowired
 	private ValoresDiariaLocalidadeRepository valoresDiaraRepository;
-
 	
+		
 	@Transactional(readOnly = false)
 	public void salvaOuAltera(FuncionarioDiaria funcionarioDiaria) {
 		Usuario usuario = SessionUsuario.getInstance().getUsuario();
@@ -38,16 +38,16 @@ public class FuncionarioDiariaService {
 		funcionarioDiaria.setUnidade(usuario.getFuncionario().getUnidadeAtual());
 		funcionarioDiaria.setUsuarioCadastro(SessionUsuario.getInstance().getUsuario());
 		funcionarioDiaria.setCargo(usuario.getFuncionario().getCargoAtual());
+		funcionarioDiaria.setSetor(usuario.getFuncionario().getSetorAtual());
 
 		funcionarioDiaria.setTotalValorDiaria(total);
 		if (funcionarioDiaria.getDiaria().getStatus() == StatusDiariaEnum.ABERTO) {
-			funcionarioDiariaRepository.save(funcionarioDiaria);
+			funcionarioDiariaRepository.save(funcionarioDiaria);			
 		} else {
 			throw new MensagemException("Não foi possivel realizar este lançamento, Este mês esta encerrado!!!");
 		}
-
 	}
-
+	
 	@Transactional(readOnly = false)
 	public void altera(FuncionarioDiaria funcionarioDiaria) {
 		if (funcionarioDiaria.getDiaria().getStatus() == StatusDiariaEnum.ABERTO) {
@@ -112,7 +112,7 @@ public class FuncionarioDiariaService {
 				SessionUsuario.getInstance().getUsuario().getFuncionario().getUnidadeAtual().getId(), id);
 	}
 
-	public FuncionarioDiaria findByUnidade_idAndFuncionario_idAndDiaria_id(Long idFuncionario, Long idDiaria) {
+	public FuncionarioDiaria findByUnidade_idAndContaFuncionario_idAndDiaria_id(Long idFuncionario, Long idDiaria) {
 		FuncionarioDiaria funcionario = funcionarioDiariaRepository.findByUnidade_idAndContaFuncionario_idAndDiaria_id(
 				SessionUsuario.getInstance().getUsuario().getFuncionario().getUnidadeAtual().getId(), idFuncionario,
 				idDiaria);
@@ -132,6 +132,17 @@ public class FuncionarioDiariaService {
 		}
 
 		return list;
+	}
+
+	public FuncionarioDiaria findByUnidade_idAndContaFuncionarioFuncionario_idAndDiaria_id(Long idFuncionario,
+			Long idDiaria) {
+		FuncionarioDiaria funcionario = funcionarioDiariaRepository.findByUnidade_idAndContaFuncionario_funcionario_idAndDiaria_id(
+				SessionUsuario.getInstance().getUsuario().getFuncionario().getUnidadeAtual().getId(), idFuncionario,
+				idDiaria);
+		if (funcionario == null) {
+			throw new MensagemException("Favor Conferir os Dados!!!");
+		}
+		return funcionario;
 	}
 
 }
