@@ -25,6 +25,7 @@ function ItemDiariaCadastrarController($localStorage, $state, ItemDiariaService,
 	tipos();
 	$scope.botao = "Salvar";
 	$scope.localDeslocamentos = [];
+	$scope.retorno = false;
 	
 	if($stateParams.idDiaria){
 		$localStorage.idDiaria = $stateParams.idDiaria;
@@ -274,8 +275,7 @@ function ItemDiariaCadastrarController($localStorage, $state, ItemDiariaService,
 				higth : 300,
 				padding : 20
 			});
-		}
-			
+		}			
 	}
 	function excluir(objeto) {
 		swal({

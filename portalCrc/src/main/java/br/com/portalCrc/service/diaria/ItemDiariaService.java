@@ -92,9 +92,17 @@ public class ItemDiariaService {
 		maximoDiaria = salario.multiply(porcentagem).divide(divisor);
 		
 		if(valorTotalDiaria.compareTo(maximoDiaria) == 1){
-			glosada = valorTotalDiaria.subtract(maximoDiaria);
+			if(funcionarioDiaria.getGlosada() != null){
+				glosada = glosada.add(funcionarioDiaria.getGlosada());
+				
+				glosada = glosada.add(valorTotalDiaria.subtract(maximoDiaria));   
+			}else{
+				glosada = valorTotalDiaria.subtract(maximoDiaria);
+			}			
 			funcionarioDiaria.setGlosada(glosada);
 			funcionarioDiaria.setTotalValorDiaria(maximoDiaria);
+			
+			
 		}else{
 			funcionarioDiaria.setTotalValorDiaria(valorTotalDiaria);
 		}	
