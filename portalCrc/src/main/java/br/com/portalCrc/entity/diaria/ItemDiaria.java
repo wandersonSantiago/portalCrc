@@ -26,6 +26,7 @@ import br.com.portalCrc.entity.Cidade;
 import br.com.portalCrc.entity.Estado;
 import br.com.portalCrc.entity.Usuario;
 import br.com.portalCrc.enums.diaria.TipoDiariaEnum;
+import br.com.portalCrc.util.ConverteTextoUpperCase;
 
 @Entity
 @SequenceGenerator(name = "item_diaria_id_seq", sequenceName = "item_diaria_id_seq", schema="diaria", initialValue = 1, allocationSize = 1)
@@ -135,7 +136,7 @@ public class ItemDiaria {
 	}
 
 	public void setMotivo(String motivo) {
-		this.motivo = motivo;
+		this.motivo = ConverteTextoUpperCase.converte(motivo);
 	}
 
 
@@ -218,7 +219,7 @@ public class ItemDiaria {
 	}
 
 	public void setObservacaoPassagem(String observacaoPassagem) {
-		this.observacaoPassagem = observacaoPassagem;
+		this.observacaoPassagem = ConverteTextoUpperCase.converte(observacaoPassagem);
 	}
 
 	public Date getDataSaida() {

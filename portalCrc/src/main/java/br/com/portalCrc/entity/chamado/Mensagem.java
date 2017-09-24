@@ -15,6 +15,7 @@ import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import br.com.portalCrc.entity.Usuario;
+import br.com.portalCrc.util.ConverteTextoUpperCase;
 
 @Entity
 @SequenceGenerator(name = "mensagem_id_seq", sequenceName = "mensagem_id_seq", schema="chamado", initialValue = 1, allocationSize = 1)
@@ -50,7 +51,7 @@ public class Mensagem {
 		return texto;
 	}
 	public void setTexto(String texto) {
-		this.texto = texto;
+		this.texto = ConverteTextoUpperCase.converte(texto);
 	}
 	public Date getData() {
 		return data;
