@@ -16,6 +16,7 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import br.com.portalCrc.enums.EstadoCivilEnum;
+import br.com.portalCrc.util.ConverteTextoUpperCase;
 
 
 @Entity
@@ -33,7 +34,7 @@ public class Pessoa  {
 	private String rg;
 	@Column(nullable = false, length = 20 , unique = true)
 	private String cpf;
-	@Column(nullable = false, length = 15)
+	@Column(nullable = true, length = 15)
 	private String telefoneFixo;
 	@Column(nullable = false, length = 15)
 	private String telefoneCelular;
@@ -54,7 +55,7 @@ public class Pessoa  {
 	}
 
 	public void setNomeCompleto(String nomeCompleto) {
-		this.nomeCompleto = nomeCompleto;
+		this.nomeCompleto = ConverteTextoUpperCase.converte(nomeCompleto);
 	}
 	
 	public String getRg() {

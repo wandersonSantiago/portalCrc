@@ -14,6 +14,8 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import br.com.portalCrc.util.ConverteTextoUpperCase;
+
 @Entity
 @SequenceGenerator(name = "cargo_id_seq", sequenceName = "cargo_id_seq", schema="principal", initialValue = 1, allocationSize = 1)
 @Table(name="cargo", schema="principal")
@@ -44,7 +46,7 @@ public class Cargo  {
 	}
 
 	public void setDescricao(String descricao) {
-		this.descricao = descricao;
+		this.descricao =  ConverteTextoUpperCase.converte(descricao);
 	}
 
 	public Long getId() {

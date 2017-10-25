@@ -15,6 +15,8 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import br.com.portalCrc.util.ConverteTextoUpperCase;
+
 
 
 @Entity
@@ -51,7 +53,7 @@ public class Coordenadoria{
 	}
 
 	public void setNome(String nome) {
-		this.nome = nome.toUpperCase();
+		this.nome =  ConverteTextoUpperCase.converte(nome);
 	}
 
 	public String getMnemonico() {

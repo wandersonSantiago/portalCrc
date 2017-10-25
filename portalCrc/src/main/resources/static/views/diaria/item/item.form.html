@@ -2,14 +2,14 @@
 <div class="col-sm-12 ">
 	<form role="form-vertical" name="formDiaria" ng-submit="ctrl.submit()">
 		<div class="row ">
-			<div class="btn btn-success btn-flat col-sm-4 ">
+			<div class="btn btn-default btn-flat col-sm-4 ">
 				Nome:{{ctrl.funcionario.contaFuncionario.funcionario.pessoa.nomeCompleto}}
 			</div>
-			<div class="btn btn-primary btn-flat col-sm-2 ">
+			<div class="btn btn-default btn-flat col-sm-2 ">
 				Salário:{{ctrl.funcionario.contaFuncionario.salarioAtual | currency}}</div>			
-			<div class="btn btn-success btn-flat col-sm-2 ">
+			<div class="btn btn-default btn-flat col-sm-2 ">
 				Limite:{{ctrl.funcionario.contaFuncionario.limiteCemPorCento * ctrl.funcionario.contaFuncionario.salarioAtual / 100 | currency}}</div>			
-			<div class="btn btn-info btn-flat col-sm-2 ">
+			<div class="btn btn-default btn-flat col-sm-2 ">
 				Total:{{ctrl.funcionario.totalValorDiaria | currency}}</div>
 				
 				<div ng-show="ctrl.funcionario.glosada" class="btn btn-danger btn-flat col-sm-2">

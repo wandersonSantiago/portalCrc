@@ -11,6 +11,8 @@ import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import br.com.portalCrc.util.ConverteTextoUpperCase;
+
 
 @Entity
 @SequenceGenerator(name = "dadosUnidades_id_seq", sequenceName = "dadosUnidades_id_seq", schema="principal", initialValue = 1, allocationSize = 1)
@@ -39,7 +41,7 @@ public class DadosUnidade {
 		return nome;
 	}
 	public void setNome(String nome) {
-		this.nome = nome.toUpperCase();
+		this.nome =  ConverteTextoUpperCase.converte(nome);
 	}
 
 	public String getMnemonico() {

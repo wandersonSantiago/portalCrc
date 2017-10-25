@@ -14,6 +14,8 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import br.com.portalCrc.util.ConverteTextoUpperCase;
+
 
 @Entity
 @SequenceGenerator(name = "secretaria_id_seq", sequenceName = "secretaria_id_seq", schema="principal", initialValue = 1, allocationSize = 1)
@@ -38,7 +40,7 @@ public class Secretaria {
 		return nome;
 	}
 	public void setNome(String nome) {
-		this.nome = nome.toUpperCase();
+		this.nome =  ConverteTextoUpperCase.converte(nome);
 	}
 	public String getMnemonico() {
 		return mnemonico;
