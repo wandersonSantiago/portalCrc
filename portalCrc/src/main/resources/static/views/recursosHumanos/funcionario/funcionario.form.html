@@ -51,14 +51,14 @@
 			<div class="col-sm-3">
 				Telefone: <input class="form-control" placeholder="Telefone Fixo"
 					ng-model="cadFuncCtrl.funcionario.pessoa.telefoneFixo"
-					id="telefoneFixo" type="tel" ui-br-phone-number required>
+					id="telefoneFixo" type="tel" ui-br-phone-number >
 			</div>
 
 			<div class="col-sm-3">
 				Celular: <input class="form-control"
 					ng-model="cadFuncCtrl.funcionario.pessoa.telefoneCelular"
 					placeholder="Celular" id="telefoneCelular" type="tel"
-					ui-br-phone-number required>
+					ui-br-phone-number >
 			</div>
 			<div class="col-sm-3">
 				Sexo: <select class="form-control select2"
@@ -108,7 +108,7 @@
 					name="cepField" type="text" placeholder="CEP"
 					ng-blur="cadFuncCtrl.findCep()"
 					onkeyup="if(this.value.length > 8) { numero.focus(); }"
-					ui-br-cep-mask required>
+					ui-br-cep-mask >
 
 				<p ng-show="formCadastrarFuncionario.cepField.$error.cep"
 					class="alert alert-warning ">Digite um CEP Válido</p>
@@ -120,12 +120,12 @@
 			<div class="col-sm-5">
 				Rua: <input class="form-control" placeholder="Rua"
 					ng-model="cadFuncCtrl.funcionario.pessoa.endereco.logradouro"
-					id="rua" type="text" maxlength="50" required>
+					id="rua" type="text" maxlength="50" >
 			</div>
 			<div class="col-sm-2">
 				Numero: <input class="form-control" name="numero" placeholder="N°"
 					ng-model="cadFuncCtrl.funcionario.pessoa.endereco.numero"
-					id="numero" type="text" required>
+					id="numero" type="text" >
 			</div>
 			<div class="col-sm-5">
 				Complemento: <input class="form-control" placeholder="Complemento"
@@ -138,18 +138,18 @@
 			<div class="col-sm-5">
 				Bairro: <input class="form-control" placeholder="Bairro"
 					ng-model="cadFuncCtrl.funcionario.pessoa.endereco.bairro"
-					id="bairro" type="text" maxlength="50" required>
+					id="bairro" type="text" maxlength="50" >
 
 			</div>
 			<div class="col-sm-5">
 				Cidade: <input class="form-control" placeholder="Cidade"
 					ng-model="cadFuncCtrl.funcionario.pessoa.endereco.localidade"
-					id="cidade" type="text" maxlength="50" required>
+					id="cidade" type="text" maxlength="50" >
 			</div>
 			<div class="col-sm-2">
 				Estado: <input class="form-control" placeholder="Estado"
 					ng-model="cadFuncCtrl.funcionario.pessoa.endereco.uf" id="estado"
-					type="text" maxlength="50" required>
+					type="text" maxlength="50" >
 			</div>
 
 		</div>
@@ -158,7 +158,7 @@
 			<div class="col-sm-5">
 				E-Mail: <input class="form-control" placeholder="E-Mail"
 					ng-model="cadFuncCtrl.funcionario.pessoa.email" id="rua"
-					type="email" maxlength="50" required>
+					type="email" maxlength="50" >
 			</div>
 		</div>
 		<br>

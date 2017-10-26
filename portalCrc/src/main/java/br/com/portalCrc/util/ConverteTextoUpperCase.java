@@ -1,17 +1,15 @@
 package br.com.portalCrc.util;
 
+import org.apache.commons.lang.WordUtils;
+
 public class ConverteTextoUpperCase {
 	
 	public static String converte(String texto){
-		String auxiliar = "";
+		
 		try {			
-			for(int i = 0; i < texto.length(); ++i){
-                if( texto.substring(i, i+1).equals(" "))
-                	auxiliar += texto.substring(i+1, i+2).toUpperCase();
-                else
-                	auxiliar += texto.substring(i+1, i+2).toLowerCase();      
-                }
-			texto = texto.replace("De", "de").replaceAll("Da", "da").replaceAll("Do", "do");
+			texto = texto.toLowerCase();
+			texto  = WordUtils.capitalize(texto);
+			texto = texto.replace("De", "de").replaceAll("Da", "da").replaceAll("Do", "do").replaceAll("Um", "um");
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
