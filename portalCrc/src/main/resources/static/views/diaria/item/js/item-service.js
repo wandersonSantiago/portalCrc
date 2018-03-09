@@ -144,6 +144,14 @@ app.factory('ItemDiariaService', function($q, $http){
 			});
 		},
 		
+		imprimir :function(id){
+			return $http.get("/rest/diaria/relatorio/"+id+"/imprimir", {responseType: 'arraybuffer'})
+			.then(function(response){
+				return response.data;
+			},function(errResponse){
+			return $q.reject(errResponse);
+			});
+		},
 		
 	}
 });

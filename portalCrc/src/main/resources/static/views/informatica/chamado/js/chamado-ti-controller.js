@@ -9,7 +9,7 @@ app.controller("ChamadoTiAbertoController", ChamadoTiAbertoController);
 
 
 
-function ChamadoTiCadastrarController( ChamadoTiService, toastr, $rootScope, $scope, TemaService , SistemaService, ModuloService){
+function ChamadoTiCadastrarController( $q, ChamadoTiService, toastr, $rootScope, $scope, TemaService , SistemaService, ModuloService){
 	var self = this;
 	self.submit = submit;
 	self.buscarTema = buscarTema;
@@ -26,10 +26,13 @@ function ChamadoTiCadastrarController( ChamadoTiService, toastr, $rootScope, $sc
 				self.chamadoTi = null;
 				$scope.texto = null;
 				toastr.success("Salvo com Sucesso!!!");
+				 sincronizar();
 				}, function(errResponse){
 					sweetAlert({ timer : 3000,  text : errResponse.data.message,  type : "info", width: 300, higth: 300, padding: 20});
 			});
 		}
+	
+	
 	
 	 function prioridade(){
 		 ChamadoTiService.prioridade().
@@ -85,6 +88,73 @@ function ChamadoTiCadastrarController( ChamadoTiService, toastr, $rootScope, $sc
 							sweetAlert({ timer : 3000,  text : errResponse.data.message,  type : "error", width: 300, higth: 300, padding: 20});
 					});
 				};
+				
+				// inicializa Socket do chamdo
+				var stompClient, listener = $q.defer();
+				
+				 function sincPromise(){return listener.promise;}
+				 
+				 
+				 sincPromise().then(null, null, function(message) {				
+					 
+					 for(i = 0 ; i < $rootScope.usuario.permissoes.length ; i++){        		
+			        		 if($rootScope.permissao[i] == "CHAMADO_INFORMATICA_TECNICO"){
+								 self.enableAutoplay(); 
+								 $rootScope.mensagem = message.result;
+								 $rootScope.qtdChamadosSuporteTi = message.valor;
+								 sweetAlert({text : $rootScope.mensagem,  type : "info", width: 300, higth: 300, padding: 20});
+							 }
+			        	}
+					 
+					
+					 
+				 });
+			    
+			    function showResult(message) {
+			        var response = document.getElementById('calResponse');
+			        var p = document.createElement('p');
+			        p.style.wordWrap = 'break-word';
+			        p.appendChild(document.createTextNode(message));
+			        response.appendChild(p);
+			    }
+			    function connect() {
+			        var socket = new SockJS('/add');
+					 stompClient = Stomp.over(socket);
+			        stompClient.connect({}, function(frame) {
+			            console.log('Connected: ' + frame);
+			            stompClient.subscribe('/topic/showResult', function(calResult){
+			           	 listener.notify(JSON.parse(calResult.body));
+			            });
+			        });
+			    }
+			    
+			    connect();
+			    
+			    sincronizar = function(){
+			   	 stompClient.send("/calcApp/add", {}, {});
+			    };
+			    
+				/*  function disconnect() {
+				      stompClient.disconnect();
+				      console.log("Disconnected");
+				  }
+				
+			    $scope.$on('$destroy',function(event){
+			   	 disconnect();
+			   	 
+			    });     */
+			     
+			    //finaliza socket do chamado
+			    
+			    //inicializa para verificação de audio
+				var vid = document.getElementById("myAudio");			
+			
+					self.enableAutoplay = function() { 
+					    vid.autoplay = true;
+					    vid.load();
+					    
+					}	
+					//finaliza para verificação de audio
 	
 }
 function ChamadoTiListarController( ChamadoTiService, $rootScope){

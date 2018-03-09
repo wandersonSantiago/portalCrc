@@ -1,10 +1,17 @@
 <meta charset="UTF-8">
-<header class="main-header navbar-fixed-top">		  
-		    <a ui-sref="home.menu" class="logo">    
+<script type="text/javascript">
+	function sendNum() {
+		var num1 = document.getElementById('num1').value;
+		var num2 = document.getElementById('num2').value;
+		stompClient.send("/calcApp/add", {}, {});
+	}
+</script>
+<header class="main-header navbar-fixed-top" ng-controller="HomeListarController as ctrl">		  
+		    <a ui-sref="home.menu"class="logo navbar-fixed-top">    
 		      <span class="logo-mini"><b>C</b>RC</span>      
 		      <span class="logo-lg"><b>Portal</b>CRC</span>
 		    </a>		    
-		    <nav class="navbar navbar-static-top" role="navigation">      
+		    <nav class="navbar  navbar-fixed-top" role="navigation">      
 		      <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
 		        <span class="sr-only">Toggle navigation</span>
 		      </a>

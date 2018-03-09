@@ -554,7 +554,7 @@ function ItemDiariaEditarController($state, ItemDiariaService, $stateParams,
 	
 }
 function ItemDiariaUnidadeListController($filter, $stateParams, $state, ItemDiariaService,
-		toastr, $rootScope, $scope) {
+		toastr, $rootScope, $scope, blockUI) {
 	var self = this;
 	var idDiaria = $stateParams.idDiaria;
 	$scope.listaDiariaExcel = [];
@@ -619,6 +619,8 @@ function ItemDiariaUnidadeListController($filter, $stateParams, $state, ItemDiar
 			valorPassagem: valorPassagem
 		});
 	};
+	
+
 }
 
 
@@ -757,7 +759,7 @@ function ItemDiariaSecretariaListController($filter, $stateParams, $state, ItemD
 
 
 function ItemDiariaShowController($stateParams, $state, ItemDiariaService,
-		toastr, $rootScope, $scope) {
+		toastr, $rootScope, $scope, blockUI) {
 	var self = this;
 	var idFuncionario = $stateParams.idFuncionarioDiaria;
 	self.analizado = analizado;
@@ -812,10 +814,26 @@ function ItemDiariaShowController($stateParams, $state, ItemDiariaService,
 				});
 	};
 	
+self.imprimir = imprimir;
+	
+	
+	function imprimir(id){
+		blockUI.start();
+		ItemDiariaService.imprimir(id)
+   	 .then(function(d){
+   		var file = new Blob([d],{type: 'application/pdf'});
+   		var fileURL = URL.createObjectURL(file);
+   		blockUI.stop();
+   	    window.open(fileURL);
+   	 	 },function(errResponse){	
+   	 		blockUI.stop();
+				 swal({ timer : 3000, text : errResponse.data ,  type : "error", width: 200, higth: 100, padding: 20}).catch(swal.noop);
+		 	});
+	}
 	
 }
 
-function ItemDiariaUsuarioController($stateParams, $state, ItemDiariaService, toastr, $rootScope, $scope, FuncionarioContaDiariaService) {
+function ItemDiariaUsuarioController($stateParams, $state, ItemDiariaService, toastr, $rootScope, $scope, FuncionarioContaDiariaService, blockUI) {
 	var self = this;
 	var idFuncionario = $rootScope.usuario.funcionario.id;
 	var idDiaria = $stateParams.idDiaria;
@@ -865,4 +883,22 @@ function ItemDiariaUsuarioController($stateParams, $state, ItemDiariaService, to
 					
 				});
 	};
+	
+self.imprimir = imprimir;
+	
+	
+	function imprimir(id){
+		blockUI.start();
+		ItemDiariaService.imprimir(id)
+   	 .then(function(d){
+   		var file = new Blob([d],{type: 'application/pdf'});
+   		var fileURL = URL.createObjectURL(file);
+   		blockUI.stop();
+   	    window.open(fileURL);
+   	 	 },function(errResponse){	
+   	 		blockUI.stop();
+				 swal({ timer : 3000, text : errResponse.data ,  type : "error", width: 200, higth: 100, padding: 20}).catch(swal.noop);
+		 	});
+	}
+	
 }

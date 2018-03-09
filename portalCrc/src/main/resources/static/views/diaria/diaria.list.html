@@ -45,12 +45,12 @@
 			ui-sref="funcionarioDiaria.unidade({idDiaria : diaria.id})">Conferir<i
 			class="glyphicon glyphicon-list-alt"></i>
 		</a>
-		<a permission="['DIARIA_FINANCAS_COORDENADORIA' , 'ADMIN']"
+		<a permission="['DIARIA_FINANCAS_COORDENADORIA' , 'ADMIN']" ng-if="usuario.funcionario.unidadeAtual.tipoUnidade.descricao == 'COORDENADORIA'"
 			class="btn btn-info btn-flat" title="Visualizar diaria dos Servidores da Coordenadoria"
 			ui-sref="funcionarioDiaria.coordenadoria({idDiaria : diaria.id})">Visualizar<i
 			class="glyphicon glyphicon-list-alt"></i>
 		</a> 
-		<a permission="['DIARIA_FINANCAS_SECRETARIA' , 'ADMIN']"
+		<a permission="['DIARIA_FINANCAS_SECRETARIA' , 'ADMIN']" ng-if="usuario.funcionario.unidadeAtual.tipoUnidade.descricao == 'SECRETARIA'"
 			class="btn btn-info btn-flat" title="Visualizar diaria dos Servidores da Secretaria"
 			ui-sref="funcionarioDiaria.secretaria({idDiaria : diaria.id})">Visualizar<i
 			class="glyphicon glyphicon-list-alt"></i>

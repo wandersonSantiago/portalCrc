@@ -17,7 +17,7 @@
 <br>
 <div class="row">
 <div  ng-repeat=" diaria in diariaCtrl.listaDiarias | filter : buscar | orderBy : 'id'">
-<div class="col-sm-6"  flex-sm="45" flex-gt-sm="35" flex-gt-md="50" layout-padding layout-wrap layout-fill style="padding-bottom: 32px;" > 
+<div class="col-sm-12"  flex-sm="45" flex-gt-sm="35" flex-gt-md="100" layout-padding layout-wrap layout-fill style="padding-bottom: 32px;" > 
 	
 <div  md-whiteframe="{{height}}" 
 	layout="column" layout-align="center center"
@@ -43,11 +43,11 @@
 			class="btn btn-info btn-flat"  title="Relatório diaria para unidades por item" 
 			ui-sref="item.unidade({idDiaria : diaria.id})">Transp. unidade<i
 			class="glyphicon glyphicon-list-alt"></i></a> 
-			<a permission="['DIARIA_ITEM_COORDENADORIA' , 'ADMIN']"
+			<a permission="['DIARIA_ITEM_COORDENADORIA' , 'ADMIN']" ng-if="usuario.funcionario.unidadeAtual.tipoUnidade.descricao == 'COORDENADORIA'"
 			class="btn btn-info btn-flat" title="Relatório diaria para coordenadorias por item" 
 			ui-sref="item.coordenadoria({idDiaria : diaria.id})">Transp. Coordenadoria<i
 			class="glyphicon glyphicon-list-alt"></i></a> 
-			<a permission="['DIARIA_ITEM_SECRETARIA' , 'ADMIN']"
+			<a permission="['DIARIA_ITEM_SECRETARIA' , 'ADMIN']" ng-if="usuario.funcionario.unidadeAtual.tipoUnidade.descricao == 'SECRETARIA'"
 			class="btn btn-info btn-flat" title="Relatório diaria para secretarias por item"
 			ui-sref="item.secretaria({idDiaria : diaria.id})">Transp. Secretaria<i
 			class="glyphicon glyphicon-list-alt"></i></a>
@@ -56,11 +56,11 @@
 			class="btn btn-info btn-flat"  title="Relatório diaria para unidades por funcionário"
 			ui-sref="funcionarioDiaria.unidade({idDiaria : diaria.id})">Func. Unidade<i
 			class="glyphicon glyphicon-list-alt"></i></a> 
-			<a permission="['DIARIA_FINANCAS_COORDENADORIA' , 'ADMIN']"
+			<a permission="['DIARIA_FINANCAS_COORDENADORIA' , 'ADMIN']" ng-if="usuario.funcionario.unidadeAtual.tipoUnidade.descricao == 'COORDENADORIA'"
 			class="btn btn-info btn-flat" title="Relatório diaria para coordenadorias por funcionário"
 			ui-sref="funcionarioDiaria.coordenadoria({idDiaria : diaria.id})">Func. Coordenadoria<i
 			class="glyphicon glyphicon-list-alt"></i></a> 
-			<a permission="['DIARIA_FINANCAS_SECRETARIA' , 'ADMIN']"
+			<a permission="['DIARIA_FINANCAS_SECRETARIA' , 'ADMIN']" ng-if="usuario.funcionario.unidadeAtual.tipoUnidade.descricao == 'SECRETARIA'"
 			class="btn btn-info btn-flat" title="Relatório diaria para secretarias por funcionário"
 			ui-sref="funcionarioDiaria.secretaria({idDiaria : diaria.id})">Func. Secretaria<i
 			class="glyphicon glyphicon-list-alt"></i></a>		
