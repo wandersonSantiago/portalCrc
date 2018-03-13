@@ -86,8 +86,8 @@
 						     <li permission="['SWITCH' , 'ADMIN']"><a class="top" ui-sref="switch.ativos">lista</a></li>
 						</ul>
 					</li> 
-					<li  class="header">CHAMADOS</li>
-					<li  class="treeview"><a href=""><i class="fa fa-server "></i> <span>Informática</span>
+					<li  permission="['CHAMADO_USUARIO' , 'CHAMADO_INFORMATICA_TECNICO' , 'CHAMADO_MANUTENCAO_TECNICO' , 'ADMIN']" class="header">CHAMADOS</li>
+					<li permission="['CHAMADO_USUARIO' , 'CHAMADO_INFORMATICA_TECNICO' , 'ADMIN']" class="treeview"><a href=""><i class="fa fa-server "></i> <span>Informática</span>
 						<i class="fa fa-angle-left pull-right"></i></a>
 						<ul class="treeview-menu">
 							 <li permission="['CHAMADO_USUARIO' , 'ADMIN']"><a class="top" ui-sref="chamadoTi.cadastrar">cadastrar</a></li>
@@ -96,7 +96,7 @@
 							<li permission="['CHAMADO_INFORMATICA_TECNICO' , 'ADMIN']"><a class="top" ui-sref="chamadoTi.relatorio">Relatório</a></li>
 						</ul>
 					</li> 
-					<li  class="treeview"><a href=""><i class="fa fa-legal"></i> <span>Manutenção</span>
+					<li permission="['CHAMADO_USUARIO' , 'CHAMADO_MANUTENCAO_TECNICO' , 'ADMIN']"  class="treeview"><a href=""><i class="fa fa-legal"></i> <span>Manutenção</span>
 						<i class="fa fa-angle-left pull-right"></i></a>
 						<ul class="treeview-menu">
 					 		<li permission="['CHAMADO_USUARIO' , 'ADMIN']"><a class="top" ui-sref="chamadoManutencao.cadastrar">cadastro</a></li>

@@ -47,9 +47,11 @@ public class Pessoa  {
 	@Enumerated(EnumType.STRING)
 	private EstadoCivilEnum estadaCivil;	
 	@OneToOne(cascade = {CascadeType.MERGE ,CascadeType.PERSIST} )
-	@JoinColumn(name="id_endereco",nullable = false)
+	@JoinColumn(name="id_endereco")
 	private Endereco endereco;
 
+	
+	
 	public String getNomeCompleto() {
 		return nomeCompleto;
 	}

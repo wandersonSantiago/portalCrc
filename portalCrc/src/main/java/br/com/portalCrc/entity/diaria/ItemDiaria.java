@@ -107,7 +107,7 @@ public class ItemDiaria {
 	private boolean analizado;
 	
 	@Column(name="retorno")
-	private boolean retorno = false;
+	private boolean retorno;
 	
 	@ManyToOne
 	@JoinColumn(name="id_usuario_cadastro")
@@ -120,6 +120,23 @@ public class ItemDiaria {
 	@Enumerated(EnumType.STRING)
 	private TipoDiariaEnum tipo;
 	
+	private Integer qtdPernoite;
+	private BigDecimal valorTotalPernoite;
+	
+	private Integer qtdRegressoTrezeAsDezenove;
+	private BigDecimal valorTotalRegressoTrezeAsDezenove;
+	
+	private Integer qtdRegressoAposDezenove;
+	private BigDecimal valorTotalRegressoAposDezenove;
+	
+	private Integer qtdDeslocamentoDasSeisAsDoze;
+	private BigDecimal valorTotalDeslocamentoDasSeisAsDoze;
+	
+	private Integer qtdDeslocamentoMaisDeDoze;
+	private BigDecimal valorDeslocamentoMaisDeDoze;
+	
+	private Integer qtdAlojamento;
+	private BigDecimal valorAlojamento;
 	
 	
 
@@ -301,5 +318,102 @@ public class ItemDiaria {
 	public void setRetorno(boolean retorno) {
 		this.retorno = retorno;
 	}
+
+	public Integer getQtdPernoite() {
+		return qtdPernoite;
+	}
+
+	public void setQtdPernoite(Integer qtdPernoite) {
+		this.qtdPernoite = qtdPernoite;
+	}
+
+	public BigDecimal getValorTotalPernoite() {
+		return valorTotalPernoite;
+	}
+
+	public void setValorTotalPernoite(BigDecimal valorTotalPernoite) {
+		this.valorTotalPernoite = valorTotalPernoite;
+	}
+
+	public Integer getQtdRegressoTrezeAsDezenove() {
+		return qtdRegressoTrezeAsDezenove;
+	}
+
+	public void setQtdRegressoTrezeAsDezenove(Integer qtdRegressoTrezeAsDezenove) {
+		this.qtdRegressoTrezeAsDezenove = qtdRegressoTrezeAsDezenove;
+	}
+
+	public BigDecimal getValorTotalRegressoTrezeAsDezenove() {
+		return valorTotalRegressoTrezeAsDezenove;
+	}
+
+	public void setValorTotalRegressoTrezeAsDezenove(BigDecimal valorTotalRegressoTrezeAsDezenove) {
+		this.valorTotalRegressoTrezeAsDezenove = valorTotalRegressoTrezeAsDezenove;
+	}
+
+	public Integer getQtdRegressoAposDezenove() {
+		return qtdRegressoAposDezenove;
+	}
+
+	public void setQtdRegressoAposDezenove(Integer qtdRegressoAposDezenove) {
+		this.qtdRegressoAposDezenove = qtdRegressoAposDezenove;
+	}
+
+	public BigDecimal getValorTotalRegressoAposDezenove() {
+		return valorTotalRegressoAposDezenove;
+	}
+
+	public void setValorTotalRegressoAposDezenove(BigDecimal valorTotalRegressoAposDezenove) {
+		this.valorTotalRegressoAposDezenove = valorTotalRegressoAposDezenove;
+	}
+
+	public Integer getQtdDeslocamentoDasSeisAsDoze() {
+		return qtdDeslocamentoDasSeisAsDoze;
+	}
+
+	public void setQtdDeslocamentoDasSeisAsDoze(Integer qtdDeslocamentoDasSeisAsDoze) {
+		this.qtdDeslocamentoDasSeisAsDoze = qtdDeslocamentoDasSeisAsDoze;
+	}
+
+	public BigDecimal getValorTotalDeslocamentoDasSeisAsDoze() {
+		return valorTotalDeslocamentoDasSeisAsDoze;
+	}
+
+	public void setValorTotalDeslocamentoDasSeisAsDoze(BigDecimal valorTotalDeslocamentoDasSeisAsDoze) {
+		this.valorTotalDeslocamentoDasSeisAsDoze = valorTotalDeslocamentoDasSeisAsDoze;
+	}
+
+	public Integer getQtdDeslocamentoMaisDeDoze() {
+		return qtdDeslocamentoMaisDeDoze;
+	}
+
+	public void setQtdDeslocamentoMaisDeDoze(Integer qtdDeslocamentoMaisDeDoze) {
+		this.qtdDeslocamentoMaisDeDoze = qtdDeslocamentoMaisDeDoze;
+	}
+
+	public BigDecimal getValorDeslocamentoMaisDeDoze() {
+		return valorDeslocamentoMaisDeDoze;
+	}
+
+	public void setValorDeslocamentoMaisDeDoze(BigDecimal valorDeslocamentoMaisDeDoze) {
+		this.valorDeslocamentoMaisDeDoze = valorDeslocamentoMaisDeDoze;
+	}
+
+	public Integer getQtdAlojamento() {
+		return qtdAlojamento;
+	}
+
+	public void setQtdAlojamento(Integer qtdAlojamento) {
+		this.qtdAlojamento = qtdAlojamento;
+	}
+
+	public BigDecimal getValorAlojamento() {
+		return valorAlojamento;
+	}
+
+	public void setValorAlojamento(BigDecimal valorAlojamento) {
+		this.valorAlojamento = valorAlojamento;
+	}
 		
+	
 }

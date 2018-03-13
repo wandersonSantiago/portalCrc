@@ -30,9 +30,17 @@ public class CalculaValor {
 		BigDecimal totalValor =  new BigDecimal(0);
 
 		if (totalHoras.getHours() >= 12) {
+			
 			totalValor = item.getCodigoLocalDeslocamento().getDeslocamentoMaisDeDoze();
+			item.setQtdDeslocamentoMaisDeDoze(1);
+			item.setValorDeslocamentoMaisDeDoze(totalValor);
+			
 		} else if (totalHoras.getHours() >= 6) {
+			
 			totalValor = item.getCodigoLocalDeslocamento().getDeslocamentoSeisAsDoze();
+			item.setQtdDeslocamentoDasSeisAsDoze(1);
+			item.setValorTotalDeslocamentoDasSeisAsDoze(totalValor);
+			
 		}else{
 			throw new MensagemException("Retorno não atigiu o minimo de horas!!!");
 		}
@@ -57,6 +65,7 @@ public class CalculaValor {
 
 		if (totalPernoite > 0) {
 			totalValor = item.getCodigoLocalDeslocamento().getPernoite().multiply(new BigDecimal(totalPernoite));
+			item.setValorTotalPernoite(totalValor);
 			totalValor  = totalValor.add(verificaHorarioRetorno(item));
 
 		} else if (totalPernoite == 0) {
@@ -73,16 +82,24 @@ public class CalculaValor {
 
 	
 	private BigDecimal verificaHorarioRetorno(ItemDiaria item) {
-		BigDecimal valorRetorno
-		= new BigDecimal(0);
+		BigDecimal valorRetorno	= new BigDecimal(0);
+		
 		DateTime dataFinal = new DateTime(item.getHoraChegada());
 		int horaChegada = dataFinal.getHourOfDay(); 
 		Hours horas = Hours.hours(horaChegada);
 		
 		if(horas.getHours() >=  19){
+			
 			valorRetorno = item.getCodigoLocalDeslocamento().getRetornoAposDezenove();
+			item.setQtdRegressoAposDezenove(1);
+			item.setValorTotalRegressoAposDezenove(valorRetorno);
+			
 		}else if(horas.getHours() >= 13){
+			
 			valorRetorno = item.getCodigoLocalDeslocamento().getRetornoTrezeAsDezenove();
+			item.setQtdRegressoTrezeAsDezenove(1);
+			item.setValorTotalRegressoTrezeAsDezenove(valorRetorno);
+			
 		}else{
 			System.out.println("Retorno não atigiu o minimo de horas!!!");
 		}

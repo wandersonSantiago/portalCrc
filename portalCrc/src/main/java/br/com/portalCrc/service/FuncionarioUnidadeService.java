@@ -75,7 +75,12 @@ public class FuncionarioUnidadeService {
 			Usuario usuario = new Usuario();
 			usuario.setDataCadastro(new Date());
 			usuario.setFuncionario(funcionario);
-			usuario.setLogin(funcionario.getPessoa().getRg());		
+			
+			String login = funcionario.getPessoa().getNomeCompleto().substring(0,3).toUpperCase();
+			
+			login +=funcionario.getPessoa().getRg();
+			
+			usuario.setLogin(login);		
 			String hash = new BCryptPasswordEncoder().encode(funcionario.getPessoa().getRg());
 			usuario.setSenha(hash);
 			usuarioRepository.save(usuario);

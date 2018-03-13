@@ -2,8 +2,10 @@ package br.com.portalCrc.entity.diaria;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 import br.com.portalCrc.enums.diaria.MesDiariaEnum;
+import br.com.portalCrc.util.Extenso;
 
 public class DiariaRelatorioDTO {
 	
@@ -13,19 +15,6 @@ public class DiariaRelatorioDTO {
 	private Date dataFechamento;	
 	private MesDiariaEnum mes;
 	private String observacao;
-	private BigDecimal valorDiaria;
-	
-
-	
-	private String banco;	
-	private String agencia;	
-	private String conta;
-		
-	private BigDecimal salarioAtual;	
-	private Integer indiceUfesp;	
-	private Double limiteCemPorCento;
-	private BigDecimal limiteDiaria;
-	
 	
 	private String nomeFuncionario;
 	private String rg;
@@ -34,14 +23,92 @@ public class DiariaRelatorioDTO {
 	private String cargo;
 	
 	
+	private BigDecimal salarioAtual;	
+	private Integer indiceUfesp;	
+	private Double limiteCemPorCento;
+	private BigDecimal limiteDiaria;
+	private BigDecimal valorDiaria;
+	private BigDecimal glosada = new BigDecimal(0);
+	private String ultrapassaCinquentaPoCento = "";
+	private String naoUltrapassaCinquentaPoCento = "";
+	private String banco;	
+	private String agencia;	
+	private String conta;
+	private BigDecimal valorTotalDiaria;
+	private String valorPorExtenso;
 	
 	
-	public DiariaRelatorioDTO(Diaria diaria) {
-		this.valorUfesp = diaria.getValorUfesp();
-		this.dataAbertura = diaria.getDataAbertura();
-		this.observacao = diaria.getObservacao();
+	private Iterable<ValoresDiariaLocalidade> valoresLocalidade;
+	private ItemDiariaRelatorioDTO itens;
+	
+	private ValoresDiariaLocalidade ValoresCodigoUm;	
+	private ValoresDiariaLocalidade ValoresCodigoDois;
+	private ValoresDiariaLocalidade ValoresCodigoTres;
+	private ValoresDiariaLocalidade ValoresCodigoQuatro;
+	private ValoresDiariaLocalidade ValoresCodigoCinco;
+	
+
+	
+	public DiariaRelatorioDTO(FuncionarioDiaria funcDiaria, List<ValoresDiariaLocalidade> valoresLocalidade, ItemDiariaRelatorioDTO itenDTO) {
+		
+		this.valorUfesp = funcDiaria.getDiaria().getValorUfesp();
+		this.dataAbertura = funcDiaria.getDiaria().getDataAbertura();
+		this.mes = funcDiaria.getDiaria().getMes();
+		this.observacao = funcDiaria.getDiaria().getObservacao();
+		
+		this.nomeFuncionario = funcDiaria.getContaFuncionario().getFuncionario().getPessoa().getNomeCompleto();
+		this.rg = funcDiaria.getContaFuncionario().getFuncionario().getPessoa().getRg();
+		this.cpf = funcDiaria.getContaFuncionario().getFuncionario().getPessoa().getCpf();
+		this.cargo = funcDiaria.getCargo().getDescricao();
+		this.unidade = funcDiaria.getUnidade().getDadosUnidade().getMnemonico();
+		
+		this.salarioAtual = funcDiaria.getContaFuncionario().getSalarioAtual();
+		this.indiceUfesp = funcDiaria.getContaFuncionario().getIndiceUfesp();
+		this.limiteCemPorCento = funcDiaria.getContaFuncionario().getLimiteCemPorCento();
+		this.valorTotalDiaria = funcDiaria.getTotalValorDiaria();
+		
+		if(funcDiaria.getGlosada() != null) {
+			this.glosada = funcDiaria.getGlosada();
+		}
+		
+		
+		this.banco = funcDiaria.getContaFuncionario().getBanco();
+		this.agencia = funcDiaria.getContaFuncionario().getAgencia();
+		this.conta = funcDiaria.getContaFuncionario().getConta();
+		this.ValoresCodigoUm = valoresLocalidade.get(0);
+		this.ValoresCodigoDois = valoresLocalidade.get(1);
+		this.ValoresCodigoTres = valoresLocalidade.get(2);
+		this.ValoresCodigoQuatro = valoresLocalidade.get(3);
+		this.ValoresCodigoCinco = valoresLocalidade.get(4);
+		
+		this.valorPorExtenso = new Extenso(funcDiaria.getTotalValorDiaria()).toString();
+		verificaLimiteDaDiaria(funcDiaria);
+		
+		valorDiaria();
+		
+		this.itens = itenDTO;
+		
+		
+		
 	}
 	
+	public void valorDiaria() {
+		this.valorDiaria =  valorUfesp.multiply(new BigDecimal(indiceUfesp)) ;
+		
+	}
+	
+	public void verificaLimiteDaDiaria(FuncionarioDiaria funcDiaria) {
+		
+		if(funcDiaria.getContaFuncionario().getLimiteCemPorCento() == 100) {
+			this.limiteDiaria = funcDiaria.getContaFuncionario().getSalarioAtual();
+			this.ultrapassaCinquentaPoCento = "X";
+		}else {
+			BigDecimal divisor = new BigDecimal("2");
+			this.limiteDiaria = funcDiaria.getContaFuncionario().getSalarioAtual().divide(divisor);
+			this.naoUltrapassaCinquentaPoCento = "X";
+		}
+		
+	}
 	
 	
 	
@@ -153,6 +220,104 @@ public class DiariaRelatorioDTO {
 	public void setCargo(String cargo) {
 		this.cargo = cargo;
 	}
+	public BigDecimal getGlosada() {
+		return glosada;
+	}
+	public void setGlosada(BigDecimal glosada) {
+		this.glosada = glosada;
+	}
+
+	public String getUltrapassaCinquentaPoCento() {
+		return ultrapassaCinquentaPoCento;
+	}
+
+	public void setUltrapassaCinquentaPoCento(String ultrapassaCinquentaPoCento) {
+		this.ultrapassaCinquentaPoCento = ultrapassaCinquentaPoCento;
+	}
+
+	public String getNaoUltrapassaCinquentaPoCento() {
+		return naoUltrapassaCinquentaPoCento;
+	}
+
+	public void setNaoUltrapassaCinquentaPoCento(String naoUltrapassaCinquentaPoCento) {
+		this.naoUltrapassaCinquentaPoCento = naoUltrapassaCinquentaPoCento;
+	}
+
+	public BigDecimal getValorTotalDiaria() {
+		return valorTotalDiaria;
+	}
+
+	public void setValorTotalDiaria(BigDecimal valorTotalDiaria) {
+		this.valorTotalDiaria = valorTotalDiaria;
+	}
+
+	public Iterable<ValoresDiariaLocalidade> getValoresLocalidade() {
+		return valoresLocalidade;
+	}
+
+	public void setValoresLocalidade(Iterable<ValoresDiariaLocalidade> valoresLocalidade) {
+		this.valoresLocalidade = valoresLocalidade;
+	}
+
+	public ValoresDiariaLocalidade getValoresCodigoUm() {
+		return ValoresCodigoUm;
+	}
+
+	public void setValoresCodigoUm(ValoresDiariaLocalidade valoresCodigoUm) {
+		ValoresCodigoUm = valoresCodigoUm;
+	}
+
+	public ValoresDiariaLocalidade getValoresCodigoDois() {
+		return ValoresCodigoDois;
+	}
+
+	public void setValoresCodigoDois(ValoresDiariaLocalidade valoresCodigoDois) {
+		ValoresCodigoDois = valoresCodigoDois;
+	}
+
+	public ValoresDiariaLocalidade getValoresCodigoTres() {
+		return ValoresCodigoTres;
+	}
+
+	public void setValoresCodigoTres(ValoresDiariaLocalidade valoresCodigoTres) {
+		ValoresCodigoTres = valoresCodigoTres;
+	}
+
+	public ValoresDiariaLocalidade getValoresCodigoQuatro() {
+		return ValoresCodigoQuatro;
+	}
+
+	public void setValoresCodigoQuatro(ValoresDiariaLocalidade valoresCodigoQuatro) {
+		ValoresCodigoQuatro = valoresCodigoQuatro;
+	}
+
+	public ValoresDiariaLocalidade getValoresCodigoCinco() {
+		return ValoresCodigoCinco;
+	}
+
+	public void setValoresCodigoCinco(ValoresDiariaLocalidade valoresCodigoCinco) {
+		ValoresCodigoCinco = valoresCodigoCinco;
+	}
+
+	public ItemDiariaRelatorioDTO getItens() {
+		return itens;
+	}
+
+	public void setItens(ItemDiariaRelatorioDTO itens) {
+		this.itens = itens;
+	}
+
+	public String getValorPorExtenso() {
+		return valorPorExtenso;
+	}
+
+	public void setValorPorExtenso(String valorPorExtenso) {
+		this.valorPorExtenso = valorPorExtenso;
+	}
+
+
+
+
 	
 	
 	

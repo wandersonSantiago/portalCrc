@@ -21,6 +21,9 @@ app.config(function($stateProvider, $urlRouterProvider) {
 				  }
 		})
 		.state('telefone.cadastrar', {
+			requiresAuthentication: true,
+			permissions: ["CADASTRAR_TELEFONE", "ADMIN"],
+			
 			url : "/cadastrar",
 			templateUrl : "views/comunicacao/telefone/telefone.form.html",
 			controller : "TelefoneCadastarController as foneCtrl",
@@ -28,8 +31,12 @@ app.config(function($stateProvider, $urlRouterProvider) {
 			 	parent: 'telefone',
 			    label: 'Cadastrar'
 			  }
+			  
 		})
 		.state('telefone.editar', {
+			requiresAuthentication: true,
+			permissions: ["CADASTRAR_TELEFONE", "ADMIN"],
+			
 			url : "/:idTelefone/editar",
 			templateUrl : "views/comunicacao/telefone/telefone.form.html",
 			controller : "TelefoneEditarController as foneCtrl",
@@ -37,6 +44,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
 				 	parent: 'telefone.listar',
 				    label: 'Editar'
 				  }
+				  
 		})
 		.state('telefone.coordenadoria', {
 			url : "/coordenadoria",

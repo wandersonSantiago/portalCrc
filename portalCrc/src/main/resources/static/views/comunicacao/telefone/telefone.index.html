@@ -1,4 +1,13 @@
 <meta charset="UTF-8">
+
+<ol class="breadcrumb">
+	<li><a ui-sref="home.menu">Home</a></li>
+	<li><a>Telefone</a></li>
+	<li permission="['TELEFONE_CADASTRAR' , 'ADMIN']"><a ui-sref="ramal.cadastrar">Novo</a></li>
+	<li><a ui-sref="telefone.listar">Todos</a></li>
+	<li><a ui-sref="telefone.coordenadoria">Pesquisar</a></li>
+</ol>
+
 <div class="row">
 	<div class="col-sm-2">
 		<div class="box box-solid">
@@ -14,7 +23,7 @@
 			</div>
 			<div class="box-body no-padding">
 				<ul class="nav nav-pills nav-stacked">
-					<li permission="['TELEFONE' , 'ADMIN']"><a href="" ui-sref="telefone.cadastrar"><i
+					<li permission="['TELEFONE_CADASTRAR' , 'ADMIN']"><a href="" ui-sref="telefone.cadastrar"><i
 							class="glyphicon glyphicon-plus"></i>Novo</a></li>
 					<li><a href="" ui-sref="telefone.listar"><i
 							class="glyphicon glyphicon-th"></i>Todos</a></li>

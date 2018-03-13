@@ -24,19 +24,19 @@
 						
 						<div class="col-sm-3" >
 						Banco:							
-							<input class="form-control" placeholder="Banco" ng-model="contaCtrl.contaFuncionarioDiaria.banco" id="banco" type="text"  required >
+							<input class="form-control" placeholder="Banco" ng-model="contaCtrl.contaFuncionarioDiaria.banco" title="Digite o número do seu banco"  id="banco" type="text"  required >
 						</div> 						
 						<div class="col-sm-3">
 						Agencia:
-							<input class="form-control" placeholder="Agencia" ng-model="contaCtrl.contaFuncionarioDiaria.agencia" id="agencia" type="text"  required >
+							<input class="form-control" placeholder="Agencia" ng-model="contaCtrl.contaFuncionarioDiaria.agencia" title="Digite o número da sua agência bancária" id="agencia"  type="text"  required >
 						</div>
 						<div class="col-sm-3">
 						Conta:
-							<input class="form-control" placeholder="Conta" ng-model="contaCtrl.contaFuncionarioDiaria.conta" id="conta" type="text"  required >
+							<input class="form-control" placeholder="Conta" ng-model="contaCtrl.contaFuncionarioDiaria.conta" title="Digite o número da sua conta bancária" id="conta" type="text"  required >
 						</div>
 						<div class="col-sm-3">
 						Salário:
-							<input class="form-control" placeholder="Salário atual" ng-model="contaCtrl.contaFuncionarioDiaria.salarioAtual" id="conta" type="text" ui-money-mask required >
+							<input class="form-control" placeholder="Salário atual" ng-model="contaCtrl.contaFuncionarioDiaria.salarioAtual" title="Digite o seu salário atual" id="conta" type="text" ui-money-mask required >
 						</div>
 						
 					</div>
@@ -47,14 +47,14 @@
 						<div class="col-sm-6">
 								Indice UFESP:
 								<h3>
-								<select class="form-control select2" ng-model="indiceUfesp" ng-options="indice for indice in indices" >
+								<select class="form-control select2" ng-model="indiceUfesp" title="Qual o indice de UFESP que o seu cargo se enquadra" ng-options="indice for indice in indices" >
 								</select>
 								</h3>
 							</div>
 							<div class="col-sm-6">
 								Porcentagem do salário:
 								<h3>
-								<select class="form-control select2" ng-model="limiteCemPorCento"  ng-options="limite for limite in limites">
+								<select class="form-control select2" ng-model="limiteCemPorCento" title="Escolha o limite maximo da sua diária"  ng-options="limite for limite in limites">
 								</select>
 								</h3>
 							</div>

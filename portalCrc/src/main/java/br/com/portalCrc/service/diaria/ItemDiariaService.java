@@ -44,6 +44,10 @@ public class ItemDiariaService {
 		CalculaValor calcula = new CalculaValor();
 		int count = calcula.quantidadePernoite(itemDiaria);
 		
+		if(count > 0) {
+			itemDiaria.setQtdPernoite(count);
+		}
+		
 		BigDecimal valorTotalItem = new BigDecimal(0);
 		BigDecimal valorTotalDiaria = funcionarioDiaria.getTotalValorDiaria();
 		
@@ -69,6 +73,10 @@ public class ItemDiariaService {
 		BigDecimal valorTotalDiaria = funcionarioDiaria.getTotalValorDiaria();
 		
 		int count = calcula.quantidadePernoite(itemDiaria);
+		
+		if(count > 0) {
+			itemDiaria.setQtdPernoite(count);
+		}
 		
 		valorTotalItem = valorTotalItem.add(calcula.valorPernoite(count, itemDiaria));
 		itemDiaria.setValorDiaria(valorTotalItem);

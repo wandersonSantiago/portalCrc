@@ -15,7 +15,7 @@
 						<th class="btn btn-primary btn-flat col-sm-2"><md-button  ><h5>Setor</h5></md-button> </th>
 					<th class="btn btn-primary btn-flat col-sm-2"><md-button  ><h5>Ramal</h5></md-button> </th>
 					<th class="btn btn-primary btn-flat col-sm-1"><md-button  ><h5>Unidade</h5></md-button> </th>
-					<th class="btn btn-primary btn-flat col-sm-1"><md-button  ><h5>Opções</h5></md-button> </th>
+					<th permission="['TELEFONE_CADASTRAR', 'ADMIN']" class="btn btn-primary btn-flat col-sm-1"><md-button  ><h5>Opções</h5></md-button> </th>
 					
 					</tr>
 				</thead>
@@ -25,7 +25,7 @@
 						<td>{{ ramal.setor.nome }}</td>
 						<td>{{ ramal.numero }}</td>
 						<td>{{ ramal.unidade.dadosUnidade.mnemonico}}</td>
-						<td><a ui-sref="ramal.editar({idRamal: ramal.id})"><i class="glyphicon glyphicon-edit"></i></a> 
+						<td><a permission="['TELEFONE_CADASTRAR', 'ADMIN']" ui-sref="ramal.editar({idRamal: ramal.id})"><i class="glyphicon glyphicon-edit"></i></a> 
 						
 				</tr>
 				</tbody>
