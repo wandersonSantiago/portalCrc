@@ -8,6 +8,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -29,13 +30,15 @@ public class DiariaRestController {
 	@Autowired
 	private DiariaService diariaService;
 	
+	@PreAuthorize("hasAnyRole('ROLE_?DIARIA_FINANCAS_COORDENADORIA','ROLE_?ADMIN')")
 	@PostMapping
 	 public ResponseEntity<Diaria> salvar(@RequestBody Diaria diaria,UriComponentsBuilder ucBuilder){
 		diariaService.salvaOuAltera(diaria);
 		 HttpHeaders headers =new HttpHeaders();
 		 return new ResponseEntity<Diaria>(headers, HttpStatus.CREATED);
 	 }
-		
+	
+	@PreAuthorize("hasAnyRole('ROLE_?DIARIA_FINANCAS_COORDENADORIA','ROLE_?ADMIN')")
 	@PutMapping
 	public ResponseEntity<Diaria> alterar(@RequestBody Diaria diaria){
 		diariaService.salvaOuAltera(diaria);
@@ -43,6 +46,7 @@ public class DiariaRestController {
 		return new ResponseEntity<>(http , HttpStatus.CREATED);		
 	}
 	
+	@PreAuthorize("hasAnyRole('ROLE_?DIARIA_FINANCAS_COORDENADORIA','ROLE_?ADMIN')")
 	@PutMapping(value="/encerrar")
 	public ResponseEntity<Diaria> encerrar(@RequestBody Diaria diaria){
 		diariaService.encerrar(diaria);

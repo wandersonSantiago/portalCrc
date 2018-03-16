@@ -33,7 +33,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
 			for(Permissao perl : usuario.getPermissoes())
 			{
-				user.addAuthority(perl.getDescricao());
+				user.addAuthority("ROLE_?" + perl.getDescricao());
 				
 			}
 			

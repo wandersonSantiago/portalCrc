@@ -9,6 +9,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -33,18 +34,21 @@ public class ChamadoTiRestController {
 	@Autowired
 	private ChamadoTiService chamadoTiService;
 	
-	
+	@PreAuthorize("hasAnyRole('ROLE_?CHAMADO_INFORMATICA_TECNICO','ROLE_?ADMIN')")
 	 @RequestMapping(method = RequestMethod.GET, value="/suporte/lista")
 	 public ResponseEntity<Iterable<ChamadoTi>> listaSuporte() {	  
 	  Iterable<ChamadoTi> chamadoTi = chamadoTiService.listaSuporte();
 	  return new ResponseEntity<Iterable<ChamadoTi>>(chamadoTi, HttpStatus.OK);
 	 }
-		@GetMapping(value = "/suporte/relatorio/dataInicial/{dataInicial}/dataFinal/{dataFinal}")
-	public ResponseEntity<Iterable<ChamadoTi>> relatorio(@PathVariable Date dataInicial, @PathVariable Date dataFinal) {
-		Iterable<ChamadoTi> chamadoTi = chamadoTiService.relatorio(dataInicial, dataFinal);
-		return new ResponseEntity<Iterable<ChamadoTi>>(chamadoTi, HttpStatus.OK);
-	}
-
+	 
+	@PreAuthorize("hasAnyRole('ROLE_?CHAMADO_INFORMATICA_TECNICO','ROLE_?ADMIN')")
+	 @GetMapping(value = "/suporte/relatorio/dataInicial/{dataInicial}/dataFinal/{dataFinal}")
+		public ResponseEntity<Iterable<ChamadoTi>> relatorio(@PathVariable Date dataInicial, @PathVariable Date dataFinal) {
+			Iterable<ChamadoTi> chamadoTi = chamadoTiService.relatorio(dataInicial, dataFinal);
+			return new ResponseEntity<Iterable<ChamadoTi>>(chamadoTi, HttpStatus.OK);
+		}
+	 
+	@PreAuthorize("hasAnyRole('ROLE_?CHAMADO_INFORMATICA_TECNICO','ROLE_?ADMIN')")
 	@GetMapping(value = "/suporte/relatorio/dataInicial/{dataInicial}/dataFinal/{dataFinal}/titulo/{idTitulo}")
 	public ResponseEntity<Iterable<ChamadoTi>> relatorioPorDataETitulo(@PathVariable Date dataInicial,
 			@PathVariable Date dataFinal, @PathVariable Long idTitulo) {
@@ -52,6 +56,7 @@ public class ChamadoTiRestController {
 		return new ResponseEntity<Iterable<ChamadoTi>>(chamado, HttpStatus.OK);
 	}
 	 
+	@PreAuthorize("hasAnyRole('ROLE_?CHAMADO_INFORMATICA_TECNICO','ROLE_?ADMIN')")
 	 @GetMapping(value="/suporte/relatorio")
 		public ResponseEntity<Page<ChamadoTi>> relatorio(@RequestParam(defaultValue="0", required=false) int page
 				,@RequestParam(defaultValue="0", required=false) int maxResults) {
@@ -59,6 +64,7 @@ public class ChamadoTiRestController {
 			return new ResponseEntity<Page<ChamadoTi>>(chamadoTi, HttpStatus.OK);
 		}
 	 
+	@PreAuthorize("hasAnyRole('ROLE_?CHAMADO_USUARIO','ROLE_?ADMIN')")
 	 @RequestMapping(method = RequestMethod.GET, value="/usuario/lista")
 	 public ResponseEntity<Iterable<ChamadoTi>> listaUsuario() {	  
 	  Iterable<ChamadoTi> chamadoTi = chamadoTiService.listaChamadoTiUsuario();
@@ -66,12 +72,15 @@ public class ChamadoTiRestController {
 	 }
 	 
 	 
+	@PreAuthorize("hasAnyRole('ROLE_?CHAMADO_INFORMATICA_TECNICO','ROLE_?ADMIN')")
 	 @RequestMapping(method = RequestMethod.POST, value="/salvar")
 	 public ResponseEntity<ChamadoTi> salvar(@RequestBody ChamadoTi chamadoTi,UriComponentsBuilder ucBuilder){
 		 chamadoTiService.salvarEditar(chamadoTi);
 		 HttpHeaders headers =new HttpHeaders();
 		 return new ResponseEntity<ChamadoTi>(headers, HttpStatus.CREATED);
 	 }
+	
+	@PreAuthorize("hasAnyRole('ROLE_?CHAMADO_INFORMATICA_TECNICO','ROLE_?ADMIN')")
 	 @RequestMapping(method = RequestMethod.PUT, value="/servicos")
 	 public ResponseEntity<ChamadoTi> servicos(@RequestBody ChamadoTi chamadoTi,UriComponentsBuilder ucBuilder){
 		 chamadoTiService.servicos(chamadoTi);
@@ -79,6 +88,7 @@ public class ChamadoTiRestController {
 		 return new ResponseEntity<ChamadoTi>(headers, HttpStatus.CREATED);
 	 }
 	 
+	@PreAuthorize("hasAnyRole('ROLE_?CHAMADO_INFORMATICA_TECNICO','ROLE_?ADMIN')")
 	 @RequestMapping(method = RequestMethod.PUT, value="/alterar")
 	 public ResponseEntity<ChamadoTi> alterar(@RequestBody ChamadoTi chamadoTi,UriComponentsBuilder ucBuilder){
 		 chamadoTiService.salvarEditar(chamadoTi);
@@ -101,6 +111,7 @@ public class ChamadoTiRestController {
 			return new ResponseEntity<Iterable<PrioridadeChamado>>(prioridadeChamado, HttpStatus.OK);
 		}
 	 
+	 @PreAuthorize("hasAnyRole('ROLE_?CHAMADO_USUARIO','ROLE_?ADMIN')")
 	 @RequestMapping(method = RequestMethod.PUT, value="/mensagem")
 	 public ResponseEntity<ChamadoTi> mensagem(@RequestBody ChamadoTi chamadoTi,UriComponentsBuilder ucBuilder){
 		 chamadoTiService.mensagens(chamadoTi);
@@ -108,6 +119,7 @@ public class ChamadoTiRestController {
 	 return new ResponseEntity<ChamadoTi>(headers, HttpStatus.CREATED);
 	 }
 	 
+	 @PreAuthorize("hasAnyRole('ROLE_?CHAMADO_INFORMATICA_TECNICO','ROLE_?ADMIN')")
 	 @PutMapping(value="/atender")
 	 public ResponseEntity<ChamadoTi> atender(@RequestBody ChamadoTi chamadoTi,UriComponentsBuilder ucBuilder){
 		 chamadoTiService.atenderChamado(chamadoTi);
@@ -115,6 +127,7 @@ public class ChamadoTiRestController {
 	 return new ResponseEntity<ChamadoTi>(headers, HttpStatus.CREATED);
 	 }
 	 
+	 @PreAuthorize("hasAnyRole('ROLE_?CHAMADO_INFORMATICA_TECNICO','ROLE_?CHAMADO_USUARIO','ROLE_?ADMIN')")
 	 @RequestMapping(method = RequestMethod.PUT, value="/fechar")
 	 public ResponseEntity<ChamadoTi> fechar(@RequestBody ChamadoTi chamadoTi,UriComponentsBuilder ucBuilder){
 		 chamadoTiService.fecharChamado(chamadoTi);
@@ -122,6 +135,7 @@ public class ChamadoTiRestController {
 	 return new ResponseEntity<ChamadoTi>(headers, HttpStatus.CREATED);
 	 }
 	 
+	 @PreAuthorize("hasAnyRole('ROLE_?CHAMADO_INFORMATICA_TECNICO','ROLE_?ADMIN')")
 	 @RequestMapping(method = RequestMethod.PUT, value="/silenciar/false")
 	 public ResponseEntity<ChamadoTi> silenciarFalse(@RequestBody ChamadoTi chamadoTi,UriComponentsBuilder ucBuilder){
 		 chamadoTiService.silenciarChamadoFalse(chamadoTi);
@@ -129,17 +143,20 @@ public class ChamadoTiRestController {
 	 return new ResponseEntity<ChamadoTi>(headers, HttpStatus.CREATED);
 	 }
 	 
+	 @PreAuthorize("hasAnyRole('ROLE_?CHAMADO_INFORMATICA_TECNICO','ROLE_?ADMIN')")
 	 @RequestMapping(method = RequestMethod.PUT, value="/silenciar/true")
 	 public ResponseEntity<ChamadoTi> silenciarTrue(@RequestBody ChamadoTi chamadoTi,UriComponentsBuilder ucBuilder){
 		 chamadoTiService.silenciarChamadoTrue(chamadoTi);
 		 HttpHeaders headers =new HttpHeaders();
 	 return new ResponseEntity<ChamadoTi>(headers, HttpStatus.CREATED);
 	 }
+	 
 	 @RequestMapping(method = RequestMethod.GET, value = "/status")
 		public ResponseEntity<Iterable<StatusChamado>> status() {
 			Iterable<StatusChamado> statusChamado = Arrays.asList(StatusChamado.values());
 			return new ResponseEntity<Iterable<StatusChamado>>(statusChamado, HttpStatus.OK);
 		}
+	 
 	 @RequestMapping(method = RequestMethod.GET, value = "/equipamento/tipo")
 		public ResponseEntity<Iterable<TipoTema>> tipoTema() {
 			Iterable<TipoTema> tipoTema = Arrays.asList(TipoTema.values());

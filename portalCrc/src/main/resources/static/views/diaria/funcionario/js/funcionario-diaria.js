@@ -14,6 +14,8 @@ app.config(function($stateProvider, $urlRouterProvider) {
 	})
 		
 		.state('funcionarioDiaria.verificar', {
+			requiresAuthentication: true,
+			permissions: ["DIARIA_FINANCAS_LANCAMENTO", "ADMIN"],
 			url : "/verificar",
 			params: {
 				idDiaria: null,
@@ -27,6 +29,8 @@ app.config(function($stateProvider, $urlRouterProvider) {
 		})
 		
 		.state('funcionarioDiaria.unidade', {
+			requiresAuthentication: true,
+			permissions: ["DIARIA_FINANCAS_LANCAMENTO", "ADMIN"],
 			url : "/funcionario/listar/unidade",
 			params: {
 				idDiaria: null,
@@ -39,6 +43,8 @@ app.config(function($stateProvider, $urlRouterProvider) {
 			  }
 		})
 		.state('funcionarioDiaria.coordenadoria', {
+			requiresAuthentication: true,
+			permissions: ["DIARIA_FINANCAS_COORDENADORIA", "ADMIN"],
 			url : "/funcionario/listar/coordenadoria",
 			params: {
 				idDiaria: null,
@@ -51,6 +57,8 @@ app.config(function($stateProvider, $urlRouterProvider) {
 			  }
 		})
 		.state('funcionarioDiaria.secretaria', {
+			requiresAuthentication: true,
+			permissions: ["DIARIA_FINANCAS_SECRETARIA", "ADMIN"],
 			url : "/funcionario/listar/secretaria",
 			params: {
 				idDiaria: null,
@@ -63,6 +71,8 @@ app.config(function($stateProvider, $urlRouterProvider) {
 			  }
 		})
 		.state('funcionarioDiaria.cadastrar', {
+			requiresAuthentication: true,
+			permissions: ["DIARIA_FINANCAS_LANCAMENTO", "ADMIN"],
 			url : "/funcionario/cadastrar",
 			params: {
 				idDiaria: null,
@@ -75,6 +85,8 @@ app.config(function($stateProvider, $urlRouterProvider) {
 			  }
 		})
 		.state('funcionarioDiaria.cadastrarFinancas', {
+			requiresAuthentication: true,
+			permissions: ["DIARIA_FINANCAS_LANCAMENTO", "ADMIN"],
 			url : "/funcionario/cadastrar",
 			params: {
 				idDiaria: null,

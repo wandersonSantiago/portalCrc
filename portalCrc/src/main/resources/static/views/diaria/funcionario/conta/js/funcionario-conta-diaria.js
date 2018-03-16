@@ -14,6 +14,8 @@ app.config(function($stateProvider, $urlRouterProvider) {
 	})
 	
 		.state('funcionarioContaDiaria.listar', {
+			requiresAuthentication: true,
+			permissions: ["DIARIA_FINANCAS_UNIDADE", "ADMIN"],
 			url : "/conta/lista",
 			templateUrl : "views/diaria/funcionario/conta/funcionario.conta.list.html",
 			controller : "FuncionarioContaDiariaListarController as ctrl",
@@ -24,6 +26,8 @@ app.config(function($stateProvider, $urlRouterProvider) {
 		})
 					
 		.state('funcionarioContaDiaria.buscar', {
+			requiresAuthentication: true,
+			permissions: ["DIARIA_FINANCAS_UNIDADE", "ADMIN"],
 			url : "/conta/buscar",
 			templateUrl : "views/diaria/funcionario/conta/funcionario.buscar.html",
 			controller : "FuncionarioContaBuscarListarController as ctrl",
@@ -34,6 +38,8 @@ app.config(function($stateProvider, $urlRouterProvider) {
 		})
 		
 		.state('funcionarioContaDiaria.cadastrar', {
+			requiresAuthentication: true,
+			permissions: ["CONTA_FUNCIONARIO","DIARIA_FINANCAS_UNIDADE","DIARIA_FINANCAS_LANCAMENTO", "ADMIN"],
 			url : "/conta/cadastrar",
 			params: {
 				idFuncionario: null
@@ -47,6 +53,8 @@ app.config(function($stateProvider, $urlRouterProvider) {
 		})
 				
 		.state('funcionarioContaDiaria.editar', {
+			requiresAuthentication: true,
+			permissions: ["CONTA_FUNCIONARIO","DIARIA_FINANCAS_UNIDADE","DIARIA_FINANCAS_LANCAMENTO", "ADMIN"],
 			url : "/conta/editar",
 			params: {
 				idConta: null

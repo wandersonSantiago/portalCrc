@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,6 +24,7 @@ public class ModuloSistemaRestController {
 	@Autowired
 	private ModuloSistemaService moduloSistemaService;
 	
+	@PreAuthorize("hasAnyRole('ROLE_?ADMIN')")
 	 @PostMapping
 	 public ResponseEntity<ModuloSistema> salvar(@RequestBody ModuloSistema moduloSistema,UriComponentsBuilder ucBuilder){
 		 moduloSistemaService.salvarOuEditar(moduloSistema);
@@ -30,6 +32,7 @@ public class ModuloSistemaRestController {
 		 return new ResponseEntity<ModuloSistema>(headers, HttpStatus.CREATED);
 	 }
 	 
+	@PreAuthorize("hasAnyRole('ROLE_?ADMIN')")
 	 @PutMapping
 	 public ResponseEntity<ModuloSistema> alterar(@RequestBody ModuloSistema moduloSistema,UriComponentsBuilder ucBuilder){
 		 moduloSistemaService.salvarOuEditar(moduloSistema);

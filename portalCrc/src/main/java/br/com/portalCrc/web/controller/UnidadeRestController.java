@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -53,14 +54,14 @@ public class UnidadeRestController {
 		Iterable<Unidade> unidade = unidadeService.buscarUnidadePorCoordenadoriaPorTipo(id, tipo);
 		return new ResponseEntity<Iterable<Unidade>>(unidade, HttpStatus.OK);
 	}
-
+	@PreAuthorize("hasAnyRole('ROLE_?ADMIN')")
 	@RequestMapping(method = RequestMethod.POST, value = "/salvar")
 	public ResponseEntity<Unidade> salvar(@RequestBody Unidade unidade, UriComponentsBuilder ucBuilder) {
 		unidadeService.salvarEditar(unidade);
 		HttpHeaders headers = new HttpHeaders();
 		return new ResponseEntity<Unidade>(headers, HttpStatus.CREATED);
 	}
-
+	@PreAuthorize("hasAnyRole('ROLE_?ADMIN')")
 	@RequestMapping(method = RequestMethod.PUT, value = "/alterar")
 	public ResponseEntity<Unidade> alterar(@RequestBody Unidade unidade, UriComponentsBuilder ucBuilder) {
 		unidadeService.salvarEditar(unidade);

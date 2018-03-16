@@ -22,6 +22,8 @@ app.config(function($stateProvider, $urlRouterProvider) {
 				  }
 		})
 		.state('unidade.cadastrar', {
+			requiresAuthentication: true,
+			permissions: ["CADASTRAR_UNIDADE","ADMIN"],
 			url : "/cadastrar",
 			templateUrl : "views/unidade/unidade.form.html",
 			controller : "UnidadeCadastarController as unidadeCtrl",
@@ -31,6 +33,8 @@ app.config(function($stateProvider, $urlRouterProvider) {
 			  }
 		})
 		.state('unidade.editar', {
+			requiresAuthentication: true,
+			permissions: ["CADASTRAR_UNIDADE","ADMIN"],
 			url : "/:idUnidade/editar",
 			templateUrl : "views/unidade/unidade.form.html",
 			controller : "UnidadeEditarController as unidadeCtrl",

@@ -30,6 +30,13 @@ app.config(function($stateProvider, $urlRouterProvider, $httpProvider) {
     	    skip: true // Never display this state in breadcrumb.
     	  }
     })
+     .state('sem-permissao', {
+      url: "/404",
+      templateUrl: "views/erros/permissao.html",
+      ncyBreadcrumb: {
+    	    skip: true // Never display this state in breadcrumb.
+    	  }
+    })
     $httpProvider.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
     
 });

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -30,6 +31,7 @@ public class ContaFuncionarioDiariaRestController {
 	@Autowired
 	private ContaFuncionarioDiariaService contaFuncionarioDiariaService;
 	
+	@PreAuthorize("hasAnyRole('ROLE_?CONTA_FUNCIONARIO', 'ROLE_?DIARIA_FINANCAS_LANCAMENTO','ROLE_?ADMIN')")
 	@PostMapping
 	 public ResponseEntity<ContaFuncionarioDiaria> salvar(@RequestBody ContaFuncionarioDiaria contaFuncionarioDiaria, UriComponentsBuilder ucBuilder){
 		contaFuncionarioDiariaService.salvar(contaFuncionarioDiaria);
@@ -37,6 +39,7 @@ public class ContaFuncionarioDiariaRestController {
 		 return new ResponseEntity<ContaFuncionarioDiaria>(headers, HttpStatus.CREATED);
 	 }
 		
+	@PreAuthorize("hasAnyRole('ROLE_?CONTA_FUNCIONARIO', 'ROLE_?DIARIA_FINANCAS_LANCAMENTO','ROLE_?ADMIN')")
 	@PutMapping
 	public ResponseEntity<ContaFuncionarioDiaria> alterar(@RequestBody ContaFuncionarioDiaria contaFuncionarioDiaria, UriComponentsBuilder ucBuilder){
 		contaFuncionarioDiariaService.altera(contaFuncionarioDiaria);
@@ -44,6 +47,7 @@ public class ContaFuncionarioDiariaRestController {
 		return new ResponseEntity<>(http , HttpStatus.CREATED);		
 	}
 	
+	@PreAuthorize("hasAnyRole('ROLE_?CONTA_FUNCIONARIO', 'ROLE_?DIARIA_FINANCAS_LANCAMENTO','ROLE_?ADMIN')")
 	@DeleteMapping(value="/excluir/{id}")
 	public ResponseEntity<ContaFuncionarioDiaria> excluir(@PathVariable Long id){
 		contaFuncionarioDiariaService.excluir(id);

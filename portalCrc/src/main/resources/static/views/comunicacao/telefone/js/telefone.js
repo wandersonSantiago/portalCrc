@@ -7,7 +7,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
 			templateUrl : 'views/comunicacao/telefone/telefone.index.html',
 			redirectTo : 'telefone.listar',
 			ncyBreadcrumb: {
-					parent: 'comunicacao.telefone',
+					parent: 'comunicacao.menu',
 				    label: 'Telefone'
 				  }
 		})

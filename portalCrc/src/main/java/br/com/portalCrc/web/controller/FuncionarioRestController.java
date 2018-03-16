@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -36,13 +37,14 @@ public class FuncionarioRestController {
 	  Iterable<Funcionario> funcionario = funcionarioService.listaPorUnidade();
 	  return new ResponseEntity<Iterable<Funcionario>>(funcionario, HttpStatus.OK);
 	 }
+	 @PreAuthorize("hasAnyRole('ROLE_?FUNCIONARIO_UNIDADE','ROLE_?ADMIN')")
 	 @RequestMapping(method = RequestMethod.POST, value="/salvar")
 	 public ResponseEntity<Funcionario> salvar(@RequestBody Funcionario funcionario,UriComponentsBuilder ucBuilder){
 		 funcionarioService.salvarEditar(funcionario);
 		 HttpHeaders headers =new HttpHeaders();
 		 return new ResponseEntity<Funcionario>(headers, HttpStatus.CREATED);
 	 }
-
+	 @PreAuthorize("hasAnyRole('ROLE_?FUNCIONARIO_UNIDADE','ROLE_?ADMIN')")
 	 @RequestMapping(method = RequestMethod.PUT, value="/alterar")
 	 public ResponseEntity<Funcionario> alterar(@RequestBody Funcionario funcionario,UriComponentsBuilder ucBuilder){
 		 funcionarioService.salvarEditar(funcionario);

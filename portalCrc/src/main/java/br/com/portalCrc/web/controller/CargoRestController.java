@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,14 +28,14 @@ public class CargoRestController {
 	  return new ResponseEntity<Iterable<Cargo>>(cargo, HttpStatus.OK);
 	 }
 	 
-	 
+	 @PreAuthorize("hasAnyRole('ROLE_?CARGO','ROLE_?ADMIN')")
 	 @RequestMapping(method = RequestMethod.POST, value="/salvar")
 	 public ResponseEntity<Cargo> salvar(@RequestBody Cargo cargo,UriComponentsBuilder ucBuilder){
 		 cargoService.salvarEditar(cargo);
 		 HttpHeaders headers =new HttpHeaders();
 		 return new ResponseEntity<Cargo>(headers, HttpStatus.CREATED);
 	 }
-
+	 @PreAuthorize("hasAnyRole('ROLE_?CARGO','ROLE_?ADMIN')")
 	 @RequestMapping(method = RequestMethod.PUT, value="/alterar")
 	 public ResponseEntity<Cargo> alterar(@RequestBody Cargo cargo,UriComponentsBuilder ucBuilder){
 		 cargoService.salvarEditar(cargo);

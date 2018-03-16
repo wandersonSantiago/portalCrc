@@ -22,6 +22,8 @@ app.config(function($stateProvider, $urlRouterProvider) {
 				  }
 		})
 		.state('sistema.cadastrar', {
+			requiresAuthentication: true,
+			permissions: ["ADMIN"],
 			url : "/cadastrar",
 			templateUrl : "views/informatica/configuracao/sistema/sistema.form.html",
 			controller : "SistemaCadastarController as ctrl",
@@ -31,6 +33,8 @@ app.config(function($stateProvider, $urlRouterProvider) {
 			  }
 		})
 		.state('sistema.editar', {
+			requiresAuthentication: true,
+			permissions: ["ADMIN"],
 			url : "/:idSistema/editar",
 			templateUrl : "views/informatica/configuracao/sistema/sistema.form.html",
 			controller : "SistemaEditarController as ctrl",

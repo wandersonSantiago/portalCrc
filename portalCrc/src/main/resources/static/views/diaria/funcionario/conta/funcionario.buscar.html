@@ -25,7 +25,7 @@
 	</tr>
 	<tr 
 		ng-repeat=" funcionario in ctrl.funcionarios | filter : buscaFuncionario">
-						<td><a ui-sref="funcionarioContaDiaria.cadastrar({idFuncionario : funcionario.id})">{{ funcionario.pessoa.nomeCompleto }}</a></td>
+						<td><a title="Alterar dados da conta!" ui-sref="funcionarioContaDiaria.cadastrar({idFuncionario : funcionario.id})">{{ funcionario.pessoa.nomeCompleto }}</a></td>
 						<td>{{ funcionario.pessoa.cpf }}</td>
 						<td>{{ funcionario.pessoa.telefoneCelular}}</td>
 						<td>{{ funcionario.pessoa.sexo }}</td>

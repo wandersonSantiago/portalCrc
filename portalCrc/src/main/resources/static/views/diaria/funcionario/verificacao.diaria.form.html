@@ -59,7 +59,7 @@
    		<md-button><h5>CPF :{{diaria.contaFuncionario.funcionario.pessoa.cpf}}</h5></md-button>
      </div>     
      <div class="col-sm-2">
-     	<md-button ui-sref="item.visualizar({idFuncionarioDiaria : diaria.id})"><h5>Valor total : {{diaria.totalValorDiaria | currency}}</h5></md-button>
+     	<md-button title="Visualizar todos os lançamentos!" ui-sref="item.visualizar({idFuncionarioDiaria : diaria.id})"><h5>Valor total : {{diaria.totalValorDiaria | currency}}</h5></md-button>
      </div>     
      <div class="col-sm-2">
      	<md-button class="md-raised md-primary" title="Continuar lançando"	ui-sref="item.financasCadastrar({idDiaria : ctrl.diaria.id , idFuncionario : diaria.contaFuncionario.funcionario.id})"><h5>Lançar</h5></md-button>

@@ -50,6 +50,8 @@ app.config(function($stateProvider, $urlRouterProvider) {
 				  }
 		})
 		.state('equipamento.cadastrar', {
+			requiresAuthentication: true,
+			permissions: ["EQUIPAMENTO", "ADMIN"],
 			url : "/cadastrar",
 			templateUrl : "views/informatica/controleIp/equipamento/equipamento.form.html",
 			controller : "EquipamentoCadastarController as equipamentoCtrl",
@@ -60,6 +62,8 @@ app.config(function($stateProvider, $urlRouterProvider) {
 		})
 		
 		.state('equipamento.editar', {
+			requiresAuthentication: true,
+			permissions: ["EQUIPAMENTO", "ADMIN"],
 			url : "/:idEquipamento/informatica/editar",
 			templateUrl : "views/informatica/controleIp/equipamento/equipamento.form.html",
 			controller : "EquipamentoEditarController as equipamentoCtrl",

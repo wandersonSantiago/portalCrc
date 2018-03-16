@@ -22,6 +22,8 @@ app.config(function($stateProvider, $urlRouterProvider) {
 				  }
 		})
 		.state('tipo.cadastrar', {
+			requiresAuthentication: true,
+			permissions: ["ADMIN"],
 			url : "/cadastrar",
 			templateUrl : "views/unidade/tipo/tipo.form.html",
 			controller : "TipoCadastarController as tipoCtrl",
@@ -31,6 +33,8 @@ app.config(function($stateProvider, $urlRouterProvider) {
 			  }
 		})
 		.state('tipo.editar', {
+			requiresAuthentication: true,
+			permissions: ["ADMIN"],
 			url : "/:idTipo/editar",
 			templateUrl : "views/unidade/tipo/tipo.form.html",
 			controller : "TipoEditarController as tipoCtrl",

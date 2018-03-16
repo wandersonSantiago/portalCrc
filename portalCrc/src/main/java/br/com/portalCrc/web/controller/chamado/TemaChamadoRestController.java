@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,6 +26,7 @@ public class TemaChamadoRestController {
 	@Autowired
 	private TemaChamadoService temaChamadoService;
 	
+	@PreAuthorize("hasAnyRole('ROLE_?ADMIN')")
 	 @PostMapping
 	 public ResponseEntity<TemaChamado> salvar(@RequestBody TemaChamado temaChamado,UriComponentsBuilder ucBuilder){
 		 temaChamadoService.salvarOuEditar(temaChamado);
@@ -32,6 +34,7 @@ public class TemaChamadoRestController {
 		 return new ResponseEntity<TemaChamado>(headers, HttpStatus.CREATED);
 	 }
 	 
+	@PreAuthorize("hasAnyRole('ROLE_?ADMIN')")
 	 @PutMapping
 	 public ResponseEntity<TemaChamado> alterar(@RequestBody TemaChamado temaChamado,UriComponentsBuilder ucBuilder){
 		 temaChamadoService.salvarOuEditar(temaChamado);

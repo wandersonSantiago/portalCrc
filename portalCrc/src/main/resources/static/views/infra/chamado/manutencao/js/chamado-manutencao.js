@@ -14,6 +14,8 @@ app.config(function($stateProvider, $urlRouterProvider) {
 	})
 	
 		.state('chamadoManutencao.listar', {
+			requiresAuthentication: true,
+			permissions: ["CHAMADO_USUARIO", "ADMIN"],
 			url : "/listar",
 			templateUrl : "views/infra/chamado/manutencao/lista.html",
 			controller : "ChamadoManutencaoListarController as chamadoCtrl",
@@ -23,6 +25,8 @@ app.config(function($stateProvider, $urlRouterProvider) {
 				  }
 		})
 		.state('chamadoManutencao.cadastrar', {
+			requiresAuthentication: true,
+			permissions: ["CHAMADO_USUARIO", "ADMIN"],
 			url : "/cadastrar",
 			templateUrl : "views/infra/chamado/manutencao/cadastrar.html",
 			controller : "ChamadoManutencaoCadastrarController as chamadoCtrl",
@@ -32,6 +36,8 @@ app.config(function($stateProvider, $urlRouterProvider) {
 			  }
 		})
 		.state('chamadoManutencao.atendimento', {
+			requiresAuthentication: true,
+			permissions: ["CHAMADO_USUARIO", "ADMIN"],
 			url : "/:idChamadoManutencao/atendimento",
 			templateUrl : "views/infra/chamado/manutencao/atendimento.html",
 			controller : "ChamadoManutencaoAtendimentoController as chamadoCtrl",
@@ -41,6 +47,8 @@ app.config(function($stateProvider, $urlRouterProvider) {
 				  }
 		})
 		.state('chamadoManutencao.suporteAtendimento', {
+			requiresAuthentication: true,
+			permissions: ["CHAMADO_MANUTENCAO_TECNICO", "ADMIN"],
 			url : "/:idChamadoManutencao/suporte/atendimento",
 			templateUrl : "views/infra/chamado/manutencao/suporte/atendimento.html",
 			controller : "ChamadoManutencaoAtendimentoSuporteController as chamadoCtrl",
@@ -51,6 +59,8 @@ app.config(function($stateProvider, $urlRouterProvider) {
 		})
 
 		.state('chamadoManutencao.relatorio', {
+			requiresAuthentication: true,
+			permissions: ["CHAMADO_MANUTENCAO_TECNICO", "ADMIN"],
 			url : "/relatorio",
 			templateUrl : "views/infra/chamado/manutencao/suporte/relatorio.html",
 			controller : "ChamadoManutencaoRelatorioController as chamadoCtr",
@@ -60,6 +70,8 @@ app.config(function($stateProvider, $urlRouterProvider) {
 				  }
 		})
 		.state('chamadoManutencao.suporteListar', {
+			requiresAuthentication: true,
+			permissions: ["CHAMADO_MANUTENCAO_TECNICO", "ADMIN"],
 			url : "/lista/suporte",
 			templateUrl : "views/infra/chamado/manutencao/suporte/lista.suporte.html",
 			controller : "ChamadoManutencaoSuporteListarController as chamadoCtrl",

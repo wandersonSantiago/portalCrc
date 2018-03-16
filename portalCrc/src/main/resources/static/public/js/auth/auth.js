@@ -66,7 +66,7 @@ app.factory("Auth", function($http, $q, $sessionStorage, $rootScope, $urlRouter,
         for(let permission of permissions){
         	$rootScope.permissao = [];
         	for(i = 0 ; i < $rootScope.user.authorities.length ; i++){
-        		$rootScope.permissao[i] = $rootScope.user.authorities[i].name;
+        		$rootScope.permissao[i] = $rootScope.user.authorities[i].name.replace(/.+\?/g, "");
         	}
             if ( $rootScope.permissao.indexOf(permission) >= 0){
             	return true;

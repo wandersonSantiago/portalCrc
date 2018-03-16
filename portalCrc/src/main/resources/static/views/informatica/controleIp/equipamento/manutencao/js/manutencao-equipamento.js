@@ -25,6 +25,8 @@ app.config(function($stateProvider, $urlRouterProvider) {
 		
 		
 		.state('manutencaoEquipamento.salvar', {
+			requiresAuthentication: true,
+			permissions: ["EQUIPAMENTO", "ADMIN"],
 			url : "/:idEquipamento/informatica/salvar",
 			templateUrl : "views/informatica/controleIp/equipamento/manutencao/manutencao-equipamento.form.html",
 			controller : "ManutencaoEquipamentoCadastarController as ctrl",

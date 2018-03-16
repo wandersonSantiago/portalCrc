@@ -22,6 +22,8 @@ app.config(function($stateProvider, $urlRouterProvider) {
 				  }
 		})
 		.state('secretaria.cadastrar', {
+			requiresAuthentication: true,
+			permissions: ["ADMIN"],
 			url : "/cadastrar",
 			templateUrl : "views/secretaria/secretaria.form.html",
 			controller : "SecretariaCadastarController as secretariaCtrl",
@@ -31,6 +33,8 @@ app.config(function($stateProvider, $urlRouterProvider) {
 			  }
 		})
 		.state('secretaria.editar', {
+			requiresAuthentication: true,
+			permissions: ["ADMIN"],
 			url : "/:idSecretaria/editar",
 			templateUrl : "views/secretaria/secretaria.form.html",
 			controller : "SecretariaEditarController as secretariaCtrl",

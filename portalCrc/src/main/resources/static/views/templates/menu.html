@@ -32,7 +32,7 @@
 					<li class="treeview"><a href=""><i class="glyphicon glyphicon-earphone"></i> <span>Telefones</span>
 						<i class="fa fa-angle-left pull-right"></i></a>
 						<ul class="treeview-menu">
-							<li permission="['TELEFONE' , 'ADMIN']"  ><a class="top" ui-sref="telefone.cadastrar">cadastrar</a></li>
+							<li permission="['CADASTRAR_TELEFONE' , 'ADMIN']"  ><a class="top" ui-sref="telefone.cadastrar">cadastrar</a></li>
 							<li ><a class="top" ui-sref="telefone.coordenadoria">Pesquisar</a></li>
 						</ul>
 					</li>  
@@ -40,7 +40,7 @@
 					<li  class="treeview"><a href=""><i class="glyphicon glyphicon-phone-alt"></i> <span>Ramal</span>
 						<i class="fa fa-angle-left pull-right"></i></a>
 						<ul  class="treeview-menu">
-							  <li permission="['RAMAL' , 'ADMIN']" ><a class="top" ui-sref="ramal.cadastrar">cadastro</a></li>
+							  <li permission="['CADASTRAR_RAMAL' , 'ADMIN']" ><a class="top" ui-sref="ramal.cadastrar">cadastro</a></li>
 							  <li><a class="top" ui-sref="ramal.coordenadoria">Pesquisar</a></li>	
 						</ul>						
 					</li>
@@ -117,13 +117,13 @@
 						</ul>
 					</li>	
 					<li permission="['DIARIA' , 'ADMIN']" class="header">FINANÇAS</li>
-					<li permission="['DIARIA' , 'ADMIN']" class="treeview"><a href=""><i class="fa fa-dollar "></i> <span>Diaria</span>
+					<li permission="['DIARIA', 'ADMIN']" class="treeview"><a href=""><i class="fa fa-dollar "></i> <span>Diaria</span>
 						<i class="fa fa-angle-left pull-right"></i></a>
 						<ul class="treeview-menu">
-							<li permission="['CONTA_FUNCIONARIO' , 'ADMIN']" ><a class="top" ui-sref="funcionarioContaDiaria.buscar">Conta</a></li>
+							<li permission="['DIARIA_FINANCAS_UNIDADE' , 'ADMIN']" ><a class="top" ui-sref="funcionarioContaDiaria.buscar">Conta</a></li>
 							<li permission="['DIARIA_FINANCAS_COORDENADORIA' , 'ADMIN']" ><a class="top" ui-sref="diaria.cadastrar">cadastrar novo mês</a></li>
 							<li permission="['DIARIA' , 'ADMIN']" ><a class="top" ui-sref="diaria.listar">Em aberto</a></li>
-							<li permission="['DIARIA' , 'DIARIA_COORDENADORIA', 'DIARIA_SECRETARIA', 'ADMIN']"><a class="top" ui-sref="diaria.relatorio">Relatórios</a></li>
+							<li permission="['DIARIA' , 'ADMIN']"><a class="top" ui-sref="diaria.relatorio">Relatórios</a></li>
 						</ul>
 					</li> 
 					<li permission="['CADASTRO_VEICULOS' , 'ADMIN']" class="header">INFRAESTRUTURA</li>

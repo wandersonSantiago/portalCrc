@@ -22,6 +22,8 @@ app.config(function($stateProvider, $urlRouterProvider) {
 				  }
 		})
 		.state('funcionario.cadastrar', {
+			requiresAuthentication: true,
+			permissions: ["FUNCIONARIO_UNIDADE", "ADMIN"],
 			url : "/cadastrar",
 			templateUrl : "views/recursosHumanos/funcionario/funcionario.form.html",
 			controller : "FuncionarioCadastarController as cadFuncCtrl",
@@ -31,6 +33,8 @@ app.config(function($stateProvider, $urlRouterProvider) {
 			  }
 		})
 		.state('funcionario.editar', {
+			requiresAuthentication: true,
+			permissions: ["FUNCIONARIO_UNIDADE", "ADMIN"],
 			url : "/:idFuncionario/editar",
 			templateUrl : "views/recursosHumanos/funcionario/funcionario.form.html",
 			controller : "FuncionarioEditarController as cadFuncCtrl",

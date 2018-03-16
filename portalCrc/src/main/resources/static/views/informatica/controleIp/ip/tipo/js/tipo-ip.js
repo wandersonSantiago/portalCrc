@@ -23,6 +23,8 @@ app.config(function($stateProvider, $urlRouterProvider) {
 				  }
 		})
 		.state('tipoIp.cadastrar', {
+			requiresAuthentication: true,
+			permissions: ["TIPO_IP", "ADMIN"],
 			url : "/cadastrar",
 			templateUrl : "views/informatica/controleIp/ip/tipo/tipo.ip.form.html",
 			controller : "TipoIpCadastarController as tipoIpCtrl",
@@ -32,6 +34,8 @@ app.config(function($stateProvider, $urlRouterProvider) {
 			  }
 		})
 		.state('tipoIp.editar', {
+			requiresAuthentication: true,
+			permissions: ["TIPO_IP", "ADMIN"],
 			url : "/:idTipoIp/editar",
 			templateUrl : "views/informatica/controleIp/ip/tipo/tipo.ip.form.html",
 			controller : "TipoIpEditarController as tipoIpCtrl",

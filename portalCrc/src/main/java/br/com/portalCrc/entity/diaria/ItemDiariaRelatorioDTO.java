@@ -155,7 +155,7 @@ public class ItemDiariaRelatorioDTO {
 
 	public void adicionaMeioDeTransporte(ItemDiaria iten) {
 		if(iten.getMeioTransporteSaida() != iten.getMeioTransporteRetorno()) {
-			this.meioTransporte = iten.getMeioTransporteSaida() + "/" + iten.getMeioTransporteRetorno()  +"\n";
+			this.meioTransporte += iten.getMeioTransporteSaida() + "/" + iten.getMeioTransporteRetorno()  +"\n";
 		}else {
 			this.meioTransporte += iten.getMeioTransporteSaida() +"\n";
 		}

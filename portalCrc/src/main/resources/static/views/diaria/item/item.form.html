@@ -2,17 +2,17 @@
 <div class="col-sm-12 ">
 	<form role="form-vertical" name="formDiaria" ng-submit="ctrl.submit()">
 		<div class="row ">
-			<div class="btn btn-default btn-flat col-sm-4 ">
+			<div class="btn btn-default btn-flat col-sm-4 " title="Nome do Funcionario">
 				Nome:{{ctrl.funcionario.contaFuncionario.funcionario.pessoa.nomeCompleto}}
 			</div>
-			<div class="btn btn-default btn-flat col-sm-2 ">
+			<div class="btn btn-default btn-flat col-sm-2 " title="Salário bruto mensal">
 				Salário:{{ctrl.funcionario.contaFuncionario.salarioAtual | currency}}</div>			
-			<div class="btn btn-default btn-flat col-sm-2 ">
+			<div class="btn btn-default btn-flat col-sm-2 " title="Limite máximo que pode receber de diária no mês">
 				Limite:{{ctrl.funcionario.contaFuncionario.limiteCemPorCento * ctrl.funcionario.contaFuncionario.salarioAtual / 100 | currency}}</div>			
-			<div class="btn btn-default btn-flat col-sm-2 ">
+			<div class="btn btn-default btn-flat col-sm-2 " title="Valor total de diarias a receber">
 				Total:{{ctrl.funcionario.totalValorDiaria | currency}}</div>
 				
-				<div ng-show="ctrl.funcionario.glosada" class="btn btn-danger btn-flat col-sm-2">
+				<div ng-show="ctrl.funcionario.glosada" class="btn btn-danger btn-flat col-sm-2" title="Valor total de diaria que ultrapassou o limite máximo!">
 				Glosada:{{ctrl.funcionario.glosada | currency}}</div>			
 			</div>
 		
@@ -21,14 +21,15 @@
 		<div class="col-sm-4">
 		Selecione o Tipo:
 			<select class="form-control" ng-model="ctrl.itemDiaria.tipo" ng-options="tipo for tipo in ctrl.tipos track by tipo">
+			<option value="Selecione o tipo da Diária"></option>
 			</select>
 		</div>
 		
-			<br> <span class="input-group-btn"> <a type="button"
+			<br> <span class="input-group-btn"> <a type="button" title="Click para obter informações sobre esta diária!"
 				data-toggle="modal" data-target="#informacaoModal"
 				data-whatever="@mdo" class="btn btn-info btn-flat">Informações <i
 					class="glyphicon glyphicon-search"></i></a>
-			</span> <span class="input-group-btn"> <a type="button"
+			</span> <span class="input-group-btn"> <a type="button" title="Click para visualizar as diarias lançadas!"
 				data-toggle="modal" data-target="#itensDiariaModal"
 				data-whatever="@mdo" class="btn btn-info btn-flat">Diárias
 					lançadas <i class="glyphicon glyphicon-search"></i>
@@ -47,7 +48,7 @@
 						md-selected-item-change="ctrl.buscarCidades(ctrl.itemDiaria.estado.id)"
 						md-items=" estado in ctrl.estados | filter : busca"
 						md-item-text="estado.nome" md-min-length="0"
-						placeholder="buscar"> <md-item-template>
+						placeholder="Selecione o Estado"> <md-item-template>
 					<span md-highlight-text="busca" md-highlight-flags="^i">{{estado.nome}}</span>
 					</md-item-template> </md-autocomplete>				
 					<span class="input-group-btn"> <a type="button"
@@ -63,7 +64,7 @@
 						md-selected-item-change="ctrl.adicionarLocal(ctrl.localDeslocamento)"
 						md-items=" cidade in ctrl.cidades | filter : buscarCidade"
 						md-item-text="cidade.nome" md-min-length="0"
-						placeholder="buscar"> <md-item-template>
+						placeholder="Selecione a Cidade"> <md-item-template>
 					<span md-highlight-text="buscarCidade" md-highlight-flags="^i">{{cidade.nome}}</span>
 					</md-item-template> </md-autocomplete>
 				 <span class="input-group-btn"> <a type="button"
@@ -88,8 +89,8 @@
 						ng-model="ctrl.itemDiaria.codigoLocalDeslocamento"
 						ng-options="valor.codigo for valor in ctrl.valoresDiaria track by valor.id"
 						required>
-						<option value=""></option>
-					</select> <span class="input-group-btn"> <a type="button"
+						<option value="">Selesione o código </option>
+					</select> <span class="input-group-btn"> <a type="button" title="Click para visualizar os Valores das Diarias por localidade!"
 						data-toggle="modal" data-target="#codigoModal"
 						data-whatever="@mdo" class="btn btn-info btn-flat"><i>Código</i></a>
 					</span>
@@ -98,10 +99,10 @@
 			<div class="col-sm-4">
 				Transporte Saída:
 				<div class="input-group margin">
-					<input type="text" class="form-control"
+					<input type="text" class="form-control" placeholder="Click no botão ao lado"
 						ng-model="ctrl.itemDiaria.meioTransporteSaida.placa" required>
 					<span class="input-group-btn"> <a type="button"
-						class="btn btn-info btn-flat" data-toggle="modal"
+						class="btn btn-info btn-flat" data-toggle="modal" title="Click para selecionar um veiculo, se a caso não encontrar o veiculo desejado, favor descrever a placa do mesmo no campo!"
 						data-target="#transporteSaidaModal"><i
 							class="fa fa-automobile"></i></a>
 					</span>
@@ -111,9 +112,9 @@
 			
 				Retorno:
 				<div class="input-group margin">
-					<input type="text" class="form-control"
+					<input type="text" class="form-control" placeholder="Click no botão ao lado "
 						ng-model="ctrl.itemDiaria.meioTransporteRetorno.placa" required>
-					<span class="input-group-btn"> <a type="button"
+					<span class="input-group-btn"> <a type="button" title="Click para selecionar um veiculo, se a caso não encontrar o veiculo desejado, favor descrever a placa do mesmo no campo!"
 						class="btn btn-info btn-flat" data-toggle="modal"
 						data-target="#transporteRetornoModal"><i
 							class="fa fa-automobile"></i></a>
@@ -127,12 +128,12 @@
 			<div class="col-sm-3">
 				Data Saida:
 				<p class="input-group">
-					<input type="text" class="form-control" readonly
+					<input type="text" class="form-control" readonly placeholder="Click no botão ao lado"
 						uib-datepicker-popup="{{format}}" date-input
 						ng-model="ctrl.itemDiaria.dataSaida" is-open="saida.opened"
 						ng-required="true" close-text="Close" required /> <span
 						class="input-group-btn">
-						<button type="button" class="btn btn-default"
+						<button type="button" class="btn btn-default" title="Click e escolha uma data"
 							ng-click="saidaOpen()">
 							<i class="glyphicon glyphicon-calendar"></i>
 						</button>
@@ -149,13 +150,13 @@
 			<div class="col-sm-3">
 				Data Chegada:
 				<p class="input-group">
-					<input type="text" class="form-control" readonly
+					<input type="text" class="form-control" readonly placeholder="Click no botão ao lado"
 						uib-datepicker-popup="{{format}}" date-input
 						ng-model="ctrl.itemDiaria.dataChegada"
 						ng-change="ctrl.verificaDataFinal(ctrl.itemDiaria.dataSaida, ctrl.itemDiaria.dataChegada )"
 						is-open="chegada.opened" ng-required="true" close-text="Close"
 						required /> <span class="input-group-btn">
-						<button type="button" class="btn btn-default"
+						<button type="button" class="btn btn-default" title="Click e escolha uma data"
 							ng-click="chegadaOpen()">
 							<i class="glyphicon glyphicon-calendar"></i>
 						</button>
@@ -178,13 +179,13 @@
 			<br>
 			<div class="form-group">
 				<label for="message-text" class="control-label">Motivo:</label>
-				<textarea class="form-control"
+				<textarea class="form-control" title="descreva neste campo o motivo da sua diária"
 					ng-model="ctrl.itemDiaria.motivo" id="message-text"></textarea>
 			</div>
 		</div>
 		<div class="row ">
 			<br> <span class="input-group-btn"> <a type="button"
-				data-toggle="modal" data-target="#passagemModal"
+				data-toggle="modal" data-target="#passagemModal" title="Adicione informações neste campo somente se foi comprado passagens!"
 				data-whatever="@mdo" class="btn btn-info btn-flat">Passagem<i
 					class="fa fa-bus"></i></a>
 			</span>

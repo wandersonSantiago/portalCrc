@@ -25,7 +25,7 @@
 						<td>{{ ramal.setor.nome }}</td>
 						<td>{{ ramal.numero }}</td>
 						<td>{{ ramal.unidade.dadosUnidade.mnemonico}}</td>
-						<td><a permission="['TELEFONE_CADASTRAR', 'ADMIN']" ui-sref="ramal.editar({idRamal: ramal.id})"><i class="glyphicon glyphicon-edit"></i></a> 
+						<td permission="['TELEFONE_CADASTRAR', 'ADMIN']"><a  ui-sref="ramal.editar({idRamal: ramal.id})"><i class="glyphicon glyphicon-edit"></i></a> 
 						
 				</tr>
 				</tbody>

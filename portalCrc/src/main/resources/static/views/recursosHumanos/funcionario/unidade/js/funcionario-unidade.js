@@ -14,6 +14,8 @@ app.config(function($stateProvider, $urlRouterProvider) {
 	})
 	
 	.state('funcionarioUnidade.unidade', {
+		requiresAuthentication: true,
+		permissions: ["FUNCIONARIO_UNIDADE", "ADMIN"],
 		url : "/:idFuncionario/unidade",
 		templateUrl : "views/recursosHumanos/funcionario/unidade/funcionario.unidade.form.html",
 		controller : "FuncionarioUnidadeCadastarController as funcionarioUnidadeCtrl",

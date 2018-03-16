@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,6 +29,7 @@ public class ItemDiariaRestController {
 	@Autowired
 	private ItemDiariaService itemDiariaRepository;
 	
+	@PreAuthorize("hasAnyRole('ROLE_?DIARIA_FINANCAS_LANCAMENTO','ROLE_?DIARIA_LANCAR','ROLE_?ADMIN')")
 	@PostMapping
 	 public ResponseEntity<ItemDiaria> salvar(@RequestBody ItemDiaria itemDiaria, UriComponentsBuilder ucBuilder){
 		itemDiariaRepository.salvaOuAltera(itemDiaria);
@@ -35,6 +37,7 @@ public class ItemDiariaRestController {
 		 return new ResponseEntity<ItemDiaria>(headers, HttpStatus.CREATED);
 	 }
 		
+	@PreAuthorize("hasAnyRole('ROLE_?DIARIA_FINANCAS_LANCAMENTO','ROLE_?DIARIA_LANCAR','ROLE_?ADMIN')")
 	@PutMapping
 	public ResponseEntity<ItemDiaria> alterar(@RequestBody ItemDiaria itemDiaria, UriComponentsBuilder ucBuilder){
 		itemDiariaRepository.altera(itemDiaria);
@@ -42,6 +45,7 @@ public class ItemDiariaRestController {
 		return new ResponseEntity<>(http , HttpStatus.CREATED);		
 	}
 	
+	@PreAuthorize("hasAnyRole('ROLE_?DIARIA_FINANCAS_LANCAMENTO','ROLE_?DIARIA_LANCAR','ROLE_?ADMIN')")
 	@DeleteMapping(value="/excluir/{id}")
 	public ResponseEntity<ItemDiaria> excluir(@PathVariable Long id){
 		itemDiariaRepository.excluir(id);
@@ -85,6 +89,7 @@ public class ItemDiariaRestController {
 			return new ResponseEntity<ItemDiaria>(itemDiariaRepository.buscaPorId(id), HttpStatus.OK);
 	 }
 	 
+	 @PreAuthorize("hasAnyRole('ROLE_?DIARIA_FINANCAS_LANCAMENTO','ROLE_?ADMIN')")
 	 @PostMapping(value="/{idItem}/analizado")
 	 public ResponseEntity<ItemDiaria> analizado(@PathVariable Long idItem){
 		itemDiariaRepository.analizado(idItem);

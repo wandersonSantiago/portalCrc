@@ -850,13 +850,15 @@ function ItemDiariaUsuarioController($stateParams, $state, ItemDiariaService, to
 					$scope.funcionario = f;				
 					itensPorFuncionarioDiariaETipo(f.id, self.tipo);
 				}, function(errResponse) {
+					$state.go('diaria.listar');
 					sweetAlert({
-						text : errResponse.data.message,
+						text : "Não existe diária lançada para este funcionário!",
 						type : "info",
 						width : 300,
 						higth : 300,
 						padding : 20
 					});
+					
 				});
 	};
 		

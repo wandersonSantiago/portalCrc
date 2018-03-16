@@ -22,6 +22,8 @@ app.config(function($stateProvider, $urlRouterProvider) {
 				  }
 		})
 		.state('modulo.cadastrar', {
+			requiresAuthentication: true,
+			permissions: ["ADMIN"],
 			url : "/cadastrar",
 			templateUrl : "views/informatica/configuracao/sistema/modulo/modulo.form.html",
 			controller : "ModuloCadastarController as ctrl",
@@ -31,6 +33,8 @@ app.config(function($stateProvider, $urlRouterProvider) {
 			  }
 		})
 		.state('modulo.editar', {
+			requiresAuthentication: true,
+			permissions: ["ADMIN"],
 			url : "/:idModulo/editar",
 			templateUrl : "views/informatica/configuracao/sistema/modulo/modulo.form.html",
 			controller : "ModuloEditarController as ctrl",

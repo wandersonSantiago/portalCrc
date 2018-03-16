@@ -7,7 +7,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
 			templateUrl : 'views/comunicacao/ramal/ramal.index.html',
 			redirectTo : 'ramal.listar',
 			ncyBreadcrumb: {
-					parent: 'comunicacao.ramal',
+					parent: 'comunicacao.menu',
 				    label: 'Ramal'
 				  }
 		})

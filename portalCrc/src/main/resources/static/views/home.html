@@ -21,9 +21,9 @@
           </div>
         </div>
         <!-- ./col -->
-        <div class="col-lg-3 " ng-controller="ChamadoTiCadastrarController">
+        <div permission="['CHAMADO_USUARIO', 'CHAMADO_INFORMATICA_TECNICO', 'ADMIN']"   class="col-lg-3 " >
           <!-- small box -->
-          <div class="small-box bg-blue">
+          <div class="small-box bg-blue" ng-controller="ChamadoTiCadastrarController">
             <div class="inner">
               <h3>02</h3>
 
@@ -95,7 +95,7 @@
           </div>
         </div>
         <!-- ./col -->
-        <div class="col-lg-3 " permission="['FUNCIONARIO_UNIDADE', 'CARGO', 'SETOR', 'FUNCAO' , 'ADMIN', 'ADMIN']">
+        <div class="col-lg-3 " permission="['FUNCIONARIO_UNIDADE', 'CARGO', 'SETOR', 'FUNCAO' , 'ADMIN']">
           <!-- small box -->
           <div class="small-box bg-yellow">
             <div class="inner">
