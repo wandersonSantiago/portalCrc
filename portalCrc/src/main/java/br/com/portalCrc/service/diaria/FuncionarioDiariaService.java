@@ -35,10 +35,11 @@ public class FuncionarioDiariaService {
 		Usuario usuario = SessionUsuario.getInstance().getUsuario();
 		BigDecimal total = new BigDecimal(0);
 		funcionarioDiaria.setDataCadastro(new Date());
+		
 		funcionarioDiaria.setUnidade(usuario.getFuncionario().getUnidadeAtual());
-		funcionarioDiaria.setUsuarioCadastro(SessionUsuario.getInstance().getUsuario());
-		funcionarioDiaria.setCargo(usuario.getFuncionario().getCargoAtual());
-		funcionarioDiaria.setSetor(usuario.getFuncionario().getSetorAtual());
+		funcionarioDiaria.setUsuarioCadastro(usuario);
+		funcionarioDiaria.setCargo(funcionarioDiaria.getContaFuncionario().getFuncionario().getCargoAtual());
+		funcionarioDiaria.setSetor(funcionarioDiaria.getContaFuncionario().getFuncionario().getSetorAtual());
 
 		funcionarioDiaria.setTotalValorDiaria(total);
 		if (funcionarioDiaria.getDiaria().getStatus() == StatusDiariaEnum.ABERTO) {

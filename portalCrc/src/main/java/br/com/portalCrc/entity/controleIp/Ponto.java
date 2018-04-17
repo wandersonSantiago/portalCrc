@@ -48,11 +48,11 @@ public class Ponto {
 	@JoinColumn(name="switch")
 	private Switch switchs;
 	
-	@ManyToOne
+	@OneToOne
 	@JoinColumn(name="id_Unidade" )
 	private Unidade unidade;
 	
-	@ManyToOne 
+	@OneToOne 
 	@JoinColumn(name="id_usuario_cadastro")
 	private Usuario usuarioCadastro;
 	

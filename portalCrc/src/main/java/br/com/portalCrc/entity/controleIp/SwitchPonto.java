@@ -42,11 +42,11 @@ public class SwitchPonto {
 	@JoinColumn(name="porta_switch", nullable=false)	
 	private PortaSwitch portaSwitch;
 	
-	@ManyToOne
+	@OneToOne
 	@JoinColumn(name="id_unidade")
 	private Unidade unidade;
 		
-	@ManyToOne
+	@OneToOne
 	@JoinColumn(name="id_usuario_cadastro")
 	private Usuario usuarioCadastro;
 	

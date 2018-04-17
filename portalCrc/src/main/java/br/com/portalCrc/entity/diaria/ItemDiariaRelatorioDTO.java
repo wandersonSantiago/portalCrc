@@ -1,10 +1,7 @@
 package br.com.portalCrc.entity.diaria;
 
-import java.math.BigDecimal;
-import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.List;
-import java.util.Locale;
 
 import br.com.portalCrc.util.ConverteNumeroEmMoeda;
 
@@ -74,7 +71,7 @@ public class ItemDiariaRelatorioDTO {
 	}
 
 	public void addDeslocamentoMaisDeDoze(ItemDiaria iten) {
-		if(iten.getQtdDeslocamentoDasSeisAsDoze() != null) {
+		if(iten.getQtdDeslocamentoMaisDeDoze() != null) {
 			this.qtdDeslocamentoMaisDeDoze += iten.getQtdDeslocamentoMaisDeDoze() + "\n";
 		}else {
 			this.qtdDeslocamentoMaisDeDoze += "\n";

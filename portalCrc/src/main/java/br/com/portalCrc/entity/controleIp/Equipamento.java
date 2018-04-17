@@ -52,7 +52,7 @@ public class Equipamento {
 	@JoinColumn(name="ponto")
 	private Ponto ponto;
 	
-	@ManyToOne
+	@OneToOne
 	@JoinColumn(name="unidade", nullable=false)
 	private Unidade unidade;
 	
@@ -64,7 +64,7 @@ public class Equipamento {
 	@Column(name="data_alteracao")
 	private Date dataAlteracao;
 	
-	@ManyToOne
+	@OneToOne
 	@JoinColumn(name="id_usuario_cadastro", nullable=false)
 	private Usuario usuarioCadastro;
 	

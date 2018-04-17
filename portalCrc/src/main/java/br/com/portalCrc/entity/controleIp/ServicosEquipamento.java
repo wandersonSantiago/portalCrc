@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -38,7 +39,7 @@ public class ServicosEquipamento {
 	@Column(name="data_cadastro")
 	private Date dataCadastro;
 	
-	@ManyToOne
+	@OneToOne
 	@JoinColumn(name="id_tecnico")
 	private Usuario tecnico;
 	

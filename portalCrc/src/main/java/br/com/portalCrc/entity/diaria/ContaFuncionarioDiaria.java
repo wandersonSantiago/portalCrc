@@ -22,53 +22,52 @@ import br.com.portalCrc.entity.Usuario;
 
 @Entity
 @SequenceGenerator(name = "conta_funcionario_diaria_id_seq", sequenceName = "conta_funcionario_diaria_id_seq", initialValue = 1, allocationSize = 1)
-@Table(name="conta_funcionario_diaria", schema="diaria")
+@Table(name = "conta_funcionario_diaria", schema = "diaria")
 public class ContaFuncionarioDiaria {
-	
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "conta_funcionario_diaria_id_seq")
 	private Long id;
-	
-	@NotNull (message="Funcionario não pode ser nulo")
+
+	@NotNull(message = "Funcionario não pode ser nulo")
 	@OneToOne
-	@JoinColumn(name="id_funcionario")
+	@JoinColumn(name = "id_funcionario")
 	private Funcionario funcionario;
-	
-	@NotNull (message="Usuario não pode ser nulo")
+
+	@NotNull(message = "Usuario não pode ser nulo")
 	@ManyToOne
-	@JoinColumn(name="id_usuario_cadastro")
+	@JoinColumn(name = "id_usuario_cadastro")
 	private Usuario usuarioCadastro;
-	
-	@NotNull (message="Data não pode ser nulo")
+
+	@NotNull(message = "Data não pode ser nulo")
 	@Temporal(TemporalType.DATE)
-	private Date dataCadastro;	
-	
-	@NotNull (message="banco não pode ser nulo")
-	@Column(name="banco")
+	private Date dataCadastro;
+
+	@NotNull(message = "banco não pode ser nulo")
+	@Column(name = "banco")
 	private String banco;
-	
-	@NotNull (message="agencia não pode ser nulo")
-	@Column(name="agencia")
+
+	@NotNull(message = "agencia não pode ser nulo")
+	@Column(name = "agencia")
 	private String agencia;
-	
-	@NotNull (message="conta não pode ser nulo")
-	@Column(name="conta")
+
+	@NotNull(message = "conta não pode ser nulo")
+	@Column(name = "conta")
 	private String conta;
-	
-	@NotNull (message="salario não pode ser nulo")
-	@Column(name="salario_atual")
+
+	@NotNull(message = "salario não pode ser nulo")
+	@Column(name = "salario_atual")
 	private BigDecimal salarioAtual;
-	
-	@NotNull (message="indice Ufesp não pode ser nulo")
-	@Column(name="indice_ufesp")
+
+	@NotNull(message = "indice Ufesp não pode ser nulo")
+	@Column(name = "indice_ufesp")
 	private Integer indiceUfesp;
-	
-	@NotNull (message="limitede diaria não pode ser nulo")
-	@Column(name="limiteCemPorCento")
+
+	@NotNull(message = "limitede diaria não pode ser nulo")
+	@Column(name = "limiteCemPorCento")
 	private Double limiteCemPorCento;
-	
-	@Column(name="status")
+
+	@Column(name = "status")
 	private boolean status;
 
 	public Long getId() {
@@ -159,5 +158,4 @@ public class ContaFuncionarioDiaria {
 		this.status = status;
 	}
 
-	
 }

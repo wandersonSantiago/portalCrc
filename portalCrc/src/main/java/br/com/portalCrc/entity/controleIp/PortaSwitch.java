@@ -10,7 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -47,16 +47,16 @@ public class PortaSwitch {
 	@Column(name="data_cadastro" ,  nullable=false)
 	private Date dataCadastro;
 	
-	@ManyToOne
+	@OneToOne
 	@JoinColumn(name="id_usuario_cadastro")
 	private Usuario usuarioCadastro;
 	
-	@ManyToOne
+	@OneToOne
 	@JoinColumn(name="id_unidade")
 	private Unidade unidade;
 	
 	@JsonIgnore
-	@ManyToOne 
+	@OneToOne 
 	@JoinColumn(name="id_switch")
 	private Switch switchs;
 	

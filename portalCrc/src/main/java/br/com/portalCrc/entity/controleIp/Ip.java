@@ -10,7 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -34,7 +34,7 @@ public class Ip {
 	@Column(name="numero", nullable=false) 
 	private String numero;
 	
-	@ManyToOne
+	@OneToOne
 	@JoinColumn(name="tipo_ip_id")
 	private TipoIp tipo;
 	
@@ -45,11 +45,11 @@ public class Ip {
 	@Column(name="data_cadastro")
 	private Date dataCadastro;
 	
-	@ManyToOne
+	@OneToOne
 	@JoinColumn(name="id_unidade")
 	private Unidade unidade;
 	
-	@ManyToOne
+	@OneToOne
 	@JoinColumn(name="id_usuario_cadastro")
 	private Usuario usuarioCadastro;
 	
