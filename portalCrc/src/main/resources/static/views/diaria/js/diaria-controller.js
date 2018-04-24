@@ -3,15 +3,12 @@ app.controller("DiariaEditarController", DiariaEditarController);
 app.controller("DiariaListarController", DiariaListarController);
 app.controller("DiariaRelatorioController", DiariaRelatorioController);
 
-DiariaCadastarController.$inject = ['DiariaService', '$state', 'toastr', '$rootScope', '$scope'];
-DiariaEditarController.$inject = ['$stateParams', '$state', 'DiariaService', 'toastr', '$rootScope', '$scope'];
-DiariaListarController.$inject = ['$stateParams', '$state', 'DiariaService', 'toastr', '$rootScope', '$scope'];
-DiariaRelatorioController.$inject = ['$stateParams', '$state', 'DiariaService', 'toastr', '$rootScope', '$scope'];
 
 function DiariaCadastarController( DiariaService, $state, toastr, $rootScope, $scope){
 	var self = this;
 	
 	self.submit = submit;
+	$scope.botao = "Cadastrar";
 	listarMes();
 	
 	
@@ -37,6 +34,7 @@ function DiariaEditarController($stateParams, $state, DiariaService, toastr, $ro
 	
 	var self = this;
 	self.submit = submit;
+	$scope.botao = "Editar";
 	var idDiaria = $stateParams.idDiaria;
 	
 	listarMes();
@@ -75,46 +73,30 @@ function DiariaEditarController($stateParams, $state, DiariaService, toastr, $ro
 	
 	
 }
-function DiariaListarController($stateParams, $state, DiariaService, toastr, $rootScope, $scope){
+function DiariaListarController(ItemDiariaService, $stateParams, $state, DiariaService, toastr, $rootScope, $scope){
 	var self = this;
 	self.encerrar = encerrar;
-	self.getPage=0;
-	self.totalPages = 0;
-	self.totalElements = 0;
-	$scope.maxResults = 15;
-	listar(0 , 12);
+	self.buscarFuncionarioDiaria = buscarFuncionarioDiaria;
 	diariasEmAberto();
-	
-self.informacaoModal = informacaoModal;
-	
-	function informacaoModal(diaria){
-		$scope.info = diaria;
-	}
-	
-	 function listar(pages, maxResults){
-		 	self.totalPages = [];
-			self.getPage=pages;
-		 DiariaService.listar(pages, maxResults).
-			then(function(e){	
-				self.listaDiarias = e.content;
-				$scope.totalPages = e.totalPages;
-				self.totalElements = e.totalElements;
-				for(i = 0; i < $scope.totalPages ; i++){
-					self.totalPages.push(i);
-				}				
-				}, function(errResponse){
-					sweetAlert({ timer : 3000,  text : errResponse.data.message,  type : "info", width: 300, higth: 300, padding: 20});
-			});
-		};
+	$rootScope.escondeMenu = true;
 		
 	function diariasEmAberto(){
 			 DiariaService.diariasEmAberto().
 				then(function(f){
-					self.diarias = f;					
+					self.diaria = f;		
+					buscarFuncionarioDiaria(f.id, $rootScope.user.funcionario.id);
 					}, function(errResponse){
 				});
 			};
 		
+			function buscarFuncionarioDiaria(idDiaria, idFuncionario) {
+				ItemDiariaService.buscarPorIdFuncionario(idDiaria, idFuncionario).then(
+						function(f) {
+							$scope.funcionario = f;				
+						}, function(errResponse) {
+							$scope.funcionario = null;
+						});
+			};
 	function encerrar(objeto) {
 			swal({
 				  title: 'Encerrar Lançamentos!!!',
@@ -134,7 +116,16 @@ self.informacaoModal = informacaoModal;
 					});	
 					 
 				})		
-		};	
+		};
+		
+		  $scope.labels = ['2006', '2007', '2008', '2009', '2010', '2011', '2012'];
+		  $scope.series = ['Series A', 'Series B', 'Series C'];
+
+		  $scope.data = [
+		    [65, 59, 80, 81, 56, 55, 40],
+		    [28, 48, 40, 19, 86, 27, 90],
+		    [28, 48, 40, 19, 86, 27, 90]
+		  ];
 }
 function DiariaRelatorioController( $stateParams, $state, DiariaService, toastr, $rootScope, $scope){
 	

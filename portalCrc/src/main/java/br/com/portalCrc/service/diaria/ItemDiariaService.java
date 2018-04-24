@@ -66,7 +66,6 @@ public class ItemDiariaService {
 		
 		CalculaValor calcula = new CalculaValor();
 		
-		itemDiaria.setDataAlteracao(new Date());
 		itemDiaria.setUsuarioAlteracao(user);
 		
 		BigDecimal valorTotalItem = new BigDecimal(0);
@@ -167,6 +166,11 @@ public class ItemDiariaService {
 		
 		ItemDiaria item = itemDiariaRepository.findOne(id);
 		
+		
+		if(item.getFuncionarioDiaria().getDiaria().getStatus() == StatusDiariaEnum.FECHADO){
+			throw new MensagemException("Não foi possivel realizar este lançamento, Este mês esta encerrado!!!");
+		}
+		
 		FuncionarioDiaria funcionarioDiaria =  funcionarioDiariaRepository.findById(item.getFuncionarioDiaria().getId());
 		
 		BigDecimal glosada = funcionarioDiaria.getGlosada();
@@ -202,26 +206,90 @@ public class ItemDiariaService {
 
 	@Transactional(readOnly = false)
 	public void analizado(Long idItem) {		
-		ItemDiaria item = itemDiariaRepository.findOne(idItem);
+		ItemDiaria item = itemDiariaRepository.findOne(idItem);	
+		if(item.getFuncionarioDiaria().getDiaria().getStatus() == StatusDiariaEnum.FECHADO){
+			throw new MensagemException("Não foi possivel realizar este lançamento, Este mês esta encerrado!!!");
+		}
+		FuncionarioDiaria diariaFuncionario = funcionarioDiariaRepository.findById(item.getFuncionarioDiaria().getId());		
+		
+		BigDecimal salario = diariaFuncionario.getSalarioAtual();
+		BigDecimal porcentagem = new BigDecimal(diariaFuncionario.getLimiteCemPorCento());
+		BigDecimal divisor = new BigDecimal(100);
+		
+		BigDecimal totalItem = item.getValorDiaria();
+		BigDecimal totalPago = diariaFuncionario.getTotalPago();
+				
+
+		BigDecimal maximoDiaria = salario.multiply(porcentagem).divide(divisor);
+		
+		totalPago = totalPago.add(totalItem);
+		
+		if(totalPago.compareTo(maximoDiaria) == 1){			
+			totalPago = maximoDiaria;			
+		}
+		
+		diariaFuncionario.setTotalPago(totalPago);
+		
 		item.setAnalizado(true);
 	}
 
 
-	public Iterable<ItemDiaria> findByFuncionarioDiaria_idAndTipo(Long idFuncionario, TipoDiariaEnum tipo) {
-		return itemDiariaRepository.findByFuncionarioDiaria_idAndTipo(idFuncionario, tipo);
+	public List<ItemDiaria> findByFuncionarioDiaria_idAndTipo(Long idFuncionario, TipoDiariaEnum tipo) {
+		List<ItemDiaria> list = itemDiariaRepository.findByFuncionarioDiaria_idAndTipo(idFuncionario, tipo);
+		if(list.isEmpty()) {
+			 list = itemDiariaRepository.findByFuncionarioDiaria_idAndTipo(idFuncionario, TipoDiariaEnum.SEGURANCA);
+			 if(list.isEmpty()){
+					throw new MensagemException("Funcionario não tem diarias!!!");
+				}
+		}
+		return list;
 	}
 
-
+	
+	/**
+	 * @TODO gambiarra para fazer que o calculo da diaria do mesmo dia 
+	 * seja convertido em um retorno
+	 * essa é uma gambiarra, que tem que ser alterada o mais rapido possivel, ta muito zuado!!
+	 * @param idItem - recebe o id do item da diaria a qual a gambiarra ira executar as alterações
+	 */
 	@Transactional(readOnly = false)
 	public void retorno(Long idItem) {
 		ItemDiaria item = itemDiariaRepository.findOne(idItem);
 		
-		if(item.isRetorno()){
-			item.setRetorno(false);
-		}else{
-			item.setRetorno(true);
+		if(item.getFuncionarioDiaria().getDiaria().getStatus() == StatusDiariaEnum.FECHADO){
+			throw new MensagemException("Não foi possivel realizar este lançamento, Este mês esta encerrado!!!");
 		}
 		
+		if(item.isRetorno()){
+			if(item.getQtdRegressoAposDezenove() != null) {
+				item.setQtdDeslocamentoMaisDeDoze(1);
+				item.setValorDeslocamentoMaisDeDoze(item.getValorTotalRegressoAposDezenove());
+				item.setQtdRegressoAposDezenove(null);
+				item.setValorTotalRegressoAposDezenove(null);
+				
+			}else {
+				item.setQtdDeslocamentoDasSeisAsDoze(1);
+				item.setValorTotalDeslocamentoDasSeisAsDoze(item.getValorTotalRegressoTrezeAsDezenove());
+				item.setQtdRegressoTrezeAsDezenove(null);			
+				item.setValorTotalRegressoTrezeAsDezenove(null);
+			}
+			item.setRetorno(false);
+		}else {
+		if(item.getQtdDeslocamentoMaisDeDoze() != null) {
+			item.setQtdRegressoAposDezenove(1);
+			item.setValorTotalRegressoAposDezenove(item.getValorDeslocamentoMaisDeDoze());
+			item.setQtdDeslocamentoMaisDeDoze(null);
+			item.setValorDeslocamentoMaisDeDoze(null);
+			
+		}else {
+			item.setQtdRegressoTrezeAsDezenove(1);
+			item.setValorTotalRegressoTrezeAsDezenove(item.getValorTotalDeslocamentoDasSeisAsDoze());
+			item.setQtdDeslocamentoDasSeisAsDoze(null);			
+			item.setValorTotalDeslocamentoDasSeisAsDoze(null);
+		}
+		
+		item.setRetorno(true);
+		}
 		
 	}
 

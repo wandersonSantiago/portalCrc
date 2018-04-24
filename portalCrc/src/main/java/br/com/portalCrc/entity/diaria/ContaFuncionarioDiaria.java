@@ -19,7 +19,9 @@ import javax.validation.constraints.NotNull;
 
 import br.com.portalCrc.entity.Funcionario;
 import br.com.portalCrc.entity.Usuario;
+import lombok.Data;
 
+@Data
 @Entity
 @SequenceGenerator(name = "conta_funcionario_diaria_id_seq", sequenceName = "conta_funcionario_diaria_id_seq", initialValue = 1, allocationSize = 1)
 @Table(name = "conta_funcionario_diaria", schema = "diaria")
@@ -67,95 +69,20 @@ public class ContaFuncionarioDiaria {
 	@Column(name = "limiteCemPorCento")
 	private Double limiteCemPorCento;
 
+	private String decreto;
+	
 	@Column(name = "status")
 	private boolean status;
 
-	public Long getId() {
-		return id;
+	public ContaFuncionarioDiaria() {
+		setDecreto(this.decreto);
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	public void setDecreto(String decreto) {
+		if(decreto == null || decreto.contentEquals("")) {
+			this.decreto = "Declaro  que  a  importância  recebida  a  título  de diárias durante  o  mês    declarado  não ultrapassou  o  limite previsto  no \"caput\" do  artigo  8º  do Decreto nº 48.292/2003 e que não recebi esta Diária por outra Unidade";
+		}else {
+			this.decreto = decreto;
+		}
 	}
-
-	public Funcionario getFuncionario() {
-		return funcionario;
-	}
-
-	public void setFuncionario(Funcionario funcionario) {
-		this.funcionario = funcionario;
-	}
-
-	public Usuario getUsuarioCadastro() {
-		return usuarioCadastro;
-	}
-
-	public void setUsuarioCadastro(Usuario usuarioCadastro) {
-		this.usuarioCadastro = usuarioCadastro;
-	}
-
-	public Date getDataCadastro() {
-		return dataCadastro;
-	}
-
-	public void setDataCadastro(Date dataCadastro) {
-		this.dataCadastro = dataCadastro;
-	}
-
-	public String getBanco() {
-		return banco;
-	}
-
-	public void setBanco(String banco) {
-		this.banco = banco;
-	}
-
-	public String getAgencia() {
-		return agencia;
-	}
-
-	public void setAgencia(String agencia) {
-		this.agencia = agencia;
-	}
-
-	public String getConta() {
-		return conta;
-	}
-
-	public void setConta(String conta) {
-		this.conta = conta;
-	}
-
-	public BigDecimal getSalarioAtual() {
-		return salarioAtual;
-	}
-
-	public void setSalarioAtual(BigDecimal salarioAtual) {
-		this.salarioAtual = salarioAtual;
-	}
-
-	public Integer getIndiceUfesp() {
-		return indiceUfesp;
-	}
-
-	public void setIndiceUfesp(Integer indiceUfesp) {
-		this.indiceUfesp = indiceUfesp;
-	}
-
-	public Double getLimiteCemPorCento() {
-		return limiteCemPorCento;
-	}
-
-	public void setLimiteCemPorCento(Double limiteCemPorCento) {
-		this.limiteCemPorCento = limiteCemPorCento;
-	}
-
-	public boolean isStatus() {
-		return status;
-	}
-
-	public void setStatus(boolean status) {
-		this.status = status;
-	}
-
 }

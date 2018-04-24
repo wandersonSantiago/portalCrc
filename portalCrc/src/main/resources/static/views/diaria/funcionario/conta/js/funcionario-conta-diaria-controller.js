@@ -4,11 +4,6 @@ app.controller("FuncionarioContaDiariaListarController", FuncionarioContaDiariaL
 app.controller("FuncionarioContaBuscarListarController", FuncionarioContaBuscarListarController);
 
 
-FuncionarioContaDiariaCadastrarController.$inject = ['$state','FuncionarioService','$stateParams','FuncionarioContaDiariaService', 'FuncionarioService', 'toastr', '$rootScope', '$scope'];
-FuncionarioContaDiariaEditarController.$inject = ['$state','FuncionarioService','$stateParams','FuncionarioContaDiariaService', 'FuncionarioService', 'toastr', '$rootScope', '$scope'];
-FuncionarioContaDiariaListarController.$inject = ['$stateParams', '$state', 'FuncionarioContaDiariaService', 'toastr', '$rootScope', '$scope'];
-FuncionarioDiariaListarController.$inject = ['$stateParams', '$state', 'FuncionarioService', 'toastr', '$rootScope', '$scope'];
-
 function FuncionarioContaDiariaCadastrarController($state, FuncionarioService, $stateParams, FuncionarioContaDiariaService, FuncionarioService, toastr, $rootScope, $scope){
 	var self = this;
 	var idFuncionario = $stateParams.idFuncionario;	
@@ -106,7 +101,7 @@ function FuncionarioContaDiariaEditarController($state, FuncionarioService, $sta
 		FuncionarioContaDiariaService.alterar(self.contaFuncionarioDiaria).
 			then(function(response){
 				toastr.info("alterado com Sucesso!!!");
-				$state.go('diaria.listar');
+				$state.go('funcionarioContaDiaria.buscar');
 				}, function(errResponse){
 					sweetAlert({ timer : 3000,  text : errResponse.data.message,  type : "info", width: 300, higth: 300, padding: 20});
 			});
@@ -171,7 +166,7 @@ function FuncionarioContaDiariaListarController($stateParams, $state, Funcionari
 		};
 }
 
-function FuncionarioContaBuscarListarController($state, FuncionarioService, $rootScope, $scope){
+function FuncionarioContaBuscarListarController(FuncionarioContaDiariaService, $state, FuncionarioService, $rootScope, $scope){
 	var self = this;
 	self.buscarPorTexto = buscarPorTexto;
 	
@@ -184,5 +179,15 @@ function FuncionarioContaBuscarListarController($state, FuncionarioService, $roo
 				});
 		};
 		
+		listar();
+		
+		 function listar(){
+			 FuncionarioContaDiariaService.listarPorUnidade().
+				then(function(f){
+					$scope.contas = f;				
+					}, function(errResponse){
+						sweetAlert({ timer : 3000,  text : errResponse.data.message,  type : "info", width: 300, higth: 300, padding: 20});
+				});
+			};
 	
 }

@@ -4,44 +4,35 @@
 				<form role="form-vertical"	ng-submit="usuarioCtrl.submit()">
 				<br>
 				<div class="row">					
-						<div class="col-sm-6">
-							<select class="form-control select2" ng-model="usuarioCtrl.usuario.funcionario" 
-							ng-options="funcionario.pessoa.nomeCompleto for funcionario in usuarioCtrl.funcionarios" required >
-								<option value="">{{usuarioCtrl.usuario.funcionario.pessoa.nomeCompleto}}</option>
-							</select>
+						<div class="col-sm-4">
+						<label>Funcionario:</label><br>
+						{{usuarioCtrl.usuario.funcionario.pessoa.nomeCompleto}}							
 						</div>				
 							
 					<div>	
-						<div class="col-sm-3" >
-								<select class="form-control select2" ng-model="usuarioCtrl.usuario.unidade" 
-								ng-options="unidades.dadosUnidade.mnemonico group by unidades.tipoUnidade.mnemonico for unidades in usuarioCtrl.unidades"  required >
-									<option value="">{{usuarioCtrl.usuario.unidade.dadosUnidade.mnemonico}}</option>
-								</select>
+						<div class="col-sm-8" >
+						<label>Unidade:</label><br>
+								{{usuarioCtrl.usuario.funcionario.unidadeAtual.dadosUnidade.nome}}	
 							</div>		
-						</div>	
-						<div>	
-						<!-- <div class="col-sm-3">
-								<select class="form-control select2" ng-model="usuarioCtrl.usuario.setor" 
-								ng-options="setores.nome group by setores.tipoSetor.mnemonico for setores in usuarioCtrl.setores" required >
-									<option value="">{{usuarioCtrl.usuario.setor.nome}}</option>
-								</select>
-							</div>		 -->
 						</div>	
 					</div>							
 								
 					<br>
 					<div class="row" >
-						<div class="col-sm-2">
-							<input type="text" class="form-control" id="nome" ng-model="userCtrl.usuario.login" ng-blur="usuarioCtrl.existeLogin(userCtrl.usuario.login)" placeholder="Usuário"
+						<div class="col-sm-4">
+						<label>Usuario:</label>
+							<input type="text" class="form-control" id="nome" ng-model="usuarioCtrl.usuario.login" ng-blur="usuarioCtrl.existeLogin(usuarioCtrl.usuario.login)" placeholder="Usuário"
 								title="Nome de usuario" maxlength="15"	required>
 						</div>						
 					
 	
-						<div class="col-sm-2">
+						<div class="col-sm-4">
+						<label>Senha:</label>
 							<input type="password" class="form-control" id="senha" ng-model="usuarioCtrl.senha" placeholder="Senha"
 								title="Digite uma senha"maxlength="12" required>
 						</div>
-						<div class="col-sm-2">
+						<div class="col-sm-4">
+						<label>Repita a Senha:</label>
 							<input type="password" class="form-control" id="repitaSenha" ng-model="usuarioCtrl.senhaRepitida" placeholder="Repita a Senha"
 								title="repita a senha" required>
 						</div>
@@ -52,7 +43,7 @@
 					<div class="row ">
 					<div class="col-sm-4"></div>
 							<div class="col-sm-3">
-								<button type="submit" name="submit" class="btn btn-lg btn-primary btn-block btn-signin">Cadastrar</button>
+								<button type="submit" name="submit" class="btn btn-lg btn-primary btn-block btn-signin">Editar</button>
 							
 							</div>
 						</div>

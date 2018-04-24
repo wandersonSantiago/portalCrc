@@ -1,39 +1,76 @@
 <meta charset="UTF-8">
+<meta charset="UTF-8">
 
 <div class="row">
-  <div class="col-lg-6">
-    <div class="input-group">
-      <input type="text" class="form-control" placeholder="Digite o nome ou qualquer número de documento" ng-model="texto" autofocus
-      	 ng-keyup="$event.keyCode == 13 && ctrl.buscarPorTexto(texto)">
-      <span class="input-group-btn">
-        <button class="btn btn-default" type="button" ng-click="ctrl.buscarPorTexto(texto)">buscar!</button>
-      </span>
-    </div><!-- /input-group -->
-  </div><!-- /.col-lg-6 -->
-  </div>
-  <br>
-<div class="table-responsive" ng-show="ctrl.funcionarios.length">
-<table class="table table-hover">
-	<tr>
-		
-		<!-- <th>Nome</th>			
-		<th>CPF</th>	
-		<th>Cargo</th>	
-		<th>Banco</th>	
-		<th>Agencia</th>
-		<th>Conta</th> -->
-	</tr>
-	<tr 
-		ng-repeat=" funcionario in ctrl.funcionarios | filter : buscaFuncionario">
-						<td><a title="Alterar dados da conta!" ui-sref="funcionarioContaDiaria.cadastrar({idFuncionario : funcionario.id})">{{ funcionario.pessoa.nomeCompleto }}</a></td>
-						<td>{{ funcionario.pessoa.cpf }}</td>
-						<td>{{ funcionario.pessoa.telefoneCelular}}</td>
-						<td>{{ funcionario.pessoa.sexo }}</td>
-						<td>{{ funcionario.pessoa.endereco.localidade}}</td>
-				</tr>
-	</table>
-</div>	
+	<div class="col-lg-6">
+		<div class="input-group">
+			<input type="text" class="form-control"
+				placeholder="Digite o nome ou qualquer número de documento"
+				ng-model="texto" autofocus
+				ng-keyup="$event.keyCode == 13 && ctrl.buscarPorTexto(texto)">
+			<span class="input-group-btn">
+				<button class="btn btn-default" type="button"
+					ng-click="ctrl.buscarPorTexto(texto)">buscar!</button>
+			</span>
+		</div>
+	</div>
+</div>
+<br>
 
+<div ng-if="texto" class="padded" md-whiteframe="{{height}}" flex="100"
+	flex-gt-sm="50" layout="column" layout-align="center center"
+	ng-init="height = 1" ng-mouseenter="height = 3"
+	ng-mouseleave="height = 1"
+	ng-repeat="funcionario in ctrl.funcionarios | orderBy: 'nome' ">
+	<div class="row">
+		<span ui-sref="funcionarioContaDiaria.cadastrar({idFuncionario : funcionario.id})"
+			class="btn btn-primary btn-flat"><h5>{{funcionario.pessoa.nomeCompleto }}
+				CPF: {{funcionario.pessoa.cpf}}</h5></span>
+	</div>
+</div>
+<br>
+<br>
+<div class="row">
+	
+		<span class="btn btn-primary btn-flat col-sm-12">Contas cadastradas</span>
+	
+</div>
+<br>
+<div class="row">
+	<div class="col-sm-3">
+		<input class="form-control" placeholder="Pesquisar..." type="text" ng-model="buscar">
+	</div>
+</div>
 
+<br>
 
+<table class="table table-hover table-bordered">
+				<thead>
+					<tr>
+						<th>Nome</th>
+						<th>Banco</th>
+						<th>Agencia</th>
+						<th>Conta</th>
+						<th>Ufesp</th>
+						<th>Limite</th>
+						<th>Editar</th>
+					</tr>
+				</thead>
+				<tbody 	ng-repeat=" conta in contas | filter : buscar |  orderBy: 'funcionario.pessoa.nomeCompleto'">
+					<tr>
+						<td>{{ conta.funcionario.pessoa.nomeCompleto }}</td>
+						<td>{{ conta.banco }}</td>
+						<td>{{ conta.agencia}}</td>
+						<td>{{ conta.conta }}</td>
+						<td>{{ conta.indiceUfesp}}</td>
+						<td>{{ conta.limiteCemPorCento}}</td>
+						<td><a title="Alterar dados da conta!" ui-sref="funcionarioContaDiaria.editar({idConta : conta.id})"><i class="glyphicon glyphicon-edit"></i></a>
+					</tr>							
+				</tbody>
+				<tfoot>
+					<tr>
+					
 
+					</tr>
+				</tfoot>
+			</table>

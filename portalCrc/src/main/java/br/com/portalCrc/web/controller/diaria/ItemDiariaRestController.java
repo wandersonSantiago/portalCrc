@@ -1,6 +1,7 @@
 package br.com.portalCrc.web.controller.diaria;
 
 import java.util.Arrays;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -29,7 +30,7 @@ public class ItemDiariaRestController {
 	@Autowired
 	private ItemDiariaService itemDiariaRepository;
 	
-	@PreAuthorize("hasAnyRole('ROLE_?DIARIA_FINANCAS_LANCAMENTO','ROLE_?DIARIA_LANCAR','ROLE_?ADMIN')")
+	@PreAuthorize("hasAnyRole('ROLE_?DIARIA_USUARIO', 'ROLE_?DIARIA_FINANCAS','ROLE_?ADMIN')")
 	@PostMapping
 	 public ResponseEntity<ItemDiaria> salvar(@RequestBody ItemDiaria itemDiaria, UriComponentsBuilder ucBuilder){
 		itemDiariaRepository.salvaOuAltera(itemDiaria);
@@ -37,7 +38,7 @@ public class ItemDiariaRestController {
 		 return new ResponseEntity<ItemDiaria>(headers, HttpStatus.CREATED);
 	 }
 		
-	@PreAuthorize("hasAnyRole('ROLE_?DIARIA_FINANCAS_LANCAMENTO','ROLE_?DIARIA_LANCAR','ROLE_?ADMIN')")
+	@PreAuthorize("hasAnyRole('ROLE_?DIARIA_USUARIO', 'ROLE_?DIARIA_FINANCAS','ROLE_?ADMIN')")
 	@PutMapping
 	public ResponseEntity<ItemDiaria> alterar(@RequestBody ItemDiaria itemDiaria, UriComponentsBuilder ucBuilder){
 		itemDiariaRepository.altera(itemDiaria);
@@ -45,7 +46,7 @@ public class ItemDiariaRestController {
 		return new ResponseEntity<>(http , HttpStatus.CREATED);		
 	}
 	
-	@PreAuthorize("hasAnyRole('ROLE_?DIARIA_FINANCAS_LANCAMENTO','ROLE_?DIARIA_LANCAR','ROLE_?ADMIN')")
+	@PreAuthorize("hasAnyRole('ROLE_?DIARIA_USUARIO', 'ROLE_?DIARIA_FINANCAS','ROLE_?ADMIN')")
 	@DeleteMapping(value="/excluir/{id}")
 	public ResponseEntity<ItemDiaria> excluir(@PathVariable Long id){
 		itemDiariaRepository.excluir(id);
@@ -66,9 +67,9 @@ public class ItemDiariaRestController {
 	}
 	
 	@GetMapping(value="/itens/{idFuncionario}/tipo/{tipo}")
-	public ResponseEntity<Iterable<ItemDiaria>> itensAndTipo(@PathVariable Long idFuncionario, @PathVariable TipoDiariaEnum tipo){
-		Iterable<ItemDiaria> itemDiaria = itemDiariaRepository.findByFuncionarioDiaria_idAndTipo(idFuncionario, tipo);
-		return new ResponseEntity<Iterable<ItemDiaria>>(itemDiaria, HttpStatus.OK);
+	public ResponseEntity<List<ItemDiaria>> itensAndTipo(@PathVariable Long idFuncionario, @PathVariable TipoDiariaEnum tipo){
+		List<ItemDiaria> itemDiaria = itemDiariaRepository.findByFuncionarioDiaria_idAndTipo(idFuncionario, tipo);
+		return new ResponseEntity<List<ItemDiaria>>(itemDiaria, HttpStatus.OK);
 	}
 	
 	@GetMapping(value="/itens/{id}")
@@ -89,7 +90,7 @@ public class ItemDiariaRestController {
 			return new ResponseEntity<ItemDiaria>(itemDiariaRepository.buscaPorId(id), HttpStatus.OK);
 	 }
 	 
-	 @PreAuthorize("hasAnyRole('ROLE_?DIARIA_FINANCAS_LANCAMENTO','ROLE_?ADMIN')")
+	 @PreAuthorize("hasAnyRole('ROLE_?USUARIO_CONTA', 'ROLE_?DIARIA_FINANCAS','ROLE_?ADMIN')")
 	 @PostMapping(value="/{idItem}/analizado")
 	 public ResponseEntity<ItemDiaria> analizado(@PathVariable Long idItem){
 		itemDiariaRepository.analizado(idItem);

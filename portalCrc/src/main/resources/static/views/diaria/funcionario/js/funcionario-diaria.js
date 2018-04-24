@@ -5,17 +5,16 @@ app.config(function($stateProvider, $urlRouterProvider) {
 	.state('funcionarioDiaria', {
 		abstract : true,
 		url : '/diaria/funcionario',
-		templateUrl : 'views/diaria/funcionario/funcionario.diaria.index.html',
-		redirectTo : 'funcionario.listar',
+		templateUrl : 'views/diaria/diaria.index.html',
 		ncyBreadcrumb: {
-		 	parent: 'home.menu',
+		 	parent: 'diaria',
 			    label: 'funcionario'
 			  }
 	})
 		
 		.state('funcionarioDiaria.verificar', {
 			requiresAuthentication: true,
-			permissions: ["DIARIA_FINANCAS_LANCAMENTO", "ADMIN"],
+			permissions: ["DIARIA_FINANCAS", "DIARIA_USUARIO", "ADMIN"],
 			url : "/verificar",
 			params: {
 				idDiaria: null,
@@ -24,14 +23,14 @@ app.config(function($stateProvider, $urlRouterProvider) {
 	        templateUrl : "views/diaria/funcionario/verificacao.diaria.form.html",
 	     	ncyBreadcrumb: {
 			 	parent: 'funcionarioDiaria',
-			    label: 'Buscar funcionarios'
+			    label: 'Funcionarios'
 			  }
 		})
 		
 		.state('funcionarioDiaria.unidade', {
 			requiresAuthentication: true,
-			permissions: ["DIARIA_FINANCAS_LANCAMENTO", "ADMIN"],
-			url : "/funcionario/listar/unidade",
+			permissions: ["DIARIA_FINANCAS", "ADMIN"],
+			url : "/funcionario/extrato/unidade",
 			params: {
 				idDiaria: null,
 			  },
@@ -39,12 +38,12 @@ app.config(function($stateProvider, $urlRouterProvider) {
 			controller : "FuncionarioDiariaUnidadeListarController as ctrl",
 			ncyBreadcrumb: {
 			 	parent: 'funcionarioDiaria',
-			    label: 'Listar diárias das unidades '
+			    label: 'Extrato '
 			  }
 		})
-		.state('funcionarioDiaria.coordenadoria', {
+		/*.state('funcionarioDiaria.coordenadoria', {
 			requiresAuthentication: true,
-			permissions: ["DIARIA_FINANCAS_COORDENADORIA", "ADMIN"],
+			permissions: ["DIARIA_FINANCAS", "ADMIN"],
 			url : "/funcionario/listar/coordenadoria",
 			params: {
 				idDiaria: null,
@@ -55,10 +54,10 @@ app.config(function($stateProvider, $urlRouterProvider) {
 			 	parent: 'funcionarioDiaria',
 			    label: 'Listar diárias das coordenadoria '
 			  }
-		})
-		.state('funcionarioDiaria.secretaria', {
+		})*/
+		/*.state('funcionarioDiaria.secretaria', {
 			requiresAuthentication: true,
-			permissions: ["DIARIA_FINANCAS_SECRETARIA", "ADMIN"],
+			permissions: ["DIARIA_FINANCAS", "ADMIN"],
 			url : "/funcionario/listar/secretaria",
 			params: {
 				idDiaria: null,
@@ -69,10 +68,10 @@ app.config(function($stateProvider, $urlRouterProvider) {
 			 	parent: 'funcionarioDiaria',
 			    label: 'Listar diárias da secretaria '
 			  }
-		})
+		})*/
 		.state('funcionarioDiaria.cadastrar', {
 			requiresAuthentication: true,
-			permissions: ["DIARIA_FINANCAS_LANCAMENTO", "ADMIN"],
+			permissions: ["DIARIA_FINANCAS", "ADMIN"],
 			url : "/funcionario/cadastrar",
 			params: {
 				idDiaria: null,
@@ -86,7 +85,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
 		})
 		.state('funcionarioDiaria.cadastrarFinancas', {
 			requiresAuthentication: true,
-			permissions: ["DIARIA_FINANCAS_LANCAMENTO", "ADMIN"],
+			permissions: ["DIARIA_FINANCAS", "ADMIN"],
 			url : "/funcionario/cadastrar",
 			params: {
 				idDiaria: null,

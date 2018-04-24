@@ -11,7 +11,7 @@ app.factory('FuncionarioUnidadeService', function($q, $rootScope, toastr, $http)
 			});
 		},
 		
-		alterar: function(funcionarioUnidade){
+		update: function(funcionarioUnidade){
 			return $http.put('/rest/recursosHumanos/funcionarioUnidade/alterar', funcionarioUnidade)
 			.then(function(response){
 				return response.data;
@@ -47,6 +47,15 @@ app.factory('FuncionarioUnidadeService', function($q, $rootScope, toastr, $http)
 		
 		listar: function(){
 			return $http.get('/rest/recursosHumanos/funcionarioUnidade/lista')
+			.then(function(response){
+				return response.data;
+			},function(errResponse){
+				return $q.reject(errResponse);
+			});
+		},
+		
+		findAll: function(id){
+			return $http.get('/rest/recursosHumanos/funcionarioUnidade/'+id+'/lista')
 			.then(function(response){
 				return response.data;
 			},function(errResponse){

@@ -1,8 +1,9 @@
 package br.com.portalCrc.web.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,11 +27,7 @@ public class FuncionarioRestController {
 	@Autowired
 	private FuncionarioService funcionarioService;
 	
-	 @RequestMapping(method = RequestMethod.GET, value="/lista")
-	 public ResponseEntity<Iterable<Funcionario>> lista() {	  
-	  Iterable<Funcionario> funcionario = funcionarioService.lista();
-	  return new ResponseEntity<Iterable<Funcionario>>(funcionario, HttpStatus.OK);
-	 }
+	
 	 
 	 @RequestMapping(method = RequestMethod.GET, value="/lista/porUnidade")
 	 public ResponseEntity<Iterable<Funcionario>> listaPorUnidade() {	  
@@ -41,8 +38,7 @@ public class FuncionarioRestController {
 	 @RequestMapping(method = RequestMethod.POST, value="/salvar")
 	 public ResponseEntity<Funcionario> salvar(@RequestBody Funcionario funcionario,UriComponentsBuilder ucBuilder){
 		 funcionarioService.salvarEditar(funcionario);
-		 HttpHeaders headers =new HttpHeaders();
-		 return new ResponseEntity<Funcionario>(headers, HttpStatus.CREATED);
+		 return new ResponseEntity<Funcionario>(funcionario, HttpStatus.CREATED);
 	 }
 	 @PreAuthorize("hasAnyRole('ROLE_?FUNCIONARIO_UNIDADE','ROLE_?ADMIN')")
 	 @RequestMapping(method = RequestMethod.PUT, value="/alterar")
@@ -63,9 +59,24 @@ public class FuncionarioRestController {
 			return new ResponseEntity<Funcionario>(funcionarioService.verificaCpf(cpf), HttpStatus.OK);
 		}
 	 
-	 @GetMapping(value = "/buscar")
-		public ResponseEntity<?> buscar(@RequestParam("q")String texto) {
-				return new ResponseEntity<List<Funcionario>>(funcionarioService.buscar(texto), HttpStatus.OK);
-		}
+		
 	
+	 @GetMapping(value = "/descricao")
+		public ResponseEntity<Page<Funcionario>> findByDescricao(
+				@RequestParam(value="page", defaultValue="0") Integer page, 
+				@RequestParam(value="linesPerPage", defaultValue="24") Integer linesPerPage, 
+				@RequestParam(value="orderBy", defaultValue="pessoa.nomeCompleto") String orderBy, 
+				@RequestParam(value="direction", defaultValue="ASC") String direction,
+				@RequestParam(value="descricao", required = false , defaultValue="")String descricao) {
+
+			Page<Funcionario> list = null;
+			
+			if(descricao.isEmpty() || descricao.equalsIgnoreCase("")) {
+				list = funcionarioService.findAll(new PageRequest(page, linesPerPage, Direction.valueOf(direction), orderBy));
+			}else {
+				list = funcionarioService.buscar(descricao, new PageRequest(page, linesPerPage, Direction.valueOf(direction), orderBy));
+			}
+			
+			return ResponseEntity.ok().body(list);
+		}
 }

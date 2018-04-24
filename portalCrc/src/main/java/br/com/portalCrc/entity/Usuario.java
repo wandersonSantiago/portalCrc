@@ -38,7 +38,7 @@ public class Usuario {
     @Enumerated(EnumType.STRING)
     private StatusUsuarioEnum status;
     
-	@Column(nullable = false,length = 15,unique = true)
+	@Column(nullable = false,unique = true)
 	private String login;
 	@Column(nullable = false,length = 256)
 	private String senha;

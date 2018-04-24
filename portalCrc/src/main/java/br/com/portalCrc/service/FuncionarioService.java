@@ -2,9 +2,11 @@ package br.com.portalCrc.service;
 
 import java.util.Collection;
 import java.util.Date;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -35,16 +37,15 @@ public class FuncionarioService {
 	@Transactional(readOnly = false)
 	public void salvarEditar(Funcionario funcionario){
 		salvaHistoricoDeCargo(funcionario);
-		salvaHistoricoDaUnidade(funcionario);
+		if(funcionario.getId() == null) {
+			salvaHistoricoDaUnidade(funcionario);
+		}		
 		funcionario.setUnidadeAtual(SessionUsuario.getInstance().getUsuario().getFuncionario().getUnidadeAtual());
 		funcionario.setDataCadastro(new Date());
 		funcionarioRepository.save(funcionario);
 	}
 	
-	public Collection<Funcionario> lista(){
-		return funcionarioRepository.findAll();
-	}
-	
+		
 	public Funcionario buscaPorId(Long id){
 		return funcionarioRepository.findOne(id);
 	}
@@ -60,31 +61,32 @@ public class FuncionarioService {
 	
 	@Transactional(readOnly = false)
 	public void salvaHistoricoDaUnidade(Funcionario funcionario){
-		FuncionarioUnidade unidades = new FuncionarioUnidade();
-		unidades.setAtivo(true);
-		unidades.setFuncionario(funcionario);
-		unidades.setUnidade(SessionUsuario.getInstance().getUsuario().getFuncionario().getUnidadeAtual());
-		unidades.setStatus(StatusFuncionario.LOTADO);
-		unidades.setDataCadastro(new Date());
-		funcionarioUnidadeRepository.save(unidades);
+		FuncionarioUnidade unidade = new FuncionarioUnidade();
+		unidade.setAtivo(true);
+		unidade.setFuncionario(funcionario);
+		unidade.setUnidade(SessionUsuario.getInstance().getUsuario().getFuncionario().getUnidadeAtual());
+		unidade.setStatus(StatusFuncionario.LOTADO);
+		unidade.setDataCadastro(new Date());
+		unidade.setCargo(funcionario.getCargoAtual());
+		funcionarioUnidadeRepository.save(unidade);
 	}
 
 	public Iterable<Funcionario> listaPorUnidade() {		
 		return funcionarioRepository.findByUnidadeAtual_id(SessionUsuario.getInstance().getUsuario().getFuncionario().getUnidadeAtual().getId());
 	}
 	
-	public List<Funcionario> buscar(String texto) {
+	public Page<Funcionario> buscar(String texto, Pageable page) {
 		Long unidade = SessionUsuario.getInstance().getUsuario().getFuncionario().getUnidadeAtual().getId();
 			texto = texto.replaceAll("[./-]","");
 			if (texto.matches("[0-9]+")) {
-				List<Funcionario> list = funcionarioRepository.findByUnidadeAtual_idAndPessoa_cpf(unidade, "%" + texto + "%");
-				if(list.isEmpty() || list == null){
+				Page<Funcionario> list = funcionarioRepository.findByUnidadeAtual_idAndPessoa_cpf(unidade, "%" + texto + "%", page);
+				if(list.getNumberOfElements() < 1 || list == null){
 					throw new MensagemException("Busca não encontrada, verifique se ja existe conta aberta para este funcionario! " + texto);
 				}
 				return list;
 			} else {
-				List<Funcionario> list =  funcionarioRepository.findByUnidadeAtual_idAndPessoaNomeCompletoIgnoreCaseContaining(unidade,texto);
-				if(list.isEmpty() || list == null){
+				Page<Funcionario> list =  funcionarioRepository.findByUnidadeAtual_idAndPessoaNomeCompletoIgnoreCaseContaining(unidade,texto, page);
+				if(list.getNumberOfElements() < 1 || list == null){
 					throw new MensagemException("Busca não encontrada, verifique se ja existe conta aberta para este funcionario! " + texto);
 				}
 				return list;
@@ -99,5 +101,9 @@ public class FuncionarioService {
 			throw new MensagemException("Liberado para cadastro!! " + cpf);
 		}		
 		return funcionario;
+	}
+
+	public Page<Funcionario> findAll(PageRequest pageRequest) {
+		return funcionarioRepository.findAll(pageRequest);
 	}
 }

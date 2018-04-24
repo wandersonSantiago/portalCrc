@@ -63,6 +63,14 @@ app.factory('DiariaService', function($q, $http){
 				return $q.reject(errResponse);
 			});
 		},
+		unidade: function(){
+			return $http.get('/rest/diaria/unidade')
+			.then(function(response){
+				return response.data;
+			},function(errResponse){
+				return $q.reject(errResponse);
+			});
+		},
 		listarUnidade: function(){
 			return $http.get('/rest/diaria/listaUnidade')
 			.then(function(response){

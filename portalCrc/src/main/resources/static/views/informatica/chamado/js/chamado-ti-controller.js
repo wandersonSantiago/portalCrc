@@ -97,8 +97,8 @@ function ChamadoTiCadastrarController( $q, ChamadoTiService, toastr, $rootScope,
 				 
 				 sincPromise().then(null, null, function(message) {				
 					 
-					 for(i = 0 ; i < $rootScope.usuario.permissoes.length ; i++){        		
-			        		 if($rootScope.permissao[i] == "CHAMADO_INFORMATICA_TECNICO"){
+					 for(i = 0 ; i < $rootScope.user.permissoes.length ; i++){        		
+			        		 if($rootScope.user.permissao[i] == "CHAMADO_INFORMATICA_TECNICO"){
 								 self.enableAutoplay(); 
 								 $rootScope.mensagem = message.result;
 								 $rootScope.qtdChamadosSuporteTi = message.valor;

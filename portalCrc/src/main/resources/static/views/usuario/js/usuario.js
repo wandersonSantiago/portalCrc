@@ -39,7 +39,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
 		})
 		.state('usuario.cadastrar', {
 			requiresAuthentication: true,
-			permissions: ["ADMIN"],
+			permissions: ["USUARIO_UNIDADE","ADMIN"],
 			url : "/cadastrar",
 			templateUrl : "views/usuario/usuario.form.html",
 			controller : "UsuarioCadastarController as usuarioCtrl",
@@ -50,7 +50,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
 		})
 		.state('usuario.editar', {
 			requiresAuthentication: true,
-			permissions: ["ADMIN"],
+			permissions: ["USUARIO_UNIDADE","ADMIN"],
 			url : "/:idUsuario/editar",
 			templateUrl : "views/usuario/usuario.form.html",
 			controller : "UsuarioEditarController as usuarioCtrl",

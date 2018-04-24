@@ -37,14 +37,14 @@ public class FuncionarioUnidadeRestController {
 	 @PreAuthorize("hasAnyRole('ROLE_?FUNCIONARIO_UNIDADE','ROLE_?ADMIN')")
 	 @RequestMapping(method = RequestMethod.POST, value="/salvar")
 	 public ResponseEntity<FuncionarioUnidade> salvar(@RequestBody FuncionarioUnidade funcionario,UriComponentsBuilder ucBuilder){
-		 funcionarioUnidadeService.salvarEditar(funcionario);
-		 HttpHeaders headers =new HttpHeaders();
-		 return new ResponseEntity<FuncionarioUnidade>(headers, HttpStatus.CREATED);
+		 funcionarioUnidadeService.insert(funcionario);
+		 return new ResponseEntity<FuncionarioUnidade>(funcionario, HttpStatus.CREATED);
 	 }
+	 
 	 @PreAuthorize("hasAnyRole('ROLE_?FUNCIONARIO_UNIDADE','ROLE_?ADMIN')")
 	 @RequestMapping(method = RequestMethod.PUT, value="/alterar")
 	public ResponseEntity<FuncionarioUnidade> alterar(@RequestBody FuncionarioUnidade funcionario,UriComponentsBuilder ucBuilder){
-		 funcionarioUnidadeService.salvarEditar(funcionario);
+		 funcionarioUnidadeService.update(funcionario);
 		 HttpHeaders headers =new HttpHeaders();
 		 return new ResponseEntity<FuncionarioUnidade>(headers, HttpStatus.CREATED);
 	 }
@@ -64,6 +64,14 @@ public class FuncionarioUnidadeRestController {
 		public ResponseEntity<FuncionarioUnidade> buscarPorIdFuncionario(@PathVariable Long id) {
 			return new ResponseEntity<FuncionarioUnidade>(funcionarioUnidadeService.findByFuncionario_idTop1Desc(id), HttpStatus.OK);
 		}
+	 
+	 @RequestMapping(value = "/{id}/lista", method = RequestMethod.GET)
+		public ResponseEntity<List<FuncionarioUnidade>> findAllById(@PathVariable Long id) {
+			List<FuncionarioUnidade> list = funcionarioUnidadeService.findAllByFuncionarioId(id);
+		 
+		 return new ResponseEntity<List<FuncionarioUnidade>>(list, HttpStatus.OK);
+		}
+	 
 	 @RequestMapping(method = RequestMethod.GET, value = "/status")
 		public ResponseEntity<Iterable<StatusFuncionario>> status() {
 			Iterable<StatusFuncionario> status = Arrays.asList(StatusFuncionario.values());

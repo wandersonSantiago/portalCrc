@@ -54,12 +54,13 @@ app.factory('FuncionarioService', function($q , $http){
 				return $q.reject(errResponse);
 			});
 		},
-		buscarPorTexto :function(params){
-			return $http.get('/rest/recursosHumanos/funcionario/buscar?q=' +params)
+		buscarPorTexto: function(texto, pagina){
+			var config = {params: {page: pagina, descricao:texto}};
+			return $http.get('/rest/recursosHumanos/funcionario/descricao', config)
 			.then(function(response){
 				return response.data;
 			},function(errResponse){
-			return $q.reject(errResponse);
+				return $q.reject(errResponse);
 			});
 		},
 		verificaCpf:function(cpf){

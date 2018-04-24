@@ -21,8 +21,7 @@ public class UsuarioService {
 	@Autowired
 	private UsuarioRepository usuarioRepository;
 
-	@Autowired
-	private ImagemService imagemService;
+
 	
 	public Usuario buscarUsuarioPorNome(String nomeUsuario) {
 		return null;
@@ -75,9 +74,7 @@ public class UsuarioService {
 	}
 
 	@Transactional(readOnly = false)
-	public void save(String path, Usuario user) {
-
-		user.setCaminhoFoto(path);
+	public void savePathFoto(Usuario user) {
 		usuarioRepository.save(user);
 	}
 

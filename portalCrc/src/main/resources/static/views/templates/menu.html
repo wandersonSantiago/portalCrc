@@ -4,13 +4,13 @@
 <!-- dados do usuario logado -->
 		<div class="user-panel">
 			<div class="pull-left image">
-				<img ng-src="/rest/usuario/{{usuario.id}}/foto"
+				<img ng-src="/rest/usuario/{{user.id}}/foto"
 				  class="img-circle"
 					alt="User Image">			
 			</div>
 			<div class="pull-left info" >
-				<p><a href="" ui-sref="usuario.perfil">{{usuario.funcionario.pessoa.nomeCompleto | limitTo:17}}</a><p>
-				<a href="#" data-toggle="modal" data-target="#alteraStatus"><i   class="glyphicon glyphicon-star-empty"></i> {{usuario.status}}</a>
+				<p><a href="" ui-sref="usuario.perfil">{{user.funcionario.pessoa.nomeCompleto | limitTo:17}}</a><p>
+				<a href="#" data-toggle="modal" data-target="#alteraStatus"><i   class="glyphicon glyphicon-star-empty"></i> {{user.status}}</a>
 			</div>
 		</div>
 		<form action="" class="sidebar-form">
@@ -116,14 +116,14 @@
 							<li permission="['ADMIN']"><a class="top" ui-sref="tema.listar">listar</a></li>
 						</ul>
 					</li>	
-					<li permission="['DIARIA' , 'ADMIN']" class="header">FINANÇAS</li>
-					<li permission="['DIARIA', 'ADMIN']" class="treeview"><a href=""><i class="fa fa-dollar "></i> <span>Diaria</span>
+					<li permission="['DIARIA_FINANCAS', 'DIARIA_TRASNPARENCIA' , 'ADMIN']" class="header">FINANÇAS</li>
+					<li permission="['DIARIA_FINANCAS', 'DIARIA_TRASNPARENCIA' , 'ADMIN']" class="treeview"><a href=""><i class="fa fa-dollar "></i> <span>Diaria</span>
 						<i class="fa fa-angle-left pull-right"></i></a>
 						<ul class="treeview-menu">
-							<li permission="['DIARIA_FINANCAS_UNIDADE' , 'ADMIN']" ><a class="top" ui-sref="funcionarioContaDiaria.buscar">Conta</a></li>
-							<li permission="['DIARIA_FINANCAS_COORDENADORIA' , 'ADMIN']" ><a class="top" ui-sref="diaria.cadastrar">cadastrar novo mês</a></li>
-							<li permission="['DIARIA' , 'ADMIN']" ><a class="top" ui-sref="diaria.listar">Em aberto</a></li>
-							<li permission="['DIARIA' , 'ADMIN']"><a class="top" ui-sref="diaria.relatorio">Relatórios</a></li>
+							<li permission="['DIARIA_FINANCAS' , 'ADMIN']" ><a class="top" ui-sref="funcionarioContaDiaria.buscar">Conta Funcionário</a></li>
+							<li permission="['DIARIA_FINANCAS' , 'ADMIN']" ><a class="top" ui-sref="diaria.cadastrar">cadastrar novo mês</a></li>
+							<li permission="['DIARIA_FINANCAS' , 'ADMIN']" ><a class="top" ui-sref="diaria.listar">Extratos</a></li>
+							<li permission="['DIARIA_TRANSPARENCIA' , 'ADMIN']"><a class="top" ui-sref="diaria.relatorio">transparencia</a></li>
 						</ul>
 					</li> 
 					<li permission="['CADASTRO_VEICULOS' , 'ADMIN']" class="header">INFRAESTRUTURA</li>
@@ -232,8 +232,8 @@
 				      <div class="modal-body">				     		
 					      <div class="input-group margin">
 								<select class="form-control"
-									ng-model="usuario.status"
-									ng-change="ctrl.alterarStatus(usuario)"
+									ng-model="user.status"
+									ng-change="ctrl.alterarStatus(user)"
 									ng-options="status for status in ctrl.status track by status">
 									<option value=""></option>
 								</select> <span class="input-group-btn"> <a type="button"

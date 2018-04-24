@@ -2,7 +2,6 @@ app.factory('authHttpResponseInterceptor',['$q','$location','$rootScope','$injec
     return {
         response: function(response){
             if (response.status === 401) {
-//                console.log("Response 401");
             }
             return response || $q.when(response);
         },

@@ -104,6 +104,15 @@
 	<field name="valorPorExtenso" class="java.lang.String">
 		<fieldDescription><![CDATA[valorPorExtenso]]></fieldDescription>
 	</field>
+	<field name="saldo" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[saldo]]></fieldDescription>
+	</field>
+	<field name="antecipado" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[antecipado]]></fieldDescription>
+	</field>
+	<field name="decreto" class="java.lang.String">
+		<fieldDescription><![CDATA[decreto]]></fieldDescription>
+	</field>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -316,7 +325,7 @@
 					<textFieldExpression><![CDATA[$F{unidade}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="59" y="42" width="192" height="18" uuid="ddd70d45-77e7-4015-ac40-7210eacfa875"/>
+					<reportElement x="51" y="42" width="200" height="18" uuid="ddd70d45-77e7-4015-ac40-7210eacfa875"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
 					<textFieldExpression><![CDATA[$F{cargo}]]></textFieldExpression>
 				</textField>
@@ -375,7 +384,7 @@
 					<reportElement x="20" y="7" width="800" height="242" uuid="94096c41-d87c-4d0c-94b7-a248294c7552"/>
 				</rectangle>
 				<line>
-					<reportElement x="19" y="206" width="799" height="1" uuid="7ccd2880-5894-46d1-939c-6c4a300055c2"/>
+					<reportElement x="19" y="206" width="801" height="1" uuid="7ccd2880-5894-46d1-939c-6c4a300055c2"/>
 				</line>
 				<line>
 					<reportElement x="20" y="40" width="799" height="1" uuid="cbb1b790-bae6-494a-bd3a-f7a57f94771e"/>
@@ -384,7 +393,7 @@
 					<reportElement x="750" y="7" width="1" height="242" uuid="c7352a07-932e-4eeb-bf69-c2fe4d83d1e4"/>
 				</line>
 				<line>
-					<reportElement x="20" y="196" width="731" height="1" uuid="64434c8c-7ef6-4fa9-b290-5645b39a8940"/>
+					<reportElement x="20" y="196" width="799" height="1" uuid="64434c8c-7ef6-4fa9-b290-5645b39a8940"/>
 				</line>
 				<line>
 					<reportElement x="101" y="6" width="1" height="189" uuid="671f6e68-01a5-45a4-b034-1ca9a3472ce2"/>
@@ -641,21 +650,11 @@
 					<reportElement x="529" y="206" width="1" height="44" uuid="41e60072-1b37-426c-b0a2-568d2ac64371"/>
 				</line>
 				<line>
-					<reportElement x="530" y="222" width="288" height="1" uuid="51376d70-62f4-4646-8cc5-9ca45a9bc956"/>
+					<reportElement x="530" y="221" width="290" height="2" uuid="51376d70-62f4-4646-8cc5-9ca45a9bc956"/>
 				</line>
 				<line>
-					<reportElement x="530" y="236" width="288" height="1" uuid="fcc5f63b-9986-496f-a253-46f8dfb845d7"/>
+					<reportElement x="530" y="236" width="290" height="1" uuid="fcc5f63b-9986-496f-a253-46f8dfb845d7"/>
 				</line>
-				<staticText>
-					<reportElement x="25" y="213" width="505" height="30" uuid="dc6bac3a-d5b1-4815-bac2-39ec99259979"/>
-					<textElement verticalAlignment="Middle">
-						<font size="8"/>
-					</textElement>
-					<text><![CDATA[Declaro  que  a  importância  recebida  a  título  de diárias durante  o  mês    declarado  não ultrapassou  o  limite previsto  no "caput" do  artigo  8º  do Decreto nº 48.292/2003 e que não recebi esta Diária por outra Unidade																		
-																		
-																		
-]]></text>
-				</staticText>
 				<staticText>
 					<reportElement x="471" y="31" width="36" height="9" uuid="fea3a675-a1ba-49f7-a042-954e6505e609"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
@@ -696,10 +695,12 @@
 					<textFieldExpression><![CDATA[$F{indiceUfesp}.toString()]]></textFieldExpression>
 				</textField>
 				<textField pattern="¤#,##0.##;¤-#,##0.##">
-					<reportElement x="763" y="207" width="55" height="14" uuid="254dcbe2-f51c-4c59-8ed0-a04a44c69df1">
+					<reportElement x="751" y="207" width="67" height="14" uuid="254dcbe2-f51c-4c59-8ed0-a04a44c69df1">
 						<property name="net.sf.jasperreports.style.pattern" value="R$ #,###,##0.00"/>
 					</reportElement>
-					<textElement textAlignment="Left" verticalAlignment="Middle"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
 					<textFieldExpression><![CDATA[$F{valorTotalDiaria}]]></textFieldExpression>
 				</textField>
 				<textField>
@@ -717,28 +718,28 @@
 					<textFieldExpression><![CDATA[$F{banco}+"/"+$F{agencia}+"/"+$F{conta}]]></textFieldExpression>
 				</textField>
 				<textField pattern="#,##0.###">
-					<reportElement positionType="Float" x="763" y="191" width="54" height="15" uuid="4a7a3bf8-be7e-47fb-a2bc-fadb08b028c0">
+					<reportElement positionType="Float" x="751" y="194" width="67" height="13" uuid="4a7a3bf8-be7e-47fb-a2bc-fadb08b028c0">
 						<property name="net.sf.jasperreports.style.pattern" value="R$ #,###,##0.00"/>
 					</reportElement>
-					<textElement textAlignment="Left" verticalAlignment="Middle">
-						<font size="10"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{glosada}]]></textFieldExpression>
 				</textField>
 				<textField pattern="¤#,##0.##;¤-#,##0.##">
-					<reportElement x="763" y="237" width="59" height="12" uuid="b428480c-38e4-4553-8619-056f84d8d4d1">
+					<reportElement x="749" y="236" width="73" height="15" uuid="b428480c-38e4-4553-8619-056f84d8d4d1">
 						<property name="net.sf.jasperreports.style.pattern" value="R$ #,###,##0.00"/>
 						<property name="net.sf.jasperreports.export.xls.pattern" value="#,##0.00"/>
 					</reportElement>
-					<textElement textAlignment="Left" verticalAlignment="Middle">
+					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font size="8"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{valorTotalDiaria}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{saldo}]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement x="21" y="42" width="80" height="151" uuid="3419a359-3e94-4a39-b50e-2f88174d842c"/>
 					<textElement textAlignment="Center">
-						<font size="8"/>
+						<font size="6"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{itens}.getLocalDeslocamentos()]]></textFieldExpression>
 				</textField>
@@ -875,9 +876,25 @@
 					</textElement>
 					<textFieldExpression><![CDATA[$F{itens}.getValorAlojamento()]]></textFieldExpression>
 				</textField>
+				<textField>
+					<reportElement x="751" y="223" width="69" height="13" uuid="34bba497-f178-4c96-b6cf-77c4ce3dd321">
+						<property name="net.sf.jasperreports.style.pattern" value="R$ #,###,##0.00"/>
+					</reportElement>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{antecipado}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="23" y="210" width="504" height="38" uuid="01526174-9866-4543-bdbc-bd9981164b97"/>
+					<textElement textAlignment="Left">
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{decreto}]]></textFieldExpression>
+				</textField>
 			</frame>
 			<rectangle>
-				<reportElement x="0" y="300" width="400" height="58" uuid="fe7e2b54-0214-48fe-b333-c515376f2979"/>
+				<reportElement x="0" y="300" width="400" height="80" uuid="fe7e2b54-0214-48fe-b333-c515376f2979"/>
 			</rectangle>
 			<line>
 				<reportElement x="0" y="309" width="400" height="1" uuid="9f2103e9-94a3-4e78-88f6-1b1c6fd38640"/>
@@ -891,10 +908,10 @@
 ]]></text>
 			</staticText>
 			<rectangle>
-				<reportElement x="1" y="364" width="399" height="116" uuid="5f4906fe-36d4-4d59-815c-c35dbf49497a"/>
+				<reportElement x="1" y="386" width="399" height="94" uuid="5f4906fe-36d4-4d59-815c-c35dbf49497a"/>
 			</rectangle>
 			<staticText>
-				<reportElement x="3" y="370" width="88" height="10" uuid="0cb56290-96ae-46d8-951d-01cc5632450b"/>
+				<reportElement x="3" y="388" width="88" height="10" uuid="0cb56290-96ae-46d8-951d-01cc5632450b"/>
 				<textElement>
 					<font size="7"/>
 				</textElement>
@@ -902,87 +919,87 @@
 ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="95" y="370" width="88" height="10" uuid="6e95a8a6-cf65-4060-9bb7-86c5e42c356c"/>
+				<reportElement x="95" y="388" width="88" height="10" uuid="6e95a8a6-cf65-4060-9bb7-86c5e42c356c"/>
 				<textElement>
 					<font size="7"/>
 				</textElement>
 				<text><![CDATA[ORDENADOR]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="194" y="370" width="88" height="10" uuid="1033e09c-19ec-4125-9c6a-4848cc026647"/>
+				<reportElement x="193" y="385" width="88" height="10" uuid="1033e09c-19ec-4125-9c6a-4848cc026647"/>
 				<textElement>
 					<font size="7"/>
 				</textElement>
 				<text><![CDATA[RECIBO]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="3" y="386" width="84" height="36" uuid="9f0f704f-8873-4e2c-8f2b-ae091b2041e2"/>
+				<reportElement x="3" y="398" width="84" height="36" uuid="9f0f704f-8873-4e2c-8f2b-ae091b2041e2"/>
 				<textElement>
 					<font size="7"/>
 				</textElement>
 				<text><![CDATA[Ordenei o deslocamento e atesto a freqüência do Funcionário / Servidor.]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="95" y="386" width="92" height="24" uuid="4f6b3c02-04a7-4a27-bfc4-ee2fe518714d"/>
+				<reportElement x="93" y="410" width="92" height="24" uuid="4f6b3c02-04a7-4a27-bfc4-ee2fe518714d"/>
 				<textElement>
 					<font size="7"/>
 				</textElement>
 				<text><![CDATA[Autorizo a despesa.]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="193" y="379" width="90" height="12" uuid="afaed206-453e-42b2-920b-c3d6b6df89ec"/>
+				<reportElement x="190" y="394" width="90" height="12" uuid="afaed206-453e-42b2-920b-c3d6b6df89ec"/>
 				<textElement>
 					<font size="7"/>
 				</textElement>
 				<text><![CDATA[  Recebi a importância de]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="193" y="410" width="199" height="12" uuid="1baacfe5-dd1f-4278-bbc8-a7d3f26eadf4"/>
+				<reportElement x="194" y="432" width="199" height="12" uuid="1baacfe5-dd1f-4278-bbc8-a7d3f26eadf4"/>
 				<textElement>
 					<font size="7"/>
 				</textElement>
 				<text><![CDATA[correspondente a(s) diária(s) vencida(s) durante o mês  de]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="298" y="420" width="90" height="12" uuid="26ad0142-5926-448c-9492-bc980a1471cf"/>
+				<reportElement x="297" y="443" width="90" height="12" uuid="26ad0142-5926-448c-9492-bc980a1471cf"/>
 				<textElement>
 					<font size="7"/>
 				</textElement>
 				<text><![CDATA[ constante desta relação.]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="196" y="450" width="92" height="30" uuid="92bec436-e419-4676-9343-e0b23a9c1399"/>
+				<reportElement x="194" y="455" width="92" height="16" uuid="92bec436-e419-4676-9343-e0b23a9c1399"/>
 				<textElement>
 					<font size="8"/>
 				</textElement>
 				<text><![CDATA[DATA___________]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="93" y="420" width="92" height="30" uuid="2fc4d347-935f-4e0a-b90b-41b2018f3638"/>
+				<reportElement x="93" y="436" width="92" height="30" uuid="2fc4d347-935f-4e0a-b90b-41b2018f3638"/>
 				<textElement>
 					<font size="8"/>
 				</textElement>
 				<text><![CDATA[DATA___________]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="2" y="420" width="90" height="30" uuid="dbf0f36a-b828-4cc9-88d9-63ced80a6659"/>
+				<reportElement x="2" y="436" width="90" height="30" uuid="dbf0f36a-b828-4cc9-88d9-63ced80a6659"/>
 				<textElement>
 					<font size="8"/>
 				</textElement>
 				<text><![CDATA[DATA___________]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="273" y="466" width="60" height="14" uuid="73996446-97e0-4010-97e7-120890db7277"/>
+				<reportElement x="290" y="466" width="60" height="14" uuid="73996446-97e0-4010-97e7-120890db7277"/>
 				<textElement>
 					<font size="7"/>
 				</textElement>
 				<text><![CDATA[Assinatura]]></text>
 			</staticText>
 			<line>
-				<reportElement x="91" y="364" width="1" height="117" uuid="4a43c209-6d13-4ab6-8f4d-a1f76510999e"/>
+				<reportElement x="91" y="386" width="1" height="95" uuid="4a43c209-6d13-4ab6-8f4d-a1f76510999e"/>
 			</line>
 			<line>
-				<reportElement x="190" y="364" width="1" height="117" uuid="af62c351-4692-4bce-87e2-c19e951c9dd6"/>
+				<reportElement x="190" y="386" width="1" height="95" uuid="af62c351-4692-4bce-87e2-c19e951c9dd6"/>
 			</line>
 			<staticText>
 				<reportElement x="635" y="299" width="36" height="9" uuid="9de88073-95c6-4db7-959c-c310667f4f2e"/>
@@ -1165,7 +1182,7 @@
 				<text><![CDATA[Assinatura]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="2" y="309" width="398" height="49" uuid="276e3be7-3bc2-4f1f-a4c5-4f4ec19cfce4"/>
+				<reportElement x="2" y="309" width="398" height="71" uuid="276e3be7-3bc2-4f1f-a4c5-4f4ec19cfce4"/>
 				<textElement textAlignment="Center">
 					<font size="6"/>
 				</textElement>
@@ -1442,22 +1459,22 @@
 				<textFieldExpression><![CDATA[$F{valoresCodigoCinco}.getAlojamento()]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="193" y="420" width="104" height="12" uuid="58c2c037-f9c3-4de9-bee3-0d4b1a43c507"/>
+				<reportElement x="193" y="443" width="104" height="12" uuid="58c2c037-f9c3-4de9-bee3-0d4b1a43c507"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font size="7" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{mes}.toString()+"/" + new SimpleDateFormat("yyyy").format($F{dataAbertura} )]]></textFieldExpression>
 			</textField>
 			<textField pattern="¤#,##0.##;¤-#,##0.##">
-				<reportElement stretchType="ContainerHeight" x="282" y="380" width="118" height="12" uuid="06b40218-0ab2-4e0b-8b50-b5d2c1239ba1"/>
+				<reportElement stretchType="ContainerHeight" x="285" y="394" width="118" height="12" uuid="06b40218-0ab2-4e0b-8b50-b5d2c1239ba1"/>
 				<textElement>
 					<font size="8" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{valorTotalDiaria}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="196" y="386" width="204" height="23" uuid="7fc190c8-c7a5-4bc1-bee6-19e2edae1e25"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
+				<reportElement x="194" y="406" width="204" height="26" uuid="7fc190c8-c7a5-4bc1-bee6-19e2edae1e25"/>
+				<textElement textAlignment="Left" verticalAlignment="Top">
 					<font size="8" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{valorPorExtenso}]]></textFieldExpression>

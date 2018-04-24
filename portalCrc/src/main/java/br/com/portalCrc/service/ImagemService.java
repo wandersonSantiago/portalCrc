@@ -1,82 +1,66 @@
 package br.com.portalCrc.service;
 
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
+
 import java.io.IOException;
 import java.io.InputStream;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.multipart.MultipartFile;
-
-import br.com.portalCrc.service.diaria.MensagemException;
 
 @Service
 public class ImagemService {
-	
-	//Cria um nome para o arquivo
-	public String userName(MultipartFile file){	       
-	       String userName = "user-name"; 
-	       return userName;
+
+	@Value("${caminhoFoto}")
+	private String path;
+	private String profile = "/profile";
+	private String login = "";
+	private InputStream in;
+	private final String defaultProfile = "src/main/resources/static/public/img/avatar_2x.png";
+
+	public void createPathAndSaveFile(MultipartFile file, String login) throws IOException {
+
+		this.login = login;
+		if (Files.notExists(Paths.get(this.path.concat(this.login)))) {
+			Files.createDirectory(Paths.get(this.path.concat(login)));
+		}
+
+		Files.write(Paths.get(this.path.concat(this.login.concat(profile))), file.getBytes());
+
 	}
-	
-	//Cria um diretório para o arquivo
-	  public void createPathAndSaveFile(String path,  String name, MultipartFile file) throws IOException {	  
-          
-		  byte[] bytes = file.getBytes();
-		  
-          File dir = new File(path);
 
-          if (!dir.exists()) {
-              dir.mkdirs();
-          }
+	public String getPath() {
+		return path.concat(this.login).concat(profile);
+	}
 
-          File serverFile = new File(dir.getAbsolutePath() + "/" + name);
-          BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(serverFile));
+	public InputStream getFoto(String caminho) {
 
-          if (!serverFile.exists()) {
-              stream.write(bytes);
-              stream.close();
-             
-          } else {
-        	  serverFile.delete();
-        	  stream.write(bytes);
-              stream.close();
-       		
-          }
-	    }
+		return buscarFoto(caminho);
 
-		
-	 public InputStream getFoto(@PathVariable String  caminho) throws FileNotFoundException {
-						
-			InputStream in = null;
-			
-			try {			
-				in =  buscarFoto(caminho);			
-			} catch (MensagemException e) {			
-				in =  new FileInputStream("src/main/resources/static/public/img/avatar_2x.png");				
-				
-			}
-			return in;
-		}
+	}
 
-	   private InputStream buscarFoto( String caminho) {
+	private InputStream buscarFoto(String caminho) {
+
+		try {
 			if (!caminho.endsWith("/")) {
-				caminho = caminho + "/";
+				caminho = caminho.concat("/");
 			}
-			InputStream in = null;
-			try {
-				in = new FileInputStream(caminho);
-			} catch (FileNotFoundException e) {
-				throw new MensagemException("Foto não encontrada: " + e.getMessage());
-			}
-			return in;
-		}
-		
 
+			in = Files.newInputStream(Paths.get(caminho));
+		} catch (IOException e) {
+			setDefaultProfile();
+		}
+		return in;
+	}
+
+	private void setDefaultProfile() {
+		try {
+			in = Files.newInputStream(Paths.get(defaultProfile));
+		} catch (IOException e) {
+
+			e.printStackTrace();
+		}
+	}
 }

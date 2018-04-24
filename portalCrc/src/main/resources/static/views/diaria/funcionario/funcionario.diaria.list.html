@@ -1,5 +1,19 @@
 <meta charset="UTF-8">
 <br>
+<div class="col-md-12">
+<div class="col-md-4">
+<a href="" >Meses anteriores</a>
+<select class="form-control"
+		ng-model="ctrl.diaria" ng-change="ctrl.listar(ctrl.diaria.id)"
+		ng-options="diaria.mes for diaria in ctrl.diarias" required>
+	</select>
+</div>
+</div>
+<br>
+<div class="row" align="center">
+	<h1>{{ctrl.itens[0].diaria.mes}}</h1>
+</div>
+
 <div class="row">
 	<div class="col-sm-3">
 		<input class="form-control" placeholder="Pesquisar..." type="text"
@@ -16,40 +30,29 @@
 	<table class="table table-hover table-bordered">
 		<thead>
 			<tr>
-				<th class="btn btn-primary btn-flat col-sm-2"><md-button>
-					<h5>Nome</h5>
-					</md-button></th>
-				<th class="btn btn-primary btn-flat col-sm-2"><md-button>
-					<h5>CPF</h5>
-					</md-button></th>
-				<th class="btn btn-primary btn-flat col-sm-2"><md-button>
-					<h5>Cargo</h5>
-					</md-button></th>
-				<th class="btn btn-primary btn-flat col-sm-1"><md-button>
-					<h5>Unidade</h5>
-					</md-button></th>
-				<th class="btn btn-primary btn-flat col-sm-1"><md-button>
-					<h5>Valor total</h5>
-					</md-button></th>
+				<th class="btn btn-primary btn-flat col-sm-2">Nome</th>
+				<th class="btn btn-primary btn-flat col-sm-1">CPF</th>
+				<th class="btn btn-primary btn-flat col-sm-2">Cargo</th>
+				<th class="btn btn-primary btn-flat col-sm-2">Unidade</th>
+				<th class="btn btn-primary btn-flat col-sm-1">Valor total</th>
 			</tr>
 		</thead>
 		<tbody
-			ng-repeat=" diaria in ctrl.itens | filter : buscar |  orderBy : '-id'">
+			ng-repeat=" diaria in ctrl.itens | filter : buscar |  orderBy : 'nomeFuncionario'">
 			<tr>
-				<td><md-button data-toggle="modal"
-						title="Informações sobre esta diária." ng-model="diaria"
-						ng-click="ctrl.informacaoModal(diaria)"
-						data-target="#informacaoModal">
-					<h5>{{diaria.contaFuncionario.funcionario.pessoa.nomeCompleto
-						}}</h5>
-					</md-button></td>
-				<td>{{diaria.contaFuncionario.funcionario.pessoa.cpf}}</td>
-				<td>{{diaria.cargo.descricao}}</td>
-				<td>{{diaria.unidade.dadosUnidade.mnemonico}}</td>
-				<td><md-button
-						ui-sref="item.visualizar({idFuncionarioDiaria : diaria.id})">
-					<h5>{{diaria.totalValorDiaria | currency}}</h5>
-					</md-button></td>
+				<td>
+					<a href="" data-toggle="modal"	title="Informações sobre esta diária." ng-model="diaria"	ng-click="ctrl.informacaoModal(diaria)"
+						data-target="#informacaoModal">	{{diaria.nomeFuncionario}}	
+					</a>
+				</td>
+				<td>{{diaria.cpfFuncionario | cpf}}</td>
+				<td>{{diaria.nomeCargo}}</td>
+				<td>{{diaria.nomeUnidade}}</td>
+				<td>
+					<a href=""	ui-sref="item.visualizar({idFuncionarioDiaria : diaria.idDiaria})">
+					{{diaria.totalValorDiaria | currency}}
+					</a>
+				</td>
 			</tr>
 
 		</tbody>
@@ -103,12 +106,12 @@
 					<div class="col-sm-6">
 						<h3>lançamento realizado por:</h3>
 						<br>
-						<h4>{{item.usuarioCadastro.funcionario.pessoa.nomeCompleto}}</h4>
+						<h4>{{item.nomeUsuario}}</h4>
 					</div>
 					<div class="col-sm-6">
 						<h3>Setor:</h3>
 						<br>
-						<h4>{{item.usuarioCadastro.funcionario.setorAtual.nome}}</h4>
+						<h4>{{item.setorUsuario}}</h4>
 					</div>
 				</div>
 

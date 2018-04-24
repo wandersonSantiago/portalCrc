@@ -1,19 +1,17 @@
 <meta charset="UTF-8">
 <div class="col-sm-12 ">
-	<form role="form-vertical" name="formCadastrarFuncionario"
-		ng-submit="cadFuncCtrl.submit()">
+	<form  name="formFuncionario" novalidate ng-submit="cadFuncCtrl.submit(formFuncionario)">
 
 		<div class="row">
-			<div class="col-sm-4">
+			<div class="form-group col-sm-4" ng-class="{ 'has-error' : formFuncionario.cpfField.$invalid && formFuncionario.$submitted }" >
 				CPF*: <input class="form-control" name="cpfField" placeholder="CPF"
-					ng-model="cadFuncCtrl.funcionario.pessoa.cpf" id="cpf"
+					ng-model="cadFuncCtrl.funcionario.pessoa.cpf" id="cpf" 
 					ng-blur="cadFuncCtrl.verificaCpf(cadFuncCtrl.funcionario.pessoa.cpf)"
-					type="text" ui-br-cpf-mask required>
-				<p ng-show="formCadastrarFuncionario.cpfField.$error.cpf"
+					type="text" ui-br-cpf-mask required ng-required="true">
+				<p ng-show="formFuncionario.cpfField.$error.cpf"
 					class="alert alert-warning ">Digite um CPF válido!!</p>
 			</div>
 		</div>
-		<br>
 		<div ng-if="funcionario.pessoa" class="padded" md-whiteframe="{{height}}"
 			flex="100" flex-gt-sm="50" layout="column"
 			layout-align="center center" ng-init="height = 1"
@@ -25,71 +23,62 @@
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-sm-7">
-				Nome*: <input class="form-control" placeholder="Nome"
-					ng-model="cadFuncCtrl.funcionario.pessoa.nomeCompleto"
-					id="nomeCompleto" name="nome" type="text" required>
+			<div class="form-group col-sm-7" ng-class="{ 'has-error' : formFuncionario.nome.$invalid && formFuncionario.$submitted }" >
+				Nome*: <input class="form-control" placeholder="Nome"	ng-model="cadFuncCtrl.funcionario.pessoa.nomeCompleto"	id="nome" name="nome" type="text" required ng-required="true">
 			</div>
 
-			<div class="col-sm-3">
-				RG*: <input class="form-control" placeholder="RG"
+			<div class="form-group col-sm-3" ng-class="{ 'has-error' : formFuncionario.rg.$invalid && formFuncionario.$submitted }" >
+				RG*: <input class="form-control" placeholder="RG" name="rg"
 					ng-model="cadFuncCtrl.funcionario.pessoa.rg" id="rg" type="text"
-					required>
+					required ng-required="true">
 			</div>
 
 
-			<div class="col-sm-2">
+			<div class="form-group col-sm-2" ng-class="{ 'has-error' : formFuncionario.data.$invalid && formFuncionario.$submitted }" >
 				Data nascimento*: <input class="form-control"
-					placeholder="Data Nascimento"
+					placeholder="Data Nascimento" name="data" 
 					ng-model="cadFuncCtrl.funcionario.pessoa.dataNascimento"
-					id="dataNascimento" type="date" required>
+					id="dataNascimento" type="date" required ng-required="true">
 			</div>
 		</div>
-		<br> <br>
 		<div class="row">
 
-			<div class="col-sm-3">
-				Telefone*: <input class="form-control" placeholder="Telefone Fixo"
-					ng-model="cadFuncCtrl.funcionario.pessoa.telefoneFixo"
+			<div class="form-group col-sm-3" ng-class="{ 'has-error' : formFuncionario.fone.$invalid && formFuncionario.$submitted }" >
+				Telefone: <input class="form-control" placeholder="Telefone Fixo"
+					ng-model="cadFuncCtrl.funcionario.pessoa.telefoneFixo" name="fone"
 					id="telefoneFixo" type="tel" ui-br-phone-number >
 			</div>
 
-			<div class="col-sm-3">
-				Celular*: <input class="form-control"
+			<div class="form-group col-sm-3" ng-class="{ 'has-error' : formFuncionario.cel.$invalid && formFuncionario.$submitted }" >
+				Celular*: <input class="form-control" name="cel"
 					ng-model="cadFuncCtrl.funcionario.pessoa.telefoneCelular"
 					placeholder="Celular" id="telefoneCelular" type="tel"
-					ui-br-phone-number >
+					ui-br-phone-number required ng-required="true">
 			</div>
-			<div class="col-sm-3">
-				Sexo*: <select class="form-control select2"
+			<div class="form-group col-sm-3" ng-class="{ 'has-error' : formFuncionario.sexo.$invalid && formFuncionario.$submitted }" >
+				Sexo*: <select class="form-control select2" name="sexo"
 					ng-model="cadFuncCtrl.funcionario.pessoa.sexo" style="width: 100%;"
-					required>
+					required ng-required="true">
 					<option value="">--Sexo--</option>
 					<option value="Masculino">Masculino</option>
 					<option value="Feminino">Feminino</option>
 				</select>
 			</div>
-			<div class="col-sm-3">
+			<div class="form-group col-sm-3" ng-class="{ 'has-error' : formFuncionario.civils.$invalid && formFuncionario.$submitted }" >
 				Estado Civil*: <select class="form-control select2"
-					ng-model="cadFuncCtrl.funcionario.pessoa.estadoCivil"
-					ng-options="estadoCivil for estadoCivil in cadFuncCtrl.listaEstadoCivil"
-					style="width: 100%;">
-					<option value="">{{cadFuncCtrl.funcionario.pessoa.estadoCivil}}</option>
+					ng-model="cadFuncCtrl.funcionario.pessoa.estadoCivil" name="civils"
+					ng-options="estadoCivil for estadoCivil in cadFuncCtrl.listaEstadoCivil track by estadoCivil"
+					style="width: 100%;" required ng-required="true">
 				</select>
 			</div>
 		</div>
-
-
-		<br>
-
 		<hr>
 		<div class="row">
-			<div class="col-sm-3">
-				Cargo*: <select class="form-control select2"
+			<div class="form-group col-sm-3" ng-class="{ 'has-error' : formFuncionario.cargo.$invalid && formFuncionario.$submitted }" >
+				Cargo*: <select class="form-control select2" name="cargo"
 					ng-model="cadFuncCtrl.funcionario.cargoAtual"
-					ng-options="listarCargos.descricao group by listarCargos.shade for listarCargos in cadFuncCtrl.cargos"
-					style="width: 100%;">
-					<option value="">{{cadFuncCtrl.funcionario.cargoAtual.descricao}}</option>
+					ng-options="listarCargos.descricao  for listarCargos in cadFuncCtrl.cargos track by listarCargos.id"
+					style="width: 100%;" required ng-required="true">
 				</select>
 			</div>
 		</div>
@@ -98,20 +87,14 @@
 
 		<h4>Endereço</h4>
 
-		<br>
-
 
 		<div class="row">
 			<div class="col-sm-3">
 				CEP: <input class="form-control"
 					ng-model="cadFuncCtrl.funcionario.pessoa.endereco.cep" id="cep"
-					name="cepField" type="text" placeholder="CEP"
+					name="cepField" type="text" placeholder="CEP" title="Somente numeros sem espaçamentos"
 					ng-blur="cadFuncCtrl.findCep()"
-					onkeyup="if(this.value.length > 8) { numero.focus(); }"
-					ui-br-cep-mask >
-
-				<p ng-show="formCadastrarFuncionario.cepField.$error.cep"
-					class="alert alert-warning ">Digite um CEP Válido</p>
+					onkeyup="if(this.value.length > 7) { numero.focus(); }" >
 
 			</div>
 		</div>

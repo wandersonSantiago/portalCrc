@@ -11,8 +11,6 @@ import br.com.portalCrc.entity.diaria.FuncionarioDiaria;
 
 public interface FuncionarioDiariaRepository extends JpaRepository<FuncionarioDiaria, Long>{
 
-	//List<FuncionarioDiaria> findByUnidadeCoordenadoria_idAndDiaria_id(Long id, Long id2);
-
 	List<FuncionarioDiaria> findByUnidade_id(Long id, Long id2);
 
 	Iterable<FuncionarioDiaria> findByUnidadeCoordenadoriaSecretaria_id(Long id);
@@ -34,6 +32,8 @@ public interface FuncionarioDiariaRepository extends JpaRepository<FuncionarioDi
 
 	FuncionarioDiaria findByUnidade_idAndContaFuncionario_funcionario_idAndDiaria_id(Long id, Long idFuncionario,
 			Long idDiaria);
+
+	int countByContaFuncionario_id(Long id);
 
 	
 	

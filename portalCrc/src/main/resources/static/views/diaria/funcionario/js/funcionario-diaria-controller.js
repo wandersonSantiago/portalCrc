@@ -143,22 +143,22 @@ function FuncionarioDiariaShowController($stateParams, $state,
 
 }
 
-function FuncionarioDiariaUnidadeListarController($localStorage, $stateParams, $state, FuncionarioDiariaService,
-		toastr, $rootScope, $scope) {
+function FuncionarioDiariaUnidadeListarController($localStorage, $stateParams, $state, FuncionarioDiariaService, DiariaService,	toastr, $rootScope, $scope) {
+	
 	var self = this;
+	self.listar = listar;
+	self.informacaoModal = informacaoModal;
+	
+	diarias();
+	listar($localStorage.idDiaria);
+	
 	
 	if($stateParams.idDiaria){
 		$localStorage.idDiaria = $stateParams.idDiaria;
 	}
 	
 	
-	listar($localStorage.idDiaria);
-
-	self.informacaoModal = informacaoModal;
 	
-	function informacaoModal(diaria){
-		$scope.item = diaria;
-	}
 	function listar(idDiaria) {
 		FuncionarioDiariaService.porUnidade(idDiaria).then(function(f) {
 			self.itens = f;
@@ -185,7 +185,18 @@ function FuncionarioDiariaUnidadeListarController($localStorage, $stateParams, $
 		}
 	}
 	
+	function diarias(){
+		 DiariaService.unidade().
+			then(function(f){
+				self.diarias = f;		
+				}, function(errResponse){
+			});
+		};
 	
+		function informacaoModal(diaria){
+			$scope.item = diaria;
+		}
+		
 }
 
 function FuncionarioDiariaCoordenadoriaListarController($localStorage, $stateParams, $state, FuncionarioDiariaService,

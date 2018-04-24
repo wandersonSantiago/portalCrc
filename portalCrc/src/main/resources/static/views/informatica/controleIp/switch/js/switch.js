@@ -61,7 +61,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
 			  }
 		})
 		.state('switch.editar', {
-			]requiresAuthentication: true,
+			requiresAuthentication: true,
 			permissions: ["SWITCH", "ADMIN"],
 			url : "/:idSwitch/editar",
 			templateUrl : "views/informatica/controleIp/switch/switch.form.html",

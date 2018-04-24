@@ -1,15 +1,50 @@
 <meta charset="UTF-8">
+<meta charset="UTF-8">
 
-<div class="box-body no-padding">
+ <div class="row" ng-controller="DiariaListarController as ctrl">
+ <div class="col-md-2" >
+          <div class="box box-widget widget-user-2">
+            <div class="widget-user-header bg-yellow">
+              <div class="widget-user-image">
+              <img ng-src="/rest/usuario/{{user.id}}/foto"  class="img-circle" alt="User Avatar">
+              </div>
+              <h3 class="widget-user-username">{{user.funcionario.pessoa.nomeCompleto | limitTo : 10}}</h3>
+              <h5 class="widget-user-desc">{{ctrl.diaria.mes}}</h5>
+            </div>
+            <div class="box-footer no-padding" >
+              <ul class="nav nav-stacked">
+                <li><a href="">Total <span class="pull-right badge bg-aqua">{{funcionario.totalValorDiaria | currency}}</span></a></li>
+                <li><a href="">Limite <span class="pull-right badge bg-green">{{funcionario.contaFuncionario.limiteCemPorCento * funcionario.contaFuncionario.salarioAtual / 100 | currency}}</span></a></li>
+                <li><a href="">Glosada <span class="pull-right badge bg-red">{{funcionario.glosada | currency}}</span></a></li>
+                <li><a href="">Antecipado <span class="pull-right badge bg-green">0</span></a></li>
+                <li><a href="">Saldo <span class="pull-right badge bg-blue">{{funcionario.totalValorDiaria | currency}}</span></a></li>
+                <li><hr></li>
+                <li><a href="" title="Lançar diaria" ui-sref="item.cadastrar({idDiaria : ctrl.diaria.id, idFuncionario : user.funcionario.id})">Lançar</a></li>
+                <li><a href="" title="Total de Diária individual do referente mês " ui-sref="item.usuario({idDiaria : ctrl.diaria.id})">Extrato</a></li>
+                <li><a href="" title="Alterar dados da Conta " ui-sref="funcionarioContaDiaria.editar({idConta : funcionario.contaFuncionario.id})">Conta</a></li>
+              </ul>
+              
              
-             	<a permission="['CONTA_FUNCIONARIO' , 'ADMIN']" href="" ui-sref="funcionarioContaDiaria.buscar" class="btn btn-default btn-flat col-sm-4">Buscar Funcionário</a>
-                <a permission="['CONTA_FUNCIONARIO' , 'ADMIN']" href="" ui-sref="funcionarioContaDiaria.listar" class="btn btn-default btn-flat col-sm-4">Contas Existentes</a>
+            </div>
+            <div>
+            
+            
+              
+            </a>
+            </div>
           </div>
-           <br>
-<div class="row ">
-       <div class="col-sm-12">     
+        </div>
+	
+       <div class="col-md-10">     
 			<div class="box box-primary" >	
-					<div class="box-header">Diaria</div>
+					<div class="box-header">
+						<a permission="['CONTA_FUNCIONARIO' , 'ADMIN']" href="" ui-sref="funcionarioContaDiaria.buscar" class="btn btn-default btn-flat col-sm-2">Buscar Funcionário</a>
+                		<a permission="['CONTA_FUNCIONARIO' , 'ADMIN']" href="" ui-sref="funcionarioContaDiaria.listar" class="btn btn-default btn-flat col-sm-2">Contas Existentes</a>
+						<a title="Click para Selecionar um Funcionario para lançar a Diária" ui-sref="funcionarioDiaria.verificar({idDiaria : ctrl.diaria.id})" class="btn btn-default btn-flat col-sm-2">Lançar</a>
+		                <a title="Click para visualizar as diária(s) que estão em aberto!"  href="" ui-sref="diaria.listar" class="btn btn-default btn-flat col-sm-2">Extratos</a>
+		              	<a title="Click para editar esta diaria"  href="" ui-sref="diaria.editar({idDiaria : ctrl.diaria.id})" class="btn btn-default btn-flat col-sm-2">Editar</a>
+		              	<a title="Encerrar diaria, apos este encerramento os funcionarios não poderão lançar mais diarias!!!" ng-click="ctrl.encerrar(ctrl.diaria)" class="btn btn-default btn-flat col-sm-2">Encerrar</a>
+					</div>
 					<div class="panel-body">
 						<div class="ui-view"></div>
 					</div>

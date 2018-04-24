@@ -4,7 +4,6 @@ app.factory("Auth", function($http, $q, $sessionStorage, $rootScope, $urlRouter,
 	
 	auth.init = function(){
         if (auth.isLoggedIn()){
-        	$rootScope.usuario = auth.user();
         	$rootScope.loginIncorreto = false;
             $rootScope.user = auth.currentUser();
             $rootScope.authenticated = true;
@@ -65,8 +64,8 @@ app.factory("Auth", function($http, $q, $sessionStorage, $rootScope, $urlRouter,
         }
         for(let permission of permissions){
         	$rootScope.permissao = [];
-        	for(i = 0 ; i < $rootScope.user.authorities.length ; i++){
-        		$rootScope.permissao[i] = $rootScope.user.authorities[i].name.replace(/.+\?/g, "");
+        	for(i = 0 ; i < $rootScope.user.permissoes.length ; i++){
+        		$rootScope.permissao[i] = $rootScope.user.permissoes[i].descricao.replace(/.+\?/g, "");
         	}
             if ( $rootScope.permissao.indexOf(permission) >= 0){
             	return true;
@@ -80,30 +79,19 @@ app.factory("Auth", function($http, $q, $sessionStorage, $rootScope, $urlRouter,
 		.then(function(data){
 			 $rootScope.authenticated = false;
 			 $rootScope.user = null;
-			 $rootScope.usuario = null;
 			 $state.go("login");
 		},function(data){
 			$rootScope.authenticated = false;
 			 $rootScope.user = null;
-			 $rootScope.usuario = null;
 		});
 		delete $sessionStorage.user;
         delete $rootScope.user;
-        delete $rootScope.usuario;
 	}
 	
 	auth.currentUser = function(){
 	     return $sessionStorage.user;
 	};
 	    
-	
-	auth.user = function(){
-		UsuarioService.listarUsuarioLogado().
-		then(function(f){
-			$rootScope.usuario = f.usuario;
-		});
-		return $rootScope.usuario;
-	}
 	
     auth.isLoggedIn = function(){
         return $sessionStorage.user != null;

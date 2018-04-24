@@ -15,7 +15,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
 		.state('funcionario.listar', {
 			url : "/listar",
 			templateUrl : "views/recursosHumanos/funcionario/funcionario.list.html",
-			controller : "FuncionarioListarController as funcionarioCtrl",
+			controller : "FuncionarioListarController as ctrl",
 			ncyBreadcrumb: {
 				 	parent: 'funcionario',
 				    label: 'Listar'
@@ -46,7 +46,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
 		.state('funcionario.visualizar', {
 			url : "/:idFuncionario/visualizar",
 			templateUrl : "views/recursosHumanos/funcionario/funcionario.show.html",
-			controller : "FuncionarioShowController as funcionarioCtrl",
+			controller : "FuncionarioShowController as ctrl",
 			ncyBreadcrumb: {
 				 	parent: 'funcionario.listar',
 				    label: 'Visualizar'

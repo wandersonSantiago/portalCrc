@@ -1,29 +1,42 @@
 <meta charset="UTF-8">
 <div class="row">
-	<div class="col-sm-3">
-		<input class="form-control" placeholder="Pesquisar..." type="text" ng-model="buscar">
+	<div class="col-lg-6">
+		<div class="input-group">
+			<input type="text" class="form-control"
+				placeholder="Pesquisar por nome ou CPF"
+				ng-model="texto" autofocus
+				ng-keyup="$event.keyCode == 13 && ctrl.buscarPorTexto(texto)">
+			<span class="input-group-btn">
+				<button class="btn btn-default" type="button"
+					ng-click="ctrl.paginaCorrente = 0; ctrl.buscarPorTexto(texto)">Ir!</button>
+			</span>
+		</div>
 	</div>
+</div><br><br>
+<div ng-show="mensagemErro"
+	class="alert alert-warning alert-dismissible">
+	<h4>
+		<i class="icon fa fa-warning"></i>{{mensagemErro}}
+	</h4>
 </div>
-
-<br>
 		<div class=" table-responsive"  >		
 			<table class="table table-hover table-bordered">
 				<thead>
 					<tr>
-					<th class="btn btn-primary btn-flat col-sm-2"><md-button  ><h5>Nome</h5></md-button> </th>
-					<th class="btn btn-primary btn-flat col-sm-2"><md-button  ><h5>CPF</h5></md-button> </th>
-					<th class="btn btn-primary btn-flat col-sm-2"><md-button  ><h5>Telefone</h5></md-button> </th>
-					<th class="btn btn-primary btn-flat col-sm-1"><md-button  ><h5>Sexo</h5></md-button> </th>
-					<th class="btn btn-primary btn-flat col-sm-1"><md-button  ><h5>Cidade</h5></md-button> </th>
-					<th class="btn btn-primary btn-flat col-sm-1"><md-button  ><h5>Opções</h5></md-button> </th>
+					<th class="btn btn-primary btn-flat col-sm-3">Nome </th>
+					<th class="btn btn-primary btn-flat col-sm-1">CPF</th>
+					<th class="btn btn-primary btn-flat col-sm-1">Telefone </th>
+					<th class="btn btn-primary btn-flat col-sm-1">Sexo </th>
+					<th class="btn btn-primary btn-flat col-sm-3">Cidade</th>
+					<th class="btn btn-primary btn-flat col-sm-1">Opções</th>
 						
 					</tr>
 				</thead>
 				<tbody
-					ng-repeat=" funcionario in funcionarioCtrl.funcionarios | filter : buscar">
+					ng-repeat=" funcionario in ctrl.funcionarios | filter : buscar">
 					<tr>
 					<td ui-sref="funcionario.visualizar({idFuncionario : funcionario.id})"><a title="Informações do Funcionario" href="">{{ funcionario.pessoa.nomeCompleto }}</a></td>
-						<td>{{ funcionario.pessoa.cpf }}</td>
+						<td>{{ funcionario.pessoa.cpf | cpf }}</td>
 						<td>{{ funcionario.pessoa.telefoneCelular}}</td>
 						<td>{{ funcionario.pessoa.sexo }}</td>
 						<td>{{ funcionario.pessoa.endereco.localidade}}</td>
@@ -38,5 +51,13 @@
 					</tr>
 				</tfoot>
 			</table>
+			<nav>
+				<ul uib-pagination total-items="ctrl.totalElementos" items-per-page="24"
+					ng-model="ctrl.paginaCorrente" max-size="5" class="pagination-sm"
+					boundary-link-numbers="true" ng-click="ctrl.buscarPorTexto(texto)"
+					previous-text="Anterior" last-text="Último" first-text="Primeiro"
+					next-text="Próximo">
+				</ul>
+			</nav>
 		</div>
 	

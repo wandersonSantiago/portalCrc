@@ -31,7 +31,7 @@ public class ContaFuncionarioDiariaRestController {
 	@Autowired
 	private ContaFuncionarioDiariaService contaFuncionarioDiariaService;
 	
-	@PreAuthorize("hasAnyRole('ROLE_?CONTA_FUNCIONARIO', 'ROLE_?DIARIA_FINANCAS_LANCAMENTO','ROLE_?ADMIN')")
+	@PreAuthorize("hasAnyRole('ROLE_?DIARIA_USUARIO_CONTA', 'ROLE_?DIARIA_FINANCAS','ROLE_?ADMIN')")
 	@PostMapping
 	 public ResponseEntity<ContaFuncionarioDiaria> salvar(@RequestBody ContaFuncionarioDiaria contaFuncionarioDiaria, UriComponentsBuilder ucBuilder){
 		contaFuncionarioDiariaService.salvar(contaFuncionarioDiaria);
@@ -39,7 +39,7 @@ public class ContaFuncionarioDiariaRestController {
 		 return new ResponseEntity<ContaFuncionarioDiaria>(headers, HttpStatus.CREATED);
 	 }
 		
-	@PreAuthorize("hasAnyRole('ROLE_?CONTA_FUNCIONARIO', 'ROLE_?DIARIA_FINANCAS_LANCAMENTO','ROLE_?ADMIN')")
+	@PreAuthorize("hasAnyRole('ROLE_?DIARIA_USUARIO_CONTA', 'ROLE_?DIARIA_FINANCAS','ROLE_?ADMIN')")
 	@PutMapping
 	public ResponseEntity<ContaFuncionarioDiaria> alterar(@RequestBody ContaFuncionarioDiaria contaFuncionarioDiaria, UriComponentsBuilder ucBuilder){
 		contaFuncionarioDiariaService.altera(contaFuncionarioDiaria);
@@ -47,7 +47,7 @@ public class ContaFuncionarioDiariaRestController {
 		return new ResponseEntity<>(http , HttpStatus.CREATED);		
 	}
 	
-	@PreAuthorize("hasAnyRole('ROLE_?CONTA_FUNCIONARIO', 'ROLE_?DIARIA_FINANCAS_LANCAMENTO','ROLE_?ADMIN')")
+	@PreAuthorize("hasAnyRole('ROLE_?DIARIA_USUARIO_CONTA', 'ROLE_?DIARIA_FINANCAS','ROLE_?ADMIN')")
 	@DeleteMapping(value="/excluir/{id}")
 	public ResponseEntity<ContaFuncionarioDiaria> excluir(@PathVariable Long id){
 		contaFuncionarioDiariaService.excluir(id);

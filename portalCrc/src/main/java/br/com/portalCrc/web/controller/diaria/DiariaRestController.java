@@ -1,6 +1,7 @@
 package br.com.portalCrc.web.controller.diaria;
 
 import java.util.Arrays;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -30,7 +31,7 @@ public class DiariaRestController {
 	@Autowired
 	private DiariaService diariaService;
 	
-	@PreAuthorize("hasAnyRole('ROLE_?DIARIA_FINANCAS_COORDENADORIA','ROLE_?ADMIN')")
+	@PreAuthorize("hasAnyRole( 'ROLE_?DIARIA_FINANCAS','ROLE_?ADMIN')")
 	@PostMapping
 	 public ResponseEntity<Diaria> salvar(@RequestBody Diaria diaria,UriComponentsBuilder ucBuilder){
 		diariaService.salvaOuAltera(diaria);
@@ -38,15 +39,15 @@ public class DiariaRestController {
 		 return new ResponseEntity<Diaria>(headers, HttpStatus.CREATED);
 	 }
 	
-	@PreAuthorize("hasAnyRole('ROLE_?DIARIA_FINANCAS_COORDENADORIA','ROLE_?ADMIN')")
+	@PreAuthorize("hasAnyRole( 'ROLE_?DIARIA_FINANCAS','ROLE_?ADMIN')")
 	@PutMapping
 	public ResponseEntity<Diaria> alterar(@RequestBody Diaria diaria){
-		diariaService.salvaOuAltera(diaria);
+		diariaService.alterar(diaria);
 		HttpHeaders http =  new HttpHeaders();
 		return new ResponseEntity<>(http , HttpStatus.CREATED);		
 	}
 	
-	@PreAuthorize("hasAnyRole('ROLE_?DIARIA_FINANCAS_COORDENADORIA','ROLE_?ADMIN')")
+	@PreAuthorize("hasAnyRole( 'ROLE_?DIARIA_FINANCAS','ROLE_?ADMIN')")
 	@PutMapping(value="/encerrar")
 	public ResponseEntity<Diaria> encerrar(@RequestBody Diaria diaria){
 		diariaService.encerrar(diaria);
@@ -64,9 +65,9 @@ public class DiariaRestController {
 
 	
 	@GetMapping(value="/diariasEmAberto")
-	public ResponseEntity<Iterable<Diaria>> diariasEmAberto(){
-		Iterable<Diaria> diaria	= diariaService.diariasEmAberto();
-		return new ResponseEntity<Iterable<Diaria>>(diaria, HttpStatus.OK);
+	public ResponseEntity<Diaria> diariasEmAberto(){
+		Diaria diaria	= diariaService.diariasEmAberto();
+		return new ResponseEntity<Diaria>(diaria, HttpStatus.OK);
 	}
 
 	
@@ -79,6 +80,10 @@ public class DiariaRestController {
 			Iterable<MesDiariaEnum> mesDiariaEnum = Arrays.asList(MesDiariaEnum.values());
 			return new ResponseEntity<Iterable<MesDiariaEnum>>(mesDiariaEnum, HttpStatus.OK);
 		}
+	 @GetMapping("/unidade")
+	 public List<Diaria> findByUnidade_id(){
+		 return diariaService.findByUnidade_id();
+	 }
 	 
 	 	
 		

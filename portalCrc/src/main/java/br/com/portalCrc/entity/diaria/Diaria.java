@@ -64,6 +64,7 @@ public class Diaria {
 	@JoinColumn(name="id_usuario_cadastro")
 	private Usuario usuarioCadastro;
 	
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name="id_usuario_alteracao")
 	private Usuario usuarioAlteracao;

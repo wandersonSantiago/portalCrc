@@ -32,6 +32,15 @@ public class FuncionarioDiariaService {
 		
 	@Transactional(readOnly = false)
 	public void salvaOuAltera(FuncionarioDiaria funcionarioDiaria) {
+		
+		if(funcionarioDiaria.getContaFuncionario() != null) {
+			int count =	funcionarioDiariaRepository.countByContaFuncionario_id(funcionarioDiaria.getContaFuncionario().getId());
+			if(count > 0) {
+				throw new MensagemException("Não foi possivel realizar este lançamento, Esta conta já esta vinculada a diaria deste mês!!!");
+			}
+		}
+		
+		
 		Usuario usuario = SessionUsuario.getInstance().getUsuario();
 		BigDecimal total = new BigDecimal(0);
 		funcionarioDiaria.setDataCadastro(new Date());
@@ -40,7 +49,14 @@ public class FuncionarioDiariaService {
 		funcionarioDiaria.setUsuarioCadastro(usuario);
 		funcionarioDiaria.setCargo(funcionarioDiaria.getContaFuncionario().getFuncionario().getCargoAtual());
 		funcionarioDiaria.setSetor(funcionarioDiaria.getContaFuncionario().getFuncionario().getSetorAtual());
-
+		
+		funcionarioDiaria.setBanco(funcionarioDiaria.getContaFuncionario().getBanco());
+		funcionarioDiaria.setAgencia(funcionarioDiaria.getContaFuncionario().getAgencia());
+		funcionarioDiaria.setConta(funcionarioDiaria.getContaFuncionario().getConta());
+		funcionarioDiaria.setIndiceUfesp(funcionarioDiaria.getContaFuncionario().getIndiceUfesp());
+		funcionarioDiaria.setLimiteCemPorCento(funcionarioDiaria.getContaFuncionario().getLimiteCemPorCento());
+		funcionarioDiaria.setSalarioAtual(funcionarioDiaria.getContaFuncionario().getSalarioAtual());
+		funcionarioDiaria.setDecreto(funcionarioDiaria.getContaFuncionario().getDecreto());
 		funcionarioDiaria.setTotalValorDiaria(total);
 		if (funcionarioDiaria.getDiaria().getStatus() == StatusDiariaEnum.ABERTO) {
 			funcionarioDiariaRepository.save(funcionarioDiaria);			

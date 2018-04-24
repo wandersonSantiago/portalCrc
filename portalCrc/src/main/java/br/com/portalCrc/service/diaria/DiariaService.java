@@ -30,7 +30,10 @@ public class DiariaService {
 	private ValoresDiariaLocalidadeRepository valoresDiariaLocalidadeRepository;
 	
 	@Transactional(readOnly = false)
-	public void salvaOuAltera(Diaria diaria) {	
+	public void salvaOuAltera(Diaria diaria) {
+		if(diariasEmAberto() != null) {
+			throw new MensagemException("Para Cadastrar um novo mês é necessario encerrar o anterior!");
+		}
 			if(verificaSeExisteMesDeDiariaNoAno(diaria) == false){
 				salvarValoresDiaria(diaria, 7);
 				salvarValoresDiaria(diaria, 9);
@@ -53,11 +56,13 @@ public class DiariaService {
 				throw new MensagemException("o mês de " + diaria.getMes() + " consta cadastrado no ano " + anoAtual());
 			}
 		}
-		diaria.setDataAlteracao(new Date());
-		diaria.setUsuarioAlteracao(SessionUsuario.getInstance().getUsuario());
-		diariaRepository.save(diaria);
-		diariaRepository.save(diaria);
+		verificaDiaria.setDataAlteracao(new Date());
+		verificaDiaria.setUsuarioAlteracao(SessionUsuario.getInstance().getUsuario());
+		verificaDiaria.setMes(diaria.getMes());
+		verificaDiaria.setObservacao(diaria.getObservacao());
+		diariaRepository.save(verificaDiaria);
 	}
+	
 	@Transactional(readOnly = false)
 	public void salvarValoresDiaria(Diaria diaria, Integer indice){
 		
@@ -134,13 +139,15 @@ public class DiariaService {
 	}
 	
 	
-	public List<Diaria> diariasEmAberto(){
-		return diariaRepository.diariasEmAberto();
+	public Diaria diariasEmAberto(){
+		return diariaRepository.findTop1ByStatusAndUnidadeCadastro_idOrderByIdDesc(StatusDiariaEnum.ABERTO, SessionUsuario.getInstance().getUsuario().getFuncionario().getUnidadeAtual().getId());
 	}
+	
 	public Page<Diaria> lista(PageRequest pageRequest){
 		return diariaRepository.findByStatus(StatusDiariaEnum.FECHADO, pageRequest);
 	}
 	
+
 	@Transactional(readOnly = false)
 	public void encerrar(Diaria diaria) {
 		
@@ -155,7 +162,7 @@ public class DiariaService {
 		
 		int anoAtual = Integer.parseInt(anoAtual());
 	
-		List<Diaria> lista = diariaRepository.findByDataAbertura(anoAtual);
+		List<Diaria> lista = diariaRepository.findByDataAbertura(anoAtual, SessionUsuario.getInstance().getUsuario().getFuncionario().getUnidadeAtual().getId());
 		
 			for(int i = 0; i < lista.size() ; i++){					
 				if(lista.get(i).getMes() == diaria.getMes()){
@@ -173,6 +180,10 @@ public class DiariaService {
 		 String ano = formataAno.format(dataAtual);
 		 
 		 return ano;
+	}
+
+	public List<Diaria> findByUnidade_id() {
+		return diariaRepository.findByUnidadeCadastro_idOrderByIdDesc(SessionUsuario.getInstance().getUsuario().getFuncionario().getUnidadeAtual().getId());
 	}
 	
 	

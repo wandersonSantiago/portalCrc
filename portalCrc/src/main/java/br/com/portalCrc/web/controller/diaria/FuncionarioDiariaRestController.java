@@ -1,5 +1,8 @@
 package br.com.portalCrc.web.controller.diaria;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -19,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import br.com.portalCrc.entity.diaria.FuncionarioDiaria;
+import br.com.portalCrc.entity.diaria.FuncionarioDiariaDTO;
 import br.com.portalCrc.entity.diaria.ValoresDiariaLocalidade;
 import br.com.portalCrc.service.diaria.FuncionarioDiariaService;
 
@@ -30,7 +34,7 @@ public class FuncionarioDiariaRestController {
 	@Autowired
 	private FuncionarioDiariaService funcionarioDiariaService;
 	
-	@PreAuthorize("hasAnyRole('ROLE_?DIARIA_FINANCAS_LANCAMENTO','ROLE_?DIARIA_LANCAR','ROLE_?ADMIN')")
+	@PreAuthorize("hasAnyRole('ROLE_?DIARIA_USUARIO', 'ROLE_?DIARIA_FINANCAS','ROLE_?ADMIN')")
 	@PostMapping
 	 public ResponseEntity<FuncionarioDiaria> salvar(@RequestBody FuncionarioDiaria funcionarioDiaria, UriComponentsBuilder ucBuilder){
 		funcionarioDiariaService.salvaOuAltera(funcionarioDiaria);
@@ -38,7 +42,7 @@ public class FuncionarioDiariaRestController {
 		 return new ResponseEntity<FuncionarioDiaria>(headers, HttpStatus.CREATED);
 	 }
 	
-	@PreAuthorize("hasAnyRole('ROLE_?DIARIA_FINANCAS_LANCAMENTO','ROLE_?DIARIA_LANCAR','ROLE_?ADMIN')")
+	@PreAuthorize("hasAnyRole('ROLE_?DIARIA_USUARIO', 'ROLE_?DIARIA_FINANCAS','ROLE_?ADMIN')")
 	@PutMapping
 	public ResponseEntity<FuncionarioDiaria> alterar(@RequestBody FuncionarioDiaria funcionarioDiaria, UriComponentsBuilder ucBuilder){
 		funcionarioDiariaService.salvaOuAltera(funcionarioDiaria);
@@ -46,7 +50,7 @@ public class FuncionarioDiariaRestController {
 		return new ResponseEntity<>(http , HttpStatus.CREATED);		
 	}
 	
-	@PreAuthorize("hasAnyRole('ROLE_?DIARIA_FINANCAS_LANCAMENTO','ROLE_?DIARIA_LANCAR','ROLE_?ADMIN')")
+	@PreAuthorize("hasAnyRole('ROLE_?DIARIA_USUARIO', 'ROLE_?DIARIA_FINANCAS','ROLE_?ADMIN')")
 	@DeleteMapping(value="/excluir/{id}")
 	public ResponseEntity<FuncionarioDiaria> excluir(@PathVariable Long id){
 		funcionarioDiariaService.excluir(id);
@@ -91,10 +95,12 @@ public class FuncionarioDiariaRestController {
 	}
 	
 	@GetMapping(value="/unidade/{idDiaria}")
-	public ResponseEntity<Iterable<FuncionarioDiaria>> listaUnidade(@PathVariable Long idDiaria){
-		Iterable<FuncionarioDiaria> funcionarioDiaria = funcionarioDiariaService.listaUnidade(idDiaria);
-		return new ResponseEntity<Iterable<FuncionarioDiaria>>(funcionarioDiaria, HttpStatus.OK);
+	public ResponseEntity<List<FuncionarioDiariaDTO>> listaUnidade(@PathVariable Long idDiaria){
+		List<FuncionarioDiaria> list = funcionarioDiariaService.listaUnidade(idDiaria);
+		List<FuncionarioDiariaDTO> listDto = list.stream().map(obj -> new FuncionarioDiariaDTO(obj)).collect(Collectors.toList());
+		return new ResponseEntity<List<FuncionarioDiariaDTO>>(listDto, HttpStatus.OK);
 	}
+	
 	
 	 @GetMapping(value = "/{id}")
 		public ResponseEntity<FuncionarioDiaria> buscarPorId(@PathVariable Long id) {
