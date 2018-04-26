@@ -110,7 +110,7 @@
 			
 			<div class="col-sm-2" ng-class="{ 'has-error' : formDiaria.horaSaida.$invalid && formDiaria.$submitted }">
 				<b>Horário Saida:</b>
-				<input class="form-control" type="time" ng-model="ctrl.itemDiaria.horaSaida" id="horaSaida" name="horaSaida" required>
+				<input class="form-control" type="time" ng-model="ctrl.itemDiaria.horaSaida" id="horaSaida" name="horaSaida" date-input required>
 			</div>
 			<div class="col-sm-3" ng-class="{ 'has-error' : formDiaria.dataChegada.$invalid && formDiaria.$submitted }">
 				<b>Data Chegada:</b>
@@ -119,7 +119,7 @@
 			</div>
 			<div class="col-sm-2" ng-class="{ 'has-error' : formDiaria.horaChegada.$invalid && formDiaria.$submitted }">
 				<b>Horário Chegada:</b>
-				<input class="form-control" type="time" ng-model="ctrl.itemDiaria.horaChegada" id="horaChegada" name="horaChegada" required>				
+				<input class="form-control" type="time" ng-model="ctrl.itemDiaria.horaChegada" id="horaChegada" name="horaChegada" date-input required>				
 			</div>
 		</div>
 	

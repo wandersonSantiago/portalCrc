@@ -33,7 +33,8 @@ public interface FuncionarioDiariaRepository extends JpaRepository<FuncionarioDi
 	FuncionarioDiaria findByUnidade_idAndContaFuncionario_funcionario_idAndDiaria_id(Long id, Long idFuncionario,
 			Long idDiaria);
 
-	int countByContaFuncionario_id(Long id);
+
+	int countByDiaria_idAndContaFuncionario_id(Long id, Long id2);
 
 	
 	

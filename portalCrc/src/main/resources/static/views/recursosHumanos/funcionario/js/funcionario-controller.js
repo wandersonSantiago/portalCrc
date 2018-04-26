@@ -144,7 +144,7 @@ function FuncionarioListarController( FuncionarioService, $scope, blockUI){
 	    	$scope.mensagemErro = null;
 	    	 blockUI.start();	    	 
 	    	 self.paginaCorrente == '0'? self.paginaCorrente = 0 : self.paginaCorrente = self.paginaCorrente - 1;    	 
-	    	 FuncionarioService.buscarPorTexto(texto, self.paginaCorrente).
+	    	 FuncionarioService.buscarPorTextoNaUnidade(texto, self.paginaCorrente).
 	    	 then(function(e){
 	    		 $scope.mensagemErro = null;
 	    		 self.funcionarios = e.content;	

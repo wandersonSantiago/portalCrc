@@ -55,7 +55,7 @@ public class ItemDiariaRelatorioDTO {
 			this.dataChegada += sdf.format(iten.getDataChegada()) + "\n";
 			this.horaSaida += h.format(iten.getHoraSaida()) +"\n";
 			this.horaChegada += h.format(iten.getHoraChegada()) + "\n";
-			this.motivo += iten.getMotivo() + "\n";
+			this.motivo += iten.getMotivo() + " , ";
 			this.valorDiaria += ConverteNumeroEmMoeda.real(iten.getValorDiaria()) + "\n";
 			
 			adicionaCidade(iten);
@@ -150,11 +150,12 @@ public class ItemDiariaRelatorioDTO {
 		this.localDeslocamentos += this.deslocamento + "\n";
 	}
 
-	public void adicionaMeioDeTransporte(ItemDiaria iten) {
-		if(iten.getMeioTransporteSaida() != iten.getMeioTransporteRetorno()) {
-			this.meioTransporte += iten.getMeioTransporteSaida() + "/" + iten.getMeioTransporteRetorno()  +"\n";
-		}else {
+	public void adicionaMeioDeTransporte(ItemDiaria iten) {	
+		
+		if(iten.getMeioTransporteSaida().equalsIgnoreCase(iten.getMeioTransporteRetorno())) {			
 			this.meioTransporte += iten.getMeioTransporteSaida() +"\n";
+		}else {
+			this.meioTransporte += iten.getMeioTransporteSaida() + "/" + iten.getMeioTransporteRetorno()  +"\n";
 		}
 	}
 

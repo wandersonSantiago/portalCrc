@@ -23,6 +23,7 @@ public class DiariaRelatorioDTO {
 	private String cpf;
 	private String unidade;
 	private String cargo;
+	private String funcao;
 	
 	
 	private BigDecimal salarioAtual;	
@@ -65,6 +66,11 @@ public class DiariaRelatorioDTO {
 		this.rg = funcDiaria.getContaFuncionario().getFuncionario().getPessoa().getRg();
 		this.cpf = funcDiaria.getContaFuncionario().getFuncionario().getPessoa().getCpf();
 		this.cargo = funcDiaria.getCargo().getDescricao();
+		if(funcDiaria.getFuncao() == null) {
+			this.funcao = funcDiaria.getCargo().getDescricao();	
+		}else {
+			this.funcao = funcDiaria.getFuncao().getDescricao();	
+		}		
 		this.unidade = funcDiaria.getUnidade().getDadosUnidade().getMnemonico();
 		
 		this.salarioAtual = funcDiaria.getContaFuncionario().getSalarioAtual();

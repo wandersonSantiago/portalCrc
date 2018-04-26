@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import br.com.portalCrc.entity.Usuario;
 import br.com.portalCrc.entity.diaria.FuncionarioDiaria;
 import br.com.portalCrc.entity.diaria.ItemDiaria;
+import br.com.portalCrc.enums.diaria.MesDiariaEnum;
 import br.com.portalCrc.enums.diaria.StatusDiariaEnum;
 import br.com.portalCrc.enums.diaria.TipoDiariaEnum;
 import br.com.portalCrc.pojo.SessionUsuario;
@@ -80,6 +81,10 @@ public class ItemDiariaService {
 		valorTotalItem = valorTotalItem.add(calcula.valorPernoite(count, itemDiaria));
 		itemDiaria.setValorDiaria(valorTotalItem);
 		
+		if(item.getValorDiaria().compareTo(valorTotalDiaria) == 1){
+			throw new MensagemException("Lançamento não realizado, valor do item esta maior que o valor total, favor entrar em contato com o suporte!!!");
+		}
+		
 		valorTotalDiaria = valorTotalDiaria.subtract(item.getValorDiaria());		
 		
 		somaValorTotalDiaria(valorTotalDiaria, valorTotalItem , funcionarioDiaria , itemDiaria);
@@ -138,8 +143,9 @@ public class ItemDiariaService {
 		return lista;
 	}
 	
-	public List<ItemDiaria> listaCoordenadoria(Long id){
-		List<ItemDiaria> lista 	=  itemDiariaRepository.findByUnidadeCoordenadoria_idAndDiaria_id(SessionUsuario.getInstance().getUsuario().getFuncionario().getUnidadeAtual().getCoordenadoria().getId(), id);
+	public List<ItemDiaria> listaCoordenadoria(MesDiariaEnum mes){
+		List<ItemDiaria> lista 	=  itemDiariaRepository.findByUnidadeCoordenadoria_idAndDiaria_id(
+				SessionUsuario.getInstance().getUsuario().getFuncionario().getUnidadeAtual().getCoordenadoria().getId(), mes);
 		
 		if(lista.isEmpty() || lista == null){
 			throw new MensagemException("Coordenadoria não tem lançameto nesta diaria! ");
@@ -294,7 +300,5 @@ public class ItemDiariaService {
 	}
 
 
-
-	
 
 }

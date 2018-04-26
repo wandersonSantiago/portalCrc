@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import br.com.portalCrc.entity.diaria.Diaria;
 import br.com.portalCrc.entity.diaria.ValoresDiariaLocalidade;
+import br.com.portalCrc.enums.diaria.MesDiariaEnum;
 import br.com.portalCrc.enums.diaria.StatusDiariaEnum;
 import br.com.portalCrc.pojo.SessionUsuario;
 import br.com.portalCrc.repository.diaria.DiariaRepository;
@@ -184,6 +185,10 @@ public class DiariaService {
 
 	public List<Diaria> findByUnidade_id() {
 		return diariaRepository.findByUnidadeCadastro_idOrderByIdDesc(SessionUsuario.getInstance().getUsuario().getFuncionario().getUnidadeAtual().getId());
+	}
+
+	public List<Diaria> findByCoordenadoriaMes(MesDiariaEnum mes) {
+		return diariaRepository.findByUnidadeCadastro_idAndMesOrderByIdDesc(SessionUsuario.getInstance().getUsuario().getFuncionario().getUnidadeAtual().getId(), mes);
 	}
 	
 	

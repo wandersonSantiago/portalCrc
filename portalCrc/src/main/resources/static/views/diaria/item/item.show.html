@@ -116,10 +116,17 @@
 				<td >{{ item.horaSaida | date : 'HH:mm'}}</td>				
 				<td >{{ item.horaChegada | date : 'HH:mm'}}</td>				
 				<td >{{ item.valorDiaria | currency }}</td>				
-				<td  ng-if="!item.analizado"><button ng-click="ctrl.analizado(item.id)" title="Após selecionada, não sera mais possivel alterar este item, e ele entrara como pago!" class="btn btn-primary">Aprovar</button></td>			
+				<td  ng-if="!item.analizado"><button ng-click="ctrl.analizado(item.id)" title="Após selecionada, não sera mais possivel alterar este item, e ele entrara como pago!" ng-disabled="desabilitar" class="btn btn-primary">Aprovar</button>
+				
+				<a ng-if="!item.analizado" ui-sref="item.editar({idItem : item.id})" title="Editar esta Diaria"><i
+						class="glyphicon glyphicon-edit"></i></a>			
+				<a href="" ng-if="!item.analizado" ng-click="ctrl.excluir(item)" title="Excluir esta diaria"><i
+						class="glyphicon glyphicon-remove"></i></a>
+				</td>					
 				<td ng-if="item.analizado"><button disabled class="btn btn-success">Aprovado</button></td>
-				<td ng-if="item.qtdPernoite == null" ><button ng-if="!item.retorno" title="Selecione esta opção para uma diária comum para uma diaria de retorno" ng-disabled="item.analizado" ng-click="ctrl.retorno(item.id)" class="btn btn-primary">com retorno</button>		
-				<button  ng-disabled="item.analizado"  ng-if="item.retorno" ng-click="ctrl.retorno(item.id)"  class="btn btn-success">sem retorno</button></td>
+				<td ng-if="item.qtdPernoite == null" ><button ng-if="!item.retorno" title="Selecione esta opção para uma diária comum para uma diaria de retorno" ng-disabled="item.analizado || desabilitar" ng-click="ctrl.retorno(item.id)" class="btn btn-primary">com retorno</button>		
+				<button  ng-disabled="item.analizado"  ng-if="item.retorno || desabilitar" ng-click="ctrl.retorno(item.id)"  class="btn btn-success">sem retorno</button>
+				</td>
 			</tr>			
 		</tbody>
 		<tfoot>

@@ -87,7 +87,16 @@ app.factory('DiariaService', function($q, $http){
 				return $q.reject(errResponse);
 			});
 		},
-		
+		diariasDoMes: function(mes){
+			var config = {params: {mes: mes}};
+			return $http.get('/rest/diaria/unidades/mes/', config)
+			.then(function(response){
+				return response.data;
+			},function(errResponse){
+				return $q.reject(errResponse);
+			});
+		},
+				
 		
 	}
 });

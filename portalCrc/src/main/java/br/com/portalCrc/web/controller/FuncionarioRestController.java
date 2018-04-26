@@ -79,4 +79,23 @@ public class FuncionarioRestController {
 			
 			return ResponseEntity.ok().body(list);
 		}
+	 
+	 @GetMapping(value = "/unidade/descricao")
+		public ResponseEntity<Page<Funcionario>> findByDescricaoUnidade(
+				@RequestParam(value="page", defaultValue="0") Integer page, 
+				@RequestParam(value="linesPerPage", defaultValue="24") Integer linesPerPage, 
+				@RequestParam(value="orderBy", defaultValue="pessoa.nomeCompleto") String orderBy, 
+				@RequestParam(value="direction", defaultValue="ASC") String direction,
+				@RequestParam(value="descricao", required = false , defaultValue="")String descricao) {
+
+			Page<Funcionario> list = null;
+			
+			if(descricao.isEmpty() || descricao.equalsIgnoreCase("")) {
+				list = funcionarioService.findAllUnidade(new PageRequest(page, linesPerPage, Direction.valueOf(direction), orderBy));
+			}else {
+				list = funcionarioService.buscarNaUnidade(descricao, new PageRequest(page, linesPerPage, Direction.valueOf(direction), orderBy));
+			}
+			
+			return ResponseEntity.ok().body(list);
+		}
 }

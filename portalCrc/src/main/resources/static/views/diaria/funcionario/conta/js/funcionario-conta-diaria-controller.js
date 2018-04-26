@@ -173,7 +173,7 @@ function FuncionarioContaBuscarListarController(FuncionarioContaDiariaService, $
 	function buscarPorTexto(texto){
 		FuncionarioService.buscarPorTexto(texto).
 			then(function(f){
-				self.funcionarios = f;
+				self.funcionarios = f.content;
 				}, function(errResponse){
 					sweetAlert({text : errResponse.data.message,  type : "info", width: 300, higth: 300, padding: 20});
 				});

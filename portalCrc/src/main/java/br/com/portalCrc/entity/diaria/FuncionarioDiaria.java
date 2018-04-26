@@ -3,7 +3,6 @@ package br.com.portalCrc.entity.diaria;
 import java.math.BigDecimal;
 import java.util.Date;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -15,10 +14,10 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
 import br.com.portalCrc.entity.Cargo;
+import br.com.portalCrc.entity.Funcao;
 import br.com.portalCrc.entity.Setor;
 import br.com.portalCrc.entity.Unidade;
 import br.com.portalCrc.entity.Usuario;
@@ -32,8 +31,6 @@ public class FuncionarioDiaria {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "funcionario_diaria_id_seq")
 	private Long id;
-	
-		
 
 	@NotNull (message="Conta do Funcionario não pode ser nulo")
 	@ManyToOne
@@ -44,6 +41,8 @@ public class FuncionarioDiaria {
 	private Cargo cargo;
 	@OneToOne
 	private Setor setor;
+	@OneToOne
+	private Funcao funcao;
 	
 	@NotNull (message="Unidade não pode ser nulo")
 	@ManyToOne

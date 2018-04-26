@@ -1,7 +1,7 @@
 app.controller("ItemDiariaCadastrarController", ItemDiariaCadastrarController);
 app.controller("ItemDiariaEditarController", ItemDiariaEditarController);
 app.controller("ItemDiariaUnidadeListController", ItemDiariaUnidadeListController);
-app.controller("ItemDiariaCoordenadoriaListController", ItemDiariaCoordenadoriaListController);
+app.controller("ItemDiariaCoordenadoriaTransparenciaController", ItemDiariaCoordenadoriaTransparenciaController);
 app.controller("ItemDiariaSecretariaListController", ItemDiariaSecretariaListController);
 app.controller("ItemDiariaShowController", ItemDiariaShowController);
 app.controller("ItemDiariaUsuarioController", ItemDiariaUsuarioController);
@@ -21,7 +21,6 @@ function ItemDiariaCadastrarController($localStorage, $state, ItemDiariaService,
 	$scope.botao = "Salvar";
 	$scope.localDeslocamentos = [];
 	$scope.retorno = false;
-	
 	
 	
 	
@@ -53,11 +52,13 @@ function ItemDiariaCadastrarController($localStorage, $state, ItemDiariaService,
 		self.itemDiaria.localDeslocamentos = $scope.localDeslocamentos;		
 		ItemDiariaService.salvar(self.itemDiaria).then(
 				function(response) {
-					$state.go('diaria.update', {idDiaria : self.diaria.id ,idFuncionario : $rootScope.user.funcionario.id });
+					//$state.go('diaria.update', {idDiaria : self.diaria.id ,idFuncionario : $rootScope.user.funcionario.id });
 					buscarFuncionarioDiaria($localStorage.idFuncionario);
+					buscarItensDiariaPorFuncionarioDiaria(self.funcionario.id);
 					toastr.info("Salvo com Sucesso!!!");
-					self.itemDiaria = null;
-					 $scope.localDeslocamentos = [];
+					self.itemDiaria.dataSaida = '';
+					self.itemDiaria.dataChegada = '';
+					// $scope.localDeslocamentos = [];
 					 $scope.formDiaria.$setPristine();
 				}, function(errResponse) {
 					sweetAlert({
@@ -196,8 +197,13 @@ function ItemDiariaCadastrarController($localStorage, $state, ItemDiariaService,
 		});
 	}
 	;
-
-	
+	function buscarItensDiariaPorFuncionarioDiaria(id) {
+		ItemDiariaService.buscarItensDiariaPorFuncionarioDiaria(id).then(
+				function(f) {
+					$scope.itens = f;
+				}, function(errResponse) {				
+				});
+	};	
 	
 	function verificaDataFinal(dataInicial, dataFinal){
 		if(dataInicial > dataFinal){
@@ -234,62 +240,29 @@ function ItemDiariaCadastrarController($localStorage, $state, ItemDiariaService,
 
 }
 
-function ItemDiariaEditarController($state, ItemDiariaService, $stateParams,FuncionarioDiariaService, FuncionarioContaDiariaService, toastr, $rootScope, $scope, CoordenadoriaService, UnidadeService, TipoService,
-		VeiculoService) {
+function ItemDiariaEditarController($state, ItemDiariaService, $stateParams,FuncionarioDiariaService, FuncionarioContaDiariaService, toastr, $rootScope, $scope, TipoService) {
 
 	var self = this;
 	var idItem = $stateParams.idItem;
 	$scope.botao = "Alterar";
+	self.radio = 'VEICULO';
 	self.buscarCidades = buscarCidades;
-	self.buscarUnidades = buscarUnidades;
-	self.buscarVeiculos = buscarVeiculos;
 	self.adicionarLocal = adicionarLocal;
 	self.removerLocal = removerLocal;
 	self.submit = submit;
-	self.excluir = excluir;
-	buscarCoordenadorias();
-	buscarTipoUnidade();
 	tipos();
-	self.proximaPagina = proximaPagina;
 	$scope.localDeslocamentos = [];
 	
 	
-					
-	function proximaPagina(item) {
-		self.myVar = setInterval(function(){ editar(item) }, 500);			
-	};
 	
-	function editar(item){
-		$state.go('item.editar' , {idItem : item.id});
-		clearInterval(self.myVar);
-	}
+	function submit(form) {	
+		if(form.$invalid){
+			sweetAlert({title: "Por favor preencha os campos obrigatorios", 	type : "error", timer : 100000,   width: 500,  padding: 20});	
+			return;
+		}
 	
-	function submit() {
-		self.itemDiaria.meioTransporteSaida = self.itemDiaria.meioTransporteSaida.placa;
-		self.itemDiaria.meioTransporteRetorno = self.itemDiaria.meioTransporteRetorno.placa;
-		self.itemDiaria.localDeslocamentos = $scope.localDeslocamentos;
-		if(self.itemDiaria.horaSaida == null || self.itemDiaria.horaChegada == null){
-			sweetAlert({
-				text : "os campos horários são obrigatório!!!",
-				type : "info",
-				width : 300,
-				higth : 300,
-				padding : 20
-			});
-		}else
-		if(self.itemDiaria.motivo == null){
-			sweetAlert({
-				text : "o campo motivo é obrigatório!!!",
-				type : "info",
-				width : 300,
-				higth : 300,
-				padding : 20
-			});
-		}else{
 		ItemDiariaService.alterar(self.itemDiaria).then(
-				function(response) {
-					self.itemDiaria.meioTransporteRetorno = {placa : self.itemDiaria.meioTransporteRetorno};
-					self.itemDiaria.meioTransporteSaida = {placa : self.itemDiaria.meioTransporteSaida};					
+				function(response) {				
 					toastr.info("Alterado com Sucesso!!!");	
 					$state.go('diaria.listar');
 				}, function(errResponse) {
@@ -300,7 +273,7 @@ function ItemDiariaEditarController($state, ItemDiariaService, $stateParams,Func
 						higth : 300,
 						padding : 20
 					});
-				});}
+				});
 	};
 		
 	function adicionarLocal(cidade){
@@ -310,10 +283,8 @@ function ItemDiariaEditarController($state, ItemDiariaService, $stateParams,Func
 		$scope.localDeslocamentos.push(cidade)
 	}
 	
-	function removerLocal(local){
-		
-		var indice = $scope.localDeslocamentos.indexOf(local);
-		
+	function removerLocal(local){		
+		var indice = $scope.localDeslocamentos.indexOf(local);		
 		$scope.localDeslocamentos.splice(indice,1)
 	}
 	
@@ -322,19 +293,13 @@ function ItemDiariaEditarController($state, ItemDiariaService, $stateParams,Func
 			return;
 		ItemDiariaService.buscarPorId(id).then(function(p) {
 			self.itemDiaria = p;
-			self.itemDiaria.meioTransporteRetorno = {placa : self.itemDiaria.meioTransporteRetorno};
-			self.itemDiaria.meioTransporteSaida = {placa : self.itemDiaria.meioTransporteSaida};
 			self.funcionario = self.itemDiaria.funcionarioDiaria;
 			self.diaria = self.itemDiaria.funcionarioDiaria.diaria;
 			buscarValoresDiariaPorIndice(self.funcionario.contaFuncionario.indiceUfesp, self.diaria.id);	
 			buscarItensDiariaPorFuncionarioDiaria(self.funcionario.id);
 			buscarEstados(33);
-			self.coordenadoria = self.funcionario.contaFuncionario.funcionario.unidadeAtual.coordenadoria;
-			self.tipo = self.funcionario.contaFuncionario.funcionario.unidadeAtual.tipoUnidade;
-			self.unidade = self.funcionario.contaFuncionario.funcionario.unidadeAtual;
-			buscarUnidades(self.tipo.id);
-			buscarVeiculos(self.unidade.id);
 			$scope.localDeslocamentos = self.itemDiaria.localDeslocamentos;
+			self.itemDiaria.localDeslocamento = self.itemDiaria.localDeslocamentos[0];
 		}, function(errResponse) {
 		});
 	};
@@ -389,66 +354,8 @@ function ItemDiariaEditarController($state, ItemDiariaService, $stateParams,Func
 			self.cidades = p;
 		}, function(errResponse) {
 		});
-	}
-	;
+	};
 
-	function buscarCoordenadorias() {
-		CoordenadoriaService.listar().then(function(p) {
-			self.coordenadorias = p;
-		}, function(errResponse) {
-		});
-	}
-	;
-	function buscarUnidades(idTipo) {
-		UnidadeService.buscarPorCoordenadoriaPorTipo(self.coordenadoria.id,
-				idTipo).then(function(p) {
-			self.unidades = p;
-		}, function(errResponse) {
-		});
-	}
-	;
-	function buscarTipoUnidade() {
-		TipoService.listar().then(function(p) {
-			self.tiposUnidade = p;
-		}, function(errResponse) {
-		});
-	}
-	;
-
-	function buscarVeiculos(idUnidade) {
-		VeiculoService.buscarPorUnidade(idUnidade).then(function(f) {
-			self.veiculos = f;
-		}, function(errResponse) {
-			sweetAlert({
-				text : errResponse.data.message,
-				type : "error",
-				width : 300,
-				higth : 300,
-				padding : 20
-			});
-		});
-	}
-	;
-
-	function excluir(objeto) {
-		swal({
-			title : 'Excluir diária!!!',
-			text : 'Tem certeza que deseja excluir esta diária',
-			type : 'warning',
-			showCancelButton : true,
-			confirmButtonColor : '#3085d6',
-			cancelButtonColor : '#d33',
-			confirmButtonText : 'Excluir'
-		}).then(function() {
-			ItemDiariaService.excluir(objeto.id).then(function(response) {
-				$state.go('diaria.listar');
-			}, function(errResponse) {
-			});
-
-		})
-	}
-	;
-	
 	
 }
 function ItemDiariaUnidadeListController($filter, $stateParams, $state, ItemDiariaService,
@@ -522,15 +429,79 @@ function ItemDiariaUnidadeListController($filter, $stateParams, $state, ItemDiar
 }
 
 
-function ItemDiariaCoordenadoriaListController($filter, $stateParams, $state, ItemDiariaService,
-		toastr, $rootScope, $scope) {
+function ItemDiariaCoordenadoriaTransparenciaController($filter, $stateParams, $state, $timeout, ItemDiariaService, DiariaService,	toastr, $rootScope, $scope) {
+	
 	var self = this;
 	var idDiaria = $stateParams.idDiaria;
+	
 	$scope.listaDiariaExcel = [];
-	listar(idDiaria);
-
-	function listar(idDiaria) {
-		ItemDiariaService.porCoordenadoria(idDiaria).then(function(f) {
+	self.diariasDoMes= diariasDoMes;
+	self.carregarDiaria = carregarDiaria;
+	self.carregarDiariaCoordenadoria = carregarDiariaCoordenadoria;
+	diariasDoMes()
+	
+	listarMes()
+	
+	$scope.max = 100;
+	$scope.dynamic = 0;
+	
+	//Busca os 12 meses do ano para a pesquisa
+	function listarMes(){
+		 DiariaService.listarMes().
+			then(function(f){
+				self.meses = f;					
+				}, function(errResponse){
+			});
+		};
+	//fim	
+		
+	//Busca uma lista de diaria referente ao mes selecionado	
+	function diariasDoMes(mes){
+		 DiariaService.diariasDoMes(mes).
+			then(function(f){
+				$scope.dynamic = 0;
+				self.diarias = f;					
+				}, function(errResponse){
+			});
+		};
+	//fim	
+	//Carrega todas as diarias da coordenadoria para a exportação para excell
+		function carregarDiariaCoordenadoria(mes) {
+			ItemDiariaService.porCoordenadoria(mes).then(function(f) {				
+				incrementDynamic();
+				self.itens = f;
+				forLista(f);			      
+			}, function(errResponse) {
+				sweetAlert({
+					text : errResponse.data.message,
+					type : "info",
+					width : 300,
+					higth : 300,
+					padding : 20
+				});
+			});
+		};
+		//fim
+		
+		 //método para realizar o progress da lista   coordenadoria
+		  incrementDynamic = function() {	
+			  var tempo = 50;
+			  $scope.dynamic++;
+		      if ($scope.dynamic <= 100) {
+		    	  $scope.$evalAsync(function () {
+		    		 $scope.dynamic == 99 ? tempo = 2000 : '';		    		
+		    		  setTimeout(function() {
+		    			  incrementDynamic()
+		    		      }, tempo)
+		    	  });
+		      }		  
+		  }
+		//fim
+	//Carrega a lista da diaria selecionada para a exportação para excell
+	function carregarDiaria(diaria) {
+		ItemDiariaService.porUnidade(diaria.id).then(function(f) {
+			diaria.dynamic = 0;
+			increment(diaria);
 			self.itens = f;
 			forLista(f);
 		}, function(errResponse) {
@@ -542,9 +513,25 @@ function ItemDiariaCoordenadoriaListController($filter, $stateParams, $state, It
 				padding : 20
 			});
 		});
-	}
-	;
+	};
+	//fim
 	
+	 //método para realizar o progress da lista   
+	  increment = function(diaria) {
+		  var tempo = 50;
+		  diaria.dynamic++;
+	      if (diaria.dynamic <= 100) {
+	    	  $scope.$evalAsync(function () {
+	    		  $scope.dynamic == 99 ? tempo = 2000 : '';	
+	    		  setTimeout(function() {
+	    			  increment(diaria)
+	    		      }, tempo)
+	    	  });
+	      }		  
+	  }
+	//fim
+	  
+	 //TUDO: para transferir a tabela para excell
 	forLista = function(f){
 		for(i = 0 ; i < f.length ; i++){
 			listaExcel(f[i]);
@@ -587,6 +574,8 @@ function ItemDiariaCoordenadoriaListController($filter, $stateParams, $state, It
 			valorPassagem: valorPassagem
 		});
 	};
+	//FIM: adiciona tabela para excell
+	
 }
 
 function ItemDiariaSecretariaListController($filter, $stateParams, $state, ItemDiariaService,
@@ -663,9 +652,9 @@ function ItemDiariaShowController($stateParams, $state, ItemDiariaService,	toast
 	self.retorno = retorno;
 	self.itensPorFuncionarioDiariaETipo = itensPorFuncionarioDiariaETipo;
 	tipos();
-	
+	self.excluir = excluir;
 	self.tipo = 'ADMINISTRATIVO';
-	
+	$scope.desabilitar = false;
 	itensPorFuncionarioDiariaETipo(idFuncionario, self.tipo);
 	
 	function itensPorFuncionarioDiariaETipo(id , tipo) {
@@ -752,6 +741,25 @@ self.imprimir = imprimir;
 		 	});
 	}
 	
+	function excluir(objeto) {
+		swal({
+			title : 'Excluir diária!!!',
+			text : 'Tem certeza que deseja excluir esta diária',
+			type : 'warning',
+			showCancelButton : true,
+			confirmButtonColor : '#3085d6',
+			cancelButtonColor : '#d33',
+			confirmButtonText : 'Excluir'
+		}).then(function() {
+			ItemDiariaService.excluir(objeto.id).then(function(response) {
+				toastr.success("Excluido!");
+				$scope.itens.splice($scope.itens.indexOf(objeto), 1);
+			}, function(errResponse) {
+			});
+
+		})
+	};
+	
 }
 
 function ItemDiariaUsuarioController($stateParams, $state, ItemDiariaService, toastr, $rootScope, $scope, FuncionarioContaDiariaService, blockUI) {
@@ -760,9 +768,9 @@ function ItemDiariaUsuarioController($stateParams, $state, ItemDiariaService, to
 	var idDiaria = $stateParams.idDiaria;
 	self.itensPorFuncionarioDiariaETipo = itensPorFuncionarioDiariaETipo;
 	buscarFuncionarioDiaria(idFuncionario);
-	
+	self.excluir = excluir;
 	tipos();
-	
+	$scope.desabilitar = true;
 	self.tipo = 'ADMINISTRATIVO';	
 	
 	function buscarFuncionarioDiaria(id) {
@@ -823,5 +831,24 @@ self.imprimir = imprimir;
 				 swal({ timer : 3000, text : errResponse.data ,  type : "error", width: 200, higth: 100, padding: 20}).catch(swal.noop);
 		 	});
 	}
+	
+	function excluir(objeto) {
+		swal({
+			title : 'Excluir diária!!!',
+			text : 'Tem certeza que deseja excluir esta diária',
+			type : 'warning',
+			showCancelButton : true,
+			confirmButtonColor : '#3085d6',
+			cancelButtonColor : '#d33',
+			confirmButtonText : 'Excluir'
+		}).then(function() {
+			ItemDiariaService.excluir(objeto.id).then(function(response) {
+				toastr.success("Excluido!");
+				$scope.itens.splice($scope.itens.indexOf(objeto), 1);
+			}, function(errResponse) {
+			});
+
+		})
+	};
 	
 }

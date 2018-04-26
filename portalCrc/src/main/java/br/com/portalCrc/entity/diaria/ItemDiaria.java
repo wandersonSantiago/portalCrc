@@ -22,8 +22,6 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-
 import br.com.portalCrc.entity.Cidade;
 import br.com.portalCrc.entity.Estado;
 import br.com.portalCrc.entity.Usuario;
@@ -61,18 +59,15 @@ public class ItemDiaria {
 	@NotNull (message="Meio de transporte saida não pode ser nulo")
 	@Column(name="meio_transporte_saida")
 	private String meioTransporteSaida;
-	
-	@NotNull (message="Meio de transporte retorno não pode ser nulo")
+		
 	@Column(name="meio_transporte_retorno")
 	private String meioTransporteRetorno;
 	
 	@NotNull (message="Data de saída não pode ser nulo")
-	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", timezone="GMT")
 	@Temporal(TemporalType.DATE)
 	private Date dataSaida;
 	
 	@NotNull (message="Data de retorno não pode ser nulo")
-	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", timezone="GMT")
 	@Temporal(TemporalType.DATE)
 	private Date dataChegada;	
 	
@@ -143,5 +138,9 @@ public class ItemDiaria {
 	private BigDecimal valorAlojamento;
 	
 	
+	
+	public void setMotivo(String motivo) {
+		this.motivo = ConverteTextoUpperCase.converte(motivo);
+	}
 
 }

@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import br.com.portalCrc.entity.diaria.Diaria;
+import br.com.portalCrc.enums.diaria.MesDiariaEnum;
 import br.com.portalCrc.enums.diaria.StatusDiariaEnum;
 
 public interface DiariaRepository extends JpaRepository<Diaria, Long>{
@@ -24,4 +25,6 @@ public interface DiariaRepository extends JpaRepository<Diaria, Long>{
 
 
 	List<Diaria> findByUnidadeCadastro_idOrderByIdDesc(Long id);
+
+	List<Diaria> findByUnidadeCadastro_idAndMesOrderByIdDesc(Long id, MesDiariaEnum mes);
 }

@@ -6,8 +6,7 @@ app.directive('dateInput', function(){
         	
         	ctrl.$formatters.push(function (value){
         		return new Date(value);
-        	});
-           
+        	});           
         }
     };
 });

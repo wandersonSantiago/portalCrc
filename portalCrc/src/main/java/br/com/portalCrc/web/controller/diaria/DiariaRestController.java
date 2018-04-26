@@ -85,6 +85,12 @@ public class DiariaRestController {
 		 return diariaService.findByUnidade_id();
 	 }
 	 
+	 @GetMapping("/unidades/mes/")
+	 public ResponseEntity<List<Diaria>> findByCoordenadoriaMes(@RequestParam MesDiariaEnum mes){
+		 List<Diaria> diarias = diariaService.findByCoordenadoriaMes(mes);
+		 return new ResponseEntity<List<Diaria>>(diarias, HttpStatus.OK);
+	 }
+	 
 	 	
 		
 }

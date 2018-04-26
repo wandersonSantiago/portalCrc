@@ -15,10 +15,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import br.com.portalCrc.entity.diaria.ItemDiaria;
+import br.com.portalCrc.enums.diaria.MesDiariaEnum;
 import br.com.portalCrc.enums.diaria.TipoDiariaEnum;
 import br.com.portalCrc.service.diaria.ItemDiariaService;
 
@@ -60,9 +62,15 @@ public class ItemDiariaRestController {
 		return new ResponseEntity<Iterable<ItemDiaria>>(itemDiaria, HttpStatus.OK);
 	}
 	
-	@GetMapping(value="/coordenadoria/{id}")
-	public ResponseEntity<Iterable<ItemDiaria>> listaCoordenadoria(@PathVariable Long id){
-		Iterable<ItemDiaria> itemDiaria = itemDiariaRepository.listaCoordenadoria(id);
+	@GetMapping(value="/coordenadoria")
+	public ResponseEntity<Iterable<ItemDiaria>> listaCoordenadoria(@RequestParam(value="mes") MesDiariaEnum mes){
+		Iterable<ItemDiaria> itemDiaria = itemDiariaRepository.listaCoordenadoria(mes);
+		return new ResponseEntity<Iterable<ItemDiaria>>(itemDiaria, HttpStatus.OK);
+	}
+	
+	@GetMapping(value="/unidade/{idDiaria}")
+	public ResponseEntity<Iterable<ItemDiaria>> listaUnidade(@PathVariable Long idDiaria){
+		Iterable<ItemDiaria> itemDiaria = itemDiariaRepository.listaUnidade(idDiaria);
 		return new ResponseEntity<Iterable<ItemDiaria>>(itemDiaria, HttpStatus.OK);
 	}
 	
@@ -78,11 +86,7 @@ public class ItemDiariaRestController {
 		return new ResponseEntity<Iterable<ItemDiaria>>(itemDiaria, HttpStatus.OK);
 	}
 	
-	@GetMapping(value="/unidade/{id}")
-	public ResponseEntity<Iterable<ItemDiaria>> listaUnidade(@PathVariable Long id){
-		Iterable<ItemDiaria> itemDiaria = itemDiariaRepository.listaUnidade(id);
-		return new ResponseEntity<Iterable<ItemDiaria>>(itemDiaria, HttpStatus.OK);
-	}
+	
 	
 	
 	 @GetMapping(value = "/{id}")

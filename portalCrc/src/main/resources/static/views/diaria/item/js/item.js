@@ -19,7 +19,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
 			params: {
 				idDiaria: null,
 			  },
-			templateUrl : "views/diaria/item/item.master.list.html",
+			templateUrl : "views/diaria/item/item.transparencia.html",
 			controller : "ItemDiariaUnidadeListController as ctrl",
 			ncyBreadcrumb: {
 				 	parent: 'item',
@@ -28,16 +28,16 @@ app.config(function($stateProvider, $urlRouterProvider) {
 		})
 		.state('item.coordenadoria', {
 			requiresAuthentication: true,
-			permissions: ["DIARIA_ITEM_COORDENADORIA", "ADMIN"],
-			url : "/listar/coordenadoria",
+			permissions: ["DIARIA_TRANSPARENCIA", "ADMIN"],
+			url : "/transparencia/coordenadoria",
 			params: {
 				idDiaria: null,
 			  },
-			templateUrl : "views/diaria/item/item.master.list.html",
-			controller : "ItemDiariaCoordenadoriaListController as ctrl",
+			templateUrl : "views/diaria/item/item.transparencia.html",
+			controller : "ItemDiariaCoordenadoriaTransparenciaController as ctrl",
 			ncyBreadcrumb: {
 				 	parent: 'item',
-				    label: 'listar itens coordenadoria'
+				    label: 'transparencia'
 				  }
 		})
 		.state('item.secretaria', {
@@ -47,7 +47,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
 			params: {
 				idDiaria: null,
 			  },
-			templateUrl : "views/diaria/item/item.master.list.html",
+			templateUrl : "views/diaria/item/item.transparencia.html",
 			controller : "ItemDiariaSecretariaListController as ctrl",
 			ncyBreadcrumb: {
 				 	parent: 'item',

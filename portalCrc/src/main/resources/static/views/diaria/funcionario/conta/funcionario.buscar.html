@@ -21,7 +21,7 @@
 	flex-gt-sm="50" layout="column" layout-align="center center"
 	ng-init="height = 1" ng-mouseenter="height = 3"
 	ng-mouseleave="height = 1"
-	ng-repeat="funcionario in ctrl.funcionarios | orderBy: 'nome' ">
+	ng-repeat="funcionario in ctrl.funcionarios | orderBy: 'nomeCompleto' ">
 	<div class="row">
 		<span ui-sref="funcionarioContaDiaria.cadastrar({idFuncionario : funcionario.id})"
 			class="btn btn-primary btn-flat"><h5>{{funcionario.pessoa.nomeCompleto }}

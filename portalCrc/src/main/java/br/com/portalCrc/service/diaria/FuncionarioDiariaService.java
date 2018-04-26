@@ -33,8 +33,8 @@ public class FuncionarioDiariaService {
 	@Transactional(readOnly = false)
 	public void salvaOuAltera(FuncionarioDiaria funcionarioDiaria) {
 		
-		if(funcionarioDiaria.getContaFuncionario() != null) {
-			int count =	funcionarioDiariaRepository.countByContaFuncionario_id(funcionarioDiaria.getContaFuncionario().getId());
+		if(funcionarioDiaria.getDiaria().getId() != null && funcionarioDiaria.getContaFuncionario() != null) {
+			int count =	funcionarioDiariaRepository.countByDiaria_idAndContaFuncionario_id(funcionarioDiaria.getDiaria().getId(), funcionarioDiaria.getContaFuncionario().getId());
 			if(count > 0) {
 				throw new MensagemException("Não foi possivel realizar este lançamento, Esta conta já esta vinculada a diaria deste mês!!!");
 			}
@@ -48,6 +48,7 @@ public class FuncionarioDiariaService {
 		funcionarioDiaria.setUnidade(usuario.getFuncionario().getUnidadeAtual());
 		funcionarioDiaria.setUsuarioCadastro(usuario);
 		funcionarioDiaria.setCargo(funcionarioDiaria.getContaFuncionario().getFuncionario().getCargoAtual());
+		funcionarioDiaria.setFuncao(funcionarioDiaria.getContaFuncionario().getFuncionario().getFuncaoAtual());
 		funcionarioDiaria.setSetor(funcionarioDiaria.getContaFuncionario().getFuncionario().getSetorAtual());
 		
 		funcionarioDiaria.setBanco(funcionarioDiaria.getContaFuncionario().getBanco());

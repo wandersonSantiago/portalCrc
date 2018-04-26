@@ -56,7 +56,7 @@ app.factory('ItemDiariaService', function($q, $http){
 				return $q.reject(errResponse);
 			});
 		},
-		porUnidades: function(idDiaria){
+		porUnidade: function(idDiaria){
 			return $http.get('/rest/diaria/item/unidade/' +idDiaria)
 			.then(function(response){
 				return response.data;
@@ -64,8 +64,9 @@ app.factory('ItemDiariaService', function($q, $http){
 				return $q.reject(errResponse);
 			});
 		},
-		porCoordenadoria: function(idDiaria){
-			return $http.get('/rest/diaria/item/coordenadoria/' +idDiaria)
+		porCoordenadoria: function(mes){
+			var config = {params: {mes : mes}};
+			return $http.get('/rest/diaria/item/coordenadoria', config)
 			.then(function(response){
 				return response.data;
 			},function(errResponse){

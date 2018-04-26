@@ -76,18 +76,35 @@ public class FuncionarioService {
 	}
 	
 	public Page<Funcionario> buscar(String texto, Pageable page) {
-		Long unidade = SessionUsuario.getInstance().getUsuario().getFuncionario().getUnidadeAtual().getId();
 			texto = texto.replaceAll("[./-]","");
 			if (texto.matches("[0-9]+")) {
-				Page<Funcionario> list = funcionarioRepository.findByUnidadeAtual_idAndPessoa_cpf(unidade, "%" + texto + "%", page);
-				if(list.getNumberOfElements() < 1 || list == null){
-					throw new MensagemException("Busca não encontrada, verifique se ja existe conta aberta para este funcionario! " + texto);
+				Page<Funcionario> list = funcionarioRepository.findByPessoa_cpfContaining("%" + texto + "%", page);
+				if(list == null || list.getNumberOfElements() < 1){
+					throw new MensagemException("Busca não encontrada,  para este funcionario! " + texto);
 				}
 				return list;
 			} else {
-				Page<Funcionario> list =  funcionarioRepository.findByUnidadeAtual_idAndPessoaNomeCompletoIgnoreCaseContaining(unidade,texto, page);
-				if(list.getNumberOfElements() < 1 || list == null){
-					throw new MensagemException("Busca não encontrada, verifique se ja existe conta aberta para este funcionario! " + texto);
+				Page<Funcionario> list =  funcionarioRepository.findByPessoa_nomeCompletoIgnoreCaseContaining(texto, page);
+				if(list == null || list.getNumberOfElements() < 1){
+					throw new MensagemException("Busca não encontrada,  para este funcionario! " + texto);
+				}
+				return list;
+			}
+	}
+
+	public Page<Funcionario> buscarNaUnidade(String texto, Pageable page) {
+		Long idUnidade = SessionUsuario.getInstance().getUsuario().getFuncionario().getUnidadeAtual().getId();
+			texto = texto.replaceAll("[./-]","");
+			if (texto.matches("[0-9]+")) {
+				Page<Funcionario> list = funcionarioRepository.findByUnidadeAtual_idAndPessoa_cpfContaining(idUnidade, "%" + texto + "%", page);
+				if(list == null || list.getNumberOfElements() < 1){
+					throw new MensagemException("Busca não encontrada,  para este funcionario! " + texto);
+				}
+				return list;
+			} else {
+				Page<Funcionario> list =  funcionarioRepository.findByUnidadeAtual_idAndPessoaNomeCompletoIgnoreCaseContaining(idUnidade,texto, page);
+				if(list == null || list.getNumberOfElements() < 1){
+					throw new MensagemException("Busca não encontrada,  para este funcionario! " + texto);
 				}
 				return list;
 			}
@@ -103,6 +120,10 @@ public class FuncionarioService {
 		return funcionario;
 	}
 
+	public Page<Funcionario> findAllUnidade(PageRequest pageRequest) {
+		Long idUnidade = SessionUsuario.getInstance().getUsuario().getFuncionario().getUnidadeAtual().getId();
+		return funcionarioRepository.findAllByUnidadeAtual_id(idUnidade, pageRequest);
+	}
 	public Page<Funcionario> findAll(PageRequest pageRequest) {
 		return funcionarioRepository.findAll(pageRequest);
 	}

@@ -16,7 +16,13 @@ public interface FuncionarioRepository extends JpaRepository<Funcionario, Long>{
 	Page<Funcionario> findByUnidadeAtual_idAndPessoaNomeCompletoIgnoreCaseContaining(Long unidade, String texto,
 			Pageable page);
 
-	Page<Funcionario> findByUnidadeAtual_idAndPessoa_cpf(Long unidade, String string, Pageable page);
+	Page<Funcionario> findByUnidadeAtual_idAndPessoa_cpfContaining(Long unidade, String string, Pageable page);
+
+	Page<Funcionario> findAllByUnidadeAtual_id(Long idUnidade, Pageable pageRequest);
+
+	Page<Funcionario> findByPessoa_cpfContaining(String string, Pageable page);
+
+	Page<Funcionario> findByPessoa_nomeCompletoIgnoreCaseContaining(String texto, Pageable page);
 
 	
 }
