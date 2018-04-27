@@ -80,8 +80,9 @@ app.factory('FuncionarioDiariaService', function($q, $http){
 				return $q.reject(errResponse);
 			});
 		},
-		buscarFuncionarioPorDiariaPorId: function(objeto){
-			return $http.get('/rest/diaria/funcionario/'+objeto+'/funcionarios/')
+		buscarFuncionarioPorDiariaPorId: function(texto, idDiaria, pagina){
+			var config = {params: {page: pagina, q:texto, idDiaria : idDiaria}};
+			return $http.get('/rest/diaria/funcionario/unidade', config)
 			.then(function(response){
 				return response.data;
 			},function(errResponse){

@@ -81,7 +81,8 @@ public class FuncionarioUnidadeService {
 	
 		String login = funcionario.getPessoa().getNomeCompleto().substring(0,3).toUpperCase();
 		
-		login +=funcionario.getPessoa().getRg().replaceAll("[^0-9]", "");
+		String rg = funcionario.getPessoa().getRg().replaceAll("[^0-9]", "");
+		login += rg;
 		
 		Usuario usuarioVerificado = usuarioRepository.findByLogin(login);
 	
@@ -96,7 +97,7 @@ public class FuncionarioUnidadeService {
 			
 			
 			usuario.setLogin(login);		
-			String hash = new BCryptPasswordEncoder().encode(funcionario.getPessoa().getRg());
+			String hash = new BCryptPasswordEncoder().encode(rg);
 			usuario.setSenha(hash);
 			usuarioRepository.save(usuario);
 		}		

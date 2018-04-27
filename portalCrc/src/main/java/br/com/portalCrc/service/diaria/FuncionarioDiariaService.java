@@ -7,11 +7,13 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import br.com.portalCrc.entity.Usuario;
+import br.com.portalCrc.entity.diaria.ContaFuncionarioDiaria;
 import br.com.portalCrc.entity.diaria.FuncionarioDiaria;
 import br.com.portalCrc.entity.diaria.ValoresDiariaLocalidade;
 import br.com.portalCrc.enums.diaria.StatusDiariaEnum;
@@ -125,11 +127,6 @@ public class FuncionarioDiariaService {
 		return valoresDiaraRepository.findByIndiceUfespAndDiaria_id(id, idDiaria);
 	}
 
-	public Iterable<FuncionarioDiaria> findByUnidade_idAndDiaria_id(Long id) {
-		return funcionarioDiariaRepository.findByUnidade_idAndDiaria_id(
-				SessionUsuario.getInstance().getUsuario().getFuncionario().getUnidadeAtual().getId(), id);
-	}
-
 	public FuncionarioDiaria findByUnidade_idAndContaFuncionario_idAndDiaria_id(Long idFuncionario, Long idDiaria) {
 		FuncionarioDiaria funcionario = funcionarioDiariaRepository.findByUnidade_idAndContaFuncionario_idAndDiaria_id(
 				SessionUsuario.getInstance().getUsuario().getFuncionario().getUnidadeAtual().getId(), idFuncionario,
@@ -161,6 +158,32 @@ public class FuncionarioDiariaService {
 			throw new MensagemException("Favor Conferir os Dados!!!");
 		}
 		return funcionario;
+	}
+
+	
+
+	public Page<FuncionarioDiaria> findaAllDiariaId(Long idDiaria, Pageable page) {
+		
+		Page<FuncionarioDiaria> list = funcionarioDiariaRepository.findAllByDiaria_id(idDiaria, page);
+		if (list.getNumberOfElements() == 0) {
+			throw new MensagemException("Não existe Lançamento para esta diaria!");
+		}
+		return list;
+	}
+
+	public Page<FuncionarioDiaria> findaAllDiariaIdAndTexto(Long idDiaria, String texto, Pageable page) {
+		texto = texto.replaceAll("[./-]","");
+		Page<FuncionarioDiaria> list = null;
+		
+		if (texto.matches("[0-9]+")) {
+			 list = funcionarioDiariaRepository.findByContaFuncionarioFuncionarioPessoaCpfAndDiaria_id("%" + texto + "%", idDiaria, page);			
+		} else {
+			 list =  funcionarioDiariaRepository.findByContaFuncionarioFuncionarioPessoaNomeCompletoIgnoreCaseContainingAndDiaria_id(texto, idDiaria, page);			
+		}
+		if(list == null || list.getNumberOfElements() < 1){
+			throw new MensagemException("Busca não encontrada, verifique se ja existe conta aberta para este funcioonario! " + texto);
+		}
+		return list;
 	}
 
 }

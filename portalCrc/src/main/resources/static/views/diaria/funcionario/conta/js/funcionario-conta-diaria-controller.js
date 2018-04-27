@@ -166,28 +166,45 @@ function FuncionarioContaDiariaListarController($stateParams, $state, Funcionari
 		};
 }
 
-function FuncionarioContaBuscarListarController(FuncionarioContaDiariaService, $state, FuncionarioService, $rootScope, $scope){
+function FuncionarioContaBuscarListarController(FuncionarioContaDiariaService, $state, FuncionarioService, $rootScope, $scope, blockUI){
 	var self = this;
+	self.buscarFuncionarioPorTexto = buscarFuncionarioPorTexto;	
 	self.buscarPorTexto = buscarPorTexto;
+	self.totalElementos = {};
+	self.totalPaginas = null;
+	self.paginaCorrente = 0;
 	
-	function buscarPorTexto(texto){
-		FuncionarioService.buscarPorTexto(texto).
-			then(function(f){
-				self.funcionarios = f.content;
-				}, function(errResponse){
-					sweetAlert({text : errResponse.data.message,  type : "info", width: 300, higth: 300, padding: 20});
-				});
-		};
+	buscarPorTexto('');
 		
-		listar();
-		
-		 function listar(){
-			 FuncionarioContaDiariaService.listarPorUnidade().
-				then(function(f){
-					$scope.contas = f;				
-					}, function(errResponse){
-						sweetAlert({ timer : 3000,  text : errResponse.data.message,  type : "info", width: 300, higth: 300, padding: 20});
-				});
-			};
+			     
+    function buscarPorTexto(texto){
+    	$scope.mensagemErro = null;
+    	 blockUI.start();	    	 
+    	 self.paginaCorrente == '0'? self.paginaCorrente = 0 : self.paginaCorrente = self.paginaCorrente - 1;    	 
+    	 FuncionarioContaDiariaService.buscarPorTexto(texto, self.paginaCorrente).
+    	 then(function(e){
+    		 $scope.mensagemErro = null;
+    		 self.contas = e.content;	
+    		 self.totalElementos = e.totalElements;
+    		 self.totalPaginas = e.totalPages;
+    		 self.paginaCorrente = e.number + 1;
+    		 blockUI.stop();
+    	 }, function(errResponse){
+    		 blockUI.stop();
+    		 if(errResponse.status == 404){
+    			 $scope.mensagemErro = errResponse.data.message;
+    		 }else{
+    			 $scope.mensagemErro =errResponse.data.message;
+    		 }
+		 });
+    }
+	    
+	 function buscarFuncionarioPorTexto(texto){
+	     	return  FuncionarioService.buscarPorTexto(texto).
+	     	 then(function(e){
+	     		return e.content;
+	     	 }, function(errResponse){
+	     	 });
+	     }
 	
 }

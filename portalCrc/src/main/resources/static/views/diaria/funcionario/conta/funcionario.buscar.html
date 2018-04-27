@@ -1,49 +1,52 @@
 <meta charset="UTF-8">
 <meta charset="UTF-8">
-
-<div class="row">
-	<div class="col-lg-6">
-		<div class="input-group">
-			<input type="text" class="form-control"
-				placeholder="Digite o nome ou qualquer número de documento"
-				ng-model="texto" autofocus
-				ng-keyup="$event.keyCode == 13 && ctrl.buscarPorTexto(texto)">
-			<span class="input-group-btn">
-				<button class="btn btn-default" type="button"
-					ng-click="ctrl.buscarPorTexto(texto)">buscar!</button>
+<div class="col-sm-4">
+			 		<label>Cadastrar Nova Conta:</label>
+			 <div class="input-group">
+				  <input type="text" ng-model="funcionario" placeholder="Digite nome ou CPF"  
+				    uib-typeahead="funcionario as funcionario.pessoa.nomeCompleto for funcionario in ctrl.buscarFuncionarioPorTexto($viewValue) | limitTo:8" 
+				    typeahead-template-url="customTemplate.html" class="form-control" typeahead-show-hint="true"  
+				    typeahead-loading="loading" typeahead-no-results="SemResultado" typeahead-min-length="3">
+				    <i ng-show="loading" class="glyphicon glyphicon-refresh"></i>
+				    <div ng-show="SemResultado">
+				      <i class="glyphicon glyphicon-remove"></i> Nenhum resultado encontrado
+				    </div>
+				    <span class="input-group-btn">
+				<button class="btn btn-default" type="button" ui-sref="funcionarioContaDiaria.cadastrar({idFuncionario : funcionario.id})">ir!</button>
 			</span>
-		</div>
-	</div>
+			</div>
 </div>
 <br>
-
-<div ng-if="texto" class="padded" md-whiteframe="{{height}}" flex="100"
-	flex-gt-sm="50" layout="column" layout-align="center center"
-	ng-init="height = 1" ng-mouseenter="height = 3"
-	ng-mouseleave="height = 1"
-	ng-repeat="funcionario in ctrl.funcionarios | orderBy: 'nomeCompleto' ">
-	<div class="row">
-		<span ui-sref="funcionarioContaDiaria.cadastrar({idFuncionario : funcionario.id})"
-			class="btn btn-primary btn-flat"><h5>{{funcionario.pessoa.nomeCompleto }}
-				CPF: {{funcionario.pessoa.cpf}}</h5></span>
-	</div>
-</div>
-<br>
+<br><br>
 <br>
 <div class="row">
-	
+
 		<span class="btn btn-primary btn-flat col-sm-12">Contas cadastradas</span>
 	
 </div>
 <br>
 <div class="row">
-	<div class="col-sm-3">
-		<input class="form-control" placeholder="Pesquisar..." type="text" ng-model="buscar">
+	<div class="col-lg-4">
+		<label>Pesquisar contas:</label>
+		<div class="input-group">
+			<input type="text" class="form-control"
+				placeholder="Pesquisar por nome ou CPF"
+				ng-model="texto" autofocus
+				ng-keyup="$event.keyCode == 13 && ctrl.buscarPorTexto(texto)">
+			<span class="input-group-btn">
+				<button class="btn btn-default" type="button"
+					ng-click="ctrl.paginaCorrente = 0; ctrl.buscarPorTexto(texto)">Ir!</button>
+			</span>
+		</div>
 	</div>
 </div>
-
-<br>
-
+<div ng-show="mensagemErro"
+	class="alert alert-warning alert-dismissible">
+	<h4>
+		<i class="icon fa fa-warning"></i>{{mensagemErro}}
+	</h4>
+</div>
+<div class=" table-responsive"  >	
 <table class="table table-hover table-bordered">
 				<thead>
 					<tr>
@@ -56,7 +59,7 @@
 						<th>Editar</th>
 					</tr>
 				</thead>
-				<tbody 	ng-repeat=" conta in contas | filter : buscar |  orderBy: 'funcionario.pessoa.nomeCompleto'">
+				<tbody 	ng-repeat=" conta in ctrl.contas | filter : buscar">
 					<tr>
 						<td>{{ conta.funcionario.pessoa.nomeCompleto }}</td>
 						<td>{{ conta.banco }}</td>
@@ -74,3 +77,20 @@
 					</tr>
 				</tfoot>
 			</table>
+				<nav>
+				<ul uib-pagination total-items="ctrl.totalElementos" items-per-page="24"
+					ng-model="ctrl.paginaCorrente" max-size="5" class="pagination-sm"
+					boundary-link-numbers="true" ng-click="ctrl.buscarPorTexto(texto)"
+					previous-text="Anterior" last-text="Último" first-text="Primeiro"
+					next-text="Próximo">
+				</ul>
+			</nav>
+		</div>
+		<script type="text/ng-template" id="customTemplate.html">
+  			<a>
+      			<span ng-bind-html="match.model.pessoa.nomeCompleto | uibTypeaheadHighlight:query"></span><br/>
+	 			<span>CPF: {{match.model.pessoa.cpf}}</span><br/>	
+				<span>Setor: </span><br/>
+				<span ui-sref="funcionarioContaDiaria.cadastrar({idFuncionario : match.model.id})">{{match.model.setorAtual.nome}}</span><br/>
+  			</a>
+		</script>

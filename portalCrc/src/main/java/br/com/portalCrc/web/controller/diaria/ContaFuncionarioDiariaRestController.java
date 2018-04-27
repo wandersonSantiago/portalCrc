@@ -4,6 +4,9 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import br.com.portalCrc.entity.Funcionario;
 import br.com.portalCrc.entity.diaria.ContaFuncionarioDiaria;
 import br.com.portalCrc.enums.diaria.IndiceUfespEnum;
 import br.com.portalCrc.enums.diaria.LimitePorcentagemSalarioEnum;
@@ -67,11 +71,11 @@ public class ContaFuncionarioDiariaRestController {
 		return new ResponseEntity<Iterable<ContaFuncionarioDiaria>>(contaFuncionarioDiaria, HttpStatus.OK);
 	}
 	
-	@GetMapping(value="/unidade")
+	/*@GetMapping(value="/unidade")
 	public ResponseEntity<Iterable<ContaFuncionarioDiaria>> listaUnidade(){
 		Iterable<ContaFuncionarioDiaria> contaFuncionarioDiaria = contaFuncionarioDiariaService.lista();
 		return new ResponseEntity<Iterable<ContaFuncionarioDiaria>>(contaFuncionarioDiaria, HttpStatus.OK);
-	}
+	}*/
 	
 	 @GetMapping(value = "/{id}")
 		public ResponseEntity<ContaFuncionarioDiaria> buscarPorId(@PathVariable Long id) {
@@ -83,8 +87,22 @@ public class ContaFuncionarioDiariaRestController {
 			return new ResponseEntity<ContaFuncionarioDiaria>(contaFuncionarioDiariaService.findByFuncionario_id(id), HttpStatus.OK);
 	 }
 	 @GetMapping(value = "/buscar")
-		public ResponseEntity<?> buscar(@RequestParam("q")String texto) {
-		 return new ResponseEntity<List<ContaFuncionarioDiaria>>(contaFuncionarioDiariaService.buscar(texto), HttpStatus.OK);
+		public ResponseEntity<?> buscar(
+				@RequestParam(value="page", defaultValue="0") Integer page, 
+				@RequestParam(value="linesPerPage", defaultValue="24") Integer linesPerPage, 
+				@RequestParam(value="orderBy", defaultValue="funcionario.pessoa.nomeCompleto") String orderBy, 
+				@RequestParam(value="direction", defaultValue="ASC") String direction,
+				@RequestParam(value="q", required = false , defaultValue="")String texto) {		 
+		 Page<ContaFuncionarioDiaria> list = null;
+			
+			if(texto.isEmpty() || texto.equalsIgnoreCase("")) {
+				list = contaFuncionarioDiariaService.findaAll(new PageRequest(page, linesPerPage, Direction.valueOf(direction), orderBy));
+			}else {
+				list = contaFuncionarioDiariaService.buscar(texto, new PageRequest(page, linesPerPage, Direction.valueOf(direction), orderBy));
+			}
+			
+			return ResponseEntity.ok().body(list);
+			
 		}
 	 
 	 @GetMapping(value = "/indice")

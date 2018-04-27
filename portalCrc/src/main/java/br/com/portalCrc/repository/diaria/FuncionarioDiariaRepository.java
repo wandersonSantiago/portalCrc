@@ -36,6 +36,14 @@ public interface FuncionarioDiariaRepository extends JpaRepository<FuncionarioDi
 
 	int countByDiaria_idAndContaFuncionario_id(Long id, Long id2);
 
+	Page<FuncionarioDiaria> findAllByDiaria_id(Long idDiaria, Pageable page);
+
+	Page<FuncionarioDiaria> findByContaFuncionarioFuncionarioPessoaCpfAndDiaria_id(String string, Long idDiaria,
+			Pageable page);
+
+	Page<FuncionarioDiaria> findByContaFuncionarioFuncionarioPessoaNomeCompletoIgnoreCaseContainingAndDiaria_id(
+			String texto, Long idDiaria, Pageable page);
+
 	
 	
 }

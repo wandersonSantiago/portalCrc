@@ -10,6 +10,7 @@ public class FuncionarioDiariaDTO {
 	
 	private Long idDiaria;
 	private String nomeFuncionario;
+	private Long idFuncionario;
 	private String cpfFuncionario;
 	private String nomeCargo;
 	private String nomeSetor;	
@@ -25,6 +26,7 @@ public class FuncionarioDiariaDTO {
 	
 	public FuncionarioDiariaDTO(FuncionarioDiaria diaria) {
 		this.idDiaria = diaria.getId();
+		this.idFuncionario = diaria.getContaFuncionario().getFuncionario().getId();
 		this.nomeFuncionario = diaria.getContaFuncionario().getFuncionario().getPessoa().getNomeCompleto();
 		this.cpfFuncionario = diaria.getContaFuncionario().getFuncionario().getPessoa().getCpf();
 		this.nomeCargo = diaria.getCargo().getDescricao();

@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -76,10 +77,24 @@ public class FuncionarioDiariaRestController {
 		return new ResponseEntity<Iterable<FuncionarioDiaria>>(funcionarioDiaria, HttpStatus.OK);
 	}
 	
-  @GetMapping(value="/{id}/funcionarios")
-	public ResponseEntity<Iterable<FuncionarioDiaria>> funcionariosPorDiaria(@PathVariable Long id){
-		Iterable<FuncionarioDiaria> funcionarioDiaria = funcionarioDiariaService.findByUnidade_idAndDiaria_id(id);
-		return new ResponseEntity<Iterable<FuncionarioDiaria>>(funcionarioDiaria, HttpStatus.OK);
+  @GetMapping(value="/unidade")
+	public ResponseEntity<Page<FuncionarioDiariaDTO>> funcionariosPorDiaria(
+			@RequestParam(value="idDiaria", required=true) Long idDiaria,
+			@RequestParam(value="page", defaultValue="0") Integer page, 
+			@RequestParam(value="linesPerPage", defaultValue="24") Integer linesPerPage, 
+			@RequestParam(value="orderBy", defaultValue="contaFuncionario.funcionario.pessoa.nomeCompleto") String orderBy, 
+			@RequestParam(value="direction", defaultValue="ASC") String direction,
+			@RequestParam(value="q", required = false , defaultValue="")String texto) {		 
+	 
+	  Page<FuncionarioDiaria> list = null;
+		
+		if(texto.isEmpty() || texto.equalsIgnoreCase("")) {
+			list = funcionarioDiariaService.findaAllDiariaId(idDiaria, new PageRequest(page, linesPerPage, Direction.valueOf(direction), orderBy));
+		}else {
+			list = funcionarioDiariaService.findaAllDiariaIdAndTexto(idDiaria, texto, new PageRequest(page, linesPerPage, Direction.valueOf(direction), orderBy));
+		}
+		Page<FuncionarioDiariaDTO> listDto = list.map(obj -> new FuncionarioDiariaDTO(obj));
+		return ResponseEntity.ok().body(listDto);
 	}
 	
 	@GetMapping(value="/conta/{idFuncionario}/diaria/{idDiaria}")
