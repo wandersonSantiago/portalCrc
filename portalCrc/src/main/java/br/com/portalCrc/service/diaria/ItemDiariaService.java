@@ -1,7 +1,9 @@
 package br.com.portalCrc.service.diaria;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +12,9 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import br.com.portalCrc.entity.Usuario;
+import br.com.portalCrc.entity.diaria.Diaria;
 import br.com.portalCrc.entity.diaria.FuncionarioDiaria;
+import br.com.portalCrc.entity.diaria.ItemDashDTO;
 import br.com.portalCrc.entity.diaria.ItemDiaria;
 import br.com.portalCrc.enums.diaria.MesDiariaEnum;
 import br.com.portalCrc.enums.diaria.StatusDiariaEnum;
@@ -18,6 +22,7 @@ import br.com.portalCrc.enums.diaria.TipoDiariaEnum;
 import br.com.portalCrc.pojo.SessionUsuario;
 import br.com.portalCrc.repository.diaria.FuncionarioDiariaRepository;
 import br.com.portalCrc.repository.diaria.ItemDiariaRepository;
+import br.com.portalCrc.util.DateUtil;
 
 @Service
 @Transactional(readOnly = true, propagation = Propagation.REQUIRED)
@@ -28,6 +33,8 @@ public class ItemDiariaService {
 	private ItemDiariaRepository itemDiariaRepository;
 	@Autowired
 	private FuncionarioDiariaRepository funcionarioDiariaRepository;
+	@Autowired
+	private DiariaService diariaService;
 	
 	@Transactional(readOnly = false)
 	public void salvaOuAltera(ItemDiaria itemDiaria){	
@@ -250,6 +257,11 @@ public class ItemDiariaService {
 		}
 		return list;
 	}
+	
+	public Double somaValorItemDiariaPorIdDiariaETipo(Long idDiaria, TipoDiariaEnum tipo) {
+		return itemDiariaRepository.findByFuncionarioDiariaDiaria_idAndTipo(idDiaria, tipo);		
+		
+	}
 
 	
 	/**
@@ -298,6 +310,29 @@ public class ItemDiariaService {
 		}
 		
 	}
+
+
+	public List<ItemDashDTO> getDashBoard() {
+		
+		List<Diaria> diarias = diariaService.findByUnidade_id();
+		List<Double> valores = new ArrayList<>();
+		List<ItemDashDTO> listDTO = new ArrayList<>();
+		
+		diarias.forEach(diaria ->{
+			
+			Double administrativo = somaValorItemDiariaPorIdDiariaETipo(diaria.getId(), TipoDiariaEnum.ADMINISTRATIVO);
+			Double seguranca = somaValorItemDiariaPorIdDiariaETipo(diaria.getId(), TipoDiariaEnum.SEGURANCA);
+			
+			valores.add((administrativo == null) ? 0 : administrativo);
+			valores.add((seguranca == null) ? 0 : seguranca);
+			
+			ItemDashDTO dto = new ItemDashDTO(diaria.getMes().toString()+"/" + DateUtil.converteDateEmStringFormatoyyyy(diaria.getDataAbertura()), valores);
+			listDTO.add(dto);
+		});
+		
+		return listDTO;
+	}
+
 
 
 

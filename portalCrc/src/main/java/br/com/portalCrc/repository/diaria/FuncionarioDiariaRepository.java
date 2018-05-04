@@ -23,7 +23,7 @@ public interface FuncionarioDiariaRepository extends JpaRepository<FuncionarioDi
 	FuncionarioDiaria findById(Long id);
 
 	@Query("From FuncionarioDiaria diaria WHERE diaria.diaria.id = ?1 AND diaria.totalValorDiaria != '0'")
-	Iterable<FuncionarioDiaria> findByDiaria_id(Long id);
+	List<FuncionarioDiaria> findByDiaria_id(Long id);
 
 	@Query("From FuncionarioDiaria diaria WHERE diaria.unidade.coordenadoria.id = ?1 AND diaria.diaria.id = ?2 AND diaria.totalValorDiaria != '0'")
 	List<FuncionarioDiaria> findByUnidade_coordenadoria_idAndDiaria_id(Long id, Long id2);

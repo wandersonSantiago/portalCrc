@@ -59,11 +59,6 @@ public class FuncionarioDiariaRestController {
 		return new ResponseEntity<>(http , HttpStatus.CREATED);		
 	}
 	
-	@GetMapping(value="/secretaria/{idDiaria}")
-	public ResponseEntity<Iterable<FuncionarioDiaria>> listaSecretaria(@PathVariable Long idDiaria){
-		Iterable<FuncionarioDiaria> funcionarioDiaria	= funcionarioDiariaService.listaSecretaria(idDiaria);
-		return new ResponseEntity<Iterable<FuncionarioDiaria>>(funcionarioDiaria, HttpStatus.OK);
-	}
 
 	@GetMapping(value="/valores/indice/{indice}/diaria/{idDiaria}")
 	public ResponseEntity<Iterable<ValoresDiariaLocalidade>> valoresDiaria(@PathVariable Integer indice, @PathVariable Long idDiaria){

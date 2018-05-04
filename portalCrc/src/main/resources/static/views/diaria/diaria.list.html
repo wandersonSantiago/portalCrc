@@ -23,9 +23,37 @@
 	</div>
 </div>
 <div class="row" ng-if="ctrl.diaria != ''">
-<div class="col-md-12" align="center">
-	<canvas id="bar" class="chart chart-bar" chart-data="data"
-		chart-labels="labels"> chart-series="series"
+	<div class="col-md-4">
+		<div align="center">
+			<label>Valores do mês de {{ctrl.dash[0].mes}}</label>
+		</div>
+		<hr>
+		<div>
+			<div>
+				<label>Total Administrativo</label>
+			</div>
+			<div align="right" >
+				<h3>{{ctrl.dash[0].valores[0] | currency}}</h3>
+			</div>
+			
+		</div>
+		<hr>
+		<div >
+			<div>
+			<div>
+				<label>Total Segurança</label>
+			</div>
+			<div align="right" >
+				<h3>{{ctrl.dash[0].valores[1] | currency}}</h3>
+			</div>
+			
+		</div>
+		</div>
+		<hr>
+	</div>
+<div class="col-md-8" align="center">
+	<canvas id="bar" class="chart chart-bar"
+  chart-data="data" chart-labels="labels" chart-series="series">
 </canvas>
 </div>
 </div>

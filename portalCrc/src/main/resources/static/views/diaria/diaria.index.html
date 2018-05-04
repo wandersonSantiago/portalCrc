@@ -50,21 +50,20 @@
 			</div>
             </div>
             <div>
-            
-            
-         
-            </div>
+           </div>
           </div>
         </div>
        <div class="col-md-10">     
 			<div class="box box-primary" >	
 					<div class="box-header">
-						<a permission="['DIARIA_FINANCAS']" ng-if="ctrl.diaria != ''" title="Click para visualizar ou cadastrar novas contas!" ui-sref="funcionarioContaDiaria.buscar" class="btn btn-default btn-flat col-sm-2">Contas Funcionário</a>
-						<a permission="['DIARIA_FINANCAS']" ng-if="ctrl.diaria != ''" title="Click para Selecionar um Funcionario para lançar a Diária" ui-sref="funcionarioDiaria.verificar({idDiaria : ctrl.diaria.id})" class="btn btn-default btn-flat col-sm-2">Lançar</a>
-		                <a permission="['DIARIA_FINANCAS']" title="Click para visualizar as diária(s) que estão em aberto!" 	ui-sref="funcionarioDiaria.unidade({idDiaria : ctrl.diaria.id})" class="btn btn-default btn-flat col-sm-2">Extratos</a>
-		                <a permission="['DIARIA_TRANSPARENCIA']" title="Click para visualizar as diária(s) para a transparencia!" 	ui-sref="item.coordenadoria({idDiaria : ctrl.diaria.id})" class="btn btn-default btn-flat col-sm-2">Transparencia</a>
-		              	<a permission="['DIARIA_FINANCAS']" ng-if="ctrl.diaria != ''" title="Click para editar esta diaria"  href="" ui-sref="diaria.editar({idDiaria : ctrl.diaria.id})" class="btn btn-default btn-flat col-sm-2">Editar</a>
-		              	<a permission="['DIARIA_FINANCAS']" ng-if="ctrl.diaria != ''" title="Encerrar diaria, apos este encerramento os funcionarios não poderão lançar mais diarias!!!" ng-click="ctrl.encerrar(ctrl.diaria)" class="btn btn-warning btn-flat col-sm-2">Encerrar</a>
+						<a title="Click para visualizar a pagina inicial!" ui-sref="diaria.listar" class="btn btn-default btn-flat ">Inicial</a>
+						<a permission="['DIARIA_FINANCAS']" ng-if="ctrl.diaria != ''" title="Click para visualizar ou cadastrar novas contas!" ui-sref="funcionarioContaDiaria.buscar" class="btn btn-default btn-flat ">Contas Funcionário</a>
+						<a permission="['DIARIA_FINANCAS']" ng-if="ctrl.diaria != ''" title="Click para Selecionar um Funcionario para lançar a Diária" ui-sref="funcionarioDiaria.verificar({idDiaria : ctrl.diaria.id})" class="btn btn-default btn-flat ">Lançar</a>
+		                <a permission="['DIARIA_FINANCAS']" title="Click para visualizar as diária(s) que estão em aberto!" 	ui-sref="funcionarioDiaria.unidade({idDiaria : ctrl.diaria.id})" class="btn btn-default btn-flat ">Extratos</a>
+		               	<a permission="['DIARIA_FINANCAS']" title="Click para visualizar os relátorios!" 	ui-sref="diaria.relatorio-geral" class="btn btn-default btn-flat ">Relatórios</a>
+		                <a permission="['DIARIA_TRANSPARENCIA']" title="Click para visualizar as diária(s) para a transparencia!" 	ui-sref="item.coordenadoria({idDiaria : ctrl.diaria.id})" class="btn btn-default btn-flat ">Transparencia</a>
+		              	<a permission="['DIARIA_FINANCAS']" ng-if="ctrl.diaria != ''" title="Click para editar esta diaria"  href="" ui-sref="diaria.editar({idDiaria : ctrl.diaria.id})" class="btn btn-default btn-flat ">Editar</a>
+		              	<a permission="['DIARIA_FINANCAS']" ng-if="ctrl.diaria != ''" title="Encerrar diaria, apos este encerramento os funcionarios não poderão lançar mais diarias!!!" ng-click="ctrl.encerrar(ctrl.diaria)" class="btn btn-warning btn-flat ">Encerrar</a>
 					</div>
 					<div class="panel-body">
 						<div class="ui-view"></div>

@@ -145,6 +145,15 @@ app.factory('ItemDiariaService', function($q, $http){
 			});
 		},
 		
+		dashBoard: function(){
+			return $http.get('/rest/diaria/item/dash')
+			.then(function(response){
+				return response.data;
+			},function(errResponse){
+				return $q.reject(errResponse);
+			});
+		},
+		
 		imprimir :function(id){
 			return $http.get("/rest/diaria/relatorio/"+id+"/imprimir", {responseType: 'arraybuffer'})
 			.then(function(response){

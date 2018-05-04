@@ -70,5 +70,14 @@ app.config(function($stateProvider, $urlRouterProvider) {
 				    label: 'Relatório'
 				  }
 		})
+		.state('diaria.relatorio-geral', {
+			url : "/relatorio/geral",
+			templateUrl : "views/diaria/relatorio/relatorio.html",
+			controller : "DiariaRelatorioController as ctrl",
+			ncyBreadcrumb: {
+				 	parent: 'diaria.listar',
+				    label: 'Relatório'
+				  }
+		})
 
 });

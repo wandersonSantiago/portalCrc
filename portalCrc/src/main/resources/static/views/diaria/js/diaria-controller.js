@@ -77,9 +77,13 @@ function DiariaListarController(ItemDiariaService, $stateParams, $state, DiariaS
 	var self = this;
 	self.encerrar = encerrar;
 	self.buscarFuncionarioDiaria = buscarFuncionarioDiaria;
+	
 	diariasEmAberto();
+	dashBoard();
+	
 	$rootScope.escondeMenu = true;
 		
+			
 	function diariasEmAberto(){
 			 DiariaService.diariasEmAberto().
 				then(function(f){
@@ -118,15 +122,91 @@ function DiariaListarController(ItemDiariaService, $stateParams, $state, DiariaS
 				})		
 		};
 		
-		  $scope.labels = ['2006', '2007', '2008', '2009', '2010', '2011', '2012'];
-		  $scope.series = ['Series A', 'Series B', 'Series C'];
+		$scope.data = [];
+		
+		function dashBoard(){
+			ItemDiariaService.dashBoard().
+				then(function(f){
+					self.dash = f;
+					chart(f);
+					}, function(errResponse){
+				});
+			};
+			
+		 
+		function chart(f){
+			var administrativo = [];
+			var seguranca = [];
+			var label = [];
+			for (var value of f) {						
+				 administrativo.push(value.valores[0]);
+				 seguranca.push(value.valores[1]);
+				 label.push(value.mes);							
+				}
+			 $scope.series = ['Administrativo', 'Segurança'];
+			 $scope.data =[administrativo , seguranca];
+			 $scope.labels = label;
+		}	
+			    
 
-		  $scope.data = [
-		    [65, 59, 80, 81, 56, 55, 40],
-		    [28, 48, 40, 19, 86, 27, 90],
-		    [28, 48, 40, 19, 86, 27, 90]
-		  ];
+		 
 }
-function DiariaRelatorioController( $stateParams, $state, DiariaService, toastr, $rootScope, $scope){
+function DiariaRelatorioController( $stateParams, $state, DiariaService, toastr, $rootScope, $scope, FuncionarioContaDiariaService, blockUI){
+	var self = this;
+	self.buscarPorTexto = buscarPorTexto;
+	self.pesquisar = pesquisar;
+	diarias();
 	
+	$scope.tipo = 'LISTAGEM';
+    $scope.imprimir = 'PAGINA';
+    
+	function diarias(){
+		 DiariaService.unidade().
+			then(function(f){
+				self.diarias = f;		
+				}, function(errResponse){
+			});
+		};
+		
+		 function buscarPorTexto(texto){
+		     	return  FuncionarioContaDiariaService.buscarPorTexto(texto).
+		     	 then(function(e){
+		     		return e.content;
+		     	 }, function(errResponse){
+		     		 $scope.messageErro = errResponse.data.message;
+		     	 });
+		 }
+		 
+		 function pesquisar(imprimir, idDiaria, dataInicial , dataFinal){
+			  if($scope.tipo == 'LISTAGEM'){
+				  if(imprimir == 'PAGINA'){
+					  buscarListagemMovimentacaoPorData(idDiaria, dataInicial , dataFinal);
+				  }else{
+					  buscarListagemPorDiariaEPorDataPDF(idDiaria, dataInicial , dataFinal);  
+				  }			  
+			  }			 
+			  if($scope.tipo == 'NOMINAL'){
+				  if(imprimir == 'PAGINA'){
+					  buscarMovimentacaoPorDataEPorMembro(idMembro, dataInicial , dataFinal);
+				  }else{
+					  buscarMovimentacaoPorDataEPorMembroPDF(idMembro, dataInicial , dataFinal);
+				  }		
+				 
+			  }
+		  }
+		  
+		   
+		     function buscarListagemPorDiariaEPorDataPDF(idDiaria, dataInicial , dataFinal){	
+			    	blockUI.start();
+			    	DiariaService.imprimir(idDiaria, dataInicial , dataFinal)
+	 	   	 .then(function(d){
+	 	   		var file = new Blob([d],{type: 'application/pdf'});
+	 	   		var fileURL = URL.createObjectURL(file);
+	 	   		blockUI.stop();
+	 	   	    window.open(fileURL);
+	 	   	 	 }).catch(function error(msg) {
+	 	   	 });
+		     };
+		     
+			
 }

@@ -72,7 +72,6 @@ app.factory('FuncionarioContaDiariaService', function($q, $http){
 			});
 		},
 		buscarPorTexto :function(texto, pagina){
-			pagina = 0;
 			var config = {params: {page: pagina, q:texto}};
 			return $http.get(url +'/buscar/', config)
 			.then(function(response){

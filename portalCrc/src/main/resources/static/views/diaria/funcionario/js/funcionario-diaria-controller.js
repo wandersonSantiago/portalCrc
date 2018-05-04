@@ -167,13 +167,15 @@ function FuncionarioDiariaUnidadeListarController($localStorage, $stateParams, $
 	self.listar = listar;
 	self.informacaoModal = informacaoModal;
 	
+	if($stateParams.idDiaria){
+		$localStorage.idDiaria = $stateParams.idDiaria;
+	}
+	
+	
 	diarias();
 	listar($localStorage.idDiaria);
 	
 	
-	if($stateParams.idDiaria){
-		$localStorage.idDiaria = $stateParams.idDiaria;
-	}
 	
 	
 	

@@ -173,7 +173,7 @@ function FuncionarioContaBuscarListarController(FuncionarioContaDiariaService, $
 	self.totalElementos = {};
 	self.totalPaginas = null;
 	self.paginaCorrente = 0;
-	
+	$scope.funcionario = null;
 	buscarPorTexto('');
 		
 			     

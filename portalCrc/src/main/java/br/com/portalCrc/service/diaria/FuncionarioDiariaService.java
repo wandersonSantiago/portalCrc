@@ -107,8 +107,8 @@ public class FuncionarioDiariaService {
 		return funcionarioDiariaRepository.findAll();
 	}
 
-	public Iterable<FuncionarioDiaria> listaSecretaria(Long id) {
-		Iterable<FuncionarioDiaria> lista = funcionarioDiariaRepository.findByDiaria_id(id);
+	public List<FuncionarioDiaria> findAllDiaria(Long id) {
+		List<FuncionarioDiaria> lista = funcionarioDiariaRepository.findByDiaria_id(id);
 
 		if (lista == null) {
 			throw new MensagemException("Secretaria não tem lançamento nesta diaria! ");
@@ -185,5 +185,7 @@ public class FuncionarioDiariaService {
 		}
 		return list;
 	}
+
+	
 
 }

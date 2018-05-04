@@ -97,6 +97,14 @@ app.factory('DiariaService', function($q, $http){
 			});
 		},
 				
-		
+		imprimir: function(idDiaria, data1 , data2){
+			var config = {params : {idDiaria : idDiaria, dataInicial : data1 , dataFinal : data2}, responseType: 'arraybuffer'};
+				return $http.get('/rest/diaria/funcionarios/imprimir',config )
+				.then(function(response){
+					return response.data;
+				},function(errResponse){
+					return $q.reject(errResponse);
+				});			
+		},
 	}
 });

@@ -2,6 +2,7 @@ package br.com.portalCrc.entity.diaria;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 import lombok.Data;
 
@@ -24,6 +25,8 @@ public class FuncionarioDiariaDTO {
 	private BigDecimal glosada;
 	private Diaria diaria;
 	
+	private List<ItemDiariaDTO> itens;
+	
 	public FuncionarioDiariaDTO(FuncionarioDiaria diaria) {
 		this.idDiaria = diaria.getId();
 		this.idFuncionario = diaria.getContaFuncionario().getFuncionario().getId();
@@ -33,7 +36,7 @@ public class FuncionarioDiariaDTO {
 		if(diaria.getSetor() != null) {
 			this.nomeSetor = diaria.getSetor().getNome();
 		}		
-		this.nomeUnidade = diaria.getUnidade().getDadosUnidade().getMnemonico();
+		this.nomeUnidade = diaria.getContaFuncionario().getFuncionario().getUnidadeAtual().getDadosUnidade().getMnemonico();
 		this.nomeUsuario = diaria.getUsuarioCadastro().getFuncionario().getPessoa().getNomeCompleto();
 		this.setorUsuario = diaria.getUsuarioCadastro().getFuncionario().getSetorAtual().getNome();
 		this.dataCadastro = diaria.getDataCadastro();
@@ -42,5 +45,8 @@ public class FuncionarioDiariaDTO {
 		this.diaria = diaria.getDiaria();
 	}
 	
+	public FuncionarioDiariaDTO() {
+		
+	}
 
 }
