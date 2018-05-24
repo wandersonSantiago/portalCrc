@@ -49,16 +49,16 @@ function ItemDiariaCadastrarController($localStorage, $state, ItemDiariaService,
 		self.itemDiaria.funcionario = self.funcionario.contaFuncionario.funcionario;
 		self.itemDiaria.diaria = self.diaria;
 		self.itemDiaria.funcionarioDiaria = self.funcionario;
-		self.itemDiaria.localDeslocamentos = $scope.localDeslocamentos;		
+		self.itemDiaria.localDeslocamentos = $scope.localDeslocamentos;
+		self.itemDiaria.horaSaida = atribuiADataAHora(self.itemDiaria.dataSaida, self.itemDiaria.horaSaida);
+		self.itemDiaria.horaChegada = atribuiADataAHora(self.itemDiaria.dataChegada, self.itemDiaria.horaChegada);
 		ItemDiariaService.salvar(self.itemDiaria).then(
 				function(response) {
-					//$state.go('diaria.update', {idDiaria : self.diaria.id ,idFuncionario : $rootScope.user.funcionario.id });
 					buscarFuncionarioDiaria($localStorage.idFuncionario);
 					buscarItensDiariaPorFuncionarioDiaria(self.funcionario.id);
 					toastr.info("Salvo com Sucesso!!!");
 					self.itemDiaria.dataSaida = '';
 					self.itemDiaria.dataChegada = '';
-					// $scope.localDeslocamentos = [];
 					 $scope.formDiaria.$setPristine();
 				}, function(errResponse) {
 					sweetAlert({
@@ -71,6 +71,10 @@ function ItemDiariaCadastrarController($localStorage, $state, ItemDiariaService,
 				});
 		}
 	
+	
+	function atribuiADataAHora(data , hora){
+		return new Date(data.getFullYear(), data.getMonth(), data.getDate(), hora.getHours(), hora.getMinutes(), 0, 0);
+	}
 	
 	function adicionarLocal(cidade){
 		if(!cidade){
@@ -260,7 +264,9 @@ function ItemDiariaEditarController($state, ItemDiariaService, $stateParams,Func
 			sweetAlert({title: "Por favor preencha os campos obrigatorios", 	type : "error", timer : 100000,   width: 500,  padding: 20});	
 			return;
 		}
-	
+		;
+		self.itemDiaria.horaSaida = atribuiADataAHora(new Date(self.itemDiaria.dataSaida),new Date(self.itemDiaria.horaSaida));
+		self.itemDiaria.horaChegada = atribuiADataAHora(new Date(self.itemDiaria.dataChegada), new Date(self.itemDiaria.horaChegada));
 		ItemDiariaService.alterar(self.itemDiaria).then(
 				function(response) {				
 					toastr.info("Alterado com Sucesso!!!");	
@@ -276,6 +282,10 @@ function ItemDiariaEditarController($state, ItemDiariaService, $stateParams,Func
 				});
 	};
 		
+	function atribuiADataAHora(data , hora){
+		return new Date(data.getFullYear(), data.getMonth(), data.getDate(), hora.getHours(), hora.getMinutes(), 0, 0);
+	}
+	
 	function adicionarLocal(cidade){
 		if(!cidade){
 			return
@@ -489,7 +499,7 @@ function ItemDiariaCoordenadoriaTransparenciaController($filter, $stateParams, $
 			  $scope.dynamic++;
 		      if ($scope.dynamic <= 100) {
 		    	  $scope.$evalAsync(function () {
-		    		 $scope.dynamic == 99 ? tempo = 2000 : '';		    		
+		    		 $scope.dynamic == 99 ? tempo = 200 : '';		    		
 		    		  setTimeout(function() {
 		    			  incrementDynamic()
 		    		      }, tempo)
@@ -548,6 +558,7 @@ function ItemDiariaCoordenadoriaTransparenciaController($filter, $stateParams, $
 			}
 		}
 		var motivo = lista.motivo;
+		
 		if(lista.dataSaida < lista.dataChegada){
 			lista.dataChegada  = $filter('date')(lista.dataChegada, "dd/MM/yyyy"); 
 			motivo += " - retorno no dia " + lista.dataChegada;
@@ -561,7 +572,7 @@ function ItemDiariaCoordenadoriaTransparenciaController($filter, $stateParams, $
 		if(lista.valorPassagem){
 			var valorPassagem = lista.valorPassagem.toString().replace(".", ",");
 		}	
-		
+		lista.dataSaida = $filter('date')(lista.dataSaida, "dd/MM/yyyy"); 
 				
 		$scope.listaDiariaExcel.push({
 			nome : lista.funcionarioDiaria.contaFuncionario.funcionario.pessoa.nomeCompleto,

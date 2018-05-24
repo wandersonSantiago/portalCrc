@@ -151,23 +151,17 @@ function DiariaListarController(ItemDiariaService, $stateParams, $state, DiariaS
 
 		 
 }
-function DiariaRelatorioController( $stateParams, $state, DiariaService, toastr, $rootScope, $scope, FuncionarioContaDiariaService, blockUI){
+function DiariaRelatorioController( $stateParams, $state, DiariaService, toastr, $rootScope, $scope, FuncionarioContaDiariaService, FuncionarioDiariaService, blockUI){
 	var self = this;
 	self.buscarPorTexto = buscarPorTexto;
 	self.pesquisar = pesquisar;
-	diarias();
+	
 	
 	$scope.tipo = 'LISTAGEM';
     $scope.imprimir = 'PAGINA';
     
-	function diarias(){
-		 DiariaService.unidade().
-			then(function(f){
-				self.diarias = f;		
-				}, function(errResponse){
-			});
-		};
-		
+    
+			
 		 function buscarPorTexto(texto){
 		     	return  FuncionarioContaDiariaService.buscarPorTexto(texto).
 		     	 then(function(e){
@@ -177,36 +171,54 @@ function DiariaRelatorioController( $stateParams, $state, DiariaService, toastr,
 		     	 });
 		 }
 		 
-		 function pesquisar(imprimir, idDiaria, dataInicial , dataFinal){
+		 function pesquisar(imprimir, idFuncionario, dataInicial , dataFinal){
 			  if($scope.tipo == 'LISTAGEM'){
+				  idFuncionario = null;
 				  if(imprimir == 'PAGINA'){
-					  buscarListagemMovimentacaoPorData(idDiaria, dataInicial , dataFinal);
+					  buscarMovimentacaoPorDataEPorFuncionario(idFuncionario, dataInicial , dataFinal);
 				  }else{
-					  buscarListagemPorDiariaEPorDataPDF(idDiaria, dataInicial , dataFinal);  
+					  buscarListagemPorDiariaEPorDataPDF(idFuncionario, dataInicial , dataFinal);
 				  }			  
 			  }			 
 			  if($scope.tipo == 'NOMINAL'){
 				  if(imprimir == 'PAGINA'){
-					  buscarMovimentacaoPorDataEPorMembro(idMembro, dataInicial , dataFinal);
+					  buscarMovimentacaoPorDataEPorFuncionario(idFuncionario, dataInicial , dataFinal);
 				  }else{
-					  buscarMovimentacaoPorDataEPorMembroPDF(idMembro, dataInicial , dataFinal);
+					  buscarListagemPorDiariaEPorDataPDF(idFuncionario, dataInicial , dataFinal);
 				  }		
 				 
 			  }
 		  }
 		  
 		   
-		     function buscarListagemPorDiariaEPorDataPDF(idDiaria, dataInicial , dataFinal){	
+		     function buscarListagemPorDiariaEPorDataPDF(idFuncionario, dataInicial , dataFinal){	
 			    	blockUI.start();
-			    	DiariaService.imprimir(idDiaria, dataInicial , dataFinal)
+			    	DiariaService.imprimir(idFuncionario, dataInicial , dataFinal)
 	 	   	 .then(function(d){
 	 	   		var file = new Blob([d],{type: 'application/pdf'});
 	 	   		var fileURL = URL.createObjectURL(file);
 	 	   		blockUI.stop();
 	 	   	    window.open(fileURL);
 	 	   	 	 }).catch(function error(msg) {
+	 	   	 		 if(msg.data.message){
+	 	   	 		mensagemAlerta(msg.data.message, 'info');
+	 	   	 		 }
+	 	   	 	mensagemAlerta("Não foi possivel gerar o PDF", 'error');
 	 	   	 });
-		     };
+		     };		     
 		     
+		   				
+			function buscarMovimentacaoPorDataEPorFuncionario(idFuncionario, dataInicial , dataFinal){
+		    	 DiariaService.funcionariosPorDataPorId(idFuncionario, dataInicial , dataFinal).then(
+							function(f) {
+								self.funcionarios = f;		
+							}, function(errResponse) {								
+								mensagemAlerta(errResponse.data.message, 'info');								
+								$scope.funcionario = null;
+							});
+				};	
 			
+				function mensagemAlerta(texto, tipo){
+					sweetAlert({ timer : 30000,  text : texto,  type : tipo, width: 300, higth: 300, padding: 20});
+				}
 }

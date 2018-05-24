@@ -39,7 +39,7 @@
 			<div class="col-sm-4" ng-class="{ 'has-error' : formDiaria.cidade.$invalid && formDiaria.$submitted }">
 			<b>Cidade:</b>
 					<select class="form-control select2" id="cidade" name="cidade"
-						ng-model="ctrl.itemDiaria.localDeslocamento" ng-change="ctrl.adicionarLocal(ctrl.itemDiaria.localDeslocamento)"
+						ng-model="ctrl.itemDiaria.localDeslocamento" ng-blur="ctrl.adicionarLocal(ctrl.itemDiaria.localDeslocamento)"
 						ng-options="cidade.nome for cidade in ctrl.cidades  | orderBy: 'nome' track by cidade.id"
 						required>
 					</select> 
@@ -110,7 +110,7 @@
 			
 			<div class="col-sm-2" ng-class="{ 'has-error' : formDiaria.horaSaida.$invalid && formDiaria.$submitted }">
 				<b>Horário Saida:</b>
-				<input class="form-control" type="time" ng-model="ctrl.itemDiaria.horaSaida" id="horaSaida" name="horaSaida" date-input required>
+				<input class="form-control" type="time" ng-model="ctrl.itemDiaria.horaSaida" id="horaSaida" name="horaSaida" date-input  required>
 			</div>
 			<div class="col-sm-3" ng-class="{ 'has-error' : formDiaria.dataChegada.$invalid && formDiaria.$submitted }">
 				<b>Data Chegada:</b>
@@ -119,7 +119,7 @@
 			</div>
 			<div class="col-sm-2" ng-class="{ 'has-error' : formDiaria.horaChegada.$invalid && formDiaria.$submitted }">
 				<b>Horário Chegada:</b>
-				<input class="form-control" type="time" ng-model="ctrl.itemDiaria.horaChegada" id="horaChegada" name="horaChegada" date-input required>				
+				<input class="form-control" type="time" ng-model="ctrl.itemDiaria.horaChegada" id="horaChegada" name="horaChegada" date-input  required>				
 			</div>
 		</div>
 	

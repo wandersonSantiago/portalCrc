@@ -64,19 +64,21 @@ public class ItemDiaria {
 	private String meioTransporteRetorno;
 	
 	@NotNull (message="Data de saída não pode ser nulo")
-	@Temporal(TemporalType.DATE)
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataSaida;
 	
 	@NotNull (message="Data de retorno não pode ser nulo")
-	@Temporal(TemporalType.DATE)
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataChegada;	
 	
 	@NotNull (message="Horario de saida não pode ser nulo")
 	@Column(name="hora_saida")
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date horaSaida;
 	
 	@NotNull (message="Horario de retorno não pode ser nulo")
 	@Column(name="hora_chegada")
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date horaChegada;
 			
 	@Temporal(TemporalType.DATE)

@@ -113,8 +113,8 @@
 				<td >{{ item.meioTransporteRetorno}}</td>								
 				<td >{{ item.dataSaida | date : 'dd/MM/yyyy'}}</td>				
 				<td >{{ item.dataChegada | date : 'dd/MM/yyyy'}}</td>				
-				<td >{{ item.horaSaida | date : 'HH:mm'}}</td>				
-				<td >{{ item.horaChegada | date : 'HH:mm'}}</td>				
+				<td >{{ item.horaSaida | date : 'dd/MM/yyyy HH:mm'}}</td>				
+				<td >{{ item.horaChegada | date : 'dd/MM/yyyy HH:mm'}}</td>				
 				<td >{{ item.valorDiaria | currency }}</td>				
 				<td  ng-if="!item.analizado"><button ng-click="ctrl.analizado(item.id)" title="Após selecionada, não sera mais possivel alterar este item, e ele entrara como pago!" ng-disabled="desabilitar" class="btn btn-primary">Aprovar</button>
 				

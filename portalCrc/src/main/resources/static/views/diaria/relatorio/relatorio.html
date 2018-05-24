@@ -3,10 +3,7 @@
 		<div class="row">
 		<div class="col-sm-1"></div>
 			<div class="col-sm-7">
-				<label>Tipo de relatório:</label><br>
-				<label class="radio-inline">
-					<input  type="radio" name="relatorio" ng-model="tipo" ng-click="limparPesquisa()"	value="QUANTITATIVO">Quantitativo
-				</label> 
+				<label>Tipo de relatório:</label><br>				
 				<label class="radio-inline">
 					<input  type="radio" name="relatorio" ng-model="tipo" ng-click="limparPesquisa()"	value="LISTAGEM">Listagem
 				</label>
@@ -16,17 +13,7 @@
 			</div>
 		</div>
 		<br>	
-		<div class="row">
-			<div class="col-sm-1"></div>
-			<div class="col-sm-4">
-			 		<label>Selecione a Diaria:</label>
-				    <select class="form-control"
-						ng-model="ctrl.diaria" 	ng-options="diaria.mes for diaria in ctrl.diarias" required>
-					</select>
-			</div>			
-				
-		</div>
-		<br>
+		
 		<div class="row">
 			<div class="col-sm-1"></div>			
 			<div class="col-sm-4" ng-show="tipo == 'NOMINAL'">
@@ -50,11 +37,11 @@
 		</script>		
 			<div class="col-sm-2">
 				<label>Data inicial: </label>
-				<input class="form-control" ng-model="dataInicial"	id="dataInicial" type="date" date-input	title="Data pesquisa inicial" required>
+				<input class="form-control" ng-model="dataInicial"	id="dataInicial" type="date" 	title="Data pesquisa inicial" required>
 			</div>
 			<div class="col-sm-2">
 				<label>Data final:</label> 
-				<input class="form-control" ng-model="dataFinal" id="dataFinal" type="date" date-input title="Data pesquisa final">
+				<input class="form-control" ng-model="dataFinal" id="dataFinal" type="date"  title="Data pesquisa final">
 			</div>
 
 		</div><br>
@@ -72,8 +59,62 @@
 				</div>
 			<div class="col-sm-2">
 				<br> <input type="button" id="buscar" value="Pesquisar" ng-disabled="!imprimir"
-					ng-click="ctrl.paginaCorrente = 0; ctrl.pesquisar(imprimir,ctrl.diaria.id, dataInicial , dataFinal)"
+					ng-click="ctrl.paginaCorrente = 0; ctrl.pesquisar(imprimir, conta.funcionario.id, dataInicial , dataFinal)"
 					class="btn btn-lg btn-primary btn-block btn-signin">
 			</div>
 		</div>
-	
+	<br><br>
+
+	<br><br>
+	<div class="row" ng-show="ctrl.funcionarios.length > 0">
+		<div class="col-md-4">
+			<input type="text" class="form-control" ng-model="buscar" placeholder="Pesquisar...">
+		</div>
+	</div>
+	<div class="table-responsive" ng-show="ctrl.funcionarios.length > 0">	
+	<table class="table table-hover table-bordered">
+		<thead>
+			<tr>
+				<th class="fundoTb">Nome</th>
+				<th class="fundoTb">CPF</th>
+				<th class="fundoTb">Cargo</th>
+				<th class="fundoTb">Unidade</th>
+				<th class="fundoTb">Datas</th>
+			</tr>
+		</thead>
+		<tbody
+			ng-repeat=" funcionario in ctrl.funcionarios | filter : buscar |  orderBy : 'nomeFuncionario'">
+			<tr>
+				<td>{{funcionario.nomeFuncionario}}	</td>
+				<td>{{funcionario.cpfFuncionario | cpf}}</td>
+				<td>{{funcionario.nomeCargo}}</td>
+				<td>{{funcionario.nomeUnidadeCurto}}</td>
+				<td >
+					<table class="table table-hover table-bordered">
+						<thead>
+							<tr>
+								<th>saida</th>
+								<th>retorno</th>
+								<th permission="['DIARIA_FINANCAS']">Valor</th>
+							</tr>
+						</thead>
+						<tbody  ng-repeat=" iten in funcionario.itens |  orderBy : 'dataSaida'">
+							<tr>
+								<td>{{iten.dataSaida | date : 'dd/MM/yyyy'}} -	{{iten.horaSaida | date : 'HH:mm'}}</td>
+								<td>{{iten.dataChegada | date : 'dd/MM/yyyy'}} -	{{iten.horaChegada | date : 'HH:mm'}}</td>
+								<td permission="['DIARIA_FINANCAS']">{{iten.valorDiaria | currency}}</td>
+							</tr>				
+						</tbody >
+						<tfoot permission="['DIARIA_FINANCAS']">
+							<tr>
+								<td></td>
+								<td><h3><b>Total</b></h3></td>
+								<td><h3><b>{{funcionario.valor | currency}}</b></h3></td>
+							</tr>	
+						</tfoot>	
+					</table>					
+				</td>		
+			</tr>
+		</tbody >		
+	</table>
+</div>

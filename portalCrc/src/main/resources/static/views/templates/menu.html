@@ -120,10 +120,10 @@
 					<li permission="['DIARIA_FINANCAS', 'DIARIA_TRASNPARENCIA' , 'ADMIN']" class="treeview"><a href=""><i class="fa fa-dollar "></i> <span>Diaria</span>
 						<i class="fa fa-angle-left pull-right"></i></a>
 						<ul class="treeview-menu">
+							<li><a class="top" ui-sref="diaria.listar">Inicial</a></li>
 							<li permission="['DIARIA_FINANCAS' , 'ADMIN']" ><a class="top" ui-sref="funcionarioContaDiaria.buscar">Conta Funcionário</a></li>
 							<li permission="['DIARIA_FINANCAS' , 'ADMIN']" ><a class="top" ui-sref="diaria.cadastrar">cadastrar novo mês</a></li>
-							<li permission="['DIARIA_FINANCAS' , 'ADMIN']" ><a class="top" ui-sref="diaria.listar">Extratos</a></li>
-							<li permission="['DIARIA_TRANSPARENCIA' , 'ADMIN']"><a class="top" ui-sref="diaria.relatorio">transparencia</a></li>
+							<li permission="['DIARIA_FINANCAS','DIARIA_DEP_PESSOAL']"><a class="top" ui-sref="diaria.relatorio-geral">Relatórios</a></li>
 						</ul>
 					</li> 
 					<li permission="['CADASTRO_VEICULOS' , 'ADMIN']" class="header">INFRAESTRUTURA</li>

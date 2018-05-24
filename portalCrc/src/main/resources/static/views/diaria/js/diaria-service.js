@@ -96,9 +96,19 @@ app.factory('DiariaService', function($q, $http){
 				return $q.reject(errResponse);
 			});
 		},
+		
+		funcionariosPorDataPorId: function(idFuncionario, data1 , data2){
+			var config = {params : {idFuncionario : idFuncionario, dataInicial : data1 , dataFinal : data2}};
+			return $http.get('/rest/diaria/funcionarios/', config)
+			.then(function(response){
+				return response.data;
+			},function(errResponse){
+				return $q.reject(errResponse);
+			});
+		},
 				
-		imprimir: function(idDiaria, data1 , data2){
-			var config = {params : {idDiaria : idDiaria, dataInicial : data1 , dataFinal : data2}, responseType: 'arraybuffer'};
+		imprimir: function(idFuncionario, data1 , data2){
+			var config = {params : {idFuncionario : idFuncionario, dataInicial : data1 , dataFinal : data2}, responseType: 'arraybuffer'};
 				return $http.get('/rest/diaria/funcionarios/imprimir',config )
 				.then(function(response){
 					return response.data;

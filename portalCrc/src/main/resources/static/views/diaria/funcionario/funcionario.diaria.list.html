@@ -37,6 +37,7 @@
 				<th class="btn btn-primary btn-flat col-sm-1">CPF</th>
 				<th class="btn btn-primary btn-flat col-sm-2">Cargo</th>
 				<th class="btn btn-primary btn-flat col-sm-2">Unidade</th>
+				<th class="btn btn-primary btn-flat col-sm-1">Status</th>
 				<th class="btn btn-primary btn-flat col-sm-1">Valor total</th>
 			</tr>
 		</thead>
@@ -51,6 +52,7 @@
 				<td>{{diaria.cpfFuncionario | cpf}}</td>
 				<td>{{diaria.nomeCargo}}</td>
 				<td>{{diaria.nomeUnidade}}</td>
+				<td class="{{diaria.status ? 'red':'blue'}}">{{diaria.status === true ? 'Não ':' '}}Aprovado</td>
 				<td>
 					<a href=""	ui-sref="item.visualizar({idFuncionarioDiaria : diaria.idDiaria})">
 					{{diaria.totalValorDiaria | currency}}

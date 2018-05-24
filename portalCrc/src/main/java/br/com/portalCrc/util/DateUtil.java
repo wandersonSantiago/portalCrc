@@ -162,4 +162,29 @@ public class DateUtil {
 		calendar.setTime(data);
 		return calendar.getTime();
 	}
+	
+	/**
+	 * Recebe 2 parametros do tipo date, se data inicial for menor que data final retorna uma exceção se não retorna data inicial
+	 * @param dataInicial 
+	 * @param dataFinal
+	 * @return Date
+	 */
+	public static Date validaDataInicialParaPesquisa(Date dataInicial, Date dataFinal) {
+		dataInicial = (dataInicial == null) ? new Date() : dataInicial;
+		dataFinal = (dataFinal == null) ? new Date() : dataFinal;
+		
+		if(dataFinal.before(dataInicial)) {
+			throw new MensagemException("Data Final não pode ser anterior a final!");
+		}
+		return dataInicial;
+	}
+	
+	/**
+	 * se data for nula retorna data atual
+	 * @param dataFinal
+	 * @return Date
+	 */
+	public static Date seDataForNulaRetornaDataAtual(Date data) {
+		return data = (data == null) ? new Date() : data;
+	}
 }

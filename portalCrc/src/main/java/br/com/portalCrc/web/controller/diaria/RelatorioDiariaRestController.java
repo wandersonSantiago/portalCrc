@@ -1,11 +1,12 @@
 package br.com.portalCrc.web.controller.diaria;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,6 +19,7 @@ import br.com.portalCrc.entity.diaria.FuncionarioDiaria;
 import br.com.portalCrc.entity.diaria.ItemDiaria;
 import br.com.portalCrc.entity.diaria.ItemDiariaRelatorioDTO;
 import br.com.portalCrc.entity.diaria.ValoresDiariaLocalidade;
+import br.com.portalCrc.pojo.SessionUsuario;
 import br.com.portalCrc.repository.diaria.ValoresDiariaLocalidadeRepository;
 import br.com.portalCrc.service.diaria.FuncionarioDiariaService;
 import br.com.portalCrc.service.diaria.ItemDiariaService;
@@ -29,6 +31,8 @@ import net.sf.jasperreports.engine.JRException;
 @RequestMapping("/rest/diaria/relatorio")
 public class RelatorioDiariaRestController {
 
+	private final Logger log = LoggerFactory.getLogger(this.getClass());
+	
 	@Autowired
 	private RelatorioDiariaService relatorioDiariaService;	
 	@Autowired
@@ -55,16 +59,15 @@ public class RelatorioDiariaRestController {
 			List<ItemDiaria> itens = (List<ItemDiaria>) itemDiariaService.findByFuncionarioDiaria_id(funcionarioDiaria.getId());
 			
 				ItemDiariaRelatorioDTO itenDTO = new ItemDiariaRelatorioDTO(itens);
-				
-			
 			
 			DiariaRelatorioDTO relatorio = new DiariaRelatorioDTO(funcionarioDiaria, valores,itenDTO);
 			
-			
-			
+			log.info("Relatório gerado pelo usuario " + SessionUsuario.getInstance().getUsuario().getLogin() +
+					" Mapa gerado do funcionario " +  funcionarioDiaria.getContaFuncionario().getFuncionario().getPessoa().getNomeCompleto() + " CPF : " +
+					funcionarioDiaria.getContaFuncionario().getFuncionario().getPessoa().getCpf());
 			
 			try {
-				return relatorioDiariaService.generateReport(Arrays.asList(relatorio));
+				return relatorioDiariaService.generateReport(Arrays.asList(relatorio));				
 			} catch (JRException e) {
 				e.printStackTrace();
 				throw new MensagemException("Erro ao gerar pdf: " + e.getMessage());

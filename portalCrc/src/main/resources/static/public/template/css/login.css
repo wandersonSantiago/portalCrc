@@ -2,9 +2,15 @@
 p {
     font-family: Arial, Helvetica, sans-serif;
 }
+
+.fundoTb {
+	color : white;
+	background-color: #4682B4;
+}
 .red {
 	color: red;
 	font-weight: bold;
+	
 }
 .blue {
 	color: blue;

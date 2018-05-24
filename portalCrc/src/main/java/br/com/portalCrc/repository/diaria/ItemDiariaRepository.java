@@ -1,5 +1,6 @@
 package br.com.portalCrc.repository.diaria;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -20,7 +21,7 @@ public interface ItemDiariaRepository extends JpaRepository<ItemDiaria, Long>{
 	@Query("From ItemDiaria d where  d.funcionarioDiaria.diaria.id = ?1")
 	List<ItemDiaria> listaSecretaria(Long id);
 
-	Iterable<ItemDiaria> findByFuncionarioDiaria_id(Long id);
+	List<ItemDiaria> findByFuncionarioDiaria_id(Long id);
 
 	Iterable<ItemDiaria> findByFuncionarioDiaria_diaria_idAndFuncionarioDiaria_contaFuncionario_funcionario_id(
 			Long idDiaria, Long idFuncionario);
@@ -29,5 +30,17 @@ public interface ItemDiariaRepository extends JpaRepository<ItemDiaria, Long>{
 
 	@Query("SELECT SUM(valorDiaria) From ItemDiaria d where  d.funcionarioDiaria.diaria.id = ?1 and d.tipo = ?2")
 	Double findByFuncionarioDiariaDiaria_idAndTipo(Long idDiaria, TipoDiariaEnum tipo);
+
+	@Query("SELECT CASE WHEN COUNT(*) > 0 THEN true ELSE false END FROM ItemDiaria item WHERE item.funcionarioDiaria.id = ?1 AND item.analizado = ?2")
+	boolean existsFuncionarioDiaria_idAndAnalizado(Long idDiaria, boolean f);
+
+	@Query("SELECT CASE WHEN COUNT(*) > 0 THEN true ELSE false END FROM ItemDiaria item WHERE item.funcionarioDiaria.diaria.id = ?1 AND item.analizado = ?2")
+	boolean existsFuncionarioDiariaDiaria_idAndAnalizado(Long idDiaria, boolean f);
+
+	List<ItemDiaria> findByFuncionarioDiaria_contaFuncionario_funcionario_idAndDataSaidaGreaterThanEqualAndDataSaidaLessThanEqualOrderByDataSaida(
+			Long idFuncionario, Date dataInicial, Date dataFinal);
+
+	@Query("SELECT SUM(valorDiaria) From ItemDiaria d where  d.funcionarioDiaria.contaFuncionario.funcionario.id = ?1 and d.dataSaida >= ?2 and d.dataSaida <= ?3")
+	Double somaValorDoFuncionarioPorData(Long idFuncionario, Date dInicial, Date dFinal);
 
 }

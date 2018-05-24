@@ -1,5 +1,7 @@
 package br.com.portalCrc.repository;
 
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -19,6 +21,8 @@ public interface FuncionarioRepository extends JpaRepository<Funcionario, Long>{
 	Page<Funcionario> findByUnidadeAtual_idAndPessoa_cpfContaining(Long unidade, String string, Pageable page);
 
 	Page<Funcionario> findAllByUnidadeAtual_id(Long idUnidade, Pageable pageRequest);
+	
+	List<Funcionario> findAllByUnidadeAtual_idOrderByPessoaNomeCompleto(Long idUnidade);
 
 	Page<Funcionario> findByPessoa_cpfContaining(String string, Pageable page);
 

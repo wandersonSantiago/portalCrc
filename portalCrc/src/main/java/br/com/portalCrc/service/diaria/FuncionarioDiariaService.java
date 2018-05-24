@@ -1,6 +1,7 @@
 package br.com.portalCrc.service.diaria;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -13,8 +14,8 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import br.com.portalCrc.entity.Usuario;
-import br.com.portalCrc.entity.diaria.ContaFuncionarioDiaria;
 import br.com.portalCrc.entity.diaria.FuncionarioDiaria;
+import br.com.portalCrc.entity.diaria.FuncionarioDiariaDTO;
 import br.com.portalCrc.entity.diaria.ValoresDiariaLocalidade;
 import br.com.portalCrc.enums.diaria.StatusDiariaEnum;
 import br.com.portalCrc.pojo.SessionUsuario;
@@ -27,6 +28,9 @@ public class FuncionarioDiariaService {
 
 	@Autowired
 	private FuncionarioDiariaRepository funcionarioDiariaRepository;
+	
+	@Autowired
+	private ItemDiariaService itemDiariaService;
 
 	@Autowired
 	private ValoresDiariaLocalidadeRepository valoresDiaraRepository;
@@ -80,7 +84,7 @@ public class FuncionarioDiariaService {
 		return funcionarioDiariaRepository.findOne(id);
 	}
 
-	public List<FuncionarioDiaria> listaUnidade(Long id) {
+	public List<FuncionarioDiariaDTO> listaUnidade(Long id) {
 		List<FuncionarioDiaria> lista = funcionarioDiariaRepository.findByUnidade_idAndDiaria_id(
 				SessionUsuario.getInstance().getUsuario().getFuncionario().getUnidadeAtual().getId(), id);
 
@@ -88,7 +92,16 @@ public class FuncionarioDiariaService {
 			throw new MensagemException("Unidade não tem lançamento nesta diaria! ");
 		}
 
-		return lista;
+		List<FuncionarioDiariaDTO> listDto = new ArrayList<>();
+		lista.forEach(item ->{			
+			FuncionarioDiariaDTO funcionarioDiaria = new FuncionarioDiariaDTO(item);	
+			funcionarioDiaria.setStatus(itemDiariaService.existByFuncionarioDiaria_idAndAnalizado(item.getId(), false));
+			
+			listDto.add(funcionarioDiaria);
+		});
+		
+		
+		return listDto;
 	}
 
 	public List<FuncionarioDiaria> listaCoordenadoria(Long id) {
@@ -184,6 +197,11 @@ public class FuncionarioDiariaService {
 			throw new MensagemException("Busca não encontrada, verifique se ja existe conta aberta para este funcioonario! " + texto);
 		}
 		return list;
+	}
+
+	public List<FuncionarioDiaria> findByUnidade_id() {
+		
+		return funcionarioDiariaRepository.findByUnidade_id(SessionUsuario.getInstance().getUsuario().getFuncionario().getUnidadeAtual().getId());
 	}
 
 	

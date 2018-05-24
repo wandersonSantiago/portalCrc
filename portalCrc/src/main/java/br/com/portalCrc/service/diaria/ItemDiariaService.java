@@ -3,9 +3,10 @@ package br.com.portalCrc.service.diaria;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -28,7 +29,8 @@ import br.com.portalCrc.util.DateUtil;
 @Transactional(readOnly = true, propagation = Propagation.REQUIRED)
 public class ItemDiariaService {
 	
-
+	private final Logger log = LoggerFactory.getLogger(this.getClass());
+	
 	@Autowired
 	private ItemDiariaRepository itemDiariaRepository;
 	@Autowired
@@ -62,7 +64,9 @@ public class ItemDiariaService {
 		valorTotalItem = valorTotalItem.add(calcula.valorPernoite(count, itemDiaria));
 		itemDiaria.setValorDiaria(valorTotalItem);
 		
-		somaValorTotalDiaria(valorTotalDiaria, valorTotalItem , funcionarioDiaria , itemDiaria);		 		
+		somaValorTotalDiaria(valorTotalDiaria, valorTotalItem , funcionarioDiaria , itemDiaria);	
+		
+		log.info("Lançamento de diaria realizado pelo usuario " + itemDiaria.getUsuarioCadastro().getLogin() + " para o funcionario " + itemDiaria.getFuncionarioDiaria().getContaFuncionario().getFuncionario().getPessoa().getNomeCompleto());
 	}
 	
 	
@@ -213,7 +217,7 @@ public class ItemDiariaService {
 		
 	}
 
-	public Iterable<ItemDiaria> findByFuncionarioDiaria_id(Long id) {
+	public List<ItemDiaria> findByFuncionarioDiaria_id(Long id) {
 		return itemDiariaRepository.findByFuncionarioDiaria_id(id);
 	}
 
@@ -252,7 +256,7 @@ public class ItemDiariaService {
 		if(list.isEmpty()) {
 			 list = itemDiariaRepository.findByFuncionarioDiaria_idAndTipo(idFuncionario, TipoDiariaEnum.SEGURANCA);
 			 if(list.isEmpty()){
-					throw new MensagemException("Funcionario não tem diarias!!!");
+				//	throw new MensagemException("Funcionario não tem diarias!!!");
 				}
 		}
 		return list;
@@ -314,12 +318,11 @@ public class ItemDiariaService {
 
 	public List<ItemDashDTO> getDashBoard() {
 		
-		List<Diaria> diarias = diariaService.findByUnidade_id();
-		List<Double> valores = new ArrayList<>();
+		List<Diaria> diarias = diariaService.findByUnidade_id();		
 		List<ItemDashDTO> listDTO = new ArrayList<>();
 		
 		diarias.forEach(diaria ->{
-			
+			List<Double> valores = new ArrayList<>();
 			Double administrativo = somaValorItemDiariaPorIdDiariaETipo(diaria.getId(), TipoDiariaEnum.ADMINISTRATIVO);
 			Double seguranca = somaValorItemDiariaPorIdDiariaETipo(diaria.getId(), TipoDiariaEnum.SEGURANCA);
 			
@@ -333,6 +336,25 @@ public class ItemDiariaService {
 		return listDTO;
 	}
 
+
+	public boolean existByFuncionarioDiariaDiaria_idAndAnalizado(Long idDiaria, boolean f) {
+		return itemDiariaRepository.existsFuncionarioDiariaDiaria_idAndAnalizado(idDiaria, f);
+	}
+
+	public boolean existByFuncionarioDiaria_idAndAnalizado(Long idDiaria, boolean f) {
+		return itemDiariaRepository.existsFuncionarioDiaria_idAndAnalizado(idDiaria, f);
+	}
+
+
+	public List<ItemDiaria> findByFuncionarioDiariaContaFuncionarioFuncionario_idAndDataSaidaGreaterThanEqualAndDataSaidaLessThanEqual(
+			Long idFuncionario, Date dataInicial, Date dataFinal) {
+		return itemDiariaRepository.findByFuncionarioDiaria_contaFuncionario_funcionario_idAndDataSaidaGreaterThanEqualAndDataSaidaLessThanEqualOrderByDataSaida(idFuncionario, dataInicial, dataFinal);
+	}
+
+
+	public Double somaValorDoFuncionarioPorData(Long idFuncionario, Date dInicial, Date dFinal) {
+		return itemDiariaRepository.somaValorDoFuncionarioPorData(idFuncionario, dInicial, dFinal);
+	}
 
 
 

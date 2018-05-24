@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import br.com.portalCrc.entity.diaria.Diaria;
+import br.com.portalCrc.entity.diaria.ItemDiaria;
 import br.com.portalCrc.entity.diaria.ValoresDiariaLocalidade;
 import br.com.portalCrc.enums.diaria.MesDiariaEnum;
 import br.com.portalCrc.enums.diaria.StatusDiariaEnum;
@@ -26,6 +27,9 @@ public class DiariaService {
 
 	@Autowired
 	private DiariaRepository diariaRepository;	
+	
+	@Autowired
+	private ItemDiariaService itemDiariaService;
 	
 	@Autowired
 	private ValoresDiariaLocalidadeRepository valoresDiariaLocalidadeRepository;
@@ -152,6 +156,9 @@ public class DiariaService {
 	@Transactional(readOnly = false)
 	public void encerrar(Diaria diaria) {
 		
+		if(itemDiariaService.existByFuncionarioDiariaDiaria_idAndAnalizado(diaria.getId(), false)) {
+			throw new MensagemException("Existe diarias sem aprovação, favor aprovar todas!");
+		}
 		diaria.setDataFechamento(new Date());
 		diaria.setStatus(StatusDiariaEnum.FECHADO);
 		diariaRepository.save(diaria);

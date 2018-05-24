@@ -106,9 +106,9 @@ public class FuncionarioDiariaRestController {
 	
 	@GetMapping(value="/unidade/{idDiaria}")
 	public ResponseEntity<List<FuncionarioDiariaDTO>> listaUnidade(@PathVariable Long idDiaria){
-		List<FuncionarioDiaria> list = funcionarioDiariaService.listaUnidade(idDiaria);
-		List<FuncionarioDiariaDTO> listDto = list.stream().map(obj -> new FuncionarioDiariaDTO(obj)).collect(Collectors.toList());
-		return new ResponseEntity<List<FuncionarioDiariaDTO>>(listDto, HttpStatus.OK);
+		List<FuncionarioDiariaDTO> list = funcionarioDiariaService.listaUnidade(idDiaria);
+	//	List<FuncionarioDiariaDTO> listDto = list.stream().map(obj -> new FuncionarioDiariaDTO(obj)).collect(Collectors.toList());
+		return new ResponseEntity<List<FuncionarioDiariaDTO>>(list, HttpStatus.OK);
 	}
 	
 	

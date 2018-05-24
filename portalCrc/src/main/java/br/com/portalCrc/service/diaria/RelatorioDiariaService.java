@@ -37,7 +37,7 @@ public class RelatorioDiariaService {
 		
 	public byte[] generateReport(List<Object> list) throws JRException {
 		if (list == null || list.isEmpty()) {
-			throw new MensagemException("Lista de credenciais não pode ser vazia ");
+			throw new MensagemException("Lista não pode ser vazia ");
 		}
 
 		

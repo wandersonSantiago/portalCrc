@@ -1,7 +1,7 @@
 package br.com.portalCrc.service;
 
-import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -123,6 +123,14 @@ public class FuncionarioService {
 	public Page<Funcionario> findAllUnidade(PageRequest pageRequest) {
 		Long idUnidade = SessionUsuario.getInstance().getUsuario().getFuncionario().getUnidadeAtual().getId();
 		return funcionarioRepository.findAllByUnidadeAtual_id(idUnidade, pageRequest);
+	}
+	
+	public List<Funcionario> findAllUnidadeId() {
+		Long idUnidade = SessionUsuario.getInstance().getUsuario().getFuncionario().getUnidadeAtual().getId();
+		if(idUnidade == null) {
+			throw new MensagemException("Unidade não pode ser nula");
+		}
+		return funcionarioRepository.findAllByUnidadeAtual_idOrderByPessoaNomeCompleto(idUnidade);
 	}
 	public Page<Funcionario> findAll(PageRequest pageRequest) {
 		return funcionarioRepository.findAll(pageRequest);
