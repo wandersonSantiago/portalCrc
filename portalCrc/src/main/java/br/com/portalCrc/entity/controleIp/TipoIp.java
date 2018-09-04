@@ -1,24 +1,24 @@
 package br.com.portalCrc.entity.controleIp;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;  //control shift + o serve para buscar as dependencias
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-
-import br.com.portalCrc.entity.Unidade;
-import br.com.portalCrc.entity.Usuario;
 
 @Entity 
 @SequenceGenerator(name = "tipo_ip_id_seq", sequenceName = "tipo_ip_id_seq", schema="controle_ip", initialValue = 1, allocationSize = 1) 
 @Table(name="tipo_ip", schema="controle_ip")
 
-public class TipoIp {
+public class TipoIp  implements Serializable{
 	
+	private static final long serialVersionUID = 1L;
+
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "tipo_ip_id_seq") 
 	private Long id;
@@ -27,13 +27,13 @@ public class TipoIp {
 	@Column(name = "descricao", nullable=false)
 	private String descricao; 
 	
-	@OneToOne
-	@JoinColumn(name="id_unidade")
-	private Unidade unidade;
 	
-	@OneToOne
-	@JoinColumn(name="id_usuario_cadastro")
-	private Usuario usuarioCadastro;
+	@Column(name="id_unidade")
+	private Long unidade;
+	
+	
+	@Column(name="id_usuario_cadastro")
+	private Long usuarioCadastro;
 	
 	public Long getId() {
 		return id;
@@ -49,19 +49,19 @@ public class TipoIp {
 		this.descricao = descricao.toUpperCase();
 	}
 
-	public Unidade getUnidade() {
+	public Long getUnidade() {
 		return unidade;
 	}
 
-	public void setUnidade(Unidade unidade) {
+	public void setUnidade(Long unidade) {
 		this.unidade = unidade;
 	}
 
-	public Usuario getUsuarioCadastro() {
+	public Long getUsuarioCadastro() {
 		return usuarioCadastro;
 	}
 
-	public void setUsuarioCadastro(Usuario usuarioCadastro) {
+	public void setUsuarioCadastro(Long usuarioCadastro) {
 		this.usuarioCadastro = usuarioCadastro;
 	}
 	

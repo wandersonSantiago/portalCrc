@@ -46,6 +46,8 @@ public interface FuncionarioDiariaRepository extends JpaRepository<FuncionarioDi
 
 	List<FuncionarioDiaria> findByUnidade_id(Long id);
 
+	FuncionarioDiaria findByContaFuncionario_id(Long idFuncionario);
+
 	
 	
 }

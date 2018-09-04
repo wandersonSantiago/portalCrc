@@ -1,5 +1,6 @@
 package br.com.portalCrc.entity.controleIp;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -8,7 +9,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -17,15 +17,14 @@ import javax.persistence.TemporalType;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import br.com.portalCrc.entity.Unidade;
-import br.com.portalCrc.entity.Usuario;
-
 
 @Entity
 @SequenceGenerator(name = "switch_ponto_id_seq", sequenceName = "switch_ponto_id_seq", schema="controle_ip", initialValue = 1, allocationSize = 1) 
 @Table(name="switch_ponto", schema="controle_ip")
-public class SwitchPonto {
+public class SwitchPonto implements Serializable{
 	
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "switch_ponto_id_seq")
 	private Long id;
@@ -41,14 +40,13 @@ public class SwitchPonto {
 	@OneToOne
 	@JoinColumn(name="porta_switch", nullable=false)	
 	private PortaSwitch portaSwitch;
-	
-	@OneToOne
-	@JoinColumn(name="id_unidade")
-	private Unidade unidade;
+
+	@Column(name="id_unidade")
+	private Long unidade;
 		
-	@OneToOne
-	@JoinColumn(name="id_usuario_cadastro")
-	private Usuario usuarioCadastro;
+
+	@Column(name="id_usuario_cadastro")
+	private Long usuarioCadastro;
 	
 	
 	public Long getId() {
@@ -75,16 +73,16 @@ public class SwitchPonto {
 	public void setPortaSwitch(PortaSwitch portaSwitch) {
 		this.portaSwitch = portaSwitch;
 	}
-	public Unidade getUnidade() {
+	public Long getUnidade() {
 		return unidade;
 	}
-	public void setUnidade(Unidade unidade) {
+	public void setUnidade(Long unidade) {
 		this.unidade = unidade;
 	}
-	public Usuario getUsuarioCadastro() {
+	public Long getUsuarioCadastro() {
 		return usuarioCadastro;
 	}
-	public void setUsuarioCadastro(Usuario usuarioCadastro) {
+	public void setUsuarioCadastro(Long usuarioCadastro) {
 		this.usuarioCadastro = usuarioCadastro;
 	}
 	

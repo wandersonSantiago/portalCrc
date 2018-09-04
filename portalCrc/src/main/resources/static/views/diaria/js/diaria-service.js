@@ -116,5 +116,25 @@ app.factory('DiariaService', function($q, $http){
 					return $q.reject(errResponse);
 				});			
 		},
+		
+		buscarDiariaPorFuncionario: function(idDiaria, tipo){
+			var config = {params : {idDiaria : idDiaria, tipo :tipo}};
+			return $http.get('/rest/diaria/mes/funcionarios/', config)
+			.then(function(response){
+				return response.data;
+			},function(errResponse){
+				return $q.reject(errResponse);
+			});
+		},
+		
+		buscarDiariaPorFuncionarioPDF: function(idDiaria, tipo){
+			var config = {params : {idDiaria : idDiaria, tipo :tipo}, responseType: 'arraybuffer'};
+				return $http.get('/rest/diaria/mes/funcionarios/imprimir',config )
+				.then(function(response){
+					return response.data;
+				},function(errResponse){
+					return $q.reject(errResponse);
+				});			
+		},
 	}
 });

@@ -55,7 +55,7 @@ public class ItemDiariaRelatorioDTO {
 			this.dataChegada += sdf.format(iten.getDataChegada()) + "\n";
 			this.horaSaida += h.format(iten.getHoraSaida()) +"\n";
 			this.horaChegada += h.format(iten.getHoraChegada()) + "\n";
-			this.motivo += iten.getMotivo() + " , ";
+			this.motivo += sdf.format(iten.getDataSaida()) + "-" + iten.getMotivo() + "\n";
 			this.valorDiaria += ConverteNumeroEmMoeda.real(iten.getValorDiaria()) + "\n";
 			
 			adicionaCidade(iten);

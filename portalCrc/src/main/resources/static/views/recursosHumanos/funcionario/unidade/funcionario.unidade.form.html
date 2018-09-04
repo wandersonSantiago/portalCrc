@@ -48,7 +48,7 @@
 						</div>	
 						<div class="col-sm-3" >
 						Função:
-							<select class="form-control select2" ng-model="ctrl.funcionarioUnidade.funcao" ng-options="funcoes.descricao for funcoes in ctrl.funcao track by funcao.id"  style="width: 100%;">
+							<select class="form-control select2" ng-model="ctrl.funcionarioUnidade.funcao" ng-options="funcao.descricao for funcao in ctrl.funcao track by funcao.id"  style="width: 100%;">
 							</select>
 						</div>
 						<div class="col-sm-3" >
@@ -99,7 +99,7 @@
 						<td>{{ funcionarioUnidade.funcao.descricao}}</td>
 						<td>{{ funcionarioUnidade.status}}</td>
 						<td>{{ funcionarioUnidade.dataCadastro | date : 'dd/MM/yyyy'}} </td>
-						<td class="text-center" ng-if="funcionarioUnidade.unidade.id === usuario.funcionario.unidadeAtual.id">
+						<td class="text-center" ng-if="funcionarioUnidade.unidade.id === user.funcionario.unidadeAtual.id">
 							<a title="Editar Funcionario" ui-sref="funcionarioUnidade.editar({idFuncionarioUnidade : funcionarioUnidade.id})">
 							<i class="glyphicon glyphicon-edit"></i></a>&nbsp;&nbsp;&nbsp;
 						</td>

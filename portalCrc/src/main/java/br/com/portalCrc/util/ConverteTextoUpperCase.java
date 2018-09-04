@@ -9,7 +9,8 @@ public class ConverteTextoUpperCase {
 		try {			
 			texto = texto.toLowerCase();
 			texto  = WordUtils.capitalize(texto);
-			texto = texto.replace("De", "de").replaceAll("Da", "da").replaceAll("Do", "do").replaceAll("Um", "um");
+			texto = texto.replace(" De ", " de ").replaceAll(" Da ", " da ").replaceAll(" Do ", " do ").replaceAll(" Um ", " um ")
+					.replaceAll(" E ", " e ").replaceAll(" A ", " a ").replaceAll(" O ", " o ");
 		} catch (Exception e) {
 			// TODO: handle exception
 		}

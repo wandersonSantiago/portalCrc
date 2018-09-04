@@ -53,12 +53,6 @@ public class ItemDiariaRestController {
 		return new ResponseEntity<>( HttpStatus.CREATED);		
 	}
 	
-	/*@GetMapping(value="/secretaria/{id}")
-	public ResponseEntity<Iterable<ItemDiaria>> listaSecretaria(@PathVariable Long id){
-		Iterable<ItemDiaria> itemDiaria	= itemDiariaRepository.listaSecretaria(id);
-		return new ResponseEntity<Iterable<ItemDiaria>>(itemDiaria, HttpStatus.OK);
-	}*/
-	
 	@GetMapping(value="/coordenadoria")
 	public ResponseEntity<Iterable<ItemDiaria>> listaCoordenadoria(@RequestParam(value="mes") MesDiariaEnum mes){
 		Iterable<ItemDiaria> itemDiaria = itemDiariaService.listaCoordenadoria(mes);

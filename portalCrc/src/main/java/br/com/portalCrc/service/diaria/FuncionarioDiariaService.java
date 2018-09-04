@@ -204,6 +204,10 @@ public class FuncionarioDiariaService {
 		return funcionarioDiariaRepository.findByUnidade_id(SessionUsuario.getInstance().getUsuario().getFuncionario().getUnidadeAtual().getId());
 	}
 
+	public FuncionarioDiaria findByContaFuncionario_id(Long idFuncionario) {
+		return funcionarioDiariaRepository.findByContaFuncionario_id(idFuncionario);
+	}
+
 	
 
 }

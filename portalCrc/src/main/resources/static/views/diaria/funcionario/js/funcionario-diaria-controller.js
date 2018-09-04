@@ -1,17 +1,10 @@
-app.controller("ListarFuncionarioDiariaController",
-		ListarFuncionarioDiariaController);
-app.controller("FuncionarioDiariaCadastrarController",
-		FuncionarioDiariaCadastrarController);
-app.controller("FuncionarioDiariaListarController",
-		FuncionarioDiariaListarController);
-app.controller("FuncionarioDiariaCoordenadoriaListarController",
-		FuncionarioDiariaCoordenadoriaListarController);
-app.controller("FuncionarioDiariaUnidadeListarController",
-		FuncionarioDiariaUnidadeListarController);
-app.controller("FuncionarioDiariaSecretariaListarController",
-		FuncionarioDiariaSecretariaListarController);
-app.controller("FuncionarioDiariaShowController",
-		FuncionarioDiariaShowController);
+app.controller("ListarFuncionarioDiariaController",	ListarFuncionarioDiariaController);
+app.controller("FuncionarioDiariaCadastrarController",	FuncionarioDiariaCadastrarController);
+app.controller("FuncionarioDiariaListarController",	FuncionarioDiariaListarController);
+app.controller("FuncionarioDiariaCoordenadoriaListarController",FuncionarioDiariaCoordenadoriaListarController);
+app.controller("FuncionarioDiariaUnidadeListarController",	FuncionarioDiariaUnidadeListarController);
+app.controller("FuncionarioDiariaSecretariaListarController",	FuncionarioDiariaSecretariaListarController);
+app.controller("FuncionarioDiariaShowController",	FuncionarioDiariaShowController);
 
 function ListarFuncionarioDiariaController(DiariaService, $state, $stateParams,FuncionarioDiariaService, toastr, $rootScope, $scope, $log, FuncionarioContaDiariaService, blockUI) {
 	
@@ -201,7 +194,6 @@ function FuncionarioDiariaUnidadeListarController($localStorage, $stateParams, $
 			var soma;
 			soma = parseFloat(f[i].totalValorDiaria);
 			$scope.valorTotal += parseFloat(soma);
-			console.log($scope.valorTotal);
 		}
 	}
 	

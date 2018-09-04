@@ -12,9 +12,9 @@ import br.com.portalCrc.enums.controleIp.StatusSwitch;
 
 public interface SwitchRepositorio extends JpaRepository<Switch , Long > {
 
-	Collection<Switch> findByUnidade_id(Long id);
+	Collection<Switch> findByUnidade(Long id);
 
-	Iterable<Switch> findByStatusAndUnidade_id(StatusSwitch status, Long id);
+	Iterable<Switch> findByStatusAndUnidade(StatusSwitch status, Long id);
 
 	
 

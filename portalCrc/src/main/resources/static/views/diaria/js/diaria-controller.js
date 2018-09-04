@@ -151,11 +151,13 @@ function DiariaListarController(ItemDiariaService, $stateParams, $state, DiariaS
 
 		 
 }
-function DiariaRelatorioController( $stateParams, $state, DiariaService, toastr, $rootScope, $scope, FuncionarioContaDiariaService, FuncionarioDiariaService, blockUI){
+function DiariaRelatorioController( $stateParams, $state, DiariaService, toastr, $rootScope, $scope, FuncionarioContaDiariaService, FuncionarioDiariaService, ItemDiariaService, blockUI){
 	var self = this;
 	self.buscarPorTexto = buscarPorTexto;
 	self.pesquisar = pesquisar;
 	
+	diarias();
+	tipos();
 	
 	$scope.tipo = 'LISTAGEM';
     $scope.imprimir = 'PAGINA';
@@ -171,7 +173,7 @@ function DiariaRelatorioController( $stateParams, $state, DiariaService, toastr,
 		     	 });
 		 }
 		 
-		 function pesquisar(imprimir, idFuncionario, dataInicial , dataFinal){
+		 function pesquisar(imprimir, idFuncionario, dataInicial , dataFinal, idDiaria){
 			  if($scope.tipo == 'LISTAGEM'){
 				  idFuncionario = null;
 				  if(imprimir == 'PAGINA'){
@@ -188,9 +190,43 @@ function DiariaRelatorioController( $stateParams, $state, DiariaService, toastr,
 				  }		
 				 
 			  }
+			  if($scope.tipo == 'MES'){
+				  if(imprimir == 'PAGINA'){
+					  buscarDiariaPorFuncionario(idDiaria);
+				  }else{
+					  buscarDiariaPorFuncionarioPDF(idDiaria);
+				  }		
+				 
+			  }
 		  }
 		  
-		   
+		   function buscarDiariaPorFuncionarioPDF(idDiaria){	
+			    	blockUI.start();
+			    	DiariaService.buscarDiariaPorFuncionarioPDF(idDiaria, self.tipo)
+		   	 .then(function(d){
+		   		var file = new Blob([d],{type: 'application/pdf'});
+		   		var fileURL = URL.createObjectURL(file);
+		   		blockUI.stop();
+		   	    window.open(fileURL);
+		   	 	 }).catch(function error(msg) {
+		   	 		 if(msg.data.message){
+		   	 		mensagemAlerta(msg.data.message, 'info');
+		   	 		 }
+		   	 	mensagemAlerta("Não foi possivel gerar o PDF", 'error');
+		   	 });
+		     };		     
+	     
+		   				
+			function buscarDiariaPorFuncionario(idDiaria){
+		    	 DiariaService.buscarDiariaPorFuncionario(idDiaria, self.tipo).then(
+							function(f) {
+								self.funcionarios = f;		
+							}, function(errResponse) {								
+								mensagemAlerta(errResponse.data.message, 'info');								
+								$scope.funcionario = null;
+							});
+				};
+			   
 		     function buscarListagemPorDiariaEPorDataPDF(idFuncionario, dataInicial , dataFinal){	
 			    	blockUI.start();
 			    	DiariaService.imprimir(idFuncionario, dataInicial , dataFinal)
@@ -221,4 +257,22 @@ function DiariaRelatorioController( $stateParams, $state, DiariaService, toastr,
 				function mensagemAlerta(texto, tipo){
 					sweetAlert({ timer : 30000,  text : texto,  type : tipo, width: 300, higth: 300, padding: 20});
 				}
+				
+				function diarias(){
+					 DiariaService.unidade().
+						then(function(f){
+							self.diarias = f;		
+							}, function(errResponse){
+						});
+					};
+
+					function tipos() {
+						ItemDiariaService.tipos().then(
+								function(f) {					
+									self.tipos = f;
+								}, function(errResponse) {
+									
+								});
+					};
+					
 }

@@ -154,8 +154,9 @@ app.factory('ItemDiariaService', function($q, $http){
 			});
 		},
 		
-		imprimir :function(id){
-			return $http.get("/rest/diaria/relatorio/"+id+"/imprimir", {responseType: 'arraybuffer'})
+		imprimir :function(id, tipo){
+			var config = {params : {id : id, tipo :tipo}, responseType: 'arraybuffer'};
+			return $http.get("/rest/diaria/relatorio/imprimir", config)
 			.then(function(response){
 				return response.data;
 			},function(errResponse){

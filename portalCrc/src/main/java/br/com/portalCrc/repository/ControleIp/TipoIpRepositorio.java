@@ -8,7 +8,7 @@ import br.com.portalCrc.entity.controleIp.TipoIp;
 
 public interface TipoIpRepositorio extends JpaRepository<TipoIp , Long> {
 
-	Collection<TipoIp> findByUnidade_id(Long id);
+	Collection<TipoIp> findByUnidade(Long id);
 
 
 }

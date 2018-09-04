@@ -21,7 +21,7 @@ public class RelatorioUtil {
 	
 	public  HashMap<String, Object> subRelatorioDiariaFinancas() {
 		HashMap<String, Object> hashMap = caminhoMapaDeLogos();				
-		hashMap.put("SUB_REPORT_DIR",  caminhoSubRelatorios.concat("/tem-diaria-financas.jrxml"));
+		hashMap.put("SUB_REPORT_DIR",  caminhoSubRelatorios.concat("item-diaria-financas.jrxml"));
 		return hashMap;
 	}
 	

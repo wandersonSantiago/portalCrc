@@ -507,6 +507,7 @@ function ItemDiariaCoordenadoriaTransparenciaController($filter, $stateParams, $
 		      }		  
 		  }
 		//fim
+		  
 	//Carrega a lista da diaria selecionada para a exportação para excell
 	function carregarDiaria(diaria) {
 		ItemDiariaService.porUnidade(diaria.id).then(function(f) {
@@ -738,10 +739,10 @@ function ItemDiariaShowController($stateParams, $state, ItemDiariaService,	toast
 self.imprimir = imprimir;
 	
 	
-	function imprimir(id){
+	function imprimir(id , tipo){
 		blockUI.start();
-		ItemDiariaService.imprimir(id)
-   	 .then(function(d){
+		ItemDiariaService.imprimir(id , tipo)
+   	 .then(function(d){ 
    		var file = new Blob([d],{type: 'application/pdf'});
    		var fileURL = URL.createObjectURL(file);
    		blockUI.stop();
@@ -829,9 +830,9 @@ function ItemDiariaUsuarioController($stateParams, $state, ItemDiariaService, to
 self.imprimir = imprimir;
 	
 	
-	function imprimir(id){
+	function imprimir(id, tipo){
 		blockUI.start();
-		ItemDiariaService.imprimir(id)
+		ItemDiariaService.imprimir(id, tipo)
    	 .then(function(d){
    		var file = new Blob([d],{type: 'application/pdf'});
    		var fileURL = URL.createObjectURL(file);

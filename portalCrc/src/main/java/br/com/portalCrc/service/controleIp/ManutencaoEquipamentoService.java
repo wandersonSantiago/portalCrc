@@ -22,7 +22,7 @@ public class ManutencaoEquipamentoService {
 	private ManutencaoEquipamentoRepository manutencaoEquipamentoRepository;
 
 	public Collection<ManutencaoEquipamento> lista() {
-		return manutencaoEquipamentoRepository.findByEquipamento_unidade_id(
+		return manutencaoEquipamentoRepository.findByEquipamento_unidade(
 				SessionUsuario.getInstance().getUsuario().getFuncionario().getUnidadeAtual().getId());
 	}
 
@@ -32,12 +32,12 @@ public class ManutencaoEquipamentoService {
 
 	public Iterable<ManutencaoEquipamento> findByStatusIsNull(Boolean status) {
 		Long idUnidade = SessionUsuario.getInstance().getUsuario().getFuncionario().getUnidadeAtual().getId();
-		return manutencaoEquipamentoRepository.findByStatusAndEquipamento_unidade_idAndTecnicoIsNull(status, idUnidade);
+		return manutencaoEquipamentoRepository.findByStatusAndEquipamento_unidadeAndTecnicoIsNull(status, idUnidade);
 	}
 	
 	public Iterable<ManutencaoEquipamento> findByStatusNotNull(Boolean status) {
 		Long idUnidade = SessionUsuario.getInstance().getUsuario().getFuncionario().getUnidadeAtual().getId();
-		return manutencaoEquipamentoRepository.findByStatusAndEquipamento_unidade_idAndTecnicoIsNotNull(status, idUnidade);
+		return manutencaoEquipamentoRepository.findByStatusAndEquipamento_unidadeAndTecnicoIsNotNull(status, idUnidade);
 	}
 
 	public Iterable<ManutencaoEquipamento> buscarPreventivasPrioridade(
@@ -46,7 +46,7 @@ public class ManutencaoEquipamentoService {
 
 		Date dataFinal = dataFinalPrioridade();
 		
-		return manutencaoEquipamentoRepository.findByDataPreventivaLessThanEqualAndStatusAndEquipamento_unidade_idAndTecnicoIsNull(dataFinal, status, idUnidade);
+		return manutencaoEquipamentoRepository.findByDataPreventivaLessThanEqualAndStatusAndEquipamento_unidadeAndTecnicoIsNull(dataFinal, status, idUnidade);
 	
 	}
 
@@ -65,7 +65,7 @@ public class ManutencaoEquipamentoService {
 			throw new MensagemException("Data preventiva tem que ser posterior a data atual!!!");
 		}
 		manutencaoEquipamento.setStatus(true);
-		manutencaoEquipamento.setUsuarioCadastro(SessionUsuario.getInstance().getUsuario());
+		manutencaoEquipamento.setUsuarioCadastro(SessionUsuario.getInstance().getUsuario().getId());
 		manutencaoEquipamentoRepository.save(manutencaoEquipamento);
 	}
 

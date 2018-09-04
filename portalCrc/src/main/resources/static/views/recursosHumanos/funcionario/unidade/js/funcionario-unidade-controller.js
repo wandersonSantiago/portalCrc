@@ -169,6 +169,7 @@ function FuncionarioUnidadeEditarController( $stateParams, $state, FuncionarioUn
 			self.funcionarioUnidade = p;
 			self.funcionarioUnidade.dataCadastro = new Date(p.dataCadastro);
 			self.funcionario = p.funcionario;
+			self.funcionarioUnidade.cargo = p.funcionario.cargoAtual;
 			findAll(p.funcionario.id);
 	}, function(errResponse){
 		sweetAlert({ timer : 3000,  text : errResponse.data.message,  type : "error", width: 300, higth: 300, padding: 20});

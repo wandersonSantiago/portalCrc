@@ -9,17 +9,17 @@ import br.com.portalCrc.entity.controleIp.ManutencaoEquipamento;
 
 public interface ManutencaoEquipamentoRepository extends JpaRepository<ManutencaoEquipamento, Long> {
 
-	Collection<ManutencaoEquipamento> findByEquipamento_unidade_id(Long id);
+	Collection<ManutencaoEquipamento> findByEquipamento_unidade(Long id);
 
 	ManutencaoEquipamento findTop1ByEquipamento_idOrderByIdDesc(Long id);
 
-	Iterable<ManutencaoEquipamento> findByDataPreventivaLessThanEqualAndStatusAndEquipamento_unidade_idAndTecnicoIsNull(
+	Iterable<ManutencaoEquipamento> findByDataPreventivaLessThanEqualAndStatusAndEquipamento_unidadeAndTecnicoIsNull(
 			Date dataFinal, Boolean status, Long idUnidade);
 
-	Iterable<ManutencaoEquipamento> findByStatusAndEquipamento_unidade_idAndTecnicoIsNull(Boolean status,
+	Iterable<ManutencaoEquipamento> findByStatusAndEquipamento_unidadeAndTecnicoIsNull(Boolean status,
 			Long idUnidade);
 
-	Iterable<ManutencaoEquipamento> findByStatusAndEquipamento_unidade_idAndTecnicoIsNotNull(Boolean status,
+	Iterable<ManutencaoEquipamento> findByStatusAndEquipamento_unidadeAndTecnicoIsNotNull(Boolean status,
 			Long idUnidade);
 
 }

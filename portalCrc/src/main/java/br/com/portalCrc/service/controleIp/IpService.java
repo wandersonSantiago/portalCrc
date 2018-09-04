@@ -32,8 +32,8 @@ public class IpService {
 			String numero = NumberFormat.getInstance().format(i);			
 			ip.setNumero(range + numero);
 			ip.setTipo(tipo);
-			ip.setUnidade(SessionUsuario.getInstance().getUsuario().getFuncionario().getUnidadeAtual());
-			ip.setUsuarioCadastro(SessionUsuario.getInstance().getUsuario());
+			ip.setUnidade(SessionUsuario.getInstance().getUsuario().getFuncionario().getUnidadeAtual().getId());
+			ip.setUsuarioCadastro(SessionUsuario.getInstance().getUsuario().getId());
 			ip.setStatus(StatusIp.INATIVO);
 			ipRepositorio.save(ip);
 			
@@ -48,7 +48,7 @@ public class IpService {
 	}
 	
 	public Collection<Ip> lista(){
-		return ipRepositorio.findByUnidade_id(SessionUsuario.getInstance().getUsuario().getFuncionario().getUnidadeAtual().getId());
+		return ipRepositorio.findByUnidade(SessionUsuario.getInstance().getUsuario().getFuncionario().getUnidadeAtual().getId());
 	}
 	
 	public Ip buscaPorId(Long id){
@@ -56,7 +56,7 @@ public class IpService {
 	}
 
 	public Iterable<Ip> listaIp(StatusIp status) {
-		return ipRepositorio.findByStatusAndUnidade_idOrderByIdAsc(status, SessionUsuario.getInstance().getUsuario().getFuncionario().getUnidadeAtual().getId());
+		return ipRepositorio.findByStatusAndUnidadeOrderByIdAsc(status, SessionUsuario.getInstance().getUsuario().getFuncionario().getUnidadeAtual().getId());
 	}
 
 }

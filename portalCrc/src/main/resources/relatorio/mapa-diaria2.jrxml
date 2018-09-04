@@ -534,18 +534,21 @@
 					<text><![CDATA[PERNOITE]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="483" y="21" width="63" height="10" uuid="1aa2fb36-ae7d-4940-b0eb-c9ad9f189b8a"/>
-					<textElement>
+					<reportElement x="452" y="21" width="116" height="10" uuid="1aa2fb36-ae7d-4940-b0eb-c9ad9f189b8a"/>
+					<textElement textAlignment="Center">
 						<font size="6"/>
 					</textElement>
-					<text><![CDATA[REGRESSO]]></text>
+					<text><![CDATA[REGRESSO A PARTIR DE:				
+REGRESSO A PARTIR DE:				
+]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="609" y="21" width="63" height="10" uuid="42dfe0e8-29b7-4d51-b435-75eaae892e4d"/>
-					<textElement>
+					<reportElement x="571" y="21" width="111" height="10" uuid="42dfe0e8-29b7-4d51-b435-75eaae892e4d"/>
+					<textElement textAlignment="Center">
 						<font size="6"/>
 					</textElement>
-					<text><![CDATA[DESLOCAMENTO]]></text>
+					<text><![CDATA[DESLOCAMENTO A PARTIR DE:					
+]]></text>
 				</staticText>
 				<staticText>
 					<reportElement x="703" y="22" width="46" height="18" uuid="fc2af7c9-8eda-451b-86df-cfae6a02f2c8"/>
@@ -663,32 +666,29 @@
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font size="7"/>
 					</textElement>
-					<text><![CDATA[13h às 19h	
-]]></text>
+					<text><![CDATA[13:00 horas]]></text>
 				</staticText>
 				<staticText>
 					<reportElement x="534" y="31" width="36" height="9" uuid="139f0f14-0dfe-4620-83ce-da6a03566555"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font size="7"/>
 					</textElement>
-					<text><![CDATA[Após 19h
-]]></text>
+					<text><![CDATA[19:00 horas]]></text>
 				</staticText>
 				<staticText>
 					<reportElement x="588" y="31" width="35" height="9" uuid="f5c224bd-7970-47e3-a1e5-2193b47f0b01"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font size="7"/>
 					</textElement>
-					<text><![CDATA[6h às 12h
+					<text><![CDATA[06 horas	
 ]]></text>
 				</staticText>
 				<staticText>
 					<reportElement x="642" y="31" width="37" height="9" uuid="be284c4f-6741-48f8-b3c9-126bd35a9a19"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font size="6"/>
+						<font size="7"/>
 					</textElement>
-					<text><![CDATA[Mais de 12h
-]]></text>
+					<text><![CDATA[12 horas]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="616" y="-18" width="36" height="18" uuid="86df9687-ef86-4d3c-90ac-dd41bb1fb26a"/>
@@ -762,7 +762,7 @@
 				</textField>
 				<textField>
 					<reportElement stretchType="ElementGroupBottom" x="754" y="42" width="61" height="151" uuid="a586365e-d8c1-4f60-9185-0d5a386bc4cd"/>
-					<textElement textAlignment="Center">
+					<textElement textAlignment="Left">
 						<font size="8"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{itens}.getValorDiaria()]]></textFieldExpression>
@@ -1185,8 +1185,8 @@
 				<text><![CDATA[Assinatura]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="2" y="309" width="398" height="71" uuid="276e3be7-3bc2-4f1f-a4c5-4f4ec19cfce4"/>
-				<textElement textAlignment="Center">
+				<reportElement x="2" y="310" width="398" height="70" uuid="276e3be7-3bc2-4f1f-a4c5-4f4ec19cfce4"/>
+				<textElement textAlignment="Left">
 					<font size="6"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{itens}.getMotivo()]]></textFieldExpression>

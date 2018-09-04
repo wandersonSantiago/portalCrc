@@ -6,6 +6,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import br.com.portalCrc.util.ConverteTextoUpperCase;
+
 @Entity
 @Table(name="tb_cidade" , schema="comum")
 public class Cidade {
@@ -26,7 +28,7 @@ public class Cidade {
 		this.id = id;
 	}
 	public String getNome() {
-		return nome;
+		return  ConverteTextoUpperCase.converte(nome);
 	}
 	public void setNome(String nome) {
 		this.nome = nome;

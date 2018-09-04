@@ -1,5 +1,6 @@
 package br.com.portalCrc.entity.controleIp;
 
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
 
@@ -12,15 +13,12 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import br.com.portalCrc.entity.Unidade;
 import br.com.portalCrc.enums.controleIp.StatusSwitch;
 
 
@@ -29,8 +27,10 @@ import br.com.portalCrc.enums.controleIp.StatusSwitch;
 @SequenceGenerator(name = "switch_id_seq", sequenceName = "switch_id_seq", schema="controle_ip", initialValue = 1, allocationSize = 1) 
 @Table(name="switch", schema="controle_ip") 
 
-public class Switch {
+public class Switch implements Serializable{
 	
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "switch_id_seq")
 	private Long id;
@@ -52,9 +52,9 @@ public class Switch {
 	@Column(name="porta_switch", nullable=false)
 	private Collection<PortaSwitch> portaSwitch; 
 	
-	@OneToOne
-	@JoinColumn(name="id_unidade")
-	private Unidade unidade;
+	
+	@Column(name="id_unidade")
+	private Long unidade;
 	
 	
 	public Long getId() {
@@ -94,10 +94,10 @@ public class Switch {
 	public void setQtdPortas(int qtdPortas) {
 		this.qtdPortas = qtdPortas;
 	}
-	public Unidade getUnidade() {
+	public Long getUnidade() {
 		return unidade;
 	}
-	public void setUnidade(Unidade unidade) {
+	public void setUnidade(Long unidade) {
 		this.unidade = unidade;
 	}	
 	

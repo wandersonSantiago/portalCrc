@@ -25,7 +25,7 @@ public class PontoSevice {
 	
 	
 	public Collection<Ponto> lista(){
-		return pontoRepositorio.findByUnidade_id(SessionUsuario.getInstance().getUsuario().getFuncionario().getUnidadeAtual().getId());
+		return pontoRepositorio.findByUnidade(SessionUsuario.getInstance().getUsuario().getFuncionario().getUnidadeAtual().getId());
 	}
 	
 	
@@ -39,8 +39,8 @@ public class PontoSevice {
 	if(ponto.getId() != null){
 		verificaPortaSwicth(ponto);
 	}	
-		ponto.setUsuarioCadastro(SessionUsuario.getInstance().getUsuario());
-		ponto.setUnidade(SessionUsuario.getInstance().getUsuario().getFuncionario().getUnidadeAtual());
+		ponto.setUsuarioCadastro(SessionUsuario.getInstance().getUsuario().getId());
+		ponto.setUnidade(SessionUsuario.getInstance().getUsuario().getFuncionario().getUnidadeAtual().getId());
 		if(ponto.getPortaSwitch() != null){
 			ponto.setStatus(StatusPonto.ATIVO);
 			ponto.getPortaSwitch().setStatus(StatusPortaSwitch.ATIVO);;
@@ -58,11 +58,6 @@ public class PontoSevice {
 		
 	}
 
-
-	public Iterable<Ponto> listaEmUso(boolean b) {
-		return null;
-	//	return pontoRepositorio.findAllByEmUso(b);
-	}
 	
 	public void verificaPortaSwicth(Ponto ponto){
 		
@@ -81,6 +76,6 @@ public class PontoSevice {
 
 
 	public Iterable<Ponto> listaPorStatus(StatusPonto status) {
-		return pontoRepositorio.findByStatusAndUnidade_id(status, SessionUsuario.getInstance().getUsuario().getFuncionario().getUnidadeAtual().getId());
+		return pontoRepositorio.findByStatusAndUnidade(status, SessionUsuario.getInstance().getUsuario().getFuncionario().getUnidadeAtual().getId());
 	}
 }

@@ -29,7 +29,7 @@ import br.com.portalCrc.util.DateUtil;
 @Transactional(readOnly = true, propagation = Propagation.REQUIRED)
 public class ItemDiariaService {
 	
-	private final Logger log = LoggerFactory.getLogger(this.getClass());
+	
 	
 	@Autowired
 	private ItemDiariaRepository itemDiariaRepository;
@@ -66,7 +66,6 @@ public class ItemDiariaService {
 		
 		somaValorTotalDiaria(valorTotalDiaria, valorTotalItem , funcionarioDiaria , itemDiaria);	
 		
-		log.info("Lançamento de diaria realizado pelo usuario " + itemDiaria.getUsuarioCadastro().getLogin() + " para o funcionario " + itemDiaria.getFuncionarioDiaria().getContaFuncionario().getFuncionario().getPessoa().getNomeCompleto());
 	}
 	
 	
@@ -354,6 +353,31 @@ public class ItemDiariaService {
 
 	public Double somaValorDoFuncionarioPorData(Long idFuncionario, Date dInicial, Date dFinal) {
 		return itemDiariaRepository.somaValorDoFuncionarioPorData(idFuncionario, dInicial, dFinal);
+	}
+
+
+	public List<ItemDiaria> findByFuncionarioDiariaId(Long id) {
+		return itemDiariaRepository.findByFuncionarioDiariaId(id);
+	}
+
+
+	public Double somaValorDoFuncionarioDiariaId(Long idFuncionario, Long idDiaria, TipoDiariaEnum tipo) {
+		return itemDiariaRepository.somaValorDoFuncionarioDiariaId(idFuncionario, idDiaria, tipo);
+	}
+
+
+	public Double somaValorDiariaId(Long idDiaria) {
+		return itemDiariaRepository.somaValorDiariaId(idDiaria);
+	}
+
+
+	public List<ItemDiaria> findByFuncionarioDiariaIdAndTipo(Long idDiaria, TipoDiariaEnum tipo) {
+		return itemDiariaRepository.findByFuncionarioDiariaIdAndTipo(idDiaria, tipo);
+	}
+
+
+	public Double somaValorDiariaIdPorTipo(Long idDiaria, TipoDiariaEnum tipo) {
+		return itemDiariaRepository.somaValorDiariaIdPorTipo(idDiaria, tipo);
 	}
 
 

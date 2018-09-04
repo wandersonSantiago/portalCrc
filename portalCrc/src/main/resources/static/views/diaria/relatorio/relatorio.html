@@ -10,11 +10,28 @@
 				<label class="radio-inline">
 					<input  type="radio" name="relatorio" ng-model="tipo" ng-click="limparPesquisa()"	value="NOMINAL">Nominal
 				</label>
+				<label class="radio-inline">
+					<input  type="radio" name="relatorio" ng-model="tipo" ng-click="limparPesquisa()"	value="MES">Mês
+				</label>
 			</div>
 		</div>
 		<br>	
-		
-		<div class="row">
+		<div class="row" ng-show="tipo == 'MES'">
+		<div class="col-sm-1"></div>
+			<div class="col-md-4">
+			<label >Mês Diaria:</label>
+			<select class="form-control"
+					ng-model="ctrl.diaria" 
+					ng-options="diaria.mes for diaria in ctrl.diarias" required>
+				</select>
+			</div>			
+			<div class="col-sm-2">		
+				<label>Selecione Tipo:</label>
+				<select class="form-control" ng-model="ctrl.tipo" ng-options="tipo for tipo in ctrl.tipos">
+				</select>
+			</div>	
+		</div>
+		<div class="row" ng-show="tipo != 'MES'">
 			<div class="col-sm-1"></div>			
 			<div class="col-sm-4" ng-show="tipo == 'NOMINAL'">
 			 		<label>Pesquisar por Funcionario:</label>
@@ -59,7 +76,7 @@
 				</div>
 			<div class="col-sm-2">
 				<br> <input type="button" id="buscar" value="Pesquisar" ng-disabled="!imprimir"
-					ng-click="ctrl.paginaCorrente = 0; ctrl.pesquisar(imprimir, conta.funcionario.id, dataInicial , dataFinal)"
+					ng-click="ctrl.paginaCorrente = 0; ctrl.pesquisar(imprimir, conta.funcionario.id, dataInicial , dataFinal, ctrl.diaria.id)"
 					class="btn btn-lg btn-primary btn-block btn-signin">
 			</div>
 		</div>
@@ -70,6 +87,8 @@
 		<div class="col-md-4">
 			<input type="text" class="form-control" ng-model="buscar" placeholder="Pesquisar...">
 		</div>
+		<div class="col-md-4"></div>
+		<div class="col-md-4 "><h3><b>Total Geral : {{ ctrl.funcionarios[0].valorTotal | currency}}</b></h3></div>
 	</div>
 	<div class="table-responsive" ng-show="ctrl.funcionarios.length > 0">	
 	<table class="table table-hover table-bordered">

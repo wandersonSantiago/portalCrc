@@ -9,9 +9,9 @@ import br.com.portalCrc.enums.controleIp.StatusPonto;
 
 public interface PontoRepositorio extends JpaRepository<Ponto , Long> {
 
-	Collection<Ponto> findByUnidade_id(Long id);
+	Collection<Ponto> findByUnidade(Long id);
 
 
-	Iterable<Ponto> findByStatusAndUnidade_id(StatusPonto status, Long id);
+	Iterable<Ponto> findByStatusAndUnidade(StatusPonto status, Long id);
 
 }

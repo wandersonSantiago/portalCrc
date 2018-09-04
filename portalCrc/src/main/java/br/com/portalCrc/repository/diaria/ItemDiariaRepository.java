@@ -43,4 +43,19 @@ public interface ItemDiariaRepository extends JpaRepository<ItemDiaria, Long>{
 	@Query("SELECT SUM(valorDiaria) From ItemDiaria d where  d.funcionarioDiaria.contaFuncionario.funcionario.id = ?1 and d.dataSaida >= ?2 and d.dataSaida <= ?3")
 	Double somaValorDoFuncionarioPorData(Long idFuncionario, Date dInicial, Date dFinal);
 
+	@Query("SELECT SUM(valorDiaria) From ItemDiaria d where  d.funcionarioDiaria.id = ?1 and d.funcionarioDiaria.diaria.id = ?2 and d.tipo = ?3")
+	Double somaValorDoFuncionarioDiariaId(Long idFuncionario, Long idDiaria, TipoDiariaEnum tipo);
+	
+	List<ItemDiaria> findByFuncionarioDiariaId(Long id);
+
+	@Query("SELECT SUM(valorDiaria) From ItemDiaria d where d.funcionarioDiaria.diaria.id = ?1")
+	Double somaValorDiariaId(Long idDiaria);
+
+	List<ItemDiaria> findByFuncionarioDiariaIdAndTipo(Long idDiaria, TipoDiariaEnum tipo);
+
+	@Query("SELECT SUM(valorDiaria) From ItemDiaria d where d.funcionarioDiaria.diaria.id = ?1 and d.tipo =?2")
+	Double somaValorDiariaIdPorTipo(Long idDiaria, TipoDiariaEnum tipo);
+
+	
+
 }

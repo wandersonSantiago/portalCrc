@@ -27,7 +27,7 @@ public class FuncaoService {
 	}
 	
 	public Collection<Funcao> lista(){
-		return funcaoRepository.findBySecretaria_id(SessionUsuario.getInstance().getUsuario().getFuncionario().getUnidadeAtual().getCoordenadoria().getSecretaria().getId());
+		return funcaoRepository.findBySecretaria_idOrderByDescricao(SessionUsuario.getInstance().getUsuario().getFuncionario().getUnidadeAtual().getCoordenadoria().getSecretaria().getId());
 	}
 	
 	public Funcao buscaPorId(Long id){

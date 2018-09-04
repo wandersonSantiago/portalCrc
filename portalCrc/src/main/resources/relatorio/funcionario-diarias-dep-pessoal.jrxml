@@ -44,6 +44,12 @@
 	<field name="dataFinal" class="java.util.Date">
 		<fieldDescription><![CDATA[dataFinal]]></fieldDescription>
 	</field>
+	<field name="valorTotal" class="java.lang.Double">
+		<fieldDescription><![CDATA[valorTotal]]></fieldDescription>
+	</field>
+	<field name="diaria" class="br.com.portalCrc.entity.diaria.Diaria">
+		<fieldDescription><![CDATA[diaria]]></fieldDescription>
+	</field>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -89,7 +95,7 @@
 			<textField>
 				<reportElement x="6" y="48" width="542" height="30" uuid="c5f4b383-262b-434f-99c6-e4af3c36d3f4"/>
 				<textElement textAlignment="Center"/>
-				<textFieldExpression><![CDATA["As diárias desta pesquisa ocorreram entre o(s) dia(s) " + new SimpleDateFormat("dd/MM/yyyy").format($F{dataInicial})+ " e " +  new SimpleDateFormat("dd/MM/yyyy").format($F{dataFinal}) + "."]]></textFieldExpression>
+				<textFieldExpression><![CDATA[($F{dataInicial} != null ? "As diárias desta pesquisa ocorreram entre o(s) dia(s) " + new SimpleDateFormat("dd/MM/yyyy").format($F{dataInicial})+ " e " +  new SimpleDateFormat("dd/MM/yyyy").format($F{dataFinal}) + "." : "Pesquisa da diária referente ao mês"+ $F{diaria}.getMes())]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="30" y="78" width="100" height="19" uuid="822023b4-e192-4c8a-b3ce-97c722cd8fcb">
