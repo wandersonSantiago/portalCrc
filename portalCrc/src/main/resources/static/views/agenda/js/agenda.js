@@ -51,5 +51,14 @@ app.config(function($stateProvider, $urlRouterProvider) {
 				    label: 'Visualizar'
 				  }
 		})
+		
+		.state('agenda.menu', {
+			url : "/menu",
+			templateUrl : "views/agenda/home.html",
+			ncyBreadcrumb: {
+				 	parent: 'agenda.listar',
+				    label: 'Visualizar'
+				  }
+		})
 
 });

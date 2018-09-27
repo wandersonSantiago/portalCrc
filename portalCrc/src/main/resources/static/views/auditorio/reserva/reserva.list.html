@@ -1,0 +1,34 @@
+<meta charset="UTF-8">
+<div class="table-response">
+
+<br>
+<br>
+		<input class="form-control" type="text" ng-model="buscaReserva" placeholder="Buscar">
+			<table class="table table-hover table-bordered">
+				<thead>
+					<tr>
+					<th class="btn btn-primary btn-flat col-sm-2"><md-button  ><h5>DataReserva</h5></md-button> </th>
+					<th class="btn btn-primary btn-flat col-sm-2"><md-button  ><h5>HoraReserva</h5></md-button> </th>
+					<th class="btn btn-primary btn-flat col-sm-3"><md-button  ><h5>Funcionario</h5></md-button> </th>
+					<th class="btn btn-primary btn-flat col-sm-4"><md-button  ><h5>UnidadeSolicitante</h5></md-button> </th>
+					<th class="btn btn-primary btn-flat col-sm-4"><md-button  ><h5>EventoRealizado</h5></md-button> </th>
+					<th class="btn btn-primary btn-flat col-sm-2"><md-button  ><h5>Opção</h5></md-button> </th>
+				
+					</tr>
+				</thead>
+				
+				<tbody	ng-repeat=" reserva in ctrl.reservas | filter : buscar ">
+			
+					<tr>										
+						<td><center>{{ reserva.dataReserva | date : 'dd/MM/yyyy'}}</center></td>
+						<td><center>{{ reserva.horaReserva | date : 'HH:mm:ss' }}</center></td>	
+						<td><center>{{ reserva.funcionario}}</center></td>	
+						<td><center>{{ reserva.unidadeCadastro.dadosUnidade.nome}}</center></td>	
+						<td><center>{{ reserva.evento}}</center></td>												
+						<td><a ui-sref="reserva.editar({idReserva : reserva.id})"><i class="glyphicon glyphicon-edit col-sm-4"></i></a>														
+				</tr>
+				</tbody>
+				<tfoot>
+				</tfoot>
+			</table>
+		</div> 
