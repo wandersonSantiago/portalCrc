@@ -48,13 +48,13 @@ public class Ponto {
 	@JoinColumn(name="switch")
 	private Switch switchs;
 	
-	@ManyToOne
-	@JoinColumn(name="id_Unidade" )
-	private Unidade unidade;
 	
-	@ManyToOne 
-	@JoinColumn(name="id_usuario_cadastro")
-	private Usuario usuarioCadastro;
+	@Column(name="id_Unidade" )
+	private Long unidade;
+	
+	
+	@Column(name="id_usuario_cadastro")
+	private Long usuarioCadastro;
 	
 	
 	public Long getId() {
@@ -81,16 +81,16 @@ public class Ponto {
 	public void setSetor(Setor setor) {
 		this.setor = setor;
 	}
-	public Unidade getUnidade() {
+	public Long getUnidade() {
 		return unidade;
 	}
-	public void setUnidade(Unidade unidade) {
+	public void setUnidade(Long unidade) {
 		this.unidade = unidade;
 	}
-	public Usuario getUsuarioCadastro() {
+	public Long getUsuarioCadastro() {
 		return usuarioCadastro;
 	}
-	public void setUsuarioCadastro(Usuario usuarioCadastro) {
+	public void setUsuarioCadastro(Long usuarioCadastro) {
 		this.usuarioCadastro = usuarioCadastro;
 	}
 	public PortaSwitch getPortaSwitch() {

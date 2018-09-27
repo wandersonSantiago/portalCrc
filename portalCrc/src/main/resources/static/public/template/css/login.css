@@ -1,6 +1,26 @@
 @CHARSET "UTF-8";
+p {
+    font-family: Arial, Helvetica, sans-serif;
+}
 
-
+.fundoTb {
+	color : white;
+	background-color: #4682B4;
+}
+.red {
+	color: red;
+	font-weight: bold;
+	
+}
+.blue {
+	color: blue;
+	font-weight: bold;
+}
+.has-error {
+	color: red;
+	5px 1px red;
+	font-weight: bold;
+}
 .profile-img-card {
 	width: 96px;
 	height: 96px;
@@ -74,6 +94,4 @@ body, html {
     background: rgba(255,255,255,0.8); /* fundo branco com um pouco de transparência */
 }
  
-p {
-    margin-bottom: 1.5em;
-}
+

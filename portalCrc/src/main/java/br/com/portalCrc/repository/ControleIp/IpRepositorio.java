@@ -9,10 +9,10 @@ import br.com.portalCrc.enums.controleIp.StatusIp;
 
 public interface IpRepositorio extends JpaRepository<Ip, Long>{
 
-	Collection<Ip> findByUnidade_id(Long id);
+	Collection<Ip> findByUnidade(Long id);
 
 	
 
-	Iterable<Ip> findByStatusAndUnidade_idOrderByIdAsc(StatusIp status, Long id);
+	Iterable<Ip> findByStatusAndUnidadeOrderByIdAsc(StatusIp status, Long id);
 
 }

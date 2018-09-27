@@ -17,4 +17,7 @@ public interface FuncionarioUnidadeRepository extends JpaRepository<FuncionarioU
 	List<FuncionarioUnidade> findDistinctFuncionario_cpfByUnidade_idAndFuncionarioPessoaCpf(Long unidade,
 			String string);
 
+
+	List<FuncionarioUnidade> findByFuncionario_idOrderByIdDesc(Long id);
+
 }

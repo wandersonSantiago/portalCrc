@@ -26,7 +26,7 @@ app.controller('LoginController', function($rootScope, $scope, $location, $http,
 	  $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams, options) {
 		     if (!Auth.checkPermissionForView(toState)) {
 		    	 event.preventDefault(); 
-		         $state.go('login');
+		         $state.go('sem-permissao');
 		     }  
 		   });
 });

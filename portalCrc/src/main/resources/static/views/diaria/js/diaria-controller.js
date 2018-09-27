@@ -3,15 +3,12 @@ app.controller("DiariaEditarController", DiariaEditarController);
 app.controller("DiariaListarController", DiariaListarController);
 app.controller("DiariaRelatorioController", DiariaRelatorioController);
 
-DiariaCadastarController.$inject = ['DiariaService', '$state', 'toastr', '$rootScope', '$scope'];
-DiariaEditarController.$inject = ['$stateParams', '$state', 'DiariaService', 'toastr', '$rootScope', '$scope'];
-DiariaListarController.$inject = ['$stateParams', '$state', 'DiariaService', 'toastr', '$rootScope', '$scope'];
-DiariaRelatorioController.$inject = ['$stateParams', '$state', 'DiariaService', 'toastr', '$rootScope', '$scope'];
 
 function DiariaCadastarController( DiariaService, $state, toastr, $rootScope, $scope){
 	var self = this;
 	
 	self.submit = submit;
+	$scope.botao = "Cadastrar";
 	listarMes();
 	
 	
@@ -37,6 +34,7 @@ function DiariaEditarController($stateParams, $state, DiariaService, toastr, $ro
 	
 	var self = this;
 	self.submit = submit;
+	$scope.botao = "Editar";
 	var idDiaria = $stateParams.idDiaria;
 	
 	listarMes();
@@ -75,46 +73,34 @@ function DiariaEditarController($stateParams, $state, DiariaService, toastr, $ro
 	
 	
 }
-function DiariaListarController($stateParams, $state, DiariaService, toastr, $rootScope, $scope){
+function DiariaListarController(ItemDiariaService, $stateParams, $state, DiariaService, toastr, $rootScope, $scope){
 	var self = this;
 	self.encerrar = encerrar;
-	self.getPage=0;
-	self.totalPages = 0;
-	self.totalElements = 0;
-	$scope.maxResults = 15;
-	listar(0 , 12);
+	self.buscarFuncionarioDiaria = buscarFuncionarioDiaria;
+	
 	diariasEmAberto();
+	dashBoard();
 	
-self.informacaoModal = informacaoModal;
-	
-	function informacaoModal(diaria){
-		$scope.info = diaria;
-	}
-	
-	 function listar(pages, maxResults){
-		 	self.totalPages = [];
-			self.getPage=pages;
-		 DiariaService.listar(pages, maxResults).
-			then(function(e){	
-				self.listaDiarias = e.content;
-				$scope.totalPages = e.totalPages;
-				self.totalElements = e.totalElements;
-				for(i = 0; i < $scope.totalPages ; i++){
-					self.totalPages.push(i);
-				}				
-				}, function(errResponse){
-					sweetAlert({ timer : 3000,  text : errResponse.data.message,  type : "info", width: 300, higth: 300, padding: 20});
-			});
-		};
+	$rootScope.escondeMenu = true;
 		
+			
 	function diariasEmAberto(){
 			 DiariaService.diariasEmAberto().
 				then(function(f){
-					self.diarias = f;					
+					self.diaria = f;		
+					buscarFuncionarioDiaria(f.id, $rootScope.user.funcionario.id);
 					}, function(errResponse){
 				});
 			};
 		
+			function buscarFuncionarioDiaria(idDiaria, idFuncionario) {
+				ItemDiariaService.buscarPorIdFuncionario(idDiaria, idFuncionario).then(
+						function(f) {
+							$scope.funcionario = f;				
+						}, function(errResponse) {
+							$scope.funcionario = null;
+						});
+			};
 	function encerrar(objeto) {
 			swal({
 				  title: 'Encerrar Lançamentos!!!',
@@ -134,8 +120,159 @@ self.informacaoModal = informacaoModal;
 					});	
 					 
 				})		
-		};	
+		};
+		
+		$scope.data = [];
+		
+		function dashBoard(){
+			ItemDiariaService.dashBoard().
+				then(function(f){
+					self.dash = f;
+					chart(f);
+					}, function(errResponse){
+				});
+			};
+			
+		 
+		function chart(f){
+			var administrativo = [];
+			var seguranca = [];
+			var label = [];
+			for (var value of f) {						
+				 administrativo.push(value.valores[0]);
+				 seguranca.push(value.valores[1]);
+				 label.push(value.mes);							
+				}
+			 $scope.series = ['Administrativo', 'Segurança'];
+			 $scope.data =[administrativo , seguranca];
+			 $scope.labels = label;
+		}	
+			    
+
+		 
 }
-function DiariaRelatorioController( $stateParams, $state, DiariaService, toastr, $rootScope, $scope){
+function DiariaRelatorioController( $stateParams, $state, DiariaService, toastr, $rootScope, $scope, FuncionarioContaDiariaService, FuncionarioDiariaService, ItemDiariaService, blockUI){
+	var self = this;
+	self.buscarPorTexto = buscarPorTexto;
+	self.pesquisar = pesquisar;
 	
+	diarias();
+	tipos();
+	
+	$scope.tipo = 'LISTAGEM';
+    $scope.imprimir = 'PAGINA';
+    
+    
+			
+		 function buscarPorTexto(texto){
+		     	return  FuncionarioContaDiariaService.buscarPorTexto(texto).
+		     	 then(function(e){
+		     		return e.content;
+		     	 }, function(errResponse){
+		     		 $scope.messageErro = errResponse.data.message;
+		     	 });
+		 }
+		 
+		 function pesquisar(imprimir, idFuncionario, dataInicial , dataFinal, idDiaria){
+			  if($scope.tipo == 'LISTAGEM'){
+				  idFuncionario = null;
+				  if(imprimir == 'PAGINA'){
+					  buscarMovimentacaoPorDataEPorFuncionario(idFuncionario, dataInicial , dataFinal);
+				  }else{
+					  buscarListagemPorDiariaEPorDataPDF(idFuncionario, dataInicial , dataFinal);
+				  }			  
+			  }			 
+			  if($scope.tipo == 'NOMINAL'){
+				  if(imprimir == 'PAGINA'){
+					  buscarMovimentacaoPorDataEPorFuncionario(idFuncionario, dataInicial , dataFinal);
+				  }else{
+					  buscarListagemPorDiariaEPorDataPDF(idFuncionario, dataInicial , dataFinal);
+				  }		
+				 
+			  }
+			  if($scope.tipo == 'MES'){
+				  if(imprimir == 'PAGINA'){
+					  buscarDiariaPorFuncionario(idDiaria);
+				  }else{
+					  buscarDiariaPorFuncionarioPDF(idDiaria);
+				  }		
+				 
+			  }
+		  }
+		  
+		   function buscarDiariaPorFuncionarioPDF(idDiaria){	
+			    	blockUI.start();
+			    	DiariaService.buscarDiariaPorFuncionarioPDF(idDiaria, self.tipo)
+		   	 .then(function(d){
+		   		var file = new Blob([d],{type: 'application/pdf'});
+		   		var fileURL = URL.createObjectURL(file);
+		   		blockUI.stop();
+		   	    window.open(fileURL);
+		   	 	 }).catch(function error(msg) {
+		   	 		 if(msg.data.message){
+		   	 		mensagemAlerta(msg.data.message, 'info');
+		   	 		 }
+		   	 	mensagemAlerta("Não foi possivel gerar o PDF", 'error');
+		   	 });
+		     };		     
+	     
+		   				
+			function buscarDiariaPorFuncionario(idDiaria){
+		    	 DiariaService.buscarDiariaPorFuncionario(idDiaria, self.tipo).then(
+							function(f) {
+								self.funcionarios = f;		
+							}, function(errResponse) {								
+								mensagemAlerta(errResponse.data.message, 'info');								
+								$scope.funcionario = null;
+							});
+				};
+			   
+		     function buscarListagemPorDiariaEPorDataPDF(idFuncionario, dataInicial , dataFinal){	
+			    	blockUI.start();
+			    	DiariaService.imprimir(idFuncionario, dataInicial , dataFinal)
+	 	   	 .then(function(d){
+	 	   		var file = new Blob([d],{type: 'application/pdf'});
+	 	   		var fileURL = URL.createObjectURL(file);
+	 	   		blockUI.stop();
+	 	   	    window.open(fileURL);
+	 	   	 	 }).catch(function error(msg) {
+	 	   	 		 if(msg.data.message){
+	 	   	 		mensagemAlerta(msg.data.message, 'info');
+	 	   	 		 }
+	 	   	 	mensagemAlerta("Não foi possivel gerar o PDF", 'error');
+	 	   	 });
+		     };		     
+		     
+		   				
+			function buscarMovimentacaoPorDataEPorFuncionario(idFuncionario, dataInicial , dataFinal){
+		    	 DiariaService.funcionariosPorDataPorId(idFuncionario, dataInicial , dataFinal).then(
+							function(f) {
+								self.funcionarios = f;		
+							}, function(errResponse) {								
+								mensagemAlerta(errResponse.data.message, 'info');								
+								$scope.funcionario = null;
+							});
+				};	
+			
+				function mensagemAlerta(texto, tipo){
+					sweetAlert({ timer : 30000,  text : texto,  type : tipo, width: 300, higth: 300, padding: 20});
+				}
+				
+				function diarias(){
+					 DiariaService.unidade().
+						then(function(f){
+							self.diarias = f;		
+							}, function(errResponse){
+						});
+					};
+
+					function tipos() {
+						ItemDiariaService.tipos().then(
+								function(f) {					
+									self.tipos = f;
+								}, function(errResponse) {
+									
+								});
+					};
+					
 }

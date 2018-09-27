@@ -4,39 +4,45 @@
 				<form role="form-vertical" name="formAtribuirConta"	ng-submit="contaCtrl.submit()">					
 						
 					
-					<br>
+					<hr>
 					<div class="row">
+					<div class="col-md-3">
+						<p><b>Nome:</b></p>
+							 <span>{{contaCtrl.funcionario.pessoa.nomeCompleto}}</span>
+					</div>
+					<div class="col-md-2">
+						<p><b>CPF:</b></p>
+							 <span>{{contaCtrl.funcionario.pessoa.cpf | cpf}}</span>
+					</div>
+					<div class="col-md-4">
+						<p><b>Cargo:</b></p>
+							 <span>{{contaCtrl.funcionario.cargoAtual.descricao}}</span>
+					</div>
+					<div class="col-md-3">
+						<p><b>Unidade:</b></p>
+							 <span>{{contaCtrl.funcionario.unidadeAtual.dadosUnidade.mnemonico}}</span>
+					</div>							
 						
-						<div class="col-sm-6">
-						Nome:
-						<br>
-								{{contaCtrl.funcionario.pessoa.nomeCompleto}}
-						</div>
-						<div class="col-sm-6">
-						CPF:
-						<br>
-								{{contaCtrl.funcionario.pessoa.cpf}}
-						</div>
 					</div>
 					
-						<br>
+					<hr>
 					<div class="row">
 						
 						<div class="col-sm-3" >
-						Banco:							
-							<input class="form-control" placeholder="Banco" ng-model="contaCtrl.contaFuncionarioDiaria.banco" id="banco" type="text"  required >
+						<p><b>Banco:</b></p>							
+							<input class="form-control" placeholder="ex: 001" ng-model="contaCtrl.contaFuncionarioDiaria.banco" title="Digite o número do seu banco"  id="banco" type="text"  required >
 						</div> 						
 						<div class="col-sm-3">
-						Agencia:
-							<input class="form-control" placeholder="Agencia" ng-model="contaCtrl.contaFuncionarioDiaria.agencia" id="agencia" type="text"  required >
+						<p><b>Agencia:</b></p>
+							<input class="form-control" placeholder="ex: 5055-5" ng-model="contaCtrl.contaFuncionarioDiaria.agencia" title="Digite o número da sua agência bancária" id="agencia"  type="text"  required >
 						</div>
 						<div class="col-sm-3">
-						Conta:
-							<input class="form-control" placeholder="Conta" ng-model="contaCtrl.contaFuncionarioDiaria.conta" id="conta" type="text"  required >
+						<p><b>Conta:</b></p>
+							<input class="form-control" placeholder="ex: 152505-5" ng-model="contaCtrl.contaFuncionarioDiaria.conta" title="Digite o número da sua conta bancária" id="conta" type="text"  required >
 						</div>
 						<div class="col-sm-3">
-						Salário:
-							<input class="form-control" placeholder="Salário atual" ng-model="contaCtrl.contaFuncionarioDiaria.salarioAtual" id="conta" type="text" ui-money-mask required >
+						<p><b>Salário:</b></p>
+							<input class="form-control" placeholder="Salário atual" ng-model="contaCtrl.contaFuncionarioDiaria.salarioAtual" title="Digite o seu salário atual" id="conta" type="text" ui-money-mask required >
 						</div>
 						
 					</div>
@@ -45,20 +51,24 @@
 					
 					<div class="row">			
 						<div class="col-sm-6">
-								Indice UFESP:
+								<p><b>Indice UFESP:</b></p>
 								<h3>
-								<select class="form-control select2" ng-model="indiceUfesp" ng-options="indice for indice in indices" >
+								<select class="form-control select2" ng-model="indiceUfesp" title="Qual o indice de UFESP que o seu cargo se enquadra" ng-options="indice for indice in indices" >
 								</select>
 								</h3>
 							</div>
 							<div class="col-sm-6">
-								Porcentagem do salário:
+								<p><b>Porcentagem do salário:</b></p>
 								<h3>
-								<select class="form-control select2" ng-model="limiteCemPorCento"  ng-options="limite for limite in limites">
+								<select class="form-control select2" ng-model="limiteCemPorCento" title="Escolha o limite maximo da sua diária"  ng-options="limite for limite in limites">
 								</select>
 								</h3>
 							</div>
 												
+					</div>
+					<div class="row" ng-show="limiteCemPorCento === 'CEM_POR_CENTO'">
+					<p><b>Decreto Diario Oficial</b></p>
+						<textarea class="form-control" rows="3" cols="12" ng-model="contaCtrl.contaFuncionarioDiaria.decreto"></textarea>
 					</div>
 
 					<hr>					

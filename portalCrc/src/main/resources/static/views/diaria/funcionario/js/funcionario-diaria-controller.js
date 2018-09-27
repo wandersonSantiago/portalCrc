@@ -1,45 +1,55 @@
-app.controller("ListarFuncionarioDiariaController",
-		ListarFuncionarioDiariaController);
-app.controller("FuncionarioDiariaCadastrarController",
-		FuncionarioDiariaCadastrarController);
-app.controller("FuncionarioDiariaListarController",
-		FuncionarioDiariaListarController);
-app.controller("FuncionarioDiariaCoordenadoriaListarController",
-		FuncionarioDiariaCoordenadoriaListarController);
-app.controller("FuncionarioDiariaUnidadeListarController",
-		FuncionarioDiariaUnidadeListarController);
-app.controller("FuncionarioDiariaSecretariaListarController",
-		FuncionarioDiariaSecretariaListarController);
-app.controller("FuncionarioDiariaShowController",
-		FuncionarioDiariaShowController);
+app.controller("ListarFuncionarioDiariaController",	ListarFuncionarioDiariaController);
+app.controller("FuncionarioDiariaCadastrarController",	FuncionarioDiariaCadastrarController);
+app.controller("FuncionarioDiariaListarController",	FuncionarioDiariaListarController);
+app.controller("FuncionarioDiariaCoordenadoriaListarController",FuncionarioDiariaCoordenadoriaListarController);
+app.controller("FuncionarioDiariaUnidadeListarController",	FuncionarioDiariaUnidadeListarController);
+app.controller("FuncionarioDiariaSecretariaListarController",	FuncionarioDiariaSecretariaListarController);
+app.controller("FuncionarioDiariaShowController",	FuncionarioDiariaShowController);
 
-function ListarFuncionarioDiariaController(DiariaService, $state, $stateParams,FuncionarioDiariaService, toastr, $rootScope, $scope, $log, FuncionarioContaDiariaService) {
+function ListarFuncionarioDiariaController(DiariaService, $state, $stateParams,FuncionarioDiariaService, toastr, $rootScope, $scope, $log, FuncionarioContaDiariaService, blockUI) {
 	
 	var self = this;
 	
 	self.buscarPorTexto = buscarPorTexto;
 	self.informacaoModal = informacaoModal;
 	var idDiaria = $stateParams.idDiaria;
-
-	buscarFuncionarioPorDiariaPorId(idDiaria);
-
-	function buscarPorTexto(texto){
-		FuncionarioContaDiariaService.buscarPorTexto(texto).
-			then(function(f){
-				self.contaFuncionarioDiaria = f;
-				}, function(errResponse){
-					sweetAlert({text : errResponse.data.message,  type : "info", width: 300, higth: 300, padding: 20});
-				});
-		};
-		
-	function buscarFuncionarioPorDiariaPorId(id) {
-		FuncionarioDiariaService.buscarFuncionarioPorDiariaPorId(id).then(
-				function(p) {
-					self.itens = p;
-				}, function(errResponse) {
-				});
-	};
+	self.buscarDiariaFuncionarioPorTexto = buscarDiariaFuncionarioPorTexto;
+	self.totalElementos = {};
+	self.totalPaginas = null;
+	self.paginaCorrente = 0;
 	
+		
+	 function buscarPorTexto(texto){
+	     	return  FuncionarioContaDiariaService.buscarPorTexto(texto).
+	     	 then(function(e){
+	     		return e.content;
+	     	 }, function(errResponse){
+	     		 $scope.messageErro = errResponse.data.message;
+	     	 });
+	 }
+	     
+    function buscarDiariaFuncionarioPorTexto(texto, idDiaria){
+    	$scope.mensagemErro = null;
+    	 blockUI.start();	    	 
+    	 self.paginaCorrente == '0'? self.paginaCorrente = 0 : self.paginaCorrente = self.paginaCorrente - 1;    	 
+    	 FuncionarioDiariaService.buscarFuncionarioPorDiariaPorId(texto, idDiaria, self.paginaCorrente).
+    	 then(function(e){
+    		 $scope.mensagemErro = null;
+    		 self.itens = e.content;	
+    		 self.totalElementos = e.totalElements;
+    		 self.totalPaginas = e.totalPages;
+    		 self.paginaCorrente = e.number + 1;
+    		 blockUI.stop();
+    	 }, function(errResponse){
+    		 blockUI.stop();
+    		 if(errResponse.status == 404){
+    			 $scope.mensagemErro = errResponse.data.message;
+    		 }else{
+    			 $scope.mensagemErro =errResponse.data.message;
+    		 }
+		 });
+    }
+    
 	function informacaoModal(diaria){
 		$scope.item = diaria;
 	}
@@ -49,6 +59,7 @@ function ListarFuncionarioDiariaController(DiariaService, $state, $stateParams,F
 		if(!id)return;
 		DiariaService.buscarPorId(id).
 		then(function(p){
+			buscarDiariaFuncionarioPorTexto('', p.id);
 			self.diaria = p;
 	}, function(errResponse){
 		sweetAlert({ timer : 3000,  text : errResponse.data.message,  type : "info", width: 300, higth: 300, padding: 20});
@@ -143,22 +154,24 @@ function FuncionarioDiariaShowController($stateParams, $state,
 
 }
 
-function FuncionarioDiariaUnidadeListarController($localStorage, $stateParams, $state, FuncionarioDiariaService,
-		toastr, $rootScope, $scope) {
+function FuncionarioDiariaUnidadeListarController($localStorage, $stateParams, $state, FuncionarioDiariaService, DiariaService,	toastr, $rootScope, $scope) {
+	
 	var self = this;
+	self.listar = listar;
+	self.informacaoModal = informacaoModal;
 	
 	if($stateParams.idDiaria){
 		$localStorage.idDiaria = $stateParams.idDiaria;
 	}
 	
 	
+	diarias();
 	listar($localStorage.idDiaria);
-
-	self.informacaoModal = informacaoModal;
 	
-	function informacaoModal(diaria){
-		$scope.item = diaria;
-	}
+	
+	
+	
+	
 	function listar(idDiaria) {
 		FuncionarioDiariaService.porUnidade(idDiaria).then(function(f) {
 			self.itens = f;
@@ -181,11 +194,21 @@ function FuncionarioDiariaUnidadeListarController($localStorage, $stateParams, $
 			var soma;
 			soma = parseFloat(f[i].totalValorDiaria);
 			$scope.valorTotal += parseFloat(soma);
-			console.log($scope.valorTotal);
 		}
 	}
 	
+	function diarias(){
+		 DiariaService.unidade().
+			then(function(f){
+				self.diarias = f;		
+				}, function(errResponse){
+			});
+		};
 	
+		function informacaoModal(diaria){
+			$scope.item = diaria;
+		}
+		
 }
 
 function FuncionarioDiariaCoordenadoriaListarController($localStorage, $stateParams, $state, FuncionarioDiariaService,

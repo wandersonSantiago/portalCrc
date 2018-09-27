@@ -26,7 +26,7 @@ public class Endereco  {
 	@Column(nullable = true,length = 50)
 	private String localidade;
 	@Column(nullable = true)
-	private Integer numero;
+	private String numero;
 	@Column(nullable = true)
 	private String uf;
 	@Column(nullable = true,length = 9)
@@ -51,10 +51,10 @@ public class Endereco  {
 	public void setLocalidade(String localidade) {
 		this.localidade =  ConverteTextoUpperCase.converte(localidade);
 	}
-	public Integer getNumero() {
+	public String getNumero() {
 		return numero;
 	}
-	public void setNumero(Integer numero) {
+	public void setNumero(String numero) {
 		this.numero = numero;
 	}
 	public String getUf() {

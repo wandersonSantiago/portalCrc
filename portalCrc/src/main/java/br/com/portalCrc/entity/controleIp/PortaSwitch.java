@@ -1,5 +1,6 @@
 package br.com.portalCrc.entity.controleIp;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -10,7 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -18,16 +19,16 @@ import javax.persistence.TemporalType;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import br.com.portalCrc.entity.Unidade;
-import br.com.portalCrc.entity.Usuario;
 import br.com.portalCrc.enums.controleIp.StatusPortaSwitch;
 
 @Entity
 @SequenceGenerator(name = "porta_id_seq", sequenceName = "porta_id_seq", schema="controle_ip", initialValue = 1, allocationSize = 1) 
 @Table(name="porta_switch", schema="controle_ip")
 
-public class PortaSwitch {
+public class PortaSwitch implements Serializable{
 	
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "porta_id_seq")
 	private Long id;
@@ -47,16 +48,16 @@ public class PortaSwitch {
 	@Column(name="data_cadastro" ,  nullable=false)
 	private Date dataCadastro;
 	
-	@ManyToOne
-	@JoinColumn(name="id_usuario_cadastro")
-	private Usuario usuarioCadastro;
 	
-	@ManyToOne
-	@JoinColumn(name="id_unidade")
-	private Unidade unidade;
+	@Column(name="id_usuario_cadastro")
+	private Long usuarioCadastro;
+	
+
+	@Column(name="id_unidade")
+	private Long unidade;
 	
 	@JsonIgnore
-	@ManyToOne 
+	@OneToOne 
 	@JoinColumn(name="id_switch")
 	private Switch switchs;
 	
@@ -86,10 +87,10 @@ public class PortaSwitch {
 	public void setDataCadastro(Date dataCadastro) {
 		this.dataCadastro = dataCadastro;
 	}
-	public Usuario getUsuarioCadastro() {
+	public Long getUsuarioCadastro() {
 		return usuarioCadastro;
 	}
-	public void setUsuarioCadastro(Usuario usuarioCadastro) {
+	public void setUsuarioCadastro(Long usuarioCadastro) {
 		this.usuarioCadastro = usuarioCadastro;
 	}
 	public Switch getSwitchs() {
@@ -99,10 +100,10 @@ public class PortaSwitch {
 		this.switchs = switchs;
 	}
 	
-	public Unidade getUnidade() {
+	public Long getUnidade() {
 		return unidade;
 	}
-	public void setUnidade(Unidade unidade) {
+	public void setUnidade(Long unidade) {
 		this.unidade = unidade;
 	}
 	public StatusPortaSwitch getStatus() {

@@ -8,8 +8,8 @@
 			class="ng-scope" flow-name="obj.flow">
 			<div ng-show="!$flow.files.length">
 			<div class="col-sm-3"></div>
-				<img ng-src="/rest/usuario/{{usuario.id}}/foto"
-				  class="img-circle" alt="User Image">
+				<img ng-src="/rest/usuario/{{user.id}}/foto"
+				  class="thumbnail col-sm-12"  alt="User Image">
 			</div>
 			<div class="thumbnail " ng-show="$flow.files.length">
 				<img flow-img="$flow.files[0]">
@@ -39,9 +39,9 @@
 	<form name="form">
 	<span class=" col-sm-12 btn btn-flat  btn-primary"><h5>Dados Pessoais</h5></span>
 	<br><br>	<br><br>
-	<center> {{usuario.funcionario.pessoa.nomeCompleto}} <br>
-	 {{usuario.funcionario.setorAtual.nome}} <br>
-	 {{usuario.funcionario.unidadeAtual.dadosUnidade.nome}} <br></center>
+	<center> {{user.funcionario.pessoa.nomeCompleto}} <br>
+	 {{user.funcionario.setorAtual.nome}} <br>
+	 {{user.funcionario.unidadeAtual.dadosUnidade.nome}} <br></center>
 	<br>
 	
 	<span class=" col-sm-12 btn btn-flat  btn-primary"><h4>Dados Usuário</h4></span>
@@ -50,7 +50,7 @@
 	<div class="col-sm-4">
 				<div class="input-group margin">
 					<select class="form-control select2"
-						ng-model="usuario.status"
+						ng-model="user.status"
 						ng-change="ctrl.alterarStatus(usuario)"
 						ng-options="status for status in ctrl.status track by status">
 						<option value=""></option>
@@ -95,7 +95,7 @@
 				</span>
 			</div>
 		</div>
-		<md-button ng-disabled="!senhaVerificacao || !senha || !senhaRepitida" ng-click="ctrl.alterarSenha(usuario , senhaVerificacao, senha, senhaRepitida  )" class="md-raised md-primary">Alterar Senha</md-button>
+		<md-button ng-disabled="!senhaVerificacao || !senha || !senhaRepitida" ng-click="ctrl.alterarSenha(user , senhaVerificacao, senha, senhaRepitida  )" class="md-raised md-primary">Alterar Senha</md-button>
 	</div>
 	<br> <br>
 

@@ -39,5 +39,9 @@ public interface ChamadoTiRepository extends JpaRepository<ChamadoTi, Long> {
 
 	long countByStatus(StatusChamado aberto);
 
+
+
+	int countByStatusAndSilenciar(StatusChamado aberto, boolean b);
+
 	
 }

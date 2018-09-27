@@ -22,6 +22,8 @@ app.config(function($stateProvider, $urlRouterProvider) {
 				  }
 		})
 		.state('funcao.cadastrar', {
+			requiresAuthentication: true,
+			permissions: ["FUNCAO", "ADMIN"],
 			url : "/cadastrar",
 			templateUrl : "views/recursosHumanos/funcao/funcao.form.html",
 			controller : "FuncaoCadastarController as funcaoCtrl",
@@ -31,6 +33,8 @@ app.config(function($stateProvider, $urlRouterProvider) {
 			  }
 		})
 		.state('funcao.editar', {
+			requiresAuthentication: true,
+			permissions: ["FUNCAO", "ADMIN"],
 			url : "/:idFuncao/editar",
 			templateUrl : "views/recursosHumanos/funcao/funcao.form.html",
 			controller : "FuncaoEditarController as funcaoCtrl",

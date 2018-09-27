@@ -28,7 +28,7 @@ public class CargoService {
 	}
 	
 	public Collection<Cargo> lista(){
-		return cargoRepository.findBySecretaria_id(SessionUsuario.getInstance().getUsuario().getFuncionario().getUnidadeAtual().getCoordenadoria().getSecretaria().getId());
+		return cargoRepository.findBySecretaria_idOrderByDescricao(SessionUsuario.getInstance().getUsuario().getFuncionario().getUnidadeAtual().getCoordenadoria().getSecretaria().getId());
 	}
 	
 	public Cargo buscaPorId(Long id){

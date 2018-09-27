@@ -46,12 +46,25 @@ public class FuncionarioUnidadeService {
 	}
 	
 	@Transactional(readOnly = false)
-	public void salvarEditar(FuncionarioUnidade funcionarioUnidade){
+	public void insert(FuncionarioUnidade funcionarioUnidade){
+		if(funcionarioUnidade.getId() != null) {
+			funcionarioUnidade.setId(null);
+		}
 		salvaHistoricoFuncionario(funcionarioUnidade.getFuncionario(), funcionarioUnidade);
 		criarUsuario(funcionarioUnidade.getFuncionario());
 		funcionarioUnidade.setDataCadastro(new Date());
 		funcionarioUnidade.setUnidade(SessionUsuario.getInstance().getUsuario().getFuncionario().getUnidadeAtual());
 		funcionarioUnidadeRepository.save(funcionarioUnidade);
+	}
+	
+	@Transactional(readOnly = false)
+	public void update(FuncionarioUnidade funcionarioUnidade){
+		if(funcionarioUnidade.getId() != null) {		
+		salvaHistoricoFuncionario(funcionarioUnidade.getFuncionario(), funcionarioUnidade);
+		funcionarioUnidade.setDataCadastro(new Date());
+		funcionarioUnidade.setUnidade(SessionUsuario.getInstance().getUsuario().getFuncionario().getUnidadeAtual());
+		funcionarioUnidadeRepository.save(funcionarioUnidade);
+		}
 	}
 	
 	@Transactional(readOnly = false)
@@ -66,7 +79,12 @@ public class FuncionarioUnidadeService {
 	@Transactional(readOnly = false)
 	public void criarUsuario(Funcionario funcionario){		
 	
-			Usuario usuarioVerificado = usuarioRepository.findByLogin(funcionario.getPessoa().getCpf());
+		String login = funcionario.getPessoa().getNomeCompleto().substring(0,3).toUpperCase();
+		
+		String rg = funcionario.getPessoa().getRg().replaceAll("[^0-9]", "");
+		login += rg;
+		
+		Usuario usuarioVerificado = usuarioRepository.findByLogin(login);
 	
 		if( usuarioVerificado != null){
 			usuarioVerificado.setFuncionario(funcionario);
@@ -75,8 +93,11 @@ public class FuncionarioUnidadeService {
 			Usuario usuario = new Usuario();
 			usuario.setDataCadastro(new Date());
 			usuario.setFuncionario(funcionario);
-			usuario.setLogin(funcionario.getPessoa().getRg());		
-			String hash = new BCryptPasswordEncoder().encode(funcionario.getPessoa().getRg());
+			
+			
+			
+			usuario.setLogin(login);		
+			String hash = new BCryptPasswordEncoder().encode(rg);
 			usuario.setSenha(hash);
 			usuarioRepository.save(usuario);
 		}		
@@ -113,6 +134,10 @@ public class FuncionarioUnidadeService {
 		funcionario.setUnidadeAtual(unidade);
 		
 		funcionarioRepository.save(funcionario);
+	}
+
+	public List<FuncionarioUnidade> findAllByFuncionarioId(Long id) {
+		return  funcionarioUnidadeRepository.findByFuncionario_idOrderByIdDesc(id);
 	}
 
 	

@@ -1,66 +1,76 @@
 <meta charset="UTF-8">
 <h3>Dados Da Diária:</h3>
 <div class="row">	
-		<div class="btn btn-default btn-flat col-sm-3 ">
+		<div class="col-sm-3 ">
 			<label>Mês:</label> {{funcionario.diaria.mes}}
 		</div>	
-		<div class="btn btn-default btn-flat col-sm-3 ">
+		<div class="col-sm-3 ">
 			<label>Valor Ufesp:</label> {{funcionario.diaria.valorUfesp | currency}} <br>
 		</div>
-		<div class="btn btn-default btn-flat col-sm-3 ">
+		<div class="col-sm-3 ">
 			<label>Data Abertura:</label> {{funcionario.diaria.dataAbertura | date : 'dd/MM/yyyy'}}
 		</div>
-		<div class="btn btn-default btn-flat col-sm-3 ">
+		<div class="col-sm-3 ">
 			<label>Status:</label>  {{funcionario.diaria.status}} 
 		</div>	
 	</div>
+	<hr>
 <h3>Dados Do Funcionário:</h3>
 	<div class="row">
-		<div class="btn btn-default btn-flat col-sm-3 ">
+		<div class="col-sm-3 ">
 			<label>Nome:</label> 	 {{funcionario.contaFuncionario.funcionario.pessoa.nomeCompleto}} 
 		</div>	
-		<div class="btn btn-default btn-flat col-sm-3 ">
+		<div class="col-sm-3 ">
 			<label>Cargo:</label> 	 {{funcionario.cargo.descricao}} 
 		</div>
-		<div class="btn btn-default btn-flat col-sm-3 ">
+		<div class="col-sm-3 ">
 			<label>Setor:</label>	 {{funcionario.setor.nome}} 
 		</div>
-		<div class="btn btn-default btn-flat col-sm-3 ">
+		<div class=" col-sm-3 ">
 			<label>Unidade:</label> {{funcionario.unidade.dadosUnidade.mnemonico}}
 		</div>	
 	</div>
+	<hr>
 <h3>Informações para Depósito em Conta:</h3>
 	<div class="row">
-	<div class="btn btn-default btn-flat col-sm-2 ">
+	<div class=" col-sm-2 ">
 			<label>CPF: </label>	 {{funcionario.contaFuncionario.funcionario.pessoa.cpf}} 
 		</div>
-		<div class="btn btn-default btn-flat col-sm-2 ">
-			<label>Indice UFESP:</label> {{funcionario.contaFuncionario.indiceUfesp}}
+		<div class="col-sm-2 ">
+			<label>Indice UFESP:</label> {{funcionario.indiceUfesp}}
 		</div>	
-		<div class="btn btn-default btn-flat col-sm-2 ">
-			<label>Banco:</label> 	 {{funcionario.contaFuncionario.banco}} 
+		<div class="col-sm-2 ">
+			<label>Banco:</label> 	 {{funcionario.banco}} 
 		</div>
-		<div class="btn btn-default btn-flat col-sm-2 ">
-			<label>Agencia:</label>	 {{funcionario.contaFuncionario.agencia}} 
+		<div class="col-sm-2 ">
+			<label>Agencia:</label>	 {{funcionario.agencia}} 
 		</div>
-		<div class="btn btn-default btn-flat col-sm-2 ">
-			<label>Conta:</label> {{funcionario.contaFuncionario.conta}}
+		<div class="col-sm-2 ">
+			<label>Conta:</label> {{funcionario.conta}}
 		</div>	
-		<div class="btn btn-default btn-flat col-sm-2 ">
-				<label>Salário:</label>{{funcionario.contaFuncionario.salarioAtual | currency}}
+		<div class="col-sm-2 ">
+				<label>Salário:</label>{{funcionario.salarioAtual | currency}}
 				</div>
 	</div>
 				
-	
-	<div class="row ">									
-			<div class="btn btn-default btn-flat col-sm-2 ">
-				<label>Limite:</label>{{funcionario.contaFuncionario.limiteCemPorCento * funcionario.contaFuncionario.salarioAtual / 100 | currency}}</div>			
-			<div class="btn btn-info btn-flat col-sm-2 ">
-				<label ng-if="funcionario.diaria.status == 'ABERTO'">Total a Receber:</label>
-				<label ng-if="funcionario.diaria.status == 'FECHADO'">Total Recebido:</label>{{funcionario.totalValorDiaria | currency}}</div>
+	<hr>
+	<div class="row ">
+	<div class="col-sm-2 ">
+				<label>Total:</label>{{funcionario.totalValorDiaria | currency}}
+			</div>									
+			<div class="col-sm-2 ">
+				<label>Limite:</label>{{funcionario.limiteCemPorCento * funcionario.salarioAtual / 100 | currency}}
+			</div>					
+			<div class="col-sm-2 ">
+				<label>Recebido:</label>{{funcionario.totalPago | currency}}
+			</div>
+			<div class=" col-sm-2 ">
+				<label >Saldo:</label>{{funcionario.totalValorDiaria - funcionario.totalPago  | currency}}
+			</div>
 				
-				<div ng-show="funcionario.glosada" class="btn btn-danger btn-flat col-sm-2">
-				<label>Glosada:</label>{{funcionario.glosada | currency}}</div>			
+			<div ng-show="funcionario.glosada" class=" col-sm-3">
+				<label>Glosada:</label><label class="red">{{funcionario.glosada | currency}}</label>
+			</div>			
 	</div>
 			
 		
@@ -74,7 +84,7 @@
 			</select>
 		</div>		
 	</div>	
-	<div class="row">
+	<div class="row" ng-if="itens.length > 0">
 <div class="table-responsive">	
 	<table class="table table-hover table-bordered">
 		<thead>
@@ -88,8 +98,6 @@
 				<td>Hora Saída</td>
 				<td>Hora Chegada</td>
 				<td>Valor</td>				
-				
-				<!-- <td>Usuario cadastro</td> -->
 
 			</tr>
 		</thead>
@@ -97,7 +105,7 @@
 			<tr>
 				<td>
 					<div ng-repeat="cidade in item.localDeslocamentos" >							
-						{{ cidade.nome }}&nbsp;<a ng-if="item.localDeslocamentos.length > 0">/</a>&nbsp;
+						{{ cidade.nome }}&nbsp;<a ng-if="item.localDeslocamentos.length > 1">/</a>&nbsp;
 					</div>
 				</td>	
 				<td >{{ item.codigoLocalDeslocamento.codigo }}</td>	
@@ -105,23 +113,32 @@
 				<td >{{ item.meioTransporteRetorno}}</td>								
 				<td >{{ item.dataSaida | date : 'dd/MM/yyyy'}}</td>				
 				<td >{{ item.dataChegada | date : 'dd/MM/yyyy'}}</td>				
-				<td >{{ item.horaSaida | date : 'HH:mm'}}</td>				
-				<td >{{ item.horaChegada | date : 'HH:mm'}}</td>				
+				<td >{{ item.horaSaida | date : 'dd/MM/yyyy HH:mm'}}</td>				
+				<td >{{ item.horaChegada | date : 'dd/MM/yyyy HH:mm'}}</td>				
 				<td >{{ item.valorDiaria | currency }}</td>				
-				<!-- <td >{{ item.usuarioCadastro.funcionario.pessoa.nomeCompleto | limitTo:10 }}</td> -->	
-				<td permission="['DIARIA_FINANCAS_UNIDADE' , 'ADMIN']" ng-if="!item.analizado"><button ng-click="ctrl.analizado(item.id)" class="btn btn-primary">Analisar</button></td>			
-				<td ng-if="item.analizado"><button disabled class="btn btn-success">Analisado</button></td>
-				<td ng-if="item.dataChegada === item.dataSaida" permission="['DIARIA_FINANCAS_UNIDADE' , 'ADMIN']" ><button ng-if="!item.retorno" ng-disabled="item.analizado" ng-click="ctrl.retorno(item.id)" class="btn btn-primary">não retorno</button>		
-				<button  ng-disabled="item.analizado"  ng-if="item.retorno" ng-click="ctrl.retorno(item.id)"  class="btn btn-success">retorno</button></td>
-
+				<td  ng-if="!item.analizado"><button ng-click="ctrl.analizado(item.id)" title="Após selecionada, não sera mais possivel alterar este item, e ele entrara como pago!" ng-disabled="desabilitar" class="btn btn-primary">Aprovar</button>
+				
+				<a ng-if="!item.analizado" ui-sref="item.editar({idItem : item.id})" title="Editar esta Diaria"><i
+						class="glyphicon glyphicon-edit"></i></a>			
+				<a href="" ng-if="!item.analizado" ng-click="ctrl.excluir(item)" title="Excluir esta diaria"><i
+						class="glyphicon glyphicon-remove"></i></a>
+				</td>					
+				<td ng-if="item.analizado"><button disabled class="btn btn-success">Aprovado</button></td>
+				<td ng-if="item.qtdPernoite == null" ><button ng-if="!item.retorno" title="Selecione esta opção para uma diária comum para uma diaria de retorno" ng-disabled="item.analizado || desabilitar" ng-click="ctrl.retorno(item.id)" class="btn btn-primary">com retorno</button>		
+				<button  ng-disabled="item.analizado"  ng-if="item.retorno || desabilitar" ng-click="ctrl.retorno(item.id)"  class="btn btn-success">sem retorno</button>
+				</td>
 			</tr>			
 		</tbody>
 		<tfoot>
 			<tr>
 			<td></td><td></td><td></td><td></td><td></td><td></td><td></td><td>Total</td>
-			<td class="btn btn-info btn-flat col-sm-2 ">{{valorTotal | currency}}</td>
+				<td class="btn btn-info btn-flat col-sm-2 ">{{valorTotal | currency}}</td>
 			</tr>
 		</tfoot>		
 	</table>
+	<div class="col-sm-4" >
+				<input type="button" class="btn btn-lg btn-primary btn-block btn-signin" id="submit"
+					ng-click="ctrl.imprimir(funcionario.id, ctrl.tipo)" value="Imprimir">
+			</div>
 </div>
 </div>

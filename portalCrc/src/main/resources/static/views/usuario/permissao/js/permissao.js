@@ -21,6 +21,8 @@ app.config(function($stateProvider, $urlRouterProvider) {
 				  }
 		})
 		.state('permissao.cadastrar', {
+			requiresAuthentication: true,
+			permissions: ["ADMIN"],
 			url : "/cadastrar",
 			templateUrl : "views/usuario/permissao/permissao.form.html",
 			controller : "PermissaoCadastarController as ctrl",
@@ -30,6 +32,8 @@ app.config(function($stateProvider, $urlRouterProvider) {
 			  }
 		})
 		.state('permissao.editar', {
+			requiresAuthentication: true,
+			permissions: ["ADMIN"],
 			url : "/:idPermissao/editar",
 			templateUrl : "views/usuario/permissao/permissao.form.html",
 			controller : "PermissaoEditarController as ctrl",

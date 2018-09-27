@@ -4,13 +4,13 @@
 <!-- dados do usuario logado -->
 		<div class="user-panel">
 			<div class="pull-left image">
-				<img ng-src="/rest/usuario/{{usuario.id}}/foto"
+				<img ng-src="/rest/usuario/{{user.id}}/foto"
 				  class="img-circle"
 					alt="User Image">			
 			</div>
 			<div class="pull-left info" >
-				<p><a href="" ui-sref="usuario.perfil">{{usuario.funcionario.pessoa.nomeCompleto | limitTo:17}}</a><p>
-				<a href="#" data-toggle="modal" data-target="#alteraStatus"><i   class="glyphicon glyphicon-star-empty"></i> {{usuario.status}}</a>
+				<p><a href="" ui-sref="usuario.perfil">{{user.funcionario.pessoa.nomeCompleto | limitTo:17}}</a><p>
+				<a href="#" data-toggle="modal" data-target="#alteraStatus"><i   class="glyphicon glyphicon-star-empty"></i> {{user.status}}</a>
 			</div>
 		</div>
 		<form action="" class="sidebar-form">
@@ -32,7 +32,7 @@
 					<li class="treeview"><a href=""><i class="glyphicon glyphicon-earphone"></i> <span>Telefones</span>
 						<i class="fa fa-angle-left pull-right"></i></a>
 						<ul class="treeview-menu">
-							<li permission="['TELEFONE' , 'ADMIN']"  ><a class="top" ui-sref="telefone.cadastrar">cadastrar</a></li>
+							<li permission="['CADASTRAR_TELEFONE' , 'ADMIN']"  ><a class="top" ui-sref="telefone.cadastrar">cadastrar</a></li>
 							<li ><a class="top" ui-sref="telefone.coordenadoria">Pesquisar</a></li>
 						</ul>
 					</li>  
@@ -40,7 +40,7 @@
 					<li  class="treeview"><a href=""><i class="glyphicon glyphicon-phone-alt"></i> <span>Ramal</span>
 						<i class="fa fa-angle-left pull-right"></i></a>
 						<ul  class="treeview-menu">
-							  <li permission="['RAMAL' , 'ADMIN']" ><a class="top" ui-sref="ramal.cadastrar">cadastro</a></li>
+							  <li permission="['CADASTRAR_RAMAL' , 'ADMIN']" ><a class="top" ui-sref="ramal.cadastrar">cadastro</a></li>
 							  <li><a class="top" ui-sref="ramal.coordenadoria">Pesquisar</a></li>	
 						</ul>						
 					</li>
@@ -86,8 +86,8 @@
 						     <li permission="['SWITCH' , 'ADMIN']"><a class="top" ui-sref="switch.ativos">lista</a></li>
 						</ul>
 					</li> 
-					<li  class="header">CHAMADOS</li>
-					<li  class="treeview"><a href=""><i class="fa fa-server "></i> <span>Informática</span>
+					<li  permission="['CHAMADO_USUARIO' , 'CHAMADO_INFORMATICA_TECNICO' , 'CHAMADO_MANUTENCAO_TECNICO' , 'ADMIN']" class="header">CHAMADOS</li>
+					<li permission="['CHAMADO_USUARIO' , 'CHAMADO_INFORMATICA_TECNICO' , 'ADMIN']" class="treeview"><a href=""><i class="fa fa-server "></i> <span>Informática</span>
 						<i class="fa fa-angle-left pull-right"></i></a>
 						<ul class="treeview-menu">
 							 <li permission="['CHAMADO_USUARIO' , 'ADMIN']"><a class="top" ui-sref="chamadoTi.cadastrar">cadastrar</a></li>
@@ -96,7 +96,7 @@
 							<li permission="['CHAMADO_INFORMATICA_TECNICO' , 'ADMIN']"><a class="top" ui-sref="chamadoTi.relatorio">Relatório</a></li>
 						</ul>
 					</li> 
-					<li  class="treeview"><a href=""><i class="fa fa-legal"></i> <span>Manutenção</span>
+					<li permission="['CHAMADO_USUARIO' , 'CHAMADO_MANUTENCAO_TECNICO' , 'ADMIN']"  class="treeview"><a href=""><i class="fa fa-legal"></i> <span>Manutenção</span>
 						<i class="fa fa-angle-left pull-right"></i></a>
 						<ul class="treeview-menu">
 					 		<li permission="['CHAMADO_USUARIO' , 'ADMIN']"><a class="top" ui-sref="chamadoManutencao.cadastrar">cadastro</a></li>
@@ -116,14 +116,14 @@
 							<li permission="['ADMIN']"><a class="top" ui-sref="tema.listar">listar</a></li>
 						</ul>
 					</li>	
-					<li permission="['DIARIA' , 'ADMIN']" class="header">FINANÇAS</li>
-					<li permission="['DIARIA' , 'ADMIN']" class="treeview"><a href=""><i class="fa fa-dollar "></i> <span>Diaria</span>
+					<li permission="['DIARIA_FINANCAS', 'DIARIA_TRASNPARENCIA' , 'ADMIN']" class="header">FINANÇAS</li>
+					<li permission="['DIARIA_FINANCAS', 'DIARIA_TRASNPARENCIA' , 'ADMIN']" class="treeview"><a href=""><i class="fa fa-dollar "></i> <span>Diaria</span>
 						<i class="fa fa-angle-left pull-right"></i></a>
 						<ul class="treeview-menu">
-							<li permission="['CONTA_FUNCIONARIO' , 'ADMIN']" ><a class="top" ui-sref="funcionarioContaDiaria.buscar">Conta</a></li>
-							<li permission="['DIARIA_FINANCAS_COORDENADORIA' , 'ADMIN']" ><a class="top" ui-sref="diaria.cadastrar">cadastrar novo mês</a></li>
-							<li permission="['DIARIA' , 'ADMIN']" ><a class="top" ui-sref="diaria.listar">Em aberto</a></li>
-							<li permission="['DIARIA' , 'DIARIA_COORDENADORIA', 'DIARIA_SECRETARIA', 'ADMIN']"><a class="top" ui-sref="diaria.relatorio">Relatórios</a></li>
+							<li><a class="top" ui-sref="diaria.listar">Inicial</a></li>
+							<li permission="['DIARIA_FINANCAS' , 'ADMIN']" ><a class="top" ui-sref="funcionarioContaDiaria.buscar">Conta Funcionário</a></li>
+							<li permission="['DIARIA_FINANCAS' , 'ADMIN']" ><a class="top" ui-sref="diaria.cadastrar">cadastrar novo mês</a></li>
+							<li permission="['DIARIA_FINANCAS','DIARIA_DEP_PESSOAL']"><a class="top" ui-sref="diaria.relatorio-geral">Relatórios</a></li>
 						</ul>
 					</li> 
 					<li permission="['CADASTRO_VEICULOS' , 'ADMIN']" class="header">INFRAESTRUTURA</li>
@@ -232,8 +232,8 @@
 				      <div class="modal-body">				     		
 					      <div class="input-group margin">
 								<select class="form-control"
-									ng-model="usuario.status"
-									ng-change="ctrl.alterarStatus(usuario)"
+									ng-model="user.status"
+									ng-change="ctrl.alterarStatus(user)"
 									ng-options="status for status in ctrl.status track by status">
 									<option value=""></option>
 								</select> <span class="input-group-btn"> <a type="button"

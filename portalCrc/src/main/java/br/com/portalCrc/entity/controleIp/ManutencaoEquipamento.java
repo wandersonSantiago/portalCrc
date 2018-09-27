@@ -46,9 +46,9 @@ public class ManutencaoEquipamento {
 	@JoinColumn(name="id_tecnico")
 	private Usuario tecnico;
 	
-	@ManyToOne
-	@JoinColumn(name="id_usuario_cadastro")
-	private Usuario usuarioCadastro;
+	
+	@Column(name="id_usuario_cadastro")
+	private Long usuarioCadastro;
 	
 	@OneToOne(cascade = {CascadeType.MERGE ,CascadeType.PERSIST} )
 	@JoinColumn(name="id_servicos")
@@ -121,11 +121,11 @@ public class ManutencaoEquipamento {
 		this.status = status;
 	}
 
-	public Usuario getUsuarioCadastro() {
+	public Long getUsuarioCadastro() {
 		return usuarioCadastro;
 	}
 
-	public void setUsuarioCadastro(Usuario usuarioCadastro) {
+	public void setUsuarioCadastro(Long usuarioCadastro) {
 		this.usuarioCadastro = usuarioCadastro;
 	}
 	

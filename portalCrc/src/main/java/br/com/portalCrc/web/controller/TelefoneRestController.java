@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,6 +35,7 @@ public class TelefoneRestController {
 	  return new ResponseEntity<Iterable<Telefone>>(listaTelefone, HttpStatus.OK);
 	 } 
 	 
+	 @PreAuthorize("hasAnyRole('ROLE_?CADASTRAR_TELEFONE','ROLE_?ADMIN')")
 	 @RequestMapping(method = RequestMethod.POST, value="/salvar")
 	 public ResponseEntity<Telefone> salvar(@RequestBody Telefone listaTelefone,UriComponentsBuilder ucBuilder){
 		 listaTelefoneService.salvarEditar(listaTelefone);
@@ -41,6 +43,7 @@ public class TelefoneRestController {
 		 return new ResponseEntity<Telefone>(headers, HttpStatus.CREATED);
 	 }
 
+	 @PreAuthorize("hasAnyRole('ROLE_?CADASTRAR_TELEFONE','ROLE_?ADMIN')")
 	 @RequestMapping(method = RequestMethod.PUT, value="/alterar")
 	public ResponseEntity<Telefone> alterar(@RequestBody Telefone listaTelefone,UriComponentsBuilder ucBuilder){
 		 listaTelefoneService.salvarEditar(listaTelefone);

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -29,14 +30,16 @@ public class EquipamentoRestController {
 	
 	@Autowired
 	private EquipamentoService equipamentoService;
-			
+	
+	@PreAuthorize("hasAnyRole('ROLE_?EQUIPAMENTO','ROLE_?ADMIN')")
 	@PostMapping
 	 public ResponseEntity<Equipamento> salvar(@RequestBody Equipamento equipamento,UriComponentsBuilder ucBuilder){
 		equipamentoService.salvaOuAltera(equipamento);
 		 HttpHeaders headers =new HttpHeaders();
 		 return new ResponseEntity<Equipamento>(headers, HttpStatus.CREATED);
 	 }
-		
+	
+	@PreAuthorize("hasAnyRole('ROLE_?EQUIPAMENTO','ROLE_?ADMIN')")
 	@PutMapping
 	public ResponseEntity<Equipamento> alterar(@RequestBody Equipamento equipamento){
 		equipamentoService.salvaOuAltera(equipamento);
@@ -44,6 +47,7 @@ public class EquipamentoRestController {
 		return new ResponseEntity<>(http , HttpStatus.CREATED);		
 	}
 	
+	@PreAuthorize("hasAnyRole('ROLE_?EQUIPAMENTO','ROLE_?ADMIN')")
 	@PutMapping(value="/baixar")
 	public ResponseEntity<Equipamento> baixar(@RequestBody Equipamento equipamento){
 		equipamentoService.baixarEquipamento(equipamento);

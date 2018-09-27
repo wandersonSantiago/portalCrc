@@ -8,6 +8,6 @@ import br.com.portalCrc.entity.Cargo;
 
 public interface CargoRepository extends JpaRepository<Cargo, Long>{
 
-	Collection<Cargo> findBySecretaria_id(Long id);
+	Collection<Cargo> findBySecretaria_idOrderByDescricao(Long id);
 
 }

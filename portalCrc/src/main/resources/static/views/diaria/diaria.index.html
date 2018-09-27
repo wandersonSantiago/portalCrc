@@ -1,17 +1,70 @@
 <meta charset="UTF-8">
-<div class="box-body no-padding">
-             
-             	<a permission="['DIARIA_FINANCAS_COORDENADORIA' , 'ADMIN']" href="" ui-sref="diaria.cadastrar" class="btn btn-default btn-flat col-sm-4">Novo mês</a>
-                <a permission="['DIARIA' , 'ADMIN']" href="" ui-sref="diaria.listar" class="btn btn-default btn-flat col-sm-4">Em aberto</a>
-              	<a permission="['DIARIA' , 'ADMIN']" href="" ui-sref="diaria.relatorio" class="btn btn-default btn-flat col-sm-4"> Relatorios</a>
-              
-             
+
+ <div class="row" ng-controller="DiariaListarController as ctrl">
+ <div class="col-md-2" >
+          <div class="box box-widget widget-user-2">
+            <div class="widget-user-header bg-yellow">
+              <div class="widget-user-image">
+              <img ng-src="/rest/usuario/{{user.id}}/foto"  class="img-circle" alt="User Avatar">
+              </div>
+              <h3 class="widget-user-username">{{user.funcionario.pessoa.nomeCompleto | limitTo : 10}}</h3>
+              <h5 class="widget-user-desc">{{ctrl.diaria.mes}}</h5>
             </div>
-           <br>
-<div class="row">	
-       <div class="col-sm-12">     
+            <div class="box-footer no-padding" permission="['DIARIA_USUARIO']" >
+              <ul class="nav nav-stacked" ng-if="funcionario != null">
+                <li><a href="">Total <span class="pull-right badge bg-aqua">{{funcionario.totalValorDiaria | currency}}</span></a></li>
+                <li><a href="">Limite <span class="pull-right badge bg-green">{{funcionario.contaFuncionario.limiteCemPorCento * funcionario.contaFuncionario.salarioAtual / 100 | currency}}</span></a></li>
+                <li><a href="">Glosada <span class="pull-right badge bg-red">{{funcionario.glosada | currency}}</span></a></li>
+                <li><a href="">Antecipado <span class="pull-right badge bg-green">{{funcionario.totalPago | currency}}</span></a></li>
+                <li><a href="">Saldo <span class="pull-right badge bg-blue">{{funcionario.totalValorDiaria - funcionario.totalPago  | currency}}</span></a></li>
+                <li><hr></li>
+                <li><a href="" title="Lançar diaria" ui-sref="item.cadastrar({idDiaria : ctrl.diaria.id, idFuncionario : user.funcionario.id})">Lançar</a></li>
+                <li><a href="" title="Total de Diária individual do referente mês " ui-sref="item.usuario({idDiaria : ctrl.diaria.id})">Extrato</a></li>
+                <li permission="['DIARIA_USUARIO_CONTA']"><a href="" title="Alterar dados da Conta " ui-sref="funcionarioContaDiaria.editar({idConta : funcionario.contaFuncionario.id})">Conta</a></li>
+              </ul>              
+              <div ng-if="funcionario.contaFuncionario === null" class="col-sm-12" align="center">
+	              <br>
+				  <div class="jumbotron">
+					  <div class="container" align="center">
+					  Usuário não tem conta aberta!
+					  <p><a class="btn btn-primary btn-lg" href="" ui-sref="funcionarioContaDiaria.cadastrar({idFuncionario : user.funcionario.id})" role="button">Cadastrar conta</a></p>
+					  </div>
+					</div>
+			</div>
+			 <div ng-if="funcionario === null && ctrl.diaria != ''" class="col-sm-12" align="center">
+	              <br>
+				  <div class="jumbotron">
+					  <div class="container" align="center">
+					  Começar a lançar!!
+					  <p><a class="btn btn-primary btn-lg" href="" ui-sref="item.cadastrarFuncionario({idFuncionario : user.funcionario.id, idDiaria : ctrl.diaria.id})" role="button">começar!</a></p>
+					  </div>
+					</div>
+			</div>
+			<div ng-if="ctrl.diaria == ''" class="col-sm-12" align="center">
+	              <br>
+				  <div class="jumbotron">
+					  <div class="container" align="center">
+					 Diária do Mês não esta aberta!!
+					 </div>
+					</div>
+			</div>
+            </div>
+            <div>
+           </div>
+          </div>
+        </div>
+       <div class="col-md-10">     
 			<div class="box box-primary" >	
-					<div class="box-header">Diaria</div>
+					<div class="box-header">
+						<a title="Click para visualizar a pagina inicial!" ui-sref="diaria.listar" class="btn btn-default btn-flat ">Inicial</a>
+						<a permission="['DIARIA_FINANCAS']" ng-if="ctrl.diaria != ''" title="Click para visualizar ou cadastrar novas contas!" ui-sref="funcionarioContaDiaria.buscar" class="btn btn-default btn-flat ">Contas Funcionário</a>
+						<a permission="['DIARIA_FINANCAS']" ng-if="ctrl.diaria != ''" title="Click para Selecionar um Funcionario para lançar a Diária" ui-sref="funcionarioDiaria.verificar({idDiaria : ctrl.diaria.id})" class="btn btn-default btn-flat ">Lançar</a>
+		                <a permission="['DIARIA_FINANCAS']" title="Click para visualizar as diária(s) que estão em aberto!" 	ui-sref="funcionarioDiaria.unidade({idDiaria : ctrl.diaria.id})" class="btn btn-default btn-flat ">Extratos</a>
+		               	<a permission="['DIARIA_FINANCAS','DIARIA_DEP_PESSOAL']" title="Click para visualizar os relátorios!" 	ui-sref="diaria.relatorio-geral" class="btn btn-default btn-flat ">Relatórios</a>
+		                <a permission="['DIARIA_TRANSPARENCIA']" title="Click para visualizar as diária(s) para a transparencia!" 	ui-sref="item.coordenadoria({idDiaria : ctrl.diaria.id})" class="btn btn-default btn-flat ">Transparencia</a>
+		              	<a permission="['DIARIA_FINANCAS']" ng-if="ctrl.diaria != ''" title="Click para editar esta diaria"  href="" ui-sref="diaria.editar({idDiaria : ctrl.diaria.id})" class="btn btn-default btn-flat ">Editar</a>
+		              	<a permission="['DIARIA_FINANCAS']" ng-if="ctrl.diaria != ''" title="Encerrar diaria, apos este encerramento os funcionarios não poderão lançar mais diarias!!!" ng-click="ctrl.encerrar(ctrl.diaria)" class="btn btn-warning btn-flat ">Encerrar</a>
+					</div>
 					<div class="panel-body">
 						<div class="ui-view"></div>
 					</div>

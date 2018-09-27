@@ -22,6 +22,8 @@ app.config(function($stateProvider, $urlRouterProvider) {
 				  }
 		})
 		.state('tema.cadastrar', {
+			requiresAuthentication: true,
+			permissions: ["ADMIN"],
 			url : "/cadastrar",
 			templateUrl : "views/informatica/configuracao/sistema/modulo/tema/tema.form.html",
 			controller : "TemaCadastarController as ctrl",
@@ -31,6 +33,8 @@ app.config(function($stateProvider, $urlRouterProvider) {
 			  }
 		})
 		.state('tema.editar', {
+			requiresAuthentication: true,
+			permissions: ["ADMIN"],
 			url : "/:idTema/editar",
 			templateUrl : "views/informatica/configuracao/sistema/modulo/tema/tema.form.html",
 			controller : "TemaEditarController as ctrl",

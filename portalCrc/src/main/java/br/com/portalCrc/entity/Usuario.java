@@ -2,6 +2,8 @@
 
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -38,7 +40,7 @@ public class Usuario {
     @Enumerated(EnumType.STRING)
     private StatusUsuarioEnum status;
     
-	@Column(nullable = false,length = 15,unique = true)
+	@Column(nullable = false,unique = true)
 	private String login;
 	@Column(nullable = false,length = 256)
 	private String senha;
@@ -105,6 +107,10 @@ public class Usuario {
 		this.status = status;
 	}
 	
-	
+	public boolean hasRole(String descricao){
+		 List<Permissao> permissao =  getPermissoes().stream()
+		.filter(p -> p.getDescricao().contains(descricao)).collect(Collectors.toList());
+		return permissao != null && !permissao.isEmpty();
+	}
 	
 }

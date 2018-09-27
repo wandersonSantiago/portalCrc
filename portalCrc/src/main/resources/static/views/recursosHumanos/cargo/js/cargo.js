@@ -22,6 +22,8 @@ app.config(function($stateProvider, $urlRouterProvider) {
 				  }
 		})
 		.state('cargo.cadastrar', {
+			requiresAuthentication: true,
+			permissions: ["CARGO", "ADMIN"],
 			url : "/cadastrar",
 			templateUrl : "views/recursosHumanos/cargo/cargo.form.html",
 			controller : "CargoCadastarController as cargoCtrl",
@@ -31,6 +33,8 @@ app.config(function($stateProvider, $urlRouterProvider) {
 			  }
 		})
 		.state('cargo.editar', {
+			requiresAuthentication: true,
+			permissions: ["CARGO", "ADMIN"],
 			url : "/:idCargo/editar",
 			templateUrl : "views/recursosHumanos/cargo/cargo.form.html",
 			controller : "CargoEditarController as cargoCtrl",

@@ -1,130 +1,102 @@
 <meta charset="UTF-8">
-
 <div class="row">
-	<div class="col-lg-6">
+<div class="col-sm-4">
+	 <label>Lançar diária:</label>
+	 <div class="input-group">
+		  <input type="text" ng-model="conta" placeholder="Pesquisar por nome ou CPF"  
+		    uib-typeahead="conta as conta.funcionario.pessoa.nomeCompleto for conta in ctrl.buscarPorTexto($viewValue) | limitTo:8" 
+		    typeahead-template-url="customTemplate.html" class="form-control" typeahead-show-hint="true"  
+		    typeahead-loading="loading" typeahead-no-results="SemResultado" typeahead-min-length="3">
+		    <i ng-show="loading" class="glyphicon glyphicon-refresh"></i>
+		   
+		    <span class="input-group-btn">
+		<button class="btn btn-default" type="button" ui-sref="item.financasCadastrar({idDiaria : ctrl.diaria.id , idFuncionario : conta.funcionario.id})">ir!</button>
+	</span>	 
+	</div>
+	    <div ng-show="SemResultado" class="alert alert-warning alert-dismissible">
+			<button type="button" class="close" data-dismiss="alert"
+				aria-hidden="true">&times;</button>
+			<h4>
+				<i class="icon fa fa-warning"></i>{{messageErro}}
+			</h4>
+		</div>
+</div>
+</div>
+<br>
+<div class="row" align="center">
+	<h1>{{ctrl.diaria.mes}}</h1>
+</div>
+<hr>
+<br>
+<div class="row">
+	<div class="col-lg-4">
+	 <label>Pesquisar lançamentos:</label>
 		<div class="input-group">
 			<input type="text" class="form-control"
-				placeholder="Digite o nome ou qualquer número de documento"
+				placeholder="Pesquisar por nome ou CPF"
 				ng-model="texto" autofocus
-				ng-keyup="$event.keyCode == 13 && ctrl.buscarPorTexto(texto)">
+				ng-keyup="$event.keyCode == 13 && ctrl.buscarDiariaFuncionarioPorTexto(texto, ctrl.diaria.id)">
 			<span class="input-group-btn">
 				<button class="btn btn-default" type="button"
-					ng-click="ctrl.buscarPorTexto(texto)">buscar!</button>
+					ng-click="ctrl.paginaCorrente = 0; ctrl.buscarDiariaFuncionarioPorTexto(texto, ctrl.diaria.id)">Ir!</button>
 			</span>
 		</div>
-		<!-- /input-group -->
-	</div>
-	<!-- /.col-lg-6 -->
-</div>
-<br>
-
-<div ng-if="texto" class="padded" md-whiteframe="{{height}}" flex="100"
-	flex-gt-sm="50" layout="column" layout-align="center center"
-	ng-init="height = 1" ng-mouseenter="height = 3"
-	ng-mouseleave="height = 1"
-	ng-repeat="conta in ctrl.contaFuncionarioDiaria | filter: criterioDeBusca | orderBy: 'nome' ">
-	<div class="row">
-		<span ui-sref="item.financasCadastrar({idDiaria : ctrl.diaria.id , idFuncionario : conta.funcionario.id})"
-			class="btn btn-primary btn-flat"><h5>{{conta.funcionario.pessoa.nomeCompleto}}
-				CPF: {{conta.funcionario.pessoa.cpf}}</h5></span>
 	</div>
 </div>
-<br>
-<br>
-<div class="row">
-	
-		<span class="btn btn-success btn-flat col-sm-12"><h3>Diárias cadastradas</h3></span>
-	
+<div ng-show="mensagemErro"
+	class="alert alert-warning alert-dismissible">
+	<h4>
+		<i class="icon fa fa-warning"></i>{{mensagemErro}}
+	</h4>
 </div>
-<br>
-<div class="row">
-	<div class="col-sm-3">
-		<input class="form-control" placeholder="Pesquisar..." type="text" ng-model="buscar">
-	</div>
+<div class="table-responsive">
+	<table class="table table-hover table-bordered">
+		<thead>
+			<tr>
+				<th class="btn btn-primary btn-flat col-sm-2">Nome</th>
+				<th class="btn btn-primary btn-flat col-sm-1">CPF</th>
+				<th class="btn btn-primary btn-flat col-sm-2">Cargo</th>
+				<th class="btn btn-primary btn-flat col-sm-2">Unidade</th>
+				<th class="btn btn-primary btn-flat col-sm-1">Valor total</th>
+				<th class="btn btn-primary btn-flat col-sm-1">Opções</th>
+			</tr>
+		</thead>
+		<tbody
+			ng-repeat=" diaria in ctrl.itens | filter : buscar |  orderBy : 'nomeFuncionario'">
+			<tr>
+				<td>
+					<a href="" title="Visualizar todos os lançamentos!" ui-sref="item.visualizar({idFuncionarioDiaria : diaria.idDiaria})">	{{diaria.nomeFuncionario}}	
+					</a>
+				</td>
+				<td>{{diaria.cpfFuncionario | cpf}}</td>
+				<td>{{diaria.nomeCargo}}</td>
+				<td>{{diaria.nomeUnidade}}</td>
+				<td>
+					<a href=""	 title="Visualizar todos os lançamentos!" ui-sref="item.visualizar({idFuncionarioDiaria : diaria.idDiaria})">
+					{{diaria.totalValorDiaria | currency}}
+					</a>
+				</td>
+				<td>
+				 	<a href="" title="Continuar lançando"	ui-sref="item.financasCadastrar({idDiaria : ctrl.diaria.id , idFuncionario : diaria.idFuncionario})">Lançar</a>
+     
+				</td>
+			</tr>
+		</tbody>		
+	</table>
+	<nav>
+		<ul uib-pagination total-items="ctrl.totalElementos" items-per-page="24"
+			ng-model="ctrl.paginaCorrente" max-size="5" class="pagination-sm"
+			boundary-link-numbers="true" ng-click="ctrl.buscarDiariaFuncionarioPorTexto(texto, ctrl.diaria.id)"
+			previous-text="Anterior" last-text="Último" first-text="Primeiro"
+			next-text="Próximo">
+		</ul>
+	</nav>
 </div>
-
-<br>
-
-<div class="padded" md-whiteframe="{{height}}" flex="100"
-	flex-gt-sm="100" layout="column" layout-align="center right"
-	ng-init="height = 1" ng-mouseenter="height = 3"
-	ng-mouseleave="height = 1"
-	ng-repeat=" diaria in ctrl.itens | filter : buscar |  orderBy : '-id'">
-	 <md-card-actions layout="row" layout-align="home center">
-	 <div class="col-sm-6">
-	 	<md-button data-toggle="modal" title="Informações sobre esta diária." ng-model="diaria"  ng-click="ctrl.informacaoModal(diaria)"
-			data-target="#informacaoModal"><h5>{{diaria.contaFuncionario.funcionario.pessoa.nomeCompleto }}</h5></md-button>
-	 </div>
-     <div class="col-sm-2">
-   		<md-button><h5>CPF :{{diaria.contaFuncionario.funcionario.pessoa.cpf}}</h5></md-button>
-     </div>     
-     <div class="col-sm-2">
-     	<md-button ui-sref="item.visualizar({idFuncionarioDiaria : diaria.id})"><h5>Valor total : {{diaria.totalValorDiaria | currency}}</h5></md-button>
-     </div>     
-     <div class="col-sm-2">
-     	<md-button class="md-raised md-primary" title="Continuar lançando"	ui-sref="item.financasCadastrar({idDiaria : ctrl.diaria.id , idFuncionario : diaria.contaFuncionario.funcionario.id})"><h5>Lançar</h5></md-button>
-     </div>      
-    </md-card-actions>
-
-</div>
-
-<!-- INICIO  modal do informaçoes da diaria -->
-	<div class="modal fade bs-example-modal-lg modal-primary"
-		id="informacaoModal" tabindex="-1" role="dialog"
-		aria-labelledby="exampleModalLabel">
-		<div class="modal-dialog modal-lg" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal"
-						aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-					<h4 class="modal-title" id="exampleModalLabel">Diária
-						{{item.diaria.mes}}</h4>
-				</div>
-				<div class="modal-body">
-					<div class="row">
-						<br>
-						<div class="col-sm-12">
-							<h3>Observação:</h3>
-							<br>
-							<h4>{{item.diaria.observacao}}</h4>
-						</div>
-					</div>
-					<br>
-					<div class="row">
-						<div class="col-sm-6">
-							<h3>Data Abertura:</h3>
-							<br>
-							<h4>{{item.diaria.dataAbertura | date : 'dd/MM/yyyy'}}</h4>
-						</div>
-						<div class="col-sm-6">
-							<h3>Valor UFESP:</h3>
-							<br>
-							<h4>{{item.diaria.valorUfesp | currency}}</h4>
-						</div>
-					</div>
-					<br>
-					<hr>
-					<div class="row">
-						<div class="col-sm-6">
-							<h3>lançamento realizado por:</h3>
-							<br>
-							<h4>{{item.usuarioCadastro.funcionario.pessoa.nomeCompleto}}</h4>
-						</div>
-						<div class="col-sm-6">
-							<h3>Setor:</h3>
-							<br>
-							<h4>{{item.usuarioCadastro.funcionario.setorAtual.nome}}</h4>
-						</div>
-					</div>
-					
-					<br>
-				</div>
-				<div class="modal-footer ">
-					<button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- FIM  modal do informaçoes da diaria -->
+	<script type="text/ng-template" id="customTemplate.html">
+  			<a>
+      			<span ng-bind-html="match.model.funcionario.pessoa.nomeCompleto | uibTypeaheadHighlight:query"></span><br/>
+	 			<span>CPF: {{match.model.funcionario.pessoa.cpf}}</span><br/>	
+				<span>Setor: </span><br/>
+				<span ui-sref="funcionarioContaDiaria.cadastrar({idFuncionario : match.model.id})">{{match.model.setorAtual.nome}}</span><br/>
+  			</a>
+		</script>

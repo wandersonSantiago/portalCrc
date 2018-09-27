@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,6 +24,7 @@ public class ManutencaoEquipamentoRestController {
 	@Autowired
 	private ManutencaoEquipamentoService manutencaoEquipamentoService; 
 	
+	@PreAuthorize("hasAnyRole('ROLE_?EQUIPAMENTO','ROLE_?ADMIN')")
 	@PostMapping
 	public ResponseEntity<ManutencaoEquipamento> salvarOuAlterar(@RequestBody ManutencaoEquipamento manutencaoEquipamento){		
 		manutencaoEquipamentoService.salvar(manutencaoEquipamento);
@@ -30,6 +32,7 @@ public class ManutencaoEquipamentoRestController {
 		return new ResponseEntity<>(http, HttpStatus.CREATED);	
 	}
 	
+	@PreAuthorize("hasAnyRole('ROLE_?EQUIPAMENTO','ROLE_?ADMIN')")
 	@PutMapping
 	public ResponseEntity<ManutencaoEquipamento> alterar(@RequestBody ManutencaoEquipamento manutencaoEquipamento){
 		manutencaoEquipamentoService.alterar(manutencaoEquipamento);

@@ -27,7 +27,9 @@ import br.com.portalCrc.entity.Estado;
 import br.com.portalCrc.entity.Usuario;
 import br.com.portalCrc.enums.diaria.TipoDiariaEnum;
 import br.com.portalCrc.util.ConverteTextoUpperCase;
+import lombok.Data;
 
+@Data
 @Entity
 @SequenceGenerator(name = "item_diaria_id_seq", sequenceName = "item_diaria_id_seq", schema="diaria", initialValue = 1, allocationSize = 1)
 @Table(name="item_diaria", schema="diaria")
@@ -57,32 +59,31 @@ public class ItemDiaria {
 	@NotNull (message="Meio de transporte saida não pode ser nulo")
 	@Column(name="meio_transporte_saida")
 	private String meioTransporteSaida;
-	
-	@NotNull (message="Meio de transporte retorno não pode ser nulo")
+		
 	@Column(name="meio_transporte_retorno")
 	private String meioTransporteRetorno;
 	
 	@NotNull (message="Data de saída não pode ser nulo")
-	@Temporal(TemporalType.DATE)
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataSaida;
 	
 	@NotNull (message="Data de retorno não pode ser nulo")
-	@Temporal(TemporalType.DATE)
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataChegada;	
 	
 	@NotNull (message="Horario de saida não pode ser nulo")
 	@Column(name="hora_saida")
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date horaSaida;
 	
 	@NotNull (message="Horario de retorno não pode ser nulo")
 	@Column(name="hora_chegada")
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date horaChegada;
 			
 	@Temporal(TemporalType.DATE)
 	private Date dataCadastro;
 	
-	@Temporal(TemporalType.DATE)
-	private Date dataAlteracao;
 	
 	@NotNull (message="Valor das diaria não pode ser nulo")
 	@Column(name="valor_diaria")
@@ -107,7 +108,7 @@ public class ItemDiaria {
 	private boolean analizado;
 	
 	@Column(name="retorno")
-	private boolean retorno = false;
+	private boolean retorno;
 	
 	@ManyToOne
 	@JoinColumn(name="id_usuario_cadastro")
@@ -120,186 +121,28 @@ public class ItemDiaria {
 	@Enumerated(EnumType.STRING)
 	private TipoDiariaEnum tipo;
 	
+	private Integer qtdPernoite;
+	private BigDecimal valorTotalPernoite;
+	
+	private Integer qtdRegressoTrezeAsDezenove;
+	private BigDecimal valorTotalRegressoTrezeAsDezenove;
+	
+	private Integer qtdRegressoAposDezenove;
+	private BigDecimal valorTotalRegressoAposDezenove;
+	
+	private Integer qtdDeslocamentoDasSeisAsDoze;
+	private BigDecimal valorTotalDeslocamentoDasSeisAsDoze;
+	
+	private Integer qtdDeslocamentoMaisDeDoze;
+	private BigDecimal valorDeslocamentoMaisDeDoze;
+	
+	private Integer qtdAlojamento;
+	private BigDecimal valorAlojamento;
 	
 	
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public String getMotivo() {
-		return motivo;
-	}
-
+	
 	public void setMotivo(String motivo) {
 		this.motivo = ConverteTextoUpperCase.converte(motivo);
 	}
 
-
-	public Date getDataCadastro() {
-		return dataCadastro;
-	}
-
-	public void setDataCadastro(Date dataCadastro) {
-		this.dataCadastro = dataCadastro;
-	}
-
-	public BigDecimal getValorDiaria() {
-		return valorDiaria;
-	}
-
-	public void setValorDiaria(BigDecimal valorDiaria) {
-		this.valorDiaria = valorDiaria;
-	}
-
-	public BigDecimal getValorPassagem() {
-		return valorPassagem;
-	}
-
-	public void setValorPassagem(BigDecimal valorPassagem) {
-		this.valorPassagem = valorPassagem;
-	}
-
-	public FuncionarioDiaria getFuncionarioDiaria() {
-		return funcionarioDiaria;
-	}
-
-	public void setFuncionarioDiaria(FuncionarioDiaria funcionarioDiaria) {
-		this.funcionarioDiaria = funcionarioDiaria;
-	}
-	
-	
-	public Collection<Cidade> getLocalDeslocamentos() {
-		return localDeslocamentos;
-	}
-
-	public void setLocalDeslocamentos(Collection<Cidade> localDeslocamentos) {
-		this.localDeslocamentos = localDeslocamentos;
-	}
-
-	public Estado getEstado() {
-		return estado;
-	}
-
-	public void setEstado(Estado estado) {
-		this.estado = estado;
-	}
-	public Usuario getUsuarioCadastro() {
-		return usuarioCadastro;
-	}
-
-	public void setUsuarioCadastro(Usuario usuarioCadastro) {
-		this.usuarioCadastro = usuarioCadastro;
-	}
-
-	public String getMeioTransporteSaida() {
-		return meioTransporteSaida;
-	}
-
-	public void setMeioTransporteSaida(String meioTransporteSaida) {
-		this.meioTransporteSaida = meioTransporteSaida;
-	}
-
-	public String getMeioTransporteRetorno() {
-		return meioTransporteRetorno;
-	}
-
-	public void setMeioTransporteRetorno(String meioTransporteRetorno) {
-		this.meioTransporteRetorno = meioTransporteRetorno;
-	}
-
-	
-
-	public String getObservacaoPassagem() {
-		return observacaoPassagem;
-	}
-
-	public void setObservacaoPassagem(String observacaoPassagem) {
-		this.observacaoPassagem = ConverteTextoUpperCase.converte(observacaoPassagem);
-	}
-
-	public Date getDataSaida() {
-		return dataSaida;
-	}
-
-	public void setDataSaida(Date dataSaida) {
-		this.dataSaida = dataSaida;
-	}
-
-	public Date getDataChegada() {
-		return dataChegada;
-	}
-
-	public void setDataChegada(Date dataChegada) {
-		this.dataChegada = dataChegada;
-	}
-
-	public Date getHoraSaida() {
-		return horaSaida;
-	}
-
-	public void setHoraSaida(Date horaSaida) {
-		this.horaSaida = horaSaida;
-	}
-
-	public Date getHoraChegada() {
-		return horaChegada;
-	}
-
-	public void setHoraChegada(Date horaChegada) {
-		this.horaChegada = horaChegada;
-	}
-
-	public ValoresDiariaLocalidade getCodigoLocalDeslocamento() {
-		return codigoLocalDeslocamento;
-	}
-
-	public void setCodigoLocalDeslocamento(ValoresDiariaLocalidade codigoLocalDeslocamento) {
-		this.codigoLocalDeslocamento = codigoLocalDeslocamento;
-	}
-
-	public Date getDataAlteracao() {
-		return dataAlteracao;
-	}
-
-	public void setDataAlteracao(Date dataAlteracao) {
-		this.dataAlteracao = dataAlteracao;
-	}
-
-	public Usuario getUsuarioAlteracao() {
-		return usuarioAlteracao;
-	}
-
-	public void setUsuarioAlteracao(Usuario usuarioAlteracao) {
-		this.usuarioAlteracao = usuarioAlteracao;
-	}
-
-	public boolean isAnalizado() {
-		return analizado;
-	}
-
-	public void setAnalizado(boolean analizado) {
-		this.analizado = analizado;
-	}
-
-	public TipoDiariaEnum getTipo() {
-		return tipo;
-	}
-
-	public void setTipo(TipoDiariaEnum tipo) {
-		this.tipo = tipo;
-	}
-
-	public boolean isRetorno() {
-		return retorno;
-	}
-
-	public void setRetorno(boolean retorno) {
-		this.retorno = retorno;
-	}
-		
 }

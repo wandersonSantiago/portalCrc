@@ -1,5 +1,6 @@
 package br.com.portalCrc.entity.controleIp;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -10,15 +11,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import br.com.portalCrc.entity.Unidade;
-import br.com.portalCrc.entity.Usuario;
 import br.com.portalCrc.enums.controleIp.StatusEquipamento;
 import br.com.portalCrc.enums.controleIp.TipoEquipamentoEnum;
 
@@ -28,8 +26,12 @@ import br.com.portalCrc.enums.controleIp.TipoEquipamentoEnum;
 @SequenceGenerator(name = "equipamento_id_seq", sequenceName = "equipamento", schema="controle_ip", initialValue = 1, allocationSize =1 )
 @Table(name="equipamento", schema="controle_ip")
 
-public class Equipamento {
+public class Equipamento implements Serializable{
 	
+
+	private static final long serialVersionUID = 1L;
+
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "equipamento_id_seq")
 	private Long id;
@@ -52,9 +54,9 @@ public class Equipamento {
 	@JoinColumn(name="ponto")
 	private Ponto ponto;
 	
-	@ManyToOne
-	@JoinColumn(name="unidade", nullable=false)
-	private Unidade unidade;
+	
+	@Column(name="unidade", nullable=false)
+	private Long unidade;
 	
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="data_cadastro", nullable=false)
@@ -64,9 +66,8 @@ public class Equipamento {
 	@Column(name="data_alteracao")
 	private Date dataAlteracao;
 	
-	@ManyToOne
-	@JoinColumn(name="id_usuario_cadastro", nullable=false)
-	private Usuario usuarioCadastro;
+	@Column(name="id_usuario_cadastro", nullable=false)
+	private Long usuarioCadastro;
 	
 	@Enumerated(EnumType.STRING)
 	private TipoEquipamentoEnum TipoEquipamento;
@@ -106,10 +107,10 @@ public class Equipamento {
 	public void setPonto(Ponto ponto) {
 		this.ponto = ponto;
 	}
-	public Unidade getUnidade() {
+	public Long getUnidade() {
 		return unidade;
 	}
-	public void setUnidade(Unidade unidade) {
+	public void setUnidade(Long unidade) {
 		this.unidade = unidade;
 	}
 	public TipoEquipamentoEnum getTipoEquipamento() {
@@ -124,10 +125,10 @@ public class Equipamento {
 	public void setDataCadastro(Date dataCadastro) {
 		this.dataCadastro = dataCadastro;
 	}
-	public Usuario getUsuarioCadastro() {
+	public Long getUsuarioCadastro() {
 		return usuarioCadastro;
 	}
-	public void setUsuarioCadastro(Usuario usuarioCadastro) {
+	public void setUsuarioCadastro(Long usuarioCadastro) {
 		this.usuarioCadastro = usuarioCadastro;
 	}
 	public StatusEquipamento getStatus() {

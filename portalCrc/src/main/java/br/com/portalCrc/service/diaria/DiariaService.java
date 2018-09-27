@@ -13,7 +13,9 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import br.com.portalCrc.entity.diaria.Diaria;
+import br.com.portalCrc.entity.diaria.ItemDiaria;
 import br.com.portalCrc.entity.diaria.ValoresDiariaLocalidade;
+import br.com.portalCrc.enums.diaria.MesDiariaEnum;
 import br.com.portalCrc.enums.diaria.StatusDiariaEnum;
 import br.com.portalCrc.pojo.SessionUsuario;
 import br.com.portalCrc.repository.diaria.DiariaRepository;
@@ -27,10 +29,16 @@ public class DiariaService {
 	private DiariaRepository diariaRepository;	
 	
 	@Autowired
+	private ItemDiariaService itemDiariaService;
+	
+	@Autowired
 	private ValoresDiariaLocalidadeRepository valoresDiariaLocalidadeRepository;
 	
 	@Transactional(readOnly = false)
-	public void salvaOuAltera(Diaria diaria) {	
+	public void salvaOuAltera(Diaria diaria) {
+		if(diariasEmAberto() != null) {
+			throw new MensagemException("Para Cadastrar um novo mês é necessario encerrar o anterior!");
+		}
 			if(verificaSeExisteMesDeDiariaNoAno(diaria) == false){
 				salvarValoresDiaria(diaria, 7);
 				salvarValoresDiaria(diaria, 9);
@@ -53,11 +61,13 @@ public class DiariaService {
 				throw new MensagemException("o mês de " + diaria.getMes() + " consta cadastrado no ano " + anoAtual());
 			}
 		}
-		diaria.setDataAlteracao(new Date());
-		diaria.setUsuarioAlteracao(SessionUsuario.getInstance().getUsuario());
-		diariaRepository.save(diaria);
-		diariaRepository.save(diaria);
+		verificaDiaria.setDataAlteracao(new Date());
+		verificaDiaria.setUsuarioAlteracao(SessionUsuario.getInstance().getUsuario());
+		verificaDiaria.setMes(diaria.getMes());
+		verificaDiaria.setObservacao(diaria.getObservacao());
+		diariaRepository.save(verificaDiaria);
 	}
+	
 	@Transactional(readOnly = false)
 	public void salvarValoresDiaria(Diaria diaria, Integer indice){
 		
@@ -134,16 +144,21 @@ public class DiariaService {
 	}
 	
 	
-	public List<Diaria> diariasEmAberto(){
-		return diariaRepository.diariasEmAberto();
+	public Diaria diariasEmAberto(){
+		return diariaRepository.findTop1ByStatusAndUnidadeCadastro_idOrderByIdDesc(StatusDiariaEnum.ABERTO, SessionUsuario.getInstance().getUsuario().getFuncionario().getUnidadeAtual().getId());
 	}
+	
 	public Page<Diaria> lista(PageRequest pageRequest){
 		return diariaRepository.findByStatus(StatusDiariaEnum.FECHADO, pageRequest);
 	}
 	
+
 	@Transactional(readOnly = false)
 	public void encerrar(Diaria diaria) {
 		
+		if(itemDiariaService.existByFuncionarioDiariaDiaria_idAndAnalizado(diaria.getId(), false)) {
+			throw new MensagemException("Existe diarias sem aprovação, favor aprovar todas!");
+		}
 		diaria.setDataFechamento(new Date());
 		diaria.setStatus(StatusDiariaEnum.FECHADO);
 		diariaRepository.save(diaria);
@@ -155,7 +170,7 @@ public class DiariaService {
 		
 		int anoAtual = Integer.parseInt(anoAtual());
 	
-		List<Diaria> lista = diariaRepository.findByDataAbertura(anoAtual);
+		List<Diaria> lista = diariaRepository.findByDataAbertura(anoAtual, SessionUsuario.getInstance().getUsuario().getFuncionario().getUnidadeAtual().getId());
 		
 			for(int i = 0; i < lista.size() ; i++){					
 				if(lista.get(i).getMes() == diaria.getMes()){
@@ -174,4 +189,14 @@ public class DiariaService {
 		 
 		 return ano;
 	}
+
+	public List<Diaria> findByUnidade_id() {
+		return diariaRepository.findByUnidadeCadastro_idOrderByIdDesc(SessionUsuario.getInstance().getUsuario().getFuncionario().getUnidadeAtual().getId());
+	}
+
+	public List<Diaria> findByCoordenadoriaMes(MesDiariaEnum mes) {
+		return diariaRepository.findByUnidadeCadastro_idAndMesOrderByIdDesc(SessionUsuario.getInstance().getUsuario().getFuncionario().getUnidadeAtual().getId(), mes);
+	}
+	
+	
 }

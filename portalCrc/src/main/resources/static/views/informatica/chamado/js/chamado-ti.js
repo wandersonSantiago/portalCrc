@@ -14,6 +14,8 @@ app.config(function($stateProvider, $urlRouterProvider) {
 	})
 	
 		.state('chamadoTi.listar', {
+			requiresAuthentication: true,
+			permissions: ["CHAMADO_USUARIO", "ADMIN"],
 			url : "/listar",
 			templateUrl : "views/informatica/chamado/lista.html",
 			controller : "ChamadoTiListarController as chamadoCtrl",
@@ -23,6 +25,8 @@ app.config(function($stateProvider, $urlRouterProvider) {
 				  }
 		})
 		.state('chamadoTi.cadastrar', {
+			requiresAuthentication: true,
+			permissions: ["CHAMADO_USUARIO", "ADMIN"],
 			url : "/cadastrar",
 			templateUrl : "views/informatica/chamado/cadastrar.html",
 			controller : "ChamadoTiCadastrarController as chamadoCtrl",
@@ -32,6 +36,8 @@ app.config(function($stateProvider, $urlRouterProvider) {
 			  }
 		})
 		.state('chamadoTi.atendimento', {
+			requiresAuthentication: true,
+			permissions: ["CHAMADO_USUARIO", "ADMIN"],
 			url : "/:idChamadoTi/atendimento",
 			templateUrl : "views/informatica/chamado/atendimento.html",
 			controller : "ChamadoTiAtendimentoController as chamadoCtrl",
@@ -41,6 +47,8 @@ app.config(function($stateProvider, $urlRouterProvider) {
 				  }
 		})
 		.state('chamadoTi.suporteAtendimento', {
+			requiresAuthentication: true,
+			permissions: ["CHAMADO_INFORMATICA_TECNICO", "ADMIN"],
 			url : "/:idChamadoTi/suporte/atendimento",
 			templateUrl : "views/informatica/chamado/suporte/atendimento.html",
 			controller : "ChamadoTiAtendimentoSuporteController as chamadoCtrl",
@@ -51,6 +59,8 @@ app.config(function($stateProvider, $urlRouterProvider) {
 		})
 
 		.state('chamadoTi.relatorio', {
+			requiresAuthentication: true,
+			permissions: ["CHAMADO_INFORMATICA_TECNICO", "ADMIN"],
 			url : "/relatorio",
 			templateUrl : "views/informatica/chamado/suporte/relatorio.html",
 			controller : "ChamadoTiRelatorioController as chamadoCtr",
@@ -61,6 +71,8 @@ app.config(function($stateProvider, $urlRouterProvider) {
 		})
 		
 		.state('chamadoTi.suporteListar', {
+			requiresAuthentication: true,
+			permissions: ["CHAMADO_INFORMATICA_TECNICO", "ADMIN"],
 			url : "/lista/suporte",
 			templateUrl : "views/informatica/chamado/suporte/lista.suporte.html",
 			controller : "ChamadoTiSuporteListarController as chamadoCtrl",

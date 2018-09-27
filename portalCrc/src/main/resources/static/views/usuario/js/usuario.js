@@ -38,6 +38,8 @@ app.config(function($stateProvider, $urlRouterProvider) {
 				  }
 		})
 		.state('usuario.cadastrar', {
+			requiresAuthentication: true,
+			permissions: ["USUARIO_UNIDADE","ADMIN"],
 			url : "/cadastrar",
 			templateUrl : "views/usuario/usuario.form.html",
 			controller : "UsuarioCadastarController as usuarioCtrl",
@@ -47,6 +49,8 @@ app.config(function($stateProvider, $urlRouterProvider) {
 			  }
 		})
 		.state('usuario.editar', {
+			requiresAuthentication: true,
+			permissions: ["USUARIO_UNIDADE","ADMIN"],
 			url : "/:idUsuario/editar",
 			templateUrl : "views/usuario/usuario.form.html",
 			controller : "UsuarioEditarController as usuarioCtrl",
@@ -56,6 +60,8 @@ app.config(function($stateProvider, $urlRouterProvider) {
 				  }
 		})
 		.state('usuario.permissao', {
+			requiresAuthentication: true,
+			permissions: ["USUARIO_UNIDADE","ADMIN"],
 			url : "/:idUsuario/permissao",
 			templateUrl : "views/usuario/usuario.permissao.html",
 			controller : "UsuarioPermissaoController as ctrl",

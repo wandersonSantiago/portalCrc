@@ -5,35 +5,39 @@ app.config(function($stateProvider, $urlRouterProvider) {
 	.state('funcionarioContaDiaria', {
 		abstract : true,
 		url : '/diaria/funcionario',
-		templateUrl : 'views/diaria/funcionario/conta/funcionario.conta.diaria.index.html',
-		redirectTo : 'funcionario.listar',
+		templateUrl : 'views/diaria/diaria.index.html',
 		ncyBreadcrumb: {
-		 	parent: 'home.menu',
-			    label: 'Contas'
+		 	parent: 'diaria',
+			    label: 'Conta'
 			  }
 	})
 	
 		.state('funcionarioContaDiaria.listar', {
+			requiresAuthentication: true,
+			permissions: ["DIARIA_FINANCAS", "ADMIN"],
 			url : "/conta/lista",
 			templateUrl : "views/diaria/funcionario/conta/funcionario.conta.list.html",
 			controller : "FuncionarioContaDiariaListarController as ctrl",
 			ncyBreadcrumb: {
 				 	parent: 'funcionarioContaDiaria',
-				    label: 'listar'
+				    label: 'Conta / Consultar'
 				  }
 		})
 					
 		.state('funcionarioContaDiaria.buscar', {
+			requiresAuthentication: true,
+			permissions: ["DIARIA_FINANCAS", "ADMIN"],
 			url : "/conta/buscar",
 			templateUrl : "views/diaria/funcionario/conta/funcionario.buscar.html",
 			controller : "FuncionarioContaBuscarListarController as ctrl",
 			ncyBreadcrumb: {
 				 	parent: 'funcionarioContaDiaria',
-				    label: 'buscar'
+				    label: 'Conta / Buscar'
 				  }
 		})
 		
 		.state('funcionarioContaDiaria.cadastrar', {
+			permissions: ["DIARIA_FINANCAS", "DIARIA_USUARIO", "ADMIN"],
 			url : "/conta/cadastrar",
 			params: {
 				idFuncionario: null
@@ -42,11 +46,12 @@ app.config(function($stateProvider, $urlRouterProvider) {
 			controller : "FuncionarioContaDiariaCadastrarController as contaCtrl",
 			ncyBreadcrumb: {
 			 	parent: 'funcionarioContaDiaria',
-			    label: 'Cadastrar'
+			    label: 'Conta / Nova'
 			  }
 		})
 				
 		.state('funcionarioContaDiaria.editar', {
+			permissions: ["DIARIA_FINANCAS", "DIARIA_USUARIO", "ADMIN"],
 			url : "/conta/editar",
 			params: {
 				idConta: null
@@ -55,7 +60,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
 			controller : "FuncionarioContaDiariaEditarController as contaCtrl",
 			ncyBreadcrumb: {
 				 	parent: 'funcionarioContaDiaria',
-				    label: 'Editar'
+				    label: 'Conta / Editar'
 				  }
 		})
 		

@@ -41,6 +41,8 @@ app.config(function($stateProvider, $urlRouterProvider) {
 				  }
 		})
 		.state('ponto.cadastrar', {
+			requiresAuthentication: true,
+			permissions: ["PONTO", "ADMIN"],
 			url : "/cadastrar",
 			templateUrl : "views/informatica/controleIp/ponto/ponto.form.html",
 			controller : "PontoCadastarController as pontoCtrl",
@@ -50,6 +52,8 @@ app.config(function($stateProvider, $urlRouterProvider) {
 			  }
 		})
 		.state('ponto.editar', {
+			requiresAuthentication: true,
+			permissions: ["PONTO", "ADMIN"],
 			url : "/:idPonto/editar",
 			templateUrl : "views/informatica/controleIp/ponto/ponto.form.html",
 			controller : "PontoEditarController as pontoCtrl",

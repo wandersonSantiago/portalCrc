@@ -4,11 +4,6 @@ app.controller("FuncionarioContaDiariaListarController", FuncionarioContaDiariaL
 app.controller("FuncionarioContaBuscarListarController", FuncionarioContaBuscarListarController);
 
 
-FuncionarioContaDiariaCadastrarController.$inject = ['$state','FuncionarioService','$stateParams','FuncionarioContaDiariaService', 'FuncionarioService', 'toastr', '$rootScope', '$scope'];
-FuncionarioContaDiariaEditarController.$inject = ['$state','FuncionarioService','$stateParams','FuncionarioContaDiariaService', 'FuncionarioService', 'toastr', '$rootScope', '$scope'];
-FuncionarioContaDiariaListarController.$inject = ['$stateParams', '$state', 'FuncionarioContaDiariaService', 'toastr', '$rootScope', '$scope'];
-FuncionarioDiariaListarController.$inject = ['$stateParams', '$state', 'FuncionarioService', 'toastr', '$rootScope', '$scope'];
-
 function FuncionarioContaDiariaCadastrarController($state, FuncionarioService, $stateParams, FuncionarioContaDiariaService, FuncionarioService, toastr, $rootScope, $scope){
 	var self = this;
 	var idFuncionario = $stateParams.idFuncionario;	
@@ -106,7 +101,7 @@ function FuncionarioContaDiariaEditarController($state, FuncionarioService, $sta
 		FuncionarioContaDiariaService.alterar(self.contaFuncionarioDiaria).
 			then(function(response){
 				toastr.info("alterado com Sucesso!!!");
-				$state.go('diaria.listar');
+				$state.go('funcionarioContaDiaria.buscar');
 				}, function(errResponse){
 					sweetAlert({ timer : 3000,  text : errResponse.data.message,  type : "info", width: 300, higth: 300, padding: 20});
 			});
@@ -171,18 +166,45 @@ function FuncionarioContaDiariaListarController($stateParams, $state, Funcionari
 		};
 }
 
-function FuncionarioContaBuscarListarController($state, FuncionarioService, $rootScope, $scope){
+function FuncionarioContaBuscarListarController(FuncionarioContaDiariaService, $state, FuncionarioService, $rootScope, $scope, blockUI){
 	var self = this;
+	self.buscarFuncionarioPorTexto = buscarFuncionarioPorTexto;	
 	self.buscarPorTexto = buscarPorTexto;
-	
-	function buscarPorTexto(texto){
-		FuncionarioService.buscarPorTexto(texto).
-			then(function(f){
-				self.funcionarios = f;
-				}, function(errResponse){
-					sweetAlert({text : errResponse.data.message,  type : "info", width: 300, higth: 300, padding: 20});
-				});
-		};
+	self.totalElementos = {};
+	self.totalPaginas = null;
+	self.paginaCorrente = 0;
+	$scope.funcionario = null;
+	buscarPorTexto('');
 		
+			     
+    function buscarPorTexto(texto){
+    	$scope.mensagemErro = null;
+    	 blockUI.start();	    	 
+    	 self.paginaCorrente == '0'? self.paginaCorrente = 0 : self.paginaCorrente = self.paginaCorrente - 1;    	 
+    	 FuncionarioContaDiariaService.buscarPorTexto(texto, self.paginaCorrente).
+    	 then(function(e){
+    		 $scope.mensagemErro = null;
+    		 self.contas = e.content;	
+    		 self.totalElementos = e.totalElements;
+    		 self.totalPaginas = e.totalPages;
+    		 self.paginaCorrente = e.number + 1;
+    		 blockUI.stop();
+    	 }, function(errResponse){
+    		 blockUI.stop();
+    		 if(errResponse.status == 404){
+    			 $scope.mensagemErro = errResponse.data.message;
+    		 }else{
+    			 $scope.mensagemErro =errResponse.data.message;
+    		 }
+		 });
+    }
+	    
+	 function buscarFuncionarioPorTexto(texto){
+	     	return  FuncionarioService.buscarPorTexto(texto).
+	     	 then(function(e){
+	     		return e.content;
+	     	 }, function(errResponse){
+	     	 });
+	     }
 	
 }

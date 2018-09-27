@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,15 +23,15 @@ public class TipoIpRestController {
 	@Autowired
 	private TipoIpService tipoIpService;
 	
+	@PreAuthorize("hasAnyRole('ROLE_?TIPO_IP','ROLE_?ADMIN')")
 	@PostMapping
-	public ResponseEntity<TipoIp> salvarOuAlterar(@RequestBody TipoIp tipoIp)
-	{
+	public ResponseEntity<TipoIp> salvarOuAlterar(@RequestBody TipoIp tipoIp){
 		tipoIpService.salvaOuAltera(tipoIp);
 		HttpHeaders http = new HttpHeaders();
-		return new ResponseEntity<>(http , HttpStatus.CREATED);
-				
+		return new ResponseEntity<>(http , HttpStatus.CREATED);				
 	}
 	
+	@PreAuthorize("hasAnyRole('ROLE_?TIPO_IP','ROLE_?ADMIN')")
 	@PutMapping
 	public ResponseEntity<TipoIp> alterar(@RequestBody TipoIp tipoIp){
 		tipoIpService.salvaOuAltera(tipoIp);

@@ -38,7 +38,7 @@ public class EquipamentoService {
 	
 	
 	public Collection<Equipamento> lista(){		
-		return equipamentoRepositorio.findByUnidade_id(SessionUsuario.getInstance().getUsuario().getFuncionario().getUnidadeAtual().getId());
+		return equipamentoRepositorio.findByUnidade(SessionUsuario.getInstance().getUsuario().getFuncionario().getUnidadeAtual().getId());
 	}
 	
 	public Equipamento buscaPorId(Long id){		
@@ -46,7 +46,7 @@ public class EquipamentoService {
 	}
 	
 	public Iterable<Equipamento> findByStatus(StatusEquipamento status) {		
-		return equipamentoRepositorio.findByStatusAndUnidade_id(status, SessionUsuario.getInstance().getUsuario().getFuncionario().getUnidadeAtual().getId());
+		return equipamentoRepositorio.findByStatusAndUnidade(status, SessionUsuario.getInstance().getUsuario().getFuncionario().getUnidadeAtual().getId());
 	}
 		
 	public List<ServicosEquipamento> buscarServicos(Long idEquipamento) {
@@ -70,9 +70,9 @@ public class EquipamentoService {
 			equipamento.getIp().setStatus(StatusIp.ATIVO);
 			ipService.altera(equipamento.getIp());
 		}
-		equipamento.setUnidade(SessionUsuario.getInstance().getUsuario().getFuncionario().getUnidadeAtual());
+		equipamento.setUnidade(SessionUsuario.getInstance().getUsuario().getFuncionario().getUnidadeAtual().getId());
 		equipamento.setDataCadastro(new Date());
-		equipamento.setUsuarioCadastro(SessionUsuario.getInstance().getUsuario());
+		equipamento.setUsuarioCadastro(SessionUsuario.getInstance().getUsuario().getId());
 										
 		equipamentoRepositorio.save(equipamento);	
 		
@@ -96,7 +96,7 @@ public class EquipamentoService {
 		equipamento.setPonto(null);
 		equipamento.setStatus(StatusEquipamento.BAIXADO);
 		equipamento.setDataCadastro(new Date());
-		equipamento.setUsuarioCadastro(SessionUsuario.getInstance().getUsuario());
+		equipamento.setUsuarioCadastro(SessionUsuario.getInstance().getUsuario().getId());
 		
 	
 		
@@ -137,7 +137,7 @@ public class EquipamentoService {
 		manutencao.setDataPreventiva(cadastrarPreventiva.dataPreventiva());
 		manutencao.setEquipamento(equipamento);
 		manutencao.setStatus(true);
-		manutencao.setUsuarioCadastro(SessionUsuario.getInstance().getUsuario());
+		manutencao.setUsuarioCadastro(SessionUsuario.getInstance().getUsuario().getId());
 		manutencao.setDescricao("Preventiva Padrão");
 		manutencaoEquipamentoRepository.save(manutencao);
 		

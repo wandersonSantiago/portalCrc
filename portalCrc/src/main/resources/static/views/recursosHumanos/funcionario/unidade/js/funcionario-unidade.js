@@ -14,9 +14,11 @@ app.config(function($stateProvider, $urlRouterProvider) {
 	})
 	
 	.state('funcionarioUnidade.unidade', {
+		requiresAuthentication: true,
+		permissions: ["FUNCIONARIO_UNIDADE", "ADMIN"],
 		url : "/:idFuncionario/unidade",
 		templateUrl : "views/recursosHumanos/funcionario/unidade/funcionario.unidade.form.html",
-		controller : "FuncionarioUnidadeCadastarController as funcionarioUnidadeCtrl",
+		controller : "FuncionarioUnidadeCadastarController as ctrl",
 		ncyBreadcrumb: {
 			 	parent: 'funcionarioUnidade',
 			    label: 'cadastrar funcionario na unidade'
@@ -32,5 +34,15 @@ app.config(function($stateProvider, $urlRouterProvider) {
 			    label: 'Consultar'
 			  }
 	})
+	
+	.state('funcionarioUnidade.editar', {
+			url : "/:idFuncionarioUnidade/editar",
+			templateUrl : "views/recursosHumanos/funcionario/unidade/funcionario.unidade.form.html",
+			controller : "FuncionarioUnidadeEditarController as ctrl",
+			ncyBreadcrumb: {
+				 	parent: 'funcionarioUnidade',
+				    label: 'Editar'
+				  }
+		})
 
 });

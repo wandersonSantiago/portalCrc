@@ -50,6 +50,8 @@ app.config(function($stateProvider, $urlRouterProvider) {
 				  }
 		})
 		.state('switch.cadastrar', {
+			requiresAuthentication: true,
+			permissions: ["SWITCH", "ADMIN"],
 			url : "/cadastrar",
 			templateUrl : "views/informatica/controleIp/switch/switch.form.html",
 			controller : "SwitchCadastarController as switchCtrl",
@@ -59,6 +61,8 @@ app.config(function($stateProvider, $urlRouterProvider) {
 			  }
 		})
 		.state('switch.editar', {
+			requiresAuthentication: true,
+			permissions: ["SWITCH", "ADMIN"],
 			url : "/:idSwitch/editar",
 			templateUrl : "views/informatica/controleIp/switch/switch.form.html",
 			controller : "SwitchEditarController as switchCtrl",

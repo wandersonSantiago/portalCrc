@@ -9,7 +9,10 @@
             <div class="icon">
               <i class="fa fa-bank "></i>
             </div>
-            <a ui-sref="chamadoManutencao.listar" class="small-box-footer">
+            <a permission="['CHAMADO_USUARIO','ADMIN']" ui-sref="chamadoManutencao.listar" class="small-box-footer">
+              avançar<i class="fa fa-arrow-circle-right"></i>
+            </a>
+             <a  permission="[ 'CHAMADO_MANUTENCAO_TECNICO' , 'ADMIN']" ui-sref="chamadoManutencao.suporteListar" class="small-box-footer">
               avançar<i class="fa fa-arrow-circle-right"></i>
             </a>
           </div>

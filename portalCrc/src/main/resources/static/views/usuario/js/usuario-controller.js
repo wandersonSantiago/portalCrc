@@ -91,25 +91,25 @@ function UsuarioCadastarController(Auth,  UsuarioService, FuncionarioService, Un
 		
 }		
 
-function UsuarioEditarController(FuncionarioUnidadeService, $timeout, Auth, $stateParams, $state , UsuarioService, FuncionarioService, SetorService, UnidadeService, toastr, $rootScope, $scope){
+function UsuarioEditarController(FuncionarioUnidadeService, $timeout, Auth, $stateParams, $state , UsuarioService, UnidadeService, toastr, $rootScope, $scope){
 	
 	var self = this;
 	
 	var idUsuario = $stateParams.idUsuario;
-	listarFuncionarios();
 	listarUnidades();
-	listarSetores();
+	self.existeLogin = existeLogin;
 	self.submit = submit;
 	self.buscarPorId = buscarPorId;
 	self.alterarUnidade = alterarUnidade;
 	
-	function submit(usuario){		
+	function submit(){		
 		if(self.senha == self.senhaRepitida){
 			self.usuario.senha = self.senha;
 			UsuarioService.alterar(self.usuario).
 			then(function(response){
 				toastr.info("Usuario Salvo!!!")
 				self.usuario = null;
+				$state.go('usuario.listar');
 				}, function(errResponse){
 			sweetAlert({ timer : 3000, text: errResponse.data.message , type : "info", width: 300, higth: 100, padding: 20});
 					
@@ -134,15 +134,18 @@ function UsuarioEditarController(FuncionarioUnidadeService, $timeout, Auth, $sta
 		clearInterval(self.myVar);
 	}
 
-	function listarFuncionarios(){
-		 FuncionarioService.listar().
-			then(function(f){
-				self.funcionarios = f;				
+	
+	function existeLogin(login){			
+		UsuarioService.existeLogin(login).
+			then(function(p){
+				self.existe = p;
+				if(self.existe == true){		
+					console.log(true);
+					sweetAlert({ timer : 3000,  text :"Usuario já cadastrado",  type : "info", width: 300, higth: 300, padding: 20});
+					}				
 				}, function(errResponse){
-					sweetAlert({ timer : 3000,  text : errResponse.data.message,  type : "error", width: 300, higth: 300, padding: 20});
-				});
+			});
 		};
-		
 		
 		
 	function listarUnidades(){
@@ -153,14 +156,7 @@ function UsuarioEditarController(FuncionarioUnidadeService, $timeout, Auth, $sta
 					sweetAlert({ timer : 3000,  text : errResponse.data.message,  type : "error", width: 300, higth: 300, padding: 20});
 			});
 		};	
-	 function listarSetores(){
-		 SetorService.listar().
-			then(function(f){
-				self.setores = f;
-				}, function(errResponse){
-					sweetAlert({ timer : 3000,  text : errResponse.data.message,  type : "error", width: 300, higth: 300, padding: 20});
-			});
-		};	
+	
 	function buscarPorId(id){
 		if(!id)return;
 		UsuarioService.buscarPorId(id).
@@ -250,7 +246,7 @@ function UsuarioPerfilController($scope, $state, toastr, UsuarioService, $stateP
 		 	var file = $scope.obj.flow.files[0]
 	    	var form = new FormData();
 	    	form.append('file', file.file);	    	
-	    	form.append('usuario',new Blob([JSON.stringify($scope.usuario)], {
+	    	form.append('usuario',new Blob([JSON.stringify($scope.user)], {
 	            type: "application/json"
 	        }) )
 			UsuarioService.salvarFoto(form)

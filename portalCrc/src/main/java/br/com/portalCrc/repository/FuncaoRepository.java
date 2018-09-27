@@ -8,6 +8,6 @@ import br.com.portalCrc.entity.Funcao;
 
 public interface FuncaoRepository extends JpaRepository<Funcao, Long> {
 
-	Collection<Funcao> findBySecretaria_id(Long long1);
+	Collection<Funcao> findBySecretaria_idOrderByDescricao(Long long1);
 
 }

@@ -4,7 +4,7 @@ app.controller("FuncionarioListarController", FuncionarioListarController);
 app.controller("FuncionarioShowController", FuncionarioShowController);
 
 
-function FuncionarioCadastarController( FuncionarioService,  buscaCepService , CargoService, toastr, $rootScope, $scope){
+function FuncionarioCadastarController($state, FuncionarioService,  buscaCepService , CargoService, toastr, $rootScope, $scope){
 			var self = this;
 			self.findCep = findCep;
 			self.submit = submit;
@@ -21,10 +21,17 @@ function FuncionarioCadastarController( FuncionarioService,  buscaCepService , C
 					sweetAlert({ timer : 3000,  text : errResponse.data.message,  type : "error", width: 300, higth: 300, padding: 20});
 				});				
 		    };
-		function submit(funcionario) {
+		    
+		function submit(form) {
+			if(form.$invalid){
+				sweetAlert({title: "Por favor preencha os campos obrigatorios", 	type : "error", timer : 100000,   width: 500,  padding: 20});	
+				return;
+			}
 				FuncionarioService.salvar(self.funcionario).
 				then(function(response){
 					toastr.info('Salvo com Sucesso!!!');
+					var idFuncionario = response.id;
+					$state.go('funcionarioUnidade.unidade', {idFuncionario});					
 					self.funcionario = null;
 					}, function(errResponse){
 						sweetAlert({ timer : 3000,  text : errResponse.data.message,  type : "error", width: 300, higth: 300, padding: 20});
@@ -75,7 +82,11 @@ function FuncionarioEditarController($stateParams, $state , FuncionarioService, 
 					sweetAlert({ timer : 3000,  text : errResponse.data.message,  type : "error", width: 300, higth: 300, padding: 20});
 				});				
 		    };
-		function submit(funcionario) {
+		function submit(form) {
+			if(form.$invalid){
+				sweetAlert({title: "Por favor preencha os campos obrigatorios", 	type : "error", timer : 100000,   width: 500,  padding: 20});	
+				return;
+			}
 				FuncionarioService.alterar(self.funcionario).
 				then(function(response){
 					toastr.info('Alterado com Sucesso!!!');
@@ -119,18 +130,37 @@ function FuncionarioEditarController($stateParams, $state , FuncionarioService, 
 				
 			}
 }
-function FuncionarioListarController( FuncionarioService){
-			var self = this;
-			listar();
-			
-			function listar(){
-				 FuncionarioService.listar().
-					then(function(f){
-						self.funcionarios = f;				
-						}, function(errResponse){
-							sweetAlert({ timer : 3000,  text : errResponse.data.message,  type : "error", width: 300, higth: 300, padding: 20});
-						});
-				};
+function FuncionarioListarController( FuncionarioService, $scope, blockUI){
+	var self = this;
+	self.buscarPorTexto = buscarPorTexto;
+	self.totalElementos = {};
+	self.totalPaginas = null;
+	self.paginaCorrente = 0;
+	
+	buscarPorTexto('');
+	
+	     
+	    function buscarPorTexto(texto){
+	    	$scope.mensagemErro = null;
+	    	 blockUI.start();	    	 
+	    	 self.paginaCorrente == '0'? self.paginaCorrente = 0 : self.paginaCorrente = self.paginaCorrente - 1;    	 
+	    	 FuncionarioService.buscarPorTextoNaUnidade(texto, self.paginaCorrente).
+	    	 then(function(e){
+	    		 $scope.mensagemErro = null;
+	    		 self.funcionarios = e.content;	
+	    		 self.totalElementos = e.totalElements;
+	    		 self.totalPaginas = e.totalPages;
+	    		 self.paginaCorrente = e.number + 1;
+	    		 blockUI.stop();
+	    	 }, function(errResponse){
+	    		 blockUI.stop();
+	    		 if(errResponse.status == 404){
+	    			 $scope.mensagemErro = errResponse.data.message;
+	    		 }else{
+	    			 $scope.mensagemErro =errResponse.data.message;
+	    		 }
+			 });
+	    }
 }
 function FuncionarioShowController($stateParams,  FuncionarioService, CoordenadoriaService, buscaCepService ,toastr, $rootScope, $scope){
 	

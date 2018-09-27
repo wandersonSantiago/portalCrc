@@ -15,7 +15,7 @@
 					<th class="btn btn-primary btn-flat col-sm-2"><md-button  ><h5>telefone</h5></md-button> </th>
 					<th class="btn btn-primary btn-flat col-sm-2"><md-button  ><h5>Setor</h5></md-button> </th>
 					<th class="btn btn-primary btn-flat col-sm-1"><md-button  ><h5>Unidade</h5></md-button> </th>
-					<th class="btn btn-primary btn-flat col-sm-1"><md-button  ><h5>Opções</h5></md-button> </th>
+					<th permission="['TELEFONE_CADASTRAR', 'ADMIN']" class="btn btn-primary btn-flat col-sm-1"><md-button  ><h5>Opções</h5></md-button> </th>
 						
 					</tr>
 				</thead>
@@ -26,7 +26,7 @@
 						<td>{{ telefone.telefone }}</td>
 						<td>{{ telefone.setor.nome}}</td>
 						<td>{{ telefone.unidade.dadosUnidade.mnemonico}}</td>
-						<td><a ui-sref="telefone.editar({idTelefone : telefone.id})"><i class="glyphicon glyphicon-edit"></i></a> 
+						<td permission="['TELEFONE_CADASTRAR', 'ADMIN']"><a  ui-sref="telefone.editar({idTelefone : telefone.id})"><i class="glyphicon glyphicon-edit"></i></a> 
 				</tr>
 				</tbody>
 				<tfoot>

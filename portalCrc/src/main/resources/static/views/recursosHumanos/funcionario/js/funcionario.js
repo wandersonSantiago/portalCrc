@@ -15,13 +15,15 @@ app.config(function($stateProvider, $urlRouterProvider) {
 		.state('funcionario.listar', {
 			url : "/listar",
 			templateUrl : "views/recursosHumanos/funcionario/funcionario.list.html",
-			controller : "FuncionarioListarController as funcionarioCtrl",
+			controller : "FuncionarioListarController as ctrl",
 			ncyBreadcrumb: {
 				 	parent: 'funcionario',
 				    label: 'Listar'
 				  }
 		})
 		.state('funcionario.cadastrar', {
+			requiresAuthentication: true,
+			permissions: ["FUNCIONARIO_UNIDADE", "ADMIN"],
 			url : "/cadastrar",
 			templateUrl : "views/recursosHumanos/funcionario/funcionario.form.html",
 			controller : "FuncionarioCadastarController as cadFuncCtrl",
@@ -31,6 +33,8 @@ app.config(function($stateProvider, $urlRouterProvider) {
 			  }
 		})
 		.state('funcionario.editar', {
+			requiresAuthentication: true,
+			permissions: ["FUNCIONARIO_UNIDADE", "ADMIN"],
 			url : "/:idFuncionario/editar",
 			templateUrl : "views/recursosHumanos/funcionario/funcionario.form.html",
 			controller : "FuncionarioEditarController as cadFuncCtrl",
@@ -42,7 +46,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
 		.state('funcionario.visualizar', {
 			url : "/:idFuncionario/visualizar",
 			templateUrl : "views/recursosHumanos/funcionario/funcionario.show.html",
-			controller : "FuncionarioShowController as funcionarioCtrl",
+			controller : "FuncionarioShowController as ctrl",
 			ncyBreadcrumb: {
 				 	parent: 'funcionario.listar',
 				    label: 'Visualizar'

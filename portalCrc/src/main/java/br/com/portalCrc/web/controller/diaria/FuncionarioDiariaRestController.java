@@ -1,11 +1,16 @@
 package br.com.portalCrc.web.controller.diaria;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,6 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import br.com.portalCrc.entity.diaria.FuncionarioDiaria;
+import br.com.portalCrc.entity.diaria.FuncionarioDiariaDTO;
 import br.com.portalCrc.entity.diaria.ValoresDiariaLocalidade;
 import br.com.portalCrc.service.diaria.FuncionarioDiariaService;
 
@@ -29,13 +35,15 @@ public class FuncionarioDiariaRestController {
 	@Autowired
 	private FuncionarioDiariaService funcionarioDiariaService;
 	
+	@PreAuthorize("hasAnyRole('ROLE_?DIARIA_USUARIO', 'ROLE_?DIARIA_FINANCAS','ROLE_?ADMIN')")
 	@PostMapping
 	 public ResponseEntity<FuncionarioDiaria> salvar(@RequestBody FuncionarioDiaria funcionarioDiaria, UriComponentsBuilder ucBuilder){
 		funcionarioDiariaService.salvaOuAltera(funcionarioDiaria);
 		 HttpHeaders headers =new HttpHeaders();
 		 return new ResponseEntity<FuncionarioDiaria>(headers, HttpStatus.CREATED);
 	 }
-		
+	
+	@PreAuthorize("hasAnyRole('ROLE_?DIARIA_USUARIO', 'ROLE_?DIARIA_FINANCAS','ROLE_?ADMIN')")
 	@PutMapping
 	public ResponseEntity<FuncionarioDiaria> alterar(@RequestBody FuncionarioDiaria funcionarioDiaria, UriComponentsBuilder ucBuilder){
 		funcionarioDiariaService.salvaOuAltera(funcionarioDiaria);
@@ -43,6 +51,7 @@ public class FuncionarioDiariaRestController {
 		return new ResponseEntity<>(http , HttpStatus.CREATED);		
 	}
 	
+	@PreAuthorize("hasAnyRole('ROLE_?DIARIA_USUARIO', 'ROLE_?DIARIA_FINANCAS','ROLE_?ADMIN')")
 	@DeleteMapping(value="/excluir/{id}")
 	public ResponseEntity<FuncionarioDiaria> excluir(@PathVariable Long id){
 		funcionarioDiariaService.excluir(id);
@@ -50,11 +59,6 @@ public class FuncionarioDiariaRestController {
 		return new ResponseEntity<>(http , HttpStatus.CREATED);		
 	}
 	
-	@GetMapping(value="/secretaria/{idDiaria}")
-	public ResponseEntity<Iterable<FuncionarioDiaria>> listaSecretaria(@PathVariable Long idDiaria){
-		Iterable<FuncionarioDiaria> funcionarioDiaria	= funcionarioDiariaService.listaSecretaria(idDiaria);
-		return new ResponseEntity<Iterable<FuncionarioDiaria>>(funcionarioDiaria, HttpStatus.OK);
-	}
 
 	@GetMapping(value="/valores/indice/{indice}/diaria/{idDiaria}")
 	public ResponseEntity<Iterable<ValoresDiariaLocalidade>> valoresDiaria(@PathVariable Integer indice, @PathVariable Long idDiaria){
@@ -68,10 +72,24 @@ public class FuncionarioDiariaRestController {
 		return new ResponseEntity<Iterable<FuncionarioDiaria>>(funcionarioDiaria, HttpStatus.OK);
 	}
 	
-  @GetMapping(value="/{id}/funcionarios")
-	public ResponseEntity<Iterable<FuncionarioDiaria>> funcionariosPorDiaria(@PathVariable Long id){
-		Iterable<FuncionarioDiaria> funcionarioDiaria = funcionarioDiariaService.findByUnidade_idAndDiaria_id(id);
-		return new ResponseEntity<Iterable<FuncionarioDiaria>>(funcionarioDiaria, HttpStatus.OK);
+  @GetMapping(value="/unidade")
+	public ResponseEntity<Page<FuncionarioDiariaDTO>> funcionariosPorDiaria(
+			@RequestParam(value="idDiaria", required=true) Long idDiaria,
+			@RequestParam(value="page", defaultValue="0") Integer page, 
+			@RequestParam(value="linesPerPage", defaultValue="24") Integer linesPerPage, 
+			@RequestParam(value="orderBy", defaultValue="contaFuncionario.funcionario.pessoa.nomeCompleto") String orderBy, 
+			@RequestParam(value="direction", defaultValue="ASC") String direction,
+			@RequestParam(value="q", required = false , defaultValue="")String texto) {		 
+	 
+	  Page<FuncionarioDiaria> list = null;
+		
+		if(texto.isEmpty() || texto.equalsIgnoreCase("")) {
+			list = funcionarioDiariaService.findaAllDiariaId(idDiaria, new PageRequest(page, linesPerPage, Direction.valueOf(direction), orderBy));
+		}else {
+			list = funcionarioDiariaService.findaAllDiariaIdAndTexto(idDiaria, texto, new PageRequest(page, linesPerPage, Direction.valueOf(direction), orderBy));
+		}
+		Page<FuncionarioDiariaDTO> listDto = list.map(obj -> new FuncionarioDiariaDTO(obj));
+		return ResponseEntity.ok().body(listDto);
 	}
 	
 	@GetMapping(value="/conta/{idFuncionario}/diaria/{idDiaria}")
@@ -87,10 +105,12 @@ public class FuncionarioDiariaRestController {
 	}
 	
 	@GetMapping(value="/unidade/{idDiaria}")
-	public ResponseEntity<Iterable<FuncionarioDiaria>> listaUnidade(@PathVariable Long idDiaria){
-		Iterable<FuncionarioDiaria> funcionarioDiaria = funcionarioDiariaService.listaUnidade(idDiaria);
-		return new ResponseEntity<Iterable<FuncionarioDiaria>>(funcionarioDiaria, HttpStatus.OK);
+	public ResponseEntity<List<FuncionarioDiariaDTO>> listaUnidade(@PathVariable Long idDiaria){
+		List<FuncionarioDiariaDTO> list = funcionarioDiariaService.listaUnidade(idDiaria);
+	//	List<FuncionarioDiariaDTO> listDto = list.stream().map(obj -> new FuncionarioDiariaDTO(obj)).collect(Collectors.toList());
+		return new ResponseEntity<List<FuncionarioDiariaDTO>>(list, HttpStatus.OK);
 	}
+	
 	
 	 @GetMapping(value = "/{id}")
 		public ResponseEntity<FuncionarioDiaria> buscarPorId(@PathVariable Long id) {

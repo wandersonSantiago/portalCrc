@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,15 +24,15 @@ public class IpRestController {
 	@Autowired
 	private IpService ipService;
 	
+	@PreAuthorize("hasAnyRole('ROLE_?IP','ROLE_?ADMIN')")
 	@PostMapping
-	public ResponseEntity<Ip> salvar(@RequestBody Ip ip)
-	{
+	public ResponseEntity<Ip> salvar(@RequestBody Ip ip){
 		ipService.salvar(ip);
 		HttpHeaders http =  new HttpHeaders();
-		return new ResponseEntity<>(http , HttpStatus.CREATED);
-		
+		return new ResponseEntity<>(http , HttpStatus.CREATED);		
 	}
 	
+	@PreAuthorize("hasAnyRole('ROLE_?IP','ROLE_?ADMIN')")
 	@PutMapping
 	public ResponseEntity<Ip> Alterar(@RequestBody Ip ip){
 		ipService.altera(ip);

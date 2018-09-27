@@ -1,5 +1,6 @@
 package br.com.portalCrc.entity.controleIp;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -9,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -19,9 +21,11 @@ import br.com.portalCrc.entity.Usuario;
 @Entity
 @SequenceGenerator(name = "servicos_equipamento_id_seq", sequenceName = "servicos_equipamento", schema="controle_ip", initialValue = 1, allocationSize =1 )
 @Table(name="servicos_equipamento", schema="controle_ip")
-public class ServicosEquipamento {
+public class ServicosEquipamento implements Serializable{
 
-	
+	private static final long serialVersionUID = 1L;
+
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "servicos_equipamento_id_seq")
 	private Long id;
@@ -38,7 +42,7 @@ public class ServicosEquipamento {
 	@Column(name="data_cadastro")
 	private Date dataCadastro;
 	
-	@ManyToOne
+	@OneToOne
 	@JoinColumn(name="id_tecnico")
 	private Usuario tecnico;
 	

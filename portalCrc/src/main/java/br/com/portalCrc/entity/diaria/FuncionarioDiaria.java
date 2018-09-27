@@ -3,7 +3,6 @@ package br.com.portalCrc.entity.diaria;
 import java.math.BigDecimal;
 import java.util.Date;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -18,10 +17,12 @@ import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 
 import br.com.portalCrc.entity.Cargo;
+import br.com.portalCrc.entity.Funcao;
 import br.com.portalCrc.entity.Setor;
 import br.com.portalCrc.entity.Unidade;
 import br.com.portalCrc.entity.Usuario;
-
+import lombok.Data;
+@Data
 @Entity
 @SequenceGenerator(name = "funcionario_diaria_id_seq", sequenceName = "funcionario_diaria_id_seq", initialValue = 1, allocationSize = 1)
 @Table(name="funcionario_diaria", schema="diaria")
@@ -30,8 +31,6 @@ public class FuncionarioDiaria {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "funcionario_diaria_id_seq")
 	private Long id;
-	
-		
 
 	@NotNull (message="Conta do Funcionario não pode ser nulo")
 	@ManyToOne
@@ -42,6 +41,8 @@ public class FuncionarioDiaria {
 	private Cargo cargo;
 	@OneToOne
 	private Setor setor;
+	@OneToOne
+	private Funcao funcao;
 	
 	@NotNull (message="Unidade não pode ser nulo")
 	@ManyToOne
@@ -55,11 +56,10 @@ public class FuncionarioDiaria {
 	@Temporal(TemporalType.DATE)
 	private Date dataCadastro;
 	
-	@Column(name="tota_valor_diaria")
-	private BigDecimal totalValorDiaria;
-	
-	@Column(name="glosada")
-	private BigDecimal glosada;
+
+	private BigDecimal totalValorDiaria = new BigDecimal("0");	
+	private BigDecimal totalPago = new BigDecimal("0");	
+	private BigDecimal glosada = new BigDecimal("0");
 	
 	@NotNull (message="Diaria não pode ser nula")
 	@ManyToOne
@@ -67,88 +67,13 @@ public class FuncionarioDiaria {
 	private Diaria diaria;
 	
 	
+	private String banco;
+	private String agencia;
+	private String conta;
+	private BigDecimal salarioAtual;
+	private Integer indiceUfesp;
+	private Double limiteCemPorCento;
+	private String decreto;
 	
 	
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-	
-
-	public ContaFuncionarioDiaria getContaFuncionario() {
-		return contaFuncionario;
-	}
-
-	public void setContaFuncionario(ContaFuncionarioDiaria contaFuncionario) {
-		this.contaFuncionario = contaFuncionario;
-	}
-
-	public Unidade getUnidade() {
-		return unidade;
-	}
-
-	public void setUnidade(Unidade unidade) {
-		this.unidade = unidade;
-	}
-
-	public Usuario getUsuarioCadastro() {
-		return usuarioCadastro;
-	}
-
-	public void setUsuarioCadastro(Usuario usuarioCadastro) {
-		this.usuarioCadastro = usuarioCadastro;
-	}
-
-	public Date getDataCadastro() {
-		return dataCadastro;
-	}
-
-	public void setDataCadastro(Date dataCadastro) {
-		this.dataCadastro = dataCadastro;
-	}
-
-	public Diaria getDiaria() {
-		return diaria;
-	}
-
-	public void setDiaria(Diaria diaria) {
-		this.diaria = diaria;
-	}
-		
-	public BigDecimal getTotalValorDiaria() {
-		return totalValorDiaria;
-	}
-
-	public void setTotalValorDiaria(BigDecimal totalValorDiaria) {
-		this.totalValorDiaria = totalValorDiaria;
-	}
-
-	public BigDecimal getGlosada() {
-		return glosada;
-	}
-
-	public void setGlosada(BigDecimal glosada) {
-		this.glosada = glosada;
-	}
-
-	public Cargo getCargo() {
-		return cargo;
-	}
-
-	public void setCargo(Cargo cargo) {
-		this.cargo = cargo;
-	}
-
-	public Setor getSetor() {
-		return setor;
-	}
-
-	public void setSetor(Setor setor) {
-		this.setor = setor;
-	}
-	
-
 }

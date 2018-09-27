@@ -1,18 +1,21 @@
 package br.com.portalCrc.service.diaria;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import br.com.portalCrc.entity.Usuario;
 import br.com.portalCrc.entity.diaria.FuncionarioDiaria;
+import br.com.portalCrc.entity.diaria.FuncionarioDiariaDTO;
 import br.com.portalCrc.entity.diaria.ValoresDiariaLocalidade;
 import br.com.portalCrc.enums.diaria.StatusDiariaEnum;
 import br.com.portalCrc.pojo.SessionUsuario;
@@ -25,6 +28,9 @@ public class FuncionarioDiariaService {
 
 	@Autowired
 	private FuncionarioDiariaRepository funcionarioDiariaRepository;
+	
+	@Autowired
+	private ItemDiariaService itemDiariaService;
 
 	@Autowired
 	private ValoresDiariaLocalidadeRepository valoresDiaraRepository;
@@ -32,14 +38,32 @@ public class FuncionarioDiariaService {
 		
 	@Transactional(readOnly = false)
 	public void salvaOuAltera(FuncionarioDiaria funcionarioDiaria) {
+		
+		if(funcionarioDiaria.getDiaria().getId() != null && funcionarioDiaria.getContaFuncionario() != null) {
+			int count =	funcionarioDiariaRepository.countByDiaria_idAndContaFuncionario_id(funcionarioDiaria.getDiaria().getId(), funcionarioDiaria.getContaFuncionario().getId());
+			if(count > 0) {
+				throw new MensagemException("Não foi possivel realizar este lançamento, Esta conta já esta vinculada a diaria deste mês!!!");
+			}
+		}
+		
+		
 		Usuario usuario = SessionUsuario.getInstance().getUsuario();
 		BigDecimal total = new BigDecimal(0);
 		funcionarioDiaria.setDataCadastro(new Date());
+		
 		funcionarioDiaria.setUnidade(usuario.getFuncionario().getUnidadeAtual());
-		funcionarioDiaria.setUsuarioCadastro(SessionUsuario.getInstance().getUsuario());
-		funcionarioDiaria.setCargo(usuario.getFuncionario().getCargoAtual());
-		funcionarioDiaria.setSetor(usuario.getFuncionario().getSetorAtual());
-
+		funcionarioDiaria.setUsuarioCadastro(usuario);
+		funcionarioDiaria.setCargo(funcionarioDiaria.getContaFuncionario().getFuncionario().getCargoAtual());
+		funcionarioDiaria.setFuncao(funcionarioDiaria.getContaFuncionario().getFuncionario().getFuncaoAtual());
+		funcionarioDiaria.setSetor(funcionarioDiaria.getContaFuncionario().getFuncionario().getSetorAtual());
+		
+		funcionarioDiaria.setBanco(funcionarioDiaria.getContaFuncionario().getBanco());
+		funcionarioDiaria.setAgencia(funcionarioDiaria.getContaFuncionario().getAgencia());
+		funcionarioDiaria.setConta(funcionarioDiaria.getContaFuncionario().getConta());
+		funcionarioDiaria.setIndiceUfesp(funcionarioDiaria.getContaFuncionario().getIndiceUfesp());
+		funcionarioDiaria.setLimiteCemPorCento(funcionarioDiaria.getContaFuncionario().getLimiteCemPorCento());
+		funcionarioDiaria.setSalarioAtual(funcionarioDiaria.getContaFuncionario().getSalarioAtual());
+		funcionarioDiaria.setDecreto(funcionarioDiaria.getContaFuncionario().getDecreto());
 		funcionarioDiaria.setTotalValorDiaria(total);
 		if (funcionarioDiaria.getDiaria().getStatus() == StatusDiariaEnum.ABERTO) {
 			funcionarioDiariaRepository.save(funcionarioDiaria);			
@@ -60,7 +84,7 @@ public class FuncionarioDiariaService {
 		return funcionarioDiariaRepository.findOne(id);
 	}
 
-	public List<FuncionarioDiaria> listaUnidade(Long id) {
+	public List<FuncionarioDiariaDTO> listaUnidade(Long id) {
 		List<FuncionarioDiaria> lista = funcionarioDiariaRepository.findByUnidade_idAndDiaria_id(
 				SessionUsuario.getInstance().getUsuario().getFuncionario().getUnidadeAtual().getId(), id);
 
@@ -68,7 +92,16 @@ public class FuncionarioDiariaService {
 			throw new MensagemException("Unidade não tem lançamento nesta diaria! ");
 		}
 
-		return lista;
+		List<FuncionarioDiariaDTO> listDto = new ArrayList<>();
+		lista.forEach(item ->{			
+			FuncionarioDiariaDTO funcionarioDiaria = new FuncionarioDiariaDTO(item);	
+			funcionarioDiaria.setStatus(itemDiariaService.existByFuncionarioDiaria_idAndAnalizado(item.getId(), false));
+			
+			listDto.add(funcionarioDiaria);
+		});
+		
+		
+		return listDto;
 	}
 
 	public List<FuncionarioDiaria> listaCoordenadoria(Long id) {
@@ -87,8 +120,8 @@ public class FuncionarioDiariaService {
 		return funcionarioDiariaRepository.findAll();
 	}
 
-	public Iterable<FuncionarioDiaria> listaSecretaria(Long id) {
-		Iterable<FuncionarioDiaria> lista = funcionarioDiariaRepository.findByDiaria_id(id);
+	public List<FuncionarioDiaria> findAllDiaria(Long id) {
+		List<FuncionarioDiaria> lista = funcionarioDiariaRepository.findByDiaria_id(id);
 
 		if (lista == null) {
 			throw new MensagemException("Secretaria não tem lançamento nesta diaria! ");
@@ -105,11 +138,6 @@ public class FuncionarioDiariaService {
 
 	public Iterable<ValoresDiariaLocalidade> valoresDiaria(Integer id, Long idDiaria) {
 		return valoresDiaraRepository.findByIndiceUfespAndDiaria_id(id, idDiaria);
-	}
-
-	public Iterable<FuncionarioDiaria> findByUnidade_idAndDiaria_id(Long id) {
-		return funcionarioDiariaRepository.findByUnidade_idAndDiaria_id(
-				SessionUsuario.getInstance().getUsuario().getFuncionario().getUnidadeAtual().getId(), id);
 	}
 
 	public FuncionarioDiaria findByUnidade_idAndContaFuncionario_idAndDiaria_id(Long idFuncionario, Long idDiaria) {
@@ -144,5 +172,42 @@ public class FuncionarioDiariaService {
 		}
 		return funcionario;
 	}
+
+	
+
+	public Page<FuncionarioDiaria> findaAllDiariaId(Long idDiaria, Pageable page) {
+		
+		Page<FuncionarioDiaria> list = funcionarioDiariaRepository.findAllByDiaria_id(idDiaria, page);
+		if (list.getNumberOfElements() == 0) {
+			throw new MensagemException("Não existe Lançamento para esta diaria!");
+		}
+		return list;
+	}
+
+	public Page<FuncionarioDiaria> findaAllDiariaIdAndTexto(Long idDiaria, String texto, Pageable page) {
+		texto = texto.replaceAll("[./-]","");
+		Page<FuncionarioDiaria> list = null;
+		
+		if (texto.matches("[0-9]+")) {
+			 list = funcionarioDiariaRepository.findByContaFuncionarioFuncionarioPessoaCpfAndDiaria_id("%" + texto + "%", idDiaria, page);			
+		} else {
+			 list =  funcionarioDiariaRepository.findByContaFuncionarioFuncionarioPessoaNomeCompletoIgnoreCaseContainingAndDiaria_id(texto, idDiaria, page);			
+		}
+		if(list == null || list.getNumberOfElements() < 1){
+			throw new MensagemException("Busca não encontrada, verifique se ja existe conta aberta para este funcioonario! " + texto);
+		}
+		return list;
+	}
+
+	public List<FuncionarioDiaria> findByUnidade_id() {
+		
+		return funcionarioDiariaRepository.findByUnidade_id(SessionUsuario.getInstance().getUsuario().getFuncionario().getUnidadeAtual().getId());
+	}
+
+	public FuncionarioDiaria findByContaFuncionario_id(Long idFuncionario) {
+		return funcionarioDiariaRepository.findByContaFuncionario_id(idFuncionario);
+	}
+
+	
 
 }

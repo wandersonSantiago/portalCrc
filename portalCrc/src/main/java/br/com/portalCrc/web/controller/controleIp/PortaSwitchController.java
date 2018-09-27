@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,6 +24,7 @@ public class PortaSwitchController {
 	@Autowired
 	private PortaSwitchService switchPortaService; 
 	
+	@PreAuthorize("hasAnyRole('ROLE_?SWITCH','ROLE_?ADMIN')")
 	@PostMapping
 	public ResponseEntity<PortaSwitch> salvarOuAlterar(@RequestBody PortaSwitch porta){		
 		switchPortaService.salvaOuAltera(porta);
@@ -31,6 +33,7 @@ public class PortaSwitchController {
 	
 	}
 	
+	@PreAuthorize("hasAnyRole('ROLE_?SWITCH','ROLE_?ADMIN')")
 	@PutMapping
 	public ResponseEntity<PortaSwitch> alterar(@RequestBody PortaSwitch porta){
 		switchPortaService.salvaOuAltera(porta);

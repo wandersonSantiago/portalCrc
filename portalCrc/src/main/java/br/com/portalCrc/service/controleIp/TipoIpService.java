@@ -20,15 +20,15 @@ public class TipoIpService {
 	
 	@Transactional
 	public void salvaOuAltera(TipoIp tipo){
-		tipo.setUnidade(SessionUsuario.getInstance().getUsuario().getFuncionario().getUnidadeAtual());
-		tipo.setUsuarioCadastro(SessionUsuario.getInstance().getUsuario());
+		tipo.setUnidade(SessionUsuario.getInstance().getUsuario().getFuncionario().getUnidadeAtual().getId());
+		tipo.setUsuarioCadastro(SessionUsuario.getInstance().getUsuario().getId());
 		tipoIpRepositorio.save(tipo);
 				
 	}
 	
 	
 	public Collection<TipoIp> lista(){
-		return tipoIpRepositorio.findByUnidade_id(SessionUsuario.getInstance().getUsuario().getFuncionario().getUnidadeAtual().getId());
+		return tipoIpRepositorio.findByUnidade(SessionUsuario.getInstance().getUsuario().getFuncionario().getUnidadeAtual().getId());
 	}
 	
 	

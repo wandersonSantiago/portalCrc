@@ -2,10 +2,17 @@ package br.com.portalCrc.service.chamado;
 
 import java.util.Collection;
 import java.util.Date;
+import java.util.concurrent.atomic.AtomicBoolean;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.messaging.core.MessageSendingOperations;
+import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.handler.annotation.SendTo;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,6 +25,7 @@ import br.com.portalCrc.pojo.ConverteData;
 import br.com.portalCrc.pojo.SessionUsuario;
 import br.com.portalCrc.repository.chamado.ChamadoTiRepository;
 import br.com.portalCrc.service.diaria.MensagemException;
+import br.com.portalCrc.util.Result;
 
 @Service
 @Transactional(readOnly = true, propagation = Propagation.REQUIRED)
@@ -25,6 +33,13 @@ public class ChamadoTiService {
 
 	@Autowired
 	private ChamadoTiRepository chamadoTiRepository;
+	
+	
+	private static final String TIME_ZONE = "America/Sao_Paulo";
+	
+    @Autowired
+	private MessageSendingOperations<String> messagingTemplate;
+    
 
 	private Date dataAtual;
 
@@ -39,8 +54,9 @@ public class ChamadoTiService {
 		chamadoTi.setSilenciar(false);
 		chamadoTi.setDataAbertura(dataAtual);
 		adicionarChamadoNasMensagens(chamadoTi);
-
 		chamadoTiRepository.save(chamadoTi);
+		
+		
 	}
 
 	@Transactional(readOnly = false)
@@ -145,5 +161,29 @@ public class ChamadoTiService {
 	public long count() {
 		return chamadoTiRepository.countByStatus(StatusChamado.ABERTO);
 	}
+
+
+	public Result enviarMensagemDeAvisoDeChamadoAberto() {
+		
+		Integer count =  (int) chamadoTiRepository.countByStatus(StatusChamado.ABERTO);
+		
+		
+		Result result = new Result("Novo Chamado", count);
+		return result;
+	}
+	
+
+	
+
+	@Scheduled(cron = "1 * * * * *", zone= TIME_ZONE)
+	public void schedule() {
+		Integer count =  (int) chamadoTiRepository.countByStatusAndSilenciar(StatusChamado.ABERTO, false);		
+		
+		if(count.intValue() > 0) {
+			this.messagingTemplate.convertAndSend("/topic/showResult", new Result("Chamado não atendido", count));
+		}		 	
+		
+	}
+	
 
 }

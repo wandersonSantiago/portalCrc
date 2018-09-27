@@ -23,6 +23,8 @@ app.config(function($stateProvider, $urlRouterProvider) {
 				  }
 		})
 		.state('portaSwitch.cadastrar', {
+			requiresAuthentication: true,
+			permissions: ["SWITCH", "ADMIN"],
 			url : "/cadastrar",
 			templateUrl : "views/informatica/controleIp/switch/portas/porta.switch.form.html",
 			controller : "PortaSwitchCadastarController as portaSwitchCtrl",
@@ -32,6 +34,8 @@ app.config(function($stateProvider, $urlRouterProvider) {
 			  }
 		})
 		.state('portaSwitch.editar', {
+			requiresAuthentication: true,
+			permissions: ["SWITCH", "ADMIN"],
 			url : "/:idPortaSwitch/editar",
 			templateUrl : "views/informatica/controleIp/switch/portas/porta.switch.form.html",
 			controller : "PortaSwitchEditarController as portaSwitchCtrl",

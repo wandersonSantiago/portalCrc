@@ -21,6 +21,8 @@ app.config(function($stateProvider, $urlRouterProvider) {
 				  }
 		})
 		.state('setor.cadastrar', {
+			requiresAuthentication: true,
+			permissions: ["SETOR", "ADMIN"],
 			url : "/cadastrar",
 			templateUrl : "views/recursosHumanos/setor/setor.form.html",
 			controller : "SetorCadastarController as setorCtrl",
@@ -30,6 +32,8 @@ app.config(function($stateProvider, $urlRouterProvider) {
 			  }
 		})
 		.state('setor.editar', {
+			requiresAuthentication: true,
+			permissions: ["SETOR", "ADMIN"],
 			url : "/:idSetor/editar",
 			templateUrl : "views/recursosHumanos/setor/setor.form.html",
 			controller : "SetorEditarController as setorCtrl",

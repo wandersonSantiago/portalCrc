@@ -11,7 +11,7 @@
 			<div class="col-sm-2">
 				<div class="pull-left image">
 				<img ng-src="/rest/usuario/{{ctrl.usuario.id}}/foto"
-				  class="img-circle" alt="User Image">
+				  class="thumbnail col-sm-12"  alt="User Image">
 			</div>
 			</div>
 			<div class="col-xs-4">
@@ -29,9 +29,26 @@
 
 
 		<br> <br> <br> <br>
+		<div permission="['ADMIN']">
+			<div class="row">
+					<h3>
+						<span class=" col-sm-12 form-control label label-danger">ADMIN 
+							</span>
+					</h3>
+				</div>
+				<br>
+				<div class="row">
+					<div class="col-xs-4 col-sm-3"
+						ng-repeat="permissao in ctrl.permissoes">
+						<label class="checkbox-inline" ng-show="permissao.modulo == 'ADMIN'"><input type="checkbox" 
+							data-checklist-model="ctrl.usuario.permissoes"
+							data-checklist-value="permissao">{{permissao.descricao}}</label>
+					</div>
+				</div>
+		</div>
 			<div class="row">
 				<h3>
-					<span class=" col-sm-12 form-control label label-primary">Gerenciamento 
+					<span class=" col-sm-12 form-control label label-warning">Gerenciamento 
 						</span>
 				</h3>
 			</div>

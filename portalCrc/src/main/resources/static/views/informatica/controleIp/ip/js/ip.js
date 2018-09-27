@@ -41,6 +41,8 @@ app.config(function($stateProvider, $urlRouterProvider) {
 				  }
 		})
 		.state('ip.cadastrar', {
+			requiresAuthentication: true,
+			permissions: ["IP", "ADMIN"],
 			url : "/cadastrar",
 			templateUrl : "views/informatica/controleIp/ip/ip.form.html",
 			controller : "IpCadastarController as ipCtrl",
@@ -50,6 +52,8 @@ app.config(function($stateProvider, $urlRouterProvider) {
 			  }
 		})
 		.state('ip.editar', {
+			requiresAuthentication: true,
+			permissions: ["IP", "ADMIN"],
 			url : "/:idIp/editar",
 			templateUrl : "views/informatica/controleIp/ip/ip.form.html",
 			controller : "IpEditarController as ipCtrl",

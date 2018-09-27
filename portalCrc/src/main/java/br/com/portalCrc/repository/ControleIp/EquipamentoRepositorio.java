@@ -9,9 +9,9 @@ import br.com.portalCrc.enums.controleIp.StatusEquipamento;
 
 public interface EquipamentoRepositorio extends JpaRepository<Equipamento, Long> {
 
-	Collection<Equipamento> findByUnidade_id(Long id);
+	Collection<Equipamento> findByUnidade(Long id);
 
-	Iterable<Equipamento> findByStatusAndUnidade_id(StatusEquipamento status, Long id);
+	Iterable<Equipamento> findByStatusAndUnidade(StatusEquipamento status, Long id);
 
 	Equipamento findByPatrimonioIgnoreCase(String patrimonio);
 
