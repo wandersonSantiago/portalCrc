@@ -3,17 +3,17 @@ app.config(function($stateProvider, $urlRouterProvider) {
 	$stateProvider
 		
 	.state('auditorio', {
-		url : "/auditorio",
-		templateUrl : "views/auditorio/auditorio.index.html",
+		url : '/auditorio',
+		templateUrl : 'views/agendamento/auditorio/auditorio.index.html',
 		ncyBreadcrumb: {
-			parent: 'home',
+			parent: 'agendamento.menu',
 			    label: 'Auditorio'
 			  }
 	})
 	
 		.state('auditorio.listar', {
 			url : "/listar",
-			templateUrl : "views/auditorio/auditorio.list.html",
+			templateUrl : "views/agendamento/auditorio/auditorio.list.html",
 			controller : "AuditorioListarController as ctrl",
 			ncyBreadcrumb: {
 				 	parent: 'auditorio',
@@ -21,8 +21,15 @@ app.config(function($stateProvider, $urlRouterProvider) {
 				  }
 		})
 		.state('auditorio.cadastrar', {
+			
+			
+			requiresAuthentication: true,
+			permissions: ["AUDITORIO", "ADMIN"],
+			
+			
+			
 			url : "/cadastrar",
-			templateUrl : "views/auditorio/auditorio.form.html",
+			templateUrl : "views/agendamento/auditorio/auditorio.form.html",
 			controller : "AuditorioCadastarController as ctrl",
 			ncyBreadcrumb: {
 			 	parent: 'auditorio',
@@ -30,8 +37,15 @@ app.config(function($stateProvider, $urlRouterProvider) {
 			  }
 		})
 		.state('auditorio.editar', {
+			
+			
+			requiresAuthentication: true,
+			permissions: ["AUDITORIO", "ADMIN"],
+			
+			
+			
 			url : "/:idAuditorio/editar",
-			templateUrl : "views/auditorio/auditorio.form.html",
+			templateUrl : "views/agendamento/auditorio/auditorio.form.html",
 			controller : "AuditorioEditarController as ctrl",
 			ncyBreadcrumb: {
 				 	parent: 'auditorio.listar',
@@ -40,7 +54,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
 		})
 		.state('auditorio.visualizar', {
 			url : "/:idAuditorio",
-			templateUrl : "views/auditorio/auditorio.show.html",
+			templateUrl : "views/agendamento/auditorio/auditorio.show.html",
 			controller : "AuditorioVisualizarController as ctrl",
 			ncyBreadcrumb: {
 				 	parent: 'auditorio.listar',

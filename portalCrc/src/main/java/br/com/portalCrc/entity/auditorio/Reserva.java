@@ -2,6 +2,7 @@ package br.com.portalCrc.entity.auditorio;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -15,7 +16,9 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
+
 import br.com.portalCrc.entity.Funcionario;
+import br.com.portalCrc.entity.Pessoa;
 import br.com.portalCrc.entity.Unidade;
 import br.com.portalCrc.entity.Usuario;
 
@@ -31,17 +34,25 @@ public class Reserva {
 	private long id;
 	
 	@NotNull (message="Data da reserva não pode ser nula")
-	@Temporal(TemporalType.DATE)
-	private Date dataReserva;
-	
-	@NotNull (message="Horario de reserva não pode ser nulo")
-	@Column(name="hora_reserva")
 	@Temporal(TemporalType.TIMESTAMP)
-	private Date horaReserva;
+	private Date dataReserva;
+	@NotNull (message="Horario de reserva inicio não pode ser nulo")
+	@Column(name="hora_reserva_inicio")
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date horaReservaInicio;
 	
+	@NotNull (message="Horario de reserva termino não pode ser nulo")
+	@Column(name="hora_reserva_termino")
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date horaReservaTermino;
+		
+	@OneToOne
+	@JoinColumn(name ="id_auditorio", nullable = true)
+	private Auditorio auditorio;
 	
-	@Column(name="funcionario",nullable = true)
-	private String funcionario;
+	@ManyToOne
+	@JoinColumn(name="id_funcionario",nullable = true)
+	private Funcionario funcionario;
 	
 	@NotNull (message="evento realizado não pode ser nulo")
 	@Column(name="evento")
@@ -74,19 +85,37 @@ public class Reserva {
 		this.dataReserva = dataReserva;
 	}
 
-	public Date getHoraReserva() {
-		return horaReserva;
+	public Date getHoraReservaInicio() {
+		return horaReservaInicio;
 	}
 
-	public void setHoraReserva(Date horaReserva) {
-		this.horaReserva = horaReserva;
+	public void setHoraReservaInicio(Date horaReservaInicio) {
+		this.horaReservaInicio = horaReservaInicio;
 	}
 
-	public String getFuncionario() {
+	public Date getHoraReservaTermino() {
+		return horaReservaTermino;
+	}
+
+	public void setHoraReservaTermino(Date horaReservaTermino) {
+		this.horaReservaTermino = horaReservaTermino;
+	}
+	
+	public Auditorio getAuditorio() {
+		return auditorio;
+	}
+
+	public void setAuditorio(Auditorio auditorio) {
+		this.auditorio = auditorio;
+	}
+	
+	
+
+	public Funcionario getFuncionario() {
 		return funcionario;
 	}
 
-	public void setFuncionario(String funcionario) {
+	public void setFuncionario(Funcionario funcionario) {
 		this.funcionario = funcionario;
 	}
 

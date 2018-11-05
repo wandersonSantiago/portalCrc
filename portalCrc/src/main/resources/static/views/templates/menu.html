@@ -210,7 +210,39 @@
 						    <li  permission="['ADMIN']"><a class="top" ui-sref="tipo.listar">lista</a></li>
 						</ul>
 					</li>
+					
+										
+					
+					
+					<li permission="['AUDITORIO', 'EMPRESTIMO','RESERVA', 'ADMIN']" class="header">AGENDAMENTO AUDITÓRIO</li>
+					<li  permission="['AUDITORIO' , 'ADMIN']" class="treeview"><a href=""><i class="fa fa-user-plus"></i> <span>Auditório</span>
+						<i class="fa fa-angle-left pull-right"></i></a>
+						<ul class="treeview-menu">
+							 <li permission="['AUDITORIO' , 'ADMIN']"><a class="top" ui-sref="auditorio.cadastrar">cadastrar</a></li>
+						     <li permission="['AUDITORIO' , 'ADMIN']"><a class="top" ui-sref="auditorio.listar">lista</a></li>
+						</ul>
+					</li> 
+					
+					<li  permission="['EMPRESTIMO' , 'ADMIN']" class="treeview"><a href=""><i class="fa fa-user-plus"></i> <span>Emprétimo</span>
+						<i class="fa fa-angle-left pull-right"></i></a>
+						<ul class="treeview-menu">
+							 <li permission="['EMPRESTIMO' , 'ADMIN']"><a class="top" ui-sref="emprestimo.cadastrar">cadastrar</a></li>
+						     <li permission="['EMPRESTIMO' , 'ADMIN']"><a class="top" ui-sref="emprestimo.listar">lista</a></li>
+						</ul>
+					</li> 
+					
+					<li  permission="['RESERVA' , 'ADMIN']" class="treeview"><a href=""><i class="fa fa-user-plus"></i> <span>Reserva</span>
+						<i class="fa fa-angle-left pull-right"></i></a>
+						<ul class="treeview-menu">
+							 <li permission="['RESERVA' , 'ADMIN']"><a class="top" ui-sref="reserva.cadastrar">cadastrar</a></li>
+						     <li permission="['RESERVA' , 'ADMIN']"><a class="top" ui-sref="reserva.listar">lista</a></li>
+						</ul>
+					</li> 
+			
+					
 		</ul>
+		
+		
 		<script type="text/javascript">
 		$(document).ready(function() {
 			$('.top').click(function() {

@@ -7,7 +7,9 @@ public enum TipoEquipamentoEnum {
 	SMARTFONE,
 	IMPRESSORA,
 	TABLET,
-	CAMERA;
+	CAMERA,
+	DATASHOW,
+	DIVERSOS;
 	
 	
 }

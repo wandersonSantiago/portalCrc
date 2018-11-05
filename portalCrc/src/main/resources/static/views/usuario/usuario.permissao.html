@@ -157,6 +157,27 @@
 				</div>
 			</div>
 			<br>
+			
+			
+			<div class="row">
+				<h3>
+					<span class=" col-sm-12 form-control label label-primary">Auditório
+						</span>
+				</h3>
+			</div>
+			<br>
+			<div class="row">
+				<div class="col-xs-4 col-sm-3"
+					ng-repeat="permissao in ctrl.permissoes">
+					<label class="checkbox-inline" ng-show="permissao.modulo == 'AUDITORIO'"><input type="checkbox" 
+						data-checklist-model="ctrl.usuario.permissoes"
+						data-checklist-value="permissao">{{permissao.descricao}}</label>
+				</div>
+			</div>
+			<br>
+			
+			
+			
 			<br> <br>
 					
 					<div class="row ">

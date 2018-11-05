@@ -1,19 +1,21 @@
 app.config(function($stateProvider, $urlRouterProvider) {
 
 	$stateProvider
-		
+	
 	.state('reserva', {
-		url : "/reserva",
-		templateUrl : "views/auditorio/reserva/reserva.index.html",
+		abstract : true,	
+		url : '/reserva',
+		templateUrl : "views/agendamento/reserva/reserva.index.html",
+		redirectTo : 'reserva.listar',
 		ncyBreadcrumb: {
-			parent: 'home',
+			parent: 'agendamento.menu',
 			    label: 'Reserva'
 			  }
 	})
 	
 		.state('reserva.listar', {
 			url : "/listar",
-			templateUrl : "views/auditorio/reserva/reserva.list.html",
+			templateUrl : "views/agendamento/reserva/reserva.list.html",
 			controller : "ReservaListarController as ctrl",
 			ncyBreadcrumb: {
 				 	parent: 'reserva',
@@ -21,8 +23,14 @@ app.config(function($stateProvider, $urlRouterProvider) {
 				  }
 		})
 		.state('reserva.cadastrar', {
+			
+			requiresAuthentication: true,
+			permissions: ["RESERVA", "ADMIN"],
+			
+			
+			
 			url : "/cadastrar",
-			templateUrl : "views/auditorio/reserva/reserva.form.html",
+			templateUrl : "views/agendamento/reserva/reserva.form.html",
 			controller : "ReservaCadastarController as ctrl",
 			ncyBreadcrumb: {
 			 	parent: 'reserva',
@@ -30,8 +38,14 @@ app.config(function($stateProvider, $urlRouterProvider) {
 			  }
 		})
 		.state('reserva.editar', {
-			url : "/:idReserva",
-			templateUrl : "views/auditorio/reserva/reserva.form.html",
+			
+			
+			requiresAuthentication: true,
+			permissions: ["RESERVA", "ADMIN"],
+			
+			
+			url : "/:idReserva/editar",
+			templateUrl : "views/agendamento/reserva/reserva.form.html",
 			controller : "ReservaEditarController as ctrl",
 			ncyBreadcrumb: {
 				 	parent: 'reserva.listar',
@@ -40,7 +54,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
 		})
 		.state('reserva.visualizar', {
 			url : "/:idReserva",
-			templateUrl : "views/auditorio/reserva/reserva.show.html",
+			templateUrl : "views/agendamento/reserva/reserva.show.html",
 			controller : "ReservaVisualizarController as ctrl",
 			ncyBreadcrumb: {
 				 	parent: 'reserva.listar',

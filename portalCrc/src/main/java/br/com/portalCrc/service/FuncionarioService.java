@@ -77,19 +77,16 @@ public class FuncionarioService {
 	
 	public Page<Funcionario> buscar(String texto, Pageable page) {
 			texto = texto.replaceAll("[./-]","");
+			Page<Funcionario> list;
 			if (texto.matches("[0-9]+")) {
-				Page<Funcionario> list = funcionarioRepository.findByPessoa_cpfContaining("%" + texto + "%", page);
-				if(list == null || list.getNumberOfElements() < 1){
-					throw new MensagemException("Busca não encontrada,  para este funcionario! " + texto);
-				}
-				return list;
+				 list = funcionarioRepository.findByPessoa_cpfContaining("%" + texto + "%", page);
 			} else {
-				Page<Funcionario> list =  funcionarioRepository.findByPessoa_nomeCompletoIgnoreCaseContaining(texto, page);
-				if(list == null || list.getNumberOfElements() < 1){
-					throw new MensagemException("Busca não encontrada,  para este funcionario! " + texto);
-				}
-				return list;
+				 list =  funcionarioRepository.findByPessoa_nomeCompletoIgnoreCaseContaining(texto, page);
 			}
+			if(list == null || list.getNumberOfElements() < 1){
+				throw new MensagemException("Busca não encontrada,  para este funcionario! " + texto);
+			}
+			return list;
 	}
 
 	public Page<Funcionario> buscarNaUnidade(String texto, Pageable page) {

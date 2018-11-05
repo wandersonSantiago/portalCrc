@@ -10,6 +10,7 @@ public enum ModuloPermissaoEnum {
 	GERENCIAMENTO,
 	RECURSOS_HUMANOS,
 	INFRAESTRUTURA,
-	ADMIN;
+	ADMIN,
+	AUDITORIO;
 	
 }

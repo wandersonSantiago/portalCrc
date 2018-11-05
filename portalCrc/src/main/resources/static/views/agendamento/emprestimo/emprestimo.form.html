@@ -1,0 +1,122 @@
+<meta charset="UTF-8">
+			 
+					<div class="col-sm-12 ">
+					<form role="form-vertical" ng-submit="ctrl.submit()" >
+					
+						
+							<div class="form-group col-md-3">
+							Funcionario Solicitante: 	
+							<select class="form-control select2" ng-model="ctrl.emprestimo.funcionario" 
+								ng-options="funcionario.pessoa.nomeCompleto for funcionario in ctrl.funcionarios track by funcionario.pessoa.id"  >
+						
+							</select>
+							</div>
+							
+							
+							<div class="col-sm-6">
+					
+								Unidade:
+								<select class="form-control select2" ng-model="ctrl.emprestimo.unidadeCadastro" 
+								ng-options="unidade.dadosUnidade.nome for unidade in ctrl.unidades track by unidade.dadosUnidade.id"  >
+						
+								</select>
+						</div>
+						
+								
+						<br><br><br><br><br><br>
+						
+						<div class="form-group col-md-3">
+						Selecione Tipo Equipamento:
+						
+							<select class="form-control " ng-model="ctrl.emprestimo.tipo"  
+							ng-options="tipoEquipamentoEnum for  tipoEquipamentoEnum in ctrl.tiposEquipamentoEnum" >						
+							</select>
+							
+						</div>
+						
+						
+						<!--  alterado aqui  
+						
+						<div class="row">					
+						<div class="col-sm-3">
+								Descricao Marca/Modelo:
+								<input class="form-control" ng-model="ctrl.emprestimo.descricao" placeholder="Descricao" id="descricao" type="text" required>
+							
+						</div>						
+						</div>	
+						
+						 alterado aqui --> 		
+						
+						
+					<!--  alterado aqui --> 
+																		 
+						<div class="form-group col-md-3"> 						
+						
+						Selecione o  Equipamento:
+							
+							<select class="form-control " ng-model="e"  ng-change="ctrl.addEquipamento(e)"
+							ng-options="equipamento.descricao for  equipamento in ctrl.equipamentos" >						
+							</select>
+						</div>
+							
+							<div 
+							ng-repeat="equipamento in equipamentos">
+							{{equipamento.descricao}}
+						</div>	
+						
+						
+						<!--  alterado aqui --> 
+						
+						
+						<br><br><br><br><br>
+						<div class="col-sm-12 ">
+							 <div class="form-group col-md-3">
+						 					 
+								Data do Emprestimo: <input class="form-control" 
+								ng-model="ctrl.emprestimo.dataEmprestimo"
+								id="dataEmprestimo" type="date" required>
+							</div>																
+						
+							<div class="form-group col-md-3">
+						 					 
+								Data Devolução: <input class="form-control" 
+								ng-model="ctrl.emprestimo.dataDevolucao"
+								id="dataDevolucao" type="date" required>
+						</div>								
+						
+						<div class="row">					
+						<div class="col-sm-3">
+								Evento/Atividade:
+								<input class="form-control" ng-model="ctrl.emprestimo.evento" placeholder="Evento" id="evento" type="text" required>
+							
+						</div>						
+						</div>	
+					<br>						
+						<br>
+					</div>
+					
+						<div class="col-sm-4">
+								Status do Emprestimo: 
+						<select class="form-control "
+							ng-model="ctrl.emprestimo.status" 
+							ng-options="status for status in ctrl.statusEmprestimo">
+										
+						<option value="">Status</option>
+						</select>
+						</div>
+															
+						<div class="row ">
+						<div class="col-sm-4"></div>
+						</div>
+						<br>						
+						<br>
+						<div class="col-sm-4">
+						
+							<input type="submit" id="submit" value="Salvar" ng-disabled="!ctrl.emprestimo.equipamento || !ctrl.emprestimo.funcionario || !ctrl.emprestimo.evento|| !ctrl.emprestimo.status"
+								class="btn btn-lg btn-primary btn-block btn-signin">
+						</div>
+					
+								
+				</form>
+				</div>	
+			

@@ -18,7 +18,7 @@ import br.com.portalCrc.entity.auditorio.Auditorio;
 import br.com.portalCrc.service.auditorio.AuditorioService;
 
 @RestController
-@RequestMapping("/rest/auditorio")
+@RequestMapping("/rest/agendamento/auditorio")
 
 public class AuditorioRestController {
 	

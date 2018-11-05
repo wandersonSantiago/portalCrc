@@ -11,12 +11,14 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import br.com.portalCrc.entity.auditorio.Emprestimo;
 import br.com.portalCrc.enums.controleIp.StatusEquipamento;
 import br.com.portalCrc.enums.controleIp.TipoEquipamentoEnum;
 
@@ -40,7 +42,7 @@ public class Equipamento implements Serializable{
 	@OneToOne
 	@JoinColumn(name="ip", unique = true)
 	private Ip ip;
-	
+			
 	@Column(name="descricao", nullable=false)
 	private String descricao;
 	

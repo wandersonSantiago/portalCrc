@@ -3,27 +3,34 @@ app.config(function($stateProvider, $urlRouterProvider) {
 	$stateProvider
 		
 	.state('emprestimo', {
-		url :"/emprestimo",
-		templateUrl : 'views/auditorio/emprestimo/emprestimo.index.html',
+		abstract : true,	
+		url : '/emprestimo',
+		templateUrl : "views/agendamento/emprestimo/emprestimo.index.html",
+		redirectTo : 'emprestimo.listar',
 		ncyBreadcrumb: {
-			parent: 'home',
+			parent: 'agendamento.menu',
 			    label: 'Emprestimo'
-			    	
 			  }
 	})
 	
 		.state('emprestimo.listar', {
 			url : "/listar",
-			templateUrl : "views/auditorio/emprestimo/emprestimo.list.html",
-			controller : "EmprestimoListarController as Ctrl",
+			templateUrl : "views/agendamento/emprestimo/emprestimo.list.html",
+			controller : "EmprestimoListarController as ctrl",
 			ncyBreadcrumb: {
 				 	parent: 'emprestimo',
 				    label: 'Listar'
 				  }
 		})
 		.state('emprestimo.cadastrar', {
+			
+			requiresAuthentication: true,
+			permissions: ["EMPRESTIMO", "ADMIN"],
+			
+			
+			
 			url : "/cadastrar",
-			templateUrl : "views/auditorio/emprestimo/emprestimo.form.html",
+			templateUrl : "views/agendamento/emprestimo/emprestimo.form.html",
 			controller : "EmprestimoCadastarController as ctrl",
 			ncyBreadcrumb: {
 			 	parent: 'emprestimo',
@@ -31,17 +38,26 @@ app.config(function($stateProvider, $urlRouterProvider) {
 			  }
 		})
 		.state('emprestimo.editar', {
-			url : "/:idEmprestimo",
-			templateUrl : "views/auditorio/emprestimo/emprestimo.form.html",
-			controller : "EmprestimoEditarController as emprestimoCtrl",
+			
+			
+			requiresAuthentication: true,
+			permissions: ["EMPRESTIMO", "ADMIN"],
+			
+			
+			
+			
+			url : "/:idEmprestimo/editar",
+			templateUrl : "views/agendamento/emprestimo/emprestimo.form.html",
+			controller : "EmprestimoEditarController as ctrl",
 			ncyBreadcrumb: {
 				 	parent: 'emprestimo.listar',
 				    label: 'Editar'
 				  }
 		})
+				
 		.state('emprestimo.visualizar', {
 			url : "/:idEmprestimo",
-			templateUrl : "views/auditorio/emprestimo/emprestimo.show.html",
+			templateUrl : "views/agendamento/emprestimo/emprestimo.show.html",
 			controller : "EmprestimoVisualizarController as ctrl",
 			ncyBreadcrumb: {
 				 	parent: 'emprestimo.listar',

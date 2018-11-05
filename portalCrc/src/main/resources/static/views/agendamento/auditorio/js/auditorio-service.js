@@ -3,7 +3,7 @@ app.factory('AuditorioService', function($http,$q , $rootScope, toastr)
 
 	 return {
 		 salvar: function(objeto){
-			 return $http.post('/rest/auditorio', objeto)
+			 return $http.post('/rest/agendamento/auditorio', objeto)
 				.then(function(response){
 					return response.data;
 				},function(errResponse){
@@ -13,7 +13,7 @@ app.factory('AuditorioService', function($http,$q , $rootScope, toastr)
 			
 			
 			listar: function(){
-				return $http.get('/rest/auditorio')
+				return $http.get('/rest/agendamento/auditorio')
 				.then(function(response){
 					return response.data;
 				},function(errResponse){
@@ -22,7 +22,7 @@ app.factory('AuditorioService', function($http,$q , $rootScope, toastr)
 			},
 					
 			buscarPorId: function(param){
-				return $http.get('/rest/auditorio/'+param)
+				return $http.get('/rest/agendamento/auditorio/'+param)
 				.then(function(response){
 					return response.data;
 				},function(errResponse){
@@ -31,7 +31,7 @@ app.factory('AuditorioService', function($http,$q , $rootScope, toastr)
 			},
 			
 			alterar: function(auditorio){
-				return $http.put('/rest/auditorio/', auditorio)
+				return $http.put('/rest/agendamento/auditorio/', auditorio)
 				.then(function(response){
 					return response.data;
 				},function(errResponse){
