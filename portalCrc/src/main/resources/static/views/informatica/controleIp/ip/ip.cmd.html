@@ -1,0 +1,33 @@
+<meta charset="UTF-8">
+	<div class="container col-sm-12 ">	
+			
+	    <div align="center">
+			<div class="small-box bg-aqua">
+				<div class="inner" align="center">
+					<h4>Comando dos computadores da rede</h4>					
+				</div>
+			</div>
+		</div>	
+				<form class="col-sm-12" role="form-vertical" name="formIp" ng-submit="ctrl.submit()" >
+					<div class="row">
+						<strong>{{ctrl.comando.ip}}/</strong>{{ctrl.comando.host}} -> 
+						<textarea  type="text" name="texto" ng-model="ctrl.comando.executar" cols="100" 
+						ng-keyup="$event.keyCode == 13 && ctrl.submit()" autofocus="autofocus" autocomplete="on" spellcheck="true"></textarea>
+					</div>
+					<br>
+					<div  ng-repeat="retorno in ctrl.comando.retorno track by $index" >
+						{{retorno}}
+					</div>
+					<hr>
+					<div  ng-repeat="l in list" >
+						{{l.host}} - {{l.data | date : 'HH:mm:ss'}}<br>
+						<label>comando -> </label>{{l.executar}}<br>
+						<label>resposta -> </label>
+						<div  ng-repeat="r in l.resposta track by $index" >
+							{{r}}
+						</div>
+						<hr>
+					</div>						
+				</form>
+			</div>
+		

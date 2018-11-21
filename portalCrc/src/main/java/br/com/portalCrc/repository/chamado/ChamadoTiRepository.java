@@ -5,15 +5,17 @@ import java.util.Collection;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import org.springframework.data.querydsl.QueryDslPredicateExecutor;
 import br.com.portalCrc.entity.Unidade;
 import br.com.portalCrc.entity.Usuario;
 import br.com.portalCrc.entity.chamado.ChamadoTi;
 import br.com.portalCrc.enums.chamado.StatusChamado;
 
-public interface ChamadoTiRepository extends JpaRepository<ChamadoTi, Long> {
+public interface ChamadoTiRepository extends JpaRepository<ChamadoTi, Long> , JpaSpecificationExecutor<ChamadoTi>, QueryDslPredicateExecutor<ChamadoTi>{
 
 	@Query("FROM ChamadoTi chamado WHERE chamado.usuarioSolicitante = :usuario AND chamado.unidade = :unidade")
 	Collection<ChamadoTi> listaChamadoUsuario(@Param(value = "usuario") Usuario usuario,

@@ -14,7 +14,7 @@
 							<th class="btn btn-primary btn-flat col-sm-2"><h6>Número</h6></th>
 					<th class="btn btn-primary btn-flat col-sm-2"><h6>Tipo</h6></th>
 					<th class="btn btn-primary btn-flat col-sm-1"><h6>Status</h6> </th>					
-					<th class="btn btn-primary btn-flat col-sm-1"><h6>Editar</h6> </th>
+					<th class="btn btn-primary btn-flat col-sm-1"><h6>Opções</h6> </th>
 						
 					</tr>
 				</thead>
@@ -31,7 +31,10 @@
 								</div>						
 					</div></td>
 					<td>{{ ip.status }}</td>
-						<td ><a class="btn btn-success" ng-click="ipCtrl.alterar(ip)">Alterar</a> 						
+					<td >
+						<a class="btn btn-success" ng-click="ipCtrl.alterar(ip)">Alterar</a> 
+						<a class="btn btn-info" ui-sref="ip.cmd({idIp : ip.id})">CMD</a>
+					</td>						
 				</tr>
 				</tbody>
 				<tfoot>

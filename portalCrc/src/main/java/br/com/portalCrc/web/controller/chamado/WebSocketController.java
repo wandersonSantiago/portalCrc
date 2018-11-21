@@ -11,16 +11,15 @@ import br.com.portalCrc.util.Result;
 
 @Controller
 public class WebSocketController {
-	
+		
 	@Autowired
 	private ChamadoTiService chamadoTiService;
 	
+    
 	@MessageMapping("/add" )
     @SendTo("/topic/showResult")
-    public Result addNum() throws Exception {		
-		
-        Result result = chamadoTiService.enviarMensagemDeAvisoDeChamadoAberto();
-        return result;
+    public Result addNum(Result chatMessage) throws Exception {	
+	        return chatMessage;	
     }
    
 }

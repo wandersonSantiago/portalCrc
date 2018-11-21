@@ -46,17 +46,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
 				    label: 'atendimento'
 				  }
 		})
-		.state('chamadoTi.suporteAtendimento', {
-			requiresAuthentication: true,
-			permissions: ["CHAMADO_INFORMATICA_TECNICO", "ADMIN"],
-			url : "/:idChamadoTi/suporte/atendimento",
-			templateUrl : "views/informatica/chamado/suporte/atendimento.html",
-			controller : "ChamadoTiAtendimentoSuporteController as chamadoCtrl",
-			ncyBreadcrumb: {
-				 	parent: 'chamadoTi.suporteListar',
-				    label: 'atendimento suporte'
-				  }
-		})
+		
 
 		.state('chamadoTi.relatorio', {
 			requiresAuthentication: true,
@@ -68,20 +58,8 @@ app.config(function($stateProvider, $urlRouterProvider) {
 				 	parent: 'chamadoTi.listar',
 				    label: 'relatorio'
 				  }
-		})
-		
-		.state('chamadoTi.suporteListar', {
-			requiresAuthentication: true,
-			permissions: ["CHAMADO_INFORMATICA_TECNICO", "ADMIN"],
-			url : "/lista/suporte",
-			templateUrl : "views/informatica/chamado/suporte/lista.suporte.html",
-			controller : "ChamadoTiSuporteListarController as chamadoCtrl",
-			ncyBreadcrumb: {
-				 	parent: 'chamadoTi.listar',
-				    label: 'lista suporte'
-				  }
-		})
-		
+		})		
+				
 		.state('chamadoTi.menu', {
 			url : "/chamado/tecnologia/menu",
 			templateUrl : "views/informatica/chamado/home.html",

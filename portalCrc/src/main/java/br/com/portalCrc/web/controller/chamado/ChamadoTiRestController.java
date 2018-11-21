@@ -1,30 +1,42 @@
 package br.com.portalCrc.web.controller.chamado;
 
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.tomcat.util.codec.binary.Base64;
+import org.openqa.selenium.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.http.HttpHeaders;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.util.UriComponentsBuilder;
+import org.springframework.web.multipart.MultipartFile;
 
 import br.com.portalCrc.entity.chamado.ChamadoTi;
 import br.com.portalCrc.enums.chamado.PrioridadeChamado;
 import br.com.portalCrc.enums.chamado.StatusChamado;
 import br.com.portalCrc.enums.chamado.TipoTema;
+import br.com.portalCrc.jasper.JasperReportsService;
+import br.com.portalCrc.jasper.RelatorioUtil;
 import br.com.portalCrc.service.chamado.ChamadoTiService;
+import br.com.portalCrc.web.controller.chamado.filters.ChamadoFilter;
 
 @RestController
 @RequestMapping("/rest/chamado/chamadoTi")
@@ -33,14 +45,12 @@ public class ChamadoTiRestController {
 	
 	@Autowired
 	private ChamadoTiService chamadoTiService;
+	@Autowired
+	private JasperReportsService jasperReportsService;
+	@Autowired
+	private RelatorioUtil relatorioUtil;
 	
-	@PreAuthorize("hasAnyRole('ROLE_?CHAMADO_INFORMATICA_TECNICO','ROLE_?ADMIN')")
-	 @RequestMapping(method = RequestMethod.GET, value="/suporte/lista")
-	 public ResponseEntity<Iterable<ChamadoTi>> listaSuporte() {	  
-	  Iterable<ChamadoTi> chamadoTi = chamadoTiService.listaSuporte();
-	  return new ResponseEntity<Iterable<ChamadoTi>>(chamadoTi, HttpStatus.OK);
-	 }
-	 
+	
 	@PreAuthorize("hasAnyRole('ROLE_?CHAMADO_INFORMATICA_TECNICO','ROLE_?ADMIN')")
 	 @GetMapping(value = "/suporte/relatorio/dataInicial/{dataInicial}/dataFinal/{dataFinal}")
 		public ResponseEntity<Iterable<ChamadoTi>> relatorio(@PathVariable Date dataInicial, @PathVariable Date dataFinal) {
@@ -64,102 +74,110 @@ public class ChamadoTiRestController {
 			return new ResponseEntity<Page<ChamadoTi>>(chamadoTi, HttpStatus.OK);
 		}
 	 
-	@PreAuthorize("hasAnyRole('ROLE_?CHAMADO_USUARIO','ROLE_?ADMIN')")
-	 @RequestMapping(method = RequestMethod.GET, value="/usuario/lista")
-	 public ResponseEntity<Iterable<ChamadoTi>> listaUsuario() {	  
-	  Iterable<ChamadoTi> chamadoTi = chamadoTiService.listaChamadoTiUsuario();
-	  return new ResponseEntity<Iterable<ChamadoTi>>(chamadoTi, HttpStatus.OK);
-	 }
-	 
-	 
-	@PreAuthorize("hasAnyRole('ROLE_?CHAMADO_INFORMATICA_TECNICO','ROLE_?ADMIN')")
-	 @RequestMapping(method = RequestMethod.POST, value="/salvar")
-	 public ResponseEntity<ChamadoTi> salvar(@RequestBody ChamadoTi chamadoTi,UriComponentsBuilder ucBuilder){
-		 chamadoTiService.salvarEditar(chamadoTi);
-		 HttpHeaders headers =new HttpHeaders();
-		 return new ResponseEntity<ChamadoTi>(headers, HttpStatus.CREATED);
+	 @ResponseStatus(HttpStatus.CREATED)
+	 @PreAuthorize("hasAnyRole('ROLE_?CHAMADO_USUARIO','ROLE_?ADMIN')")
+	 @PostMapping
+	 public void salvar(@RequestPart(value="file", required = false ) MultipartFile file, @RequestPart("chamado")  ChamadoTi obj) throws IOException{
+		 if(file != null) {
+			 String  base64 = Base64.encodeBase64String(file.getBytes());
+				obj.setImagem(base64);
+		 }		
+		 chamadoTiService.salvarEditar(obj);
 	 }
 	
-	@PreAuthorize("hasAnyRole('ROLE_?CHAMADO_INFORMATICA_TECNICO','ROLE_?ADMIN')")
-	 @RequestMapping(method = RequestMethod.PUT, value="/servicos")
-	 public ResponseEntity<ChamadoTi> servicos(@RequestBody ChamadoTi chamadoTi,UriComponentsBuilder ucBuilder){
+	 @ResponseStatus(HttpStatus.CREATED)
+	 @PreAuthorize("hasAnyRole('ROLE_?CHAMADO_INFORMATICA_TECNICO','ROLE_?ADMIN')")
+	 @PutMapping(value="/servicos")
+	 public void servicos(@RequestBody ChamadoTi chamadoTi){
 		 chamadoTiService.servicos(chamadoTi);
-		 HttpHeaders headers =new HttpHeaders();
-		 return new ResponseEntity<ChamadoTi>(headers, HttpStatus.CREATED);
 	 }
 	 
-	@PreAuthorize("hasAnyRole('ROLE_?CHAMADO_INFORMATICA_TECNICO','ROLE_?ADMIN')")
-	 @RequestMapping(method = RequestMethod.PUT, value="/alterar")
-	 public ResponseEntity<ChamadoTi> alterar(@RequestBody ChamadoTi chamadoTi,UriComponentsBuilder ucBuilder){
+	 @ResponseStatus(HttpStatus.CREATED)
+	 @PreAuthorize("hasAnyRole('ROLE_?CHAMADO_USUARIO','ROLE_?ADMIN')")
+	 @PutMapping(value="/alterar")
+	 public void alterar(@RequestBody ChamadoTi chamadoTi){
 		 chamadoTiService.salvarEditar(chamadoTi);
-		 HttpHeaders headers =new HttpHeaders();
-	 return new ResponseEntity<ChamadoTi>(headers, HttpStatus.CREATED);
 	 }
 
 	
-	 @RequestMapping(value = "/buscaPorId/{id}", method = RequestMethod.GET)
-		public ResponseEntity<ChamadoTi> buscarPorId(@PathVariable Long id) {
-			return new ResponseEntity<ChamadoTi>(chamadoTiService.buscaPorId(id), HttpStatus.OK);
-		}
-	 @RequestMapping(value = "/count", method = RequestMethod.GET)
-		public ResponseEntity<Long> count() {
-			return new ResponseEntity<Long>(chamadoTiService.count(), HttpStatus.OK);
-		}
-	 @RequestMapping(method = RequestMethod.GET, value = "/prioridade")
-		public ResponseEntity<Iterable<PrioridadeChamado>> prioridade() {
-			Iterable<PrioridadeChamado> prioridadeChamado = Arrays.asList(PrioridadeChamado.values());
-			return new ResponseEntity<Iterable<PrioridadeChamado>>(prioridadeChamado, HttpStatus.OK);
+	 @ResponseStatus(HttpStatus.OK)
+	 @GetMapping(value = "/buscaPorId/{id}")
+		public ChamadoTi buscarPorId(@PathVariable Long id) {
+			return chamadoTiService.buscaPorId(id);
 		}
 	 
+	 @ResponseStatus(HttpStatus.OK)
+	 @GetMapping(value = "/count")
+		public Long count() {
+			return chamadoTiService.count();
+		}
+	 
+	 @ResponseStatus(HttpStatus.OK)
+	 @GetMapping(value = "/prioridade")
+		public List<PrioridadeChamado> prioridade() {
+			return Arrays.asList(PrioridadeChamado.values());
+		}
+	 
+	 @ResponseStatus(HttpStatus.CREATED)
 	 @PreAuthorize("hasAnyRole('ROLE_?CHAMADO_USUARIO','ROLE_?ADMIN')")
-	 @RequestMapping(method = RequestMethod.PUT, value="/mensagem")
-	 public ResponseEntity<ChamadoTi> mensagem(@RequestBody ChamadoTi chamadoTi,UriComponentsBuilder ucBuilder){
+	 @PutMapping(value="/mensagem")
+	 public void mensagem(@RequestBody ChamadoTi chamadoTi){
 		 chamadoTiService.mensagens(chamadoTi);
-		 HttpHeaders headers =new HttpHeaders();
-	 return new ResponseEntity<ChamadoTi>(headers, HttpStatus.CREATED);
 	 }
 	 
+	 @ResponseStatus(HttpStatus.CREATED)
 	 @PreAuthorize("hasAnyRole('ROLE_?CHAMADO_INFORMATICA_TECNICO','ROLE_?ADMIN')")
 	 @PutMapping(value="/atender")
-	 public ResponseEntity<ChamadoTi> atender(@RequestBody ChamadoTi chamadoTi,UriComponentsBuilder ucBuilder){
+	 public void atender(@RequestBody ChamadoTi chamadoTi){
 		 chamadoTiService.atenderChamado(chamadoTi);
-		 HttpHeaders headers =new HttpHeaders();
-	 return new ResponseEntity<ChamadoTi>(headers, HttpStatus.CREATED);
 	 }
 	 
+	 @ResponseStatus(HttpStatus.CREATED)
 	 @PreAuthorize("hasAnyRole('ROLE_?CHAMADO_INFORMATICA_TECNICO','ROLE_?CHAMADO_USUARIO','ROLE_?ADMIN')")
-	 @RequestMapping(method = RequestMethod.PUT, value="/fechar")
-	 public ResponseEntity<ChamadoTi> fechar(@RequestBody ChamadoTi chamadoTi,UriComponentsBuilder ucBuilder){
+	 @PutMapping(value="/fechar")
+	 public void fechar(@RequestBody ChamadoTi chamadoTi){
 		 chamadoTiService.fecharChamado(chamadoTi);
-		 HttpHeaders headers =new HttpHeaders();
-	 return new ResponseEntity<ChamadoTi>(headers, HttpStatus.CREATED);
 	 }
 	 
+	 @ResponseStatus(HttpStatus.CREATED)
 	 @PreAuthorize("hasAnyRole('ROLE_?CHAMADO_INFORMATICA_TECNICO','ROLE_?ADMIN')")
-	 @RequestMapping(method = RequestMethod.PUT, value="/silenciar/false")
-	 public ResponseEntity<ChamadoTi> silenciarFalse(@RequestBody ChamadoTi chamadoTi,UriComponentsBuilder ucBuilder){
-		 chamadoTiService.silenciarChamadoFalse(chamadoTi);
-		 HttpHeaders headers =new HttpHeaders();
-	 return new ResponseEntity<ChamadoTi>(headers, HttpStatus.CREATED);
+	 @PutMapping(value="/silenciar")
+	 public ChamadoTi silenciarTrue(@RequestBody ChamadoTi chamadoTi){
+		 chamadoTiService.silenciarChamado(chamadoTi);
+		 return chamadoTi;
 	 }
 	 
-	 @PreAuthorize("hasAnyRole('ROLE_?CHAMADO_INFORMATICA_TECNICO','ROLE_?ADMIN')")
-	 @RequestMapping(method = RequestMethod.PUT, value="/silenciar/true")
-	 public ResponseEntity<ChamadoTi> silenciarTrue(@RequestBody ChamadoTi chamadoTi,UriComponentsBuilder ucBuilder){
-		 chamadoTiService.silenciarChamadoTrue(chamadoTi);
-		 HttpHeaders headers =new HttpHeaders();
-	 return new ResponseEntity<ChamadoTi>(headers, HttpStatus.CREATED);
+	 @ResponseStatus(HttpStatus.OK)
+ 	 @GetMapping(value = "/status")
+	 public List<StatusChamado> status() {
+		return Arrays.asList(StatusChamado.values());
 	 }
+ 
+	 @ResponseStatus(HttpStatus.OK)
+ 	 @GetMapping(value = "/equipamento/tipo")
+	 public List<TipoTema> tipoTema() {
+		return Arrays.asList(TipoTema.values());
+	 }		
 	 
-	 @RequestMapping(method = RequestMethod.GET, value = "/status")
-		public ResponseEntity<Iterable<StatusChamado>> status() {
-			Iterable<StatusChamado> statusChamado = Arrays.asList(StatusChamado.values());
-			return new ResponseEntity<Iterable<StatusChamado>>(statusChamado, HttpStatus.OK);
+	 @PostMapping(value = "/filter")
+		public ResponseEntity<Page<ChamadoTi>> filtro(@RequestBody ChamadoFilter cotacaoFilter) {
+		 	Page<ChamadoTi> list = chamadoTiService.pageFilter(cotacaoFilter, new  PageRequest(
+					cotacaoFilter.getPage().getPage(), cotacaoFilter.getPage().getLinesPerPage(), Direction.valueOf(cotacaoFilter.getPage().getDirection()), cotacaoFilter.getPage().getOrderBy()));
+			return ResponseEntity.ok().body(list);
 		}
-	 
-	 @RequestMapping(method = RequestMethod.GET, value = "/equipamento/tipo")
-		public ResponseEntity<Iterable<TipoTema>> tipoTema() {
-			Iterable<TipoTema> tipoTema = Arrays.asList(TipoTema.values());
-			return new ResponseEntity<Iterable<TipoTema>>(tipoTema, HttpStatus.OK);
-		}		
+		
+		
+		@PostMapping(value = "/imprimir")
+		@ResponseBody
+		public byte[] filtroPdf(@RequestBody ChamadoFilter cotacaoFilter, HttpServletResponse response) {
+			response.setHeader("Content-Disposition", "inline; filename=file.pdf");
+		    response.setContentType("application/pdf");
+		    List<ChamadoTi> cotacoes = (List<ChamadoTi>) chamadoTiService.listFilter(cotacaoFilter);
+		try {	
+			return jasperReportsService.generateReport(cotacoes, relatorioUtil.caminhoChamadoPDF() , relatorioUtil.caminhoMapaDeLogos() );	
+				} catch (Exception e) {
+				e.printStackTrace();
+				throw new NotFoundException("Erro ao gerar pdf: " + e.getMessage());
+			}		
+		}
 }

@@ -62,6 +62,17 @@ app.config(function($stateProvider, $urlRouterProvider) {
 				    label: 'Editar'
 				  }
 		})
+		.state('ip.cmd', {
+			requiresAuthentication: true,
+			permissions: ["IP", "ADMIN"],
+			url : "/:idIp/CMD",
+			templateUrl : "views/informatica/controleIp/ip/ip.cmd.html",
+			controller : "IpCMDController as ctrl",
+			ncyBreadcrumb: {
+				 	parent: 'ip.listar',
+				    label: 'CMD'
+				  }
+		})
 		.state('ip.menu', {
 			url : "/tipo/ip",
 			templateUrl : "views/informatica/controleIp/ip/home.html",

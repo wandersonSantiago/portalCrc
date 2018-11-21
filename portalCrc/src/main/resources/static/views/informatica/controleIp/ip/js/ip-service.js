@@ -11,6 +11,22 @@ app.factory('IpService', function($q, $http){
 			});
 		},
 		
+		cmdExecuter: function(comando){
+			return $http.post('/rest/cmd/executar', comando)
+			.then(function(response){
+				return response.data;
+			},function(errResponse){
+				return $q.reject(errResponse);
+			});
+		},
+		host: function(comando){
+			return $http.post('/rest/cmd/host', comando)
+			.then(function(response){
+				return response.data;
+			},function(errResponse){
+				return $q.reject(errResponse);
+			});
+		},
 		alterar: function(ip){
 			return $http.put('/rest/controleIp/ip', ip)
 			.then(function(response){

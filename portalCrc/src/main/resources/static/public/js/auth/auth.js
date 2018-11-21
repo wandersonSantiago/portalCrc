@@ -1,4 +1,4 @@
-app.factory("Auth", function($http, $q, $sessionStorage, $rootScope, $urlRouter, UsuarioService){
+app.factory("Auth", function($http, $q, $sessionStorage, $rootScope, $urlRouter, UsuarioService, $state){
 	
 	var auth ={};
 	

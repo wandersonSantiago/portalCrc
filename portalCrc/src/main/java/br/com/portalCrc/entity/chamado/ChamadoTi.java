@@ -1,6 +1,7 @@
 package br.com.portalCrc.entity.chamado;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -21,6 +22,9 @@ public class ChamadoTi extends Chamado {
 	
 	@Enumerated(EnumType.STRING)
 	private TipoEquipamentoChamado tipoEquipamento;
+	
+	@Column(name="imagem", columnDefinition="text")
+	private String imagem;
 	
 	@OneToOne
 	@JoinColumn(name="id_equipamento")
@@ -53,7 +57,17 @@ public class ChamadoTi extends Chamado {
 	public void setServicos(ServicosEquipamento servicos) {
 		this.servicos = servicos;
 	}
+
+
+	public void setImagem(String imagem) {
+		this.imagem = imagem;
+	}
 	
+	public String getImagem() {
+		return imagem;
+	}
 	
-	
+	public String getImagemBase64() {
+		return imagem = "data:image/jpeg;base64," + imagem;
+	}
 }

@@ -1,18 +1,20 @@
-app.factory('ChamadoTiService', function($rootScope, toastr, $http){
+app.factory('ChamadoTiService', function($rootScope, toastr, $http, $q){
 	
-	
+	var url = '/rest/chamado/chamadoTi'
 	return{
-		salvar: function(chamado){
-			return $http.post('/rest/chamado/chamadoTi/salvar', chamado)
-			.then(function(response){
+		
+		salvar: function(form){
+			return $http.post(url , form, {
+	            transformRequest: angular.identity,
+	            headers: {'Content-Type': undefined}
+	        }).then(function(response){
 				return response.data;
 			},function(errResponse){
-				return $q.reject(errResponse);
+			return $q.reject(errResponse);
 			});
 		},
-		
 		salvarMensagem: function(mensagem){
-			return $http.put('/rest/chamado/chamadoTi/mensagem', mensagem)
+			return $http.post('/rest/chamado/mensagem', mensagem)
 			.then(function(response){
 				return response.data;
 			},function(errResponse){
@@ -27,6 +29,14 @@ app.factory('ChamadoTiService', function($rootScope, toastr, $http){
 				return $q.reject(errResponse);
 			});
 		},
+		marcarCommoLido: function(chamado){
+			return $http.put('/rest/chamado/mensagem/lidas', chamado)
+			.then(function(response){
+				return response.data;
+			},function(errResponse){
+				return $q.reject(errResponse);
+			});
+		},
 		atenderChamado: function(chamado){
 			return $http.put('/rest/chamado/chamadoTi/atender', chamado)
 			.then(function(response){
@@ -34,17 +44,9 @@ app.factory('ChamadoTiService', function($rootScope, toastr, $http){
 			},function(errResponse){
 				return $q.reject(errResponse);
 			});
-		},
-		silenciarChamadoFalse: function(chamado){
-			return $http.put('/rest/chamado/chamadoTi/silenciar/false', chamado)
-			.then(function(response){
-				return response.data;
-			},function(errResponse){
-				return $q.reject(errResponse);
-			});
-		},
-		silenciarChamadoTrue: function(chamado){
-			return $http.put('/rest/chamado/chamadoTi/silenciar/true', chamado)
+		},		
+		silenciarChamado: function(chamado){
+			return $http.put('/rest/chamado/chamadoTi/silenciar', chamado)
 			.then(function(response){
 				return response.data;
 			},function(errResponse){
@@ -66,9 +68,7 @@ app.factory('ChamadoTiService', function($rootScope, toastr, $http){
 			},function(errResponse){
 				return $q.reject(errResponse);
 			});
-		},
-		
-		
+		},		
 		buscarPorId: function(chamado){
 			return $http.get('/rest/chamado/chamadoTi/buscaPorId/'+chamado)
 			.then(function(response){
@@ -78,14 +78,6 @@ app.factory('ChamadoTiService', function($rootScope, toastr, $http){
 			});
 		},		
 		
-		listaSuporte: function(){
-			return $http.get('/rest/chamado/chamadoTi/suporte/lista')
-			.then(function(response){
-				return response.data;
-			},function(errResponse){
-				return $q.reject(errResponse);
-			});
-		},
 		count: function(){
 			return $http.get('/rest/chamado/chamadoTi/count')
 			.then(function(response){
@@ -153,6 +145,22 @@ app.factory('ChamadoTiService', function($rootScope, toastr, $http){
 			},function(errResponse){
 				return $q.reject(errResponse);
 			});
+		},
+		filter: function(chamadoFilter){
+			return $http.post(url + '/filter', chamadoFilter)
+			.then(function(response){
+				return response.data;
+			},function(errResponse){
+				return $q.reject(errResponse);
+			});
+		},
+		pdf: function(chamadoFilter){
+				return $http.post(url + '/imprimir',chamadoFilter, { responseType: 'arraybuffer'} )
+				.then(function(response){
+					return response.data;
+				},function(errResponse){
+					return $q.reject(errResponse);
+				});			
 		},
 				
 	}

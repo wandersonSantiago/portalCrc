@@ -4,11 +4,13 @@ app.controller("IpListarController", IpListarController);
 app.controller("IpListarAtivosController", IpListarAtivosController);
 app.controller("IpListarInativosController", IpListarInativosController);
 app.controller("IpShowController", IpShowController);
+app.controller("IpCMDController", IpCMDController);
 
 IpCadastarController.$inject = ['TipoIpService','IpService',  'toastr', '$rootScope', '$scope'];
 IpEditarController.$inject = ['$stateParams', '$state', 'IpService', 'toastr', '$rootScope', '$scope'];
 IpListarController.$inject = ['TipoIpService','$stateParams', '$state', 'IpService', 'toastr', '$rootScope', '$scope'];
 IpShowController.$inject = ['$stateParams', '$state', 'IpService', 'toastr', '$rootScope', '$scope'];
+IpCMDController.$inject = ['$stateParams', '$state', 'IpService', 'toastr', '$rootScope', '$scope'];
 
 function IpCadastarController(TipoIpService, IpService, toastr, $rootScope, $scope){
 	var self = this;
@@ -177,5 +179,77 @@ function IpListarInativosController(TipoIpService, $stateParams, $state, IpServi
 }
 
 function IpShowController( $stateParams, $state, IpService, toastr, $rootScope, $scope){
+	
+}
+
+function IpCMDController($stateParams, $state, IpService, toastr, $rootScope, $scope){
+	
+	var self = this;
+	self.submit = submit;
+	var idIp = $stateParams.idIp;
+
+	var retorno = [];
+	self.comando = {
+			host : '',
+			executar : '',
+			retorno : retorno,
+			ip : ''
+	}
+	
+	$scope.list =[];
+	
+	function submit() {
+		addList(self.comando);
+		self.comando.retorno = [];
+		IpService.cmdExecuter(self.comando).
+		then(function(response){	
+			self.comando = response;
+			self.comando.executar = null;
+			}, function(errResponse){
+				sweetAlert({ timer : 3000,  text : errResponse.data.message,  type : "info", width: 300, higth: 300, padding: 20});
+			});
+	};
+	
+	function host() {
+		self.comando.executar ='hostname';
+		IpService.host(self.comando).
+		then(function(response){	
+			self.comando = response;
+			self.comando.retorno = [];
+			self.comando.executar = null;
+			}, function(errResponse){
+				sweetAlert({ timer : 3000,  text : errResponse.data.message,  type : "info", width: 300, higth: 300, padding: 20});
+			});
+	};
+	
+	
+	function addList(response){
+		if(response.retorno.length < 1){
+			return;
+		}
+		$scope.list.push({
+			host     : response.host,
+			executar : response.executar,
+			resposta : response.retorno,
+			data     : new Date()
+		});
+	}
+	
+	function buscarPorId(id){
+		if(!id)return;
+		IpService.buscarPorId(id).
+		then(function(p){
+			self.ip = p;
+			self.comando.ip = p.numero;
+			host();
+	}, function(errResponse){
+		sweetAlert({ timer : 3000,  text : errResponse.data.message,  type : "info", width: 300, higth: 300, padding: 20});
+			});
+	};
+
+	if(idIp){
+		buscarPorId(idIp);		
+	};
+	
 	
 }

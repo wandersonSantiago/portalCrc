@@ -1,31 +1,30 @@
 package br.com.portalCrc.service.chamado;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
-import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.List;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.messaging.core.MessageSendingOperations;
-import org.springframework.messaging.handler.annotation.MessageMapping;
-import org.springframework.messaging.handler.annotation.SendTo;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import br.com.portalCrc.entity.Unidade;
+import com.querydsl.core.types.dsl.BooleanExpression;
+
 import br.com.portalCrc.entity.Usuario;
 import br.com.portalCrc.entity.chamado.ChamadoTi;
+import br.com.portalCrc.entity.chamado.QChamadoTi;
 import br.com.portalCrc.enums.chamado.StatusChamado;
 import br.com.portalCrc.pojo.ConverteData;
 import br.com.portalCrc.pojo.SessionUsuario;
 import br.com.portalCrc.repository.chamado.ChamadoTiRepository;
 import br.com.portalCrc.service.diaria.MensagemException;
 import br.com.portalCrc.util.Result;
+import br.com.portalCrc.web.controller.chamado.filters.ChamadoFilter;
 
 @Service
 @Transactional(readOnly = true, propagation = Propagation.REQUIRED)
@@ -41,19 +40,16 @@ public class ChamadoTiService {
 	private MessageSendingOperations<String> messagingTemplate;
     
 
-	private Date dataAtual;
-
 	@Transactional(readOnly = false)
 	public void salvarEditar(ChamadoTi chamadoTi) {
-		dataAtual = new Date();
-		chamadoTi.setSetor(SessionUsuario.getInstance().getUsuario().getFuncionario().getSetorAtual());
-		chamadoTi.setUnidade(SessionUsuario.getInstance().getUsuario().getFuncionario().getUnidadeAtual());
-		chamadoTi.setUsuarioSolicitante(SessionUsuario.getInstance().getUsuario());
+		Usuario user = SessionUsuario.getInstance().getUsuario();
+		chamadoTi.setSetor(user.getFuncionario().getSetorAtual());
+		chamadoTi.setUnidade(user.getFuncionario().getUnidadeAtual());
+		chamadoTi.setUsuarioSolicitante(user);
 		chamadoTi.setStatus(StatusChamado.ABERTO);
 		chamadoTi.setLido(false);
 		chamadoTi.setSilenciar(false);
-		chamadoTi.setDataAbertura(dataAtual);
-		adicionarChamadoNasMensagens(chamadoTi);
+		chamadoTi.setDataAbertura(new Date());
 		chamadoTiRepository.save(chamadoTi);
 		
 		
@@ -61,6 +57,7 @@ public class ChamadoTiService {
 
 	@Transactional(readOnly = false)
 	public void servicos(ChamadoTi chamadoTi) {
+		buscaPorId(chamadoTi.getId());
 		chamadoTi.getServicos().setDataCadastro(new Date());
 		chamadoTi.getServicos().setTecnico(SessionUsuario.getInstance().getUsuario());
 		chamadoTiRepository.save(chamadoTi);
@@ -73,7 +70,8 @@ public class ChamadoTiService {
 	}
 
 	@Transactional(readOnly = false)
-	public void atenderChamado(ChamadoTi chamadoTi) {
+	public void atenderChamado(ChamadoTi chamadoTi) {		
+		buscaPorId(chamadoTi.getId());	
 		chamadoTi.setStatus(StatusChamado.EM_ANDAMENTO);
 		chamadoTi.setLido(true);
 		chamadoTi.setUsuarioAtendente(SessionUsuario.getInstance().getUsuario());
@@ -82,49 +80,39 @@ public class ChamadoTiService {
 
 	@Transactional(readOnly = false)
 	public void fecharChamado(ChamadoTi chamadoTi) {
-		dataAtual = new Date();
+		buscaPorId(chamadoTi.getId());
 		chamadoTi.setStatus(StatusChamado.FECHADO);
-		chamadoTi.setDataFechamento(dataAtual);
+		chamadoTi.setDataFechamento(new Date());
 		chamadoTiRepository.save(chamadoTi);
 	}
 
 	@Transactional(readOnly = false)
-	public void silenciarChamadoTrue(ChamadoTi chamado) {
-		chamado.setSilenciar(true);
+	public void silenciarChamado(ChamadoTi chamado) {
+		boolean b = chamado.getSilenciar() == true ? false : true;
+		chamado.setSilenciar(b);
 		chamadoTiRepository.save(chamado);
 	}
+	
 
-	@Transactional(readOnly = false)
-	public void silenciarChamadoFalse(ChamadoTi chamado) {
-		chamado.setSilenciar(false);
-		chamadoTiRepository.save(chamado);
-	}
-
-	public Collection<ChamadoTi> listaChamadoTiUsuario() {
-		Usuario usuario = new Usuario();
-		Unidade unidade = new Unidade();
-		usuario = SessionUsuario.getInstance().getUsuario();
-		unidade = SessionUsuario.getInstance().getUsuario().getFuncionario().getUnidadeAtual();
-		return chamadoTiRepository.listaChamadoUsuario(usuario, unidade);
-	}
-
-	public Collection<ChamadoTi> listaSuporte() {
-		Unidade unidade = new Unidade();
-		unidade = SessionUsuario.getInstance().getUsuario().getFuncionario().getUnidadeAtual();
-		return chamadoTiRepository.listaSuporte(unidade);
-	}
-
-	public ChamadoTi buscaPorId(Long id) {
-		return chamadoTiRepository.findOne(id);
+	public ChamadoTi buscaPorId(Long id) {		
+		ChamadoTi chamado =	chamadoTiRepository.findOne(id);
+		Usuario user = SessionUsuario.getInstance().getUsuario();			
+		if(user.hasRole("CHAMADO_USUARIO")) {
+			if(!chamado.getUsuarioSolicitante().equals(user)) {
+				throw new MensagemException("Usuario não tem permissão de acessar este chamado!!!");
+			}
+		}		
+		if(!chamado.getUnidade().equals(user.getFuncionario().getUnidadeAtual())) {
+			throw new MensagemException("Usuario não tem permissão de acessar este chamado!!!");
+		}
+		return chamado;
 	}
 
 	public void adicionarChamadoNasMensagens(ChamadoTi chamadoTi) {
-		dataAtual = new Date();
-		Usuario usuario = new Usuario();
-		usuario = SessionUsuario.getInstance().getUsuario();
+		Usuario usuario = SessionUsuario.getInstance().getUsuario();		
 		for (int i = 0; i < chamadoTi.getMensagens().size(); i++) {
 			chamadoTi.getMensagens().get(i).setChamado(chamadoTi);
-			chamadoTi.getMensagens().get(i).setData(dataAtual);
+			chamadoTi.getMensagens().get(i).setData(new Date());
 			chamadoTi.getMensagens().get(i).setUsuario(usuario);
 		}
 	}
@@ -164,10 +152,7 @@ public class ChamadoTiService {
 
 
 	public Result enviarMensagemDeAvisoDeChamadoAberto() {
-		
 		Integer count =  (int) chamadoTiRepository.countByStatus(StatusChamado.ABERTO);
-		
-		
 		Result result = new Result("Novo Chamado", count);
 		return result;
 	}
@@ -175,7 +160,7 @@ public class ChamadoTiService {
 
 	
 
-	@Scheduled(cron = "1 * * * * *", zone= TIME_ZONE)
+	/*@Scheduled(cron = "1 * * * * *", zone= TIME_ZONE)
 	public void schedule() {
 		Integer count =  (int) chamadoTiRepository.countByStatusAndSilenciar(StatusChamado.ABERTO, false);		
 		
@@ -183,6 +168,81 @@ public class ChamadoTiService {
 			this.messagingTemplate.convertAndSend("/topic/showResult", new Result("Chamado não atendido", count));
 		}		 	
 		
+	}*/
+
+	public Page<ChamadoTi> pageFilter(ChamadoFilter filter, PageRequest page) {
+		List<BooleanExpression> geral = filtros(filter);
+		if(geral.isEmpty()) {
+			return chamadoTiRepository.findAll(page);
+		}		
+		BooleanExpression addGeral = geral.get(0);
+		for(BooleanExpression X : geral) {
+			addGeral = addGeral.and(X);
+		}		
+		return chamadoTiRepository.findAll(addGeral, page);
+	}
+	
+	public Iterable<ChamadoTi> listFilter(ChamadoFilter filter) {
+		List<BooleanExpression> geral = filtros(filter);
+		if(geral.isEmpty()) {
+			return chamadoTiRepository.findAll();
+		}		
+		BooleanExpression addGeral = geral.get(0);
+		for(BooleanExpression X : geral) {
+			addGeral = addGeral.and(X);
+		}		
+		return chamadoTiRepository.findAll(addGeral);
+	}
+	
+	public List<BooleanExpression> filtros(ChamadoFilter filter){
+		QChamadoTi qCotacao = QChamadoTi.chamadoTi;
+		
+		
+		Usuario user = SessionUsuario.getInstance().getUsuario();
+		
+		List<BooleanExpression> geral = new ArrayList<>();
+		
+		BooleanExpression empreendimentoEquals = qCotacao.unidade.eq(user.getFuncionario().getUnidadeAtual());
+		geral.add(empreendimentoEquals);
+		
+		
+		if(user.hasRole("CHAMADO_USUARIO")) {
+			BooleanExpression userEquals = qCotacao.usuarioSolicitante.eq(user);
+			geral.add(userEquals);
+		}
+		if(filter.getDataCadastroDe() != null && filter.getDataCadastroAte() != null) {
+			BooleanExpression dataCriacaoEquals = qCotacao.dataAbertura.between(filter.getDataCadastroDe(), filter.getDataCadastroAte());
+			geral.add(dataCriacaoEquals);
+		}
+		if(filter.getDataFechamentoDe() != null && filter.getDataFechamentoAte() != null) {
+			BooleanExpression dataFechamentoEquals = qCotacao.dataFechamento.between(filter.getDataFechamentoDe(), filter.getDataFechamentoAte());
+			geral.add(dataFechamentoEquals);
+		}
+		if(filter.getDescricao() != null) {		
+				BooleanExpression textoEquals = qCotacao.texto.containsIgnoreCase(filter.getDescricao());
+				geral.add(textoEquals);	
+		}
+		if(filter.getStatus() != null) {
+			BooleanExpression statusEquals = qCotacao.status.eq(filter.getStatus());
+			geral.add(statusEquals);
+		}
+		if(filter.getPrioridade()!= null) {
+			BooleanExpression prioridadeEquals = qCotacao.prioridade.eq(filter.getPrioridade());
+			geral.add(prioridadeEquals);
+		}
+		if(filter.getTipoEquipamentos()!= null) {
+			BooleanExpression tipoEquals = qCotacao.tipoEquipamento.eq(filter.getTipoEquipamentos());
+			geral.add(tipoEquals);
+		}
+		if(filter.getTitulo() != null) {
+			BooleanExpression tituloEquals = qCotacao.titulo.eq(filter.getTitulo());
+			geral.add(tituloEquals);
+		}	
+		if(filter.getMensagem() != null) {
+			BooleanExpression mensagensEquals = qCotacao.mensagens.any().texto.containsIgnoreCase(filter.getMensagem());
+			geral.add(mensagensEquals);
+		}
+		return geral;
 	}
 	
 
