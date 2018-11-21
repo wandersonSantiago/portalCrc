@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import br.com.portalCrc.entity.chamado.Chamado;
+import br.com.portalCrc.entity.chamado.ChamadoTi;
 import br.com.portalCrc.entity.chamado.Mensagem;
 import br.com.portalCrc.entity.chamado.MensagemDTO;
 import br.com.portalCrc.pojo.SessionUsuario;
@@ -57,10 +59,13 @@ public class MensagemService {
 	}
 
 	@Transactional(readOnly= false)
-	public void marcarComoLido(List<Mensagem> mensagens) {
+	public void marcarComoLido(List<Mensagem> mensagens, Long idChamado) {
 		
 		mensagens.forEach(mensagem ->{
 			if(mensagem.getUsuario().equals(SessionUsuario.getInstance().getUsuario())) {
+				Chamado chamado = new ChamadoTi();
+				chamado.setId(idChamado);
+				mensagem.setChamado(chamado);
 				mensagem.setLido(true);
 				mensagemRepository.save(mensagem);
 			}

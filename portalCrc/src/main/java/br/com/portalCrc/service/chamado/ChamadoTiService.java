@@ -151,9 +151,9 @@ public class ChamadoTiService {
 	}
 
 
-	public Result enviarMensagemDeAvisoDeChamadoAberto() {
-		Integer count =  (int) chamadoTiRepository.countByStatus(StatusChamado.ABERTO);
-		Result result = new Result("Novo Chamado", count);
+	public Result enviarMensagemDeAvisoDeChamadoAberto(Result result, Usuario usuario) {
+		Integer count =  (int) chamadoTiRepository.countByUnidadeAndStatus(usuario.getFuncionario().getUnidadeAtual(), StatusChamado.ABERTO);
+		result.setValor(count);
 		return result;
 	}
 	

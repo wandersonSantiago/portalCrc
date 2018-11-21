@@ -37,7 +37,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
 		})
 		.state('chamadoTi.atendimento', {
 			requiresAuthentication: true,
-			permissions: ["CHAMADO_USUARIO", "ADMIN"],
+			permissions: ["CHAMADO_USUARIO","CHAMADO_INFORMATICA_TECNICO", "ADMIN"],
 			url : "/:idChamadoTi/atendimento",
 			templateUrl : "views/informatica/chamado/atendimento.html",
 			controller : "ChamadoTiAtendimentoController as chamadoCtrl",

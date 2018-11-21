@@ -25,6 +25,7 @@ import br.com.portalCrc.entity.Unidade;
 import br.com.portalCrc.entity.Usuario;
 import br.com.portalCrc.enums.chamado.PrioridadeChamado;
 import br.com.portalCrc.enums.chamado.StatusChamado;
+import br.com.portalCrc.pojo.SessionUsuario;
 import lombok.Data;
 
 @Data
@@ -85,11 +86,16 @@ public abstract class Chamado {
 	private Integer count = 0;
 	
 	
-	public Integer getMensagensNaoLida() {		
+	public Integer getMensagensNaoLida() {
+		if(mensagens == null) {
+			return 0;
+		}
 		mensagens.forEach(m ->{
-			if(m.getLido() == false) {
-				count ++;
-			}
+			if(!m.getUsuario().equals(SessionUsuario.getInstance().getUsuario())) {
+				if(m.getLido() == false) {
+					count ++;
+				}
+			}			
 		});
 		return count;
 	}

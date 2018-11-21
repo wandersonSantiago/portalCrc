@@ -29,8 +29,8 @@ app.factory('ChamadoTiService', function($rootScope, toastr, $http, $q){
 				return $q.reject(errResponse);
 			});
 		},
-		marcarCommoLido: function(chamado){
-			return $http.put('/rest/chamado/mensagem/lidas', chamado)
+		marcarComoLido: function(chamado, id){
+			return $http.put('/rest/chamado/mensagem/lidas/idChamado/' + id, chamado)
 			.then(function(response){
 				return response.data;
 			},function(errResponse){

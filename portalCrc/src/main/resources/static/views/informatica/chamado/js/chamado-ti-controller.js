@@ -196,7 +196,6 @@ function ChamadoTiAtendimentoController($q, EquipamentoService, $stateParams, $s
 			ChamadoTiService.salvarMensagem(self.mensagem).
 			then(function(response){
 				 buscarPorId(self.chamadoTi.id);
-				//self.chamadoTi.mensagens.push(response);
 				self.mensagem.texto = null;
 				sincronizar(self.chamadoTi);
 					}, function(errResponse){
@@ -283,17 +282,7 @@ function ChamadoTiAtendimentoController($q, EquipamentoService, $stateParams, $s
 	
 	 function sincPromise(){return listener.promise;}	
 	 
-	 sincPromise().then(null, null, function(message) {
-		 if($rootScope.user.funcionario.unidadeAtual.id == message.idUnidade){
-			 if(message.status == true && message.solicitante == $rootScope.user.login ||
-					 message.atendente == $rootScope.user.login && message.user != $rootScope.user.login){
-					 if(!message.silenciar){
-						 self.enableAutoplay(); 
-					 }
-					 buscarPorId(self.chamadoTi.id);	 
-			 }
-		 }					 			
-	 });
+	 sincPromise().then(null, null, function(message) { buscarPorId(idChamadoTi); });
 	 
 	   function connect() {
 	        var socket = new SockJS('/add');
@@ -309,14 +298,10 @@ function ChamadoTiAtendimentoController($q, EquipamentoService, $stateParams, $s
 	    connect();
 	    
       
-   sincronizar = function(chamado){			    	
+   sincronizar = function(){			    	
   	 stompClient.send("/calcApp/add", {}, JSON.stringify({
   		 'idUnidade' : $rootScope.user.funcionario.unidadeAtual.id ,
-  		 'user' : $rootScope.user.login,
-  		 'solicitante' : chamado.usuarioSolicitante.login,
-  		 'atendente' : chamado.usuarioAtendente.login,
-  		 'status' : chamado.status,
-  		 'silenciar' : chamado.silenciar}));
+  		 'user' : $rootScope.user.login}));
   	
    };
    
@@ -329,7 +314,7 @@ function ChamadoTiAtendimentoController($q, EquipamentoService, $stateParams, $s
 	}
 	
 	function marcarComoLido(chamado){
-		ChamadoTiService.marcarComoLido(chamado).
+		ChamadoTiService.marcarComoLido(chamado.mensagens, chamado.id).
 		then(function(response){
 				}, function(errResponse){
 			});
@@ -514,7 +499,7 @@ function ChamadoTiRelatorioController( ChamadoTiService, toastr, $rootScope, $sc
  		// termino função data
 	
 }
-function ChamadoTiListarController( ChamadoTiService, toastr, $rootScope, $scope,TemaService , SistemaService, ModuloService, blockUI){
+function ChamadoTiListarController($q, ChamadoTiService, toastr, $rootScope, $scope,TemaService , SistemaService, ModuloService, blockUI){
 	
 		var self = this;
 		self.silenciarChamado = silenciarChamado;
@@ -661,4 +646,53 @@ function ChamadoTiListarController( ChamadoTiService, toastr, $rootScope, $scope
 								sweetAlert({ timer : 3000,  text : errResponse.data.message,  type : "error", width: 300, higth: 300, padding: 20});
 						});
 					};
+					
+					var stompClient, listener = $q.defer();
+					
+					 function sincPromise(){return listener.promise;}	
+					 
+					 sincPromise().then(null, null, function(message) { filter($scope.chamadoFilter);
+					 if($rootScope.user.funcionario.unidadeAtual.id == message.idUnidade){
+						 for(i = 0 ; i < $rootScope.user.permissoes.length ; i++){        		
+			        		 if($rootScope.user.permissoes[i].descricao == "CHAMADO_INFORMATICA_TECNICO"){
+								 self.enableAutoplay(); 
+								 $rootScope.mensagem = message.result;
+								 $rootScope.qtdChamadosTi = message.valor;								
+							 }
+			        	}
+						 if(message.atendido == true && message.user == $rootScope.user){
+							 self.enableAutoplay(); 
+							 $rootScope.qtdChamadosTi = "1+";
+						 }
+					 }				
+					 });
+					 
+					   function connect() {
+					        var socket = new SockJS('/add');
+							 stompClient = Stomp.over(socket); 
+					        stompClient.connect({}, function(frame) {
+					            console.log('Connected: ' + frame);
+					            stompClient.subscribe('/topic/showResult', function(calResult){
+					           	 listener.notify(JSON.parse(calResult.body));
+					            });
+					        });
+					    }
+					    
+					    connect();
+					    
+				      
+				   sincronizar = function(){			    	
+				  	 stompClient.send("/calcApp/add", {}, JSON.stringify({
+				  		 'idUnidade' : $rootScope.user.funcionario.unidadeAtual.id ,
+				  		 'user' : $rootScope.user.login}));
+				  	
+				   };
+				   
+				   var vid = document.getElementById("myAudio");			
+					
+					self.enableAutoplay = function() { 
+					    vid.autoplay = true;
+					    vid.load();
+					    
+					}
 }

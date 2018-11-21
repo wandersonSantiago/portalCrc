@@ -45,5 +45,7 @@ public interface ChamadoTiRepository extends JpaRepository<ChamadoTi, Long> , Jp
 
 	int countByStatusAndSilenciar(StatusChamado aberto, boolean b);
 
+	int countByUnidadeAndStatus(Unidade unidadeAtual, StatusChamado aberto);
+
 	
 }
