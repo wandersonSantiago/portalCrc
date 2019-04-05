@@ -72,7 +72,7 @@ public class Equipamento implements Serializable{
 	private Long usuarioCadastro;
 	
 	@Enumerated(EnumType.STRING)
-	private TipoEquipamentoEnum TipoEquipamento;
+	private TipoEquipamentoEnum tipoEquipamento;
 	
 	@Enumerated(EnumType.STRING)
 	private StatusEquipamento status;
@@ -116,10 +116,10 @@ public class Equipamento implements Serializable{
 		this.unidade = unidade;
 	}
 	public TipoEquipamentoEnum getTipoEquipamento() {
-		return TipoEquipamento;
+		return tipoEquipamento;
 	}
 	public void setTipoEquipamento(TipoEquipamentoEnum tipoEquipamento) {
-		TipoEquipamento = tipoEquipamento;
+		this.tipoEquipamento = tipoEquipamento;
 	}
 	public Date getDataCadastro() {
 		return dataCadastro;

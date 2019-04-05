@@ -27,8 +27,6 @@ app.config(function($stateProvider, $urlRouterProvider) {
 			requiresAuthentication: true,
 			permissions: ["RESERVA", "ADMIN"],
 			
-			
-			
 			url : "/cadastrar",
 			templateUrl : "views/agendamento/reserva/reserva.form.html",
 			controller : "ReservaCadastarController as ctrl",

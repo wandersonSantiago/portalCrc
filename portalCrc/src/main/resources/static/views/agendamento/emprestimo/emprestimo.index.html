@@ -1,29 +1,37 @@
 <meta charset="UTF-8">
 <div class="row">
 	<div class="col-sm-2">
-	 <div class="box box-solid">
-            <div class="box-header with-border">
-              <h3 class="box-title">Menu</h3>
+		<div class="box box-solid">
+			<div class="box-header with-border">
+				<h3 class="box-title">Menu</h3>
 
-              <div class="box-tools">
-                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-                </button>
-              </div>
-            </div>
-		<div class="box-body no-padding">
-              <ul class="nav nav-pills nav-stacked">
-                <li><a href="" permission="[ 'EMPRESTIMO', 'ADMIN']" ui-sref="emprestimo.cadastrar"><i class="glyphicon glyphicon-plus"></i>Novo</a></li>
-                <li><a href="" permission="[ 'EMPRESTIMO', 'ADMIN']" ui-sref="emprestimo.listar"><i class="glyphicon glyphicon-search"></i>Pesquisar</a></li>
-               
-              </ul>
-            </div>
-           </div>
-        </div>
-       <div class="col-sm-10">     
-			<div class="box box-primary" >	
-					<div class="box-header">Emprestimo</div>
-					<div class="panel-body">
-						<div class="ui-view"></div>
-					</div>
+				<div class="box-tools">
+					<button type="button" class="btn btn-box-tool"
+						data-widget="collapse">
+						<i class="fa fa-minus"></i>
+					</button>
+				</div>
+			</div>
+			<div class="box-body no-padding">
+				<ul class="nav nav-pills nav-stacked">
+					<li><a href="" permission="[ 'EMPRESTIMO', 'ADMIN']"
+						ui-sref="emprestimo.cadastrar"><i
+							class="glyphicon glyphicon-plus"></i>Novo</a></li>
+					<li><a href="" permission="[ 'EMPRESTIMO', 'ADMIN']"
+						ui-sref="emprestimo.listar"><i
+							class="glyphicon glyphicon-search"></i>Pesquisar</a></li>
+
+					<!--  <li><a href="" permission="[ 'EMPRESTIMO', 'ADMIN']" ui-sref="emprestimo.alterarStatus"><i class="glyphicon glyphicon-search"></i>Alterar-Status</a></li> -->
+
+				</ul>
 			</div>
 		</div>
+	</div>
+	<div class="col-sm-10">
+		<div class="box box-primary">
+			<div class="box-header">Emprestimo</div>
+			<div class="panel-body">
+				<div class="ui-view"></div>
+			</div>
+		</div>
+	</div>

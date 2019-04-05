@@ -10,11 +10,13 @@ ReservaShowController.$inject = ['$stateParams', '$state', 'ReservaService', 'to
 
 function ReservaCadastarController( ReservaService,AuditorioService,FuncionarioUnidadeService,FuncionarioService,toastr, $rootScope, $scope, UnidadeService){
 	var self = this;
-		self.submit =submit;
+		self.submit = submit;
 		
 		auditorio();
-		funcionario();	
-		listarUnidades();
+		//funcionario();	
+		listarUnidades();		
+		self.funcionarios = funcionarios;
+		
 		
 		function submit() {
 			ReservaService.salvar(self.reserva).
@@ -22,7 +24,7 @@ function ReservaCadastarController( ReservaService,AuditorioService,FuncionarioU
 				toastr.info('Salvo com Sucesso!!!');
 				self.reserva = null;
 				}, function(errResponse){
-					sweetAlert({ timer : 3000,  text : errResponse.data.message,  type : "error", width: 300, higth: 300, padding: 20});
+					sweetAlert({ timer : 30000,  text : errResponse.data.message,  type : "info", width: 300, higth: 300, padding: 20});
 			});
 		};
 		
@@ -49,17 +51,24 @@ function ReservaCadastarController( ReservaService,AuditorioService,FuncionarioU
 			
 			
 			
-			 function funcionario(){
+			/* function funcionario(){
 				 FuncionarioService.listarPorUnidade().
 					then(function(f){
 						self.funcionarios = f;									
 						}, function(errResponse){
 							sweetAlert({ timer : 3000,  text : errResponse.data.message,  type : "error", width: 300, higth: 300, padding: 20});
 					});
-				};
-			
-			
+				};*/
 				
+				
+				function funcionarios(texto){
+				 	return  FuncionarioService.buscarPorTexto(texto).
+				 	 then(function(e){
+				 		return e.content;
+				 	 }, function(errResponse){
+				 	 });
+				 }				
+							
 }
 function ReservaEditarController( $stateParams, $state, AuditorioService, ReservaService,FuncionarioUnidadeService,FuncionarioService,toastr, $rootScope, $scope, UnidadeService){
 		
@@ -78,7 +87,7 @@ function ReservaEditarController( $stateParams, $state, AuditorioService, Reserv
 				self.reserva = null;
 				$state.go('Reserva.listar');
 				}, function(errResponse){
-					sweetAlert({ timer : 3000,  text : errResponse.data.message,  type : "error", width: 300, higth: 300, padding: 20});
+					sweetAlert({ timer : 30000,  text : errResponse.data.message,  type : "info", width: 300, higth: 300, padding: 20});
 			});
 	//	};
 		

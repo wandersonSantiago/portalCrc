@@ -30,12 +30,17 @@
 						<td><a ui-sref="equipamento.show({idEquipamento : equipamento.id})"><i>{{ equipamento.tipoEquipamento}}</i></a></td>
 						<td>{{ equipamento.descricao }}</td>
 						<td>{{ equipamento.patrimonio }}</td>
-						<td>{{ equipamento.status}}</td>	
+						
 						<td>{{ equipamento.ip.numero}}</td>						
 						<td>{{ equipamento.ponto.numero}}</td>
 						<td>{{ equipamento.ponto.switchs.nome}}</td>
 						<td>{{ equipamento.ponto.portaSwitch.numero}}</td>
-						<td>{{ equipamento.ponto.setor.nome}}</td>
+						<td>{{ equipamento.ponto.setor.nome}}</td>						
+						<td>{{ equipamento.status }}</td>
+						
+						
+						
+						
 						<td class="text-center"><a title="Editar Equipamento" ui-sref="equipamento.editar({idEquipamento : equipamento.id})"><i class="glyphicon glyphicon-edit"></i></a> 	&nbsp;&nbsp;&nbsp;
 						<a  title="Cadastrar uma manutenção preventiva" ui-sref="manutencaoEquipamento.salvar({idEquipamento : equipamento.id})"><i class="glyphicon glyphicon-wrench"></i></a>								 
 						

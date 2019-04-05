@@ -13,17 +13,25 @@
 							</select>
 				</div>
 				
+								
+				<div class="form-group  col-sm-4">		
+					 		<label for="funcionario">Funcionario Solicitante: </label>
+						    <input type="text" ng-model="ctrl.reserva.funcionario" placeholder="Digite nome" 
+						    uib-typeahead="funcionario as funcionario.pessoa.nomeCompleto for funcionario in ctrl.funcionarios(ctrl.reserva.funcionario) | limitTo:8" 
+						    typeahead-template-url="customTemplateFuncionario.html" class="form-control" typeahead-show-hint="true"  
+						    typeahead-loading="loadingFuncionario" typeahead-no-results="noResultsFuncionario" typeahead-min-length="3">
+						    <i ng-show="loadingFuncionario" class="glyphicon glyphicon-refresh"></i>
+						    <div ng-show="noResultsFuncionario">
+						      <i class="glyphicon glyphicon-remove"></i> Nenhum resultado encontrado!
+						    </div>	    
+					</div>	
 				
-				
-				
-				
-				<div class="form-group col-md-3">
-							Funcionario Solicitante 	
-							<select class="form-control select2" ng-model="ctrl.reserva.funcionario" 
-								ng-options="funcionario.pessoa.nomeCompleto for funcionario in ctrl.funcionarios track by funcionario.pessoa.id"  >
-						
-							</select>
-				</div>
+				<script type="text/ng-template" id="customTemplateFuncionario.html">
+  				<a>
+     				 <span ng-bind-html="match.label | uibTypeaheadHighlight:query"></span><br/>
+ 				 </a>
+				</script>
+								
 						
 				<div class="form-group col-md-7">
 						

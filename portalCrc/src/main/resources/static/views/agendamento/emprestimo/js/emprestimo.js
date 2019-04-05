@@ -11,7 +11,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
 			parent: 'agendamento.menu',
 			    label: 'Emprestimo'
 			  }
-	})
+		})
 	
 		.state('emprestimo.listar', {
 			url : "/listar",
@@ -22,30 +22,22 @@ app.config(function($stateProvider, $urlRouterProvider) {
 				    label: 'Listar'
 				  }
 		})
-		.state('emprestimo.cadastrar', {
-			
+		
+		
+		.state('emprestimo.cadastrar', {			
 			requiresAuthentication: true,
 			permissions: ["EMPRESTIMO", "ADMIN"],
-			
-			
-			
 			url : "/cadastrar",
 			templateUrl : "views/agendamento/emprestimo/emprestimo.form.html",
-			controller : "EmprestimoCadastarController as ctrl",
+			controller : "EmprestimoCadastrarController as ctrl",
 			ncyBreadcrumb: {
 			 	parent: 'emprestimo',
 			    label: 'Cadastrar'
 			  }
 		})
 		.state('emprestimo.editar', {
-			
-			
 			requiresAuthentication: true,
 			permissions: ["EMPRESTIMO", "ADMIN"],
-			
-			
-			
-			
 			url : "/:idEmprestimo/editar",
 			templateUrl : "views/agendamento/emprestimo/emprestimo.form.html",
 			controller : "EmprestimoEditarController as ctrl",
@@ -64,5 +56,6 @@ app.config(function($stateProvider, $urlRouterProvider) {
 				    label: 'Visualizar'
 				  }
 		})
+		
 
 });

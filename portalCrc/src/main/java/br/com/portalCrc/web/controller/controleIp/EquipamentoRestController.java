@@ -78,6 +78,20 @@ public class EquipamentoRestController {
 		public ResponseEntity<Equipamento> buscarPorId(@PathVariable Long id) {
 			return new ResponseEntity<Equipamento>(equipamentoService.buscaPorId(id), HttpStatus.OK);
 	 }
+	 
+	 
+	 
+	 //alterado aqui para carregar categoria equipamento
+	 
+	 @GetMapping(value = "/tipo/{tipo}")
+		public ResponseEntity<List<Equipamento>> buscarPorTipo(@PathVariable TipoEquipamentoEnum tipo) {
+			return new ResponseEntity<List<Equipamento>>(equipamentoService.buscarPorTipo(tipo), HttpStatus.OK);
+	 }
+	 
+	 
+	 
+	 
+	 
 	 @GetMapping(value = "/{idEquipamento}/servicos")
 		public ResponseEntity<List<ServicosEquipamento>> buscarServicos(@PathVariable Long idEquipamento) {
 			return new ResponseEntity<List<ServicosEquipamento>>(equipamentoService.buscarServicos(idEquipamento), HttpStatus.OK);

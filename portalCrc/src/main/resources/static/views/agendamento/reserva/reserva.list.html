@@ -46,7 +46,7 @@
 					</tr>
 				</thead>
 				
-				<tbody	ng-repeat=" reserva in ctrl.reservas | filter : buscar | orderBy : 'reserva.funcionario.pessoa.nomeCompleto' ">
+				<tbody	ng-repeat=" reserva in ctrl.reservas | filter : buscar | orderBy : '-id'">
 			
 					<tr>
 						<td><center>{{ reserva.auditorio.descricao}}</center></td>
@@ -96,7 +96,7 @@
 			
 			
 			<nav>
-				<ul uib-pagination total-items="ctrl.totalElementos" items-per-page="2"
+				<ul uib-pagination total-items="ctrl.totalElementos" items-per-page="5"
 					ng-model="ctrl.paginaCorrente" max-size="5" class="pagination-sm"
 					boundary-link-numbers="true" ng-click="ctrl.buscarPorTexto(texto)"
 					previous-text="Anterior" last-text="Último" first-text="Primeiro"

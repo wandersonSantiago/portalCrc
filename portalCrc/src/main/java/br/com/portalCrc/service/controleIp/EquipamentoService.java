@@ -15,6 +15,7 @@ import br.com.portalCrc.entity.controleIp.ServicosEquipamento;
 import br.com.portalCrc.enums.controleIp.StatusEquipamento;
 import br.com.portalCrc.enums.controleIp.StatusIp;
 import br.com.portalCrc.enums.controleIp.StatusPonto;
+import br.com.portalCrc.enums.controleIp.TipoEquipamentoEnum;
 import br.com.portalCrc.pojo.SessionUsuario;
 import br.com.portalCrc.repository.ControleIp.EquipamentoRepositorio;
 import br.com.portalCrc.repository.ControleIp.ManutencaoEquipamentoRepository;
@@ -157,6 +158,13 @@ public class EquipamentoService {
 			throw new MensagemException("Este Patrimonio já esta Cadastrado");
 		}
 		return verifica;
+	}
+
+	
+	
+	//busca de equipamento por tipo
+	public List<Equipamento> buscarPorTipo(TipoEquipamentoEnum tipo) {
+		return equipamentoRepositorio.findByTipoEquipamento(tipo);
 	}
 
 	

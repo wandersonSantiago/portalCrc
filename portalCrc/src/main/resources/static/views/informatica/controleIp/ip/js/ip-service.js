@@ -70,6 +70,10 @@ app.factory('IpService', function($q, $http){
 			},function(errResponse){
 				return $q.reject(errResponse);
 			});
+			
+			
+			
+			
 		},
 	}
 });

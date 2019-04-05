@@ -29,6 +29,7 @@ import br.com.portalCrc.entity.Unidade;
 import br.com.portalCrc.entity.Usuario;
 import br.com.portalCrc.entity.controleIp.Equipamento;
 import br.com.portalCrc.enums.auditorio.StatusEmprestimo;
+import br.com.portalCrc.enums.controleIp.StatusIp;
 import br.com.portalCrc.enums.controleIp.TipoEquipamentoEnum;
 
 @Entity
@@ -63,6 +64,7 @@ public class Emprestimo {
 	@Column(name="evento")
 	private String evento;
 	
+		
 	//@Column(name = "descricao")
 	//private String descricao;
 	
@@ -184,5 +186,4 @@ public class Emprestimo {
 	}
 	
 	
-
 }

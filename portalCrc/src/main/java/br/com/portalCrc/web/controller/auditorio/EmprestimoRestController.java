@@ -9,6 +9,7 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,7 +24,10 @@ import org.springframework.web.util.UriComponentsBuilder;
 import br.com.portalCrc.entity.Funcionario;
 import br.com.portalCrc.entity.auditorio.Emprestimo;
 import br.com.portalCrc.entity.auditorio.Reserva;
+import br.com.portalCrc.entity.controleIp.Ip;
+import br.com.portalCrc.entity.controleIp.TipoIp;
 import br.com.portalCrc.enums.auditorio.StatusEmprestimo;
+import br.com.portalCrc.enums.controleIp.StatusIp;
 import br.com.portalCrc.service.auditorio.EmprestimoService;
 
 @RestController
@@ -64,6 +68,14 @@ public class EmprestimoRestController {
 	 }
 		
 	
+	// rest de alteração de status
+	@PutMapping(value="/status")
+	 public ResponseEntity<Emprestimo> alterarStatus(@RequestBody Emprestimo emprestimo,UriComponentsBuilder ucBuilder){
+		 emprestimoService.alterarStatus(emprestimo);
+		 HttpHeaders headers =new HttpHeaders();
+	 return new ResponseEntity<Emprestimo>(headers, HttpStatus.CREATED);
+	 }
+	
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<Emprestimo> buscarPorId(@PathVariable Long id) {
 		Emprestimo emprestimo = emprestimoService.buscaPorId(id);
@@ -74,9 +86,9 @@ public class EmprestimoRestController {
 	 @GetMapping(value = "/descricao")
 		public ResponseEntity<Page<Emprestimo>> findByDescricao(
 				@RequestParam(value="page", defaultValue="0") Integer page, 
-				@RequestParam(value="linesPerPage", defaultValue="5") Integer linesPerPage, 
-				@RequestParam(value="orderBy", defaultValue="funcionario") String orderBy, 
-				@RequestParam(value="direction", defaultValue="ASC") String direction,
+				@RequestParam(value="linesPerPage", defaultValue="8") Integer linesPerPage, 
+				@RequestParam(value="orderBy", defaultValue="dataEmprestimo") String orderBy, 
+				@RequestParam(value="direction", defaultValue="DESC") String direction,
 				@RequestParam(value="descricao", required = false , defaultValue="")String descricao) {
 
 			Page<Emprestimo> list = null;
@@ -89,6 +101,10 @@ public class EmprestimoRestController {
 			
 			return ResponseEntity.ok().body(list);
 		}
+	 
+	 
+	 
+	
 	
 
 }

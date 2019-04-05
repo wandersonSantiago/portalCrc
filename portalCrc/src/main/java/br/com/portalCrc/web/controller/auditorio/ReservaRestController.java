@@ -37,19 +37,17 @@ public class ReservaRestController {
 		}
 	
 	@PostMapping
-	public ResponseEntity<Reserva> salvar (@RequestBody Reserva reserva, UriComponentsBuilder ucBuilder) {
-		reservaService.salvarEditar(reserva);
-		HttpHeaders headers =new HttpHeaders();
-		return new ResponseEntity<Reserva>(headers, HttpStatus.CREATED);
+	public ResponseEntity<Reserva>salvar(@RequestBody Reserva reserva) {
+		reservaService.insert(reserva);
+		return new ResponseEntity<Reserva>(HttpStatus.CREATED);
 					
 		
 	}  
 	
 	@PutMapping
-	 public ResponseEntity<Reserva> alterar(@RequestBody Reserva reserva,UriComponentsBuilder ucBuilder){
-		 reservaService.salvarEditar(reserva);
-		 HttpHeaders headers =new HttpHeaders();
-	 return new ResponseEntity<Reserva>(headers, HttpStatus.CREATED);
+	public ResponseEntity<Reserva> alterar(@RequestBody Reserva reserva){
+		 reservaService.update(reserva);
+	 return new ResponseEntity<Reserva>(HttpStatus.CREATED);
 	 }
 	
 	@GetMapping(value = "/{id}")
@@ -63,9 +61,9 @@ public class ReservaRestController {
 	 @GetMapping(value = "/descricao")
 		public ResponseEntity<Page<Reserva>> findByDescricao(
 				@RequestParam(value="page", defaultValue="0") Integer page, 
-				@RequestParam(value="linesPerPage", defaultValue="2") Integer linesPerPage, 
-				@RequestParam(value="orderBy", defaultValue="funcionario") String orderBy, 
-				@RequestParam(value="direction", defaultValue="ASC") String direction,
+				@RequestParam(value="linesPerPage", defaultValue="5") Integer linesPerPage, 
+				@RequestParam(value="orderBy", defaultValue="dataReserva") String orderBy, 
+				@RequestParam(value="direction", defaultValue="DESC") String direction,
 				@RequestParam(value="descricao", required = false , defaultValue="")String descricao) {
 
 			Page<Reserva> list = null;

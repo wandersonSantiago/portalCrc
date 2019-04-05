@@ -4,16 +4,19 @@
 	<div class="col-lg-6">
 		<div class="input-group">
 			<input type="text" class="form-control"
-				placeholder="Pesquisar por nome"
-				ng-model="texto" autofocus
+				placeholder="Pesquisar por nome" ng-model="texto" autofocus
 				ng-keyup="$event.keyCode == 13 && ctrl.buscarPorTexto(texto)">
 			<span class="input-group-btn">
 				<button class="btn btn-default" type="button"
-					ng-click="ctrl.paginaCorrente = 0; ctrl.buscarPorTexto(texto)">Ir!</button>
+					ng-click="ctrl.paginaCorrente = 0; ctrl.buscarPorTexto(texto)">PESQUISAR!</button>
 			</span>
 		</div>
 	</div>
-</div><br><br>
+</div>
+<br>
+<br>
+
+
 <div ng-show="mensagemErro"
 	class="alert alert-warning alert-dismissible">
 	<h4>
@@ -21,54 +24,100 @@
 	</h4>
 </div>
 
-		<br>
-		<div class="panel-body table-responsive">
-			<table class="table table-hover table-bordered">
-				<thead>
-					<tr>
-					<th class="btn btn-primary btn-flat col-sm-3"><md-button  ><h5>Solicitante</h5></md-button> </th>
-					<th class="btn btn-primary btn-flat col-sm-4"><md-button  ><h5>Unidade</h5></md-button> </th>
-					<th class="btn btn-primary btn-flat col-sm-2"><md-button  ><h5>Tipo Equipamento</h5></md-button> </th>
-					<th class="btn btn-primary btn-flat col-sm-2"><md-button  ><h5>Equipamento</h5></md-button> </th>
-					<th class="btn btn-primary btn-flat col-sm-2"><md-button  ><h5>Data Emprestimo</h5></md-button> </th>
-					<th class="btn btn-primary btn-flat col-sm-2"><md-button  ><h5>Data Devolucao</h5></md-button> </th>					
-					<th class="btn btn-primary btn-flat col-sm-4"><md-button  ><h5>Evento/Atividade</h5></md-button> </th>
-					<th class="btn btn-primary btn-flat col-sm-4"><md-button  ><h5>Status</h5></md-button> </th>
-					<th class="btn btn-primary btn-flat col-sm-2"><md-button  ><h5>Opção</h5></md-button> </th>
+<br>
+<div class="panel-body table-responsive">
+	<div align="center">
+		<div class="small-box bg-aqua">
+			<div class="inner" align="center">
+				<h4>Lista de Agendamento</h4>
+			</div>
+		</div>
+	</div>
+	<table class="table table-hover table-bordered">
+
+		<thead>
+			<tr>
+				<th><a href="" ng-click="ctrl.sort('solicitante')"><i
+						class="glyphicon glyphicon-sort "></i></a>Solicitante</th>
+				<th><a href="" ng-click="ctrl.sort('unidade')"><i
+						class="glyphicon glyphicon-sort"></i></a>Unidade</th>
+				<th><a href="" ng-click="ctrl.sort('tipoEquipamento')"><i
+						class="glyphicon glyphicon-sort"></i></a>Categoria</th>
+				<th><a href="" ng-click="ctrl.sort('equipamento')"><i
+						class="glyphicon glyphicon-sort"></i></a>Equipamento</th>
+				<th><a href="" ng-click="ctrl.sort('dataEmprestimo')"><i
+						class="glyphicon glyphicon-sort"></i></a>Data Emprestimo</th>
+				<th><a href="" ng-click="ctrl.sort('dataDevolucao')"><i
+						class="glyphicon glyphicon-sort"></i></a>Data Devolucao</th>
+				<th><a href="" ng-click="ctrl.sort('evento/Atividade')"><i
+						class="glyphicon glyphicon-sort"></i></a>Evento/Atividade</th>
+				<th><a href="" ng-click="ctrl.sort('StatusEmprestimo')"><i
+						class="glyphicon glyphicon-sort"></i></a>StatusEmprestimo</th>
+				<th>Opções</th>
+				<th>Editar</th>
+
+			</tr>
+		</thead>
+
+		<tbody
+			ng-repeat=" emprestimo in ctrl.emprestimos | filter : buscar ">
+
+
+			<tr>
+				<td><center>{{emprestimo.funcionario.pessoa.nomeCompleto}}</center></td>
+				<td><center>{{emprestimo.unidadeCadastro.dadosUnidade.nome}}</center></td>
+				<td><center>{{emprestimo.tipo}}</center></td>
+				<td><center ng-repeat="equipamento in emprestimo.equipamento">{{equipamento.descricao}}
 				
-					</tr>
-				</thead>
 				
-				<tbody	ng-repeat=" emprestimo in ctrl.emprestimos | filter : buscar | orderBy : 'emprestimo.funcionario.pessoa.nomeCompleto'">
-										
-			
-					<tr>										
-						<td><center>{{ emprestimo.funcionario.pessoa.nomeCompleto}}</center></td>
-						<td><center>{{ emprestimo.unidadeCadastro.dadosUnidade.nome}}</center></td>																				
-						<td><center>{{ emprestimo.tipo}}</center></td>	
-						<td><center  ng-repeat="equipamento in emprestimo.equipamento">{{ equipamento.descricao}}</center></td>
-						<td><center>{{ emprestimo.dataEmprestimo | date : 'dd/MM/yyyy'}}</center></td>
-						<td><center>{{ emprestimo.dataDevolucao | date : 'dd/MM/yyyy'}}</center></td>			
-						<td><center>{{ emprestimo.evento}}</center></td>
-						<td><center>{{ emprestimo.status}}</center></td>	
-																	
-						<td><a ui-sref="emprestimo.editar({idEmprestimo : emprestimo.id})"><i class="glyphicon glyphicon-edit col-sm-4"></i></a>
-						<a  title="Cadastrar evento" ui-sref="emprestimo.salvar({idEmprestimo : emprestimo.id})"></a>															
-				</tr>
-				</tbody>
-				<tfoot>
-				</tfoot>
-			</table>
-			
-			
-			<nav>
-				<ul uib-pagination total-items="ctrl.totalElementos" items-per-page="5"
-					ng-model="ctrl.paginaCorrente" max-size="5" class="pagination-sm"
-					boundary-link-numbers="true" ng-click="ctrl.buscarPorTexto(texto)"
-					previous-text="Anterior" last-text="Último" first-text="Primeiro"
-					next-text="Próximo">
-				</ul>
-			</nav>			
-			
-			
-		</div> 
+							  						
+								<div ng-repeat="equipamento in emprestimos">
+				<div class="col-sm-1"><br>
+					<span ng-click="ctrl.removerequipamento(equipamento)" class="label label-default">{{equipamento.descricao}}</span>
+				</div>			
+			</div>	
+				
+				
+				</center></td>
+				<td><center>{{emprestimo.dataEmprestimo | date :
+						'dd/MM/yyyy'}}</center></td>
+				<td><center>{{emprestimo.dataDevolucao | date :
+						'dd/MM/yyyy'}}</center></td>
+				<td><center>{{emprestimo.evento}}</center></td>
+				<!-- <td><center>{{ emprestimo.status}}</center></td> -->
+
+
+
+				<td><select class="form-control " ng-model="emprestimo.status"
+					ng-options="status.descricao for status in ctrl.statusEmprestimo" required>
+
+						<option ng-value="emprestimo.status" value="">{{emprestimo.status.descricao}}</option>
+				</select></td>
+
+
+				<td><a class="btn btn-success"
+					ng-click="ctrl.alterar(emprestimo)">Alterar</a></td>
+
+				<td><a
+					ui-sref="emprestimo.editar({idEmprestimo : emprestimo.id})"><i
+						class="glyphicon glyphicon-edit col-sm-4"></i></a> <a
+					title="Cadastrar evento"
+					ui-sref="emprestimo.salvar({idEmprestimo : emprestimo.id})"></a>
+			</tr>
+		</tbody>
+		<tfoot>
+		</tfoot>
+	</table>
+
+
+	<nav>
+		<ul uib-pagination total-items="ctrl.totalElementos"
+			items-per-page="8" ng-model="ctrl.paginaCorrente" max-size="8"
+			class="pagination-sm" boundary-link-numbers="true"
+			ng-click="ctrl.buscarPorTexto(texto)" previous-text="Anterior"
+			last-text="Último" first-text="Primeiro" next-text="Próximo">
+		</ul>
+	</nav>
+
+
+</div>

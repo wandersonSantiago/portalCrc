@@ -37,6 +37,15 @@ app.factory('EquipamentoService', function($q, $http){
 			});
 		},		
 		
+		//função para buscar equipamento por grupo
+		buscarPorTipo: function(param){
+			return $http.get('/rest/controleIp/equipamento/tipo/'+param)
+			.then(function(response){
+				return response.data;
+			},function(errResponse){
+				return $q.reject(errResponse);
+			});
+		},		
 		listar: function(){
 			return $http.get('/rest/controleIp/equipamento')
 			.then(function(response){
