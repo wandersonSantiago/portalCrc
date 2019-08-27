@@ -1,0 +1,23 @@
+<meta charset="UTF-8">
+
+			<div class="container col-sm-12 ">
+				<form role="form-vertical" ng-submit="cargoCtrl.submit()" >
+					<div class="row">
+						<div class="col-sm-11">
+							<input class="form-control" ng-model="cargoCtrl.cargo.descricao" placeholder="Descrição" id="descricao" type="text" required>
+						</div>
+					</div>
+					<br>
+					
+					<br>
+					<div class="row ">
+						<div class="col-sm-4"></div>
+						<div class="col-sm-4">
+							<input type="submit" id="submit" value="Salvar" ng-disabled="!cargoCtrl.cargo.descricao"
+								class="btn btn-lg btn-primary btn-block btn-signin">
+						</div>
+					</div>
+
+
+				</form>
+			</div>

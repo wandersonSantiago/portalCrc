@@ -1,0 +1,207 @@
+<meta charset="UTF-8">
+
+<div class="container col-sm-12 ">
+	<form role="form-vertical" name="formSecretaria" ng-submit="chamadoCtrl.submit()">
+
+		<div class="row">
+			<div class="col-sm-3">
+				Prioridade <input class="form-control"
+					ng-model="chamadoCtrl.chamadoTi.prioridade" id="prioridade"
+					name="prioridade" type="text" disabled required>
+			</div>
+			<div class="col-sm-3">
+				Status <input class="form-control"
+					ng-model="chamadoCtrl.chamadoTi.status" type="text" disabled
+					required>
+			</div>
+			<div class="col-sm-3" permission="['CHAMADO_INFORMATICA_TECNICO', 'ADMIN']"
+				ng-if="chamadoCtrl.chamadoTi.status == 'ABERTO'">
+				<br> <input type="button" value="Atender"
+					ng-click="chamadoCtrl.atenderChamado()"
+					class="btn btn-lg btn-primary btn-block btn-signin">
+			</div>
+			<div class="col-sm-3" permission="['CHAMADO_INFORMATICA_TECNICO', 'ADMIN']"
+				ng-if="chamadoCtrl.chamadoTi.status == 'EM_ANDAMENTO'">
+				<br> <input type="button" value="Fechar"
+					ng-click="chamadoCtrl.fecharChamado()"
+					class="btn btn-lg btn-success btn-block btn-signin">
+			</div>
+			<div class="col-sm-3" permission="['CHAMADO_INFORMATICA_TECNICO', 'ADMIN']"
+				ng-if="chamadoCtrl.chamadoTi.status != 'ABERTO'">
+				<br> <input type="button" value="Serviços executados"
+					data-toggle="modal" data-target="#myCategoria"
+					class="btn btn-lg btn-success btn-block btn-signin">
+			</div>
+		</div>
+		<br> <br>
+		<div class="row">
+			<div class="col-sm-6">
+				Solicitante <input class="form-control"
+					ng-model="chamadoCtrl.chamadoTi.usuarioSolicitante.funcionario.pessoa.nomeCompleto"
+					type="text" disabled required>
+			</div>
+			<div class="col-sm-6" ng-if="chamadoCtrl.chamadoTi.usuarioAtendente">
+				Técnico <div class="form-control label-control label-warning"
+					type="text" >{{chamadoCtrl.chamadoTi.usuarioAtendente.funcionario.pessoa.nomeCompleto}}</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-6">
+				Titulo <input class="form-control" placeholder="Titulo"
+					ng-model="chamadoCtrl.chamadoTi.titulo.descricao" id="titulo"
+					name="titulo" type="text" disabled required>
+			</div>
+		</div>
+		<br>
+		<div class="row">	
+				<div class=" col-sm-6">
+					<textarea class="textarea" placeholder="Texto"  ng-model="chamadoCtrl.chamadoTi.texto" id="texto" disabled="disabled"
+						style="width: 100%; height: 100px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>						
+						<div class="thumbnail" ng-show="chamadoCtrl.chamadoTi.imagem">
+							<img ng-src="{{chamadoCtrl.chamadoTi.imagemBase64}}"	class="img-rounded"  data-toggle="modal" data-target="#myImagem">
+						</div>
+				</div>
+				<div class="col-sm-6">						
+							<div class="box box-primary direct-chat direct-chat-primary">
+								<div class="box-header with-border">
+									<h2 class="box-title">Mensagens</h2>
+									<div class="box-tools pull-right">
+										<span data-toggle="tooltip" title="quantidade de mensagens"
+											class="badge bg-light-blue">{{chamadoCtrl.chamadoTi.mensagensNaoLida}}</span>
+									</div>
+									  <button type="button" class="btn btn-box-tool" data-toggle="tooltip" title="Contacts" data-widget="chat-pane-toggle">
+                 					 <i class="fa fa-comments"></i></button>
+								</div>
+								<br>
+								<div class="box-body">
+								 <div class="direct-chat-messages">			
+									<div ng-repeat=" mensagem in chamadoCtrl.chamadoTi.mensagens | orderBy : 'id'" id="container">
+										<div class="direct-chat-msg {{user.login == mensagem.usuario.login ? 'right':'left'}}">
+											<div class="direct-chat-info clearfix">
+												<span class="direct-chat-name pull-{{user.login == mensagem.usuario.login ? 'right':'left'}}">
+													{{mensagem.usuario.funcionario.pessoa.nomeCompleto}}</span>
+												<span class="direct-chat-timestamp pull-{{user.login == mensagem.usuario.login ? 'left':'right'}}"> 
+													Data :{{ mensagem.data | date : 'dd/MM/yyyy'}} Horas : {{mensagem.data | date : 'HH:mm:ss'}} </span>
+											</div>
+											<img class="direct-chat-img " 
+												ng-src="/rest/usuario/{{mensagem.usuario.id}}/foto"
+												alt="user">
+											<div class="direct-chat-text midle"  >{{mensagem.texto}}</div>											
+										</div>
+										<br>																					
+									</div>
+								</div>
+							</div>				
+					<div ng-if="chamadoCtrl.chamadoTi.status == 'EM_ANDAMENTO'">
+						<div class="input-group">						
+							<input type="text" class="form-control " ng-blur="chamadoCtrl.marcarComoLido(chamadoCtrl.chamadoTi)"  autofocus="autofocus" ng-model="chamadoCtrl.mensagem.texto" id="texto" ng-keyup="$event.keyCode == 13 && chamadoCtrl.submit(chamadoCtrl.chamadoTi, chamadoCtrl.mensagem.texto)">	
+						<span class="input-group-btn">
+							<input type="button" id="submit" value="Enviar" 
+								ng-disabled="!chamadoCtrl.mensagem.texto" 
+								ng-click="chamadoCtrl.submit(chamadoCtrl.chamadoTi, chamadoCtrl.mensagem.texto)"
+								class="btn btn-success btn-flat midle">
+						</span>
+						</div>											
+					</div>					
+				</div>				
+			</div>
+			</div>
+		</div>		
+		
+		<div class="modal fade bs-example-modal-lg" id="myCategoria"
+			tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"">
+			<div class="modal-dialog modal-lg" role="document">
+				<div class="modal-body">
+					<div class="box">
+						<div class="box-header">
+							<h3 class="box-title">Descreva os serviços executados</h3>
+						</div>
+						<br>
+						<div class="box-body pad">
+							<div>
+								<div class="row">
+									<div class="col-sm-6">
+										<select
+											ng-disabled="chamadoCtrl.chamadoTi.status != 'EM_ANDAMENTO'"
+											class="form-control "
+											ng-model="chamadoCtrl.chamadoTi.equipamento" id="tipo"
+											ng-options="equipamento.descricao group by equipamento.TipoEquipamento for equipamento in chamadoCtrl.equipamentos track by equipamento.id ">
+
+										</select>
+									</div>
+								</div>
+								<div ng-show="chamadoCtrl.chamadoTi.equipamento" class="row">
+									<div class="col-sm-3">
+										Descrição
+										<h4>
+											<span class="label label-info">{{chamadoCtrl.chamadoTi.equipamento.descricao}}</span>
+										</h4>
+									</div>
+									<div class="col-sm-3">
+										Patrimonio
+										<h4>
+											<span class="label label-info">{{chamadoCtrl.chamadoTi.equipamento.patrimonio}}</span>
+										</h4>
+									</div>
+								</div>
+
+								<div ng-show="chamadoCtrl.chamadoTi.equipamento" class="row">
+									<div class="col-sm-3">
+										Ip
+										<h4>
+											<span class="label label-info">{{chamadoCtrl.chamadoTi.equipamento.ip.numero}}</span>
+										</h4>
+									</div>
+									<div class="col-sm-3">
+										Tipo
+										<h4>
+											<span class="label label-info">{{chamadoCtrl.chamadoTi.equipamento.tipoEquipamento}}</span>
+										</h4>
+									</div>
+									<div class="col-sm-3">
+										Ponto
+										<h4>
+											<span class="label label-info">{{chamadoCtrl.chamadoTi.equipamento.ponto.numero}}</span>
+										</h4>
+									</div>
+								</div>
+							</div>
+							<textarea class="textarea" placeholder="Texto"
+								ng-disabled="chamadoCtrl.chamadoTi.status != 'EM_ANDAMENTO'"
+								ng-model="chamadoCtrl.chamadoTi.servicos.descricao" id="texto"
+								style="width: 100%; height: 100px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
+						</div>
+						<div class="modal-footer">
+							<button type="button"
+								ng-if="chamadoCtrl.chamadoTi.status == 'EM_ANDAMENTO'"
+								class="btn btn-primary"
+								ng-click="chamadoCtrl.salvarServicos(chamadoCtrl.chamadoTi.servicos.descricao , chamadoCtrl.chamadoTi.equipamento )"
+								data-dismiss="modal">Salvar</button>
+							<button type="button" class="btn btn-default"
+								data-dismiss="modal">Fechar</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal fade bs-example-modal-lg" id="myImagem"
+			tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"">
+			<div class="modal-dialog modal-lg" role="document">
+				<div class="modal-body">
+					<div class="box">
+						<div class="box-body pad">
+						<div class="thumbnail" ng-show="chamadoCtrl.chamadoTi.imagem">
+							<img ng-src="{{chamadoCtrl.chamadoTi.imagemBase64}}"	class="img-rounded" >
+						</div>
+						</div>	
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default"
+								data-dismiss="modal">Fechar</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>
+

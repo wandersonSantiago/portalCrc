@@ -1,0 +1,53 @@
+ <meta charset="UTF-8">
+ 
+ <div class="row">
+	<div class="col-sm-3">
+		<input class="form-control" placeholder="Pesquisar..." type="text" ng-model="buscar">
+	</div>
+</div>
+
+<br>
+		<div class="panel-body table-responsive">
+			<table class="table table-hover table-bordered">
+				<thead>
+					<tr>
+							<th class="btn btn-primary btn-flat col-sm-1"><h6>TipoEquipamento</h6></th>
+					<th class="btn btn-primary btn-flat col-sm-2"><h6>Descricao</h6></th>
+					<th class="btn btn-primary btn-flat col-sm-1"><h6>Patrimonio</h6> </th>
+					<th class="btn btn-primary btn-flat col-sm-1"><h6>Status</h6></th>
+					<th class="btn btn-primary btn-flat col-sm-1"><h6>Ip</h6></th>
+					<th class="btn btn-primary btn-flat col-sm-1"><h6>Ponto</h6></th>
+					<th class="btn btn-primary btn-flat col-sm-1"><h6>Switch</h6> </th>
+					<th class="btn btn-primary btn-flat col-sm-1"><h6>Porta</h6> </th>
+					<th class="btn btn-primary btn-flat col-sm-2"><h6>Setor</h6></th>
+					<th class="btn btn-primary btn-flat col-sm-1"><h6>Opções</h6></th>
+					
+					
+					</tr>
+				</thead>
+				<tbody	ng-repeat=" equipamento in equipamentoCtrl.equipamentos | filter : buscar | orderBy : 'ponto.setor.nome'">
+					<tr>
+						<td><a ui-sref="equipamento.show({idEquipamento : equipamento.id})"><i>{{ equipamento.tipoEquipamento}}</i></a></td>
+						<td>{{ equipamento.descricao }}</td>
+						<td>{{ equipamento.patrimonio }}</td>
+						
+						<td>{{ equipamento.ip.numero}}</td>						
+						<td>{{ equipamento.ponto.numero}}</td>
+						<td>{{ equipamento.ponto.switchs.nome}}</td>
+						<td>{{ equipamento.ponto.portaSwitch.numero}}</td>
+						<td>{{ equipamento.ponto.setor.nome}}</td>						
+						<td>{{ equipamento.status }}</td>
+						
+						
+						
+						
+						<td class="text-center"><a title="Editar Equipamento" ui-sref="equipamento.editar({idEquipamento : equipamento.id})"><i class="glyphicon glyphicon-edit"></i></a> 	&nbsp;&nbsp;&nbsp;
+						<a  title="Cadastrar uma manutenção preventiva" ui-sref="manutencaoEquipamento.salvar({idEquipamento : equipamento.id})"><i class="glyphicon glyphicon-wrench"></i></a>								 
+						
+				</tr>
+				</tbody>
+				<tfoot>
+				</tfoot>
+			</table>
+		</div>
+	

@@ -1,0 +1,36 @@
+<meta charset="UTF-8">
+
+<div class="row">
+	<div class="col-sm-3">
+		<input class="form-control" placeholder="Pesquisar..." type="text" ng-model="buscar">
+	</div>
+</div>
+
+<br>
+		<div class="panel-body table-responsive">
+			<table class="table table-hover table-bordered">
+				<thead>
+					<tr>
+					<th class="btn btn-primary btn-flat col-sm-2"><md-button  ><h5>descricao</h5></md-button> </th>
+					<th class="btn btn-primary btn-flat col-sm-2"><md-button  ><h5>telefone</h5></md-button> </th>
+					<th class="btn btn-primary btn-flat col-sm-2"><md-button  ><h5>Setor</h5></md-button> </th>
+					<th class="btn btn-primary btn-flat col-sm-1"><md-button  ><h5>Unidade</h5></md-button> </th>
+					<th permission="['TELEFONE_CADASTRAR', 'ADMIN']" class="btn btn-primary btn-flat col-sm-1"><md-button  ><h5>Opções</h5></md-button> </th>
+						
+					</tr>
+				</thead>
+				<tbody
+					ng-repeat=" telefone in foneCtrl.telefones | filter : buscar ">
+					<tr>
+						<td>{{ telefone.descricao }}</td>
+						<td>{{ telefone.telefone }}</td>
+						<td>{{ telefone.setor.nome}}</td>
+						<td>{{ telefone.unidade.dadosUnidade.mnemonico}}</td>
+						<td permission="['TELEFONE_CADASTRAR', 'ADMIN']"><a  ui-sref="telefone.editar({idTelefone : telefone.id})"><i class="glyphicon glyphicon-edit"></i></a> 
+				</tr>
+				</tbody>
+				<tfoot>
+				</tfoot>
+			</table>
+		</div>
+	

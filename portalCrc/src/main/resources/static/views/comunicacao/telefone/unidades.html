@@ -1,0 +1,44 @@
+<meta charset="UTF-8">
+			    <md-nav-bar
+			      md-selected-nav-item="currentNavItem"
+			      nav-bar-aria-label="navigation links">
+			      <md-nav-item md-nav-click="foneCtrl.buscarTodasUnidades()" name="page1">
+			        TODOS
+			      </md-nav-item>
+			      <md-nav-item md-nav-click="foneCtrl.buscarUnidades('CDP')" name="page2">
+			        CDP
+			      </md-nav-item>
+			      <md-nav-item md-nav-click="foneCtrl.buscarUnidades('CPP')" name="page3">
+			        CPP
+			      </md-nav-item>
+			      <md-nav-item md-nav-click="foneCtrl.buscarUnidades('CR')" name="page4">
+			        CR
+			      </md-nav-item>
+			      <md-nav-item md-nav-click="foneCtrl.buscarUnidades('PENITENCIARIA')" name="page5">
+			        PENITENCIARIA
+			      </md-nav-item>     
+			    </md-nav-bar>
+			
+			<br><div class="row"> 
+			<div class="col-sm-3">
+						<input  class="form-control" placeholder="Busca..." ng-model="busca"> 
+					</div>
+			
+			</div>					
+					<br><br>
+					<div ng-repeat="unidade in foneCtrl.unidades | filter : busca ">
+					<div  class="col-sm-4" flex-sm="45" flex-gt-sm="35" flex-gt-md="25" layout-padding layout-wrap layout-fill style="padding-bottom: 32px;" > 
+		
+						<div md-whiteframe="{{height}}" 
+						layout="column" layout-align="center center" ng-init="height = 1"
+						ng-mouseenter="height = 24" ng-mouseleave="height = 4">
+							<div class="row">
+								<md-button ui-sref="telefone.unidades({idUnidade : unidade.id})">{{unidade.dadosUnidade.mnemonico}}</md-button>
+							          
+	
+							</div>		
+						</div>	<br><br>			    	         						
+						 										     	  
+					</div>	
+					</div>
+			

@@ -1,145 +1,247 @@
 <meta charset="UTF-8">
-<aside class="main-sidebar" ng-controller="permissao as p" ng-init="p.role()">
-
+<aside class="main-sidebar">
 	<section class="sidebar">
-
-
+<!-- dados do usuario logado -->
 		<div class="user-panel">
 			<div class="pull-left image">
-				<img src="public/img/avatar_2x.png" class="img-circle"
-					alt="User Image">
+				<img ng-src="/rest/usuario/{{user.id}}/foto"  class="img-circle" alt="User Image">			
 			</div>
-			<div class="pull-left info">
-				<p>{{user.usuario.nome}}</p>
-				<a href="#"><i class="glyphicon glyphicon-star-empty"></i> Online</a>
+			<div class="pull-left info" >
+				<p><a href="" ui-sref="usuario.perfil">{{user.funcionario.pessoa.nomeCompleto | limitTo:17}}</a><p>
+				<a href="#" data-toggle="modal" data-target="#alteraStatus"><i   class="glyphicon glyphicon-star-empty"></i> {{user.status}}</a>
 			</div>
 		</div>
-		<div>
-		<ul class="sidebar-menu">
-			<li class="header">MÓDULOS</li>
-		<li class="treeview ">
-              <a href=""><i class="glyphicon glyphicon-phone-alt"> </i><i class="treeview "></i> Comunicação<i class="fa fa-angle-left pull-right"></i></a>
-              <ul class="treeview-menu">
-				<li class="treeview"><a href=""><i class=""></i> <span>Telefones</span>
-					<i class="fa fa-angle-left pull-right"></i></a>
-					<ul class="treeview-menu">
-						<li ng-if="role_cadastrar_telefone"><a class="top" href="#/unidade/telefone/cadastrar">cadastrar</a></li>
-						<li><a class="top" href="#/unidade/telefone/lista">lista</a></li>
-					</ul>
-				</li>					
-				<li class="treeview"><a href=""><i class=""></i> <span>Ramal</span>
-					<i class="fa fa-angle-left pull-right"></i></a>
-					<ul class="treeview-menu">
-						<li ng-if="role_cadastrar_ramal"><a class="top" href="#/recursosHumanos/setor/ramal/cadastrar">cadastro</a></li>
-						<li><a class="top" href="#/recursosHumanos/setor/ramal/lista">lista</a></li>
-					</ul>
-				</li>					
-			</ul>
-		</li>
-		<li class="treeview " ng-if="role_UsuarioChamado">
-              <a href=""><i class="glyphicon glyphicon-envelope"> </i><i class="treeview "></i> Chamado<i class="fa fa-angle-left pull-right"></i></a>
-              <ul class="treeview-menu">
-				<li class="treeview"><a href=""><i class="glyphicon glyphicon-globe"></i> <span>Informática</span>
-					<i class="fa fa-angle-left pull-right"></i></a>
-					<ul class="treeview-menu">
-						<li><a class="top" href="#/chamado/informatica/cadastrar">cadastrar</a></li>
-						<li><a class="top" href="#/chamado/informatica/lista">Meus Chamados</a></li>
-						<li ng-if="role_chamadoSuporteTi"><a class="top" href="#/chamado/informatica/suporte/lista">Suporte Chamado</a></li>
-					</ul>
-				</li>			
-				
-				<li class="treeview"><a href=""><i class="glyphicon glyphicon-wrench"></i> <span>Manutenção</span>
-					<i class="fa fa-angle-left pull-right"></i></a>
-					<ul class="treeview-menu">
-						<li><a class="top" href="#/chamado/manutencao/cadastrar">cadastro</a></li>
-						<li><a class="top" href="#/chamado/manutencao/lista">Meus Chamados</a></li>
-						<li ng-if="role_chamadoSuporteManutencao"><a class="top" href="#/chamado/manutencao/suporte/lista">Suporte Chamado</a></li>
-					</ul>
-				</li>				
-				
-			</ul>
-		</li>		
-		<li class="treeview " >
-              <a href=""><i class="glyphicon glyphicon-floppy-save"> </i><i class="treeview "></i>Cadastros<i class="fa fa-angle-left pull-right"></i></a>
-              <ul class="treeview-menu">
-				<li ng-if="role_coordenadoria" class="treeview"><a href=""><i class="glyphicon glyphicon-hand-right"></i> <span>Secretaria</span>
-					<i class="fa fa-angle-left pull-right"></i></a>
-					<ul class="treeview-menu">
-						<li><a class="top" href="#/secretaria/cadastrar">cadastro</a></li>
-						<li><a class="top" href="#/secretaria/lista">lista</a></li>
-					</ul>
-				</li>			
-				<li ng-if="role_coordenadoria" class="treeview"><a href=""><i class="glyphicon glyphicon-hand-right"></i> <span>Coordenadoria</span>
-					<i class="fa fa-angle-left pull-right"></i></a>
-					<ul class="treeview-menu">
-						<li><a class="top" href="#/coordenadoria/cadastrar">cadastro</a></li>
-						<li><a class="top" href="#/coordenadoria/lista">lista</a></li>
-					</ul>
-				</li>
-				<li class="treeview ">
-              <a href=""><i class="glyphicon glyphicon-hand-right"> </i><i class="treeview "></i> Unidade<i class="fa fa-angle-left pull-right"></i></a>
-              <ul class="treeview-menu">	
-						<li ng-if="role_coordenadoria"><a class="top" href="#/unidade/cadastrar">cadastro</a></li>
-						<li><a class="top" href="#/unidade/lista">lista</a></li>
-				
-							
-				<li ng-if="role_coordenadoria" class="treeview"><a href=""><i class="glyphicon glyphicon-hand-right"></i> <span>Tipo</span>
-					<i class="fa fa-angle-left pull-right"></i></a>
-					<ul class="treeview-menu">
-						<li><a class="top" href="#/unidade/tipo/cadastrar">cadastro</a></li>
-						<li><a class="top" href="#/unidade/tipo/lista">lista</a></li>
-					</ul>
-				</li>				
-			
-			</ul>
-		</li>
-				<li ng-if="role_cadastrar_usuario" class="treeview"><a href=""><i class="glyphicon glyphicon-user"></i> <span>Usuario</span>
-					<i class="fa fa-angle-left pull-right"></i></a>
-					<ul class="treeview-menu">
-						<li><a class="top" href="#/usuario/cadastrar">cadastro</a></li>
-						<li><a class="top" href="#/usuario/lista">lista</a></li>
-					</ul>
-				</li>				
-			</ul>
-		</li>		
-			<li ng-if="role_recursos_humanos" class="treeview ">
-              <a href=""><i class="glyphicon glyphicon-user"> </i><i class="treeview "></i> Recursos Humanos<i class="fa fa-angle-left pull-right"></i></a>
-              <ul class="treeview-menu">
-				<li  class="treeview"><a href=""><i class="glyphicon glyphicon-hand-right"></i> <span>Funcionário</span>
-					<i class="fa fa-angle-left pull-right"></i></a>
-					<ul class="treeview-menu">
-						<li ng-if="role_cadastrar_funcionario"><a class="top" href="#/recursosHumanos/funcionario/cadastrar">cadastrar</a></li>
-						<li><a class="top" href="#/recursosHumanos/funcionario/lista">lista</a></li>
-					</ul>
-				</li>			
-				<li class="treeview"><a href=""><i class="glyphicon glyphicon-hand-right"></i> <span>Cargo</span>
-					<i class="fa fa-angle-left pull-right"></i></a>
-					<ul class="treeview-menu">
-						<li ng-if="role_cadastrar_cargo"><a class="top" href="#/recursosHumanos/cargo/cadastrar">cadastro</a></li>
-						<li><a class="top" href="#/recursosHumanos/cargo/lista">lista</a></li>
-					</ul>
-				</li>
-				<li class="treeview"><a href=""><i class="glyphicon glyphicon-hand-right"></i> <span>Setor</span>
-					<i class="fa fa-angle-left pull-right"></i></a>
-					<ul class="treeview-menu">
-						<li ng-if="role_cadastrar_setor"><a class="top" href="#/recursosHumanos/setor/cadastrar">cadastro</a></li>
-						<li><a class="top" href="#/recursosHumanos/setor/lista">lista</a></li>
-					</ul>
-				</li>			
-				<li class="treeview"><a href=""><i class=" glyphicon glyphicon-object-align-bottom"></i> <span>Função</span>
-					<i class="fa fa-angle-left pull-right"></i></a>
-					<ul class="treeview-menu">
-						<li ng-if="role_cadastrar_funcao"><a class="top" href="#/recursosHumanos/funcao/cadastrar">cadastro</a></li>
-						<li><a class="top" href="#/recursosHumanos/funcao/lista">lista</a></li>
-					</ul>
-				</li>
-				
-			</ul>
-		</li>
-		</ul>
-		</div>
+		<form action="" class="sidebar-form">
+            <div class="input-group">
+              <input type="text" name="q" class="form-control" ng-model="buscaMenu" placeholder="busca">
+              <span class="input-group-btn">
+                <button   class="btn btn-flat"><i class="fa fa-search"></i></button>
+              </span>
+            </div>
+          </form>
 
-	<script type="text/javascript">
+
+		<div>
+		
+		</div>
+<!-- menu admin Sistema -->
+		<ul class="sidebar-menu">
+			<li class="header">COMUNICAÇÂO</li>
+					<li class="treeview"><a href=""><i class="glyphicon glyphicon-earphone"></i> <span>Telefones</span>
+						<i class="fa fa-angle-left pull-right"></i></a>
+						<ul class="treeview-menu">
+							<li permission="['CADASTRAR_TELEFONE' , 'ADMIN']"  ><a class="top" ui-sref="telefone.cadastrar">cadastrar</a></li>
+							<li ><a class="top" ui-sref="telefone.coordenadoria">Pesquisar</a></li>
+						</ul>
+					</li>  
+					
+					<li  class="treeview"><a href=""><i class="glyphicon glyphicon-phone-alt"></i> <span>Ramal</span>
+						<i class="fa fa-angle-left pull-right"></i></a>
+						<ul  class="treeview-menu">
+							  <li permission="['CADASTRAR_RAMAL' , 'ADMIN']" ><a class="top" ui-sref="ramal.cadastrar">cadastro</a></li>
+							  <li><a class="top" ui-sref="ramal.coordenadoria">Pesquisar</a></li>	
+						</ul>						
+					</li>
+										
+					<li permission="['EQUIPAMENTO','IP', 'TIPO_IP', 'PONTO','SWITCH' , 'ADMIN']" class="header">CONTROLE DE IP</li>
+					<li permission="['EQUIPAMENTO' , 'ADMIN']" class="treeview"><a href=""><i class="fa fa-laptop"></i> <span>Equipamento</span>
+					<span title="Quantidade de Equipamentos cadastros na manutenção preventivas" class="label label-warning pull-right">{{manutencaoEquipamentos.length}}</span>
+						</a>
+						<ul class="treeview-menu">
+							 <li permission="['EQUIPAMENTO' , 'ADMIN']" ><a class="top" ui-sref="equipamento.cadastrar">cadastrar</a></li>
+							 <li permission="['EQUIPAMENTO' , 'ADMIN']"><a class="top" ui-sref="equipamento.ativo">lista</a></li>
+						</ul>
+					</li>  
+					
+					<li permission="['IP' , 'ADMIN']" class="treeview"><a href=""><i class="fa fa-sitemap"></i> <span>IPs</span>
+						<i class="fa fa-angle-left pull-right"></i></a>
+						<ul class="treeview-menu">
+							 <li permission="['IP' , 'ADMIN']" ><a class="top" ui-sref="ip.cadastrar">cadastrar</a></li>
+						     <li permission="['IP' , 'ADMIN']"><a class="top" ui-sref="ip.ativos">lista</a></li>
+						</ul>
+					</li> 
+					
+					<li permission="['TIPO_IP' , 'ADMIN']" class="treeview"><a href=""><i class="fa  fa-share-alt"></i> <span>Tipo IP</span>
+						<i class="fa fa-angle-left pull-right"></i></a>
+						<ul class="treeview-menu">
+							 <li permission="['TIPO_IP' , 'ADMIN']"><a class="top" ui-sref="tipoIp.cadastrar">cadastrar</a></li>
+							 <li permission="['TIPO_IP' , 'ADMIN']"><a class="top" ui-sref="tipoIp.ativos">lista</a></li>
+						</ul>
+					</li> 
+					
+					<li permission="['PONTO' , 'ADMIN']" class="treeview"><a href=""><i class="fa fa-plug"></i> <span>Ponto</span>
+						<i class="fa fa-angle-left pull-right"></i></a>
+						<ul class="treeview-menu">
+							 <li permission="['PONTO' , 'ADMIN']"><a class="top" ui-sref="ponto.cadastrar">cadastrar</a></li>
+							 <li permission="['PONTO' , 'ADMIN']"><a class="top" ui-sref="ponto.ativos">lista</a></li>
+						</ul>
+					</li> 
+					
+					<li permission="['SWITCH' , 'ADMIN']" class="treeview"><a href=""><i class="fa fa-tty"></i> <span>Switch</span>
+						<i class="fa fa-angle-left pull-right"></i></a>
+						<ul class="treeview-menu">
+							 <li permission="['SWITCH' , 'ADMIN']"><a class="top" ui-sref="switch.cadastrar">cadastrar</a></li>
+						     <li permission="['SWITCH' , 'ADMIN']"><a class="top" ui-sref="switch.ativos">lista</a></li>
+						</ul>
+					</li> 
+					<li  permission="['CHAMADO_USUARIO' , 'CHAMADO_INFORMATICA_TECNICO' , 'CHAMADO_MANUTENCAO_TECNICO' , 'ADMIN']" class="header">CHAMADOS</li>
+					<li permission="['CHAMADO_USUARIO' , 'CHAMADO_INFORMATICA_TECNICO' , 'ADMIN']" class="treeview"><a href=""><i class="fa fa-server "></i> <span>Informática</span>
+						<i class="fa fa-angle-left pull-right"></i></a>
+						<ul class="treeview-menu">
+							 <li permission="['CHAMADO_USUARIO' , 'ADMIN']"><a class="top" ui-sref="chamadoTi.cadastrar">cadastrar</a></li>
+							<li permission="['CHAMADO_USUARIO' , 'ADMIN']"><a class="top" ui-sref="chamadoTi.listar">Meus Chamados</a></li>
+							<li permission="['CHAMADO_INFORMATICA_TECNICO' , 'ADMIN']"><a class="top" ui-sref="chamadoTi.suporteListar">Suporte Chamado</a></li>
+							<li permission="['CHAMADO_INFORMATICA_TECNICO' , 'ADMIN']"><a class="top" ui-sref="chamadoTi.relatorio">Relatório</a></li>
+						</ul>
+					</li> 
+					<li permission="['CHAMADO_USUARIO' , 'CHAMADO_MANUTENCAO_TECNICO' , 'ADMIN']"  class="treeview"><a href=""><i class="fa fa-legal"></i> <span>Manutenção</span>
+						<i class="fa fa-angle-left pull-right"></i></a>
+						<ul class="treeview-menu">
+					 		<li permission="['CHAMADO_USUARIO' , 'ADMIN']"><a class="top" ui-sref="chamadoManutencao.cadastrar">cadastro</a></li>
+							<li permission="['CHAMADO_USUARIO' , 'ADMIN']"><a class="top" ui-sref="chamadoManutencao.listar">Meus Chamados</a></li>
+							<li permission="['CHAMADO_MANUTENCAO_TECNICO' , 'ADMIN']"><a class="top" ui-sref="chamadoManutencao.suporteListar">Suporte Chamado</a></li>
+							<li permission="['CHAMADO_MANUTENCAO_TECNICO' , 'ADMIN']"><a class="top" ui-sref="chamadoManutencao.relatorio">Relatório</a></li>
+						</ul>
+					</li>
+					<li permission="['ADMIN']" class="treeview"><a href=""><i class="fa fa-server "></i> <span>Configuração</span>
+						<i class="fa fa-angle-left pull-right"></i></a>
+						<ul class="treeview-menu">
+							 <li permission="['ADMIN']"><a class="top" ui-sref="sistema.cadastrar">sistema</a></li>
+							<li permission="['ADMIN']"><a class="top" ui-sref="sistema.listar">lista</a></li>
+							<li permission="['ADMIN']"><a class="top" ui-sref="modulo.cadastrar">modulo</a></li>
+							<li permission="['ADMIN']"><a class="top" ui-sref="modulo.listar">listar</a></li>
+							<li permission="['ADMIN']"><a class="top" ui-sref="tema.cadastrar">tema</a></li>
+							<li permission="['ADMIN']"><a class="top" ui-sref="tema.listar">listar</a></li>
+						</ul>
+					</li>	
+					<li permission="['DIARIA_FINANCAS', 'DIARIA_TRASNPARENCIA' , 'ADMIN']" class="header">FINANÇAS</li>
+					<li permission="['DIARIA_FINANCAS', 'DIARIA_TRASNPARENCIA' , 'ADMIN']" class="treeview"><a href=""><i class="fa fa-dollar "></i> <span>Diaria</span>
+						<i class="fa fa-angle-left pull-right"></i></a>
+						<ul class="treeview-menu">
+							<li><a class="top" ui-sref="diaria.listar">Inicial</a></li>
+							<li permission="['DIARIA_FINANCAS' , 'ADMIN']" ><a class="top" ui-sref="funcionarioContaDiaria.buscar">Conta Funcionário</a></li>
+							<li permission="['DIARIA_FINANCAS' , 'ADMIN']" ><a class="top" ui-sref="diaria.cadastrar">cadastrar novo mês</a></li>
+							<li permission="['DIARIA_FINANCAS','DIARIA_DEP_PESSOAL']"><a class="top" ui-sref="diaria.relatorio-geral">Relatórios</a></li>
+						</ul>
+					</li> 
+					<li permission="['CADASTRO_VEICULOS' , 'ADMIN']" class="header">INFRAESTRUTURA</li>
+					<li permission="['CADASTRO_VEICULOS' , 'ADMIN']" class="treeview"><a href=""><i class="fa fa-dollar "></i> <span>Veiculos</span>
+						<i class="fa fa-angle-left pull-right"></i></a>
+						<ul class="treeview-menu">
+							<li permission="['CADASTRO_VEICULOS' , 'ADMIN']" ><a class="top" ui-sref="veiculo.cadastrar">cadastrar</a></li>
+							<li permission="['CADASTRO_VEICULOS' , 'ADMIN']" ><a class="top" ui-sref="veiculo.listar">listar</a></li>
+						</ul>
+					</li> 
+						
+					<li permission="['USUARIO_UNIDADE', 'USUARIO_COORDENADORIA' , 'ADMIN']" class="header">GERENCIAMENTO</li>
+					<li permission="['USUARIO_UNIDADE', 'USUARIO_COORDENADORIA' , 'ADMIN']" class="treeview"><a href=""><i class="glyphicon glyphicon-user "></i> <span>Usuario</span>
+						<i class="fa fa-angle-left pull-right"></i></a>
+						<ul class="treeview-menu">
+						   <li permission="['USUARIO_UNIDADE', 'USUARIO_COORDENADORIA' , 'ADMIN']"><a class="top" ui-sref="usuario.listar">lista</a></li>
+						</ul>
+					</li> 
+					<li permission="[ 'ADMIN']" class="treeview"><a href=""><i class="glyphicon glyphicon-user "></i> <span>Permissão</span>
+						<i class="fa fa-angle-left pull-right"></i></a>
+						<ul class="treeview-menu">
+					       <li><a class="top" ui-sref="permissao.cadastrar">cadastrar</a></li>
+						   <li><a class="top" ui-sref="permissao.listar">lista</a></li>
+						</ul>
+					</li> 
+					
+					<li permission="['FUNCIONARIO_UNIDADE', 'CARGO', 'SETOR', 'FUNCAO' , 'ADMIN']" class="header">RECURSOS HUMANOS</li>
+					<li  permission="['FUNCIONARIO_UNIDADE' , 'ADMIN']" class="treeview"><a href=""><i class="fa fa-user-plus"></i> <span>Funcionário</span>
+						<i class="fa fa-angle-left pull-right"></i></a>
+						<ul class="treeview-menu">
+							 <li permission="['FUNCIONARIO_UNIDADE' , 'ADMIN']"><a class="top" ui-sref="funcionario.cadastrar">cadastrar</a></li>
+						     <li permission="['FUNCIONARIO_UNIDADE' , 'ADMIN']"><a class="top" ui-sref="funcionario.listar">lista</a></li>
+						</ul>
+					</li> 
+					<li permission="['CARGO' , 'ADMIN']" class="treeview"><a href=""><i class="fa fa-shield"></i> <span>Cargo</span>
+						<i class="fa fa-angle-left pull-right"></i></a>
+						<ul class="treeview-menu">
+					 		<li permission="['CARGO' , 'ADMIN']"><a class="top" ui-sref="cargo.cadastrar">cadastro</a></li>
+						    <li permission="['CARGO' , 'ADMIN']"><a class="top" ui-sref="cargo.listar">lista</a></li>
+						</ul>
+					</li>
+					
+					<li permission="['SETOR' , 'ADMIN']" class="treeview"><a href=""><i class="fa fa-map-signs"></i> <span>Setor</span>
+						<i class="fa fa-angle-left pull-right"></i></a>
+						<ul class="treeview-menu">
+							 <li permission="['SETOR' , 'ADMIN']"><a class="top" ui-sref="setor.cadastrar">cadastro</a></li>
+							 <li permission="[ 'SETOR','ADMIN']"><a class="top" ui-sref="setor.listar">lista</a></li>
+						</ul>
+					</li> 
+					<li permission="['FUNCAO' , 'ADMIN']" class="treeview"><a href=""><i class="fa fa-cubes"></i> <span>Função</span>
+						<i class="fa fa-angle-left pull-right"></i></a>
+						<ul class="treeview-menu">
+					 		<li permission="['FUNCAO' , 'ADMIN']"><a class="top" ui-sref="funcao.cadastrar">cadastro</a></li>
+							<li permission="['FUNCAO' , 'ADMIN']"><a class="top" ui-sref="funcao.listar">lista</a></li>
+						</ul>
+					</li>
+					<li permission="['ADMIN']" class="header">CADASTROS</li>
+					<li permission="['ADMIN']" class="treeview"><a href=""><i class="fa fa-institution"></i> <span>Secretaria</span>
+						<i class="fa fa-angle-left pull-right"></i></a>
+						<ul class="treeview-menu">
+							 <li permission="['ADMIN']"><a class="top" ui-sref="secretaria.cadastrar">cadastro</a></li>
+						     <li permission="['ADMIN']"><a class="top" ui-sref="secretaria.listar">lista Geral</a></li>	
+						</ul>
+					</li> 
+					<li permission="['ADMIN']" class="treeview"><a href=""><i class="fa fa-home"></i> <span>Coordenadoria</span>
+						<i class="fa fa-angle-left pull-right"></i></a>
+						<ul class="treeview-menu">
+					 		<li  permission="['ADMIN']"><a class="top" ui-sref="coordenadoria.cadastrar">cadastro</a></li>
+						    <li  permission="['ADMIN']"><a class="top" ui-sref="coordenadoria.listar">lista</a></li>
+						</ul>
+					</li>
+					
+					<li  permission="['ADMIN']" class="treeview"><a href=""><i class="fa fa-eye"></i> <span>Unidade</span>
+						<i class="fa fa-angle-left pull-right"></i></a>
+						<ul class="treeview-menu">
+							 <li  permission="['ADMIN']"><a class="top" ui-sref="unidade.cadastrar">cadastro</a></li>
+						     <li  permission="['ADMIN']"><a class="top" ui-sref="unidade.listar">lista</a></li>
+						</ul>
+					</li> 
+					<li  permission="['ADMIN']" class="treeview"><a href=""><i class="fa fa-lightbulb-o"></i> <span>Tipo</span>
+						<i class="fa fa-angle-left pull-right"></i></a>
+						<ul class="treeview-menu">
+					 		<li  permission="['ADMIN']"><a class="top" ui-sref="tipo.cadastrar">cadastro</a></li>
+						    <li  permission="['ADMIN']"><a class="top" ui-sref="tipo.listar">lista</a></li>
+						</ul>
+					</li>
+					
+										
+					
+					
+					<li permission="['AUDITORIO', 'EMPRESTIMO','RESERVA', 'ADMIN']" class="header">AGENDAMENTO AUDITÓRIO</li>
+					<li  permission="['AUDITORIO' , 'ADMIN']" class="treeview"><a href=""><i class="fa fa-user-plus"></i> <span>Auditório</span>
+						<i class="fa fa-angle-left pull-right"></i></a>
+						<ul class="treeview-menu">
+							 <li permission="['AUDITORIO' , 'ADMIN']"><a class="top" ui-sref="auditorio.cadastrar">cadastrar</a></li>
+						     <li permission="['AUDITORIO' , 'ADMIN']"><a class="top" ui-sref="auditorio.listar">lista</a></li>
+						</ul>
+					</li> 
+					
+					<li  permission="['EMPRESTIMO' , 'ADMIN']" class="treeview"><a href=""><i class="fa fa-user-plus"></i> <span>Emprétimo</span>
+						<i class="fa fa-angle-left pull-right"></i></a>
+						<ul class="treeview-menu">
+							 <li permission="['EMPRESTIMO' , 'ADMIN']"><a class="top" ui-sref="emprestimo.cadastrar">cadastrar</a></li>
+						     <li permission="['EMPRESTIMO' , 'ADMIN']"><a class="top" ui-sref="emprestimo.listar">lista</a></li>
+						</ul>
+					</li> 
+					
+					<li  permission="['RESERVA' , 'ADMIN']" class="treeview"><a href=""><i class="fa fa-user-plus"></i> <span>Reserva</span>
+						<i class="fa fa-angle-left pull-right"></i></a>
+						<ul class="treeview-menu">
+							 <li permission="['RESERVA' , 'ADMIN']"><a class="top" ui-sref="reserva.cadastrar">cadastrar</a></li>
+						     <li permission="['RESERVA' , 'ADMIN']"><a class="top" ui-sref="reserva.listar">lista</a></li>
+						</ul>
+					</li> 
+			
+					
+		</ul>
+		
+		
+		<script type="text/javascript">
 		$(document).ready(function() {
 			$('.top').click(function() {
 				$('html,body').animate({
@@ -149,21 +251,29 @@
 		});
 	</script>
 	</section>
-	'	<div ng-if="role_chamadoSuporteManutencao">
-			<div  ng-controller="chamadoManutencaoController as manuctrl" ng-init="manuctrl.verificaMensagemLida()">
-				<audio  id="myVideo" ng-show="teste" controls="controls" height="5px" width="10px">
-				  <source src="/public/img/som.mp3" type="audio/mpeg" />
-					<embed height="5px" width="10px" src="/public/img/som.mp3" />
-				</audio>
-			</div>	
-			</div>
-			<div ng-if="role_chamadoSuporteTi">
-			<div  ng-controller="chamadoTiController as ctrl" ng-init="ctrl.verificaMensagemLida()">
-				<audio id="myAudio"  ng-show="teste" controls="controls"	height="5px" width="10px">
-					<source src="/public/img/som.mp3" type="audio/mpeg" />
-					<embed height="5px" width="10px" src="/public/img/som.mp3" />
-				</audio>
-			</div>
-			</div>
-
 </aside>
+  <!-- MODAL -->				
+				<div  class="modal fade modal-primary" id="alteraStatus" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" ng-controller="UsuarioEditarController as userCtrl">
+				  <div class="modal-dialog" role="document" >
+				    <div class="modal-content" ng-controller="UsuarioPerfilController as ctrl">
+				      <div class="modal-header">
+				        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				      </div>
+				      <div class="modal-body">				     		
+					      <div class="input-group margin">
+								<select class="form-control"
+									ng-model="user.status"
+									ng-change="ctrl.alterarStatus(user)"
+									ng-options="status for status in ctrl.status track by status">
+									<option value=""></option>
+								</select> <span class="input-group-btn"> <a type="button"
+									class="btn btn-info btn-flat"><i>Status</i></a>
+								</span>
+							</div>			       
+				      </div>
+				      <div class="modal-footer">
+				      </div>
+				    </div>
+				  </div>
+				</div>
+		

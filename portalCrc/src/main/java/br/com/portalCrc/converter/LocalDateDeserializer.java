@@ -10,7 +10,11 @@ import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 
 public class LocalDateDeserializer extends StdDeserializer<LocalDate>{
 
-	 protected LocalDateDeserializer() {
+	 /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	protected LocalDateDeserializer() {
 	        super(LocalDate.class);
 	    }
      @Override

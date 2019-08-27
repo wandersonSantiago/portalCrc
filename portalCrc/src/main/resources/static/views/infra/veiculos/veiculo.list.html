@@ -1,0 +1,32 @@
+<meta charset="UTF-8">
+
+		<div class="panel-body table-responsive">
+		<input class="form-control" type="text" ng-model="buscar" placeholder="Buscar">
+			<table class="table table-hover table-bordered">
+				<thead>
+					<tr>
+						<th>Placa</th>
+						<th>Modelo</th>
+						<th>Cor</th>	
+						<th>MArca</th>
+						<th>Cidade</th>					
+						<th>Opções</th>
+					</tr>
+				</thead>
+				<tbody
+					ng-repeat=" veiculo in veiculoCtrl.veiculos | filter : buscar">
+					<tr>
+						<td>{{ veiculo.placa }}</td>
+						<td>{{ veiculo.modelo.nome }}</td>
+						<td>{{ veiculo.cor.nome }}</td>	
+						<td>{{ veiculo.modelo.marca.nome }}</td>	
+						<td>{{ veiculo.cidade.nome }}</td>						
+						<td><a ui-sref="veiculo.editar({idVeiculo : veiculo.id})"><i class="glyphicon glyphicon-edit"></i></a> 
+						
+				</tr>
+				</tbody>
+				<tfoot>
+				</tfoot>
+			</table>
+		</div>
+	

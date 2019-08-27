@@ -1,0 +1,32 @@
+<meta charset="UTF-8">
+
+		<div class="panel-body table-responsive">
+		<input class="form-control" type="text" ng-model="buscaUnidade" placeholder="Buscar">
+			<table class="table table-hover table-bordered">
+				<thead>
+					<tr>
+						<th>Nome</th>
+						<th>Mnemonico</th>
+						<th>Tipo</th>
+						<th>Coordenadoria</th>
+						<th>Secretaria</th>
+						<th>Opções</th>
+					</tr>
+				</thead>
+				<tbody
+					ng-repeat=" unidade in unidadeCtrl.unidades | filter : buscaUnidade ">
+					<tr>
+						<td>{{ unidade.dadosUnidade.nome }}</td>
+						<td>{{ unidade.dadosUnidade.mnemonico }}</td>
+						<td>{{ unidade.tipoUnidade.mnemonico }}</td>
+						<td>{{ unidade.coordenadoria.mnemonico }}</td>
+						<td>{{ unidade.coordenadoria.secretaria.mnemonico }}</td>
+						<td><a ui-sref="unidade.editar({idUnidade : unidade.id})"><i class="glyphicon glyphicon-edit"></i></a> 
+						
+				</tr>
+				</tbody>
+				<tfoot>
+				</tfoot>
+			</table>
+		</div>
+	

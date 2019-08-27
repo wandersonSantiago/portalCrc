@@ -1,10 +1,10 @@
  package br.com.portalCrc.entity;
 
+import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
-import javax.persistence.CollectionTable;
 import javax.persistence.Column;
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -13,11 +13,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
-import br.com.portalCrc.enums.PerfilUsuario;
+import br.com.portalCrc.enums.StatusUsuarioEnum;
 
 
 @Entity
@@ -32,45 +34,38 @@ public class Usuario {
 	@ManyToOne
 	@JoinColumn(name="id_funcionario",nullable = true)
 	private Funcionario funcionario;
-	@ManyToOne
-	@JoinColumn(name="id_setor",nullable = true)
-	private Setor setor;
-	@ManyToOne
-	@JoinColumn(name="id_unidades",nullable = true)
-	private Unidade unidade;
-	@ElementCollection(targetClass=PerfilUsuario.class,fetch = FetchType.EAGER)
+	
+    private String  caminhoFoto;
+    
     @Enumerated(EnumType.STRING)
-    @CollectionTable(name="perfil")
-    @Column(name="perfil_usuario")
-    List<PerfilUsuario> perfilsUsuario;
-	@Column(nullable = false,length = 50)
-	private String nome;
-	@Column(nullable = false,length = 15,unique = true)
+    private StatusUsuarioEnum status;
+    
+	@Column(nullable = false,unique = true)
 	private String login;
-	@Column(nullable = true,length = 40)
-	private String email;
 	@Column(nullable = false,length = 256)
 	private String senha;
 	
-	public String getNome() {
-		return nome;
-	}
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
+	@Column(name="data_cadastro")
+	private Date dataCadastro;
 	
+	@ManyToMany(fetch = FetchType.EAGER)
+	@JoinTable(name = "usuario_permissoes", schema="principal", joinColumns = @JoinColumn(name = "id_usuario"), 
+	inverseJoinColumns = @JoinColumn(name = "id_permissoes"))	
+	private List<Permissao> permissoes;
+	
+	
+	public List<Permissao> getPermissoes() {
+		return permissoes;
+	}
+	public void setPermissoes(List<Permissao> permissoes) {
+		this.permissoes = permissoes;
+	}
 	public String getLogin() {
 		return login;
 	}
 	public void setLogin(String login) {
 		this.login = login;
-	}
-	public String getEmail() {
-		return email;
-	}
-	public void setEmail(String email) {
-		this.email = email;
-	}
+	}	
 	public String getSenha() {
 		return senha;
 	}
@@ -81,27 +76,11 @@ public class Usuario {
 	public void setFuncionario(Funcionario funcionario) {
 		this.funcionario = funcionario;
 	}
-	public Unidade getUnidade() {
-		return unidade;
-	}
-	public void setUnidade(Unidade unidade) {
-		this.unidade = unidade;
-	}
+
 	public Funcionario getFuncionario() {
 		return funcionario;
 	}
-	public Setor getSetor() {
-		return setor;
-	}
-	public void setSetor(Setor setor) {
-		this.setor = setor;
-	}
-	public List<PerfilUsuario> getPerfilsUsuario() {
-		return perfilsUsuario;
-	}
-	public void setPerfilsUsuario(List<PerfilUsuario> perfilsUsuario) {
-		this.perfilsUsuario = perfilsUsuario;
-	}
+	
 	public Long getId() {
 		return id;
 	}
@@ -109,6 +88,53 @@ public class Usuario {
 		this.id = id;
 	}
 
+	public Date getDataCadastro() {
+		return dataCadastro;
+	}
+	public void setDataCadastro(Date dataCadastro) {
+		this.dataCadastro = dataCadastro;
+	}
+	public String getCaminhoFoto() {
+		return caminhoFoto == null ? "/public/img/avatar_2x.png" : caminhoFoto;
+	}
+	public void setCaminhoFoto(String caminhoFoto) {
+		this.caminhoFoto = caminhoFoto;
+	}
+	public StatusUsuarioEnum getStatus() {
+		return status;
+	}
+	public void setStatus(StatusUsuarioEnum status) {
+		this.status = status;
+	}
+	
+	public boolean hasRole(String descricao){
+		 List<Permissao> permissao =  getPermissoes().stream()
+		.filter(p -> p.getDescricao().contains(descricao)).collect(Collectors.toList());
+		return permissao != null && !permissao.isEmpty();
+	}
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		return result;
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Usuario other = (Usuario) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		return true;
+	}
 	
 	
 }

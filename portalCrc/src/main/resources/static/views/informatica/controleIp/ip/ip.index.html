@@ -1,0 +1,50 @@
+<meta charset="UTF-8">
+
+<div class="row">
+	<div class="col-sm-2">
+	
+	 <div class="box box-solid">
+            <div class="box-header with-border">
+              <h3 class="box-title">Menu</h3>
+
+              <div class="box-tools">
+                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                </button>
+              </div>
+            </div>
+		<div class="box-body no-padding">
+              <ul class="nav nav-pills nav-stacked">
+                <li permission="['IP' , 'ADMIN']"><a href="" ui-sref="ip.cadastrar"><i class="fa fa-plus-circle"></i>Novo</a></li>
+                <li permission="['IP' , 'ADMIN']"><a href="" ui-sref="ip.listar"><i class="fa fa-spinner"></i>Todos<span class="label label-info pull-right">{{qtdIps}}</span></a></li>
+                <li permission="['IP' , 'ADMIN']"><a href="" ui-sref="ip.ativos"><i class="fa fa-thumbs-up"></i>Ativos<span class="label label-success pull-right">{{qtdIpsAtivos}}</span></a></li>
+                <li permission="['IP' , 'ADMIN']"><a href="" ui-sref="ip.inativos"><i class="fa fa-thumbs-down"></i>Inativos<span class="label label-warning pull-right">{{qtdIpsInativos}}</span></a></li>
+               </ul>
+            </div>
+           </div>
+       
+	 <div class="box box-solid">
+            <div class="box-header with-border">
+              <h3 class="box-title">Tipo</h3>
+
+              <div class="box-tools">
+                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                </button>
+              </div>
+            </div>
+		<div class="box-body no-padding">
+              <ul class="nav nav-pills nav-stacked">
+                <li><a href="" ui-sref="tipoIp.cadastrar"><i class="fa fa-plus-circle"></i>Novo</a></li>
+                <li><a href="" ui-sref="tipoIp.listar"><i class="fa fa-spinner"></i>Todos<span class="label label-success pull-right">{{qtdTipoIps}}</span></a></li>
+               </ul>
+            </div>
+           </div>
+        </div>
+       <div class="col-sm-10">     
+			<div class="box box-primary" >	
+					<div class="box-header">IP</div>
+					<div class="panel-body">
+						<div class="ui-view"></div>
+					</div>
+			</div>
+		</div>
+</div>

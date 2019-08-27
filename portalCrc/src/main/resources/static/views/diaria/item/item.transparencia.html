@@ -1,0 +1,140 @@
+<meta charset="UTF-8">
+<div class="col-md-4">
+<a href="" >Meses anteriores</a>
+<select class="form-control"
+		ng-model="mes" ng-change="ctrl.diariasDoMes(mes)"
+		ng-options="mes for mes in ctrl.meses" required>
+	</select>
+</div>
+<br>
+<div ng-show="ctrl.diarias.length == 0">
+<br>
+<br>
+	<div class="alert alert-warning alert-dismissible">
+		<h4>
+			<i class="icon fa fa-warning"></i>Este mês não tem diarias lançadas!!!
+		</h4>
+	</div>
+</div>
+
+
+<div class="row"  ng-show="ctrl.diarias.length > 0">
+	<div class="col-sm-3">
+		<div align="center">
+		<h1>{{mes}}</h1>
+			<input type="button" ng-show="dynamic == 0" ng-click="ctrl.carregarDiariaCoordenadoria(mes)" class="btn-sm btn-success" value="carregar">
+			
+				<button ng-json-export-excel  data="listaDiariaExcel" ng-show="dynamic == 100"
+				report-fields="{nome: 'Favorecido', cargo:'Cargo',  dataSaida: 
+				'Data  Saida', localDeslocamento: 'Destino', motivo: 'Motivo', valorDiaria: 'Valor Diária', valorPassagem: 'Valor Passagem' }"
+				filename="'lista diaria Unidade'" class="btn-sm btn-primary">Exportar
+				Excel</button>
+		</div>
+	</div>
+</div>
+<div class="row">
+	<div class="col-sm-12">
+		<uib-progressbar ng-show="dynamic > 0 && dynamic < 100" max="max" value="dynamic"><span style="color:white; white-space:nowrap;">{{dynamic}}%</span></uib-progressbar>
+	</div>
+</div>
+<br>
+
+
+<div class="table-responsive" ng-show="ctrl.diarias.length > 0">
+	<table class="table table-hover table-bordered">
+		<thead>
+			<tr>
+				<th >Unidade </th>
+				<th >Tipo </th>
+				<th >Aberto</md-button> </th>
+				<th >Status</th>
+				<th >Opções</th>
+			</tr>
+		</thead>
+		<tbody ng-repeat=" diaria in ctrl.diarias | filter : busca">
+			<tr>
+				<td>{{diaria.unidadeCadastro.dadosUnidade.mnemonico}}</td>
+				<td>{{diaria.unidadeCadastro.tipoUnidade.descricao}}</td>
+				<td>{{diaria.dataAbertura| date : 'dd/MM/yyyy'}}</td>
+				<td>{{diaria.status}}</td>
+				<td><input type="button" ng-show="diaria.dynamic == null" ng-model="diaria.dynamic" ng-click="ctrl.carregarDiaria(diaria)" class="btn-sm btn-success" value="carregar">
+				<uib-progressbar ng-show="diaria.dynamic > 0 && diaria.dynamic < 100" max="max" value="diaria.dynamic"><span style="color:white; white-space:nowrap;">{{diaria.dynamic}}%</span></uib-progressbar>
+				
+					<button ng-json-export-excel  data="listaDiariaExcel" ng-show="diaria.dynamic == 100"
+					report-fields="{nome: 'Favorecido', cargo:'Cargo',  dataSaida: 
+					'Data  Saida', localDeslocamento: 'Destino', motivo: 'Motivo', valorDiaria: 'Valor Diária', valorPassagem: 'Valor Passagem' }"
+					filename="'lista diaria Unidade'" class="btn-sm btn-primary">Exportar
+					Excel</button>
+				</td>				
+			</tr>
+
+		</tbody>
+	</table>
+</div>
+
+
+
+
+<!-- <div class="row">
+	<div class="col-sm-3">
+		<input class="form-control" placeholder="Pesquisar..." type="text" ng-model="buscar">
+	</div>
+	<div class="col-sm-8"></div>
+	<div class="col-sm-1">
+		<button ng-json-export-excel  data="listaDiariaExcel"
+		report-fields="{nome: 'Favorecido', cargo:'Cargo',  dataSaida: 
+		'Data  Saida', localDeslocamento: 'Destino', motivo: 'Motivo', valorDiaria: 'Valor Diária', valorPassagem: 'Valor Passagem' }"
+		filename="'lista diaria Unidade'" class="btn-sm btn-primary">Exportar
+		Excel</button>
+	</div>
+	
+</div>
+
+<br>
+
+	<div class="table-responsive">
+	<table class="table table-hover table-bordered">
+		<thead>
+			<tr>
+				<th class="btn btn-success btn-flat col-sm-2"><md-button  ><h5>Favorecido</h5></md-button> </th>
+				<th class="btn btn-success btn-flat col-sm-2"><md-button  ><h5>Cargo</h5></md-button> </th>
+				<th class="btn btn-success btn-flat col-sm-2"><md-button  ><h5>Unidade</h5></md-button> </th>
+				<th class="btn btn-success btn-flat col-sm-1"><md-button  ><h5>Data</h5></md-button> </th>
+				<th class="btn btn-success btn-flat col-sm-1"><md-button  ><h5>Retorno</h5></md-button> </th>
+				<th class="btn btn-success btn-flat col-sm-1"><md-button  ><h5>Localidade</h5></md-button> </th>
+				<th class="btn btn-success btn-flat col-sm-2"><md-button  ><h5>Motivo</h5></md-button> </th>
+				<th class="btn btn-success btn-flat col-sm-1"><md-button  ><h5>Diaria</h5></md-button> </th>
+				<th class="btn btn-success btn-flat col-sm-1"><md-button  ><h5>Passagem</h5></md-button> </th>
+
+			</tr>
+		</thead>
+		<tbody
+			ng-repeat=" diaria in ctrl.itens | filter : busca">
+			<tr>
+				<td class="text-center">{{diaria.funcionarioDiaria.contaFuncionario.funcionario.pessoa.nomeCompleto}}</td>
+				<td class="text-center">{{diaria.funcionarioDiaria.cargo.descricao}}</td>
+				<td>{{diaria.funcionarioDiaria.unidade.dadosUnidade.mnemonico}}</td>
+				<td class="text-center">{{ diaria.dataSaida | date : 'dd/MM/yyyy'}}</td>
+				<td>{{ diaria.dataChegada | date : 'dd/MM/yyyy'}}</td>
+				<td class="text-center">
+					<div ng-repeat="cidade in diaria.localDeslocamentos" >							
+							{{ cidade.nome }}&nbsp;<a ng-if="diaria.localDeslocamentos.length > 0">/</a>&nbsp;
+					</div>
+				</td>
+				<td class="text-center" ng-if="diaria.dataSaida == diaria.dataChegada">{{ diaria.motivo }}</td>
+				<td class="text-center" ng-if="diaria.dataSaida != diaria.dataChegada">{{ diaria.motivo }} - retorno no dia {{diaria.dataChegada | date : 'dd/MM/yyyy'}}</td>
+				<td class="text-center" >{{ diaria.valorDiaria | currency}}</td>
+				<td class="text-center">{{ diaria.valorPassagem | currency}}</td>
+			</tr>
+
+		</tbody>
+		<tfoot>
+			<tr>
+
+
+			</tr>
+		</tfoot>
+	</table>
+</div>
+
+ -->

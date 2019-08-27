@@ -1,14 +1,20 @@
 package br.com.portalCrc.entity;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 @Entity
 @SequenceGenerator(name = "tipoUnidade_id_seq", sequenceName = "tipoUnidade_id_seq", schema="principal", initialValue = 1, allocationSize = 1)
@@ -26,13 +32,16 @@ public class TipoUnidade {
 	@OneToOne
 	@JoinColumn(name="id_secretaria")
 	private Secretaria secretaria;
+	@Column(name="data_cadastro")
+	private Date dataCadastro;
+	
 	
 	
 	public String getDescricao() {
 		return descricao;
 	}
 	public void setDescricao(String descricao) {
-		this.descricao = descricao;
+		this.descricao = descricao.toUpperCase();
 	}
 	public Secretaria getSecretaria() {
 		return secretaria;
@@ -44,13 +53,20 @@ public class TipoUnidade {
 		return mnemonico;
 	}
 	public void setMnemonico(String mnemonico) {
-		this.mnemonico = mnemonico;
+		this.mnemonico = mnemonico.toUpperCase();
 	}
 	public Long getId() {
 		return id;
 	}
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public Date getDataCadastro() {
+		return dataCadastro;
+	}
+	public void setDataCadastro(Date dataCadastro) {
+		this.dataCadastro = dataCadastro;
 	}
 	
 	

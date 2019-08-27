@@ -1,130 +1,101 @@
 <meta charset="UTF-8">
-<header class="main-header">
-
-	<a href="#/" class="logo navbar-fixed-top"> <span class="logo-mini">CRC</span>
-		<span class="logo-lg"><b>Portal</b>CRC</span>
-	</a>
-
-	<nav class="navbar navbar-static-top navbar-fixed-top" role="navigation" ng-controller="usuarioController as  userCtrl" ng-init="userCtrl.user()">
-
-		<a href="" class="sidebar-toggle" data-toggle="offcanvas"
-			role="button"> <span class="sr-only">Toggle navigation</span>
-		</a>
-		
-		 <div class="navbar-custom-menu">
-            <ul class="nav navbar-nav">
-		
-		 <li class="dropdown messages-menu">
-                <a href="#/chamado/manutencao/suporte/lista" title="Quantidade de Chamados Abertos para Manutenção" class="dropdown-toggle" data-toggle="dropdown">
-                  <i class="fa fa-envelope-o"></i>
-                  <span class="label label-success">{{quantidadeChamadoAberto}}</span>
-                </a>	
-		 		 
-          </li>              
-          <li class="dropdown messages-menu">
-                <a href="#/chamado/informatica/suporte/lista" title="Quantidade de Chamados Abertos para Informática" class="dropdown-toggle" data-toggle="dropdown">
-                  <i class="fa fa-envelope-o"></i>
-                  <span class="label label-success">{{quantidadeChamadoAbertoTi}}</span>
-                </a>	
-		 		 
-          </li>
-		
-				<ul class="nav navbar-nav pull-right" >
-						<li class="dropdown user user-menu">
+<script type="text/javascript">
+	function sendNum() {
+		var num1 = document.getElementById('num1').value;
+		var num2 = document.getElementById('num2').value;
+		stompClient.send("/calcApp/add", {}, {});
+	}
+</script>
+<header class="main-header navbar-fixed-top">		  
+		    <a ui-sref="home.menu"class="logo navbar-fixed-top">    
+		      <span class="logo-mini"><b>C</b>RC</span>      
+		      <span class="logo-lg"><b>Portal</b>CRC</span>
+		    </a>		    
+		    <nav class="navbar  navbar-fixed-top" role="navigation">      
+		      <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+		        <span class="sr-only">Toggle navigation</span>
+		      </a>
+		       <div class="navbar-custom-menu">
+		        <ul class="nav navbar-nav">		          
+				<!--  <li  class="dropdown messages-menu" permission="['CHAMADO_MANUTENCAO_TECNICO' , 'ADMIN']">
+		                <a ui-sref="chamadoManutencao.suporteListar" title="Quantidade de Chamados Abertos para Manutenção" class="dropdown-toggle" data-toggle="dropdown">
+		                  <i class="fa fa-envelope-o"></i>
+		                  <span class="label label-success">{{qtdChamadoAbertoSuporteManutencao}}</span>
+		                </a>					 		 
+		          </li> -->
+		           <li  class="dropdown messages-menu" permission="['CHAMADO_USUARIO' , 'ADMIN']">
+		                <a ui-sref="chamadoManutencao.listar" title="Quantidade de Chamados Manutenção" class="dropdown-toggle" data-toggle="dropdown">
+		                  <i class="fa fa-envelope-o"></i>
+		                  <span class="label label-success">{{qtdChamadoAbertoManutencao}}</span>
+		                </a>					 		 
+		          </li>
+		         <!--  <li  class="dropdown messages-menu" permission="['CHAMADO_INFORMATICA_TECNICO' , 'ADMIN']">
+		                <a ui-sref="chamadoTi.suporteListar" title="Quantidade de Chamados Abertos para Informática" class="dropdown-toggle" data-toggle="dropdown">
+		                  <i class="fa fa-envelope-o"></i>
+		                  <span class="label label-success">{{qtdChamadosSuporteTi}}</span>
+		                </a>					 		 
+		          </li> -->
+		           <li  class="dropdown messages-menu" permission="['CHAMADO_USUARIO' , 'ADMIN']">
+		                <a ui-sref="chamadoTi.listar" title="Quantidade de Chamados Informática" class="dropdown-toggle" data-toggle="dropdown">
+		                  <i class="fa fa-envelope-o"></i>
+		                  <span class="label label-success">{{qtdChamadosTi}}</span>
+		                </a>					 		 
+		          </li>
+		       <li class="dropdown user user-menu">
 		                <a href="" class="dropdown-toggle" data-toggle="dropdown">
 		                  <i class="glyphicon glyphicon-user"></i>
 		                </a>
 		                <ul class="dropdown-menu">
 		                  <!-- User image -->
 		                  <li class="user-header">
-		                    <img src="public/img/avatar_2x.png" class="img-circle" alt="User Image">
+		                    <img ng-src="/rest/usuario/{{user.id}}/foto" class="img-circle" alt="User Image">
 		                    <p>
-		                     		{{user.usuario.nome}}
-		                      <small>{{user.usuario.setor.nome}}</small>
+		                     		{{user.funcionario.pessoa.nomeCompleto}}
+		                      <small>{{user.funcionario.setorAtual.nome}}</small>
 		                    </p>
 		                  </li>                 
 		                  <li class="user-footer">
 		                    <div class="pull-left">
-		                      <a href="" ng-click="userCtrl.buscaPorId(user.usuario.id)" data-toggle="modal" data-target="#alteraSenha" class="btn btn-default btn-flat">Alterar senha</a>
+		                      <a href="" ui-sref="usuario.perfil"  class="btn btn-default btn-flat">Perfil</a>
 		                    </div>
-		                    <div class="pull-right">
-		                      <a href=""  ng-click="userCtrl.buscaPorId(user.usuario.id)" data-toggle="modal" data-target="#alteraEmpreendimento"  class="btn btn-default btn-flat">Alterar Unidade.</a>
+		                    <div  class="pull-right" permission="['ADMIN']">
+		                      <a href=""  ng-click="userCtrl.buscaPorId(user.usuario.id)" data-toggle="modal" data-target="#alterarUnidade"  class="btn btn-default btn-flat">Alterar Unidade.</a>
 		                    </div>
 		                  </li>
 		                </ul>
 		              </li>
-					<li><a>Unidade : {{user.usuario.unidade.dadosUnidade.nome}}</a></li>  
-					<li>
-						<a href="" ng-controller="loginController as loginCtrl"  ng-click="loginCtrl.logout()"> Logout <i class="glyphicon glyphicon-log-out"></i>
+		              <li><a>Unidade : {{user.funcionario.unidadeAtual.dadosUnidade.mnemonico}}</a></li>          
+         			<li>
+						<a href="" ng-controller="LoginController"  ng-click="logout()"> Logout <i class="glyphicon glyphicon-log-out"></i>
 						</a>
 					</li>
-	
-				</ul>				
-				
-		 </ul>
-     </div>
-
-	</nav>
-	
-</header>
-
-
-<div class="modal fade" id="alteraSenha" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" ng-controller="usuarioController as userCtrl">
+		        </ul>
+		      </div>
+		    </nav>
+		  </header>
+		  
+		  <!-- MODAL -->				
+				<div  class="modal fade modal-primary" id="alterarUnidade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" ng-controller="UsuarioEditarController as userCtrl">
 				  <div class="modal-dialog" role="document" >
-				    <div class="modal-content">
-				      <div class="modal-header">
-				        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-				        <h4 class="modal-title" id="myModalLabel">Dados Usúario</h4>
-				      </div>
-				      <div class="modal-body">				      	
-				     		{{user.usuario.nome}}
-				      		<br>
-					      <div class="row">
-					      	<div class="col-sm-4">
-								<input type="password" class="form-control" id="senha" ng-model="userCtrl.senha" placeholder="Senha"
-									title="Digite uma senha" maxlength="12" required>
-							</div>
-							<div class="col-sm-4">
-								<input type="password" class="form-control" id="repitaSenha" ng-model="userCtrl.senhaRepitida" placeholder="Repita a Senha"
-									title="repita a senha" required>
-							</div>
-					      </div>
-					       
-				      </div>
-				      <div class="modal-footer">
-				        <button type="button" ng-click="userCtrl.altera(user.usuario)" class="btn btn-primary">Alterar</button>
-				        <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
-				        
-				      </div>
-				    </div>
-				  </div>
-				</div>
-				
-				
-				<div class="modal fade" id="alteraEmpreendimento" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" ng-controller="usuarioController as userCtrl">
-				  <div class="modal-dialog" role="document" >
-				    <div class="modal-content">
+				    <div class="modal-content" ng-controller="UsuarioEditarController as userCtrl">
 				      <div class="modal-header">
 				        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 				        <h4 class="modal-title" id="myModalLabel">Alterar Unidade</h4>
 				      </div>
-				      <div class="modal-body">				      	
-				     		
+				      <div class="modal-body">				     		
 					      <div class="row">
-					      	<div  class="col-sm-12" ng-controller="unidadeController as unidadeCtr" ng-init="unidadeCtr.lista()">
-							<select class="form-control " ng-model="userCtrl.usuario.empreendimento" 
-								ng-options="unidades.dadosUnidade.nome group by unidades.tipoUnidade.descricao for unidades in unidadeCtr.listaUnidades"
-								style="width: 100%;" required>
-								<option  value="">--selecione o Unidade--</option>
-							</select>
-						</div>		
-					      </div>
-					       
+						      	<div  class="col-sm-12" >
+									<select class="form-control " ng-model="unidade" 
+										ng-options="unidades.dadosUnidade.nome group by unidades.tipoUnidade.descricao for unidades in userCtrl.unidades"
+										style="width: 100%;" required>
+										<option  value="">--selecione o Unidade--</option>
+									</select>
+								</div>		
+					      </div>					       
 				      </div>
 				      <div class="modal-footer">
-				        <button type="button" ng-click="userCtrl.alteraEmpreendimento(user.usuario)" class="btn btn-primary">Alterar</button>
-				        <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
-				        
+				        <button type="button" data-dismiss="modal" ng-click="userCtrl.alterarUnidade(unidade.id)" class="btn btn-primary">Alterar</button>
+				        <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>				        
 				      </div>
 				    </div>
 				  </div>

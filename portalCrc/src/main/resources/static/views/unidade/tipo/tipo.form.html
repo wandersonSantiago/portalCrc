@@ -1,0 +1,39 @@
+<meta charset="UTF-8">
+			<div class=" col-sm-12 ">
+				<form role="form-vertical" ng-submit="tipoCtrl.submit()" >
+					<div class="row">
+						<div class="col-sm-6">
+						Descricao:
+							<input class="form-control" ng-model="tipoCtrl.tipoUnidade.descricao" placeholder="Descrição" id="descricao" type="text" required>
+						</div>
+						<div class="col-sm-6">
+						Mneumonico:
+							<input class="form-control" ng-model="tipoCtrl.tipoUnidade.mnemonico" placeholder="Mnemonico" id="mnemonicoId" type="text" required>
+						</div>
+					</div>
+					<br>
+					<div class="row">					
+						
+					<div >	
+					<div class="col-sm-6" >
+					Secretaria:
+							<select class="form-control select2" ng-model="tipoCtrl.tipoUnidade.secretaria" 
+							ng-options="secretaria.nome for secretaria in tipoCtrl.secretarias" >
+								<option value="">{{tipoCtrl.tipoUnidade.secretaria.nome}}</option>
+							</select>
+						</div>		
+					</div>	
+					</div>	
+					<br>
+							
+					<div class="row ">
+						<div class="col-sm-4"></div>
+						<div class="col-sm-4">
+							<input type="submit" id="submit" value="Salvar" ng-disabled="!tipoCtrl.tipoUnidade.descricao || !tipoCtrl.tipoUnidade.mnemonico "
+								class="btn btn-lg btn-primary btn-block btn-signin">
+						</div>
+					</div>
+				</form>
+			</div>
+
+	

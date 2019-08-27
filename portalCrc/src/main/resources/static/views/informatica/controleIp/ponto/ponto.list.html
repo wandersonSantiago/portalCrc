@@ -1,0 +1,39 @@
+ <meta charset="UTF-8">
+ 
+ <div class="row">
+	<div class="col-sm-3">
+		<input class="form-control" placeholder="Pesquisar..." type="text" ng-model="buscar">
+	</div>
+</div>
+
+<br>
+		<div class="panel-body table-responsive">
+			<table class="table table-hover table-bordered">
+				<thead>
+					<tr>
+							<th class="btn btn-primary btn-flat col-sm-2"><h6>Descricao</h6></th>
+					<th class="btn btn-primary btn-flat col-sm-2"><h6>Numero</h6></th>
+					<th class="btn btn-primary btn-flat col-sm-1"><h6>Setor</h6> </th>					
+					<th class="btn btn-primary btn-flat col-sm-1"><h6>Switch</h6> </th>						
+					<th class="btn btn-primary btn-flat col-sm-1"><h6>Porta</h6> </th>
+					<th class="btn btn-primary btn-flat col-sm-1"><h6>Opções</h6> </th>
+				
+					</tr>
+				</thead>
+				<tbody
+					ng-repeat=" ponto in pontoCtrl.pontos | filter : buscar ">
+					<tr>
+						<td>{{ ponto.descricao }}</td>
+						<td>{{ ponto.numero }}</td>
+						<td>{{ ponto.setor.nome}}</td>
+						<td>{{ ponto.switchs.nome}}</td>
+						<td>{{ ponto.portaSwitch.numero}}</td>
+						<td class="text-center"><a ui-sref="ponto.editar({idPonto : ponto.id})"><i class="glyphicon glyphicon-edit"></i></a> 	&nbsp;&nbsp;&nbsp; 
+						<a  ng-if="ponto.status != 'INATIVO'" ng-click="pontoCtrl.limparPortas(ponto)"><i class="fa fa-object-ungroup"></i></a>									 
+				</tr>
+				</tbody>
+				<tfoot>
+				</tfoot>
+			</table>
+		</div>
+	

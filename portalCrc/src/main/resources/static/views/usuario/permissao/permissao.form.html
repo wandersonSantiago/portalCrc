@@ -1,0 +1,36 @@
+<meta charset="UTF-8">
+
+<div class="container col-sm-12 ">
+	<form role="form-vertical" ng-submit="ctrl.submit()">
+		<br>
+		<div class="row">
+			<div class="col-sm-6">
+				<input type="text" class="form-control" id="nome"
+					ng-model="ctrl.permissao.descricao" placeholder="Permissão"
+					title="Nome da permissão"  required>
+			</div>
+
+			<div>
+				<div class="col-sm-6">
+					<select class="form-control select2"
+						ng-model="ctrl.permissao.modulo"
+						ng-options="modulo for modulo in ctrl.modulos" required>
+						<option value=""></option>
+					</select>
+				</div>
+			</div>
+			<div></div>
+		</div>
+		<br> <br>
+
+		<div class="row ">
+			<div class="col-sm-4"></div>
+			<div class="col-sm-3">
+				<button type="submit" name="submit"
+					class="btn btn-lg btn-primary btn-block btn-signin">Cadastrar</button>
+
+			</div>
+		</div>
+	</form>
+
+</div>

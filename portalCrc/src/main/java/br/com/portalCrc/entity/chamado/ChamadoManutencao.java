@@ -11,14 +11,14 @@ public class ChamadoManutencao extends Chamado {
 	
 	
 	@Column(name="descricao_servico")
-	protected String descricaoServico;
+	private String descricaoServico;
 
 	public String getDescricaoServico() {
 		return descricaoServico;
 	}
 
 	public void setDescricaoServico(String descricaoServico) {
-		this.descricaoServico = descricaoServico;
+		this.descricaoServico = descricaoServico.toUpperCase();
 	}
 	
 	

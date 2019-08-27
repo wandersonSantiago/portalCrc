@@ -1,0 +1,34 @@
+<meta charset="UTF-8">
+			<div class="col-sm-12 ">
+				<form role="form-vertical" ng-submit="ramalCtrl.submit()" >
+					<div class="row">
+						<div class="col-sm-6">
+						Descrição:
+							<input class="form-control" ng-model="ramalCtrl.ramal.descricao" placeholder="Descrição" id="descricao" type="text" required>
+						</div>
+						<div class="col-sm-6">
+						Numero:
+							<input class="form-control" ng-model="ramalCtrl.ramal.numero" placeholder="Numero" id="numero" type="text" required>
+						</div>
+					</div>
+					<br>
+					<div class="row">			
+						<div class="col-sm-6" >
+						Setor:
+							<select class="form-control select2" ng-model="ramalCtrl.ramal.setor" 
+							ng-options="setor.nome for setor in ramalCtrl.setores" >
+								<option value="">{{ramalCtrl.ramal.setor.nome}}</option>
+							</select>
+						</div>				
+					</div>	
+						
+					<br>
+							
+					<div class="row ">
+						<div class="col-sm-4"></div>
+						<div class="col-sm-4">
+							<input type="submit" id="submit" value="Salvar" class="btn btn-lg btn-primary btn-block btn-signin">
+						</div>					
+					</div>
+			</form>
+			</div>

@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.4.3.final using JasperReports Library version 6.4.3  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="financas" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="33904419-668d-49da-9245-cd35343480d9">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="src\main\resources\relatorio\DataAdapter.xml"/>
+	<parameter name="Sap" class="java.lang.String">
+		<parameterDescription><![CDATA[]]></parameterDescription>
+	</parameter>
+	<parameter name="Brasao" class="java.lang.String">
+		<parameterDescription><![CDATA[]]></parameterDescription>
+	</parameter>
+	<parameter name="SUB_REPORT_DIR" class="java.lang.String">
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="nomeSetor" class="java.lang.String">
+		<fieldDescription><![CDATA[nomeSetor]]></fieldDescription>
+	</field>
+	<field name="nomeUnidade" class="java.lang.String">
+		<fieldDescription><![CDATA[nomeUnidade]]></fieldDescription>
+	</field>
+	<field name="itens" class="java.util.List">
+		<fieldDescription><![CDATA[itens]]></fieldDescription>
+	</field>
+	<field name="count" class="java.lang.Integer">
+		<fieldDescription><![CDATA[count]]></fieldDescription>
+	</field>
+	<field name="valor" class="java.lang.Double">
+		<fieldDescription><![CDATA[valor]]></fieldDescription>
+	</field>
+	<field name="cpfFuncionario" class="java.lang.String">
+		<fieldDescription><![CDATA[cpfFuncionario]]></fieldDescription>
+	</field>
+	<field name="nomeCargo" class="java.lang.String">
+		<fieldDescription><![CDATA[nomeCargo]]></fieldDescription>
+	</field>
+	<field name="nomeFuncionario" class="java.lang.String">
+		<fieldDescription><![CDATA[nomeFuncionario]]></fieldDescription>
+	</field>
+	<field name="dataInicial" class="java.util.Date">
+		<fieldDescription><![CDATA[dataInicial]]></fieldDescription>
+	</field>
+	<field name="dataFinal" class="java.util.Date">
+		<fieldDescription><![CDATA[dataFinal]]></fieldDescription>
+	</field>
+	<field name="valorTotal" class="java.lang.Double">
+		<fieldDescription><![CDATA[valorTotal]]></fieldDescription>
+	</field>
+	<field name="diaria" class="br.com.portalCrc.entity.diaria.Diaria">
+		<fieldDescription><![CDATA[diaria]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="71" splitType="Stretch">
+			<image scaleImage="RealSize">
+				<reportElement x="1" y="0" width="79" height="57" uuid="d2beabc2-34bb-4825-8c32-881265ae0944"/>
+				<imageExpression><![CDATA[$P{Sap}]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="80" y="0" width="376" height="16" uuid="55ef622e-3647-4bc6-8d42-fb07024c421b"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Secretaria de Estado da Administração Penitenciária]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="80" y="20" width="376" height="30" uuid="fcf34cff-15e4-4b7d-ba7a-3c26bb913ab4"/>
+				<textElement textAlignment="Center">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nomeUnidade}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="80" y="50" width="376" height="14" uuid="6d2a0aae-f108-4d3c-8300-24ecdf857322"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Departamento de Administração]]></text>
+			</staticText>
+			<image>
+				<reportElement x="423" y="0" width="121" height="69" uuid="9f5f74fd-12a3-43b8-8041-c43a55bfee16"/>
+				<imageExpression><![CDATA[$P{Brasao}]]></imageExpression>
+			</image>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="97" splitType="Stretch">
+			<staticText>
+				<reportElement x="80" y="0" width="376" height="20" uuid="238d4a4f-7728-4095-ac52-7db42874f507"/>
+				<textElement textAlignment="Center">
+					<font size="15" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Relatório de diárias 
+]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="6" y="48" width="542" height="30" uuid="c5f4b383-262b-434f-99c6-e4af3c36d3f4"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[($F{dataInicial} != null ? "As diárias desta pesquisa ocorreram entre o(s) dia(s) " + new SimpleDateFormat("dd/MM/yyyy").format($F{dataInicial})+ " e " +  new SimpleDateFormat("dd/MM/yyyy").format($F{dataFinal}) + "." : "Pesquisa da diária referente ao mês"+ $F{diaria}.getMes())]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="30" y="78" width="100" height="19" uuid="822023b4-e192-4c8a-b3ce-97c722cd8fcb">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="de0331ff-a60b-4258-bb83-66c02d75d7a3"/>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Funcionario]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="190" y="78" width="50" height="19" uuid="bec4ae71-ed17-4fb9-a92f-f1f258474318"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[CPF]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="239" y="78" width="80" height="19" uuid="9d86fb92-e6c7-4e5c-9aac-4d12232bfa1c"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Setor]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="80" y="20" width="376" height="30" uuid="26ab67d5-9e05-46fe-8a7c-c7890d5261f8"/>
+				<textElement textAlignment="Center">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Recursos Humanos]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="360" y="78" width="63" height="19" uuid="f8fb4e61-2c47-4475-8991-1a9e51369e9b">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="0aa8df18-a9c1-497e-841a-d3c2897bf810"/>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Saída]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="470" y="78" width="65" height="19" uuid="9894a4e4-97f6-49fc-b8cf-b13034845cf7">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="7e8164a4-54c7-4276-ae0f-0df66e3733d6"/>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Retorno]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="44" splitType="Stretch">
+			<textField>
+				<reportElement x="20" y="1" width="150" height="18" uuid="88a818e5-9411-4137-954a-f99ce9427a42">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="de0331ff-a60b-4258-bb83-66c02d75d7a3"/>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nomeFuncionario}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1" y="1" width="18" height="18" uuid="a156682e-e73f-4bdc-82e0-9cac6156c047"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{count}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="170" y="1" width="70" height="18" uuid="c25cdc44-a99e-47d3-87ce-9afe4bcbfa2a">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="0aa8df18-a9c1-497e-841a-d3c2897bf810"/>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cpfFuncionario}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="240" y="1" width="100" height="18" uuid="f489eb3b-92ff-4dce-8704-c950392fe345"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nomeSetor}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="4" y="0" width="556" height="1" uuid="d3130373-ffa6-43df-a8a7-81345927d0a9"/>
+			</line>
+			<subreport>
+				<reportElement x="360" y="0" width="175" height="21" uuid="17b63c6b-7bf0-49c8-b0de-e822d7de7d4a"/>
+				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{itens})]]></dataSourceExpression>
+				<subreportExpression><![CDATA[JasperCompileManager.compileReport($P{SUB_REPORT_DIR})]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="60" splitType="Stretch">
+			<staticText>
+				<reportElement x="1" y="10" width="210" height="30" uuid="40c19d84-cbfe-429b-af1a-54d65c836447"/>
+				<textElement textAlignment="Left">
+					<font size="12" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Portal Coordenadoria Central]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="10" width="557" height="1" uuid="6e9c154e-75d4-4594-b23b-dae6d467f951"/>
+			</line>
+			<textField>
+				<reportElement x="357" y="30" width="100" height="30" uuid="801fdabd-cc3a-4ec8-8157-9ade58c6a7f9"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Página " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="460" y="30" width="100" height="30" uuid="4ecd5bcd-2986-498c-bf66-e3214d03c413"/>
+				<textElement textAlignment="Left"/>
+				<textFieldExpression><![CDATA[" Total " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="MMMMM dd, yyyy">
+				<reportElement stretchType="RelativeToTallestObject" x="0" y="41" width="321" height="16" uuid="4084e8c6-c977-4cf1-bfc4-e2613e1ef86d"/>
+				<textFieldExpression><![CDATA["pesquisa realizada em " +new java.util.Date().toLocaleString() + "."]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

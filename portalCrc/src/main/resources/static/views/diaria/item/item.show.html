@@ -1,0 +1,144 @@
+<meta charset="UTF-8">
+<h3>Dados Da Diária:</h3>
+<div class="row">	
+		<div class="col-sm-3 ">
+			<label>Mês:</label> {{funcionario.diaria.mes}}
+		</div>	
+		<div class="col-sm-3 ">
+			<label>Valor Ufesp:</label> {{funcionario.diaria.valorUfesp | currency}} <br>
+		</div>
+		<div class="col-sm-3 ">
+			<label>Data Abertura:</label> {{funcionario.diaria.dataAbertura | date : 'dd/MM/yyyy'}}
+		</div>
+		<div class="col-sm-3 ">
+			<label>Status:</label>  {{funcionario.diaria.status}} 
+		</div>	
+	</div>
+	<hr>
+<h3>Dados Do Funcionário:</h3>
+	<div class="row">
+		<div class="col-sm-3 ">
+			<label>Nome:</label> 	 {{funcionario.contaFuncionario.funcionario.pessoa.nomeCompleto}} 
+		</div>	
+		<div class="col-sm-3 ">
+			<label>Cargo:</label> 	 {{funcionario.cargo.descricao}} 
+		</div>
+		<div class="col-sm-3 ">
+			<label>Setor:</label>	 {{funcionario.setor.nome}} 
+		</div>
+		<div class=" col-sm-3 ">
+			<label>Unidade:</label> {{funcionario.unidade.dadosUnidade.mnemonico}}
+		</div>	
+	</div>
+	<hr>
+<h3>Informações para Depósito em Conta:</h3>
+	<div class="row">
+	<div class=" col-sm-2 ">
+			<label>CPF: </label>	 {{funcionario.contaFuncionario.funcionario.pessoa.cpf}} 
+		</div>
+		<div class="col-sm-2 ">
+			<label>Indice UFESP:</label> {{funcionario.indiceUfesp}}
+		</div>	
+		<div class="col-sm-2 ">
+			<label>Banco:</label> 	 {{funcionario.banco}} 
+		</div>
+		<div class="col-sm-2 ">
+			<label>Agencia:</label>	 {{funcionario.agencia}} 
+		</div>
+		<div class="col-sm-2 ">
+			<label>Conta:</label> {{funcionario.conta}}
+		</div>	
+		<div class="col-sm-2 ">
+				<label>Salário:</label>{{funcionario.salarioAtual | currency}}
+				</div>
+	</div>
+				
+	<hr>
+	<div class="row ">
+	<div class="col-sm-2 ">
+				<label>Total:</label>{{funcionario.totalValorDiaria | currency}}
+			</div>									
+			<div class="col-sm-2 ">
+				<label>Limite:</label>{{funcionario.limiteCemPorCento * funcionario.salarioAtual / 100 | currency}}
+			</div>					
+			<div class="col-sm-2 ">
+				<label>Recebido:</label>{{funcionario.totalPago | currency}}
+			</div>
+			<div class=" col-sm-2 ">
+				<label >Saldo:</label>{{funcionario.totalValorDiaria - funcionario.totalPago  | currency}}
+			</div>
+				
+			<div ng-show="funcionario.glosada" class=" col-sm-3">
+				<label>Glosada:</label><label class="red">{{funcionario.glosada | currency}}</label>
+			</div>			
+	</div>
+			
+		
+	<div class="row">
+	<h3><span class=" col-sm-12 form-control label label-primary">Dados Diaria</span></h3>
+	</div>	
+	<div class="row">
+	<div class="col-sm-1"><label>Selecione Tipo:</label></div>		
+		<div class="col-sm-2">		
+			<select class="form-control" ng-model="ctrl.tipo" ng-change="ctrl.itensPorFuncionarioDiariaETipo(funcionario.id, ctrl.tipo)" ng-options="tipo for tipo in ctrl.tipos">
+			</select>
+		</div>		
+	</div>	
+	<div class="row" ng-if="itens.length > 0">
+<div class="table-responsive">	
+	<table class="table table-hover table-bordered">
+		<thead>
+			<tr>
+				<td>Localidade</td>
+				<td>Codigo Desl.</td>
+				<td>Transp. saida</td>
+				<td>Transp. retorno</td>
+				<td>Data Saida</td>
+				<td>Data Chegada</td>
+				<td>Hora Saída</td>
+				<td>Hora Chegada</td>
+				<td>Valor</td>				
+
+			</tr>
+		</thead>
+		<tbody ng-repeat=" item in itens   |  orderBy : '-id'">
+			<tr>
+				<td>
+					<div ng-repeat="cidade in item.localDeslocamentos" >							
+						{{ cidade.nome }}&nbsp;<a ng-if="item.localDeslocamentos.length > 1">/</a>&nbsp;
+					</div>
+				</td>	
+				<td >{{ item.codigoLocalDeslocamento.codigo }}</td>	
+				<td >{{ item.meioTransporteSaida }}</td>
+				<td >{{ item.meioTransporteRetorno}}</td>								
+				<td >{{ item.dataSaida | date : 'dd/MM/yyyy'}}</td>				
+				<td >{{ item.dataChegada | date : 'dd/MM/yyyy'}}</td>				
+				<td >{{ item.horaSaida | date : 'dd/MM/yyyy HH:mm'}}</td>				
+				<td >{{ item.horaChegada | date : 'dd/MM/yyyy HH:mm'}}</td>				
+				<td >{{ item.valorDiaria | currency }}</td>				
+				<td  ng-if="!item.analizado"><button ng-click="ctrl.analizado(item.id)" title="Após selecionada, não sera mais possivel alterar este item, e ele entrara como pago!" ng-disabled="desabilitar" class="btn btn-primary">Aprovar</button>
+				
+				<a ng-if="!item.analizado" ui-sref="item.editar({idItem : item.id})" title="Editar esta Diaria"><i
+						class="glyphicon glyphicon-edit"></i></a>			
+				<a href="" ng-if="!item.analizado" ng-click="ctrl.excluir(item)" title="Excluir esta diaria"><i
+						class="glyphicon glyphicon-remove"></i></a>
+				</td>					
+				<td ng-if="item.analizado"><button disabled class="btn btn-success">Aprovado</button></td>
+				<td ng-if="item.qtdPernoite == null" ><button ng-if="!item.retorno" title="Selecione esta opção para uma diária comum para uma diaria de retorno" ng-disabled="item.analizado || desabilitar" ng-click="ctrl.retorno(item.id)" class="btn btn-primary">com retorno</button>		
+				<button  ng-disabled="item.analizado"  ng-if="item.retorno || desabilitar" ng-click="ctrl.retorno(item.id)"  class="btn btn-success">sem retorno</button>
+				</td>
+			</tr>			
+		</tbody>
+		<tfoot>
+			<tr>
+			<td></td><td></td><td></td><td></td><td></td><td></td><td></td><td>Total</td>
+				<td class="btn btn-info btn-flat col-sm-2 ">{{valorTotal | currency}}</td>
+			</tr>
+		</tfoot>		
+	</table>
+	<div class="col-sm-4" >
+				<input type="button" class="btn btn-lg btn-primary btn-block btn-signin" id="submit"
+					ng-click="ctrl.imprimir(funcionario.id, ctrl.tipo)" value="Imprimir">
+			</div>
+</div>
+</div>

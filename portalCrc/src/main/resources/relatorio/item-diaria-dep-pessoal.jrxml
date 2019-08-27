@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.4.3.final using JasperReports Library version 6.4.3  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="item" pageWidth="300" pageHeight="100" columnWidth="300" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="fa833815-5f82-4ba2-8da6-fd889d316f7f">
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="dataChegada" class="java.util.Date">
+		<fieldDescription><![CDATA[dataChegada]]></fieldDescription>
+	</field>
+	<field name="dataSaida" class="java.util.Date">
+		<fieldDescription><![CDATA[dataSaida]]></fieldDescription>
+	</field>
+	<field name="horaChegada" class="java.util.Date">
+		<fieldDescription><![CDATA[horaChegada]]></fieldDescription>
+	</field>
+	<field name="horaSaida" class="java.util.Date">
+		<fieldDescription><![CDATA[horaSaida]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="21" splitType="Stretch">
+			<textField>
+				<reportElement x="110" y="1" width="50" height="20" uuid="aab60201-d62a-4e6f-b0f7-2f706b0415c7"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new SimpleDateFormat("dd/MM/yyyy").format($F{dataChegada} )]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="1" width="50" height="20" uuid="999cfa84-b3fa-468e-b10a-b38dbfd724e4"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new SimpleDateFormat("dd/MM/yyyy").format($F{dataSaida} )]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="60" y="1" width="30" height="20" uuid="535b183c-37b3-48e0-b964-bb30e0d101ba"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new SimpleDateFormat("HH:mm").format($F{horaSaida} )]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="170" y="1" width="50" height="20" uuid="7934f585-b9d0-4a78-9e27-221e7563ba66"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new SimpleDateFormat("HH:mm").format($F{horaChegada} )]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="160" y="1" width="10" height="20" uuid="a0667ebb-e9cf-415f-bb54-c882b480b7ad"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[-]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="50" y="1" width="10" height="20" uuid="4ab7d374-3f59-4740-b6cd-965993c374db"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[-]]></text>
+			</staticText>
+		</band>
+	</detail>
+</jasperReport>

@@ -1,0 +1,33 @@
+<meta charset="UTF-8">
+
+<div class="row">
+	<div class="col-sm-2">
+	 <div class="box box-solid">
+            <div class="box-header with-border">
+              <h3 class="box-title">Menu</h3>
+
+              <div class="box-tools">
+                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                </button>
+              </div>
+            </div>
+		<div class="box-body no-padding">
+              <ul class="nav nav-pills nav-stacked">
+                <li permission="['SWITCH' , 'ADMIN']"><a href="" ui-sref="switch.cadastrar"><i class="fa fa-plus-circle"></i>Novo</a></li>
+                <li permission="['SWITCH' , 'ADMIN']"><a href="" ui-sref="switch.listar"><i class="fa fa-spinner"></i>Todos<span class="label label-info pull-right">{{qtdSwitch}}</span></a></li>
+                <li permission="['SWITCH' , 'ADMIN']"><a href="" ui-sref="switch.ativos"><i class="fa fa-thumbs-up"></i>Ativos<span class="label label-success pull-right">{{qtdSwitchAtivos}}</span></a></li>
+                <li permission="['SWITCH' , 'ADMIN']"><a href="" ui-sref="switch.inativos"><i class="fa fa-thumbs-down"></i>Inativos<span class="label label-warning pull-right">{{qtdSwitchInativos}}</span></a></li>
+                <li permission="['SWITCH' , 'ADMIN']"><a href="" ui-sref="switch.baixados"><i class="fa fa-times"></i>Baixados<span class="label label-danger pull-right">{{qtdSwitchBaixados}}</span></a></li>                
+              </ul>
+            </div>
+           </div>
+        </div>
+       <div class="col-sm-10">     
+			<div class="box box-primary" >	
+					<div class="box-header">Swicth</div>
+					<div class="panel-body">
+						<div class="ui-view"></div>
+					</div>
+			</div>
+		</div>
+</div>

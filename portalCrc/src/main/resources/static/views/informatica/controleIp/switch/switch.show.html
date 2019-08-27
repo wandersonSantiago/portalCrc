@@ -1,0 +1,32 @@
+<meta charset="UTF-8">
+				Descrição
+				{{ctrl.switchs.nome}}<br>
+				Status
+				{{ctrl.switchs.status}}<br>
+				Quantidade de Portas
+				{{ctrl.switchs.qtdPortas}}<br>
+				Data Cadastro
+				{{ctrl.switchs.dataCadastro | date : 'dd/MM/yyyy'}}<br>
+				
+					<div class="col-sm-12">
+						<input  class="form-control" placeholder="Busca..." ng-model="busca"> 
+					</div>
+					<br>
+					<div ng-repeat="portas in ctrl.switchs.portaSwitch| filter : busca | orderBy : 'id'">
+							    	         						
+						    <div class="col-sm-3">
+						      <md-card>
+						        <md-card-title>
+						          <md-card-title-text>
+						          <center><h4>{{portas.descricao}}</h4></center>
+						          <center><h4>{{portas.numero}}</h4></center>
+						           <center ng-if="portas.status == 'ATIVO'"><h4><span class="label label-primary pull-center">{{portas.status}}</span></h4></center>
+						           <center ng-if="portas.status == 'INATIVO'"><h4><span class="label label-success pull-center">{{portas.status}}</span></h4></center>
+						           <center ng-if="portas.status == 'QUEIMADO'"><h4><span class="label label-danger pull-center">{{portas.status}}</span></h4></center>
+						     
+						          </md-card-title-text>						         
+						        </md-card-title>		
+						      </md-card>
+						      </div>
+												     	  
+					</div>	

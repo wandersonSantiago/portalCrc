@@ -5,6 +5,8 @@ import java.util.Date;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -12,6 +14,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+
+import br.com.portalCrc.enums.EstadoCivilEnum;
+import br.com.portalCrc.util.ConverteTextoUpperCase;
 
 
 @Entity
@@ -25,40 +30,36 @@ public class Pessoa  {
 
 	@Column(nullable = false, length = 50)
 	private String nomeCompleto;
-	@Column(nullable = false)
-	private Integer idade;
-	@Column(nullable = false, length = 20)
+	@Column(nullable = false, length = 20, unique = true)
 	private String rg;
-	@Column(nullable = false, length = 20)
+	@Column(nullable = false, length = 20 , unique = true)
 	private String cpf;
-	@Column(nullable = false, length = 15)
+	@Column( length = 15)
 	private String telefoneFixo;
 	@Column(nullable = false, length = 15)
 	private String telefoneCelular;
+	@Column(nullable = true, length = 50)
+	private String email;
 	@Column(nullable = false)
 	private Date dataNascimento;
 	@Column(nullable = false)
 	private String sexo;
+	@Enumerated(EnumType.STRING)
+	private EstadoCivilEnum estadoCivil;	
 	@OneToOne(cascade = {CascadeType.MERGE ,CascadeType.PERSIST} )
-	@JoinColumn(name="id_endereco",nullable = false)
+	@JoinColumn(name="id_endereco")
 	private Endereco endereco;
 
+	
+	
 	public String getNomeCompleto() {
 		return nomeCompleto;
 	}
 
 	public void setNomeCompleto(String nomeCompleto) {
-		this.nomeCompleto = nomeCompleto;
+		this.nomeCompleto = ConverteTextoUpperCase.converte(nomeCompleto);
 	}
-
-	public Integer getIdade() {
-		return idade;
-	}
-
-	public void setIdade(Integer idade) {
-		this.idade = idade;
-	}
-
+	
 	public String getRg() {
 		return rg;
 	}
@@ -121,6 +122,22 @@ public class Pessoa  {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public EstadoCivilEnum getEstadoCivil() {
+		return estadoCivil;
+	}
+
+	public void setEstadoCivil(EstadoCivilEnum estadoCivil) {
+		this.estadoCivil = estadoCivil;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 	
 

@@ -1,0 +1,36 @@
+<meta charset="UTF-8">
+<div class="col-sm-4">
+<input class="form-control" type="text" placeholder="Pesquisar..."
+	ng-model="buscar">
+</div>
+
+
+<br>
+<br>
+		<div class="panel-body table-responsive">
+			<table class="table table-hover table-bordered">
+				<thead>
+					<tr>
+					<th class="btn btn-primary btn-flat col-sm-2"><md-button  ><h5>Login</h5></md-button> </th>
+					<th class="btn btn-primary btn-flat col-sm-2"><md-button  ><h5>Funcionario</h5></md-button> </th>
+					<th class="btn btn-primary btn-flat col-sm-2"><md-button  ><h5>Unidade</h5></md-button> </th>
+					<th class="btn btn-primary btn-flat col-sm-1"><md-button  ><h5>Opções</h5></md-button></th>							
+					</tr>
+				</thead>
+				
+				<tbody	ng-repeat=" user in usuarioCtrl.usuarios | filter : buscar | orderBy : 'funcionario.pessoa.nomeCompleto' ">
+					<tr>
+						<td>{{ user.login }}</td>
+						<td>{{ user.funcionario.pessoa.nomeCompleto}}</td>
+						<td>{{ user.funcionario.unidadeAtual.dadosUnidade.mnemonico}}</td>
+						<td permission="['USUARIO_UNIDADE','ADMIN']" class="text-center"><a  title="Editar" ui-sref="usuario.editar({idUsuario : user.id})"><i class="glyphicon glyphicon-edit"></i></a>&nbsp;&nbsp;&nbsp; 						
+						<a permission="['USUARIO_UNIDADE','ADMIN']" title="Alterar Permissões" ui-sref="usuario.permissao({idUsuario : user.id})"><i class="fa  fa-lock"></i></a></td>					
+				
+				</tr>
+				</tbody>
+				<tfoot>
+				</tfoot>
+			</table>
+		</div>
+	
+

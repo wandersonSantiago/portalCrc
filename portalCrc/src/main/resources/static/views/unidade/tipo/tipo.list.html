@@ -1,0 +1,27 @@
+<meta charset="UTF-8">
+
+		<div class="panel-body table-responsive">
+		<input class="form-control" type="text" ng-model="buscaTipo" placeholder="Buscar">
+			<table class="table table-hover table-bordered">
+				<thead>
+					<tr>
+						<th>Setor</th>
+						<th>Tipo</th>
+						<th>Unidade</th>
+						<th>Opções</th>
+					</tr>
+				</thead>
+				<tbody
+					ng-repeat=" tipo in tipoCtrl.tipos | filter : buscaTipo ">
+					<tr>
+						<td>{{ tipo.descricao }}</td>
+						<td>{{ tipo.mnemonico }}</td>
+						<td>{{ tipo.secretaria.mnemonico }}</td>
+						<td><a ui-sref="tipo.editar({idTipo : tipo.id})"><i class="glyphicon glyphicon-edit"></i></a> 						
+				</tr>
+				</tbody>
+				<tfoot>
+				</tfoot>
+			</table>
+		</div>
+	

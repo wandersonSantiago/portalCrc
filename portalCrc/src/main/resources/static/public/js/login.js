@@ -1,35 +1,32 @@
-app.controller( 'loginController', function($route, $location, $rootScope, auth) {
-			
-			var self = this;
-			self.falhaLogin = true;
-			self.credentials = {};
-			
-			self.tab = function(route) {
-				
-				return $route.current && route === $route.current.controller;
-			};
 
-			self.authenticated = function() {
-			
-				return auth.authenticated;
-			}
-
-			self.login = function() {
-				auth.authenticate(self.user, function(authenticated) {
-				
-					if (authenticated) {
-						$rootScope.logado = true;
-						$location.path("#/");
-						
-						self.error = false;
-					} else {
-						self.falhaLogin = false;
-						
-						self.error = true;
-					}
-				})
-			};
-
-			self.logout = auth.clear;
-
-		});
+app.controller('LoginController', function($rootScope, $scope, $location, $http, $state, Auth,  blockUI) {
+	
+	$scope.user = [];
+	$rootScope.titulo = "Portal Coordenadoria Central";
+	  $scope.login = function() {
+		  blockUI.start();
+		  Auth.login($scope.user, function() {
+	        if ($rootScope.authenticated) {
+	          $scope.error = false;
+	          $state.go("home.menu");
+	        } else {
+	          $scope.error = true;
+	          $state.go("login");
+	        }
+	        blockUI.stop();
+	      });
+	  };
+	
+		$scope.logout = function(){
+			Auth.logout();
+		};
+	
+}).run(function($rootScope, $http, $location, $state, $urlRouter, Auth) {
+	  Auth.init();
+	  $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams, options) {
+		     if (!Auth.checkPermissionForView(toState)) {
+		    	 event.preventDefault(); 
+		         $state.go('sem-permissao');
+		     }  
+		   });
+});

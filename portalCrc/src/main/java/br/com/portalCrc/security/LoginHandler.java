@@ -1,6 +1,5 @@
 package br.com.portalCrc.security;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,8 +19,6 @@ public class LoginHandler implements ApplicationListener<AuthenticationSuccessEv
 	private UsuarioService usuarioService;
 	@Autowired
 	private HttpSession session;
-	@Autowired
-	private HttpServletRequest request;
 	
 	@Override
 	public void onApplicationEvent(AuthenticationSuccessEvent event) {

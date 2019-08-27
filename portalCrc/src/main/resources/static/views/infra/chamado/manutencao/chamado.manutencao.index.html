@@ -1,0 +1,33 @@
+<meta charset="UTF-8">
+
+<div class="row">
+	<div class="col-sm-2">
+	 <div class="box box-solid">
+            <div class="box-header with-border">
+              <h3 class="box-title">Menu</h3>
+
+              <div class="box-tools">
+                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                </button>
+              </div>
+            </div>
+		<div class="box-body no-padding">
+              <ul class="nav nav-pills nav-stacked">
+                <li permission="['CHAMADO_USUARIO' , 'ADMIN']"><a href="" ui-sref="chamadoManutencao.cadastrar"><i class="fa fa-inbox"></i>Novo</a></li>
+                <li permission="['CHAMADO_USUARIO' , 'ADMIN']"><a href="" ui-sref="chamadoManutencao.listar"><i class="fa fa-envelope-o"></i>Caixa de entrada<span class="label label-info pull-right">{{qtdChamadosManutencao}}</span></a></li>
+                <li permission="['CHAMADO_MANUTENCAO_TECNICO' , 'ADMIN']"><a href="" ui-sref="chamadoManutencao.suporteListar"><i class="fa fa-legal "></i> Suporte<span class="label label-info pull-right">{{qtdChamadosSuporteManutencao}}</span></a></li>
+                <li permission="['CHAMADO_MANUTENCAO_TECNICO' , 'ADMIN']"><a href="" ui-sref="chamadoManutencao.relatorio"><i class="fa fa-file-text"></i>Relatórios</a>
+                </li>
+              </ul>
+            </div>
+           </div>
+        </div>
+       <div class="col-sm-10">     
+			<div class="box box-primary" >	
+					<div class="box-header">Chamado Manutenção</div>
+					<div class="panel-body">
+						<div class="ui-view"></div>
+					</div>
+			</div>
+		</div>
+</div>

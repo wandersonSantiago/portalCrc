@@ -1,0 +1,178 @@
+<meta charset="UTF-8">
+	<div class="row">
+		<div class="col-md-4">
+			<a class="fa fa-plus" href="" ui-sref="chamadoTi.cadastrar" title="Abrir novo chamado">Novo</a>|<label>Chamado</label> | 
+			<a href=""  ng-click="filtros === true ? filtros = false : filtros = true">{{filtros === true ? "Menos" : "Mais"}} Filtros</a>  
+		</div>
+	</div>
+	<br>
+	<div class="row" ng-if="!filtros">
+	  <div class="col-lg-6">
+	    <div class="input-group">
+	      <input type="text" class="form-control" placeholder="Pesquisar pelo tema" ng-model="chamadoFilter.tema" autofocus
+	      	 ng-keyup="$event.keyCode == 13 && filter(chamadoFilter)">
+	      <span class="input-group-btn">
+	        <button class="btn btn-default" type="button" ng-click="chamadoFilter.page.page = 0; filter(chamadoFilter)">Pesquisar!</button>
+	      </span>
+	    </div>
+	  </div>
+	 </div>
+	<div class="container-fluid" ng-if="filtros">		
+			<div class="row">
+				<div class="form-group  col-sm-6">
+					<label class="control-label" for="tema">Texto</label>
+					<input type="text" class="form-control" id="tema" autofocus="autofocus" ng-model="chamadoFilter.texto"/>
+				</div>				
+				<div class="form-group  col-sm-3">
+					<label>Status:</label><br>
+					<select class="form-control "  ng-model="chamadoFilter.status" ng-options="status  for status in chamadoCtrl.status" 
+						name="status" >
+					</select>
+				</div>				
+				<div class="form-group  col-sm-3">
+					<label>Prioridade:</label><br>
+					<select class="form-control"  ng-model="chamadoFilter.prioridade" ng-options="prioridade  for prioridade in chamadoCtrl.prioridades" 
+						name="prioridades" >
+					</select>	
+				</div>				
+			</div>
+			<div class="row">
+			<div class="col-sm-3">
+				Tipo : <select class="form-control "
+					ng-model="chamadoFilter.tipoEquipamento" id="tipo" ng-change="chamadoCtrl.buscarTema(chamadoFilter.tipoEquipamento)"
+					ng-options="tipoEquipamento for tipoEquipamento in chamadoCtrl.tiposEquipamento">
+					<option value="">Tipo</option>
+				</select>
+			</div>
+			<div ng-if="chamadoFilter.tipoEquipamento == 'COMPUTADOR' || chamadoFilter.tipoEquipamento == 'IMPRESSORA' "
+				class="col-sm-4">
+				Titulo: <select class="form-control select2"
+					ng-model="chamadoFilter.titulo" id="titulo"
+					ng-options="titulo.descricao for titulo in chamadoCtrl.titulos">
+					<option value="">Titulo</option>
+				</select>
+			</div>			
+			<div class="col-sm-3" ng-if="chamadoFilter.tipoEquipamento === 'SISTEMA'">
+			Sistema:
+				<select class="form-control select2" ng-model="chamadoCtrl.sistema"
+					id="secretariaId" ng-options="sistema.descricao for sistema in chamadoCtrl.sistemas"
+					ng-change="chamadoCtrl.modulos(chamadoCtrl.sistema.id)">
+				</select>
+			</div>
+			<div class="col-sm-3" ng-if="chamadoFilter.tipoEquipamento === 'SISTEMA' && chamadoCtrl.sistema">
+			Módulo:
+				<select class="form-control select2" ng-model="chamadoCtrl.modulo"
+					id="secretariaId" ng-options="modulo.descricao for modulo in chamadoCtrl.moduloList"
+					ng-change="chamadoCtrl.buscarTituloPorModulo(chamadoCtrl.modulo.id)">
+				</select>
+			</div>
+			<div class="col-sm-3" ng-if="chamadoFilter.tipoEquipamento === 'SISTEMA' &&  chamadoCtrl.modulo">
+			Titulo:
+				<select class="form-control select2"
+					ng-model="chamadoFilter.titulo" id="titulo"
+					ng-options="titulo.descricao for titulo in chamadoCtrl.titulos">
+					<option value="">Titulo</option>
+				</select>
+			</div>
+		</div>
+			<div class="row">				
+			<div class="form-group  col-sm-2">
+					<label for="valorMinimo">Mensagem</label>
+					<input type="text" class="form-control" id="item" ng-model="chamadoFilter.mensagem"/>
+				</div>
+				<div class="form-group  col-sm-4">
+					<label for="dataCadastro">Abertura</label>
+					<div class="form-inline">
+						<input type="date" class="form-control" id="dataCadastroDe" ng-model="chamadoFilter.dataCadastroDe" />
+						<label for="dataCriacaoFinal">até</label>
+						<input type="date" class="form-control" id="dataCadastroAte" ng-model="chamadoFilter.dataCadastroAte" />
+					</div>
+				</div>
+				<div class="form-group  col-sm-4">
+					<label for="dataFechamento">Fechamento</label>
+					<div class="form-inline">
+						<input type="date" class="form-control" id="dataFechamentoDe" ng-model="chamadoFilter.dataFechamentoDe" />
+						<label for="dataFechamento" >até</label>
+						<input type="date" class="form-control" id="dataFechamentoAte" ng-model="chamadoFilter.dataFechamentoAte" />
+					</div>
+				</div>						
+			</div>
+				<div class="col-sm-2">
+		<label>Opção de visualização:</label><br>
+				<label class="radio-inline">
+					<input  type="radio" name="radioImprimir" ng-model="imprimir" value="PAGINA">Página
+				</label> 
+				<label class="radio-inline">
+					<input  type="radio" name="radioImprimir" ng-model="imprimir" 	value="PDF">PDF
+				</label>
+				</div>
+		<br>
+			<button type="submit" class="btn  btn-primary col-sm-2" ng-click="pesquisar(chamadoFilter,imprimir)">Pesquisar</button>
+		</div>
+		<div ng-show="mensagemErro" class="alert alert-warning alert-dismissible">
+	         <h4><i class="icon fa fa-warning"></i>{{mensagemErro}}</h4>
+	   </div>
+
+	   <br>
+	   <br>
+	   
+
+		<div class="table-responsive" >
+		<div align="center">
+			<div class="small-box bg-aqua">
+				<div class="inner" align="center">
+					<h4>Lista de chamados</h4>					
+				</div>
+			</div>
+		</div>	
+		<table class="table table-hover table-bordered " >
+				<thead>
+					<tr>
+						<th><a href="" ng-click="chamadoCtrl.sort('id')"><i class="glyphicon glyphicon-sort"></i></a>Titulo</th>
+						<th><a href="" ng-click="chamadoCtrl.sort('equipamento')"><i class="glyphicon glyphicon-sort"></i></a>Equipamento</th>
+						<th><a href="" ng-click="chamadoCtrl.sort('id')"><i class="glyphicon glyphicon-sort"></i></a>Solicitante</th>
+						<th><a href="" ng-click="chamadoCtrl.sort('setor.nome')"><i class="glyphicon glyphicon-sort"></i></a>Setor</th>
+						<th><a href="" ng-click="chamadoCtrl.sort('status')"><i class="glyphicon glyphicon-sort"></i></a>Status</th>
+						<th><a href="" ng-click="chamadoCtrl.sort('prioridade')"><i class="glyphicon glyphicon-sort"></i></a>Prioridade</th>
+						<th><a href="" ng-click="chamadoCtrl.sort('dataAbertura')"><i class="glyphicon glyphicon-sort"></i></a>Abertura</th>						
+						<th>Opções</th>
+					
+					</tr>
+				</thead>
+				<tbody	ng-repeat=" chamado in chamadoCtrl.chamados | filter : buscar | orderBy : '-id'  ">
+					<tr>
+						<td>{{ chamado.titulo.descricao }}</td>
+						<td>{{ chamado.tipoEquipamento }}</td>
+						<td>{{ chamado.usuarioSolicitante.funcionario.pessoa.nomeCompleto | limitTo:20 }}</td>
+						<td>{{ chamado.setor.nome }}</td>	
+						<td>
+							<button class="btn btn-{{chamado.status == 'ABERTO' ? 'warning' : chamado.status == 'FECHADO' ? 'success' : 'primary'}}" 
+							type="button"  ui-sref="chamadoTi.atendimento({idChamadoTi : chamado.id})">
+							  {{ chamado.status }} <span class="badge">{{ chamado.mensagensNaoLida}}</span>
+							</button>
+						</td>
+						<td>
+							<button class="btn btn-{{chamado.prioridade == 'URGENTE' ? 'danger' : 'primary'}}"
+							 type="button"  ui-sref="chamadoTi.atendimento({idChamadoTi : chamado.id})">
+							  <span class="badge">{{chamado.prioridade.substring(0,1)}}</span>
+							</button>
+						</td>	
+						<td>{{ chamado.dataAbertura | date : 'dd/MM/yyyy HH:mm:ss'}}</td>
+						<td class="text-center"><a ui-sref="chamadoTi.atendimento({idChamadoTi : chamado.id})"><i class="glyphicon glyphicon-search"></i></a> &nbsp;&nbsp;&nbsp;
+						<a href="" ng-click="chamadoCtrl.silenciarChamado(chamado)"><i class="glyphicon glyphicon-volume-{{chamado.silenciar === true ? 'up' : 'off'}}"></i></a>						
+					</tr>
+				</tbody>
+				<tfoot>
+				
+				</tfoot>
+			</table>
+					<nav>
+						<ul uib-pagination total-items="chamadoFilter.page.totalElementos" items-per-page="chamadoFilter.page.linesPerPage"
+							ng-model="chamadoFilter.page.page" max-size="5" class="pagination-sm"
+							boundary-link-numbers="true" ng-click="filter(chamadoFilter)"
+							previous-text="Anterior" last-text="Último" first-text="Primeiro"
+							next-text="Próximo">
+						</ul>
+					</nav>	
+		</div>
+	
