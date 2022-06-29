@@ -1,0 +1,28 @@
+<meta charset="UTF-8">
+<div class="table-response">
+
+<br>
+<br>
+		<input class="form-control" type="text" ng-model="buscaAuditorio" placeholder="Buscar">
+			<table class="table table-hover table-bordered">
+				<thead>
+					<tr>
+					<th class="btn btn-primary btn-flat col-sm-4"><md-button  ><h5>Numero</h5></md-button> </th>
+					<th class="btn btn-primary btn-flat col-sm-4"><md-button  ><h5>Descricao</h5></md-button> </th>
+					<th class="btn btn-primary btn-flat col-sm-2"><md-button  ><h5>Opçoes</h5></md-button> </th>
+				
+					</tr>
+				</thead>
+				
+				<tbody	ng-repeat=" auditorio in ctrl.auditorios | filter : buscar ">
+			
+					<tr>										
+						<td><center>{{ auditorio.numero }}</center></td>
+						<td><center>{{ auditorio.descricao}}</center></td>												
+						<td><a ui-sref="auditorio.editar({idAuditorio : auditorio.id})"><i class="glyphicon glyphicon-edit col-sm-4"></i></a>														
+				</tr>
+				</tbody>
+				<tfoot>
+				</tfoot>
+			</table>
+		</div> 

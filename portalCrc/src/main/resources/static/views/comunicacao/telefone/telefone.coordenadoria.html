@@ -1,0 +1,30 @@
+<meta charset="UTF-8">
+
+<div class="row">
+	<div class="col-sm-3">
+		<input class="form-control" placeholder="Busca..." ng-model="busca">
+	</div>
+</div>
+
+<br>
+
+<div class="row">
+	<div class="col-sm-12">
+		<div ng-repeat="unidade in foneCtrl.unidades | filter : busca ">
+			<div  class="col-sm-2" flex-sm="45" flex-gt-sm="35" flex-gt-md="50"
+				layout-padding layout-wrap layout-fill style="padding-bottom: 32px;">
+
+				<div md-whiteframe="{{height}}" layout="column"
+					layout-align="center center" ng-init="height = 1"
+					ng-mouseenter="height = 24" ng-mouseleave="height = 4">
+
+					<md-button ui-sref="telefone.unidades({idUnidade : unidade.id})">{{unidade.dadosUnidade.mnemonico}}</md-button>
+
+					<md-button
+						ui-sref="telefone.unidadesCoordenadoria({idCoordenadoria : unidade.coordenadoria.id})">Unidades</md-button>
+
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

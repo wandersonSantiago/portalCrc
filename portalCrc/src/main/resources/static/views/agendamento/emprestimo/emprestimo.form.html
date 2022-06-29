@@ -1,0 +1,177 @@
+<meta charset="UTF-8">
+			 
+					<div class="col-sm-12 ">
+					<form role="form-vertical" ng-submit="ctrl.submit()" >
+					
+						<!-- 
+							<div class="form-group col-md-3">
+							Funcionario Solicitante: 	
+							<select class="form-control select2" ng-model="ctrl.emprestimo.funcionario" 
+								ng-options="funcionario.pessoa.nomeCompleto for funcionario in ctrl.funcionarios track by funcionario.pessoa.id"  >
+						
+							</select>
+							</div> -->
+													
+							
+					<div class="form-group  col-sm-4">		
+					 		<label for="funcionario">Funcionário Solicitante: </label>
+						    <input type="text" ng-model="ctrl.emprestimo.funcionario" placeholder="Digite nome" 
+						    uib-typeahead="funcionario as funcionario.pessoa.nomeCompleto for funcionario in ctrl.funcionarios(ctrl.emprestimo.funcionario) | limitTo:8" 
+						    typeahead-template-url="customTemplateFuncionario.html" class="form-control" typeahead-show-hint="true"  
+						    typeahead-loading="loadingFuncionario" typeahead-no-results="noResultsFuncionario" typeahead-min-length="3">
+						    <i ng-show="loadingFuncionario" class="glyphicon glyphicon-refresh"></i>
+						    <div ng-show="noResultsFuncionario">
+						      <i class="glyphicon glyphicon-remove"></i> Nenhum resultado encontrado!
+						    </div>	    
+					</div>	
+																
+				<script type="text/ng-template" id="customTemplateFuncionario.html">
+  				<a>
+     				 <span ng-bind-html="match.label | uibTypeaheadHighlight:query"></span><br/>
+ 				 </a>
+				</script>
+							
+						
+							<div class="col-sm-5">
+					
+								Unidade:
+								<select class="form-control select2" ng-model="ctrl.emprestimo.unidadeCadastro" 
+								ng-options="unidade.dadosUnidade.nome for unidade in ctrl.unidades track by unidade.dadosUnidade.id"  >
+						
+								</select>
+						</div>
+						
+								
+						<br><br><br><br><br><br>
+						
+					<!-- 	<div class="col-md-3">
+						Selecione Categoria Equipamento:
+						
+							<select class="form-control " ng-model="ctrl.emprestimo.tipo"  
+							ng-options="tipoEquipamentoEnum for  tipoEquipamentoEnum in ctrl.tiposEquipamentoEnum" >						
+							</select>
+							
+						</div> -->
+						
+											
+					
+					<div class="col-sm-4"  ng-class="{ 'has-error' : formC.tipo.$invalid && formC.$submitted }">
+				Selecione Grupo : <select class="form-control "
+					ng-model="ctrl.emprestimo.tipo" id="tipo" name="tipo" ng-change="ctrl.buscarPorTipo(ctrl.emprestimo.tipo)"
+					ng-options="tipoEquipamentoEnum for tipoEquipamentoEnum in ctrl.tiposEquipamentoEnum" required>
+				
+				</select>
+			</div>
+					
+					
+					
+					<div class="col-md-3"> 						
+						
+						  Selecione o  Equipamento:
+							
+							<select class="form-control " ng-model="e"  ng-change="ctrl.addEquipamento(e)" 
+							ng-options="equipamento.descricao for  equipamento in ctrl.equipamentos" >						
+							</select>
+						</div>
+						
+						<div class="col-md-3" > 
+							Clique para remover Iten da lista
+							<div class="panel panel-default" >
+							  <div class="panel-body">
+								    <div ng-repeat="equipamento in equipamentos">						
+										<span ng-click="ctrl.removerequipamento(lista)" class="label label-primary">{{equipamento.descricao}}</span>							
+									</div>	
+									<div ng-show="equipamentos.length < 1">Não contem itens!</div>
+									
+									
+							  </div>
+													  
+							</div>
+								
+						</div>
+					
+		
+					
+					
+					
+					<!-- 	<div class="col-md-3"> 						
+						
+						  Selecione o  Equipamento:
+							
+							<select class="form-control " ng-model="e"  ng-change="ctrl.addEquipamento(e)" 
+							ng-options="equipamento.descricao for  equipamento in ctrl.equipamentos" >						
+							</select>
+						</div>
+						
+						<div class="col-md-3" > 
+							Clique para remover Iten da lista
+							<div class="panel panel-default" >
+							  <div class="panel-body">
+								    <div ng-repeat="equipamento in equipamentos">						
+										<span ng-click="ctrl.removerequipamento(lista)" class="label label-primary">{{equipamento.descricao}}</span>							
+									</div>	
+									<div ng-show="equipamentos.length < 1">Não contem itens!</div>
+									
+									
+							  </div>
+													  
+							</div>
+								
+						</div> -->
+						
+						
+						<!--  alterado aqui --> 
+						
+						
+						<br><br><br><br><br>
+						<div class="col-sm-12 ">
+							 <div class="form-group col-md-3">
+						 					 
+								Data do Emprestimo: <input class="form-control" 
+								ng-model="ctrl.emprestimo.dataEmprestimo"
+								id="dataEmprestimo" type="date" required>
+							</div>																
+						
+							<div class="form-group col-md-3">
+						 					 
+								Data Devolução: <input class="form-control" 
+								ng-model="ctrl.emprestimo.dataDevolucao"
+								id="dataDevolucao" type="date" required>
+						</div>								
+						
+						<div class="row">					
+						<div class="col-sm-3">
+								Evento/Atividade:
+								<input class="form-control" ng-model="ctrl.emprestimo.evento" placeholder="Evento" id="evento" type="text" required>
+							
+						</div>						
+						</div>	
+					<br>						
+						<br>
+					</div>
+					
+<!-- 						<div class="col-sm-4"> -->
+<!-- 								Status do Emprestimo:  -->
+<!-- 						<select class="form-control " -->
+<!-- 							ng-model="ctrl.emprestimo.status"  -->
+<!-- 							ng-options="status for status in ctrl.statusEmprestimo"> -->
+										
+<!-- 						<option value="">Status</option> -->
+<!-- 						</select> -->
+<!-- 						</div> -->
+															
+						<div class="row ">
+						<div class="col-sm-4"></div>
+						</div>
+						<br>						
+						<br>
+						<div class="col-sm-4">
+						
+							<input type="submit" id="submit" value="Salvar" ng-disabled="!ctrl.emprestimo.equipamento || !ctrl.emprestimo.funcionario || !ctrl.emprestimo.evento"
+								class="btn btn-lg btn-primary btn-block btn-signin">
+						</div>
+					
+								
+				</form>
+				</div>	
+			

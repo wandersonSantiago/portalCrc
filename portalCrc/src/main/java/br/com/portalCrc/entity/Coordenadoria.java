@@ -1,6 +1,8 @@
 package br.com.portalCrc.entity;
 
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,6 +12,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import br.com.portalCrc.util.ConverteTextoUpperCase;
+
 
 
 @Entity
@@ -28,7 +35,10 @@ public class Coordenadoria{
 	@ManyToOne
 	@JoinColumn(name="id_secretaria", nullable = false )
 	private Secretaria secretaria;
-		
+	@Column(name="data_cadastro")
+	private Date dataCadastro;
+	
+	
 	
 	public Secretaria getSecretaria() {
 		return secretaria;
@@ -43,7 +53,7 @@ public class Coordenadoria{
 	}
 
 	public void setNome(String nome) {
-		this.nome = nome;
+		this.nome =  ConverteTextoUpperCase.converte(nome);
 	}
 
 	public String getMnemonico() {
@@ -51,7 +61,7 @@ public class Coordenadoria{
 	}
 
 	public void setMnemonico(String mnemonico) {
-		this.mnemonico = mnemonico;
+		this.mnemonico = mnemonico.toUpperCase();
 	}
 
 	public Long getId() {
@@ -62,6 +72,15 @@ public class Coordenadoria{
 		this.id = id;
 	}
 
+	
+	public Date getDataCadastro() {
+		return dataCadastro;
+	}
+
+	public void setDataCadastro(Date dataCadastro) {
+		this.dataCadastro = dataCadastro;
+	}
+	
 	
 	
 	

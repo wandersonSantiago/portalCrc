@@ -1,0 +1,31 @@
+<meta charset="UTF-8">
+
+<div class="row">
+	<div class="col-sm-2" permission="['USUARIO_UNIDADE', 'USUARIO_COORDENADORIA' , 'ADMIN']">
+	 <div class="box box-solid">
+            <div class="box-header with-border">
+              <h3 class="box-title">Menu</h3>
+
+              <div class="box-tools">
+                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                </button>
+              </div>
+            </div>
+		<div class="box-body no-padding">
+              <ul class="nav nav-pills nav-stacked">
+                <li><a permission="['USUARIO_UNIDADE' , 'ADMIN']" href="" ui-sref="usuario.listar"><i class="glyphicon glyphicon-search"></i>Listar</a></li>
+                <li><a permission="['USUARIO_UNIDADE' , 'ADMIN']" href="" ui-sref="usuario.buscar"><i class="glyphicon glyphicon-search"></i>Pesquisar</a></li>
+                <li><a permission="['USUARIO_UNIDADE' , 'ADMIN']" href="" ui-sref="permissao.cadastrar"><i class="fa fa-legal "></i> permissões</a></li>                
+              </ul>
+            </div>            
+           </div>
+        </div>
+       <div class="col-sm-10">     
+			<div class="box box-primary" >	
+					<div class="box-header">Usuario</div>
+					<div class="panel-body">
+						<div class="ui-view"></div>
+					</div>
+			</div>
+		</div>
+</div>

@@ -1,0 +1,51 @@
+<meta charset="UTF-8">
+			<div class="container col-sm-12 ">
+				<form role="form-vertical" name="formSecretaria" ng-submit="chamadoCtrl.submit()">
+									
+					<div class="row">
+					<div class="col-sm-4" >
+							<select class="form-control select2" ng-model="chamadoCtrl.chamadoManutencao.prioridade" id="prioridadeId"
+							ng-options="prioridade for prioridade in chamadoCtrl.prioridades"
+							  style=" width: 100%;" >
+								<option value="">Prioridade</option>
+							</select>
+						</div>
+					</div>
+					<br>
+					<br>
+					<div class="row">							
+						<div class="col-sm-4">
+							<select class="form-control select2" ng-model="chamadoCtrl.chamadoManutencao.titulo" id="titulo"
+							ng-options="titulo.descricao for titulo in chamadoCtrl.titulos"
+							  style=" width: 100%;" >
+								<option value="">Titulo</option>
+							</select>
+						</div>								
+					</div>					
+					<br>
+					<div class="box">
+						<div class="box-header">
+							<h3 class="box-title">
+								Escreva o Problema 
+							</h3>							
+						</div>
+						<div class="box-body pad">							
+								<textarea class="textarea"  placeholder="Texto" ng-model="texto" id="texto"
+									style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
+						</div>
+					</div>			
+					
+					<br>
+					<br>
+			<div class="row ">
+					<div class="col-sm-4"></div>
+					<div class="col-sm-4">
+							<input type="submit" id="submit" ng-disabled="!texto || !chamadoCtrl.chamadoManutencao.titulo || !chamadoCtrl.chamadoManutencao.prioridade"  value="Enviar"	class="btn btn-lg btn-primary btn-block btn-signin">
+						</div>
+					</div>
+					
+
+				</form>
+			</div>
+
+		

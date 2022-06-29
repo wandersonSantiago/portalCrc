@@ -1,0 +1,25 @@
+<meta charset="UTF-8">
+
+		<div class="panel-body table-responsive">
+		<input class="form-control" type="text" ng-model="busca" placeholder="Buscar">
+			<table class="table table-hover table-bordered">
+				<thead>
+					<tr>
+						<th>Descrição</th>					
+						<th>Opções</th>
+					</tr>
+				</thead>
+				<tbody
+					ng-repeat=" sistema in ctrl.sistemas | filter : busca ">
+					<tr>
+						<td>{{ sistema.descricao }}</td>					
+						<td><a ui-sref="sistema.editar({idSistema : sistema.id})"><i class="glyphicon glyphicon-edit"></i></a> 
+						
+				</tr>
+				</tbody>
+				<tfoot>
+				</tfoot>
+			</table>
+		</div>
+	
+

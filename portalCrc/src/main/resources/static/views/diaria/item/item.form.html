@@ -1,0 +1,284 @@
+<meta charset="UTF-8">
+<div class="col-sm-12 ">
+	<form role="form-vertical" name="formDiaria" novalidate ng-submit="ctrl.submit(formDiaria)">
+		<div class="row ">
+			<div class="col-sm-4 " title="Nome do Funcionario">
+				<p><b>Nome:</b>{{ctrl.funcionario.contaFuncionario.funcionario.pessoa.nomeCompleto}}</p>
+			</div>			
+			<div class=" col-sm-2 " title="Salário bruto mensal">
+				<p><b>Salário:</b>{{ctrl.funcionario.contaFuncionario.salarioAtual | currency}}</p>
+			</div>			
+			<div class=" col-sm-2 " title="Limite máximo que pode receber de diária no mês">
+				<p><b>Limite:</b>{{ctrl.funcionario.contaFuncionario.limiteCemPorCento * ctrl.funcionario.contaFuncionario.salarioAtual / 100 | currency}}</p>
+			</div>			
+			<div class=" col-sm-2 " title="Valor total de diarias a receber">
+				<p><b>Total:</b>{{ctrl.funcionario.totalValorDiaria | currency}}</p>
+			</div>						
+			<div ng-show="ctrl.funcionario.glosada" class="col-sm-2" title="Valor total de diaria que ultrapassou o limite máximo!">
+				<p><b>Glosada:</b><b class="red">{{ctrl.funcionario.glosada | currency}}</b></p>
+			</div>			
+		</div>
+		
+		<div class="row ">
+		<div class="col-sm-4" ng-class="{ 'has-error' : formDiaria.tipoDiaria.$invalid && formDiaria.$submitted }">
+			<b>Selecione o Tipo:</b>
+			<select class="form-control" ng-model="ctrl.itemDiaria.tipo" id="tipoDiaria" name="tipoDiaria"  ng-options="tipo for tipo in ctrl.tipos track by tipo" required>
+			</select>
+		</div>
+		</div>
+		<br>
+		<div class="row">
+			<div class="col-sm-4" ng-class="{ 'has-error' : formDiaria.estado.$invalid && formDiaria.$submitted }">
+			<b>Estado:</b>				
+					<select class="form-control select2" id="estado" name="estado"
+						ng-model="ctrl.itemDiaria.estado" ng-change="ctrl.buscarCidades(ctrl.itemDiaria.estado.id)"
+						ng-options="estado.nome for estado in ctrl.estados  | orderBy: 'nome' track by estado.id"
+						required>
+					</select>								
+			</div>
+			<div class="col-sm-4" ng-class="{ 'has-error' : formDiaria.cidade.$invalid && formDiaria.$submitted }">
+			<b>Cidade:</b>
+					<select class="form-control select2" id="cidade" name="cidade"
+						ng-model="ctrl.itemDiaria.localDeslocamento" ng-blur="ctrl.adicionarLocal(ctrl.itemDiaria.localDeslocamento)"
+						ng-options="cidade.nome for cidade in ctrl.cidades  | orderBy: 'nome' track by cidade.id"
+						required>
+					</select> 
+			</div>		
+			
+			<div ng-repeat="cidade in localDeslocamentos">
+				<div class="col-sm-1"><br>
+					<span ng-click="ctrl.removerLocal(cidade)" class="label label-default">{{cidade.nome}}</span>
+				</div>			
+			</div>			
+			</div>
+		
+		<br>
+		<div class="row">
+		<div class="col-sm-4" ng-class="{ 'has-error' : formDiaria.deslocamento.$invalid && formDiaria.$submitted }">
+		<b><a  title="Click para visualizar os Valores das Diarias por localidade!"
+						data-toggle="modal" data-target="#codigoModal"
+						data-whatever="@mdo">Código:</a></b>
+				
+					<select class="form-control select2" id="deslocamento" name="deslocamento"
+						ng-model="ctrl.itemDiaria.codigoLocalDeslocamento"
+						ng-options="valor.codigo for valor in ctrl.valoresDiaria track by valor.id"
+						required>
+						<option value="">Selecione o código </option>
+					</select> 
+		</div>
+			<div class="col-md-2">
+				<br>
+				<label class="radio-inline"><input type="radio" ng-model="ctrl.radio" value="ONIBUS" name="optradio">Onibus</label>
+				<label class="radio-inline"><input type="radio" ng-model="ctrl.radio" value="VEICULO" name="optradio">Veiculo</label>
+			</div>			
+			<div ng-show="ctrl.radio === 'ONIBUS'">
+				<div class="col-sm-3">
+					<b>Valor Passagem:</b>
+					
+						<input type="text" class="form-control" placeholder="ex: R$ 50,00"
+							ng-model="ctrl.itemDiaria.valorPassagem" ui-money-mask >					
+					</div>
+				<div class="col-sm-3">
+				
+					<b>Observação:</b>
+						<input type="text" class="form-control" placeholder="ex: Aviação Crisalia" 
+							ng-model="ctrl.itemDiaria.observacaoPassagem" >					
+				</div>
+			</div>
+			<div >
+				<div class="col-sm-3" ng-class="{ 'has-error' : formDiaria.tSaida.$invalid && formDiaria.$submitted }">
+					<b>Transporte Saída:</b>
+					
+						<input type="text" class="form-control" placeholder="ex: FTP-2558" id="tSaida" name="tSaida"
+							ng-model="ctrl.itemDiaria.meioTransporteSaida" required>					
+				</div>
+				<div class="col-sm-3" ng-class="{ 'has-error' : formDiaria.retorno.$invalid && formDiaria.$submitted }">
+				
+					<b>Retorno:</b>
+						<input type="text" class="form-control" placeholder="ex: FTP-2558"  id="retorno" name="retorno"
+							ng-model="ctrl.itemDiaria.meioTransporteRetorno" required>					
+				</div>
+			</div>
+		</div>
+		<br>
+		<div class="row">
+			<div class="col-sm-3" ng-class="{ 'has-error' : formDiaria.dataSaida.$invalid && formDiaria.$submitted }">
+				<b>Data Saida:</b>
+				<input class="form-control" type="date"  ng-model="ctrl.itemDiaria.dataSaida" id="dataSaida" name="dataSaida" date-input required>			
+			</div>
+
+			
+			<div class="col-sm-2" ng-class="{ 'has-error' : formDiaria.horaSaida.$invalid && formDiaria.$submitted }">
+				<b>Horário Saida:</b>
+				<input class="form-control" type="time" ng-model="ctrl.itemDiaria.horaSaida" id="horaSaida" name="horaSaida" date-input  required>
+			</div>
+			<div class="col-sm-3" ng-class="{ 'has-error' : formDiaria.dataChegada.$invalid && formDiaria.$submitted }">
+				<b>Data Chegada:</b>
+				<input class="form-control" type="date"  ng-model="ctrl.itemDiaria.dataChegada" id="dataChegada" name="dataChegada" ng-blur="ctrl.verificaDataFinal(ctrl.itemDiaria.dataSaida, ctrl.itemDiaria.dataChegada )" date-input required>
+				
+			</div>
+			<div class="col-sm-2" ng-class="{ 'has-error' : formDiaria.horaChegada.$invalid && formDiaria.$submitted }">
+				<b>Horário Chegada:</b>
+				<input class="form-control" type="time" ng-model="ctrl.itemDiaria.horaChegada" id="horaChegada" name="horaChegada" date-input  required>				
+			</div>
+		</div>
+	
+		<div class="row ">
+			<div class="col-md-12" ng-class="{ 'has-error' : formDiaria.motivo.$invalid && formDiaria.$submitted }">
+				<label for="message-text" class="control-label">Motivo:</label>
+				<textarea class="form-control" title="descreva neste campo o motivo da sua diária, não abreviar as palavras!" placeholder="Favor não abreviar as palavras e não adicionar datas!" name="motivo"
+					ng-model="ctrl.itemDiaria.motivo" id="motivo" required></textarea>
+			</div>
+		</div>
+		<br>
+		<div class="row ">
+			<div class="col-md-4 col-md-offset-4">
+				<button id="submit" 	class="btn btn-lg btn-primary btn-block btn-signin">{{botao}}</button>
+			</div>
+		</div>
+
+	</form>
+</div>
+
+<!-- INICIO  modal do informaçoes da codigo -->
+<div class="modal fade bs-example-modal-lg modal-primary"
+	id="codigoModal" tabindex="-1" role="dialog"
+	aria-labelledby="exampleModalLabel">
+	<div class="modal-dialog modal-lg" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				<h4 class="modal-title" id="exampleModalLabel">Informações dos
+					valores Por Local</h4>
+			</div>
+			<div class="modal-body">
+				<div class="row">
+					<div class="col-sm-12">
+						<h3>Valores das Diarias por localidade:</h3>
+						<br>
+						<div ng-repeat="valor in ctrl.valoresDiaria">
+							<div class="row">
+								<div class="col-sm-1">
+									<h4>código</h4>
+									<h3>{{valor.codigo}}</h3>
+								</div>
+								<div class="col-sm-11">
+									<h4>Local</h4>
+									<h6>{{valor.deslocamento}}</h6>
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="col-sm-2">
+									alojamento
+									<h4>{{valor.alojamento | currency}}</h4>
+								</div>
+								<div class="col-sm-2">
+									valor pernoite
+									<h4>{{valor.pernoite | currency}}</h4>
+								</div>
+								<div class="col-sm-2">
+									13:00 às 19:00
+									<h4>{{valor.retornoTrezeAsDezenove | currency}}</h4>
+								</div>
+								<div class="col-sm-2">
+									após 19:00
+									<h4>{{valor.retornoAposDezenove | currency}}</h4>
+								</div>
+								<div class="col-sm-2">
+									6:00 às 12:00
+									<h4>{{valor.deslocamentoSeisAsDoze | currency}}</h4>
+								</div>
+								<div class="col-sm-2">
+									mais de 12:00
+									<h4>{{valor.deslocamentoMaisDeDoze | currency}}</h4>
+								</div>
+							</div>
+							<br>
+							<hr>
+							<br>
+						</div>
+					</div>
+				</div>
+
+			</div>
+			<div class="modal-footer ">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- FIM  modal do informaçoes da codigo -->
+
+<!-- INICIO  modal itens lançados-->
+<div class="modal fade bs-example-modal-lg modal-info"
+	id="itensDiariaModal" tabindex="-1" role="dialog"
+	aria-labelledby="exampleModalLabel">
+	<div class="modal-dialog modal-lg" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				<h4 class="modal-title" id="exampleModalLabel">Diarias lançadas</h4>
+			</div>
+			<div class="modal-body"></div>
+			<div class="col-sm-3">
+				<input class="form-control" type="text" placeholder="Pesquisar..."
+					ng-model="buscar">
+			</div>
+
+			<table class="table table-hover table-bordered"
+				ng-controller="ItemDiariaEditarController as ctrlEditar">
+				<thead>
+					<tr>
+						<td>Localidade</td>
+						<td>Data Saida</td>
+						<td>Data Chegada</td>
+						<td>Hora Saída</td>
+						<td>Hora Chegada</td>
+						<td>Valor</td>
+						<td>Transp. saida</td>
+						<td>Transp. retorno</td>
+						<td>Codigo Desl.</td>
+
+					</tr>
+				</thead>
+				<tbody
+					ng-repeat=" item in itens | filter : buscar |  orderBy : '-id'">
+					<tr>
+						<td>
+							<div ng-repeat="cidade in item.localDeslocamentos" >							
+							{{ cidade.nome }}&nbsp;<a ng-if="item.localDeslocamentos.length > 0">/</a>&nbsp;
+							</div>
+						</td>
+						<td>{{ item.dataSaida | date : 'dd/MM/yyyy'}}</td>
+						<td>{{ item.dataChegada | date : 'dd/MM/yyyy'}}</td>
+						<td>{{ item.horaSaida | date : 'HH:mm'}}</td>
+						<td>{{ item.horaChegada | date : 'HH:mm'}}</td>
+						<td>{{ item.valorDiaria | currency }}</td>
+						<td>{{ item.meioTransporteSaida }}</td>
+						<td>{{ item.meioTransporteRetorno}}</td>
+						<td>{{ item.codigoLocalDeslocamento.codigo }}</td>
+						<td ng-if="item.analizado"><button disabled class="btn btn-success">Analisado</button></td>
+						<td ng-show="ctrl.editar"  ng-if="!item.analizado"><a href="" data-dismiss="modal"
+							ng-click="ctrlEditar.proximaPagina(item)" title="teste"><i
+								class="glyphicon glyphicon-edit"></i></a></td>
+						<td ng-show="ctrl.editar"  ng-if="!item.analizado"><a href=""
+							ng-click="ctrl.excluir(item)"><i
+								class="glyphicon glyphicon-remove"></i></a></td>
+					</tr>
+				</tbody>
+			</table>
+
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- FIM  modal itens lançados-->

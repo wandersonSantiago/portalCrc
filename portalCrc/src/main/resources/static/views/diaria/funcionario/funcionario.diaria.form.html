@@ -1,0 +1,69 @@
+<meta charset="UTF-8">
+			<div class="col-sm-12 ">
+				<form role="form-vertical" name="formDiaria"
+					ng-submit="ctrl.submit()">			
+						
+						Informações da Diaria
+						<div class="row">
+							<div class="col-sm-4">
+							Mês:
+								<h3>{{ctrl.diaria.mes}}</h3>
+							</div>
+							<div class="col-sm-4">
+							Ano:
+								<h3>{{ctrl.diaria.dataAbertura | date : 'yyyy'}}</h3>
+							</div>
+							<div class="col-sm-4">
+							Valor UFESP:
+								<h3>{{ctrl.diaria.valorUfesp | currency}}</h3>
+							</div>							
+						</div>		
+						<hr>
+						Informações do Funcionario:
+						<div class="row">						
+							<div class="col-sm-12">
+							Nome:
+								<h3><a ui-sref="funcionarioContaDiaria.editar({idConta : ctrl.contaFuncionario.id})">{{ctrl.contaFuncionario.funcionario.pessoa.nomeCompleto}}</a></h3>
+							</div>
+						</div>
+						<div class="row">	
+							<div class="col-sm-3">
+							Banco:
+								<h3>{{ctrl.contaFuncionario.banco}}</h3>
+							</div>
+							<div class="col-sm-3">
+							Agencia:
+								<h3>{{ctrl.contaFuncionario.agencia}}</h3>
+							</div>	
+							<div class="col-sm-3">
+							Conta:
+								<h3>{{ctrl.contaFuncionario.conta}}</h3>
+							</div>
+							<div class="col-sm-3">
+							Salário:
+								<h3>{{ctrl.contaFuncionario.salarioAtual | currency}}</h3>
+							</div>
+						</div>	
+						<div class="row">
+							<div class="col-sm-6">
+							Indice UFESP:
+								<h3>{{ctrl.contaFuncionario.indiceUfesp}}</h3>
+							</div>	
+							<div class="col-sm-6">
+							Limite da diaria 50%:
+								<h3>{{ctrl.contaFuncionario.limiteCemPorCento}}</h3>
+							</div>								
+						</div>					
+					
+					<br>
+					
+					<div class="row ">
+					<div class="col-sm-4"></div>
+						<div class="col-sm-4">		
+							<input type="submit" id="submit" value="Confirmar" 	class="btn btn-lg btn-primary btn-block btn-signin">
+						</div>
+					</div>
+
+				</form>
+			</div>
+		

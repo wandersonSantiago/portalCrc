@@ -1,0 +1,101 @@
+<meta charset="UTF-8">
+			<div class="form-row">
+			<div class="col-sm-12 ">
+				<form role="form-vertical" ng-submit="ctrl.submit()" >
+				
+				
+				
+				<div class="form-group col-md-3">
+							Selecione o Auditório 	
+							<select class="form-control" ng-model="ctrl.reserva.auditorio" 
+								ng-options="auditorio.descricao for auditorio in ctrl.auditorios track by auditorio.descricao"  >
+						
+							</select>
+				</div>
+				
+								
+				<div class="form-group  col-sm-4">		
+					 		<label for="funcionario">Funcionario Solicitante: </label>
+						    <input type="text" ng-model="ctrl.reserva.funcionario" placeholder="Digite nome" 
+						    uib-typeahead="funcionario as funcionario.pessoa.nomeCompleto for funcionario in ctrl.funcionarios(ctrl.reserva.funcionario) | limitTo:8" 
+						    typeahead-template-url="customTemplateFuncionario.html" class="form-control" typeahead-show-hint="true"  
+						    typeahead-loading="loadingFuncionario" typeahead-no-results="noResultsFuncionario" typeahead-min-length="3">
+						    <i ng-show="loadingFuncionario" class="glyphicon glyphicon-refresh"></i>
+						    <div ng-show="noResultsFuncionario">
+						      <i class="glyphicon glyphicon-remove"></i> Nenhum resultado encontrado!
+						    </div>	    
+					</div>	
+				
+				<script type="text/ng-template" id="customTemplateFuncionario.html">
+  				<a>
+     				 <span ng-bind-html="match.label | uibTypeaheadHighlight:query"></span><br/>
+ 				 </a>
+				</script>
+								
+						
+				<div class="form-group col-md-7">
+						
+							Unidade
+							<select class="form-control select2" ng-model="ctrl.reserva.unidadeCadastro" 
+								ng-options="unidade.dadosUnidade.nome for unidade in ctrl.unidades track by unidade.dadosUnidade.id"  >
+							
+							</select>
+				</div>
+									
+				<div class="form-group col-md-3">
+						 
+							Data Reserva <input class="form-control"
+					
+					ng-model="ctrl.reserva.dataReserva"
+					id="dataReserva" type="date" required>
+												
+				</div>
+				<br>
+				
+				<div class="form-group col-md-3">
+						 						 					 
+						 Hora Inicio Evento <input class="form-control" 
+					ng-model="ctrl.reserva.horaReservaInicio"
+					id="horaReservaInicio" type="time" required>
+										
+				</div>
+					
+				 <div class="form-group col-md-4">
+						 					 
+						Hora Termino Evento <input class="form-control" 
+					ng-model="ctrl.reserva.horaReservaTermino"
+					id="horaReservaTermino" type="time" required>
+										
+				 </div>					
+				 <br>
+										
+					<!-- <div class="row">
+						<div class="col-sm-7">
+							Funcionario: <input class="form-control" placeholder="Funcionario"
+					ng-model="ctrl.reserva.funcionario"
+					id="funcionario" name="nome" type="text" required>
+				</div>
+				</div>	-->		
+						
+				 <br>
+				 <br>
+							
+				<div class="form-group col-md-5">
+						Descrição da Atividade/Evento
+							<input class="form-control" ng-model="ctrl.reserva.evento" placeholder="Evento" id="evento" type="text" required>
+							
+						
+				</div>						
+							
+					<div class="row ">
+						<div class="col-sm-4"></div>
+						<div class="col-sm-4">
+						<br><br><br><br><br><br>
+				 	<input type="submit" id="submit" value="Salvar" ng-disabled="!ctrl.reserva.evento"
+								class="btn btn-lg btn-primary btn-block btn-signin">
+						</div>
+					</div>
+				
+				</form>
+			</div>
+	</div>

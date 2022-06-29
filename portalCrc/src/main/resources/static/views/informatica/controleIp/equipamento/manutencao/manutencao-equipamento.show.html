@@ -1,0 +1,51 @@
+ <meta charset="UTF-8">
+<center>
+Descrição:
+{{ctrl.equipamento.descricao}}<br>
+Data de Cadastro:
+{{ctrl.equipamento.dataCadastro | date : 'dd/MM/yyyy'}}<br>
+Patrimonio:
+{{ctrl.equipamento.patrimonio}}<br>
+Ponto:
+{{ctrl.equipamento.ponto.nome}}<br>
+Ip:
+{{ctrl.equipamento.ip.nome}}<br>
+Tipo Equipamento:
+{{ctrl.equipamento.tipoEquipamento}}
+</center>
+<br>
+<br>
+<br>
+<span class=" col-sm-12 btn btn-flat  btn-primary"><h4>Serviços realizados</h4></span>
+<br>
+<br>
+<br>
+<div class="row">
+	<div class="col-sm-3">
+		<input class="form-control" placeholder="Pesquisar..." type="text" ng-model="buscar">
+	</div>
+</div>
+
+<br>
+		<div class="panel-body table-responsive">
+			<table class="table table-hover table-bordered">
+				<thead>
+					<tr>
+					<th class="btn btn-primary btn-flat col-sm-1"><h6>Descricao</h6></th>
+					<th class="btn btn-primary btn-flat col-sm-1"><h6>Data</h6> </th>
+					<th class="btn btn-primary btn-flat col-sm-1"><h6>Técnico</h6></th>
+					
+					
+					</tr>
+				</thead>
+				<tbody	ng-repeat=" servico in ctrl.servicos | filter : buscar ">
+					<tr>
+						<td>{{ servico.descricao }}</td>
+						<td>{{ servico.dataCadastro | date : 'dd/MM/yyyy' }}</td>
+						<td>{{ servico.tecnico.funcionario.pessoa.nomeCompleto}}</td>							
+				</tr>
+				</tbody>
+				<tfoot>
+				</tfoot>
+			</table>
+		</div>

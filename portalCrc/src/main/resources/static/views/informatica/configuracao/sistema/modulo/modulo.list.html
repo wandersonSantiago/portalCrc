@@ -1,0 +1,27 @@
+<meta charset="UTF-8">
+
+		<div class="panel-body table-responsive">
+		<input class="form-control" type="text" ng-model="buscar" placeholder="Buscar">
+			<table class="table table-hover table-bordered">
+				<thead>
+					<tr>
+						<th>Descrição</th>
+						<th>Sistema</th>					
+						<th>Opções</th>
+					</tr>
+				</thead>
+				<tbody
+					ng-repeat=" modulo in ctrl.modulos | filter : buscar ">
+					<tr>
+						<td>{{ modulo.descricao }}</td>
+						<td>{{ modulo.descricao }}</td>					
+						<td><a ui-sref="modulo.editar({idModulo : modulo.id})"><i class="glyphicon glyphicon-edit"></i></a> 
+						
+				</tr>
+				</tbody>
+				<tfoot>
+				</tfoot>
+			</table>
+		</div>
+	
+

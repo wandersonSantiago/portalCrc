@@ -1,0 +1,109 @@
+<meta charset="UTF-8">
+
+<!-- <div class="row"> -->
+<!-- 	<div class="col-sm-12"> -->
+<!-- 		<input class="form-control" placeholder="Pesquisar..." type="text" ng-model="buscar"> -->
+<!-- 	</div> -->
+<!-- </div> -->
+
+
+<div class="row">
+	<div class="col-lg-6">
+		<div class="input-group">
+			<input type="text" class="form-control"
+				placeholder="Pesquisar por nome"
+				ng-model="texto" autofocus
+				ng-keyup="$event.keyCode == 13 && ctrl.buscarPorTexto(texto)">
+			<span class="input-group-btn">
+				<button class="btn btn-default" type="button"
+					ng-click="ctrl.paginaCorrente = 0; ctrl.buscarPorTexto(texto)">Ir!</button>
+			</span>
+		</div>
+	</div>
+</div><br><br>
+<div ng-show="mensagemErro"
+	class="alert alert-warning alert-dismissible">
+	<h4>
+		<i class="icon fa fa-warning"></i>{{mensagemErro}}
+	</h4>
+</div>
+
+		<br>
+		<div class="panel-body table-responsive">
+			<table class="table table-hover table-bordered">
+		
+				<thead>
+					<tr>
+					<th class="btn btn-primary btn-flat col-sm-3"><md-button  ><h5>Local Evento</h5></md-button> </th>
+					<th class="btn btn-primary btn-flat col-sm-3"><md-button  ><h5>Funcionario Resonsavel</h5></md-button> </th>
+					<th class="btn btn-primary btn-flat col-sm-4"><md-button  ><h5>Unidade Solicitante</h5></md-button> </th>
+					<th class="btn btn-primary btn-flat col-sm-2"><md-button  ><h5>Data Reserva</h5></md-button> </th>
+					<th class="btn btn-primary btn-flat col-sm-2"><md-button  ><h5>Hora Inicio</h5></md-button> </th>
+					<th class="btn btn-primary btn-flat col-sm-2"><md-button  ><h5>Hora Término</h5></md-button> </th>
+					<th class="btn btn-primary btn-flat col-sm-4"><md-button  ><h5>Evento Realizado</h5></md-button> </th>
+					<th class="btn btn-primary btn-flat col-sm-2"><md-button  ><h5>Opção</h5></md-button> </th>
+				
+					</tr>
+				</thead>
+				
+				<tbody	ng-repeat=" reserva in ctrl.reservas | filter : buscar | orderBy : '-id'">
+			
+					<tr>
+						<td><center>{{ reserva.auditorio.descricao}}</center></td>
+						<td><center>{{ reserva.funcionario.pessoa.nomeCompleto}}</center></td>	
+						<td><center>{{ reserva.unidadeCadastro.dadosUnidade.nome}}</center></td>										
+						<td><center>{{ reserva.dataReserva | date : 'dd/MM/yyyy'}}</center></td>
+						
+											
+										<!--  CÓDIGO PARA RECUPERAR HORA PARA EDITAR -->	
+											
+				
+				<td ng-if="!reserva.editar"><center>{{ reserva.horaReservaInicio | date : 'HH:mm'}}</center></td>
+				<td ng-if="reserva.editar">
+					<div uib-timepicker ng-model="reserva.horaReservaInicio"
+						hour-step="1" minute-step="1" show-meridian="false"></div>
+				</td>
+				<td ng-if="!reserva.editar"><center>{{ reserva.horaReservaTermino | date : 'HH:mm'}}</center></td>
+				<td ng-if="reserva.editar">
+				<br>
+					<!-- <p class="input-group">
+						<input type="text" class="form-control"
+							uib-datepicker-popup="{{format}}"
+							ng-model="reserva.horaReservaTermino"
+							ng-change="ctrl.verificaDataFinal(ctrl.itemDiaria.dataSaida, ctrl.itemDiaria.dataChegada )"
+							is-open="chegada.opened" ng-required="true" close-text="Close"
+							required /> <span class="input-group-btn">
+							<button type="button" class="btn btn-default"
+								ng-click="chegadaOpen()">
+								<i class="glyphicon glyphicon-calendar"></i>
+							</button>
+						</span>
+					</p>  -->
+				</td>
+												
+					<!-- 	<td><center>{{ reserva.horaReservaInicio | date : 'HH:mm:ss' }}</center></td>	 -->
+					<!--	<td><center>{{ reserva.horaReservaTermino | date : 'HH:mm:ss' }}</center></td>	 -->
+						
+						<td><center>{{ reserva.evento}}</center></td>												
+						<td><a ui-sref="reserva.editar({idReserva : reserva.id})"><i class="glyphicon glyphicon-edit col-sm-4"></i></a>	
+						&nbsp;&nbsp;&nbsp;
+						<a  title="Cadastrar evento" ui-sref="reserva.salvar({idReserva : reserva.id})"></a>													
+				</tr>
+				</tbody>
+				<tfoot>
+				</tfoot>
+			</table>
+			
+			
+			<nav>
+				<ul uib-pagination total-items="ctrl.totalElementos" items-per-page="5"
+					ng-model="ctrl.paginaCorrente" max-size="5" class="pagination-sm"
+					boundary-link-numbers="true" ng-click="ctrl.buscarPorTexto(texto)"
+					previous-text="Anterior" last-text="Último" first-text="Primeiro"
+					next-text="Próximo">
+				</ul>
+			</nav>			
+			
+			
+			
+		</div> 

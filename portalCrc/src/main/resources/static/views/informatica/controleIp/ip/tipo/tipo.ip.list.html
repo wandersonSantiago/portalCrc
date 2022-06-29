@@ -1,0 +1,21 @@
+ <meta charset="UTF-8">
+		<div class=" table-responsive">
+		<input class="form-control" type="text" ng-model="busca" placeholder="Buscar">
+			<table class="table table-hover table-bordered">
+				<thead>
+					<tr>
+						<th>Decrição</th>
+						
+					</tr>
+				</thead>
+				<tbody
+					 ng-repeat=" tipoIp in tipoIpCtrl.tipoIps | filter : busca "> 
+					<tr>
+						<td>{{ tipoIp.descricao }}</td>
+						<td><a ui-sref="tipoIp.editar({idTipoIp : tipoIp.id})"><i class="glyphicon glyphicon-edit"></i></a> 					
+						 
+				</tr>
+				</tbody>
+				<tfoot>
+				</tfoot>
+			</table>

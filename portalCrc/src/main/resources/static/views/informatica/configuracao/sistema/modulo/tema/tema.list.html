@@ -1,0 +1,29 @@
+<meta charset="UTF-8">
+
+		<div class="panel-body table-responsive">
+		<input class="form-control" type="text" ng-model="buscar" placeholder="Buscar">
+			<table class="table table-hover table-bordered">
+				<thead>
+					<tr>
+						<th>Descrição</th>
+						<th>Sistema</th>	
+						<th>Módulo</th>				
+						<th>Opções</th>
+					</tr>
+				</thead>
+				<tbody
+					ng-repeat=" tema in ctrl.temas | filter : buscar ">
+					<tr>
+						<td>{{ tema.descricao }}</td>
+						<td>{{ tema.sistema.descricao }}</td>
+						<td>{{ tema.modulo.descricao }}</td>						
+						<td><a ui-sref="tema.editar({idTema : tema.id})"><i class="glyphicon glyphicon-edit"></i></a> 
+						
+				</tr>
+				</tbody>
+				<tfoot>
+				</tfoot>
+			</table>
+		</div>
+	
+

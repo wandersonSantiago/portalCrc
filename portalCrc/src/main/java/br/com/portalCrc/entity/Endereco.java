@@ -8,6 +8,8 @@ import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import br.com.portalCrc.util.ConverteTextoUpperCase;
+
 @Entity
 @SequenceGenerator(name = "endereco_id_seq", sequenceName = "endereco_id_seq", schema="principal", initialValue = 1, allocationSize = 1)
 @Table(name="endereco", schema="principal")
@@ -17,17 +19,17 @@ public class Endereco  {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "endereco_id_seq")
 	private Long id;
 	
-	@Column(nullable = false,length = 50)
+	@Column(nullable = true,length = 50)
 	private String logradouro;
-	@Column(nullable = false,length = 50)
+	@Column(nullable = true,length = 50)
 	private String bairro;
-	@Column(nullable = false,length = 50)
+	@Column(nullable = true,length = 50)
 	private String localidade;
-	@Column(nullable = false)
-	private Integer numero;
-	@Column(nullable = false)
+	@Column(nullable = true)
+	private String numero;
+	@Column(nullable = true)
 	private String uf;
-	@Column(nullable = false,length = 9)
+	@Column(nullable = true,length = 9)
 	private String cep;
 	@Column(nullable = true,length = 50)
 	private String complemento;
@@ -35,31 +37,31 @@ public class Endereco  {
 		return logradouro;
 	}
 	public void setLogradouro(String logradouro) {
-		this.logradouro = logradouro;
+		this.logradouro =  ConverteTextoUpperCase.converte(logradouro);
 	}
 	public String getBairro() {
 		return bairro;
 	}
 	public void setBairro(String bairro) {
-		this.bairro = bairro;
+		this.bairro =  ConverteTextoUpperCase.converte(bairro);
 	}
 	public String getLocalidade() {
 		return localidade;
 	}
 	public void setLocalidade(String localidade) {
-		this.localidade = localidade;
+		this.localidade =  ConverteTextoUpperCase.converte(localidade);
 	}
-	public Integer getNumero() {
+	public String getNumero() {
 		return numero;
 	}
-	public void setNumero(Integer numero) {
+	public void setNumero(String numero) {
 		this.numero = numero;
 	}
 	public String getUf() {
 		return uf;
 	}
 	public void setUf(String uf) {
-		this.uf = uf;
+		this.uf = uf.toUpperCase();
 	}
 	public String getCep() {
 		return cep;
@@ -71,7 +73,7 @@ public class Endereco  {
 		return complemento;
 	}
 	public void setComplemento(String complemento) {
-		this.complemento = complemento;
+		this.complemento =  complemento;
 	}
 	public Long getId() {
 		return id;

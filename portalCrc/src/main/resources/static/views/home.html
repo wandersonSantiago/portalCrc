@@ -1,5 +1,131 @@
+<meta charset="UTF-8">
+     
+      <!-- =========================================================== -->
 
-      
+      <!-- Small boxes (Stat box) -->
+      <div class="row">
+        <div class="col-lg-3" >
+          <!-- small box -->
+          <div class="small-box bg-aqua">
+            <div class="inner">
+              <h3>01</h3>
+
+              <p>Comunicação</p>
+            </div>
+            <div class="icon">
+              <i class="fa fa-bullhorn"></i>
+            </div>
+            <a ui-sref="comunicacao.menu" class="small-box-footer">
+              Menu<i class="fa fa-arrow-circle-right"></i>
+            </a>
+          </div>
+        </div>
+        <!-- ./col -->
+        <div permission="['CHAMADO_USUARIO', 'CHAMADO_INFORMATICA_TECNICO', 'ADMIN']"   class="col-lg-3 " >
+          <!-- small box -->
+          <div class="small-box bg-blue" >
+            <div class="inner">
+              <h3>02</h3>
+
+              <p>Informatica</p>
+            </div>
+            <div class="icon">
+              <i class="fa fa-keyboard-o"></i>
+            </div>
+            <a ui-sref="informatica.menu" class="small-box-footer">
+              Menu <i class="fa fa-arrow-circle-right"></i>
+            </a>
+          </div>
+        </div>
+        
+        <!-- ./col -->
+        <div permission="['CHAMADO_USUARIO', 'CHAMADO_MANUTENCAO_TECNICO' ,'CADASTRO_VEICULOS', 'ADMIN']" class="col-lg-3 ">
+          <!-- small box -->
+          <div class="small-box bg-green">
+            <div class="inner">
+              <h3>03</h3>
+
+              <p>Infraestrutura</p>
+            </div>
+            <div class="icon">
+              <i class="fa fa-wrench"></i>
+            </div>
+            <a ui-sref="infraestrutura.menu" class="small-box-footer">
+              Menu <i class="fa  fa-arrow-circle-right"></i>
+            </a>
+          </div>
+        </div>
+        <!-- ./col -->
+        <div class="col-lg-3 " permission="['DIARIA_FINANCAS','DIARIA_USUARIO','DIARIA_TRANSPARENCIA' , 'ADMIN']">
+          <!-- small box -->
+          <div class="small-box bg-red">
+            <div class="inner">
+              <h3>04</h3>
+
+              <p>Finanças</p>
+            </div>
+            <div class="icon">
+              <i class="glyphicon glyphicon-usd"></i>
+            </div>
+            <a ui-sref="diaria.listar" class="small-box-footer">
+              Menu<i class="fa  fa-arrow-circle-right"></i>
+            </a>
+          </div>
+        </div>
+        <!-- ./col -->
+  
+        <div class="col-lg-3 " permission="[ 'ADMIN']">
+          <!-- small box -->
+          <div class="small-box bg-orange">
+            <div class="inner">
+              <h3>05</h3>
+
+              <p>Administrador</p>
+            </div>
+            <div class="icon">
+              <i class="fa fa-expeditedssl"></i>
+            </div>
+            <a ui-sref="administrador.menu" class="small-box-footer">
+              Menu<i class="fa fa-arrow-circle-right"></i>
+            </a>
+          </div>
+        </div>
+        <!-- ./col -->
+        <div class="col-lg-3 " permission="['FUNCIONARIO_UNIDADE', 'CARGO', 'SETOR', 'FUNCAO' , 'ADMIN']">
+          <!-- small box -->
+          <div class="small-box bg-yellow">
+            <div class="inner">
+              <h3>06</h3>
+
+              <p>Recursos Humanos</p>
+            </div>
+            <div class="icon">
+              <i class="fa fa-group"></i>
+            </div>
+            <a ui-sref="recursos-humanos.menu" class="small-box-footer">
+              Menu <i class="fa fa-arrow-circle-right"></i>
+            </a>
+          </div>
+        </div>
+         <!-- ./col -->
+        <div class="col-lg-3 " permission="['AUDITORIO','RESERVA','EMPRESTIMO', 'ADMIN']">
+          <!-- small box -->
+          <div class="small-box bg-purple">
+            <div class="inner">
+              <h3>07</h3>
+
+              <p>Agendamentos</p>
+            </div>
+            <div class="icon">
+              <i class="fa fa-calendar"></i>
+            </div>
+            <a ui-sref="agendamento.menu"  class="small-box-footer">
+              Menu <i class="fa fa-arrow-circle-right"></i>
+            </a>
+          </div>
+        </div>
+        
+      </div>
     
 
-      <h1>helow world!!!</h1>
+     

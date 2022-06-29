@@ -1,0 +1,46 @@
+<meta charset="UTF-8">
+
+<div class="col-sm-3">
+	<input class="form-control" placeholder="Pesquisar..." ng-model="busca">
+</div>
+<br>
+<br>
+<br>
+<div
+	ng-repeat="ramal in ramalCtrl.ramals | filter : busca | orderBy : 'setor.nome'">
+	<div  class="col-sm-4" flex-sm="45" flex-gt-sm="35" flex-gt-md="25" layout-padding layout-wrap layout-fill style="padding-bottom: 32px;" > 
+	<div md-whiteframe="{{height}}" 
+			layout="column" layout-align="center center" ng-init="height = 1"
+			ng-mouseenter="height = 24" ng-mouseleave="height = 4">
+			<div class="row">
+				<span data-toggle="modal" title="Informações sobre este contato" data-target="#informacaoModal" ng-click="ramalCtrl.modalInformacao(ramal)" class="btn btn-primary btn-flat"><h5>{{ramal.setor.nome}}</h5></span>
+			</div>
+			<h3>{{ramal.numero}}</h3>
+		</div>
+	</div>
+<!-- INICIO  modal do informaçoes da setor -->
+<div class="modal fade bs-example-modal-lg modal-primary"
+	id="informacaoModal" tabindex="-1" role="dialog"
+	aria-labelledby="exampleModalLabel">
+	<div class="modal-dialog modal-lg" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				<h4 class="modal-title" id="exampleModalLabel">Informações Contato
+					</h4>
+			</div>
+			<div class="modal-body">
+				{{descricao}}
+					
+			</div>
+			<div class="modal-footer ">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- FIM  modal do informaçoes setor -->
+</div>

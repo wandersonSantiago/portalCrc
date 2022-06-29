@@ -1,0 +1,100 @@
+<meta charset="UTF-8">
+<br>
+<br>
+
+<!-- <div ng-if="!role_cadastrar_ponto" ng-include="'views/erros/permissao.html'"></div> -->
+<div ng-controller="emprestimoController as ctrlemprestimo">
+
+
+	<div class="box box-primary">
+		<!-- Default panel contents -->
+		<div class="box-header">
+			<span class="lead">Editar Emprestimo </span>
+		</div>
+		<div class="panel-body">
+
+			<br>
+			<div class="container col-sm-12 ">
+			<form role="form-vertical" name="formEmprestimo" ng-submit="ctrlemprestimo.salvar()" >
+												
+				<br>		
+						<div class="row">
+						<div class="col-sm-6">
+							<input class="form-control" placeholder="Funcionario"  ng-model="ctrl.reserva.reserva.funcionario" id="funcionario" name="nome" type="text" required>
+							
+						
+						</div>
+																	
+					</div>
+					
+					<div class="row">
+						<div class="col-sm-6">
+							<input class="form-control" placeholder="UnidadeSolicitante"  ng-model="reservaCtrl.reserva.UnidadeSolicitante" id="UnidadeSolicitante" name="nome" type="text" required>
+							
+						
+						</div>
+																	
+					</div>
+					
+					
+						<div class="row">
+						<div class="col-sm-6">
+							<input class="form-control" placeholder="Data Emprestimo"  ng-model="emprestimoCtrl.emprestimo.dataEmprestimo" id="data" name="date" type="date" required>
+							
+						</div>
+																	
+					</div>
+					
+					<div class="row">
+						<div class="col-sm-6">
+							<input class="form-control" placeholder="Data Devolucao"  ng-model="emprestimoCtrl.emprestimo.dataDevolucao" id="data" name="date" type="date" required>
+							
+						</div>
+																	
+					</div>
+					<br>
+						
+						<div class="row">
+						<div class="col-sm-6">
+							<input class="form-control" placeholder="Evento"  ng-model="ctrl.emprestimo.evento" id="evento" name="evento" type="text" required>
+							
+						
+						</div>
+						
+						<br>
+						
+						<br>
+						<br>
+						<br>
+					<br>
+					
+					<br>
+				
+					
+					<div class="row">
+					<div class="col-sm-6" ng-controller="emprestimoController as emprestimoCtrl" ng-init="ctrlemprestimo.lista()" >
+						<select class="form-control select2" ng-model="ctrl.emprestimo.status" 
+							ng-options="emprestimo.status for emprestimo in ctrlemprestimo.listaemprestimo" 
+							
+							  style=" width: 100%;" required >
+								<!-- <option ng-value="ctrlreserva.funcionario" value="">{{ctrlreserva.funcionario}}</option> -->
+								
+								
+								
+								
+							</select>
+						</div>		
+							</div>												
+					<br>
+					<div class="row ">
+							<input type="submit" id="submit" value="Salvar"	class="btn btn-lg btn-primary btn-block btn-signin">
+					</div>
+						</div>
+					</div>				
+				</form>
+			</div>
+	</div>
+	<div class="tablecontainer"></div>
+</div>
+</div>
+

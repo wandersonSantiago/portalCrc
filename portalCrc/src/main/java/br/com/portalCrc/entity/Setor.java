@@ -1,5 +1,7 @@
 package br.com.portalCrc.entity;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -8,9 +10,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import br.com.portalCrc.enums.TipoSetorEnum;
 
@@ -25,22 +30,22 @@ public class Setor {
 	
 	@Column(name="nome", nullable = false)
 	private String nome;
-	
-	
 	@Enumerated(EnumType.STRING)
-	private TipoSetorEnum tipoSetor;	
-	
+	private TipoSetorEnum tipoSetor;		
 	@OneToOne
 	@JoinColumn(name="id_tipoUnidade")
 	private TipoUnidade tipoUnidade;
-
+	@Column(name="data_cadastro")
+	private Date dataCadastro;
+	
+	
 	public String getNome() {
 		return nome;
 	}
 
 
 	public void setNome(String nome) {
-		this.nome = nome;
+		this.nome = nome.toUpperCase();
 	}
 
 
@@ -61,6 +66,15 @@ public class Setor {
 
 	public void setTipoUnidade(TipoUnidade tipoUnidade) {
 		this.tipoUnidade = tipoUnidade;
+	}
+
+	public Date getDataCadastro() {
+		return dataCadastro;
+	}
+
+
+	public void setDataCadastro(Date dataCadastro) {
+		this.dataCadastro = dataCadastro;
 	}
 
 

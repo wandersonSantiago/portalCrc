@@ -1,5 +1,14 @@
 eclipse.preferences.version=1
 encoding//src/main/java=UTF-8
 encoding//src/main/resources=UTF-8
+encoding//src/main/resources/relatorio/funcionario-diarias-dep-pessoal.jrxml=UTF-8
+encoding//src/main/resources/relatorio/funcionario-diarias-financas.jrxml=UTF-8
+encoding//src/main/resources/relatorio/item-diaria-dep-pessoal.jrxml=UTF-8
+encoding//src/main/resources/relatorio/item-diaria-financas.jrxml=UTF-8
+encoding//src/main/resources/relatorio/mapa-diaria.jrxml=UTF-8
+encoding//src/main/resources/relatorio/mapa-diaria2.jrxml=UTF-8
+encoding//src/main/resources/relatorio/total-anual.jrxml=UTF-8
+encoding//src/main/resources/static/views/agenda/agenda.form.html=UTF-8
 encoding//src/test/java=UTF-8
+encoding//target/generated-sources/java=UTF-8
 encoding/<project>=UTF-8

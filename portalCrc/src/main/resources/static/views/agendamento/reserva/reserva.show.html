@@ -1,0 +1,95 @@
+<meta charset="UTF-8">
+<br>
+<br>
+
+<!-- <div ng-if="!role_cadastrar_ponto" ng-include="'views/erros/permissao.html'"></div> -->
+<div ng-controller="reservaController as ctrlreserva">
+
+
+	<div class="box box-primary">
+		<!-- Default panel contents -->
+		<div class="box-header">
+			<span class="lead">Editar Reserva </span>
+		</div>
+		<div class="panel-body">
+
+			<br>
+			<div class="container col-sm-12 ">
+			<form role="form-vertical" name="formReserva" ng-submit="ctrlreserva.salvar()" >
+												
+				<br>		
+						<div class="row">
+						<div class="col-sm-6">
+							<input class="form-control" placeholder="Funcionario"  ng-model="ctrl.reserva.reserva.funcionario" id="funcionario" name="nome" type="text" required>
+							
+						
+						</div>
+																	
+					</div>
+					
+					<div class="row">
+						<div class="col-sm-6">
+							<input class="form-control" placeholder="UnidadeSolicitante"  ng-model="reservaCtrl.reserva.UnidadeSolicitante" id="UnidadeSolicitante" name="nome" type="text" required>
+							
+						
+						</div>
+																	
+					</div>
+					
+					
+						<div class="row">
+						<div class="col-sm-6">
+							<input class="form-control" placeholder="Data Reserva"  ng-model="reservaCtrl.reserva.dataReserva" id="data" name="date" type="date" required>
+							
+						</div>
+																	
+					</div>
+					<br>
+						<div class="row">
+						<div class="col-sm-6">
+							<input class="form-control" placeholder="Hora Reserva"  ng-model="reservaCtrl.reserva.horaReservaInicio" id="hora" name="hora" type="date" required>
+							
+						</div>
+						<div class="row">
+						<div class="col-sm-6">
+							<input class="form-control" placeholder="Hora Reserva"  ng-model="reservaCtrl.reserva.horaReservaTermino" id="hora" name="hora" type="date" required>
+							
+						</div>
+						
+						<br>
+						
+						<br>
+						<br>
+						<br>
+					<br>
+					
+					<br>
+				
+					
+					<div class="row">
+					<div class="col-sm-6" ng-controller="reservaController as reservaCtrl" ng-init="ctrlreserva.lista()" >
+						<select class="form-control select2" ng-model="ctrl.reserva.funcionario" 
+							ng-options="reserva.funcionario for resreva in ctrlreserva.listareserva" 
+							
+							  style=" width: 100%;" required >
+								<!-- <option ng-value="ctrlreserva.funcionario" value="">{{ctrlreserva.funcionario}}</option> -->
+								
+								
+								
+								
+							</select>
+						</div>		
+							</div>												
+					<br>
+					<div class="row ">
+							<input type="submit" id="submit" value="Salvar"	class="btn btn-lg btn-primary btn-block btn-signin">
+					</div>
+						</div>
+					</div>				
+				</form>
+			</div>
+	</div>
+	<div class="tablecontainer"></div>
+</div>
+</div>
+

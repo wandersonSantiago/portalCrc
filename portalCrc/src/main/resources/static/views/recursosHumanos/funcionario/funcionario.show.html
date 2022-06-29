@@ -1,0 +1,71 @@
+<meta charset="UTF-8">
+
+<form name="formFoto" >
+	<div class="row">
+		<div class="col-sm-4"></div>
+		<div class="col-sm-4" flow-init="{singleFile:true}"
+			flow-file-added="!!{png:1,gif:1,jpg:1,jpeg:1}[$file.getExtension()]"
+			class="ng-scope" flow-name="obj.flow">
+			<div ng-show="!$flow.files.length">
+			<div class="col-sm-3"></div>
+				<img ng-src="{{funcionario.pessoa.caminhoFoto ? funcionario.pessoa.caminhoFoto : '../../../../public/img/avatar_2x.png' }}"
+				  class="img-circle" alt="User Image">
+			</div>
+			<div class="thumbnail " ng-show="$flow.files.length">
+				<img flow-img="$flow.files[0]">
+			</div>
+			<br>
+			<div>
+				<span class="btn btn-primary col-sm-12" ng-show="!$flow.files.length"
+					flow-btn="">Selecione uma imagem<input type="file"
+					style="visibility: hidden; position: absolute;">
+					</span> <br>
+					<span class="btn btn-info col-sm-12  " ng-show="$flow.files.length"
+					flow-btn="">Trocar<input type="file"
+					style="visibility: hidden; position: absolute;">
+					</span><br> 
+					<span class="btn btn-danger col-sm-12 " ng-show="$flow.files.length"
+					ng-click="$flow.cancel()"> Remover </span>
+					<br>
+					<input ng-show="$flow.files.length" type="button" id="submit" value="Salvar" ng-click="ctrl.salvarFoto()"
+				class="btn btn-primary col-sm-12">
+			</div>
+		</div>
+	</div>
+	<br> <br>
+	<hr>
+	<h3><span class=" col-sm-12 btn btn-flat  btn-primary">Dados Pessoais</span></h3>
+	
+	Nome: {{ctrl.funcionario.pessoa.nomeCompleto}} <br>	
+	CPF: {{ctrl.funcionario.pessoa.cpf}} <br>	
+	RG: {{ctrl.funcionario.pessoa.rg}} <br>	
+	Nasc: {{ctrl.funcionario.pessoa.dataNascimento | date : 'dd/MM/yyyy'}} <br>	
+	Sexo: {{ctrl.funcionario.pessoa.sexo}} <br>
+		
+	<h3><span class="col-sm-12 btn btn-flat  btn-primary">Endereço</span></h3>
+	
+	CEP: {{ctrl.funcionario.pessoa.endereco.cep}} <br>
+	Rua: {{ctrl.funcionario.pessoa.endereco.logradouro}} <br>
+	Numero: {{ctrl.funcionario.pessoa.endereco.numero}} <br>
+	Bairro: {{ctrl.funcionario.pessoa.endereco.bairro}} <br>
+	Complemento: {{ctrl.funcionario.pessoa.endereco.complemento}} <br>
+	Cidade: {{ctrl.funcionario.pessoa.endereco.localidade}} <br>
+	Estado: {{ctrl.funcionario.pessoa.endereco.uf}} <br>
+	Telefone: {{ctrl.funcionario.pessoa.telefoneCelular}} <br>
+	Celular: {{ctrl.funcionario.pessoa.telefoneFixo}} <br>
+	E-mail: {{ctrl.funcionario.pessoa.email}} <br>
+	
+	<h3><span class=" col-sm-12 btn btn-flat  btn-primary">Dados Unidade</span></h3>
+	
+	Função: {{ctrl.funcionario.funcaoAtual.descricao}} <br>
+	Cargo: {{ctrl.funcionario.cargoAtual.descricao}} <br>
+	Setor: {{ctrl.funcionario.setorAtual.nome}} <br>
+	Unidade: {{ctrl.funcionario.unidadeAtual.dadosUnidade.nome}} <br>
+	Tipo: {{ctrl.funcionario.unidadeAtual.tipoUnidade.descricao}} <br>
+	Coordenadoria: {{ctrl.funcionario.unidadeAtual.coordenadoria.nome}} <br>	
+	Usuário Cadastro: {{ctrl.funcionario.usuarioCadastro.login}} <br>
+	
+	<hr>
+	
+
+</form>

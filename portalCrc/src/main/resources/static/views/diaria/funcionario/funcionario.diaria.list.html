@@ -1,0 +1,131 @@
+<meta charset="UTF-8">
+<br>
+<div class="row">
+<div class="col-md-4">
+<a href="" >Meses anteriores</a>
+<select class="form-control"
+		ng-model="ctrl.diaria" ng-change="ctrl.listar(ctrl.diaria.id)"
+		ng-options="diaria.mes for diaria in ctrl.diarias" required>
+	</select>
+</div>
+</div>
+<br>
+<div class="row" align="center">
+	<h1>{{ctrl.itens[0].diaria.mes}}</h1>
+</div>
+
+
+
+<hr>
+<div class="row">
+	<div class="col-sm-3">
+		<input class="form-control" placeholder="Pesquisar..." type="text"
+			ng-model="buscar">
+	</div>
+	<div class="col-sm-7"></div>
+	<div class="col-sm-2">
+		Total Mês:
+		<div class="btn btn-warning">{{valorTotal | currency}}</div>
+	</div>
+</div>
+<br>
+<div class="table-responsive">
+	<table class="table table-hover table-bordered">
+		<thead>
+			<tr>
+				<th class="btn btn-primary btn-flat col-sm-2">Nome</th>
+				<th class="btn btn-primary btn-flat col-sm-1">CPF</th>
+				<th class="btn btn-primary btn-flat col-sm-2">Cargo</th>
+				<th class="btn btn-primary btn-flat col-sm-2">Unidade</th>
+				<th class="btn btn-primary btn-flat col-sm-1">Status</th>
+				<th class="btn btn-primary btn-flat col-sm-1">Valor total</th>
+			</tr>
+		</thead>
+		<tbody
+			ng-repeat=" diaria in ctrl.itens | filter : buscar |  orderBy : 'nomeFuncionario'">
+			<tr>
+				<td>
+					<a href="" data-toggle="modal"	title="Informações sobre esta diária." ng-model="diaria"	ng-click="ctrl.informacaoModal(diaria)"
+						data-target="#informacaoModal">	{{diaria.nomeFuncionario}}	
+					</a>
+				</td>
+				<td>{{diaria.cpfFuncionario | cpf}}</td>
+				<td>{{diaria.nomeCargo}}</td>
+				<td>{{diaria.nomeUnidade}}</td>
+				<td class="{{diaria.status ? 'red':'blue'}}">{{diaria.status === true ? 'Não ':' '}}Aprovado</td>
+				<td>
+					<a href=""	ui-sref="item.visualizar({idFuncionarioDiaria : diaria.idDiaria})">
+					{{diaria.totalValorDiaria | currency}}
+					</a>
+				</td>
+			</tr>
+
+		</tbody>
+		<tfoot>
+			<tr>
+
+
+			</tr>
+		</tfoot>
+	</table>
+</div>
+<!-- INICIO  modal do informaçoes da diaria -->
+<div class="modal fade bs-example-modal-lg modal-primary"
+	id="informacaoModal" tabindex="-1" role="dialog"
+	aria-labelledby="exampleModalLabel">
+	<div class="modal-dialog modal-lg" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				<h4 class="modal-title" id="exampleModalLabel">Diária
+					{{item.diaria.mes}}</h4>
+			</div>
+			<div class="modal-body">
+				<div class="row">
+					<br>
+					<div class="col-sm-12">
+						<h3>Observação:</h3>
+						<br>
+						<h4>{{item.diaria.observacao}}</h4>
+					</div>
+				</div>
+				<br>
+				<div class="row">
+					<div class="col-sm-6">
+						<h3>Data Abertura:</h3>
+						<br>
+						<h4>{{item.diaria.dataAbertura | date : 'dd/MM/yyyy'}}</h4>
+					</div>
+					<div class="col-sm-6">
+						<h3>Valor UFESP:</h3>
+						<br>
+						<h4>{{item.diaria.valorUfesp | currency}}</h4>
+					</div>
+				</div>
+				<br>
+				<hr>
+				<div class="row">
+					<div class="col-sm-6">
+						<h3>lançamento realizado por:</h3>
+						<br>
+						<h4>{{item.nomeUsuario}}</h4>
+					</div>
+					<div class="col-sm-6">
+						<h3>Setor:</h3>
+						<br>
+						<h4>{{item.setorUsuario}}</h4>
+					</div>
+				</div>
+
+				<br>
+			</div>
+			<div class="modal-footer ">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- FIM  modal do informaçoes da diaria -->
